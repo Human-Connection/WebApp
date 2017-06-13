@@ -1,0 +1,20 @@
+# dependencies
+node_modules
+
+# logs
+npm-debug.log
+
+# Nuxt build
+.nuxt
+
+# Nuxt generate
+dist
+
+# Backpack build
+build
+
+# Ignore the jetbrain settings folder
+.idea/
+
+# Do not commit the env.js file as it my contain sensitive data
+env.js
