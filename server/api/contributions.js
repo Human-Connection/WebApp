@@ -5,9 +5,10 @@ const router = Router()
 
 router.get('/contributions', async function (req, res, next) {
   try {
-    const {data} = await axios.get('http://localhost:8000/api/contribution/list')
+    const {data} = await axios.get('http://localhost:3030/contributions')
     res.json(data)
   } catch (error) {
+    res.json({})
     res.status(500).json({message: error.message})
   }
 })

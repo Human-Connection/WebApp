@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   /*
   ** Headers of the page
@@ -21,11 +23,22 @@ module.exports = {
   ** Add axios globally
   */
   build: {
-    vendor: ['axios', 'moment', 'lodash', 'bricks.js'],
-    /*
-    ** Run ESLINT on save
-    */
+    vendor: [
+      'axios',
+      'moment',
+      'lodash',
+      'bricks.js',
+      // Feathers
+      'feathers/client',
+      'feathers-socketio/client',
+      'socket.io-client',
+      'feathers-hooks',
+      'feathers-authentication-client'
+    ],
     extend (config, ctx) {
+      /*
+      ** Run ESLINT on save
+      */
       if (ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -34,8 +47,16 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+      // Add aliases
+      const aliases = Object.assign(config.resolve.alias, {
+        '~helpers': path.resolve(__dirname, 'helpers')
+      })
+      config.resolve.alias = aliases // eslint-disable-line no-param-reassign
     }
   },
+  plugins: [
+    {src: '~plugins/feathers.js', injectAs: 'feathers'}
+  ],
   router: {
     middleware: ['ssr-cookie']
   },

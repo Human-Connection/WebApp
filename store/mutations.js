@@ -3,8 +3,7 @@ export default {
     state.token = token
   },
   SET_USER: function (state, user) {
-    console.log('SET_USER')
-    console.log(user)
+    console.log('SET_USER', user)
     if (user) {
       state.user = user
     } else {

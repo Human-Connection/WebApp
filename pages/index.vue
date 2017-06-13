@@ -3,8 +3,8 @@
         <br/>
         <section class="container">
             <section class="hc__cards">
-                <card class="card hc__card" v-for="contribution in contributions.data" :post="contribution" :key="contribution.slug" @ready="updateGrid()">
-                    <small slot="category">{{ contributions.type }}</small>
+                <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug" @ready="updateGrid()">
+                    <small slot="category">{{ contribution.type }}</small>
                 </card>
             </section>
         </section>
@@ -13,7 +13,7 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
+  import feathers from '~plugins/feathers'
   import Bricks from 'bricks.js'
   import Card from '../components/Card'
 
@@ -22,7 +22,7 @@
       'card': Card
     },
     async asyncData () {
-      let {data} = await axios.get('/api/contributions')
+      let {data} = await feathers.service('contributions').find()
       return {
         contributions: data
       }
