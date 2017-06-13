@@ -5,11 +5,14 @@
             USERS </h1>
         <ul class="users">
             <li v-for="(user, index) in users" class="user">
-                <nuxt-link :to="{ name: 'id', params: { id: index }}">
+                <nuxt-link class="button" :to="{ name: 'id', params: { id: index }}">
                     {{ user.name }}
                 </nuxt-link>
             </li>
         </ul>
+        <nuxt-link v-if="!this.$store.getters.user" :to="{ name: 'login' }" class="button">
+            Login
+        </nuxt-link>
     </section>
 </template>
 

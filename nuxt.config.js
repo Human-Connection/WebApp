@@ -38,5 +38,9 @@ module.exports = {
   },
   router: {
     middleware: ['ssr-cookie']
-  }
+  },
+  modules: [
+    '@nuxtjs/bulma',
+    '@nuxtjs/font-awesome'
+  ]
 }

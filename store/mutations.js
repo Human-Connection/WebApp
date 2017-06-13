@@ -5,6 +5,11 @@ export default {
   SET_USER: function (state, user) {
     console.log('SET_USER')
     console.log(user)
-    state.user = user
+    if (user) {
+      state.user = user
+    } else {
+      state.user = null
+      state.token = null
+    }
   }
 }

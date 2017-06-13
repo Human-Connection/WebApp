@@ -57,4 +57,9 @@ router.post('/login', async function (req, res, next) {
 
 })
 
+router.post('/logout', function (req, res, next) {
+  req.session.destroy()
+  res.status(200).json({message: 'you are loggedout!'})
+})
+
 export default router
