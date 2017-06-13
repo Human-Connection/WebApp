@@ -1,6 +1,6 @@
 import { Router } from 'express'
 
-var router = Router()
+const router = Router()
 
 // Mock Users
 const users = [

@@ -9,7 +9,7 @@ export default function ({isServer, req}) {
     // console.log(req.session)
     if (req.session && req.session.token) {
       axios.defaults.headers.common.authorization = `Bearer ${req.session.token}`
-      console.log('ADDING TOCKEN ' + req.session.token)
+      // console.log('ADDING TOCKEN ' + req.session.token)
     }
   }
 }

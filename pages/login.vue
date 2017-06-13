@@ -31,15 +31,15 @@
                             </p>
                         </div>
                         <button class="button is-primary is-fullwidth" v-on:click="login" v-bind:class="{ 'is-loading': loading }">Login</button>
-                        <br/>
-                        <a href="" class="pull-left">
+                    </form>
+                    <footer class="card-footer">
+                        <nuxt-link :to="{ name: 'register' }" class="card-footer-item">
                             Noch kein Konto?
-                        </a>
-                        <a href="" class="pull-right">
+                        </nuxt-link>
+                        <a href="" class="card-footer-item">
                             Passwort vergessen?
                         </a>
-                        <br/>
-                    </form>
+                    </footer>
                 </div>
             </div>
         </div>

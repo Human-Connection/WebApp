@@ -21,7 +21,7 @@ module.exports = {
   ** Add axios globally
   */
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'moment', 'lodash', 'bricks.js'],
     /*
     ** Run ESLINT on save
     */

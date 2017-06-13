@@ -1,7 +1,7 @@
 import { Router } from 'express'
 import axios from 'axios'
 
-var router = Router()
+const router = Router()
 
 router.post('/login', async function (req, res, next) {
 

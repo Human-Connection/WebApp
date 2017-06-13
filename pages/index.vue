@@ -1,51 +1,68 @@
 <template>
-    <section class="container">
-        <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo"/>
-        <h1 class="title">
-            USERS </h1>
-        <ul class="users">
-            <li v-for="(user, index) in users" class="user">
-                <nuxt-link class="button" :to="{ name: 'id', params: { id: index }}">
-                    {{ user.name }}
-                </nuxt-link>
-            </li>
-        </ul>
-        <nuxt-link v-if="!this.$store.getters.user" :to="{ name: 'login' }" class="button">
-            Login
-        </nuxt-link>
-    </section>
+    <div>
+        <br/>
+        <section class="container">
+            <section class="hc__cards">
+                <card class="card hc__card" v-for="contribution in contributions.data" :post="contribution" :key="contribution.slug" @ready="updateGrid()">
+                    <small slot="category">{{ contributions.type }}</small>
+                </card>
+            </section>
+        </section>
+        <br/>
+    </div>
 </template>
 
 <script>
   import axios from '~plugins/axios'
+  import Bricks from 'bricks.js'
+  import Card from '../components/Card'
 
   export default {
+    components: {
+      'card': Card
+    },
     async asyncData () {
-      let {data} = await axios.get('/api/users')
+      let {data} = await axios.get('/api/contributions')
       return {
-        users: data
+        contributions: data
+      }
+    },
+    data () {
+      return {
+        bricksInstance: null,
+        contributions: null,
+        loading: false,
+        errors: null
       }
     },
     head () {
       return {
-        title: 'Users'
+        title: 'Dashboard'
       }
+    },
+    methods: {
+      updateGrid () {
+        this.bricksInstance.resize(true).pack()
+      }
+    },
+    mounted () {
+      this.bricksInstance = new Bricks({
+        container: '.hc__cards',
+        packed: 'data-packed',
+        sizes: [
+          { columns: 1, gutter: 15 },
+          { mq: '769px', columns: 2, gutter: 15 },
+          { mq: '1000px', columns: 3, gutter: 15 },
+          { mq: '1384px', columns: 4, gutter: 15 }
+        ]
+      })
+      this.bricksInstance.resize(true).pack()
     }
   }
 </script>
 
 <style scoped>
-    .title {
-        margin: 30px 0;
-    }
-
-    .users {
-        list-style: none;
-        margin:     0;
-        padding:    0;
-    }
-
-    .user {
-        margin: 10px 0;
+    section.container {
+        padding-left: 20px !important;
     }
 </style>

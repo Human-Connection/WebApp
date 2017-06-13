@@ -4,6 +4,7 @@ import session from 'express-session'
 import bodyParser from 'body-parser'
 
 import api from './api'
+import contributions from './api/contributions'
 import oauth from './oauth'
 
 const app = express()
@@ -43,4 +44,3 @@ async function start () {
 }
 
 start()
-
