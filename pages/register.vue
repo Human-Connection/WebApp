@@ -11,7 +11,7 @@
                         <br/>
                         <div class="field">
                             <p class="control has-icons-right">
-                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="data.username">
+                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="data.email">
                                 <span v-if="errors" class="icon is-small is-right">
                                   <i class="fa fa-warning"></i>
                                 </span>
@@ -50,14 +50,12 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
-
   export default {
     middleware: 'unauthorized',
     data () {
       return {
         data: {
-          username: '',
+          email: '',
           password: ''
         },
         loading: false,
@@ -68,18 +66,18 @@
       async register (e) {
         e.preventDefault()
         this.errors = false
-        try {
-          this.loading = true
-          let user = await axios.post('/register', this.data)
-          this.$store.commit('SET_USER', user.data.data.user)
-          console.log(user.data.data)
-          this.loading = false
-          this.credentials.password = null
-        } catch (error) {
-          console.log(error)
-          this.errors = true
-          this.loading = false
-        }
+        this.loading = true
+        this.$store.dispatch('auth/register', this.data)
+          .then(() => {
+            this.loading = false
+            this.data.password = null
+            // this.$router.replace('/')
+          })
+          .catch(error => {
+            console.log(error)
+            this.errors = true
+            this.loading = false
+          })
       }
     },
     head () {
