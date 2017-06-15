@@ -1,8 +1,8 @@
 <template>
     <section class="container">
-        <br/><br/><br/><br/>
+        <br/><br/><br/>
         <div class="columns is-vcentered">
-            <div class="column is-6 is-offset-3 has-text-centered">
+            <div class="card column is-6 is-offset-3 has-text-centered">
                 <section class="section">
                     <h1 class="title">
                         {{ error.statusCode }}
@@ -11,7 +11,7 @@
                         {{ error.message }}
                     </h2>
                     <nuxt-link class="button" to="/" v-if="error.statusCode === 404">
-                        Homepage
+                        Go Back
                     </nuxt-link>
                 </section>
             </div>

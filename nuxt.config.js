@@ -16,7 +16,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/scss/main.scss'],
   /*
   ** Add axios globally
   */
@@ -38,9 +38,5 @@ module.exports = {
   },
   router: {
     middleware: ['ssr-cookie']
-  },
-  modules: [
-    '@nuxtjs/bulma',
-    '@nuxtjs/font-awesome'
-  ]
+  }
 }

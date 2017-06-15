@@ -13,8 +13,12 @@ router.get('/contributions', async function (req, res, next) {
 })
 
 router.get('/contributions/:slug', async function (req, res, next) {
+  const slug = req.params.slug || req.params
+  const url = `http://localhost:8000/api/contribution/${slug}`
+  console.log(process)
+  console.log(url)
   try {
-    const {data} = await axios.get(`http://localhost:8000/api/contribution/${req.params.slug}`)
+    const {data} = await axios.get(url)
     res.json(data)
   } catch (error) {
     res.status(500).json({message: error.message})

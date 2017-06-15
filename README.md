@@ -1,6 +1,10 @@
-# nuxt-express
+# hc-frontend-nuxt
+> uses the Nuxt.js and Express.js projects
 
-> Nuxt.js project
+This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.
+ 
+## Setup
+At first you need to copy the env.example.js with the name of env.js. Never commit that file to not put sensitive data into the git history.
 
 ## Build Setup
 

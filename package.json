@@ -12,8 +12,6 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@nuxtjs/bulma": "^1.0.1",
-    "@nuxtjs/font-awesome": "^1.0.1",
     "axios": "^0.16.2",
     "babel-eslint": "^7.2.3",
     "body-parser": "^1.17.2",
@@ -22,6 +20,7 @@
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
+    "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "nuxt": "^1.0.0-alpha.4"

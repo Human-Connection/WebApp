@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="card">
         <section v-if="contribution" class="section">
             <div class="content">
                 <div class="text-center" style="height: 300px; overflow: hidden;" v-if="contribution.teaserImg">
@@ -7,7 +7,7 @@
                 </div>
             </div>
             <div class="content">
-                <author :contribution="contribution" v-cloak></author>
+                <author :post="contribution" v-cloak></author>
             </div>
             <h1 class="title">{{ contribution.title }}</h1>
             <div class="content">
@@ -27,6 +27,8 @@
   import author from '../../components/Author.vue'
   import axios from 'axios'
 
+  import env from '~/env'
+
   export default{
     components: {
       'author': author
@@ -37,13 +39,15 @@
       }
     },
     async asyncData ({params}) {
+      const url = `${env.frontend.endpoint}/api/contributions/${params.slug}`
+      console.log(url)
       try {
-        let {data} = await axios.get(`/api/contributions/${params.slug}`)
+        let {data} = await axios.get(url)
         return {
           contribution: data
         }
       } catch (error) {
-        console.error(error)
+        console.error(error.message)
         return {}
       }
     }

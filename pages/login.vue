@@ -1,6 +1,5 @@
 <template>
     <section class="container is-vcentered">
-        <br/>
         <div v-if="user" class="columns is-vcentered">
             <div class="column is-6 is-offset-3 has-text-centered">
                 <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo"/>
@@ -43,7 +42,6 @@
                 </div>
             </div>
         </div>
-        <br/>
     </section>
 </template>
 

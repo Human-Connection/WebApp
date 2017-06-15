@@ -1,6 +1,5 @@
 <template>
     <section class="container is-vcentered">
-        <br/>
         <div class="columns is-vcentered">
             <div class="column is-6 is-offset-3">
                 <div class="card">
@@ -45,7 +44,6 @@
                 </div>
             </div>
         </div>
-        <br/>
     </section>
 </template>
 

@@ -1,15 +1,11 @@
 <template>
-    <div>
-        <br/>
-        <section class="container">
-            <section class="hc__cards">
-                <card class="card hc__card" v-for="contribution in contributions.data" :post="contribution" :key="contribution.slug" @ready="updateGrid()">
-                    <small slot="category">{{ contributions.type }}</small>
-                </card>
-            </section>
+    <section class="container">
+        <section class="hc__cards">
+            <card class="card hc__card" v-for="contribution in contributions.data" :post="contribution" :key="contribution.slug" @ready="updateGrid()">
+                <small slot="category">{{ contributions.type }}</small>
+            </card>
         </section>
-        <br/>
-    </div>
+    </section>
 </template>
 
 <script>
@@ -62,7 +58,10 @@
 </script>
 
 <style scoped>
-    section.container {
-        padding-left: 20px !important;
+    .hc__cards {
+        padding:      0;
+        margin-left:  auto;
+        margin-right: auto;
+        max-width:    100%;
     }
 </style>
