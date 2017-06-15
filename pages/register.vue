@@ -24,13 +24,8 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="field">
-                            <p class="control">
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Ich bestätige, dass ich über 18 Jahre alt bin.
-                                </label>
-                            </p>
+                        <div class="field has-text-le">
+                            <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
                         </div>
                         <button class="button is-primary is-fullwidth" v-on:click="register" v-bind:class="{ 'is-loading': loading }">Login</button>
                         <br/>
@@ -78,6 +73,11 @@
           this.errors = true
           this.loading = false
         }
+        this.$toast.open({
+          message: 'THIS FEATURE IS NOT IMPLEMENTED YET!',
+          duration: 3000,
+          type: 'is-warning'
+        })
       }
     },
     head () {

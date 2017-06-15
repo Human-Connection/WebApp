@@ -19,12 +19,12 @@ $white:        hsl(0, 0%, 100%);
 
 $orange:       hsl(14,  100%, 53%);
 $yellow:       hsl(48,  100%, 67%);
-$green:        hsl(141, 71%,  48%);
-$turquoise:    hsl(171, 100%, 41%);
+$green:        hsl(80,  60%,  50%);
+$turquoise:    hsl(79,  60%,  50%);
 $blue:         hsl(217, 71%,  53%);
 $purple:       hsl(271, 100%, 71%);
 $red:          hsl(348, 100%, 61%);
 
-$radius-small: 1px !important;
-$radius: 1px !important;
-$radius-large: 1px !important;
+$radius-small: 1px;
+$radius: 1px;
+$radius-large: 2px;

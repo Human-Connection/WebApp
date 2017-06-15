@@ -1,11 +1,12 @@
 import { Router } from 'express'
 import axios from 'axios'
+import env from '../../env'
 
 const router = Router()
 
 router.get('/contributions', async function (req, res, next) {
   try {
-    const {data} = await axios.get('http://localhost:8000/api/contribution/list')
+    const {data} = await axios.get(`${env.api.endpoint}/api/contribution/list`)
     res.json(data)
   } catch (error) {
     res.status(500).json({message: error.message})
@@ -14,7 +15,7 @@ router.get('/contributions', async function (req, res, next) {
 
 router.get('/contributions/:slug', async function (req, res, next) {
   const slug = req.params.slug || req.params
-  const url = `http://localhost:8000/api/contribution/${slug}`
+  const url = `${env.api.endpoint}/api/contribution/${slug}`
   console.log(process)
   console.log(url)
   try {
@@ -25,16 +26,17 @@ router.get('/contributions/:slug', async function (req, res, next) {
   }
 })
 
-// router.get('/blabla', function (req, res, next) {
-//   console.log('#ROUTE PARAMETER')
-//   console.log(req.params)
-//   res.status(201).json({slug: req.params})
-//   // try {
-//   //   const {data} = await axios.get(`http://localhost:8000/api/contribution/${req.params.slug}`)
-//   //   res.json(data)
-//   // } catch (error) {
-//   //   res.status(500).json({message: error.message})
-//   // }
-// })
+router.post('/contributions', async function (req, res, next) {
+  try {
+    const {data} = await axios.post(`${env.api.endpoint}/api/contribution`)
+    res.json(data)
+  } catch (error) {
+    console.error(error.response.data.message)
+    res.status(500).json({
+      message: error.message,
+      data: error.response.data.message
+    })
+  }
+})
 
 export default router

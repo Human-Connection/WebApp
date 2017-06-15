@@ -1,8 +1,8 @@
 <template>
-    <div class="hc-card" v-bind:class="{ show: ready }">
-        <div class="hc-card__wrapper" @click="clicked">
-            <img class="hc-card__image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
-            <div class="hc-card__content">
+    <div class="hc__card" v-bind:class="{ show: ready }">
+        <div class="hc__card__wrapper" @click="clicked">
+            <img class="hc__card__image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
+            <div class="hc__card__content">
                 <header>
                     <slot name="category"></slot>
                     <br/>
@@ -65,12 +65,12 @@
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     @import '~bulma/sass/utilities/all';
 
-    .hc-card {
+    .hc__card {
         $padding: 25px;
-        diplay:              block;
+        display:             block;
         width:               100%;
         max-width:           100%;
         @include tablet() {
@@ -84,12 +84,13 @@
         }
 
         opacity:             0;
+        transition-duration: 0ms;
         transition:          opacity 250ms;
         &.show {
             opacity: 1;
         }
 
-        .hc-card__wrapper {
+        .hc__card__wrapper {
             background-color: #fff;
             cursor:           pointer;
             transition:       box-shadow 100ms;
@@ -99,16 +100,13 @@
             }
         }
 
-        .hc-card__content {
+        .hc__card__content {
             padding: $padding;
         }
 
         .profile-image {
             border: 1px solid #ccc
         }
-
-        transition-duration: 0ms;
-        transition:          opacity 250ms;
 
         small {
             text-align:     center;
@@ -117,7 +115,7 @@
             margin:         0 auto;
         }
 
-        .hc-card__image {
+        .hc__card__image {
             display: block;
         }
 

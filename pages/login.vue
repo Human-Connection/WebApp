@@ -29,6 +29,9 @@
                                 </span>
                             </p>
                         </div>
+                        <div class="field has-text-left">
+                            <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
+                        </div>
                         <button class="button is-primary is-fullwidth" v-on:click="login" v-bind:class="{ 'is-loading': loading }">Login</button>
                     </form>
                     <footer class="card-footer">
@@ -77,8 +80,17 @@
           console.log(user.data.data)
           this.loading = false
           this.credentials.password = null
+          this.$toast.open({
+            message: 'congratulations, you are in!',
+            duration: 2000,
+            type: 'is-success'
+          })
         } catch (error) {
-          console.log(error)
+          this.$toast.open({
+            message: error.message,
+            duration: 3000,
+            type: 'is-danger'
+          })
           this.errors = true
           this.loading = false
         }

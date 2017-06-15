@@ -16,6 +16,7 @@
     "babel-eslint": "^7.2.3",
     "body-parser": "^1.17.2",
     "bricks.js": "^1.8.0",
+    "buefy": "^0.4.0",
     "bulma": "^0.4.2",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
@@ -23,7 +24,9 @@
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
-    "nuxt": "^1.0.0-alpha.4"
+    "nuxt": "^1.0.0-alpha.4",
+    "vue-clip": "^1.0.0",
+    "vue-no-ssr": "^0.1.2"
   },
   "devDependencies": {
     "backpack-core": "^0.3.0",
