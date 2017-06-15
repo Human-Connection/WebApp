@@ -16,10 +16,6 @@ module.exports = {
       { rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons' }
     ]
   },
-  plugins: [
-    { src: '~plugins/buefy.js', ssr: false },
-    { src: '~plugins/vueClip.js', ssr: false }
-  ],
   /*
   ** Global CSS
   */
@@ -60,10 +56,12 @@ module.exports = {
     }
   },
   plugins: [
+    { src: '~plugins/buefy.js', ssr: false },
+    { src: '~plugins/vueClip.js', ssr: false },
     {src: '~plugins/feathers.js', injectAs: 'feathers'}
   ],
   router: {
-    middleware: ['ssr-cookie'],
+    middleware: ['check-auth'],
     linkActiveClass: 'active-link'
   }
 }
