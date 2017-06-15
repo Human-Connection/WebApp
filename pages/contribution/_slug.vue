@@ -1,31 +1,36 @@
 <template>
-    <div>
-        <section v-if="contribution" class="section">
-            <div class="content">
-                <div class="text-center" style="height: 300px; overflow: hidden;" v-if="contribution.teaserImg">
-                    <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
-                </div>
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+            <div class="card">
+                <section class="section">
+                    <div class="content">
+                        <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg">
+                            <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
+                        </div>
+                        <author :post="contribution" v-cloak></author>
+                        <h1>{{ contribution.title }}</h1>
+                        <p>{{ contribution.content || contribution.contentExcerpt}}</p>
+                        <h3>What do you feel?</h3>
+                        <div class="hc__rating">
+                            <img src="/assets/svg/hc-smilies-01.svg"/>
+                            <img src="/assets/svg/hc-smilies-02.svg"/>
+                            <img src="/assets/svg/hc-smilies-03.svg"/>
+                            <img src="/assets/svg/hc-smilies-04.svg"/>
+                            <img src="/assets/svg/hc-smilies-05.svg"/>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div class="content">
-                <author :contribution="contribution" v-cloak></author>
-            </div>
-            <h1 class="title">{{ contribution.title }}</h1>
-            <div class="content">
-                <p>{{ contribution.content || contribution.contentExcerpt}}</p>
-            </div>
-            <div class="loader" v-if="!contribution">Loading...</div>
-        </section>
-        <section v-else class="section">
-            <h1 class="title is-1">NOTHING HERE</h1>
-            <h3 class="title is-3">time will show</h3>
-        </section>
+        </div>
     </div>
 </template>
 
 
 <script>
   import author from '../../components/Author.vue'
-  import axios from 'axios'
+  import axios from '~plugins/axios'
+
+  import env from '~/env'
 
   export default{
     components: {
@@ -33,18 +38,31 @@
     },
     data () {
       return {
-        contribution: null
+        contribution: null,
+        title: null
       }
     },
-    async asyncData ({params}) {
+    async asyncData ({params, error}) {
+      const url = `${env.frontend.endpoint}/api/contributions/${params.slug}`
+      console.log(url)
       try {
-        let {data} = await axios.get(`/api/contributions/${params.slug}`)
+        let {data} = await axios.get(url)
+        if (!data.title) {
+          error({statusCode: 404, message: 'Post not found'})
+        }
         return {
-          contribution: data
+          contribution: data,
+          title: data.title
         }
       } catch (error) {
-        console.error(error)
+        console.error(error.message)
+        error({statusCode: 500, message: error.message})
         return {}
+      }
+    },
+    head () {
+      return {
+        title: this.title
       }
     }
 //    preFetch (store, route) {
@@ -85,6 +103,23 @@
 </script>
 
 
-<style>
+<style lang="scss">
+    .hc__imagecontainer {
+        height:   300px;
+        overflow: hidden;
+        margin:   -3rem -1.5rem 1.5rem;
+    }
+    .hc__rating {
+        margin-top: 1rem;
+        height: 50px;
+        img {
+            float: left;
+            margin-right: 10px;
+            height: 50px;
+        }
 
+        &:after {
+            clear: both;
+        }
+    }
 </style>

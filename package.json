@@ -12,12 +12,11 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
-    "@nuxtjs/bulma": "^1.0.1",
-    "@nuxtjs/font-awesome": "^1.0.1",
     "axios": "^0.16.2",
     "babel-eslint": "^7.2.3",
     "body-parser": "^1.17.2",
     "bricks.js": "^1.8.0",
+    "buefy": "^0.4.0",
     "bulma": "^0.4.2",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
@@ -26,11 +25,14 @@
     "feathers-client": "^2.2.0",
     "feathers-hooks": "^2.0.1",
     "feathers-socketio": "^2.0.0",
+    "font-awesome": "^4.7.0",
     "js-cookie": "^2.1.4",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "nuxt": "^1.0.0-alpha.4",
-    "socket.io-client": "^2.0.3"
+    "socket.io-client": "^2.0.3",
+    "vue-clip": "^1.0.0",
+    "vue-no-ssr": "^0.1.2"
   },
   "devDependencies": {
     "backpack-core": "^0.3.0",

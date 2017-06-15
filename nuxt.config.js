@@ -5,20 +5,25 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'starter',
+    title: 'Human Connection',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Nuxt.js project' }
+      { hid: 'description', name: 'description', content: 'Human Connection' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons' }
     ]
   },
+  plugins: [
+    { src: '~plugins/buefy.js', ssr: false },
+    { src: '~plugins/vueClip.js', ssr: false }
+  ],
   /*
   ** Global CSS
   */
-  css: ['~assets/css/main.css'],
+  css: ['~assets/styles/main.scss'],
   /*
   ** Add axios globally
   */
@@ -58,10 +63,7 @@ module.exports = {
     {src: '~plugins/feathers.js', injectAs: 'feathers'}
   ],
   router: {
-    middleware: ['ssr-cookie']
-  },
-  modules: [
-    '@nuxtjs/bulma',
-    '@nuxtjs/font-awesome'
-  ]
+    middleware: ['ssr-cookie'],
+    linkActiveClass: 'active-link'
+  }
 }

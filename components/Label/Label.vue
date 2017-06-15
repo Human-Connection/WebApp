@@ -6,7 +6,7 @@
 
 
 <script>
-  import translatable from '../../mixins/translatable'
+  import translatable from 'mixins/translatable'
 
   export default {
     mixins: [translatable],

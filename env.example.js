@@ -1,6 +1,6 @@
 module.exports = {
   frontend: {
-    endpoint: 'http://localhost:4000'
+    endpoint: 'http://localhost:3000'
   },
   api: {
     endpoint: 'http://localhost:8000'

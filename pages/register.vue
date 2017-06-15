@@ -1,6 +1,5 @@
 <template>
     <section class="container is-vcentered">
-        <br/>
         <div class="columns is-vcentered">
             <div class="column is-6 is-offset-3">
                 <div class="card">
@@ -25,17 +24,12 @@
                                 </span>
                             </p>
                         </div>
-                        <div class="field">
-                            <p class="control">
-                                <label class="checkbox">
-                                    <input type="checkbox">
-                                    Ich bestätige, dass ich über 18 Jahre alt bin.
-                                </label>
-                            </p>
+                        <div class="field has-text-le">
+                            <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
                         </div>
                         <button class="button is-primary is-fullwidth" v-on:click="register" v-bind:class="{ 'is-loading': loading }">Login</button>
                         <br/>
-                        <p>Mit klick auf „Regestrieren“ erkläre ich mich mit den Nutzerbedingungen einverstanden und betsätige das ich die Human Connection Datenschutzerklärung gelesen habe.</p>
+                        <p>Mit klick auf „Registrieren“ erkläre ich mich mit den Nutzerbedingungen einverstanden und betsätige das ich die Human Connection Datenschutzerklärung gelesen habe.</p>
                     </form>
                     <footer class="card-footer">
                         <nuxt-link :to="{ name: 'login' }" class="card-footer-item">
@@ -45,7 +39,6 @@
                 </div>
             </div>
         </div>
-        <br/>
     </section>
 </template>
 
@@ -78,6 +71,11 @@
             this.errors = true
             this.loading = false
           })
+        this.$toast.open({
+          message: 'THIS FEATURE IS NOT IMPLEMENTED YET!',
+          duration: 3000,
+          type: 'is-warning'
+        })
       }
     },
     head () {
