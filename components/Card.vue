@@ -42,7 +42,7 @@
     },
     methods: {
       clicked () {
-        this.$router.push(`/contribution/${this.post.slug}`)
+        this.$router.push(`/contributions/${this.post.slug}`)
         // this.$store.commit('unselectPost', this.post)
         // this.$store.commit('loadedPostWithSlug', this.post)
         // // tell router to show the post component, pass the slug

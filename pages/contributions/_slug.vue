@@ -9,7 +9,7 @@
                         </div>
                         <author :post="contribution" v-cloak></author>
                         <h1>{{ contribution.title }}</h1>
-                        <p>{{ contribution.content || contribution.contentExcerpt}}</p>
+                        <p class="content" v-html="content"></p>
                         <h3>What do you feel?</h3>
                         <div class="hc__rating">
                             <img src="/assets/svg/hc-smilies-01.svg"/>
@@ -28,9 +28,7 @@
 
 <script>
   import author from '../../components/Author.vue'
-  import axios from '~plugins/axios'
-
-  import env from '~/env'
+  import feathers from '~plugins/feathers'
 
   export default{
     components: {
@@ -43,21 +41,25 @@
       }
     },
     async asyncData ({params, error}) {
-      const url = `${env.frontend.endpoint}/api/contributions/${params.slug}`
-      console.log(url)
       try {
-        let {data} = await axios.get(url)
-        if (!data.title) {
-          error({statusCode: 404, message: 'Post not found'})
-        }
+        let res = await feathers.service('contributions').get(null, {
+          query: {
+            slug: params.slug
+          }
+        })
         return {
-          contribution: data,
-          title: data.title
+          contribution: res,
+          title: res.title
         }
-      } catch (error) {
-        console.error(error.message)
-        error({statusCode: 500, message: error.message})
+      } catch (err) {
+        error({statusCode: err.code || 500, message: err.message})
         return {}
+      }
+    },
+    computed: {
+      content () {
+        const txt = this.contribution.content || this.contribution.contentExcerpt
+        return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1')
       }
     },
     head () {

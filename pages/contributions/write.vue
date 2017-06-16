@@ -132,10 +132,10 @@
           title: '',
           content: '',
           language: 'de_DE',
-          visibilityTypeId: 0
-          // topics: [0, 1],
-          // tags: [],
-          // attachments: []
+          visibility: 'public',
+          topics: [0, 1],
+          tags: [],
+          attachments: []
         },
         options: {
           languages: [],
@@ -156,8 +156,14 @@
         console.log(this.form)
         feathers.service('contributions').create(this.form)
           .then((res) => {
-            console.log(res)
             this.loading = false
+            console.log(res)
+            this.$toast.open({
+              message: 'successfuly added your contribution',
+              duration: 2000,
+              type: 'is-success'
+            })
+            this.$router.push(`/contributions/${res.data.slug}`)
           })
           .catch((error) => {
             console.log(error)
