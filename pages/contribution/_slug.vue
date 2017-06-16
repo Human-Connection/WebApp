@@ -28,9 +28,7 @@
 
 <script>
   import author from '../../components/Author.vue'
-  import axios from '~plugins/axios'
-
-  import env from '~/env'
+  import feathers from '~plugins/feathers'
 
   export default{
     components: {
@@ -43,16 +41,18 @@
       }
     },
     async asyncData ({params, error}) {
-      const url = `${env.frontend.endpoint}/api/contributions/${params.slug}`
-      console.log(url)
       try {
-        let {data} = await axios.get(url)
-        if (!data.title) {
+        let res = await feathers.service('contributions').get(null, {
+          query: {
+            slug: params.slug
+          }
+        })
+        if (!res.title) {
           error({statusCode: 404, message: 'Post not found'})
         }
         return {
-          contribution: data,
-          title: data.title
+          contribution: res,
+          title: res.title
         }
       } catch (error) {
         console.error(error.message)
