@@ -48,7 +48,7 @@
                         <!--</el-select>-->
                     </div>
                     <div class="field">
-                        <!--<el-select placeholder="Who can see this post" v-model="form.visibility_type_id">-->
+                        <!--<el-select placeholder="Who can see this post" v-model="form.visibilityTypeId">-->
                         <!--<slot name="visibilityOptions">-->
                         <!--<el-option-->
                         <!--v-for="item in options.visibilities"-->
@@ -116,10 +116,11 @@
 
 
 <script>
-  import axios from '~plugins/axios'
   import NoSSR from 'vue-no-ssr'
+  import feathers from '~plugins/feathers'
 
   export default {
+    middleware: 'authenticated',
     components: {
       'no-ssr': NoSSR
     },
@@ -131,10 +132,10 @@
           title: '',
           content: '',
           language: 'de_DE',
-          visibility_type_id: 0,
-          topics: [0, 1],
-          tags: [],
-          attachments: []
+          visibilityTypeId: 0
+          // topics: [0, 1],
+          // tags: [],
+          // attachments: []
         },
         options: {
           languages: [],
@@ -153,9 +154,9 @@
       onSubmit () {
         this.loading = true
         console.log(this.form)
-        axios.post('/api/contributions', this.form)
+        feathers.service('contributions').create(this.form)
           .then((res) => {
-            alert(res.data)
+            console.log(res)
             this.loading = false
           })
           .catch((error) => {

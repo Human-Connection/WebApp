@@ -49,7 +49,6 @@
 </template>
 
 <script>
-  import axios from '~plugins/axios'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -95,18 +94,6 @@
             this.errors = true
             this.loading = false
           })
-      },
-      async logout () {
-        this.loading = true
-        try {
-          let res = await axios.post('/logout')
-          console.log(res)
-          this.$store.commit('SET_USER', null)
-          axios.defaults.headers.common.cookie = ''
-          this.loading = false
-        } catch (error) {
-          this.loading = false
-        }
       }
     },
     head () {

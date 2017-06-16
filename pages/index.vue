@@ -21,7 +21,14 @@
       'card': Card
     },
     async asyncData () {
-      let {data} = await feathers.service('contributions').find()
+      let {data} = await feathers.service('contributions').find({
+        query: {
+          $limit: 20,
+          $sort: {
+            createdAt: -1
+          }
+        }
+      })
       return {
         contributions: data
       }
