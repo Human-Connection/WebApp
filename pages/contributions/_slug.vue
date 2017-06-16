@@ -9,7 +9,7 @@
                         </div>
                         <author :post="contribution" v-cloak></author>
                         <h1>{{ contribution.title }}</h1>
-                        <p>{{ contribution.content || contribution.contentExcerpt}}</p>
+                        <p class="content" v-html="content"></p>
                         <h3>What do you feel?</h3>
                         <div class="hc__rating">
                             <img src="/assets/svg/hc-smilies-01.svg"/>
@@ -50,6 +50,7 @@
         if (!res.title) {
           error({statusCode: 404, message: 'Post not found'})
         }
+        console.log(res.content)
         return {
           contribution: res,
           title: res.title
@@ -58,6 +59,12 @@
         console.error(error.message)
         error({statusCode: 500, message: error.message})
         return {}
+      }
+    },
+    computed: {
+      content () {
+        const txt = this.contribution.content || this.contribution.contentExcerpt
+        return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1')
       }
     },
     head () {

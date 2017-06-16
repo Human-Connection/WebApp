@@ -51,11 +51,12 @@
           {mq: '1384px', columns: 4, gutter: 15}
         ]
       })
-      this.bricksInstance.resize(true).pack()
+      this.updateGrid()
 
       this.ready = true
 
       window.onload = () => {
+        this.updateGrid()
         this.bricksInstance.resize(true).pack()
       }
     }
