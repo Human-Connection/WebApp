@@ -89,6 +89,11 @@
       window.onload = () => {
         this.updateGrid()
       }
+    },
+    head () {
+      return {
+        title: 'Welcome'
+      }
     }
   }
 </script>
