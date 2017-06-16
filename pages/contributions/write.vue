@@ -159,11 +159,11 @@
             this.loading = false
             console.log(res)
             this.$toast.open({
-              message: 'successfuly added your contribution',
+              message: 'Thanks for your contribution. You are awesome.',
               duration: 2000,
               type: 'is-success'
             })
-            this.$router.push(`/contributions/${res.data.slug}`)
+            this.$router.push(`/contributions/${res.slug}`)
           })
           .catch((error) => {
             console.log(error)
