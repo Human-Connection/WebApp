@@ -5,7 +5,7 @@
                 <small slot="category">{{ contribution.type }}</small>
             </card>
         </section>
-        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/write')">
+        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </section>
