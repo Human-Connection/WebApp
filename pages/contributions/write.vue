@@ -116,10 +116,11 @@
 
 
 <script>
-  import axios from '~plugins/axios'
   import NoSSR from 'vue-no-ssr'
+  import feathers from '~plugins/feathers'
 
   export default {
+    middleware: 'authenticated',
     components: {
       'no-ssr': NoSSR
     },
@@ -131,7 +132,7 @@
           title: '',
           content: '',
           language: 'de_DE',
-          visibility_type_id: 0,
+          visibility: 'public',
           topics: [0, 1],
           tags: [],
           attachments: []
@@ -153,10 +154,16 @@
       onSubmit () {
         this.loading = true
         console.log(this.form)
-        axios.post('/api/contributions', this.form)
+        feathers.service('contributions').create(this.form)
           .then((res) => {
-            alert(res.data)
             this.loading = false
+            console.log(res)
+            this.$toast.open({
+              message: 'successfuly added your contribution',
+              duration: 2000,
+              type: 'is-success'
+            })
+            this.$router.push(`/contributions/${res.data.slug}`)
           })
           .catch((error) => {
             console.log(error)

@@ -1,36 +1,45 @@
+const path = require('path')
+
 module.exports = {
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: 'Human Connection',
+    titleTemplate: '%s - Human Connection',
     meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Human Connection' }
+      {charset: 'utf-8'},
+      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
+      {hid: 'description', name: 'description', content: 'Human Connection'}
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons' }
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      {rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons'}
     ]
   },
-  plugins: [
-    { src: '~plugins/buefy.js', ssr: false },
-    { src: '~plugins/vueClip.js', ssr: false }
-  ],
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: ['~assets/styles/main.scss'],
   /*
-  ** Add axios globally
-  */
+   ** Add axios globally
+   */
   build: {
-    vendor: ['axios', 'moment', 'lodash', 'bricks.js'],
-    /*
-    ** Run ESLINT on save
-    */
+    vendor: [
+      'axios',
+      'moment',
+      'lodash',
+      'bricks.js',
+      // Feathers
+      'feathers/client',
+      'feathers-socketio/client',
+      'socket.io-client',
+      'feathers-hooks',
+      'feathers-authentication-client'
+    ],
     extend (config, ctx) {
+      /*
+       ** Run ESLINT on save
+       */
       if (ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -39,10 +48,20 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+      // Add aliases
+      const aliases = Object.assign(config.resolve.alias, {
+        '~helpers': path.resolve(__dirname, 'helpers')
+      })
+      config.resolve.alias = aliases // eslint-disable-line no-param-reassign
     }
   },
+  plugins: [
+    {src: '~plugins/buefy.js', ssr: false},
+    {src: '~plugins/vueClip.js', ssr: false},
+    {src: '~plugins/feathers.js', injectAs: 'feathers'}
+  ],
   router: {
-    middleware: ['ssr-cookie'],
+    middleware: ['check-auth'],
     linkActiveClass: 'active-link'
   }
 }

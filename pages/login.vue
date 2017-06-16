@@ -15,7 +15,7 @@
                         <br/>
                         <div class="field">
                             <p class="control has-icons-right">
-                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="credentials.username">
+                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="data.email">
                                 <span v-if="errors" class="icon is-small is-right">
                                   <i class="fa fa-warning"></i>
                                 </span>
@@ -23,7 +23,7 @@
                         </div>
                         <div class="field">
                             <p class="control has-icons-right">
-                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="credentials.password">
+                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
                                 <span v-if="errors" class="icon is-small is-right">
                                   <i class="fa fa-warning"></i>
                                 </span>
@@ -53,10 +53,11 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    middleware: 'anonymous',
     data () {
       return {
-        credentials: {
-          username: '',
+        data: {
+          email: '',
           password: ''
         },
         loading: false,
@@ -65,35 +66,35 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'user'
-      ])
+      ...mapGetters({
+        user: 'auth/user'
+      })
     },
     methods: {
       async login (e) {
         e.preventDefault()
         this.errors = false
-        try {
-          this.loading = true
-          let user = await axios.post('/login', this.credentials)
-          this.$store.commit('SET_USER', user.data.data.user)
-          console.log(user.data.data)
-          this.loading = false
-          this.credentials.password = null
-          this.$toast.open({
-            message: 'congratulations, you are in!',
-            duration: 2000,
-            type: 'is-success'
+        this.loading = true
+        this.$store.dispatch('auth/login', this.data)
+          .then(() => {
+            this.$toast.open({
+              message: 'congratulations, you are in!',
+              duration: 2000,
+              type: 'is-success'
+            })
+            this.loading = false
+            this.data.password = null
+            this.$router.replace('/')
           })
-        } catch (error) {
-          this.$toast.open({
-            message: error.message,
-            duration: 3000,
-            type: 'is-danger'
+          .catch(error => {
+            this.$toast.open({
+              message: error.message,
+              duration: 3000,
+              type: 'is-danger'
+            })
+            this.errors = true
+            this.loading = false
           })
-          this.errors = true
-          this.loading = false
-        }
       },
       async logout () {
         this.loading = true

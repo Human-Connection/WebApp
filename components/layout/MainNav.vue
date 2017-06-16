@@ -27,12 +27,17 @@
                 <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
                     Dashboard
                 </nuxt-link>
-                <nuxt-link v-if="!this.$store.getters.user" :to="{ name: 'login' }" class="nav-item is-tab">
+                <nuxt-link v-if="!isAuthenticated" :to="{ name: 'login' }" class="nav-item is-tab">
                     Login
                 </nuxt-link>
-                <nuxt-link v-else :to="{ name: 'profile' }" class="nav-item is-tab">
-                    Hallo {{$store.getters.user.username}}!
-                </nuxt-link>
+                <template v-else>
+                    <a class="nav-item is-tab">
+                        Hallo {{user.email}}!
+                    </a>
+                    <a class="nav-item is-tab" @click.prevent="logout()">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </a>
+                </template>
                 <!--<nuxt-link v-else class="nav-item">-->
                 <!--Logout-->
                 <!--</nuxt-link>-->
@@ -43,7 +48,34 @@
 
 
 <script>
-
+  import {mapGetters} from 'vuex'
+  export default {
+    data () {
+      return {
+        credentials: {
+          username: '',
+          password: ''
+        },
+        loading: false,
+        stayLoggedIn: false,
+        errors: null
+      }
+    },
+    computed: {
+      ...mapGetters({
+        isAuthenticated: 'auth/isAuthenticated',
+        user: 'auth/user'
+      })
+    },
+    methods: {
+      logout () {
+        this.$store.dispatch('auth/logout')
+          .then(() => {
+            this.$router.replace('/')
+          })
+      }
+    }
+  }
 </script>
 
 <style lang="scss">
