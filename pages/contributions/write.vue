@@ -120,6 +120,7 @@
   import feathers from '~plugins/feathers'
 
   export default {
+    middleware: 'authenticated',
     components: {
       'no-ssr': NoSSR
     },
