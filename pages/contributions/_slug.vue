@@ -47,17 +47,12 @@
             slug: params.slug
           }
         })
-        if (!res.title) {
-          error({statusCode: 404, message: 'Post not found'})
-        }
-        console.log(res.content)
         return {
           contribution: res,
           title: res.title
         }
-      } catch (error) {
-        console.error(error.message)
-        error({statusCode: 500, message: error.message})
+      } catch (err) {
+        error({statusCode: err.code || 500, message: err.message})
         return {}
       }
     },
