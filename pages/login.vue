@@ -1,13 +1,6 @@
 <template>
     <section class="container is-vcentered">
-        <div v-if="user" class="columns is-vcentered">
-            <div class="column is-6 is-offset-3 has-text-centered">
-                <img src="../assets/img/logo.png" alt="Nuxt.js Logo" class="logo"/>
-                <h1 class="title">YOU ARE LOGGED IN {{user.username}}!</h1>
-                <button class="button is-fullwidth" v-on:click="logout">Logout</button>
-            </div>
-        </div>
-        <div v-else class="columns is-vcentered">
+        <div class="columns is-vcentered">
             <div class="column is-6 is-offset-3 has-text-centered">
                 <div class="card">
                     <form class="card-content">

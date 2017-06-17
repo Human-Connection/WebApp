@@ -19,6 +19,7 @@
                     <br/>
                     <span><i class="fa fa-bullhorn"></i> 214&nbsp;&nbsp;<i class="fa fa-exclamation-triangle"></i> 12</span>
                 </footer>
+                <comments :post="post"/>
             </div>
         </div>
     </div>
@@ -28,12 +29,14 @@
 <script>
   import truncate from './Truncate.vue'
   import author from './Author.vue'
+  import comments from './Comments/Comments.vue'
 
   export default {
     props: ['post'],
     components: {
       'author': author,
-      'truncate': truncate
+      'truncate': truncate,
+      'comments': comments
     },
     data () {
       return {
@@ -42,7 +45,7 @@
     },
     methods: {
       clicked () {
-        this.$router.push(`/contributions/${this.post.slug}`)
+        // this.$router.push(`/contributions/${this.post.slug}`)
         // this.$store.commit('unselectPost', this.post)
         // this.$store.commit('loadedPostWithSlug', this.post)
         // // tell router to show the post component, pass the slug

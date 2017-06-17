@@ -1,7 +1,7 @@
 <template>
     <div class="media" v-if="post">
         <div class="media-left">
-            <figure class="image">
+            <figure class="image" v-if="post.user.avatar">
                 <div v-bind:style="{ backgroundImage: 'url(' + post.user.avatar.small + ')' }" class="img-circle profile-image"></div>
             </figure>
         </div>
@@ -9,7 +9,7 @@
             <p class="title is-5">{{ post.user.username }}</p>
             <p class="subtitle is-6">
                 <i class="fa fa-clock-o" style="font-size: 15px; margin-top: 2px"></i>&nbsp;
-                <relative-date-time :dateTime="post.created_at"></relative-date-time>
+                <relative-date-time :dateTime="post.createdAt"></relative-date-time>
             </p>
         </div>
     </div>

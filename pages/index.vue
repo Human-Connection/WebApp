@@ -24,14 +24,17 @@
       'infinite-loading': InfiniteLoading
     },
     async asyncData () {
-      let res = await feathers.service('contributions').find()
+      let res = await feathers.service('contributions').find({
+        query: {
+          $sort: {
+            createdAt: -1
+          }
+        }
+      })
       return {
         contributions: res.data,
         limit: res.limit,
-        skip: res.skip,
-        $sort: {
-          createdAt: -1
-        }
+        skip: res.skip
       }
     },
     data () {
