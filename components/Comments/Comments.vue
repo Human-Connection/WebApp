@@ -1,9 +1,11 @@
 <template>
-    <div class="comments" v-if="post">
-        <div class="comment" v-for="comment in comments">
-            <p>{{ comment.contentExcerpt }}</p>
-            <author :post="comment"></author>
-        </div>
+    <div class="hc__comments" v-if="post">
+        <transition-group name="comment">
+            <div class="hc__comment" v-for="comment in comments" :key="comment._id">
+                <author :post="comment"></author>
+                <p v-html="comment.contentExcerpt"></p>
+            </div>
+        </transition-group>
         <comment-form :post="post" />
     </div>
 </template>
@@ -36,33 +38,32 @@
         .on('created', comment => {
           if (comment.contributionId === app.post._id) {
             app.comments.push(comment)
+            app.$store.dispatch('layout/change')
           }
         })
     }
   }
 </script>
 
-<style>
-    .profile-image {
-        border: 1px solid #ccc
+<style scoped lang="scss">
+    @import "../../assets/styles/utilities";
+
+    .hc__comment {
+        border-top:1px solid $grey-lighter;
+        padding: 20px 0;
+        position:relative;
+
+        p {
+            color: $grey;
+            font-size: $size-7;
+        }
     }
 
-    small {
-        display:        block;
-        text-align:     center;
-        text-transform: uppercase;
-        padding:        5px 10px;
-        margin:         0 auto;
+    .comment-enter-active, .comment-leave-active {
+        transition: all .5s ease-out;
     }
-
-    .profile-image {
-        width:               36px;
-        height:              36px;
-        background-position: center;
-        background-size:     cover;
-    }
-
-    .img-circle {
-        border-radius: 50%;
+    .comment-enter, .comment-leave-to /* .list-leave-active for <2.1.8 */ {
+        opacity: 0;
+        transform: translateX(-10px);
     }
 </style>

@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import feathers from '~plugins/feathers'
   import Bricks from 'bricks.js'
   import Card from '../components/Card'
@@ -45,6 +46,19 @@
         ready: false,
         limit: null,
         skip: 0
+      }
+    },
+    computed: {
+      ...mapGetters({
+        changeLayout: 'layout/change'
+      })
+    },
+    watch: {
+      changeLayout () {
+        var app = this
+        app.$nextTick(() => {
+          app.updateGrid()
+        })
       }
     },
     methods: {

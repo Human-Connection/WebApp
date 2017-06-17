@@ -1,7 +1,7 @@
 <template>
     <form class="comment-form" v-if="post && isAuthenticated" @submit.prevent="submitComment">
-        <textarea class="textarea" placeholder="Leave a comment ..." v-model="form.content"></textarea>
-        <button type="submit" class="button">Kommentar speichern</button>
+        <textarea class="textarea" placeholder="Was sagst du dazu?" v-model="form.content"></textarea>
+        <button type="submit" class="button is-small is-primary is-fullwidth" :class="{ 'is-loading': loading }">Kommentar abschicken</button>
     </form>
 </template>
 
@@ -35,6 +35,7 @@
         feathers.service('comments').create(this.form)
           .then((res) => {
             this.loading = false
+            this.form.content = ''
             console.log(res)
             this.$toast.open({
               message: 'Thanks for your comment. You are awesome.',
@@ -56,27 +57,12 @@
   }
 </script>
 
-<style>
-    .profile-image {
-        border: 1px solid #ccc
-    }
+<style scoped lang="scss">
+    @import "../../assets/styles/variables";
 
-    small {
-        display:        block;
-        text-align:     center;
-        text-transform: uppercase;
-        padding:        5px 10px;
-        margin:         0 auto;
-    }
-
-    .profile-image {
-        width:               36px;
-        height:              36px;
-        background-position: center;
-        background-size:     cover;
-    }
-
-    .img-circle {
-        border-radius: 50%;
+    .textarea {
+        margin-bottom:10px;
+        min-height: 80px;
+        font-size: $size-7;
     }
 </style>
