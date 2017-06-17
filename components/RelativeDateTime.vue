@@ -10,20 +10,24 @@
     name: 'relative-date-time',
     data () {
       return {
-        relativeDateTime: null
+        relativeDateTime: null,
+        interval: 15000
       }
     },
     methods: {
       calcRelativeDateTime () {
-        this.relativeDateTime = moment(this.dateTime).utc().fromNow()
+        let t = moment(this.dateTime)
+        this.relativeDateTime = t.utc().fromNow()
+        if (this.relativeDateTime === t.add(this.interval, 'milliseconds').utc().fromNow()) {
+          this.interval += this.interval
+        }
+        setTimeout(() => {
+          this.calcRelativeDateTime()
+        }, this.interval)
       }
     },
     mounted () {
       this.calcRelativeDateTime()
-
-      setInterval(() => {
-        this.calcRelativeDateTime()
-      }, 15000)
     }
   }
 </script>
