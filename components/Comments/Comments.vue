@@ -1,6 +1,6 @@
 <template>
     <div class="comments" v-if="post">
-        <div class="comment" v-for="comment in post.comments">
+        <div class="comment" v-for="comment in comments">
             <p>{{ comment.contentExcerpt }}</p>
             <author :post="comment"></author>
         </div>
@@ -22,7 +22,12 @@
     },
     data () {
       return {
-        comments: false
+        comments: []
+      }
+    },
+    created () {
+      if (this.post.comments) {
+        this.comments = this.post.comments
       }
     },
     mounted () {
@@ -30,7 +35,6 @@
       feathers.service('comments')
         .on('created', comment => {
           if (comment.contributionId === app.post._id) {
-            app.comments = app.comments ? app.comments : app.post.comments
             app.comments.push(comment)
           }
         })
