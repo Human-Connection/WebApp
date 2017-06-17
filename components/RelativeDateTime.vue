@@ -15,7 +15,7 @@
     },
     methods: {
       calcRelativeDateTime () {
-        this.relativeDateTime = moment(this.dateTime).utc(true).fromNow(true)
+        this.relativeDateTime = moment(this.dateTime).utc().fromNow()
       }
     },
     mounted () {
