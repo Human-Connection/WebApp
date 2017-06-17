@@ -1,7 +1,7 @@
 <template>
     <form class="comment-form" v-if="post && isAuthenticated" @submit.prevent="submitComment">
-        <textarea class="textarea" placeholder="Was sagst du dazu?" v-model="form.content"></textarea>
-        <button type="submit" class="button is-small is-primary is-fullwidth" :class="{ 'is-loading': loading }">Kommentar abschicken</button>
+        <textarea class="textarea" placeholder="Whatever comes to your mind ..." v-model="form.content"></textarea>
+        <button type="submit" class="button is-primary is-fullwidth" :class="{ 'is-loading': loading }">Submit comment</button>
     </form>
 </template>
 
@@ -58,11 +58,10 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../assets/styles/variables";
+    @import "../../assets/styles/utilities";
 
     .textarea {
         margin-bottom:10px;
         min-height: 80px;
-        font-size: $size-7;
     }
 </style>

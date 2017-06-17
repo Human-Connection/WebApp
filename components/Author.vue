@@ -7,13 +7,13 @@
             </figure>
         </div>
         <div class="media-content">
-            <p class="title is-5" v-if="post.user.username">
+            <p class="title" v-if="post.user.username">
                 {{ post.user.username }}
             </p>
-            <p class="title is-5" v-else>
+            <p class="title" v-else>
                 {{ post.user.email }}
             </p>
-            <p class="subtitle is-6">
+            <p class="subtitle">
                 <i class="fa fa-clock-o"></i>&nbsp;
                 <relative-date-time :dateTime="post.createdAt"></relative-date-time>
             </p>
@@ -53,6 +53,7 @@
 
         .title {
             font-size: $size-6;
+            margin-bottom: 1.5rem;
         }
 
         .subtitle {

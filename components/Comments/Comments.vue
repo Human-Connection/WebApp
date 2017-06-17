@@ -13,7 +13,7 @@
 
 <script>
   import feathers from '~plugins/feathers'
-  import author from '../Author.vue'
+  import author from '~components/Author.vue'
   import commentForm from './CommentForm.vue'
 
   export default {
@@ -55,7 +55,6 @@
 
         p {
             color: $grey;
-            font-size: $size-7;
         }
 
         &:first-child {

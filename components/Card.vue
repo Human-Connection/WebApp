@@ -66,7 +66,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import '~bulma/sass/utilities/all';
+    @import '../assets/styles/utilities';
 
     .hc__card {
         $padding: 25px;
