@@ -57,6 +57,10 @@
             color: $grey;
             font-size: $size-7;
         }
+
+        &:first-child {
+            border-top: none;
+        }
     }
 
     .comment-enter-active, .comment-leave-active {
