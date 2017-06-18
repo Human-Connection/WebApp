@@ -1,5 +1,5 @@
 <template>
-    <span>{{ truncatedText }}</span>
+    <span v-html="truncatedText"></span>
 </template>
 
 
