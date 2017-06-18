@@ -17,7 +17,7 @@
                 <footer>
                     <author :post="post"/>
                     <br/>
-                    <span><i class="fa fa-bullhorn"></i> 214&nbsp;&nbsp;<i class="fa fa-comments"></i> {{ post.comments.length }}</span>
+                    <span><i class="fa fa-bullhorn"></i> 214&nbsp;&nbsp;<i class="fa fa-comments"></i> {{ commentCount }}</span>
                 </footer>
             </div>
         </div>
@@ -38,6 +38,11 @@
     data () {
       return {
         ready: false
+      }
+    },
+    computed: {
+      commentCount () {
+        return this.post.comments ? this.post.comments.length : 0
       }
     },
     methods: {
