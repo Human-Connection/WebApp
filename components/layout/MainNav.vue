@@ -79,7 +79,7 @@
 </script>
 
 <style lang="scss">
-    @import "~bulma";
+    @import "../../assets/styles/_bulma";
 
     nav {
         .nuxt-link-exact-active {
