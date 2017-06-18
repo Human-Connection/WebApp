@@ -24,9 +24,11 @@
                     </div>
                     <div class="field">
                         <label class="label">Content</label>
-                        <p class="control">
-                            <textarea class="textarea" v-model="form.content" placeholder="What to write?" v-bind:disabled="loading"></textarea>
-                        </p>
+                        <div class="control">
+                            <!--<textarea class="textarea" v-model="form.content" placeholder="What to write?" v-bind:disabled="loading"></textarea>-->
+
+                            <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+                        </div>
                     </div>
                     <div class="field">
                         <!--<el-input-->
@@ -147,8 +149,22 @@
             {label: 'Pro / Con', value: 'procon', disabled: false},
             {label: 'Can Do', value: 'cando', disabled: false}
           ]
+        },
+        editorOption: {
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block']
+            ]
+          }
         }
       }
+    },
+    mounted () {
+      console.log('app init, my quill insrance object is:', this.myQuillEditor)
+      setTimeout(() => {
+        this.content = 'i am changed'
+      }, 3000)
     },
     methods: {
       onSubmit () {

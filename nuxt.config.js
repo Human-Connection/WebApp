@@ -19,7 +19,12 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: ['~assets/styles/main.scss'],
+  css: [
+    '~assets/styles/main.scss',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
+  ],
   /*
    ** Add axios globally
    */
@@ -57,7 +62,8 @@ module.exports = {
   },
   plugins: [
     {src: '~plugins/buefy.js', ssr: false},
-    {src: '~plugins/vueClip.js', ssr: false},
+    {src: '~plugins/vue-clip.js'},
+    {src: '~plugins/quill-editor.js'},
     {src: '~plugins/feathers.js', injectAs: 'feathers'}
   ],
   router: {
