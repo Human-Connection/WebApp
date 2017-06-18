@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <b-tabs class="footer">
-                        <b-tab-item v-bind:label="'Comments (' + contribution.comments.length + ')'">
+                        <b-tab-item v-bind:label="'Comments (' + this.commentCount + ')'">
                             <comments :post="contribution"/>
                         </b-tab-item>
                         <b-tab-item label="Versus">
@@ -73,6 +73,9 @@
       content () {
         const txt = this.contribution.content || this.contribution.contentExcerpt
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1')
+      },
+      commentCount () {
+        return this.contribution.comments ? this.contribution.comments.length : 0
       }
     },
     head () {

@@ -107,6 +107,10 @@
 
         .hc__card__content {
             padding: $padding;
+
+            header {
+                margin-bottom:10px;
+            }
         }
 
         .profile-image {
