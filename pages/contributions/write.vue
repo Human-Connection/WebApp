@@ -24,9 +24,15 @@
                     </div>
                     <div class="field">
                         <label class="label">Content</label>
-                        <p class="control">
-                            <textarea class="textarea" v-model="form.content" placeholder="What to write?" v-bind:disabled="loading"></textarea>
-                        </p>
+                        <div class="control">
+                            <!--<textarea class="textarea" v-model="form.content" placeholder="What to write?" v-bind:disabled="loading"></textarea>-->
+
+                            <div class="quill-editor" :content="form.content"
+                                 @change="onEditorChange($event)"
+                                 @blur="onEditorBlur($event)"
+                                 @focus="onEditorFocus($event)"
+                                 @ready="onEditorReady($event)" v-quill:myQuillEditor="editorOption"></div>
+                        </div>
                     </div>
                     <div class="field">
                         <!--<el-input-->
@@ -147,8 +153,24 @@
             {label: 'Pro / Con', value: 'procon', disabled: false},
             {label: 'Can Do', value: 'cando', disabled: false}
           ]
+        },
+        content: '<p>I am Example</p>',
+        editorOption: {
+          // some quill options
+          modules: {
+            toolbar: [
+              ['bold', 'italic', 'underline', 'strike'],
+              ['blockquote', 'code-block']
+            ]
+          }
         }
       }
+    },
+    mounted () {
+      console.log('app init, my quill insrance object is:', this.myQuillEditor)
+      setTimeout(() => {
+        this.content = 'i am changed'
+      }, 3000)
     },
     methods: {
       onSubmit () {
@@ -177,6 +199,19 @@
       },
       onPicture (e) {
         alert('NEW IMAGE!')
+      },
+      onEditorBlur (editor) {
+        console.log('editor blur!', editor)
+      },
+      onEditorFocus (editor) {
+        console.log('editor focus!', editor)
+      },
+      onEditorReady (editor) {
+        console.log('editor ready!', editor)
+      },
+      onEditorChange ({editor, html, text}) {
+        console.log('editor change!', editor, html, text)
+        this.content = html
       }
     }
   }
