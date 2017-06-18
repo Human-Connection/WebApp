@@ -1,19 +1,23 @@
 <template>
     <span class="hc__notifications">
-        <a href="">
-            <i class="fa fa-bell" aria-hidden="true"></i>
-        </a>
-        <span class="count" v-if="notifications.length > 0">
-            {{ notifications.length }}
-        </span>
-        <div class="dropdown">
-            <transition-group name="notification">
-                <div class="hc__notification" v-for="notification in notifications" :key="notification._id">
-                    <author :post="notification.contribution"></author>
-                    <p v-html="notification.message"></p>
-                </div>
-            </transition-group>
-        </div>
+        <b-dropdown v-model="notifications">
+            <a slot="trigger">
+                <i class="fa fa-bell" aria-hidden="true"></i>
+                <countlabel :count="notifications.length"></countlabel>
+            </a>
+
+            <b-dropdown-option subheader>
+                Notifications
+            </b-dropdown-option>
+            <b-dropdown-option separator/>
+
+            <b-dropdown-option v-for="notification in notifications" :key="notification._id">
+            <div class="hc__notification" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
+                <author :post="notification.comment"></author>
+                <p v-html="notification.message"></p>
+            </div>
+            </b-dropdown-option>
+        </b-dropdown>
     </span>
 </template>
 
@@ -22,10 +26,12 @@
   import {mapGetters} from 'vuex'
   import feathers from '~plugins/feathers'
   import author from '~components/Author.vue'
+  import countlabel from '~components/CountLabel.vue'
 
   export default {
     components: {
-      'author': author
+      'author': author,
+      'countlabel': countlabel
     },
     data () {
       return {
@@ -73,7 +79,8 @@
         feathers.service('notifications')
           .on('created', notification => {
             console.log(notification)
-            app.notifications.push(notification)
+            console.log(app.notifications)
+            app.notifications.unshift(notification)
           })
       }
     },
@@ -84,20 +91,32 @@
   }
 </script>
 
-<style scoped lang="scss">
-    @import "../../assets/styles/utilities";
+<style lang="scss">
+  @import "../../assets/styles/utilities";
 
-    .hc__notifications {
-        .dropdown {
-            display:none;
-        }
+  .hc__notifications {
+    position: relative;
+
+    .dropdown .box {
+      left: 100% !important;
+      transform: translateX(-50%);
+      overflow: auto;
+      max-height: 400px;
     }
 
     .notification-enter-active, .notification-leave-active {
-        transition: all .5s ease-out;
+      transition: all .5s ease-out;
     }
+
     .notification-enter, .notification-leave-to {
-        opacity: 0;
-        transform: translateX(-10px);
+      opacity: 0;
+      transform: translateX(-10px);
     }
+  }
+
+  .hc__notification {
+    p {
+      font-size: $size-7;
+    }
+  }
 </style>

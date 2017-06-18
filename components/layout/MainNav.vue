@@ -93,4 +93,8 @@
             font-weight: bold;
         }
     }
+
+    .nav-left {
+        overflow: visible;
+    }
 </style>
