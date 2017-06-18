@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import Buefy from 'buefy'
 
 if (process.BROWSER_BUILD) {
-  Vue.use(Buefy)
+  Vue.use(require('vue-clip'))
 }
