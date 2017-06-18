@@ -17,7 +17,12 @@
 </template>
 <script>
   export default {
-    props: ['error']
+    props: ['error'],
+    head () {
+      return {
+        title: this.error.statusCode
+      }
+    }
   }
 </script>
 

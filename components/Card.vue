@@ -17,7 +17,7 @@
                 <footer>
                     <author :post="post"/>
                     <br/>
-                    <span><i class="fa fa-bullhorn"></i> 214&nbsp;&nbsp;<i class="fa fa-exclamation-triangle"></i> 12</span>
+                    <span><i class="fa fa-bullhorn"></i> 214&nbsp;&nbsp;<i class="fa fa-comments"></i> {{ commentCount }}</span>
                 </footer>
             </div>
         </div>
@@ -38,6 +38,11 @@
     data () {
       return {
         ready: false
+      }
+    },
+    computed: {
+      commentCount () {
+        return this.post.comments ? this.post.comments.length : 0
       }
     },
     methods: {
@@ -66,7 +71,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import '~bulma/sass/utilities/all';
+    @import '../assets/styles/utilities';
 
     .hc__card {
         $padding: 25px;
@@ -121,6 +126,7 @@
 
         footer {
             margin-top: 20px;
+            margin-bottom: -20px;
 
             .profile-image {
                 width:               36px;

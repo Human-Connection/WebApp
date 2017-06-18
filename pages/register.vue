@@ -44,7 +44,7 @@
 
 <script>
   export default {
-    middleware: 'unauthorized',
+    middleware: 'anonymous',
     data () {
       return {
         data: {

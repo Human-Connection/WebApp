@@ -13,6 +13,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import feathers from '~plugins/feathers'
   import Bricks from 'bricks.js'
   import Card from '../components/Card'
@@ -24,7 +25,13 @@
       'infinite-loading': InfiniteLoading
     },
     async asyncData () {
-      let res = await feathers.service('contributions').find()
+      let res = await feathers.service('contributions').find({
+        query: {
+          $sort: {
+            createdAt: -1
+          }
+        }
+      })
       return {
         contributions: res.data,
         limit: res.limit,
@@ -39,6 +46,19 @@
         ready: false,
         limit: null,
         skip: 0
+      }
+    },
+    computed: {
+      ...mapGetters({
+        changeLayout: 'layout/change'
+      })
+    },
+    watch: {
+      changeLayout () {
+        var app = this
+        app.$nextTick(() => {
+          app.updateGrid()
+        })
       }
     },
     methods: {

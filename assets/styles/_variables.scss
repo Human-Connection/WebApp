@@ -1,3 +1,5 @@
+@import "~bulma/sass/utilities/initial-variables";
+
 //font-family
 $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $body-size:    15px;
@@ -24,6 +26,8 @@ $turquoise:    hsl(79,  60%,  50%);
 $blue:         hsl(217, 71%,  53%);
 $purple:       hsl(271, 100%, 71%);
 $red:          hsl(348, 100%, 61%);
+$primary:      $green;
+$link:         $green;
 
 $radius-small: 1px;
 $radius: 1px;

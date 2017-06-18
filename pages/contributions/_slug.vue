@@ -19,6 +19,17 @@
                             <img src="/assets/svg/hc-smilies-05.svg"/>
                         </div>
                     </div>
+                    <b-tabs class="footer">
+                        <b-tab-item v-bind:label="'Comments (' + contribution.comments.length + ')'">
+                            <comments :post="contribution"/>
+                        </b-tab-item>
+                        <b-tab-item label="Versus">
+                            Versus
+                        </b-tab-item>
+                        <b-tab-item label="Can Do">
+                            Can Do
+                        </b-tab-item>
+                    </b-tabs>
                 </section>
             </div>
         </div>
@@ -29,10 +40,12 @@
 <script>
   import author from '../../components/Author.vue'
   import feathers from '~plugins/feathers'
+  import comments from '../../components/Comments/Comments.vue'
 
   export default{
     components: {
-      'author': author
+      'author': author,
+      'comments': comments
     },
     data () {
       return {
@@ -42,14 +55,14 @@
     },
     async asyncData ({params, error}) {
       try {
-        let res = await feathers.service('contributions').get(null, {
+        let res = await feathers.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
         return {
-          contribution: res,
-          title: res.title
+          contribution: res.data[0],
+          title: res.data[0].title
         }
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
@@ -105,7 +118,7 @@
 </script>
 
 
-<style lang="scss">
+<style scoped lang="scss">
     .hc__imagecontainer {
         height:   300px;
         overflow: hidden;
@@ -123,5 +136,9 @@
         &:after {
             clear: both;
         }
+    }
+    .b-tabs.footer {
+        padding-top: 10px;
+        padding-bottom: 40px;
     }
 </style>
