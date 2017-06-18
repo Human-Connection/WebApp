@@ -10,7 +10,7 @@
                         <br/>
                         <div class="field">
                             <p class="control has-icons-right">
-                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail" v-model="data.email">
+                                <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail" v-model="data.email">
                                 <span v-if="errors" class="icon is-small is-right">
                                   <i class="fa fa-warning"></i>
                                 </span>
@@ -18,7 +18,7 @@
                         </div>
                         <div class="field">
                             <p class="control has-icons-right">
-                                <input class="input is-primary" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
+                                <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
                                 <span v-if="errors" class="icon is-small is-right">
                                   <i class="fa fa-warning"></i>
                                 </span>

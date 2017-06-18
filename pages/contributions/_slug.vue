@@ -143,5 +143,6 @@
     .b-tabs.footer {
         padding-top: 10px;
         padding-bottom: 40px;
+        margin: 1rem -1.5rem -3rem;
     }
 </style>
