@@ -16,9 +16,11 @@
             <b-dropdown-option subheader v-else-if="notifications.length === 0" class="dropdown-content">
                 You have no unread notifications.
             </b-dropdown-option>
-            <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
-                <author :post="notification.comment"></author>
-                <p v-html="notification.message"></p>
+            <div class="dropdown-scroll">
+                <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
+                    <author :post="notification.comment"></author>
+                    <p v-html="notification.message"></p>
+                </div>
             </div>
         </b-dropdown>
     </span>
@@ -104,16 +106,18 @@
         background-color: $grey-darker;
         color: $white;
         font-weight: $weight-bold;
-        border-bottom: 1px solid $grey;
         margin-bottom: 0.2em;
     }
 
     .dropdown .box {
       left: 100% !important;
       transform: translateX(-50%);
+      padding: 0.2em;
+    }
+
+    .dropdown-scroll {
       overflow: auto;
       max-height: 400px;
-      padding: 0.2em;
     }
 
     .notification-enter-active, .notification-leave-active {
