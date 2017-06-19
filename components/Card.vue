@@ -42,7 +42,8 @@
     },
     computed: {
       commentCount () {
-        return this.post.comments ? this.post.comments.length : 0
+        const count = this.post.comments ? this.post.comments.length : 0
+        return (count === undefined) ? 0 : count
       }
     },
     methods: {

@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <b-tabs class="footer">
-                        <b-tab-item v-bind:label="'Comments (' + this.commentCount + ')'">
+                        <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">
                             <comments :post="contribution"/>
                         </b-tab-item>
                         <b-tab-item label="Versus">
@@ -38,9 +38,9 @@
 
 
 <script>
-  import author from '../../components/Author.vue'
+  import author from '~components/Author.vue'
   import feathers from '~plugins/feathers'
-  import comments from '../../components/Comments/Comments.vue'
+  import comments from '~components/Comments/Comments.vue'
 
   export default{
     components: {
@@ -75,7 +75,8 @@
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1')
       },
       commentCount () {
-        return this.contribution.comments ? this.contribution.comments.length : 0
+        const count = this.contribution.comments ? this.contribution.comments.length : 0
+        return (count === undefined) ? 0 : count
       }
     },
     head () {
@@ -83,40 +84,6 @@
         title: this.title
       }
     }
-//    preFetch (store, route) {
-//      return this.methods.loadPost(store, route)
-//    },
-//    computed: {
-//      post () {
-//        try {
-//          return this.$store.state.contribution.post
-//        } catch (error) {
-//          console.log(error)
-//          return null
-//        }
-//      }
-//    },
-//    activated () {
-//      this.loadPost(this.$store, this.$route)
-//    },
-//    methods: {
-//      // load the post
-//      loadPost (store, route) {
-//        // get slug url parameter from router
-//        var slug = route.params.slug
-//        if (slug) {
-//          // only load post when not already loaded
-//          if (store.state.contribution.post) {
-//            if (!store.state.contribution.post.slug === slug || !store.state.contribution.post.content) {
-//              // tell the store to load the post
-//              return store.dispatch('loadPostBySlug', slug)
-//            }
-//          } else {
-//            return store.dispatch('loadPostBySlug', slug)
-//          }
-//        }
-//      }
-//    }
   }
 </script>
 

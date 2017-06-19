@@ -19,7 +19,7 @@
         let t = moment(this.dateTime)
         this.relativeDateTime = t.utc().fromNow()
         if (this.relativeDateTime === t.add(this.interval, 'milliseconds').utc().fromNow()) {
-          this.interval += this.interval
+          this.interval += 15000
         }
         setTimeout(() => {
           this.calcRelativeDateTime()

@@ -2,12 +2,14 @@
     <div class="media hc__author" v-if="post">
         <div class="media-left">
             <figure class="image">
-                <div v-if="post.user.avatar" v-bind:style="{ backgroundImage: 'url(' + post.user.avatar.small + ')' }" class="img-circle profile-image"></div>
-                 <div v-else v-bind:style="{ backgroundImage: 'url(/assets/images/avatar-default/male/avatar200x200.jpg)' }" class="img-circle profile-image"></div>
+                <div v-bind:style="{ backgroundImage: 'url(' + avatar.small + ')' }" class="img-circle profile-image"></div>
             </figure>
         </div>
         <div class="media-content">
-            <p class="title" v-if="post.user.username">
+            <p class="title" v-if="!post.user">
+                Anonymus
+            </p>
+            <p class="title" v-else-if="post.user.username">
                 {{ post.user.username }}
             </p>
             <p class="title" v-else>
@@ -31,6 +33,16 @@
     components: {
       'relative-date-time': relativeDateTime,
       'truncate': truncate
+    },
+    computed: {
+      avatar () {
+        const defaultAvatar = {
+          small: '/assets/images/avatar-default/male/avatar100x100.jpg',
+          medium: '/assets/images/avatar-default/male/avatar200x200.jpg',
+          large: '/assets/images/avatar-default/male/avatar200x200.jpg'
+        }
+        return (this.post.user && this.post.user.avatar) ? this.post.user.avatar : defaultAvatar
+      }
     }
   }
 </script>

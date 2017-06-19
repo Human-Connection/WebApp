@@ -8,9 +8,9 @@
                 <a href="" class="nav-item">
                     <i class="fa fa-comments" aria-hidden="true"></i>
                 </a>
-                <a href="" class="nav-item">
-                    <i class="fa fa-bell" aria-hidden="true"></i>
-                </a>
+                <span class="nav-item">
+                    <notifications></notifications>
+                </span>
             </div>
 
             <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -32,7 +32,9 @@
                 </nuxt-link>
                 <template v-else>
                     <a class="nav-item is-tab">
-                        Hallo {{user.email}}!
+                        Hallo&nbsp;
+                        <span v-if="user.username"> {{user.username}}</span>
+                        <span v-else> {{user.email}}</span>!
                     </a>
                     <a class="nav-item is-tab" @click.prevent="logout()">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -49,7 +51,11 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import Notifications from '../Notifications/Notifications.vue'
   export default {
+    components: {
+      'notifications': Notifications
+    },
     data () {
       return {
         credentials: {
@@ -86,5 +92,9 @@
             @extend a.nav-item.is-active;
             font-weight: bold;
         }
+    }
+
+    .nav-left {
+        overflow: visible;
     }
 </style>
