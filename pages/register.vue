@@ -29,7 +29,7 @@
                         </div>
                         <button class="button is-primary is-fullwidth" v-on:click="register" v-bind:class="{ 'is-loading': loading }">Registrieren</button>
                         <br/>
-                        <p>Mit klick auf „Registrieren“ erkläre ich mich mit den <a href="">Nutzerbedingungen</a> einverstanden und bestätige, dass ich die Human Connection <a href="">Datenschutzerklärung</a> gelesen habe.</p>
+                        <p>Mit klick auf „Registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
                     </form>
                     <footer class="card-footer">
                         <nuxt-link :to="{ name: 'login' }" class="card-footer-item">
