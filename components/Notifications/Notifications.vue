@@ -1,6 +1,6 @@
 <template>
     <span class="hc__notifications">
-        <b-dropdown v-model="notifications">
+        <b-dropdown v-model="notifications" v-show="ready">
             <a slot="trigger">
                 <i class="fa fa-bell" aria-hidden="true"></i>
                 <countlabel :count="notifications.length"></countlabel>
@@ -44,7 +44,8 @@
       return {
         notifications: [],
         limit: 0,
-        skip: 0
+        skip: 0,
+        ready: false
       }
     },
     computed: {
@@ -63,7 +64,6 @@
     },
     methods: {
       getNotifications () {
-        let app = this
         feathers.service('notifications').find({
           query: {
             $limit: 30,
@@ -73,21 +73,22 @@
           }
         })
           .then(res => {
-            app.notifications = res.data
-            app.limit = res.limit
-            app.skip = res.skip
+            this.notifications = res.data
+            this.limit = res.limit
+            this.skip = res.skip
+            this.ready = true
           })
           .catch((err) => {
-            console.log(err)
+            console.error(err)
+            this.ready = true
           })
       },
       subscribeToNotifications () {
-        let app = this
         feathers.service('notifications')
           .on('created', notification => {
             console.log(notification)
-            console.log(app.notifications)
-            app.notifications.unshift(notification)
+            console.log(this.notifications)
+            this.notifications.unshift(notification)
           })
       }
     },

@@ -33,12 +33,11 @@
       }
     },
     mounted () {
-      let app = this
       feathers.service('comments')
         .on('created', comment => {
-          if (comment.contributionId === app.post._id) {
-            app.comments.push(comment)
-            app.$store.dispatch('layout/change')
+          if (comment.contributionId === this.post._id) {
+            this.comments.push(comment)
+            this.$store.dispatch('layout/change')
           }
         })
     }
