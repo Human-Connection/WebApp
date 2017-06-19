@@ -110,9 +110,12 @@
     }
 
     .dropdown .box {
-      left: 100% !important;
-      transform: translateX(-50%);
       padding: 0.2em;
+
+      @include desktop() {
+        left: 100% !important;
+        transform: translateX(-50%);
+      }
     }
 
     .dropdown-scroll {
