@@ -25,8 +25,6 @@
                     <div class="field">
                         <label class="label">Content</label>
                         <div class="control">
-                            <!--<textarea class="textarea" v-model="form.content" placeholder="What to write?" v-bind:disabled="loading"></textarea>-->
-
                             <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
                         </div>
                     </div>
@@ -151,6 +149,7 @@
           ]
         },
         editorOption: {
+          placeholder: 'What to write?',
           modules: {
             toolbar: [
               ['bold', 'italic', 'underline', 'strike'],

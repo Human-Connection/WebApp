@@ -1,10 +1,9 @@
 <template>
     <form class="comment-form" v-if="post && isAuthenticated" @submit.prevent="submitComment">
-        <textarea class="textarea" placeholder="Whatever comes to your mind ..." v-model="form.content"></textarea>
+        <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         <button type="submit" class="button is-primary is-fullwidth" :class="{ 'is-loading': loading }">Submit comment</button>
     </form>
 </template>
-
 
 <script>
   import {mapGetters} from 'vuex'
@@ -24,6 +23,12 @@
           content: '',
           contributionId: null,
           language: 'de_DE'
+        },
+        editorOption: {
+          placeholder: 'Whatever comes to your mind...',
+          modules: {
+            toolbar: null
+          }
         }
       }
     },
