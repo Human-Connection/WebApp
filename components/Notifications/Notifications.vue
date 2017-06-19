@@ -17,10 +17,12 @@
                 You have no unread notifications.
             </b-dropdown-option>
             <div class="dropdown-scroll">
-                <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
-                    <author :post="notification.comment"></author>
-                    <p v-html="notification.message"></p>
-                </div>
+                <transition-group name="notification">
+                    <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
+                        <author :post="notification.comment"></author>
+                        <p v-html="notification.message"></p>
+                    </div>
+                </transition-group>
             </div>
         </b-dropdown>
     </span>
@@ -103,7 +105,7 @@
     position: relative;
 
     .dropdown-title {
-        background-color: $grey-darker;
+        background-color: $grey-dark;
         color: $white;
         font-weight: $weight-bold;
         margin-bottom: 0.2em;

@@ -30,6 +30,7 @@ html, body {
   background-color: #eee;
   min-height: 100vh;
   font-family: $family-sans-serif;
+  font-variant-ligatures: no-common-ligatures;
 }
 
 footer {
