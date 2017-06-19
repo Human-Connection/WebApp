@@ -6,17 +6,20 @@
                 <countlabel :count="notifications.length"></countlabel>
             </a>
 
-            <b-dropdown-option subheader>
+            <b-dropdown-option subheader class="dropdown-title">
                 Notifications
             </b-dropdown-option>
-            <b-dropdown-option separator/>
 
-            <b-dropdown-option v-for="notification in notifications" :key="notification._id">
-            <div class="hc__notification" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
+            <b-dropdown-option subheader v-if="!isAuthenticated" class="dropdown-content">
+                Please <nuxt-link :to="{ name: 'login' }">login</nuxt-link> to see your notifications.
+            </b-dropdown-option>
+            <b-dropdown-option subheader v-else-if="notifications.length === 0" class="dropdown-content">
+                You have no unread notifications.
+            </b-dropdown-option>
+            <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
                 <author :post="notification.comment"></author>
                 <p v-html="notification.message"></p>
             </div>
-            </b-dropdown-option>
         </b-dropdown>
     </span>
 </template>
@@ -97,11 +100,20 @@
   .hc__notifications {
     position: relative;
 
+    .dropdown-title {
+        background-color: $grey-darker;
+        color: $white;
+        font-weight: $weight-bold;
+        border-bottom: 1px solid $grey;
+        margin-bottom: 0.2em;
+    }
+
     .dropdown .box {
       left: 100% !important;
       transform: translateX(-50%);
       overflow: auto;
       max-height: 400px;
+      padding: 0.2em;
     }
 
     .notification-enter-active, .notification-leave-active {
