@@ -1,6 +1,6 @@
 <template>
     <form class="comment-form" v-if="post && isAuthenticated" @submit.prevent="submitComment">
-        <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+        <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         <button type="submit" class="button is-primary is-fullwidth" :class="{ 'is-loading': loading }">Submit comment</button>
     </form>
 </template>

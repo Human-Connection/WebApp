@@ -9,6 +9,8 @@ export default {
     cookie.get(key)
   },
   setItem (key, value) {
+    console.log('#Try to set cookie ' + key)
+    console.log('#VALUE: ' + value)
     if (process.SERVER_BUILD) return
     window.localStorage.setItem(key, value)
     cookie.set(key, value, {expires})

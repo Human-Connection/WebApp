@@ -2,7 +2,7 @@
     <div class="hc__card" v-bind:class="{ show: ready }">
         <div class="hc__card__wrapper" @click="clicked">
             <img class="hc__card__image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
-            <div class="hc__card__content">
+            <div class="hc__card__content autowrap">
                 <header>
                     <slot name="category"></slot>
                     <br/>

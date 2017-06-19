@@ -1,7 +1,7 @@
 <template>
     <div class="hc__comments" v-if="post">
         <transition-group name="comment">
-            <div class="hc__comment" v-for="comment in comments" :key="comment._id">
+            <div class="hc__comment autowrap" v-for="comment in comments" :key="comment._id">
                 <author :post="comment"></author>
                 <p v-html="comment.content"></p>
             </div>

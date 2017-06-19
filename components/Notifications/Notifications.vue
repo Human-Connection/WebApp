@@ -63,25 +63,24 @@
       }
     },
     methods: {
-      getNotifications () {
-        feathers.service('notifications').find({
-          query: {
-            $limit: 30,
-            $sort: {
-              createdAt: -1
+      async getNotifications () {
+        try {
+          const notifications = await feathers.service('notifications').find({
+            query: {
+              '$limit': 30,
+              '$sort': {
+                createdAt: -1
+              }
             }
+          })
+          if (notifications.data) {
+            this.notifications = notifications.data
+            this.limit = notifications.limit
+            this.skip = notifications.skip
           }
-        })
-          .then(res => {
-            this.notifications = res.data
-            this.limit = res.limit
-            this.skip = res.skip
-            this.ready = true
-          })
-          .catch((err) => {
-            console.error(err)
-            this.ready = true
-          })
+        } catch (err) {
+          this.ready = true
+        }
       },
       subscribeToNotifications () {
         feathers.service('notifications')

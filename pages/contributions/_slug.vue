@@ -3,11 +3,11 @@
         <div class="column is-8 is-offset-2">
             <div class="card">
                 <section class="section">
-                    <div class="content">
+                    <div class="content autowrap">
                         <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg">
                             <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
                         </div>
-                        <author :post="contribution" v-cloak></author>
+                        <author :post="contribution"></author>
                         <h1>{{ contribution.title }}</h1>
                         <p class="content" v-html="content"></p>
                         <h3>What do you feel?</h3>

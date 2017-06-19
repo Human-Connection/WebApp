@@ -31,11 +31,11 @@
                     Login
                 </nuxt-link>
                 <template v-else>
-                    <a class="nav-item is-tab">
+                    <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
                         Hallo&nbsp;
                         <span v-if="user.username"> {{user.username}}</span>
                         <span v-else> {{user.email}}</span>!
-                    </a>
+                    </nuxt-link>
                     <a class="nav-item is-tab" @click.prevent="logout()">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
                     </a>
@@ -78,6 +78,9 @@
         this.$store.dispatch('auth/logout')
           .then(() => {
             this.$router.replace('/')
+          })
+          .catch(err => {
+            console.error(err)
           })
       }
     }
