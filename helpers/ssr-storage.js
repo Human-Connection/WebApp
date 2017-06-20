@@ -4,20 +4,24 @@ const expires = 365
 
 export default {
   getItem (key) {
-    if (process.SERVER_BUILD) return
-    window.localStorage.getItem(key)
-    cookie.get(key)
+    let result = cookie.get(key)
+    if (!result && process.BROWSER_BUILD) {
+      window.localStorage.getItem(key)
+    }
+    return result
   },
   setItem (key, value) {
     console.log('#Try to set cookie ' + key)
     console.log('#VALUE: ' + value)
-    if (process.SERVER_BUILD) return
-    window.localStorage.setItem(key, value)
     cookie.set(key, value, {expires})
+    if (process.BROWSER_BUILD) {
+      window.localStorage.setItem(key, value)
+    }
   },
   removeItem (key) {
-    if (process.SERVER_BUILD) return
-    window.localStorage.removeItem(key)
     cookie.remove(key)
+    if (process.BROWSER_BUILD) {
+      window.localStorage.removeItem(key)
+    }
   }
 }
