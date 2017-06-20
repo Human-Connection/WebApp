@@ -91,7 +91,8 @@
 
         opacity:             0;
         transition-duration: 0ms;
-        transition:          opacity 250ms;
+        transition:          opacity 150ms;
+        transition-delay:    150ms;
         &.show {
             opacity: 1;
         }
