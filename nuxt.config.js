@@ -17,6 +17,13 @@ module.exports = {
     ]
   },
   /*
+   ** Loader / Progress Bar
+   */
+  loading: {
+    color: '#86b31e',
+    height: '2px'
+  },
+  /*
    ** Global CSS
    */
   css: [

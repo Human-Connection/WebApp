@@ -60,6 +60,7 @@ export const actions = {
     } catch (err) {
       console.error(err.message)
       commit('SET_USER', null)
+      throw new Error(err.message)
     }
   },
   async logout ({commit, dispatch}) {

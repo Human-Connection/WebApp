@@ -9,11 +9,11 @@
         <transition name="box">
         <div class="box" v-if="active">
             <p class="dropdown-title">Notifications</p>
+            <p v-if="!isAuthenticated" class="dropdown-content">
+                Please <nuxt-link :to="{ name: 'login' }">login</nuxt-link> to see your notifications.
+            </p>
             <div v-if="notifications">
-                <p v-if="!isAuthenticated" class="dropdown-content">
-                    Please <nuxt-link :to="{ name: 'login' }">login</nuxt-link> to see your notifications.
-                </p>
-                <p v-else-if="notifications.length === 0" class="dropdown-content">
+                <p v-if="notifications.length === 0" class="dropdown-content">
                     You don't have any notifications.
                 </p>
                 <div class="dropdown-scroll" v-if="notifications.length">
@@ -101,23 +101,6 @@
           display: inline-block;
       }
 
-      .option {
-          border-bottom:1px solid lighten($grey-lighter, 6%);
-          transition: all .2s ease-out;
-
-          &:hover {
-              box-shadow: 0px 2px 7px rgba($black, 0.2);
-          }
-
-          &:last-of-type {
-              border-bottom: 0;
-          }
-      }
-
-      .notification-message {
-        margin-top: 0.3em;
-      }
-
       .box {
           padding: 0.2em;
           transform: translateY(-50%) translateX(-50%);
@@ -152,6 +135,27 @@
       .dropdown-scroll {
           overflow: auto;
           max-height: 400px;
+      }
+
+      .option {
+          border-bottom:1px solid lighten($grey-lighter, 6%);
+          transition: all .2s ease-out;
+
+          &:hover {
+              box-shadow: 0px 2px 7px rgba($black, 0.2);
+          }
+
+          &:last-of-type {
+              border-bottom: 0;
+          }
+      }
+
+      .notification-message {
+        margin-top: 0.3em;
+      }
+
+      .dropdown-content {
+        padding: 0.5rem 1rem 0.8rem;
       }
 
       .box-enter-active, .box-leave-active {
