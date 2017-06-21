@@ -1,36 +1,40 @@
 <template>
-    <span class="hc__notifications">
-        <b-dropdown v-model="notifications" v-show="ready">
-            <a slot="trigger">
+    <div class="hc__notifications dropdown" @blur="active = false" tabindex="0">
+        <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active }">
+            <span class="notification-icon">
                 <i class="fa fa-bell" aria-hidden="true"></i>
-                <countlabel :count="notifications.length"></countlabel>
-            </a>
-
-            <b-dropdown-option subheader class="dropdown-title">
-                Notifications
-            </b-dropdown-option>
-
-            <b-dropdown-option subheader v-if="!isAuthenticated" class="dropdown-content">
+                <countlabel :count="notifications && notifications.length"></countlabel>
+            </span>
+        </a>
+        <transition name="box">
+        <div class="box" v-if="active">
+            <p class="dropdown-title">Notifications</p>
+            <p v-if="!isAuthenticated" class="dropdown-content">
                 Please <nuxt-link :to="{ name: 'login' }">login</nuxt-link> to see your notifications.
-            </b-dropdown-option>
-            <b-dropdown-option subheader v-else-if="notifications.length === 0" class="dropdown-content">
-                You have no unread notifications.
-            </b-dropdown-option>
-            <div class="dropdown-scroll">
-                <transition-group name="notification">
-                    <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="$router.push(`/contributions/${notification.contribution.slug}`)">
-                        <author :post="notification.comment"></author>
-                        <p v-html="notification.message"></p>
-                    </div>
-                </transition-group>
+            </p>
+            <div v-if="notifications">
+                <p v-if="notifications.length === 0" class="dropdown-content">
+                    You don't have any notifications.
+                </p>
+                <div class="dropdown-scroll" v-if="notifications.length">
+                    <transition-group name="notification">
+                        <div class="hc__notification option" v-for="notification in notifications" :key="notification._id" @click="followNotification(notification)">
+                            <author :post="notification.comment"></author>
+                            <p class="notification-message" v-html="notification.message"></p>
+                        </div>
+                    </transition-group>
+                </div>
             </div>
-        </b-dropdown>
-    </span>
+        </div>
+        </transition>
+        <transition name="overlay">
+        <div class="dropdown-overlay" v-if="active" @click="active = false"></div>
+        </transition>
+    </div>
 </template>
 
-
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
   import feathers from '~plugins/feathers'
   import author from '~components/Author.vue'
   import countlabel from '~components/CountLabel.vue'
@@ -42,97 +46,150 @@
     },
     data () {
       return {
-        notifications: [],
-        limit: 0,
-        skip: 0,
-        ready: false
+        ready: false,
+        active: false
       }
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
+        isAuthenticated: 'auth/isAuthenticated',
+        notifications: 'notifications/all'
       })
     },
-    watch: {
-      isAuthenticated (authenticated) {
-        if (authenticated) {
-          this.getNotifications()
-        } else {
-          this.notifications = []
-        }
-      }
-    },
     methods: {
-      async getNotifications () {
-        try {
-          const notifications = await feathers.service('notifications').find({
-            query: {
-              '$limit': 30,
-              '$sort': {
-                createdAt: -1
-              }
-            }
-          })
-          if (notifications.data) {
-            this.notifications = notifications.data
-            this.limit = notifications.limit
-            this.skip = notifications.skip
-          }
-        } catch (err) {
-          this.ready = true
-        }
-      },
+      ...mapMutations({
+        addNotification: 'notifications/add'
+      }),
       subscribeToNotifications () {
         feathers.service('notifications')
           .on('created', notification => {
-            console.log(notification)
-            console.log(this.notifications)
-            this.notifications.unshift(notification)
+            this.addNotification(notification)
           })
+      },
+      followNotification (notification) {
+        this.$router.push(`/contributions/${notification.contribution.slug}`)
+        this.active = false
       }
     },
     mounted () {
-      this.getNotifications()
       this.subscribeToNotifications()
     }
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "../../assets/styles/utilities";
 
-  .hc__notifications {
-    position: relative;
+  .hc__notifications.dropdown {
+      outline: none !important;
+      box-shadow: none !important;
 
-    .dropdown-title {
-        background-color: $grey-dark;
-        color: $white;
-        font-weight: $weight-bold;
-        margin-bottom: 0.2em;
-    }
+      position: relative;
+      user-select: none;
+      text-align:left;
 
-    .dropdown .box {
-      padding: 0.2em;
+      .dropdown-toggle {
+          outline: none !important;
+          display: flex;
+          height: 100%;
 
-      @include desktop() {
-        left: 100% !important;
-        transform: translateX(-50%);
+          &.active {
+            color: $grey-darker;
+          }
       }
-    }
 
-    .dropdown-scroll {
-      overflow: auto;
-      max-height: 400px;
-    }
+      .notification-icon {
+          position: relative;
+          vertical-align: middle;
+          display: inline-block;
+      }
 
-    .notification-enter-active, .notification-leave-active {
-      transition: all .5s ease-out;
-    }
+      .box {
+          padding: 0.2em;
+          transform: translateY(-50%) translateX(-50%);
 
-    .notification-enter, .notification-leave-to {
-      opacity: 0;
-      transform: translateX(-10px);
-    }
+          @include desktop() {
+              position: absolute;
+              top: 100%;
+              left: 50% !important;
+              transform: translateX(-50%);
+          }
+      }
+
+      .dropdown-overlay {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba($black, 0.4);
+          @include desktop() {
+              display: none;
+          }
+      }
+
+      .dropdown-title {
+          font-weight: $weight-bold;
+          margin-bottom: 0.2em;
+          padding: 0.5rem 1rem 0.7rem;
+          border-bottom:1px solid $grey-lighter;
+      }
+
+      .dropdown-scroll {
+          overflow: auto;
+          max-height: 400px;
+      }
+
+      .option {
+          border-bottom:1px solid lighten($grey-lighter, 6%);
+          transition: all .2s ease-out;
+
+          &:hover {
+              box-shadow: 0px 2px 7px rgba($black, 0.2);
+          }
+
+          &:last-of-type {
+              border-bottom: 0;
+          }
+      }
+
+      .notification-message {
+        margin-top: 0.3em;
+      }
+
+      .dropdown-content {
+        padding: 0.5rem 1rem 0.8rem;
+      }
+
+      .box-enter-active, .box-leave-active {
+          transition: all .2s ease-out;
+      }
+
+      .box-enter, .box-leave-to {
+          opacity: 0;
+          transform: translateX(-50%) translateY(-50%) scale(0.7);
+
+          @include desktop() {
+              transform: translateX(-50%) translateY(-7px);
+          }
+      }
+
+      .overlay-enter-active, .overlay-leave-active {
+          transition: all .2s ease-out;
+      }
+
+      .overlay-enter, .overlay-leave-to {
+          opacity: 0;
+      }
+
+      .notification-enter-active, .notification-leave-active {
+          transition: all .5s ease-out;
+      }
+
+      .notification-enter, .notification-leave-to {
+          opacity: 0;
+          transform: translateX(-10px);
+      }
   }
 
   .hc__notification {

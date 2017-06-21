@@ -4,7 +4,6 @@ function getTokenFromRequest (req) {
   if (!req || !req.headers || !req.headers.cookie) return
   const jwtCookie = req.headers.cookie.split(';').find(c => c.trim().startsWith(`${cookieName}=`))
   if (!jwtCookie) return
-  console.log('#TOKEn? ' + (jwtCookie.split('=')[1]))
   return jwtCookie.split('=')[1]
 }
 
