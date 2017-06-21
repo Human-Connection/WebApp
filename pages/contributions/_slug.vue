@@ -12,7 +12,7 @@
                                 <author :post="contribution"></author>
                             </div>
                             <div class="column">
-                                <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution._id}` }">
+                                <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
                                    Edit
                                 </nuxt-link>
                             </div>

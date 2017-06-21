@@ -49,16 +49,20 @@
     },
     async asyncData ({params, error}) {
       try {
-        let res = await feathers.service('contributions').get(params.id)
-
+        let res = await feathers.service('contributions').find({
+          query: {
+            slug: params.slug
+          }
+        })
+        const data = res.data[0]
         return {
           form: {
-            _id: params.id,
-            title: res.title,
-            content: res.content,
-            slug: res.slug
+            _id: data._id,
+            title: data.title,
+            content: data.content,
+            slug: data.slug
           },
-          title: res.title
+          title: data.title
         }
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
