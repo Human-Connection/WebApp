@@ -33,11 +33,9 @@ export const actions = {
   async jwt ({commit, dispatch}, {accessToken}) {
     try {
       await feathers.logout()
-      console.info('#TRY TO GET TOKEN ' + accessToken)
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
-      console.info(user.email)
       commit('SET_USER', user)
       dispatch('notifications/fetch', null, { root: true })
     } catch (err) {
@@ -46,14 +44,12 @@ export const actions = {
   },
   async login ({commit}, {email, password}) {
     try {
-      console.info('#TRY TO LOGIN ' + email)
       await feathers.logout()
       commit('SET_USER', null)
       feathers.set('user', null)
 
       const response = await feathers.authenticate({strategy: 'local', email, password})
 
-      console.info('#GOT LOGIN TOKEN ' + response.accessToken)
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
       commit('SET_USER', user)
@@ -64,7 +60,6 @@ export const actions = {
     }
   },
   async logout ({commit}) {
-    console.info('#TRY TO LOGOUT')
     try {
       await feathers.logout()
     } catch (err) {

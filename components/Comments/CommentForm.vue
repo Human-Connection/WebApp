@@ -36,7 +36,6 @@
       submitComment () {
         this.loading = true
         this.form.contributionId = this.post._id
-        console.log(this.form)
         feathers.service('comments').create(this.form)
           .then((res) => {
             this.loading = false
