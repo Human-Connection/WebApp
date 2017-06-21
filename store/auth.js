@@ -30,14 +30,16 @@ export const getters = {
  TODO: this needs to be fixed as soon as possible
  */
 export const actions = {
-  async jwt ({commit}, {accessToken}) {
+  async jwt ({commit, dispatch}, {accessToken}) {
     try {
+      await feathers.logout()
       console.info('#TRY TO GET TOKEN ' + accessToken)
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
       console.info(user.email)
       commit('SET_USER', user)
+      dispatch('notifications/fetch', null, { root: true })
     } catch (err) {
       console.error(err.message)
     }
@@ -60,7 +62,7 @@ export const actions = {
       commit('SET_USER', null)
     }
   },
-  async logout ({commit}) {
+  async logout ({commit, dispatch}) {
     console.info('#TRY TO LOGOUT')
     try {
       await feathers.logout()
@@ -68,6 +70,7 @@ export const actions = {
       console.error(err.message)
     }
     commit('SET_USER', null)
+    dispatch('notifications/clear', null, { root: true })
     feathers.set('user', null)
   },
   register ({dispatch}, {email, password}) {
