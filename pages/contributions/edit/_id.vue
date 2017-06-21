@@ -2,7 +2,7 @@
     <div class="columns">
         <div class="card column is-8 is-offset-2">
             <section class="section">
-                <h1 class="title">Make a contribution</h1>
+                <h1 class="title">Edit {{ title }}</h1>
                 <form v-bind:disabled="loading">
                     <div class="tabs is-toggle is-fullwidth">
                         <ul>
@@ -42,9 +42,8 @@
   import NoSSR from 'vue-no-ssr'
   import feathers from '~plugins/feathers'
 
-  // TODO: only show this page to the user that wrote it
   export default {
-    middleware: 'authenticated',
+    middleware: ['authenticated', 'owner'],
     components: {
       'no-ssr': NoSSR
     },
@@ -58,7 +57,8 @@
             title: res.title,
             content: res.content,
             slug: res.slug
-          }
+          },
+          title: res.title
         }
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
@@ -101,7 +101,7 @@
       }
     },
     mounted () {
-      console.log('app init, my quill insrance object is:', this.myQuillEditor)
+      console.log('app init, my quill instance object is:', this.myQuillEditor)
       setTimeout(() => {
         this.content = 'i am changed'
       }, 3000)
@@ -133,6 +133,11 @@
       },
       onPicture (e) {
         alert('NEW IMAGE!')
+      }
+    },
+    head () {
+      return {
+        title: `Edit ${this.title}`
       }
     }
   }
