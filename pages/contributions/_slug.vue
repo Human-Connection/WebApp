@@ -19,7 +19,7 @@
                         </div>
                         <h1>{{ contribution.title }}</h1>
                         <p class="content" v-html="content"></p>
-                        <h3>What do you feel?</h3>
+                        <h3>How do you feel?</h3>
                         <div class="hc__rating">
                             <img src="/assets/svg/hc-smilies-01.svg"/>
                             <img src="/assets/svg/hc-smilies-02.svg"/>
