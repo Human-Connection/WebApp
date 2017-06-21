@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
   import feathers from '~plugins/feathers'
   import author from '~components/Author.vue'
   import countlabel from '~components/CountLabel.vue'
@@ -53,14 +53,17 @@
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
-        notifications: 'notifications/notifications'
+        notifications: 'notifications/all'
       })
     },
     methods: {
+      ...mapMutations({
+        addNotification: 'notifications/add'
+      }),
       subscribeToNotifications () {
         feathers.service('notifications')
           .on('created', notification => {
-            this.notifications.unshift(notification)
+            this.addNotification(notification)
           })
       },
       followNotification (notification) {

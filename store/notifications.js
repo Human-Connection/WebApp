@@ -7,20 +7,23 @@ export const state = () => {
 }
 
 export const mutations = {
-  SET (state, notifications) {
+  set (state, notifications) {
     if (!notifications || notifications === undefined) {
       state.notifications = null
     } else {
       state.notifications = notifications
     }
   },
-  CLEAR (state) {
+  clear (state) {
     state.notifications = []
+  },
+  add (state, notification) {
+    state.notifications.unshift(notification)
   }
 }
 
 export const getters = {
-  notifications (state) {
+  all (state) {
     return state.notifications
   }
 }
@@ -36,13 +39,10 @@ export const actions = {
       }
     })
       .then((result) => {
-        commit('SET', result.data)
+        commit('set', result.data)
       })
       .catch(() => {
-        commit('CLEAR')
+        commit('clear')
       })
-  },
-  clear ({commit}) {
-    commit('CLEAR')
   }
 }

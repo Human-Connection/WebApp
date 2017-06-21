@@ -63,7 +63,7 @@ export const actions = {
       throw new Error(err.message)
     }
   },
-  async logout ({commit, dispatch}) {
+  async logout ({commit}) {
     console.info('#TRY TO LOGOUT')
     try {
       await feathers.logout()
@@ -71,7 +71,7 @@ export const actions = {
       console.error(err.message)
     }
     commit('SET_USER', null)
-    dispatch('notifications/clear', null, { root: true })
+    commit('notifications/clear', null, { root: true })
     feathers.set('user', null)
   },
   register ({dispatch}, {email, password}) {
