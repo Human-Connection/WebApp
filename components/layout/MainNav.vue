@@ -8,9 +8,7 @@
                 <a href="" class="nav-item">
                     <i class="fa fa-comments" aria-hidden="true"></i>
                 </a>
-                <span class="nav-item">
-                    <notifications></notifications>
-                </span>
+                <notifications></notifications>
             </div>
 
             <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -99,5 +97,9 @@
 
     .nav-left {
         overflow: visible;
+    }
+
+    .nav-item {
+        position:relative;
     }
 </style>
