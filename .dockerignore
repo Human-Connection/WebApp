@@ -1,2 +1,7 @@
 node_modules/
+.nuxt/
 build/
+npm-debug.log
+Dockerfile
+package-lock.json
+yarn.lock
