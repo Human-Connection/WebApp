@@ -9,7 +9,7 @@
               <img src="/assets/svg/hc-smilies-02.svg" width="150px">
               <h1 class="title is-2">Email verification</h1>
               <p>Your email address has been verified successfully.</p>
-              <nuxt-link :to="{ name: 'login' }" class="button is-primary">
+              <nuxt-link :to="{ name: 'login' }" class="button is-primary is-medium">
                 Login to your account
               </nuxt-link>
             </template>
@@ -34,7 +34,6 @@
     mounted () {
       const app = this
       const verfifyToken = app.$route.params.slug
-      console.log(verfifyToken)
       this.verify(verfifyToken)
         .then(() => {
           app.verified = true

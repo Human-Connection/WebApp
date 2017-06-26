@@ -20,6 +20,9 @@ export const getters = {
   isAuthenticated (state) {
     return !!state.user
   },
+  isVerified (state) {
+    return !!state.user && state.user.isVerified
+  },
   user (state) {
     return state.user
   }

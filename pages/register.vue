@@ -65,8 +65,8 @@
             this.loading = false
             this.data.password = null
             this.$toast.open({
-              message: 'congratulations, you are in!',
-              duration: 2000,
+              message: 'Thanks for joining us. Please check your mailbox in order to complete your registration.',
+              duration: 6000,
               type: 'is-success'
             })
             this.$router.replace('/')

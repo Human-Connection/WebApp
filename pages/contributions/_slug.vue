@@ -81,7 +81,6 @@
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated',
         user: 'auth/user'
       }),
       content () {
