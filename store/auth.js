@@ -25,10 +25,6 @@ export const getters = {
   }
 }
 
-/*
- somehow the jwt method outputs an old json token or gets an old one as it does login you as the previous user
- TODO: this needs to be fixed as soon as possible
- */
 export const actions = {
   async jwt ({commit, dispatch}, {accessToken}) {
     try {
@@ -73,6 +69,19 @@ export const actions = {
     return feathers.service('users').create({email, password})
       .then(response => {
         return dispatch('login', {email, password})
+      })
+  },
+  verify ({dispatch}, verifyToken) {
+    if (!verifyToken) { return false }
+    return feathers.service('authManagement').create({
+      action: 'verifySignupLong',
+      value: verifyToken
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        console.log(err.message)
       })
   }
 }
