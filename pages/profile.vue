@@ -66,8 +66,26 @@
                         <hc-follower-item title="item 2" timestamp="vor 2 Tagen"/>
                     </div>
                 </box>
-                <box>
+                <box bottom="true">
                     <hc-subtitle>Interessen</hc-subtitle>
+                    <div class="hc-textcounters">
+                        <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
+                        <hc-textcount class="textcountitem" count="5" text="suchen"/>
+                    </div>
+                </box>
+                <box bottom="true">
+                    <hc-subtitle>Meine Karte</hc-subtitle>
+                    <div class="hc-textcounters">
+                        <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
+                        <hc-textcount class="textcountitem" count="5" text="suchen"/>
+                    </div>
+                </box>
+                <box>
+                    <hc-subtitle>My Friends</hc-subtitle>
+                    <div class="hc-textcounters">
+                        <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
+                        <hc-textcount class="textcountitem" count="5" text="suchen"/>
+                    </div>
                 </box>
             </div>
             <div class="column is-6 timeline">
@@ -75,7 +93,7 @@
                     <hc-title>Timeline</hc-title>
                 </box>
                 <div class="timeline-intro">Hallo Dennis, was sind deine Pläne für heute?
-                    <button class="add-post">+</button>
+                    <hc-btn style="margin: 20px auto" size="big" />
                 </div>
             </div>
             <div class="column actions-sidebar">
@@ -96,16 +114,18 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Label from '~components/Label/Label.vue'
-  import Box from '~components/layout/Box.vue'
-  import Title from '~components/layout/Title.vue'
-  import Subtitle from '~components/layout/Subtitle.vue'
-  import TextCount from '~components/layout/TextCount.vue'
-  import Dropdown from '~components/layout/Dropdown.vue'
-  import FollowerItem from '~components/layout/FollowerItem.vue'
+  import Button from '~components/elements/Button/Button.vue'
+  import Label from '~components/elements/Label/Label.vue'
+  import Box from '~components/elements/Box.vue'
+  import Title from '~components/elements/Title.vue'
+  import Subtitle from '~components/elements/Subtitle.vue'
+  import TextCount from '~components/elements/TextCount.vue'
+  import Dropdown from '~components/elements/Dropdown.vue'
+  import FollowerItem from '~components/hc_components/FollowerItem.vue'
 
   export default {
     components: {
+      'hc-btn': Button,
       'lbl': Label,
       'box': Box,
       'hc-title': Title,
@@ -242,7 +262,7 @@
             display:        flex;
             flex-direction: column;
             align-items:    center;
-            width:          50px;
+            width:          58px;
 
             img {
                 width: 20px;
