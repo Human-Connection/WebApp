@@ -43,7 +43,7 @@
   import feathers from '~plugins/feathers'
 
   export default {
-    middleware: ['authenticated', 'owner'],
+    middleware: ['verified', 'owner'],
     components: {
       'no-ssr': NoSSR
     },

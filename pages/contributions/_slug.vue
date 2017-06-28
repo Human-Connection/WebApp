@@ -81,7 +81,8 @@
     },
     computed: {
       ...mapGetters({
-        user: 'auth/user'
+        user: 'auth/user',
+        isVerified: 'auth/isVerified'
       }),
       content () {
         const txt = this.contribution.content || this.contribution.contentExcerpt
@@ -93,7 +94,7 @@
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
-        return this.contribution.user._id === userId
+        return this.isVerified && this.contribution.user._id === userId
       }
     },
     head () {
