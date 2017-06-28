@@ -86,5 +86,19 @@ export const actions = {
       .catch(err => {
         console.log(err.message)
       })
+  },
+  resendVerifySignup ({state}) {
+    return feathers.service('authManagement').create({
+      action: 'resendVerifySignup',
+      value: {
+        email: state.user.email
+      }
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
   }
 }
