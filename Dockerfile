@@ -16,8 +16,8 @@ WORKDIR /var/www/
 EXPOSE 3000
 
 # set environment variables
-ENV NPM_CONFIG_PRODUCTION=false
-ENV HOST=0.0.0.0
+ONBUILD ENV NPM_CONFIG_PRODUCTION=false
+ONBUILD ENV HOST=0.0.0.0
 
 # install PM2 process manager and configure it for autostart
 RUN npm install pm2 -g
