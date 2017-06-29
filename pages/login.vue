@@ -71,7 +71,7 @@
           .then(() => {
             this.$toast.open({
               message: 'congratulations, you are in!',
-              duration: 2000,
+              duration: 3000,
               type: 'is-success'
             })
             this.loading = false

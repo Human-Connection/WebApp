@@ -3,10 +3,10 @@
         <div class="columns is-vcentered">
             <div class="column is-6 is-offset-3">
                 <div class="card">
-                    <form class="card-content">
+                    <form class="card-content" @submit.prevent="register">
                         <img src="logo-vertical.svg" alt="Human Connection" class="logo level-left" style="max-width: 200px; margin: auto;"/>
                         <br/>
-                        <p>Tritt Human Connection bei in nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
+                        <p>Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
                         <br/>
                         <div class="field">
                             <p class="control has-icons-right">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="field">
                             <p class="control has-icons-right">
-                                <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
+                                <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password" autocomplete="new-password">
                                 <span v-if="errors" class="icon is-small is-right">
                                   <i class="fa fa-warning"></i>
                                 </span>
@@ -27,9 +27,9 @@
                         <div class="field has-text-le">
                             <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
                         </div>
-                        <button class="button is-primary is-fullwidth" v-on:click="register" v-bind:class="{ 'is-loading': loading }">Registrieren</button>
+                        <button class="button is-primary is-fullwidth" v-bind:class="{ 'is-loading': loading }">Registrieren</button>
                         <br/>
-                        <p>Mit klick auf „Registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
+                        <p>Mit Klick auf „registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
                     </form>
                     <footer class="card-footer">
                         <nuxt-link :to="{ name: 'login' }" class="card-footer-item">
@@ -65,8 +65,8 @@
             this.loading = false
             this.data.password = null
             this.$toast.open({
-              message: 'congratulations, you are in!',
-              duration: 2000,
+              message: 'Thanks for joining us. Please check your mailbox in order to complete your registration.',
+              duration: 6000,
               type: 'is-success'
             })
             this.$router.replace('/')

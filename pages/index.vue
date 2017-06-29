@@ -6,7 +6,7 @@
             </card>
         </section>
         <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
-        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')">
+        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')" v-if="isVerified">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </section>
@@ -53,7 +53,8 @@
     },
     computed: {
       ...mapGetters({
-        changeLayout: 'layout/change'
+        changeLayout: 'layout/change',
+        isVerified: 'auth/isVerified'
       })
     },
     watch: {
