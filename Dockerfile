@@ -31,4 +31,4 @@ RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 
 # start the application in a autohealing cluster
-CMD NODE_ENV=production pm2 start build/main.js -n frontend -i 2
+CMD NODE_ENV=production pm2 start build/main.js -n frontend -i 2 --attach
