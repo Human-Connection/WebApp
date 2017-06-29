@@ -68,7 +68,7 @@ module.exports = {
     }
   },
   plugins: [
-    {src: '~plugins/buefy.js', ssr: false},
+    {src: '~plugins/buefy.js'},
     {src: '~plugins/client-auth.js', ssr: false},
     {src: '~plugins/vue-clip.js'},
     {src: '~plugins/quill-editor.js'},
