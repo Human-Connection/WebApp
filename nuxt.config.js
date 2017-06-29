@@ -2,7 +2,11 @@ const path = require('path')
 
 module.exports = {
   env: {
-    baseURL: process.env.BASE_URL || 'http://localhost'
+    baseURL: process.env.BASE_URL || 'http://localhost',
+    HOST: process.env.HOST || 'http://localhost',
+    PORT: process.env.PORT || 3000,
+    API_HOST: process.env.HOST || 'http://localhost',
+    API_PORT: process.env.PORT || 3030
   },
   /*
    ** Headers of the page
