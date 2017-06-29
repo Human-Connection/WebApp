@@ -21,7 +21,7 @@ ENV NPM_CONFIG_PRODUCTION=false
 
 # install PM2 process manager and configure it for autostart
 RUN npm install pm2 -g
-RUN pm2 startup
+#RUN pm2 startup
 
 # buld application
 RUN npm install
