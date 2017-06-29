@@ -2,7 +2,7 @@
     <section class="global-messages">
         <div class="notification is-primary" v-if="active && isAuthenticated && !isVerified">
             <button class="delete" @click="active = false"></button>
-            <b-icon icon="warning"></b-icon>Please verify your account in order to make contributions to our community: <a @click="resendVerification()">resend verification mail</a>
+            Please verify your account in order to make contributions to our community: <a @click="resendVerification()">resend verification mail</a>
         </div>
     </section>
 </template>
