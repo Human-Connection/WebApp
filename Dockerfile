@@ -26,4 +26,5 @@ ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 
-ENTRYPOINT ["node", "build/main.js"]
+ENTRYPOINT ["npm", "start"]
+#ENTRYPOINT ["node", "build/main.js"]
