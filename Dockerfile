@@ -19,6 +19,10 @@ EXPOSE 3000
 ENV NPM_CONFIG_PRODUCTION=false
 #ENV HOST=0.0.0.0
 
+# install PM2 process manager and configure it for autostart
+RUN npm install pm2 -g
+RUN pm2 startup
+
 # buld application
 RUN npm install
 
@@ -26,5 +30,5 @@ ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 
-ENTRYPOINT ["npm", "start"]
-#ENTRYPOINT ["node", "build/main.js"]
+# start the application in a autohealing cluster
+CMD NODE_ENV=production pm2 start build/main.js -n frontend -i 2
