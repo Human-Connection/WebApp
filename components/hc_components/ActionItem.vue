@@ -1,6 +1,6 @@
 <template>
     <div class="action-item">
-        <hc-btn />
+        <hc-btn class="hc-button success circle" />
         <div class="action-text"><slot /></div>
     </div>
 </template>

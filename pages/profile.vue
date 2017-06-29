@@ -93,7 +93,7 @@
                     <hc-title>Timeline</hc-title>
                 </box>
                 <div class="timeline-intro">Hallo Dennis, was sind deine Pläne für heute?
-                    <hc-btn style="margin: 20px auto" size="big" />
+                    <hc-btn style="margin: 20px auto" class="hc-button circle success big" />
                 </div>
             </div>
             <div class="column actions-sidebar">
