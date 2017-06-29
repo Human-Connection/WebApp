@@ -17,7 +17,7 @@ EXPOSE 3000
 
 # set environment variables
 ENV NPM_CONFIG_PRODUCTION=false
-ENV HOST=0.0.0.0
+#ENV HOST=0.0.0.0
 
 # buld application
 RUN npm install
