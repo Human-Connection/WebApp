@@ -1,6 +1,9 @@
 const path = require('path')
 
 module.exports = {
+  env: {
+    baseURL: process.env.BASE_URL || 'http://localhost'
+  },
   /*
    ** Headers of the page
    */
