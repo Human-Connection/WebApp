@@ -16,8 +16,8 @@ WORKDIR /var/www/
 EXPOSE 3000
 
 # set environment variables
-ENV NPM_CONFIG_PRODUCTION=false
-ENV HOST=0.0.0.0
+ONBUILD ENV NPM_CONFIG_PRODUCTION=false
+ONBUILD ENV HOST=0.0.0.0
 
 # install PM2 process manager and configure it for autostart
 RUN npm install pm2 -g
@@ -31,4 +31,4 @@ RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 
 # start the application in a autohealing cluster
-CMD NODE_ENV=production pm2 start build/main.js -n frontend -i 2 --attach
+CMD NODE_ENV=production pm2 start build/main.js -n frontend -i 0 --attach
