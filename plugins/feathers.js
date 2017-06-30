@@ -5,7 +5,8 @@ import hooks from 'feathers-hooks'
 import authentication from 'feathers-authentication-client'
 import storage from '~helpers/ssr-storage'
 
-const host = process.env.API_HOST || 'http://localhost'
+// dirty workaround to not fall back into localhost
+const host = process.env.API_HOST || (window ? `http://${window.location.hostname}` : 'http://localhost')
 const port = process.env.API_PORT || '3030'
 const socket = io(`${host}:${port}`)
 
