@@ -5,7 +5,7 @@
                 <div class="card-teaser">
                     <nuxt-link to="/"><img src="/logo-vertical.svg" alt="Human Connection" class="logo" /></nuxt-link>
                 </div>
-                <p class="subtitle is-6">Wenn du einen Account by Human Connection besitzt, logge dich bitte hier ein.</p>
+                <p class="subtitle is-6">Wenn du einen Account bei Human Connection besitzt, logge dich bitte hier ein.</p>
                 <form @submit.prevent="login">
                     <div class="field">
                         <p class="control has-icons-right">
