@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-teaser">
-                    <img src="/assets/images/registration/humanconnection.png" alt="Human Connection"/>
+                    <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
                 </div>
                 <p class="subtitle is-6">Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
                 <form @submit.prevent="register">
@@ -64,11 +64,6 @@
           .then(() => {
             this.loading = false
             this.data.password = null
-            this.$toast.open({
-              message: 'Thanks for joining us. Please check your mailbox in order to complete your registration.',
-              duration: 6000,
-              type: 'is-success'
-            })
             this.$router.replace({ name: 'auth-name' })
           })
           .catch(error => {
@@ -91,6 +86,8 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/styles/utilities";
+
     .card {
         margin: 0 auto;
         max-width: 460px;
@@ -104,8 +101,12 @@
     .card-teaser {
         img {
             display: inline-block;
-            max-width: 260px;
+            max-width: 200px;
             height: auto;
+
+            @include tablet {
+                max-width: 260px;
+            }
         }
     }
 

@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-teaser">
-                    <img src="/assets/images/registration/nicetomeetyou.png" alt="Human Connection"/>
+                    <img src="/assets/images/registration/nicetomeetyou.svg" alt="Human Connection"/>
                 </div>
                 <h1 class="title is-3 is-spaced">Wie dürfen wir dich nennen?</h1>
                 <p class="subtitle is-6">Es ist nicht erforderlich deinen vollen Namen anzugeben, du erleichterst damit aber Freunden und Bekannten dich auf Human Connection zu finden.</p>
@@ -22,7 +22,7 @@
                 </form>
             </div>
             <footer class="card-footer">
-                <nuxt-link to="/" class="card-footer-item">
+                <nuxt-link :to="{ name: 'auth-welcome' }" class="card-footer-item">
                     Überspringen
                 </nuxt-link>
             </footer>
@@ -51,12 +51,7 @@
         this.$store.dispatch('auth/patch', this.data)
           .then(() => {
             this.loading = false
-            this.$toast.open({
-              message: `Hallo ${this.data.name}! Schön, dass du dabei bist!`,
-              duration: 3000,
-              type: 'is-success'
-            })
-            this.$router.push('/')
+            this.$router.push({ name: 'auth-welcome' })
           })
           .catch(error => {
             this.$toast.open({
@@ -71,13 +66,15 @@
     },
     head () {
       return {
-        title: 'Identity'
+        title: 'Nice to meet you'
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/styles/utilities";
+
     .card {
         margin: 0 auto;
         max-width: 460px;
@@ -87,8 +84,12 @@
     .card-teaser {
         img {
             display: inline-block;
-            max-width: 260px;
+            max-width: 200px;
             height: auto;
+
+            @include tablet {
+                max-width: 260px;
+            }
         }
     }
 

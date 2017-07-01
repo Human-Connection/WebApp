@@ -74,10 +74,10 @@ export const actions = {
         return dispatch('login', {email, password})
       })
   },
-  patch ({state}, data) {
+  patch ({state, commit}, data) {
     return feathers.service('users').patch(state.user._id, data)
-      .then(() => {
-        return true
+      .then(user => {
+        commit('SET_USER', user)
       })
       .catch(err => {
         console.log(err.message)
