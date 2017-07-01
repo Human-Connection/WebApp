@@ -4,7 +4,7 @@
             <div class="column is-6 is-offset-3 has-text-centered">
                 <div class="card">
                     <form class="card-content">
-                        <img src="logo-hc.svg" alt="Human Connection" class="logo level-left" style="max-width: 200px"/>
+                        <img src="/logo-hc.svg" alt="Human Connection" class="logo level-left" style="max-width: 200px"/>
                         <br/>
                         <div class="field">
                             <p class="control has-icons-right">
@@ -28,7 +28,7 @@
                         <button class="button is-primary is-fullwidth" v-on:click="login" v-bind:class="{ 'is-loading': loading }">Login</button>
                     </form>
                     <footer class="card-footer">
-                        <nuxt-link :to="{ name: 'register' }" class="card-footer-item">
+                        <nuxt-link :to="{ name: 'auth-register' }" class="card-footer-item">
                             Noch kein Konto?
                         </nuxt-link>
                         <a href="" class="card-footer-item">

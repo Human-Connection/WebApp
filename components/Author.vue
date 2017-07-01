@@ -9,11 +9,8 @@
             <p class="title" v-if="!post.user">
                 Anonymus
             </p>
-            <p class="title" v-else-if="post.user.username">
-                {{ post.user.username }}
-            </p>
             <p class="title" v-else>
-                {{ post.user.email }}
+                {{ post.user.name }}
             </p>
             <p class="subtitle">
                 <i class="fa fa-clock-o"></i>&nbsp;

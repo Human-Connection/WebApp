@@ -1,94 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i');
 
-@import "_bulma";
 @import "~font-awesome/css/font-awesome.min.css";
+@import "_bulma";
 @import '~buefy/src/scss/buefy';
 @import "hc-font.css";
-
-//.column--slim {
-//  @extend .is-10-tablet;
-//  @extend .is-offset-1-tablet;
-//  @extend .is-10-desktop;
-//  @extend .is-offset-1-desktop;
-//  @extend .is-8-widescreen;
-//  @extend .is-offset-2-widescreen;
-//}
-
-nav.nav {
-  position: fixed;
-  width: 100%;
-  top: 0;
-}
-
-#main {
-  padding-top: 80px;
-  padding-bottom: 40px;
-  min-height: 80vh;
-}
-
-html, body {
-  background-color: #eee;
-  min-height: 100vh;
-  font-family: $family-sans-serif;
-  font-variant-ligatures: no-common-ligatures;
-}
-
-footer {
-  padding:    20px;
-  text-align: center;
-  border-top: 1px solid #ddd;
-}
-
-.logo {
-  width:      100%;
-  height:     auto;
-  max-width:  400px;
-  max-height: 289px;
-}
-
-.page-leave-active {
-  transition: opacity 100ms
-}
-.page-enter-active {
-  transition: opacity 300ms
-}
-.page-enter, .page-leave-active {
-  opacity: 0
-}
-
-input, textarea {
-  box-shadow: none !important;
-}
-
-.card-footer {
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: $white-bis;
-}
-
-.checkbox {
-  display:inline-flex !important;
-}
-
-.ql-editor {
-  min-height: 100px;
-  background-color: $white;
-}
-
-.autowrap {
-  /* These are technically the same, but use both */
-  overflow-wrap: break-word;
-  word-wrap: break-word;
-
-  -ms-word-break: break-all;
-  /* This is the dangerous one in WebKit, as it breaks things wherever */
-  word-break: break-all;
-  /* Instead use this non-standard one: */
-  word-break: break-word;
-
-  /* Adds a hyphen where the word breaks, if supported (No Blink) */
-  -ms-hyphens: auto;
-  -moz-hyphens: auto;
-  -webkit-hyphens: auto;
-  hyphens: auto;
-}
+@import "_general.scss";
+@import "_form.scss";
+@import "_card.scss";
+@import "_typography.scss";
+@import "_nav.scss";

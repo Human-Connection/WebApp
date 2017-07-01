@@ -21,7 +21,7 @@ export const getters = {
     return !!state.user
   },
   isVerified (state) {
-    return !!state.user && state.user.isVerified
+    return !!state.user && state.user.isVerified && !!state.user.name
   },
   user (state) {
     return state.user
@@ -72,6 +72,15 @@ export const actions = {
     return feathers.service('users').create({email, password})
       .then(response => {
         return dispatch('login', {email, password})
+      })
+  },
+  patch ({state}, data) {
+    return feathers.service('users').patch(state.user._id, data)
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        console.log(err.message)
       })
   },
   verify ({dispatch}, verifyToken) {
