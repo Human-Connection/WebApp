@@ -1,6 +1,6 @@
 import feathers from '~plugins/feathers'
 
-export default ({ redirect, params, route }, callback) => {
+export default ({ params, route, error }, callback) => {
   const serviceName = route.name.split('-')[0]
   // Call patch methods with empty data
   // If we get an error, we are not allowed to edit this
@@ -13,10 +13,9 @@ export default ({ redirect, params, route }, callback) => {
       // If we get an array back, we are allowed to edit
       if (res.length) return callback()
       // Otherwise we are not
-      redirect('/')
+      error({statusCode: 401, message: "You can't edit that contribution!"})
     })
     .catch((err) => {
-      console.log(err.message)
-      redirect('/')
+      error({statusCode: err.code || 500, message: err.message})
     })
 }
