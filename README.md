@@ -3,14 +3,11 @@
 
 This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.
  
-## Setup
-At first you need to copy the env.example.js with the name of env.js. Never commit that file to not put sensitive data into the git history.
-
 ## Build Setup
 
 ``` bash
 # install dependencies
-$ npm install # Or yarn install
+$ npm install
 
 # serve with hot reload at localhost:3000
 $ npm run dev
@@ -23,8 +20,7 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 
 ### Test Login
 
-E-Mail: `test@test.de`
-
+E-Mail: `test@test.de`  
 Password: `1234`
 
 ## Backpack
