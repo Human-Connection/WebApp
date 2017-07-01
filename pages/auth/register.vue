@@ -44,6 +44,7 @@
 <script>
   export default {
     middleware: 'anonymous',
+    layout: 'blank',
     data () {
       return {
         data: {

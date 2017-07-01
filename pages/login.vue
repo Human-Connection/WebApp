@@ -1,42 +1,42 @@
 <template>
-    <section class="container is-vcentered">
-        <div class="columns is-vcentered">
-            <div class="column is-6 is-offset-3 has-text-centered">
-                <div class="card">
-                    <form class="card-content">
-                        <img src="/logo-hc.svg" alt="Human Connection" class="logo level-left" style="max-width: 200px"/>
-                        <br/>
-                        <div class="field">
-                            <p class="control has-icons-right">
-                                <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="data.email">
-                                <span v-if="errors" class="icon is-small is-right">
-                                  <i class="fa fa-warning"></i>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control has-icons-right">
-                                <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
-                                <span v-if="errors" class="icon is-small is-right">
-                                  <i class="fa fa-warning"></i>
-                                </span>
-                            </p>
-                        </div>
-                        <div class="field has-text-left">
-                            <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
-                        </div>
-                        <button class="button is-primary is-fullwidth" v-on:click="login" v-bind:class="{ 'is-loading': loading }">Login</button>
-                    </form>
-                    <footer class="card-footer">
-                        <nuxt-link :to="{ name: 'auth-register' }" class="card-footer-item">
-                            Noch kein Konto?
-                        </nuxt-link>
-                        <a href="" class="card-footer-item">
-                            Passwort vergessen?
-                        </a>
-                    </footer>
+    <section class="container content">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-teaser">
+                    <nuxt-link to="/"><img src="/logo-vertical.svg" alt="Human Connection" class="logo" /></nuxt-link>
                 </div>
+                <p class="subtitle is-6">Wenn du einen Account by Human Connection besitzt, logge dich bitte hier ein.</p>
+                <form @submit.prevent="login">
+                    <div class="field">
+                        <p class="control has-icons-right">
+                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="data.email">
+                            <span v-if="errors" class="icon is-small is-right">
+                              <i class="fa fa-warning"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field">
+                        <p class="control has-icons-right">
+                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
+                            <span v-if="errors" class="icon is-small is-right">
+                              <i class="fa fa-warning"></i>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="field has-text-left">
+                        <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
+                    </div>
+                    <button class="button is-primary is-fullwidth is-medium" v-bind:class="{ 'is-loading': loading }">Login</button>
+                </form>
             </div>
+            <footer class="card-footer">
+                <nuxt-link :to="{ name: 'auth-register' }" class="card-footer-item">
+                    Noch kein Konto?
+                </nuxt-link>
+                <a href="" class="card-footer-item">
+                    Passwort vergessen?
+                </a>
+            </footer>
         </div>
     </section>
 </template>
@@ -46,6 +46,7 @@
 
   export default {
     middleware: 'anonymous',
+    layout: 'blank',
     data () {
       return {
         data: {
@@ -97,8 +98,30 @@
   }
 </script>
 
-<style scoped>
-    .title {
-        margin: 30px 0;
+<style lang="scss" scoped>
+    .card {
+        margin: 0 auto;
+        max-width: 460px;
+        text-align: center;
+    }
+
+    .subtitle {
+        margin-top:30px;
+    }
+
+    .card-teaser {
+        padding-top:10px;
+
+        img {
+            display: inline-block;
+            max-width: 200px;
+            height: auto;
+        }
+    }
+
+    form {
+        margin: 1em auto;
+        padding: 1em;
+        text-align: left;
     }
 </style>
