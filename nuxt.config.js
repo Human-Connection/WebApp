@@ -3,9 +3,9 @@ const path = require('path')
 module.exports = {
   env: {
     baseURL: process.env.BASE_URL || 'http://localhost',
-    HOST: process.env.HOST || 'http://localhost',
+    HOST: process.env.HOST || 'localhost',
     PORT: process.env.PORT || 3000,
-    API_HOST: process.env.API_HOST || 'http://localhost',
+    API_HOST: process.env.API_HOST || 'localhost',
     API_PORT: process.env.API_PORT || 3030
   },
   /*
@@ -13,11 +13,6 @@ module.exports = {
    */
   head: {
     titleTemplate: '%s - Human Connection',
-    meta: [
-      {charset: 'utf-8'},
-      {name: 'viewport', content: 'width=device-width, initial-scale=1'},
-      {hid: 'description', name: 'description', content: 'Human Connection'}
-    ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
       {rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons'}
@@ -79,10 +74,16 @@ module.exports = {
     {src: '~plugins/client-auth.js', ssr: false},
     {src: '~plugins/vue-clip.js'},
     {src: '~plugins/quill-editor.js'},
-    {src: '~plugins/feathers.js', injectAs: 'feathers'}
+    {src: '~plugins/feathers.js'}
   ],
   router: {
     middleware: ['check-auth'],
     linkActiveClass: 'active-link'
+  },
+  manifest: {
+    name: 'Human Connection',
+    description: 'Human Connection Portal',
+    theme_color: '#ffffff',
+    lang: 'de'
   }
 }
