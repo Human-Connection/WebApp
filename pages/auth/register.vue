@@ -3,13 +3,13 @@
         <div class="card">
             <div class="card-content">
                 <div class="card-teaser">
-                    <nuxt-link to="/"><img src="/logo-vertical.svg" alt="Human Connection" class="logo" /></nuxt-link>
+                    <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
                 </div>
-                <p class="subtitle is-6">Wenn du einen Account bei Human Connection besitzt, logge dich bitte hier ein.</p>
-                <form @submit.prevent="login">
+                <p class="subtitle is-6">Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
+                <form @submit.prevent="register">
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email" v-model="data.email">
+                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail" v-model="data.email">
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -17,33 +17,31 @@
                     </div>
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password">
+                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password" autocomplete="new-password">
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
                         </p>
                     </div>
-                    <div class="field has-text-left">
-                        <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
+                    <div class="field has-text-le">
+                        <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
                     </div>
-                    <button class="button is-primary is-fullwidth is-medium" v-bind:class="{ 'is-loading': loading }">Login</button>
+                    <p>
+                        <button class="button is-primary is-fullwidth is-medium" v-bind:class="{ 'is-loading': loading }">Registrieren</button>
+                    </p>
                 </form>
+                <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
             </div>
             <footer class="card-footer">
-                <nuxt-link :to="{ name: 'auth-register' }" class="card-footer-item">
-                    Noch kein Konto?
+                <nuxt-link :to="{ name: 'login' }" class="card-footer-item">
+                    Du hast ein Konto?
                 </nuxt-link>
-                <a href="" class="card-footer-item">
-                    Passwort vergessen?
-                </a>
             </footer>
         </div>
     </section>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   export default {
     middleware: 'anonymous',
     layout: 'blank',
@@ -54,30 +52,19 @@
           password: ''
         },
         loading: false,
-        stayLoggedIn: false,
         errors: null
       }
     },
-    computed: {
-      ...mapGetters({
-        user: 'auth/user'
-      })
-    },
     methods: {
-      async login (e) {
+      async register (e) {
         e.preventDefault()
         this.errors = false
         this.loading = true
-        this.$store.dispatch('auth/login', this.data)
+        this.$store.dispatch('auth/register', this.data)
           .then(() => {
-            this.$toast.open({
-              message: 'congratulations, you are in!',
-              duration: 3000,
-              type: 'is-success'
-            })
             this.loading = false
             this.data.password = null
-            this.$router.replace(this.$route.query.path || '/')
+            this.$router.replace({ name: 'auth-name' })
           })
           .catch(error => {
             this.$toast.open({
@@ -92,13 +79,15 @@
     },
     head () {
       return {
-        title: 'Login'
+        title: 'Register'
       }
     }
   }
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/styles/utilities";
+
     .card {
         margin: 0 auto;
         max-width: 460px;
@@ -110,12 +99,14 @@
     }
 
     .card-teaser {
-        padding-top:10px;
-
         img {
             display: inline-block;
             max-width: 200px;
             height: auto;
+
+            @include tablet {
+                max-width: 260px;
+            }
         }
     }
 

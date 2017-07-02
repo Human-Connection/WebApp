@@ -80,6 +80,10 @@
 <style lang="scss" scoped>
   @import "../../assets/styles/utilities";
 
+  .nav-item {
+      position:relative;
+  }
+
   .hc__notifications.dropdown {
       outline: none !important;
       box-shadow: none !important;

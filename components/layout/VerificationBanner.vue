@@ -1,9 +1,15 @@
 <template>
     <section class="global-messages">
-        <div class="notification is-primary" v-if="active && isAuthenticated && !isVerified">
-            <button class="delete" @click="active = false"></button>
-            Please verify your account in order to make contributions to our community: <a @click="resendVerification()">resend verification mail</a>
-        </div>
+        <template v-if="active && isAuthenticated">
+            <div class="notification is-primary" v-if="!user.isVerified">
+                <button class="delete" @click="active = false"></button>
+                Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können: <a @click="resendVerification()">Bestätigung erneut verschicken</a>
+            </div>
+            <div class="notification is-primary" v-else-if="!user.name">
+                <button class="delete" @click="active = false"></button>
+                Bitte verrate uns deinen Namen um Beiträge erstellen zu können: <nuxt-link :to="{ name: 'auth-name' }">Namen erstellen</nuxt-link>
+            </div>
+        </template>
     </section>
 </template>
 
@@ -19,7 +25,7 @@
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
-        isVerified: 'auth/isVerified'
+        user: 'auth/user'
       })
     },
     methods: {
@@ -30,7 +36,7 @@
         this.resendVerifySignup()
           .then(() => {
             this.$toast.open({
-              message: 'We have sent you a verification mail.',
+              message: 'Die Bestätigung wurde erfolgreich verschickt.',
               duration: 3000,
               type: 'is-success'
             })

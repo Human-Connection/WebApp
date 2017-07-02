@@ -1,0 +1,75 @@
+
+//.column--slim {
+//  @extend .is-10-tablet;
+//  @extend .is-offset-1-tablet;
+//  @extend .is-10-desktop;
+//  @extend .is-offset-1-desktop;
+//  @extend .is-8-widescreen;
+//  @extend .is-offset-2-widescreen;
+//}
+
+#main {
+  padding-top: 80px;
+  padding-bottom: 40px;
+  min-height: 80vh;
+}
+
+html, body {
+  background-color: #eee;
+  min-height: 100vh;
+  font-family: $family-sans-serif;
+  font-variant-ligatures: no-common-ligatures;
+}
+
+footer {
+  padding:    20px;
+  text-align: center;
+  border-top: 1px solid #ddd;
+}
+
+.page-leave-active {
+  transition: opacity 100ms
+}
+.page-enter-active {
+  transition: opacity 300ms
+}
+.page-enter, .page-leave-active {
+  opacity: 0
+}
+
+input, textarea {
+  box-shadow: none !important;
+}
+
+.card-footer {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: $white-bis;
+}
+
+.checkbox {
+  display:inline-flex !important;
+}
+
+.ql-editor {
+  min-height: 100px;
+  background-color: $white;
+}
+
+.autowrap {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
