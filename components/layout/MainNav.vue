@@ -8,9 +8,7 @@
                 <a href="" class="nav-item">
                     <i class="fa fa-comments" aria-hidden="true"></i>
                 </a>
-                <span class="nav-item">
-                    <notifications></notifications>
-                </span>
+                <notifications></notifications>
             </div>
 
             <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
@@ -32,9 +30,8 @@
                 </nuxt-link>
                 <template v-else>
                     <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
-                        Hallo&nbsp;
-                        <span v-if="user.username"> {{user.username}}</span>
-                        <span v-else> {{user.email}}</span>!
+                        <span v-if="user.name">Hallo&nbsp;{{user.name}}!</span>
+                        <span v-else>Mein Profil</span>
                     </nuxt-link>
                     <a class="nav-item is-tab" @click.prevent="logout()">
                         <i class="fa fa-sign-out" aria-hidden="true"></i>
@@ -87,16 +84,7 @@
   }
 </script>
 
-<style lang="scss">
-    @import "../../assets/styles/_bulma";
-
-    nav {
-        .nuxt-link-exact-active {
-            @extend a.nav-item.is-active;
-            font-weight: bold;
-        }
-    }
-
+<style lang="scss" scoped>
     .nav-left {
         overflow: visible;
     }

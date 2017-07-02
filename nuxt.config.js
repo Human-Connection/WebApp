@@ -1,6 +1,13 @@
 const path = require('path')
 
 module.exports = {
+  env: {
+    baseURL: process.env.BASE_URL || 'http://localhost',
+    HOST: process.env.HOST || 'http://localhost',
+    PORT: process.env.PORT || 3000,
+    API_HOST: process.env.API_HOST || 'http://localhost',
+    API_PORT: process.env.API_PORT || 3030
+  },
   /*
    ** Headers of the page
    */
@@ -15,6 +22,13 @@ module.exports = {
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
       {rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons'}
     ]
+  },
+  /*
+   ** Loader / Progress Bar
+   */
+  loading: {
+    color: '#86b31e',
+    height: '2px'
   },
   /*
    ** Global CSS
@@ -61,7 +75,8 @@ module.exports = {
     }
   },
   plugins: [
-    {src: '~plugins/buefy.js', ssr: false},
+    {src: '~plugins/buefy.js'},
+    {src: '~plugins/client-auth.js', ssr: false},
     {src: '~plugins/vue-clip.js'},
     {src: '~plugins/quill-editor.js'},
     {src: '~plugins/feathers.js', injectAs: 'feathers'}

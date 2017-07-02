@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      HOST: localhost
+      PORT: 3000
+      API_HOST: localhost
+      API_PORT: 3030

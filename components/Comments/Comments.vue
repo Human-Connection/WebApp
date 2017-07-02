@@ -54,6 +54,7 @@
 
         p {
             color: $grey;
+            padding-left: 51px;
         }
 
         &:first-child {

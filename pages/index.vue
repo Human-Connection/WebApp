@@ -6,7 +6,7 @@
             </card>
         </section>
         <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
-        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')">
+        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')" v-if="isVerified">
             <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
     </section>
@@ -25,17 +25,19 @@
       'infinite-loading': InfiniteLoading
     },
     async asyncData () {
+      let sort = {
+        createdAt: -1
+      }
       let res = await feathers.service('contributions').find({
         query: {
-          $sort: {
-            createdAt: -1
-          }
+          $sort: sort
         }
       })
       return {
         contributions: res.data,
         limit: res.limit,
-        skip: res.skip
+        skip: res.limit,
+        sort: sort
       }
     },
     data () {
@@ -45,12 +47,14 @@
         errors: null,
         ready: false,
         limit: null,
-        skip: 0
+        skip: 0,
+        sort: {}
       }
     },
     computed: {
       ...mapGetters({
-        changeLayout: 'layout/change'
+        changeLayout: 'layout/change',
+        isVerified: 'auth/isVerified'
       })
     },
     watch: {
@@ -68,7 +72,8 @@
       onInfinite () {
         feathers.service('contributions').find({
           query: {
-            '$skip': this.skip
+            $skip: this.skip,
+            $sort: this.sort
           }
         }).then(res => {
           console.log(res)

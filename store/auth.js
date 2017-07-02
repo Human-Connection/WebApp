@@ -20,60 +20,94 @@ export const getters = {
   isAuthenticated (state) {
     return !!state.user
   },
+  isVerified (state) {
+    return !!state.user && state.user.isVerified && !!state.user.name
+  },
   user (state) {
     return state.user
   }
 }
 
-/*
- somehow the jwt method outputs an old json token or gets an old one as it does login you as the previous user
- TODO: this needs to be fixed as soon as possible
- */
 export const actions = {
-  async jwt ({commit}, {accessToken}) {
+  async jwt ({commit, dispatch}, {accessToken}) {
     try {
-      console.info('#TRY TO GET TOKEN ' + accessToken)
+      await feathers.logout()
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
-      console.info(user.email)
       commit('SET_USER', user)
+      dispatch('notifications/fetch', null, { root: true })
     } catch (err) {
       console.error(err.message)
     }
   },
   async login ({commit}, {email, password}) {
     try {
-      console.info('#TRY TO LOGIN ' + email)
       await feathers.logout()
       commit('SET_USER', null)
       feathers.set('user', null)
 
       const response = await feathers.authenticate({strategy: 'local', email, password})
 
-      console.info('#GOT LOGIN TOKEN ' + response.accessToken)
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
       commit('SET_USER', user)
     } catch (err) {
       console.error(err.message)
       commit('SET_USER', null)
+      throw new Error(err.message)
     }
   },
   async logout ({commit}) {
-    console.info('#TRY TO LOGOUT')
     try {
       await feathers.logout()
     } catch (err) {
       console.error(err.message)
     }
     commit('SET_USER', null)
+    commit('notifications/clear', null, { root: true })
     feathers.set('user', null)
   },
   register ({dispatch}, {email, password}) {
     return feathers.service('users').create({email, password})
       .then(response => {
         return dispatch('login', {email, password})
+      })
+  },
+  patch ({state, commit}, data) {
+    return feathers.service('users').patch(state.user._id, data)
+      .then(user => {
+        commit('SET_USER', user)
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+  },
+  verify ({dispatch}, verifyToken) {
+    if (!verifyToken) { return false }
+    return feathers.service('authManagement').create({
+      action: 'verifySignupLong',
+      value: verifyToken
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+  },
+  resendVerifySignup ({state}) {
+    return feathers.service('authManagement').create({
+      action: 'resendVerifySignup',
+      value: {
+        email: state.user.email
+      }
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        console.log(err.message)
       })
   }
 }

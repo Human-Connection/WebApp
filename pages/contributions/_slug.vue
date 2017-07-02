@@ -7,10 +7,19 @@
                         <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg">
                             <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
                         </div>
-                        <author :post="contribution"></author>
+                        <div class="columns">
+                            <div class="column">
+                                <author :post="contribution"></author>
+                            </div>
+                            <div class="column">
+                                <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
+                                   Edit
+                                </nuxt-link>
+                            </div>
+                        </div>
                         <h1>{{ contribution.title }}</h1>
                         <p class="content" v-html="content"></p>
-                        <h3>What do you feel?</h3>
+                        <h3>How do you feel?</h3>
                         <div class="hc__rating">
                             <img src="/assets/svg/hc-smilies-01.svg"/>
                             <img src="/assets/svg/hc-smilies-02.svg"/>
@@ -41,6 +50,7 @@
   import author from '~components/Author.vue'
   import feathers from '~plugins/feathers'
   import comments from '~components/Comments/Comments.vue'
+  import {mapGetters} from 'vuex'
 
   export default{
     components: {
@@ -70,13 +80,21 @@
       }
     },
     computed: {
+      ...mapGetters({
+        user: 'auth/user',
+        isVerified: 'auth/isVerified'
+      }),
       content () {
         const txt = this.contribution.content || this.contribution.contentExcerpt
-        return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1')
+        return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
       },
       commentCount () {
         const count = this.contribution.comments ? this.contribution.comments.length : 0
         return (count === undefined) ? 0 : count
+      },
+      canEdit () {
+        const userId = this.user ? this.user._id : null
+        return this.isVerified && this.contribution.user._id === userId
       }
     },
     head () {
