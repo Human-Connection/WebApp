@@ -29,7 +29,8 @@
   export default {
     data () {
       return {
-        files: []
+        files: [],
+        filebase: 'http://localhost:3030/uploads/'
       }
     },
     methods: {
@@ -46,7 +47,9 @@
             .create({uri: reader.result})
             .then(response => {
               console.log('File uploaded!', response)
-              this.files.push(response.uri)
+              this.files.push(
+                this.filebase + response.id
+              )
             })
             .catch(error => {
               console.log('Error uploading file!', error)
