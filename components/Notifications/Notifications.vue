@@ -3,7 +3,7 @@
         <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active }">
             <span class="notification-icon">
                 <i class="fa fa-bell" aria-hidden="true"></i>
-                <countlabel :count="notifications && notifications.length"></countlabel>
+                <count-label :count="notifications && notifications.length"></count-label>
             </span>
         </a>
         <transition name="box">
@@ -37,12 +37,10 @@
   import {mapGetters, mapMutations} from 'vuex'
   import feathers from '~plugins/feathers'
   import author from '~components/Author.vue'
-  import countlabel from '~components/CountLabel.vue'
 
   export default {
     components: {
-      'author': author,
-      'countlabel': countlabel
+      'author': author
     },
     data () {
       return {

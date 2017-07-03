@@ -10,8 +10,8 @@
   }
 </script>
 
-<style scoped lang="scss">
-    @import "../assets/styles/utilities";
+<style lang="scss" scoped>
+    @import "~assets/styles/utilities";
 
     .count {
         position: absolute;

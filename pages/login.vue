@@ -26,7 +26,9 @@
                     <div class="field has-text-left">
                         <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
                     </div>
-                    <button class="button is-primary is-fullwidth is-medium" v-bind:class="{ 'is-loading': loading }">Login</button>
+                    <app-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
+                        Login
+                    </app-button>
                 </form>
             </div>
             <footer class="card-footer">
@@ -64,6 +66,9 @@
       })
     },
     methods: {
+      hello () {
+        console.log('hello')
+      },
       async login (e) {
         e.preventDefault()
         this.errors = false

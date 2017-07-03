@@ -17,7 +17,9 @@
                         </p>
                     </div>
                     <p>
-                        <button class="button is-primary is-fullwidth is-medium" v-bind:class="{ 'is-loading': loading }">Speichern</button>
+                        <app-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
+                            Speichern
+                        </app-button>
                     </p>
                 </form>
             </div>
