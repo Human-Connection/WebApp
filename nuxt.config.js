@@ -77,7 +77,7 @@ module.exports = {
   plugins: [
     {src: '~plugins/buefy.js'},
     {src: '~plugins/client-auth.js', ssr: false},
-    {src: '~plugins/vue-clip.js'},
+    {src: '~plugins/vue-clip.js', ssr: false},
     {src: '~plugins/quill-editor.js'},
     {src: '~plugins/feathers.js', injectAs: 'feathers'}
   ],

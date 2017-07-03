@@ -1,16 +1,10 @@
 <template>
     <div class="upload">
-        <div class="preview" v-if="user.avatar">
-          <img :src="user.avatar">
-        </div>
-        <div v-else>
-          <p>Avatar auswählen:</p>
-        </div>
-        <div class="upload-input">
-          <input type="file" name="avatar" size="50" id="avatar">
-        </div>
-        <div class="field">
-          <button class="button is-primary is-small" @click.prevent="upload">Avatar hochladen</button>
+        <div class="upload-input" @click="choose">
+            <input type="file" class="file-input" @change="upload" ref="file" accept=".jpg,.jpeg,.gif,.png,.pneg">
+            <div class="preview" v-bind:style="{ 'background-image': 'url(' + user.avatar + ')' }">
+                <strong v-if="!user.avatar"><br/>Avatar auswählen</strong>
+            </div>
         </div>
     </div>
 </template>
@@ -32,9 +26,12 @@
       })
     },
     methods: {
+      choose () {
+        this.$refs.file.click()
+      },
       upload () {
         const reader = new FileReader()
-        const file = document.getElementById('avatar').files[0]
+        const file = this.$refs.file.files[0]
         reader.readAsDataURL(file)
 
         // when encoded, upload
@@ -58,20 +55,29 @@
 </script>
 
 <style lang="scss" scoped>
-  .upload {
-    text-align:center;
-  }
 
-  .upload-input {
-    margin: 15px auto;
-  }
+    .file-input {
+        display: none;
+    }
 
-  .preview {
-    width:100px;
-    height:100px;
-    overflow:hidden;
-    border-radius:100%;
-    margin: 0 auto;
-    box-shadow:0px 2px 3px rgba(0,0,0,0.5);
-  }
+    .upload {
+        text-align: center;
+        width:      100px;
+        height:     100px;
+        cursor:     pointer;
+        display:    inline-block;
+        overflow:   hidden;
+        position:   relative;
+    }
+
+    .preview {
+        width:               100px;
+        height:              100px;
+        overflow:            hidden;
+        border-radius:       100%;
+        margin:              0 auto;
+        border:              1px solid #ccc;
+        background-position: center;
+        background-size:     cover;
+    }
 </style>

@@ -37,7 +37,7 @@
     "vue-quill-editor": "^2.2.1"
   },
   "devDependencies": {
-    "backpack-core": "^0.3.0",
+    "backpack-core": "^0.4.0-rc1",
     "eslint": "^4.0.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-loader": "^1.7.1",

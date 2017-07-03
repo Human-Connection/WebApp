@@ -13,7 +13,7 @@
                 <form @submit.prevent="save">
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input class="input is-medium" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Dein Name ..." v-model="data.name" autofocus>
+                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Dein Name ..." v-model="data.name" autofocus>
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
