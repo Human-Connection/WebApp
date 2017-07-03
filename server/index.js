@@ -3,13 +3,9 @@ import express from 'express'
 import bodyParser from 'body-parser'
 
 const app = express()
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-
-app.set('port', port)
 
 // Start nuxt.js
 async function start () {
@@ -18,11 +14,14 @@ async function start () {
   config.dev = !(process.env.NODE_ENV === 'production')
   // Instanciate nuxt.js
   const nuxt = new Nuxt(config)
+
+  app.set('port', config.env.PORT)
+
   // Add nuxt.js middleware
   app.use(nuxt.render)
   // Listen the server
-  app.listen(port, host)
-  console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+  app.listen(config.env.PORT, config.env.HOST)
+  console.log('Server listening on ' + config.env.HOST + ':' + config.env.PORT) // eslint-disable-line no-console
 }
 
 start()
