@@ -70,9 +70,15 @@
         position:   relative;
     }
 
+    .upload-input {
+        height: 100%;
+        width: 100%;
+    }
+
     .preview {
-        width:               100px;
-        height:              100px;
+        display:             inline-block;
+        width:               100%;
+        height:              100%;
         overflow:            hidden;
         border-radius:       100%;
         margin:              0 auto;

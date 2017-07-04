@@ -6,8 +6,13 @@
         <div class="columns profile-body">
             <div class="column user-sidebar">
                 <box top="true" class="user-box">
-                    <img src="https://randomuser.me/api/portraits/men/42.jpg" class="user-avatar">
-                    <div class="user-name">Dennis Hack</div>
+                    <div class="user-avatar">
+                        <upload-avatar class="avatar-upload"></upload-avatar>
+                    </div>
+                    <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
+                        <!--&nbsp;-->
+                    <!--</div>-->
+                    <div class="user-name">{{ user.name }}</div>
                     <div class="user-badges columns is-gapless">
                         <div class="column user-badges-icons">
                             <ul>
@@ -122,6 +127,7 @@
   import TextCount from '~components/elements/TextCount.vue'
   import Dropdown from '~components/elements/Dropdown.vue'
   import FollowerItem from '~components/hc_components/FollowerItem.vue'
+  import UploadAvatar from '~components/User/UploadAvatar'
 
   export default {
     components: {
@@ -132,7 +138,8 @@
       'hc-subtitle': Subtitle,
       'hc-textcount': TextCount,
       'hc-dropdown': Dropdown,
-      'hc-follower-item': FollowerItem
+      'hc-follower-item': FollowerItem,
+      'upload-avatar': UploadAvatar
     },
     middleware: ['authenticated'],
     computed: {
@@ -182,14 +189,21 @@
             position: relative;
 
             .user-avatar {
-                border-radius: 130px;
-                width:         130px;
-                height:        130px;
-                position:      absolute;
-                top:           0;
-                left:          50%;
-                transform:     translateX(-50%) translateY(-50%);
-                border:        5px solid white;
+                border-radius:   130px;
+                width:           130px;
+                height:          130px;
+                position:        absolute;
+                top:             0;
+                left:            50%;
+                transform:       translateX(-50%) translateY(-50%);
+                border:          5px solid white;
+                display:         inline-block;
+
+                .avatar-upload {
+                    border:     none;
+                    width:      100%;
+                    height:     100%;
+                }
             }
 
             .user-name {
