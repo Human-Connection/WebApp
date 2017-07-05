@@ -17,9 +17,9 @@
                         </p>
                     </div>
                     <p>
-                        <app-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
+                        <hc-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
                             Speichern
-                        </app-button>
+                        </hc-button>
                     </p>
                 </form>
             </div>

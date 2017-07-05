@@ -26,9 +26,9 @@
                     <div class="field has-text-left">
                         <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
                     </div>
-                    <app-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
+                    <hc-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
                         Login
-                    </app-button>
+                    </hc-button>
                 </form>
             </div>
             <footer class="card-footer">

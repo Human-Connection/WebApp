@@ -27,9 +27,9 @@
                         <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
                     </div>
                     <p>
-                        <app-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
+                        <hc-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
                             Registrieren
-                        </app-button>
+                        </hc-button>
                     </p>
                 </form>
                 <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
