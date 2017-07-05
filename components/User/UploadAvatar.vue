@@ -61,18 +61,20 @@
     }
 
     .upload {
-        text-align: center;
-        width:      100px;
-        height:     100px;
-        cursor:     pointer;
-        display:    inline-block;
-        overflow:   hidden;
-        position:   relative;
+        text-align:       center;
+        width:            100px;
+        height:           100px;
+        cursor:           pointer;
+        display:          inline-block;
+        background-color: #fff;
+        border-radius:    100%;
+        overflow:         hidden;
+        position:         relative;
     }
 
     .upload-input {
         height: 100%;
-        width: 100%;
+        width:  100%;
     }
 
     .preview {
@@ -82,7 +84,7 @@
         overflow:            hidden;
         border-radius:       100%;
         margin:              0 auto;
-        border:              1px solid #ccc;
+        border:              1px solid rgba(204, 204, 204, 0.5);
         background-position: center;
         background-size:     cover;
     }

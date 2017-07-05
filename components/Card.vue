@@ -89,10 +89,16 @@
             width: 300px;
         }
 
+        &:hover {
+            transform: scale(1.05);
+            z-index: 2;
+        }
+
         opacity:             0;
         transition-duration: 0ms;
-        transition:          opacity 150ms;
         transition-delay:    150ms;
+        transition:          opacity 150ms, transform 200ms ease-in-out;
+
         &.show {
             opacity: 1;
         }
@@ -100,10 +106,10 @@
         .hc__card__wrapper {
             background-color: #fff;
             cursor:           pointer;
-            transition:       box-shadow 100ms;
+            transition:       box-shadow 200ms ease-in-out;
 
             &:hover {
-                box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
             }
         }
 
@@ -111,7 +117,7 @@
             padding: $padding;
 
             header {
-                margin-bottom:10px;
+                margin-bottom: 10px;
             }
         }
 
@@ -131,7 +137,7 @@
         }
 
         footer {
-            margin-top: 20px;
+            margin-top:    20px;
             margin-bottom: -20px;
 
             .profile-image {
