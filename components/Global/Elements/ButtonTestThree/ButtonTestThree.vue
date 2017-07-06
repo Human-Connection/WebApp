@@ -13,6 +13,31 @@
 <script>
   export default {
     description: 'Renders a nice and smooth button element.',
+    examples: [
+      {
+        slot: 'Primary Button',
+        props: {
+          color: 'primary'
+        }
+      },
+      {
+        slot: 'Big Nuxt Button',
+        props: {
+          color: 'primary',
+          size: 'large',
+          type: 'nuxt',
+          to: '/profile'
+        }
+      },
+      {
+        slot: 'Link Button',
+        props: {
+          color: 'info',
+          type: 'link',
+          href: '/profile'
+        }
+      }
+    ],
     props: {
       color: {
         type: String,

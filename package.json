@@ -20,6 +20,7 @@
     "buefy": "^0.4.0",
     "bulma": "^0.4.2",
     "cross-env": "^5.0.1",
+    "deepmerge": "^1.4.4",
     "express": "^4.15.3",
     "express-session": "^1.15.3",
     "feathers-authentication-client": "^0.3.2",

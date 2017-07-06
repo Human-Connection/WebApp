@@ -7,6 +7,7 @@
                     <th>Description</th>
                     <th>Type</th>
                     <th>Values</th>
+                    <th>Default</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,7 @@
                             {{ value }}
                         </div>
                     </td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>

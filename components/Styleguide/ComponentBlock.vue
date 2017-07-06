@@ -1,29 +1,19 @@
 <template>
     <div class="component-block">
         <h3 class="title is-3">
-            <{{ component.name }}>
+            {{ component.title }}
         </h3>
+        <h4 class="title is-4">
+            <code><{{ component.name }}></code>
+        </h4>
         <p>
             {{ component.description }}
         </p>
-        <div class="examples" v-if="component.examples && component.examples.length">
+        <div class="examples" v-if="component.readme">
             <h4 class="title is-4">
                 Usage
             </h4>
-            <div class="example-wrapper">
-                <div class="example" v-for="example in component.examples">
-                    <component-proxy :name="component.name" :props="example.props">
-                        <template v-if="example.slot">
-                            {{ example.slot }}
-                        </template>
-                    </component-proxy>
-                    <div>
-                        <code>
-                            {{ exampleCode(component, example) }}
-                        </code>
-                    </div>
-                </div>
-            </div>
+            <component :is="component.readme" :component="component"></component>
         </div>
         <div class="props" v-if="component.props">
             <h4 class="title is-4">
@@ -32,7 +22,6 @@
             <props-table :props="component.props"></props-table>
         </div>
     </div>
-
 </template>
 
 
