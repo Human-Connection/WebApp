@@ -1,0 +1,88 @@
+// Only used by Style Guide
+@import "assets/styles/main.scss";
+
+.styleguide-header {
+  background-color: $white-bis;
+  min-height:90px;
+
+  @media (min-width: 601px) {
+    padding-left: 200px;
+  }
+
+  img {
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:30px;
+    margin-bottom:10px;
+  }
+
+  h1 {
+    display:inline-block;
+    vertical-align:middle;
+    color: $grey-light;
+    margin-bottom:10px;
+  }
+}
+
+.styleguide-header-inner {
+  max-width: 1000px;
+  padding: 16px;
+  margin: 0 auto;
+  display: block;
+
+  @media (min-width: 601px) {
+    padding: 16px 32px;
+  }
+}
+
+// Customization
+#app {
+  [class^="isolatedLink"] {
+    display:none;
+  }
+
+  [class^="sidebar"] {
+    box-shadow: 2px 0 5px rgba(10, 10, 10, 0.1);
+    background-color: $white-bis;
+    border:0;
+    padding:5px;
+
+    [class^="logo"] {
+      display:none;
+    }
+
+    [class^="search"] {
+      padding: 1em 0.6em;
+    }
+
+    ul[class^="list"] {
+      @extend .menu-list;
+      padding-left:0;
+    }
+  }
+
+  [class^="heading"] {
+    [class^="anchor"] {
+      color:$grey-light;
+    }
+  }
+
+  main[class^="content"] {
+    padding-top:40px;
+
+    section {
+      margin-bottom:60px;
+    }
+
+    h2 {
+      margin-top:40px;
+    }
+  }
+
+  table tbody td {
+    @include desktop {
+      padding-top: 12px;
+      padding-right: 30px;
+    }
+  }
+}

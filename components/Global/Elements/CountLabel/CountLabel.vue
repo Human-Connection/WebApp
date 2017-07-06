@@ -1,12 +1,20 @@
 <template>
-    <span class="count" v-if="count > 0">
-        {{ count }}
+    <span class="count" v-if="Number(count) > 0">
+        {{ Number(count) }}
     </span>
 </template>
 
 <script>
   export default {
-    props: ['count']
+    name: 'hc-count-label',
+    props: {
+      /**
+       * Set the count to show
+       */
+      count: {
+        type: [String, Number]
+      }
+    }
   }
 </script>
 

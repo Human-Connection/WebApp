@@ -1,0 +1,1 @@
+These are common components used across the whole application. Global Components can be used without import.

@@ -11,65 +11,46 @@
 </template>
 
 <script>
+  /**
+   * Renders a nice and smooth button element.
+   */
   export default {
-    description: 'Renders a nice and smooth button element.',
+    name: 'hc-button',
     props: {
+      /**
+       * Set color: primary, info, dark, white, danger, warning
+       */
       color: {
         type: String,
-        default () {
-          return ''
-        },
-        description: 'A button can appear in multiple colors.',
-        values: [
-          'primary',
-          'info',
-          'success',
-          'warning',
-          'danger',
-          'link'
-        ]
+        default: ''
       },
+      /**
+       * Set loading state: true | false
+       */
       loading: {
         type: Boolean,
-        default () {
-          return false
-        },
-        description: 'A button can appear in loading state',
-        values: [
-          true,
-          false
-        ]
+        default: false
       },
+      /**
+       * Set size: small, medium, large
+       */
       size: {
         type: String,
-        default () {
-          return ''
-        },
-        description: 'A button can appear in different sizes.',
-        values: [
-          'small',
-          'medium',
-          'large'
-        ]
+        default: ''
       },
+      /**
+       * Pass a to parameter (Only for type "nuxt")
+       */
       to: {
         type: [String, Object],
-        default () {
-          return ''
-        },
-        description: 'Pass a to parameter (Only for type "nuxt")'
+        default: ''
       },
+      /**
+       * Set type: button, link, nuxt
+       */
       type: {
         type: String,
-        default () {
-          return 'button'
-        },
-        description: 'Specify the button type.',
-        values: [
-          'link',
-          'button',
-          'nuxt'
-        ]
+        default: 'button'
       }
     },
     computed: {
