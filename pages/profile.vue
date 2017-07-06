@@ -114,14 +114,14 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Button from '~components/elements/Button/Button.vue'
-  import Label from '~components/elements/Label/Label.vue'
-  import Box from '~components/elements/Box.vue'
-  import Title from '~components/elements/Title.vue'
-  import Subtitle from '~components/elements/Subtitle.vue'
-  import TextCount from '~components/elements/TextCount.vue'
-  import Dropdown from '~components/elements/Dropdown.vue'
-  import FollowerItem from '~components/hc_components/FollowerItem.vue'
+  import Button from '~components/common/Button/Button.vue'
+  import Label from '~components/common/Label/Label.vue'
+  import Box from '~components/common/Box.vue'
+  import Title from '~components/common/Title.vue'
+  import Subtitle from '~components/common/Subtitle.vue'
+  import TextCount from '~components/common/TextCount.vue'
+  import Dropdown from '~components/common/Dropdown.vue'
+  import FollowerItem from '~components/User/FollowerItem.vue'
 
   export default {
     components: {
