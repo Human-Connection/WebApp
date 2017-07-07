@@ -11,6 +11,7 @@
 
 <script>
   export default {
+    name: 'hc-dropdown',
     props: ['showLabels', 'sortLabels']
   }
 </script>

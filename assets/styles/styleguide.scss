@@ -1,12 +1,14 @@
 // Only used by Style Guide
 @import "assets/styles/main.scss";
+$breakpoint: 601px;
+$sidebarwidth: 250px;
 
 .styleguide-header {
   background-color: $white-bis;
   min-height:90px;
 
-  @media (min-width: 601px) {
-    padding-left: 200px;
+  @media (min-width: $breakpoint) {
+    padding-left: $sidebarwidth;
   }
 
   img {
@@ -30,7 +32,7 @@
   margin: 0 auto;
   display: block;
 
-  @media (min-width: 601px) {
+  @media (min-width: $breakpoint) {
     padding: 16px 32px;
   }
 }
@@ -41,11 +43,18 @@
     display:none;
   }
 
+  [class*="hasSidebar"] {
+    @media (min-width: $breakpoint) {
+      padding-left: $sidebarwidth;
+    }
+  }
+
   [class^="sidebar"] {
     box-shadow: 2px 0 5px rgba(10, 10, 10, 0.1);
     background-color: $white-bis;
     border:0;
     padding:5px;
+    width: $sidebarwidth;
 
     [class^="logo"] {
       display:none;
@@ -64,6 +73,10 @@
   [class^="heading"] {
     [class^="anchor"] {
       color:$grey-light;
+      font-size:22px;
+      @media (min-width: $breakpoint) {
+        left:12px;
+      }
     }
   }
 
@@ -71,11 +84,38 @@
     padding-top:40px;
 
     section {
-      margin-bottom:60px;
+      margin-top:60px;
+    }
+
+    & > section:first-of-type {
+      margin-top:0;
+
+      & > section:first-of-type {
+        margin-top:0;
+      }
+    }
+
+    & > section > section {
+      h1 {
+        @extend .title;
+        @extend .is-1;
+        color: $primary;
+      }
+
+      & > section {
+        h1 {
+          @extend .title;
+          @extend .is-2;
+          color: $primary;
+        }
+      }
     }
 
     h2 {
       margin-top:40px;
+      @extend .title;
+      @extend .is-3;
+      font-weight:bold;
     }
   }
 

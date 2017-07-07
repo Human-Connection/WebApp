@@ -7,8 +7,8 @@
   import lodash from 'lodash'
 
   export default {
+    name: 'hc-truncate',
     props: ['text', 'length'],
-    name: 'truncate',
     computed: {
       truncatedText () {
         if (!this.text) {

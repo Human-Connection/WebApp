@@ -5,6 +5,12 @@
 </div>
 </template>
 
+<script>
+  export default {
+    name: 'hc-title'
+  }
+</script>
+
 <style lang="scss">
 .hc-title {
     color: #99CC33;

@@ -50,6 +50,7 @@
   import {mapGetters} from 'vuex'
   import Notifications from '../Notifications/Notifications.vue'
   export default {
+    name: 'hc-main-nav',
     components: {
       'notifications': Notifications
     },

@@ -9,6 +9,7 @@
   import translatable from '~components/mixins/translatable'
 
   export default {
+    name: 'hc-label',
     mixins: [translatable],
     data () {
       return {}

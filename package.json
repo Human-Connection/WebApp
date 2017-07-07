@@ -17,6 +17,7 @@
     "@nuxtjs/pwa": "^0.2.0",
     "axios": "^0.16.2",
     "babel-eslint": "^7.2.3",
+    "babel-preset-vue-app": "^1.2.0",
     "body-parser": "^1.17.2",
     "bricks.js": "^1.8.0",
     "buefy": "^0.4.0",

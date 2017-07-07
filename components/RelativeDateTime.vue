@@ -6,8 +6,8 @@
   import moment from 'moment'
 
   export default {
+    name: 'hc-relative-date-time',
     props: ['dateTime'],
-    name: 'relative-date-time',
     data () {
       return {
         relativeDateTime: null,

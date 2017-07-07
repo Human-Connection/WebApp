@@ -6,6 +6,7 @@
 
 <script>
   export default {
+    name: 'hc-box',
     props: ['top', 'bottom'],
     data () {
       return {

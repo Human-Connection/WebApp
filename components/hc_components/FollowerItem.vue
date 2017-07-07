@@ -13,6 +13,7 @@
   import ActionItem from './ActionItem.vue'
 
   export default {
+    name: 'hc-follower-item',
     components: {
       'action-item': ActionItem
     },

@@ -30,6 +30,7 @@
   import author from './Author.vue'
 
   export default {
+    name: 'hc-card',
     props: ['post'],
     components: {
       'author': author,

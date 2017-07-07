@@ -9,6 +9,7 @@
   import Button from '~components/elements/Button/Button.vue'
 
   export default {
+    name: 'hc-action-item',
     components: {
       'hc-btn': Button
     }

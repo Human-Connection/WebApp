@@ -7,23 +7,48 @@ module.exports = {
       content: 'docs/Introduction.md'
     },
     {
-      name: 'Global Components',
-      content: 'docs/GlobalComponents.md',
-      components: 'components/Global/**/[A-Z]*.vue'
+      name: 'Components',
+      content: 'docs/Components/Introduction.md',
+      sections: [
+        {
+          name: 'Developing Components',
+          content: 'docs/Components/Development.md'
+        },
+        {
+          name: 'Global Components',
+          content: 'docs/Components/GlobalComponents.md',
+          components: 'components/Global/**/[A-Z]*.vue'
+        },
+        {
+          name: 'Specific Components',
+          content: 'docs/Components/SpecificComponents.md',
+          components: 'components/!(Global)**/[A-Z]*.vue'
+        }
+      ]
     }
-    // {
-    // name: 'Specific Components',
-    // content: 'docs/SpecificComponents.md',
-    // components: 'components/!(Global)**/[A-Z]*.vue'
-    // }
   ],
+  // Return path with import example for specific components
+  getComponentPathLine(componentPath) {
+    const name = path.basename(componentPath, '.vue');
+    const dir = path.dirname(componentPath);
+    if (dir.includes('Global')) {
+      return componentPath;
+    }
+    return `import ${name} from '${dir}/${name}.vue'`;
+  },
   assetsDir: 'static',
-  require: [
-    'assets/styles/styleguide.scss'
-  ],
-  template: 'styleguide/template/index.html',
+  require: ['assets/styles/styleguide.scss'],
+  template: 'docs/template/index.html',
   title: 'HC Style Guide',
   serverHost: 'localhost',
+  ignore: [
+    '**/__tests__/**',
+    '**/*.test.js',
+    '**/*.test.jsx',
+    '**/*.spec.js',
+    '**/*.spec.jsx',
+    '**/_*.vue'
+  ],
   webpackConfig: {
     module: {
       loaders: [
@@ -68,8 +93,16 @@ module.exports = {
     },
     resolve: {
       alias: {
+        '~assets': path.resolve(__dirname, 'assets/'),
+        'assets': path.resolve(__dirname, 'assets/'),
+        '~components': path.resolve(__dirname, 'components/'),
         'components': path.resolve(__dirname, 'components/'),
-        'assets': path.resolve(__dirname, 'assets/')
+        '~docs': path.resolve(__dirname, 'docs/'),
+        'docs': path.resolve(__dirname, 'docs/'),
+        '~helpers': path.resolve(__dirname, 'helpers/'),
+        'helpers': path.resolve(__dirname, 'helpers/'),
+        '~plugins': path.resolve(__dirname, 'plugins/'),
+        'plugins': path.resolve(__dirname, 'plugins/')
       }
     }
   }

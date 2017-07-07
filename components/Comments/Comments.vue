@@ -17,6 +17,7 @@
   import commentForm from './CommentForm.vue'
 
   export default {
+    name: 'hc-comment',
     props: ['post'],
     components: {
       'author': author,

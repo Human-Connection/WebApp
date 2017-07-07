@@ -26,6 +26,7 @@
   import truncate from './Truncate.vue'
 
   export default {
+    name: 'hc-author',
     props: ['post'],
     components: {
       'relative-date-time': relativeDateTime,

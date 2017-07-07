@@ -4,6 +4,12 @@
 </div>
 </template>
 
+<script>
+  export default {
+    name: 'hc-subtitle'
+  }
+</script>
+
 <style lang="scss">
 .hc-subtitle {
     text-transform: uppercase;

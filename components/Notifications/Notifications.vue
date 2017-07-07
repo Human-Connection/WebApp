@@ -39,6 +39,7 @@
   import author from '~components/Author.vue'
 
   export default {
+    name: 'hc-notifications',
     components: {
       'author': author
     },

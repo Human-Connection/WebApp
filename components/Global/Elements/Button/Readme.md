@@ -2,6 +2,7 @@ A button can have different colors
 
 ```
 <p>
+  <hc-button>Default Button</hc-button>
   <hc-button color="primary">Primary Button</hc-button>
   <hc-button color="info">Info Button</hc-button>
   <hc-button color="dark">Dark Button</hc-button>

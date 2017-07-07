@@ -40,8 +40,8 @@
   import feathers from '~plugins/feathers'
 
   export default {
+    name: 'hc-contribution',
     props: ['data'],
-    name: 'contributions-form',
     components: {
       'no-ssr': NoSSR
     },

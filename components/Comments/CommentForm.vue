@@ -10,6 +10,7 @@
   import feathers from '~plugins/feathers'
 
   export default {
+    name: 'hc-comment-form',
     props: ['post'],
     computed: {
       ...mapGetters({

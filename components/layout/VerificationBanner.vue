@@ -17,6 +17,7 @@
 <script>
   import {mapGetters, mapActions} from 'vuex'
   export default {
+    name: 'hc-verification-banner',
     data () {
       return {
         active: true

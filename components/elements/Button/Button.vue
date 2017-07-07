@@ -4,6 +4,12 @@
     </button>
 </template>
 
+<script>
+  export default {
+    name: 'hc-button-circle'
+  }
+</script>
+
 <style scoped lang="scss">
 .hcCircleButton {
         box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
