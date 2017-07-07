@@ -11,6 +11,11 @@ module.exports = {
       content: 'docs/GlobalComponents.md',
       components: 'components/Global/**/[A-Z]*.vue'
     }
+    // {
+    // name: 'Specific Components',
+    // content: 'docs/SpecificComponents.md',
+    // components: 'components/!(Global)**/[A-Z]*.vue'
+    // }
   ],
   assetsDir: 'static',
   require: [
@@ -26,13 +31,13 @@ module.exports = {
         {
           test: /\.vue$/,
           exclude: /node_modules/,
-          loader: 'vue-loader'
+          loader: 'vue-loader',
         },
         // Babel loader, will use your project’s .babelrc
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader'
+          loader: 'babel-loader?presets[]=es2015'
         },
         // Other loaders that are needed for your components
         {
