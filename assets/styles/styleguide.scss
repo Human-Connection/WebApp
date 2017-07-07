@@ -52,29 +52,43 @@ $sidebarwidth: 250px;
     line-height:1.5;
   }
 
+  table {
+    td,th {
+      font-size:$size-normal;
+      color: $text;
+      padding:1em;
+    }
+
+    th {
+      font-weight:normal;
+      font-size:$size-small;
+      text-transform:uppercase;
+    }
+
+    thead {
+      border-bottom:0;
+    }
+
+    tr:hover {
+      background-color:transparent;
+    }
+
+    border:16px solid $white;
+    box-shadow: 0 0 0 1px $grey-lighter;
+
+    @media (min-width: $breakpoint-big) {
+      border-width:30px;
+    }
+  }
+
   h1,h2,h3,h4,h5,h6,p,strong {
     color: $text;
   }
 
-  pre:not(:last-of-type) {
-    padding:2em;
-    margin-bottom:2em;
-  }
-
-  .CodeMirror.CodeMirror {
-    padding:2em;
-    background: $white-ter;
-
-    pre {
-      padding:0;
-      margin-bottom:1em;
+  [class^=preview] {
+    @media (min-width: $breakpoint-big) {
+      padding: 30px;
     }
-  }
-
-  .CodeMirror-scroll {
-    margin-bottom:-4em;
-    margin-right:-4em;
-    padding-bottom:4em;
   }
 
   p:not(:last-of-type) {
@@ -190,9 +204,29 @@ $sidebarwidth: 250px;
     }
   }
 
+  pre:not(:last-of-type) {
+    padding:2em;
+    margin-bottom:2em;
+  }
+
+  .CodeMirror.CodeMirror {
+    padding:2em;
+    background: $white-bis;
+
+    pre {
+      padding:0;
+      margin-bottom:1em;
+    }
+  }
+
+  .CodeMirror-scroll {
+    margin-bottom:-4em;
+    margin-right:-4em;
+    padding-bottom:4em;
+  }
 
   pre[class^="pre"] {
-    background: $white-ter;
+    background: $white-bis;
 
     code {
       line-height: 2;
