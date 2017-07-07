@@ -7,6 +7,7 @@ $sidebarwidth: 250px;
 .styleguide-header {
   background-color: $white-bis;
   min-height:90px;
+  position:relative;
 
   @media (min-width: $breakpoint) {
     padding-left: $sidebarwidth;
@@ -16,6 +17,7 @@ $sidebarwidth: 250px;
     display:inline-block;
     vertical-align:middle;
     margin-right:30px;
+    margin-top:10px;
     margin-bottom:10px;
   }
 
@@ -23,7 +25,19 @@ $sidebarwidth: 250px;
     display:inline-block;
     vertical-align:middle;
     color: $grey-light;
+    margin-top:10px;
     margin-bottom:10px;
+    text-transform:uppercase;
+    font-size:$size-6;
+
+    @media (min-width: $breakpoint-big) {
+      margin-top:0;
+      margin-bottom:0;
+      position:absolute;
+      right:32px;
+      top:50%;
+      transform:translateY(-50%);
+    }
   }
 }
 
@@ -50,35 +64,6 @@ $sidebarwidth: 250px;
 
   .title {
     line-height:1.5;
-  }
-
-  table {
-    td,th {
-      font-size:$size-normal;
-      color: $text;
-      padding:1em;
-    }
-
-    th {
-      font-weight:normal;
-      font-size:$size-small;
-      text-transform:uppercase;
-    }
-
-    thead {
-      border-bottom:0;
-    }
-
-    tr:hover {
-      background-color:transparent;
-    }
-
-    border:16px solid $white;
-    box-shadow: 0 0 0 1px $grey-lighter;
-
-    @media (min-width: $breakpoint-big) {
-      border-width:30px;
-    }
   }
 
   h1,h2,h3,h4,h5,h6,p,strong {
@@ -133,7 +118,37 @@ $sidebarwidth: 250px;
   }
 
   main[class^="content"] {
+    @extend .content;
     padding-top:40px;
+
+    table {
+      td,th {
+        font-size:$size-normal;
+        color: $text;
+        padding:1em;
+      }
+
+      th {
+        font-weight:normal;
+        font-size:$size-small;
+        text-transform:uppercase;
+      }
+
+      thead {
+        border-bottom:0;
+      }
+
+      tr:hover {
+        background-color:transparent;
+      }
+
+      border:16px solid $white;
+      box-shadow: 0 0 0 1px $grey-lighter;
+
+      @media (min-width: $breakpoint-big) {
+        border-width:30px;
+      }
+    }
 
     @media (min-width: $breakpoint-big) {
       padding: 16px 60px;
@@ -194,13 +209,6 @@ $sidebarwidth: 250px;
       @extend .title;
       @extend .is-4;
       color: $text;
-    }
-  }
-
-  table tbody td {
-    @include desktop {
-      padding-top: 12px;
-      padding-right: 30px;
     }
   }
 
