@@ -1,4 +1,4 @@
-When developing a component please follow these basic rules:
+### When developing a component please follow these basic rules:
 
 **Stay DRY**
 

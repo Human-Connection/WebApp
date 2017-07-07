@@ -1,6 +1,7 @@
 // Only used by Style Guide
 @import "assets/styles/main.scss";
 $breakpoint: 601px;
+$breakpoint-big: 1001px;
 $sidebarwidth: 250px;
 
 .styleguide-header {
@@ -35,12 +36,49 @@ $sidebarwidth: 250px;
   @media (min-width: $breakpoint) {
     padding: 16px 32px;
   }
+
+  @media (min-width: $breakpoint-big) {
+    padding: 16px 60px;
+  }
 }
 
 // Customization
 #app {
   [class^="isolatedLink"] {
     display:none;
+  }
+
+  .title {
+    line-height:1.5;
+  }
+
+  h1,h2,h3,h4,h5,h6,p,strong {
+    color: $text;
+  }
+
+  pre:not(:last-of-type) {
+    padding:2em;
+    margin-bottom:2em;
+  }
+
+  .CodeMirror.CodeMirror {
+    padding:2em;
+    background: $white-ter;
+
+    pre {
+      padding:0;
+      margin-bottom:1em;
+    }
+  }
+
+  .CodeMirror-scroll {
+    margin-bottom:-4em;
+    margin-right:-4em;
+    padding-bottom:4em;
+  }
+
+  p:not(:last-of-type) {
+    margin: 0 0 20px 0;
   }
 
   [class*="hasSidebar"] {
@@ -83,6 +121,11 @@ $sidebarwidth: 250px;
   main[class^="content"] {
     padding-top:40px;
 
+    @media (min-width: $breakpoint-big) {
+      padding: 16px 60px;
+      padding-top:40px;
+    }
+
     section {
       margin-top:60px;
     }
@@ -108,14 +151,35 @@ $sidebarwidth: 250px;
           @extend .is-2;
           color: $primary;
         }
+
+        border-bottom: 1px solid $grey-lighter;
+
+        & > section {
+          margin-top: 80px;
+          padding-bottom: 40px;
+          border-bottom: 1px solid $grey-lighter;
+
+          & > div > div {
+            margin-top:40px;
+            padding-top:40px;
+          }
+
+          &:last-of-type {
+            border-bottom: 0;
+          }
+        }
       }
     }
 
     h2 {
-      margin-top:40px;
       @extend .title;
       @extend .is-3;
-      font-weight:bold;
+    }
+
+    h3 {
+      @extend .title;
+      @extend .is-4;
+      color: $text;
     }
   }
 
@@ -125,4 +189,33 @@ $sidebarwidth: 250px;
       padding-right: 30px;
     }
   }
+
+
+  pre[class^="pre"] {
+    background: $white-ter;
+
+    code {
+      line-height: 2;
+      font-size:13px;
+      color: #202020;
+    }
+
+    .hljs-comment {color: #8f5536;}
+    .hljs-atom {color: #aa759f;}
+    .hljs-number {color: #aa759f;}
+  
+    .hljs-property, .hljs-attribute, .hljs-attr {color: #90a959;}
+    .hljs-keyword {color: #ac4142;}
+    .hljs-string {color: #f4bf75;}
+  
+    .hljs-variable {color: #90a959;}
+    .hljs-variable-2 {color: #6a9fb5;}
+    .hljs-def {color: #d28445;}
+    .hljs-error {background: #ac4142; color: #505050;}
+    .hljs-bracket {color: #202020;}
+    .hljs-tag {color: #ac4142;}
+    .hljs-link {color: #aa759f;}
+    
+  }
+
 }
