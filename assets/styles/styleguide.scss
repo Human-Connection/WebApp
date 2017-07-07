@@ -1,5 +1,6 @@
 // Only used by Style Guide
-@import "assets/styles/main.scss";
+@import "~assets/styles/main.scss";
+
 $breakpoint: 601px;
 $breakpoint-big: 1001px;
 $sidebarwidth: 250px;
@@ -118,7 +119,6 @@ $sidebarwidth: 250px;
   }
 
   main[class^="content"] {
-    @extend .content;
     padding-top:40px;
 
     table {
@@ -212,32 +212,14 @@ $sidebarwidth: 250px;
     }
   }
 
-  pre:not(:last-of-type) {
-    padding:2em;
-    margin-bottom:2em;
-  }
-
   .CodeMirror.CodeMirror {
-    padding:2em;
     background: $white-bis;
-
-    pre {
-      padding:0;
-      margin-bottom:1em;
-    }
-  }
-
-  .CodeMirror-scroll {
-    margin-bottom:-4em;
-    margin-right:-4em;
-    padding-bottom:4em;
   }
 
   pre[class^="pre"] {
     background: $white-bis;
 
     code {
-      line-height: 2;
       font-size:13px;
       color: #202020;
     }

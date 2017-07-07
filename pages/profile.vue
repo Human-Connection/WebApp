@@ -88,12 +88,15 @@
                     </div>
                 </box>
             </div>
-            <div class="column is-6 timeline">
+            <div class="column is-6 timeline content">
                 <box top="true" bottom="true">
                     <hc-title>Timeline</hc-title>
                 </box>
-                <div class="timeline-intro">Hallo Dennis, was sind deine Pläne für heute?
-                    <hc-btn style="margin: 20px auto" class="hc-button circle success big" />
+                <div class="timeline-intro">
+                    <p>Hallo Dennis, was sind deine Pläne für heute?</p>
+                    <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
+                        <hc-icon icon="plus" />
+                    </hc-button>
                 </div>
             </div>
             <div class="column actions-sidebar">

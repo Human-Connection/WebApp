@@ -25,6 +25,13 @@
         default: ''
       },
       /**
+       * Render as a circle: true | false
+       */
+      circle: {
+        type: Boolean,
+        default: false
+      },
+      /**
        * Set loading state: true | false
        */
       loading: {
@@ -59,14 +66,14 @@
         if (this.color) {
           classes += ` is-${this.color}`
         }
+        if (this.circle) {
+          classes += ' is-circle'
+        }
         if (this.loading) {
           classes += ' is-loading'
         }
         if (this.size) {
           classes += ` is-${this.size}`
-        }
-        if (this.modifier) {
-          classes += ` is-${this.modifier}`
         }
         return classes
       }
@@ -83,7 +90,13 @@
     @import "~assets/styles/utilities";
     @import "~bulma/sass/elements/button.sass";
 
-    .active-link {
-        box-shadow: 0 2px 7px rgba(0,0,0,0.6);
+    .button {
+        height: $height;
+    }
+
+    .is-circle {
+        border-radius: 100% !important;
+        width: $height;
+        height: $height;
     }
 </style>

@@ -1,9 +1,9 @@
 <template>
-    <nav class="nav has-shadow">
+    <nav>
         <div class="container">
             <div class="nav-left">
-                <nuxt-link class="nav-item" :to="{ name: 'index' }" style="display: inline-block; position: relative; max-height: none; min-width: 150px">
-                    <img src="/logo-hc.svg" alt="Human Connection" style="max-height: none; height: 100%;">
+                <nuxt-link class="logo" :to="{ name: 'index' }">
+                    <img src="/logo-hc.svg" alt="Human Connection">
                 </nuxt-link>
                 <a href="" class="nav-item">
                     <i class="fa fa-comments" aria-hidden="true"></i>
@@ -86,7 +86,44 @@
 </script>
 
 <style lang="scss" scoped>
+    @import "~assets/styles/utilities";
+    @import "~bulma/sass/components/nav.sass";
+
+    nav {
+        @extend .nav;
+        @extend .has-shadow;
+        position: fixed !important;
+        width: 100%;
+        top: 0;
+
+        .nuxt-link-exact-active {
+            @extend a.nav-item.is-active;
+            font-weight: bold;
+        }
+    }
+
     .nav-left {
         overflow: visible;
+    }
+
+    .logo {
+        display: inline-block;
+        position: relative;
+        height: 50px;
+        width: 150px;
+        text-align: left;
+        padding: 8px 0 8px 15px;
+        margin: 0;
+
+        img {
+            max-height: none;
+            height: 100%;
+            display: inline-block;
+            position: relative;
+        }
+    }
+
+    .nav-item .fa {
+        font-size: 1.4rem;
     }
 </style>

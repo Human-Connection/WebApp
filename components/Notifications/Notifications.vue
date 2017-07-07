@@ -3,7 +3,7 @@
         <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active }">
             <span class="notification-icon">
                 <i class="fa fa-bell" aria-hidden="true"></i>
-                <hc-count-label :count="notifications && notifications.length"></hc-count-label>
+                <hc-count-label :count="notifications.length" v-if="notifications"></hc-count-label>
             </span>
         </a>
         <transition name="box">
