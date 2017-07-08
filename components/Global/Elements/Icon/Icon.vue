@@ -1,5 +1,5 @@
 <template>
-    <i aria-hidden="true" :class="classes"></i>
+  <i aria-hidden="true" :class="classes"></i>
 </template>
 
 <script>
@@ -29,11 +29,11 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~font-awesome/css/font-awesome.min.css";
-    @import "~assets/styles/hc-icons.scss";
+  @import "~font-awesome/css/font-awesome.min.css";
+  @import "~assets/styles/hc-icons.scss";
 
-    i {
-        font-size:inherit;
-        vertical-align:middle;
-    }
+  i {
+    font-size: inherit;
+    vertical-align: middle;
+  }
 </style>

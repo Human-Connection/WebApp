@@ -1,46 +1,54 @@
 <template>
-    <section class="container content">
-        <div class="card">
-            <div class="card-content">
-                <div class="card-teaser">
-                    <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
-                </div>
-                <p class="subtitle is-6">Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
-                <form @submit.prevent="register">
-                    <div class="field">
-                        <p class="control has-icons-right">
-                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail" v-model="data.email">
-                            <span v-if="errors" class="icon is-small is-right">
-                              <i class="fa fa-warning"></i>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="field">
-                        <p class="control has-icons-right">
-                            <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password" v-model="data.password" autocomplete="new-password">
-                            <span v-if="errors" class="icon is-small is-right">
-                              <i class="fa fa-warning"></i>
-                            </span>
-                        </p>
-                    </div>
-                    <div class="field has-text-le">
-                        <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
-                    </div>
-                    <p>
-                        <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
-                            Registrieren
-                        </hc-button>
-                    </p>
-                </form>
-                <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
-            </div>
-            <footer class="card-footer">
-                <nuxt-link :to="{ name: 'auth-login' }" class="card-footer-item">
-                    Du hast ein Konto?
-                </nuxt-link>
-            </footer>
+  <section class="container content">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-teaser">
+          <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
         </div>
-    </section>
+        <p class="subtitle is-6">
+          Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
+        <form @submit.prevent="register">
+          <div class="field">
+            <p class="control has-icons-right">
+              <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail"
+                     v-model="data.email">
+              <span v-if="errors" class="icon is-small is-right">
+                              <i class="fa fa-warning"></i>
+                            </span>
+            </p>
+          </div>
+          <div class="field">
+            <p class="control has-icons-right">
+              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password"
+                     v-model="data.password" autocomplete="new-password">
+              <span v-if="errors" class="icon is-small is-right">
+                              <i class="fa fa-warning"></i>
+                            </span>
+            </p>
+          </div>
+          <div class="field has-text-le">
+            <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
+          </div>
+          <p>
+            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
+              Registrieren
+            </hc-button>
+          </p>
+        </form>
+        <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den
+          <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link>
+          einverstanden und bestätige, dass ich die Human Connection
+          <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link>
+          gelesen habe.
+        </p>
+      </div>
+      <footer class="card-footer">
+        <nuxt-link :to="{ name: 'auth-login' }" class="card-footer-item">
+          Du hast ein Konto?
+        </nuxt-link>
+      </footer>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -66,7 +74,7 @@
           .then(() => {
             this.loading = false
             this.data.password = null
-            this.$router.replace({ name: 'auth-name' })
+            this.$router.replace({name: 'auth-name'})
           })
           .catch(error => {
             this.$toast.open({
@@ -88,33 +96,33 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~assets/styles/utilities";
+  @import "~assets/styles/utilities";
 
-    .card {
-        margin: 0 auto;
-        max-width: 460px;
-        text-align: center;
+  .card {
+    margin: 0 auto;
+    max-width: 460px;
+    text-align: center;
+  }
+
+  .subtitle {
+    margin-top: 30px;
+  }
+
+  .card-teaser {
+    img {
+      display: inline-block;
+      max-width: 200px;
+      height: auto;
+
+      @include tablet {
+        max-width: 260px;
+      }
     }
+  }
 
-    .subtitle {
-        margin-top:30px;
-    }
-
-    .card-teaser {
-        img {
-            display: inline-block;
-            max-width: 200px;
-            height: auto;
-
-            @include tablet {
-                max-width: 260px;
-            }
-        }
-    }
-
-    form {
-        margin: 1em auto;
-        padding: 1em;
-        text-align: left;
-    }
+  form {
+    margin: 1em auto;
+    padding: 1em;
+    text-align: left;
+  }
 </style>

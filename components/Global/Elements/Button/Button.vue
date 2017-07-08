@@ -1,13 +1,13 @@
 <template>
-    <button v-if="type === 'button'" :class="classes" @click="click">
-        <slot></slot>
-    </button>
-    <nuxt-link v-else-if="type === 'nuxt'" :class="classes" :to="to">
-        <slot></slot>
-    </nuxt-link>
-    <a v-else :class="classes" @click="click">
-        <slot></slot>
-    </a>
+  <button v-if="type === 'button'" :class="classes" @click="click">
+    <slot></slot>
+  </button>
+  <nuxt-link v-else-if="type === 'nuxt'" :class="classes" :to="to">
+    <slot></slot>
+  </nuxt-link>
+  <a v-else :class="classes" @click="click">
+    <slot></slot>
+  </a>
 </template>
 
 <script>
@@ -87,26 +87,26 @@
 </script>
 
 <style scoped lang="scss">
-    @import "~assets/styles/utilities";
-    @import "~bulma/sass/elements/button.sass";
+  @import "~assets/styles/utilities";
+  @import "~bulma/sass/elements/button.sass";
 
-    .is-xsmall {
-        font-size: $size-xsmall;
+  .is-xsmall {
+    font-size: $size-xsmall;
+  }
+
+  .is-circle {
+    border-radius: 100% !important;
+    width: 2.25em;
+    height: 2.25em;
+
+    &.is-medium {
+      width: 2.7em;
+      height: 2.7em;
     }
 
-    .is-circle {
-        border-radius: 100% !important;
-        width: 2.25em;
-        height: 2.25em;
-
-        &.is-medium {
-            width: 2.7em;
-            height: 2.7em;
-        }
-
-        &.is-large {
-            width: 3.2em;
-            height: 3.2em;
-        }
+    &.is-large {
+      width: 3.2em;
+      height: 3.2em;
     }
+  }
 </style>

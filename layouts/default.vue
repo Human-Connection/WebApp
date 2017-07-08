@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <main-nav/>
-        <div class="container" id="main">
-            <verification-banner/>
-            <nuxt/>
-        </div>
-        <hc-footer/>
+  <div>
+    <main-nav/>
+    <div class="container" id="main">
+      <verification-banner/>
+      <nuxt/>
     </div>
+    <hc-footer/>
+  </div>
 </template>
 
 <script>
