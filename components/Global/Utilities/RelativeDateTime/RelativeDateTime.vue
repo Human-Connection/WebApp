@@ -1,5 +1,5 @@
 <template>
-    <span>{{ relativeDateTime }}</span>
+  <span>{{ relativeDateTime }}</span>
 </template>
 
 <script>

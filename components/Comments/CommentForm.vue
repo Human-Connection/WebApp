@@ -1,8 +1,9 @@
 <template>
-    <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
-        <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
-        <button type="submit" class="button is-primary is-fullwidth" :class="{ 'is-loading': loading }">Submit comment</button>
-    </form>
+  <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
+    <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+    <button type="submit" class="button is-primary is-fullwidth" :class="{ 'is-loading': loading }">Submit comment
+    </button>
+  </form>
 </template>
 
 <script>
@@ -63,10 +64,10 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../assets/styles/utilities";
+  @import "../../assets/styles/utilities";
 
-    .textarea {
-        margin-bottom:10px;
-        min-height: 80px;
-    }
+  .textarea {
+    margin-bottom: 10px;
+    min-height: 80px;
+  }
 </style>

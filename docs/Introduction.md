@@ -1,3 +1,5 @@
 ### This guide's job is to help you make Human Connection awesome.
 
-### If you are looking for a component that is not found in here, feel free to code it and give it a little bit of documentation.
+### If you find anything missing in this document, feel free to add it or tell someone about it.
+
+### **Happy coding!**

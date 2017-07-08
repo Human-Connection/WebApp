@@ -1,7 +1,7 @@
 <template>
-    <div :class="classes">
-        <slot></slot>
-    </div>
+  <div :class="classes">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
@@ -24,10 +24,10 @@
 </script>
 
 <style lang="scss" scoped>
-    @import "~assets/styles/utilities";
+  @import "~assets/styles/utilities";
 
-    .is-box {
-        background-color: $white;
-        padding: 15px;
-    }
+  .is-box {
+    background-color: $white;
+    padding: 15px;
+  }
 </style>

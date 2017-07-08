@@ -1,5 +1,5 @@
 <template>
-    <span v-html="truncatedText"></span>
+  <span v-html="truncatedText"></span>
 </template>
 
 
