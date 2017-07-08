@@ -8,7 +8,18 @@
 
   export default {
     name: 'hc-truncate',
-    props: ['text', 'length'],
+    props: {
+      /**
+       * The text to shorten
+       */
+      text: {
+        type: String
+      },
+      /**
+       * The number of characters
+       */
+      length: {}
+    },
     computed: {
       truncatedText () {
         if (!this.text) {

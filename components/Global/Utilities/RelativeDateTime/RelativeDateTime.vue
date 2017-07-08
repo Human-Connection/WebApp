@@ -7,7 +7,11 @@
 
   export default {
     name: 'hc-relative-date-time',
-    props: ['dateTime'],
+    props: {
+      dateTime: {
+        type: [Date, String]
+      }
+    },
     data () {
       return {
         relativeDateTime: null,

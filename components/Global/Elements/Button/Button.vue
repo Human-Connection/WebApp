@@ -39,7 +39,7 @@
         default: false
       },
       /**
-       * Set size: small, medium, large
+       * Set size: xsmall, small, medium, large
        */
       size: {
         type: String,
@@ -90,13 +90,23 @@
     @import "~assets/styles/utilities";
     @import "~bulma/sass/elements/button.sass";
 
-    .button {
-        height: $height;
+    .is-xsmall {
+        font-size: $size-xsmall;
     }
 
     .is-circle {
         border-radius: 100% !important;
-        width: $height;
-        height: $height;
+        width: 2.25em;
+        height: 2.25em;
+
+        &.is-medium {
+            width: 2.7em;
+            height: 2.7em;
+        }
+
+        &.is-large {
+            width: 3.2em;
+            height: 3.2em;
+        }
     }
 </style>

@@ -14,7 +14,7 @@
             </p>
             <p class="subtitle">
                 <i class="fa fa-clock-o"></i>&nbsp;
-                <relative-date-time :dateTime="post.createdAt"></relative-date-time>
+                <hc-relative-date-time :dateTime="post.createdAt"></hc-relative-date-time>
             </p>
         </div>
     </div>
@@ -22,16 +22,9 @@
 
 
 <script>
-  import relativeDateTime from './RelativeDateTime.vue'
-  import truncate from './Truncate.vue'
-
   export default {
     name: 'hc-author',
     props: ['post'],
-    components: {
-      'relative-date-time': relativeDateTime,
-      'truncate': truncate
-    },
     computed: {
       avatar () {
         const defaultAvatar = {
@@ -46,7 +39,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../assets/styles/utilities";
+    @import "~assets/styles/utilities";
 
     .hc__author {
         .profile-image {

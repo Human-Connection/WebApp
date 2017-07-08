@@ -10,7 +10,7 @@
         <div class="box" v-if="active">
             <p class="dropdown-title">Notifications</p>
             <p v-if="!isAuthenticated" class="dropdown-content">
-                Please <nuxt-link :to="{ name: 'login' }">login</nuxt-link> to see your notifications.
+                Please <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link> to see your notifications.
             </p>
             <div v-if="notifications">
                 <p v-if="notifications.length === 0" class="dropdown-content">
@@ -36,7 +36,7 @@
 <script>
   import {mapGetters, mapMutations} from 'vuex'
   import feathers from '~plugins/feathers'
-  import author from '~components/Author.vue'
+  import author from '~components/Author/Author.vue'
 
   export default {
     name: 'hc-notifications',

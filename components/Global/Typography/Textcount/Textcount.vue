@@ -7,7 +7,7 @@
 
 <script>
   export default {
-    name: 'hc-subtitle',
+    name: 'hc-textcount',
     props: ['count', 'text']
   }
 </script>

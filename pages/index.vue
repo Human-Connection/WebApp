@@ -18,7 +18,7 @@
   import { mapGetters } from 'vuex'
   import feathers from '~plugins/feathers'
   import Bricks from 'bricks.js'
-  import Card from '../components/Card'
+  import Card from '../components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
 
   export default {
@@ -134,11 +134,12 @@
     }
 
     .add-contribution {
+        z-index:       50;
+        position:      fixed;
+        bottom:        50px;
+        right:         50px;
+
         .button {
-            z-index:       50;
-            position:      fixed;
-            bottom:        50px;
-            right:         50px;
             box-shadow:    0 2px 3px rgba(10, 10, 10, 0.1);
         }
     }

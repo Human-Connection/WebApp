@@ -4,19 +4,14 @@
         <div class="hc-follower-details">
             <span class="details-title">{{ title }}</span>
             <span class="details-timestamp">Letzter Post: {{ timestamp }}</span>
-            <action-item>some action text</action-item>
+            <hc-action-item>some action text</hc-action-item>
         </div>
     </div>
 </template>
 
 <script>
-  import ActionItem from './ActionItem.vue'
-
   export default {
     name: 'hc-follower-item',
-    components: {
-      'action-item': ActionItem
-    },
     props: ['title', 'timestamp']
   }
 </script>

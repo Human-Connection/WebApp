@@ -7,12 +7,12 @@
                     <slot name="category"></slot>
                     <br/>
                     <h3 class="title is-4">
-                        <truncate :text="post.title" length=70></truncate>
+                        <hc-truncate :text="post.title" length=70></hc-truncate>
                         <slot name="header"></slot>
                     </h3>
                 </header>
                 <main class="content">
-                    <truncate :text="post.contentExcerpt" length=200></truncate>
+                    <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
                 </main>
                 <footer>
                     <author :post="post"/>
@@ -26,15 +26,13 @@
 
 
 <script>
-  import truncate from './Truncate.vue'
-  import author from './Author.vue'
+  import author from '~components/Author/Author.vue'
 
   export default {
-    name: 'hc-card',
+    name: 'hc-contribution-card',
     props: ['post'],
     components: {
-      'author': author,
-      'truncate': truncate
+      'author': author
     },
     data () {
       return {
@@ -73,7 +71,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import '../assets/styles/utilities';
+    @import '~assets/styles/utilities';
 
     .hc__card {
         $padding: 25px;

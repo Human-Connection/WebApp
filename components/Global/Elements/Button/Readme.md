@@ -25,6 +25,9 @@ A button can be circular
 
 ```
 <div>
+  <hc-button color="primary" size="xsmall" circle>
+    <hc-icon icon="plus" />
+  </hc-button>
   <hc-button color="primary" size="small" circle>
     <hc-icon icon="plus" />
   </hc-button>

@@ -7,6 +7,20 @@ module.exports = {
       content: 'docs/Introduction.md'
     },
     {
+      name: 'Styles',
+      content: 'docs/Styles/Introduction.md',
+      sections: [
+        {
+          name: 'Writing SCSS / CSS',
+          content: 'docs/Styles/Guidelines.md'
+        },
+        {
+          name: 'Local Scope / Component Styles',
+          content: 'docs/Styles/LocalScope.md'
+        }
+      ]
+    },
+    {
       name: 'Components',
       content: 'docs/Components/Introduction.md',
       sections: [

@@ -138,6 +138,10 @@ $sidebarwidth: 250px;
         border-bottom:0;
       }
 
+      tr {
+        border-top:1px solid $grey-lighter;
+      }
+
       tr:hover {
         background-color:transparent;
       }

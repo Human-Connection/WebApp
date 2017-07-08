@@ -17,7 +17,7 @@
                         </p>
                     </div>
                     <p>
-                        <hc-button color="primary" size="medium" type="button" modifier="fullwidth" :loading="loading">
+                        <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
                             Speichern
                         </hc-button>
                     </p>

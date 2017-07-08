@@ -25,7 +25,7 @@
                 <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
                     Dashboard
                 </nuxt-link>
-                <nuxt-link v-if="!isAuthenticated" :to="{ name: 'login' }" class="nav-item is-tab">
+                <nuxt-link v-if="!isAuthenticated" :to="{ name: 'auth-login' }" class="nav-item is-tab">
                     Login
                 </nuxt-link>
                 <template v-else>

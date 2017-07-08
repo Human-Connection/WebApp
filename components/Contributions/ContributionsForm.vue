@@ -5,7 +5,7 @@
                 <li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">
                     <a v-bind:disabled="postType.disabled" class="button is-medium">
                         <span class="icon">
-                            <i v-bind:class="'icon-tools-'+postType.value"></i>
+                            <hc-icon :icon="'tools-'+postType.value" set="hc"></hc-icon>
                         </span>
                         <span>{{ postType.label }}</span>
                     </a>
@@ -40,7 +40,7 @@
   import feathers from '~plugins/feathers'
 
   export default {
-    name: 'hc-contribution',
+    name: 'hc-contributions-form',
     props: ['data'],
     components: {
       'no-ssr': NoSSR
@@ -122,7 +122,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../assets/styles/utilities";
+    @import "~assets/styles/utilities";
 
     .textarea {
         margin-bottom: 10px;

@@ -47,7 +47,7 @@
 
 
 <script>
-  import author from '~components/Author.vue'
+  import author from '~components/Author/Author.vue'
   import feathers from '~plugins/feathers'
   import comments from '~components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
