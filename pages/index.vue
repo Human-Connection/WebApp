@@ -6,9 +6,11 @@
             </card>
         </section>
         <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
-        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')" v-if="isVerified">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
+        <div class="add-contribution">
+            <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+                <hc-icon icon="plus" />
+            </hc-button>
+        </div>
     </section>
 </template>
 
@@ -16,7 +18,7 @@
   import { mapGetters } from 'vuex'
   import feathers from '~plugins/feathers'
   import Bricks from 'bricks.js'
-  import Card from '../components/Card'
+  import Card from '../components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
 
   export default {
@@ -131,24 +133,14 @@
         max-width:    100%;
     }
 
-    #hc-add-contribution {
-        cursor:        pointer;
+    .add-contribution {
         z-index:       50;
         position:      fixed;
         bottom:        50px;
         right:         50px;
-        box-shadow:    0 2px 3px rgba(10, 10, 10, 0.1);
 
-        &, &:link, &:active {
-            outline: none !important;
+        .button {
+            box-shadow:    0 2px 3px rgba(10, 10, 10, 0.1);
         }
-
-        text-align:    center;
-        width:         70px;
-        height:        70px;
-        padding:       10px 16px;
-        font-size:     24px;
-        line-height:   1.33;
-        border-radius: 35px !important;
     }
 </style>

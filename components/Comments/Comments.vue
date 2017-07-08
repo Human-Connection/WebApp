@@ -13,10 +13,11 @@
 
 <script>
   import feathers from '~plugins/feathers'
-  import author from '~components/Author.vue'
-  import commentForm from './CommentForm.vue'
+  import author from '~components/Author/Author.vue'
+  import commentForm from '~components/Comments/CommentForm.vue'
 
   export default {
+    name: 'hc-comment',
     props: ['post'],
     components: {
       'author': author,

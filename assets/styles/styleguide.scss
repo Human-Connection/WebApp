@@ -1,0 +1,249 @@
+// Only used by Style Guide
+@import "~assets/styles/main.scss";
+
+$breakpoint: 601px;
+$breakpoint-big: 1001px;
+$sidebarwidth: 250px;
+
+.styleguide-header {
+  background-color: $white-bis;
+  min-height:90px;
+  position:relative;
+
+  @media (min-width: $breakpoint) {
+    padding-left: $sidebarwidth;
+  }
+
+  img {
+    display:inline-block;
+    vertical-align:middle;
+    margin-right:30px;
+    margin-top:10px;
+    margin-bottom:10px;
+  }
+
+  h1 {
+    display:inline-block;
+    vertical-align:middle;
+    color: $grey-light;
+    margin-top:10px;
+    margin-bottom:10px;
+    text-transform:uppercase;
+    font-size:$size-6;
+
+    @media (min-width: $breakpoint-big) {
+      margin-top:0;
+      margin-bottom:0;
+      position:absolute;
+      right:32px;
+      top:50%;
+      transform:translateY(-50%);
+    }
+  }
+}
+
+.styleguide-header-inner {
+  max-width: 1000px;
+  padding: 16px;
+  margin: 0 auto;
+  display: block;
+
+  @media (min-width: $breakpoint) {
+    padding: 16px 32px;
+  }
+
+  @media (min-width: $breakpoint-big) {
+    padding: 16px 60px;
+  }
+}
+
+// Customization
+#app {
+  [class^="isolatedLink"] {
+    display:none;
+  }
+
+  .title {
+    line-height:1.5;
+  }
+
+  h1,h2,h3,h4,h5,h6,p,strong {
+    color: $text;
+  }
+
+  [class^=preview] {
+    @media (min-width: $breakpoint-big) {
+      padding: 30px;
+    }
+  }
+
+  p:not(:last-of-type) {
+    margin: 0 0 20px 0;
+  }
+
+  [class*="hasSidebar"] {
+    @media (min-width: $breakpoint) {
+      padding-left: $sidebarwidth;
+    }
+  }
+
+  [class^="sidebar"] {
+    box-shadow: 2px 0 5px rgba(10, 10, 10, 0.1);
+    background-color: $white-bis;
+    border:0;
+    padding:5px;
+    width: $sidebarwidth;
+
+    [class^="logo"] {
+      display:none;
+    }
+
+    [class^="search"] {
+      padding: 1em 0.6em;
+    }
+
+    ul[class^="list"] {
+      @extend .menu-list;
+      padding-left:0;
+    }
+  }
+
+  [class^="heading"] {
+    [class^="anchor"] {
+      color:$grey-light;
+      font-size:22px;
+      @media (min-width: $breakpoint) {
+        left:12px;
+      }
+    }
+  }
+
+  main[class^="content"] {
+    padding-top:40px;
+
+    table {
+      td,th {
+        font-size:$size-normal;
+        color: $text;
+        padding:1em;
+      }
+
+      th {
+        font-weight:normal;
+        font-size:$size-small;
+        text-transform:uppercase;
+      }
+
+      thead {
+        border-bottom:0;
+      }
+
+      tr {
+        border-top:1px solid $grey-lighter;
+      }
+
+      tr:hover {
+        background-color:transparent;
+      }
+
+      border:16px solid $white;
+      box-shadow: 0 0 0 1px $grey-lighter;
+
+      @media (min-width: $breakpoint-big) {
+        border-width:30px;
+      }
+    }
+
+    @media (min-width: $breakpoint-big) {
+      padding: 16px 60px;
+      padding-top:40px;
+    }
+
+    section {
+      margin-top:60px;
+    }
+
+    & > section:first-of-type {
+      margin-top:0;
+
+      & > section:first-of-type {
+        margin-top:0;
+      }
+    }
+
+    & > section > section {
+      h1 {
+        @extend .title;
+        @extend .is-1;
+        color: $primary;
+      }
+
+      & > section {
+        h1 {
+          @extend .title;
+          @extend .is-2;
+          color: $primary;
+        }
+
+        border-bottom: 1px solid $grey-lighter;
+
+        & > section {
+          margin-top: 80px;
+          padding-bottom: 40px;
+          border-bottom: 1px solid $grey-lighter;
+
+          & > div > div {
+            margin-top:40px;
+            padding-top:40px;
+          }
+
+          &:last-of-type {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+
+    h2 {
+      @extend .title;
+      @extend .is-3;
+    }
+
+    h3 {
+      @extend .title;
+      @extend .is-4;
+      color: $text;
+    }
+  }
+
+  .CodeMirror.CodeMirror {
+    background: $white-bis;
+  }
+
+  pre[class^="pre"] {
+    background: $white-bis;
+
+    code {
+      font-size:13px;
+      color: #202020;
+    }
+
+    .hljs-comment {color: #8f5536;}
+    .hljs-atom {color: #aa759f;}
+    .hljs-number {color: #aa759f;}
+  
+    .hljs-property, .hljs-attribute, .hljs-attr {color: #90a959;}
+    .hljs-keyword {color: #ac4142;}
+    .hljs-string {color: #f4bf75;}
+  
+    .hljs-variable {color: #90a959;}
+    .hljs-variable-2 {color: #6a9fb5;}
+    .hljs-def {color: #d28445;}
+    .hljs-error {background: #ac4142; color: #505050;}
+    .hljs-bracket {color: #202020;}
+    .hljs-tag {color: #ac4142;}
+    .hljs-link {color: #aa759f;}
+    
+  }
+
+}

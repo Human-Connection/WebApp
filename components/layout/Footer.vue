@@ -12,3 +12,9 @@
         </div>
     </footer>
 </template>
+
+<script>
+  export default {
+    name: 'hc-footer'
+  }
+</script>

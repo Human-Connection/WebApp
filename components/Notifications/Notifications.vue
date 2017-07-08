@@ -3,14 +3,14 @@
         <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active }">
             <span class="notification-icon">
                 <i class="fa fa-bell" aria-hidden="true"></i>
-                <countlabel :count="notifications && notifications.length"></countlabel>
+                <hc-count-label :count="notifications.length" v-if="notifications"></hc-count-label>
             </span>
         </a>
         <transition name="box">
         <div class="box" v-if="active">
             <p class="dropdown-title">Notifications</p>
             <p v-if="!isAuthenticated" class="dropdown-content">
-                Please <nuxt-link :to="{ name: 'login' }">login</nuxt-link> to see your notifications.
+                Please <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link> to see your notifications.
             </p>
             <div v-if="notifications">
                 <p v-if="notifications.length === 0" class="dropdown-content">
@@ -36,13 +36,12 @@
 <script>
   import {mapGetters, mapMutations} from 'vuex'
   import feathers from '~plugins/feathers'
-  import author from '~components/Author.vue'
-  import countlabel from '~components/CountLabel.vue'
+  import author from '~components/Author/Author.vue'
 
   export default {
+    name: 'hc-notifications',
     components: {
-      'author': author,
-      'countlabel': countlabel
+      'author': author
     },
     data () {
       return {

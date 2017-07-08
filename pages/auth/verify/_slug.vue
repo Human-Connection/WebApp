@@ -9,7 +9,7 @@
               <img src="/assets/svg/hc-smilies-02.svg" width="150px">
               <h1 class="title is-2">Email verification</h1>
               <p>Your email address has been verified successfully.</p>
-              <nuxt-link :to="{ name: 'login' }" class="button is-primary is-medium">
+              <nuxt-link :to="{ name: 'auth-login' }" class="button is-primary is-medium">
                 Login to your account
               </nuxt-link>
             </template>

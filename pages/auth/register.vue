@@ -27,13 +27,15 @@
                         <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
                     </div>
                     <p>
-                        <button class="button is-primary is-fullwidth is-medium" v-bind:class="{ 'is-loading': loading }">Registrieren</button>
+                        <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
+                            Registrieren
+                        </hc-button>
                     </p>
                 </form>
                 <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link> einverstanden und bestätige, dass ich die Human Connection <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link> gelesen habe.</p>
             </div>
             <footer class="card-footer">
-                <nuxt-link :to="{ name: 'login' }" class="card-footer-item">
+                <nuxt-link :to="{ name: 'auth-login' }" class="card-footer-item">
                     Du hast ein Konto?
                 </nuxt-link>
             </footer>
