@@ -18,11 +18,11 @@
     name: 'hc-button',
     props: {
       /**
-       * Set color: primary, info, dark, white, danger, warning
+       * Set color: primary, dark, light, success, info, danger, warning
        */
       color: {
         type: String,
-        default: ''
+        default: 'primary'
       },
       /**
        * Render as a circle: true | false
