@@ -50,39 +50,39 @@
     width: auto;
     background-color: $white;
     box-shadow: 2px 0 3px rgba(10, 10, 10, 0.1);
-    pointer-events:all;
+    pointer-events: all;
   }
 
   .sidebar-toggle {
-    position:absolute;
-    top:0;
-    right:0;
-    width:$sidebar-closed-width;
-    height:$sidebar-closed-width;
-    cursor:pointer;
-    user-select:none;
-    display:flex;
-    align-items:center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $sidebar-closed-width;
+    height: $sidebar-closed-width;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
     justify-content: center;
 
     &:hover {
       .toggle-icon span {
-        background-color:$grey-dark;
+        background-color: $grey-dark;
       }
     }
   }
 
   .toggle-icon {
-    width:24px;
-    display:block;
+    width: 24px;
+    display: block;
     span {
-      width:100%;
-      display:block;
-      height:3px;
-      border-radius:4px;
-      background-color:$grey;
-      transition:all 0.2s ease-out;
-      margin-bottom:3px;
+      width: 100%;
+      display: block;
+      height: 3px;
+      border-radius: 4px;
+      background-color: $grey;
+      transition: all 0.2s ease-out;
+      margin-bottom: 3px;
     }
   }
 

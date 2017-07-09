@@ -95,7 +95,7 @@
   nav {
     @extend .nav;
     @extend .has-shadow;
-    padding-left:$sidebar-closed-width;
+    padding-left: $sidebar-closed-width;
 
     .nuxt-link-exact-active {
       @extend a.nav-item.is-active;
@@ -105,18 +105,18 @@
 
   .nav-left {
     .field {
-      display:flex;
-      align-items:center;
+      display: flex;
+      align-items: center;
     }
 
     .control {
       input {
-        border-radius:1em;
-        height:2em;
+        border-radius: 1em;
+        height: 2em;
       }
 
       .icon {
-        height:2em;
+        height: 2em;
       }
     }
   }
