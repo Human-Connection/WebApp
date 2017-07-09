@@ -100,8 +100,6 @@
   }
 
   .nav-left {
-    overflow: visible;
-
     .field {
       display:flex;
       align-items:center;
@@ -117,6 +115,10 @@
         height:2em;
       }
     }
+  }
+
+  .nav-left, .nav-middle, .nav-right {
+    overflow: visible;
   }
 
   .logo {
