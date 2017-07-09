@@ -55,46 +55,46 @@
     width: 100%;
     top: 0;
     bottom: 0;
-    z-index:50;
-    pointer-events:none;
+    z-index: 50;
+    pointer-events: none;
   }
 
   .hc-overlay {
-    position:absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    background-color:rgba($grey-darker,0.5);
-    box-shadow:inset 0 0 400px rgba($grey-darker,0.8);
-    pointer-events:all;
-    z-index:90;
-    opacity:0;
-    visibility:hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba($grey-darker, 0.5);
+    box-shadow: inset 0 0 400px rgba($grey-darker, 0.8);
+    pointer-events: all;
+    z-index: 90;
+    opacity: 0;
+    visibility: hidden;
 
     transition: opacity $sidebar-animation, visibility $sidebar-animation;
 
     .sidebar-open & {
-      opacity:1;
+      opacity: 1;
       visibility: visible;
     }
   }
 
   .hc-topbar {
     transition: transform $sidebar-animation;
-    pointer-events:all;
+    pointer-events: all;
 
     .sidebar-open & {
-      transform:translateX($sidebar-open-width - $sidebar-closed-width);
+      transform: translateX($sidebar-open-width - $sidebar-closed-width);
     }
   }
 
   .hc-content {
-    padding-left:$sidebar-closed-width;
+    padding-left: $sidebar-closed-width;
     transition: transform $sidebar-animation;
 
     .sidebar-open & {
-      transform:translateX($sidebar-open-width - $sidebar-closed-width);
+      transform: translateX($sidebar-open-width - $sidebar-closed-width);
     }
   }
 </style>
