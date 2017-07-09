@@ -45,6 +45,10 @@
 
 
 <script>
+  // Todo: search in component,
+  // Todo: messages in component,
+  // Todo: profile button in component
+
   import {mapGetters} from 'vuex'
   import Notifications from '../Notifications/Notifications.vue'
 

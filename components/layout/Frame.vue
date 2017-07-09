@@ -15,6 +15,8 @@
 
 
 <script>
+  // Todo: overlay as global component
+
   import {mapGetters, mapActions} from 'vuex'
   import HcSidebar from '~components/layout/Sidebar.vue'
   import HcTopbar from '~components/layout/Topbar.vue'
