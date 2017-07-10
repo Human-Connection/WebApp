@@ -1,12 +1,8 @@
 <template>
   <div class="sidebar" :class="classes">
-    <span @click="toggleSidebar" class="sidebar-toggle">
-      <span class="toggle-icon">
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
-    </span>
+    <div class="desktop-toggle">
+      <hc-sidebar-toggle></hc-sidebar-toggle>
+    </div>
     <div class="sidebar-content">
     </div>
   </div>
@@ -15,8 +11,12 @@
 
 <script>
   import {mapGetters, mapActions} from 'vuex'
+  import HcSidebarToggle from '~components/layout/SidebarToggle'
 
   export default {
+    components: {
+      HcSidebarToggle
+    },
     name: 'hc-sidebar',
     computed: {
       ...mapGetters({
@@ -43,55 +43,59 @@
 
   .sidebar {
     position: absolute;
-    top: 0;
+    top: $topbar-height;
+    bottom: 0;
     left: 0;
-    height: 100vh;
-    z-index: 100;
+    z-index: 120;
     width: auto;
-    background-color: $white;
-    box-shadow: 2px 0 3px rgba(10, 10, 10, 0.1);
+    background-color: $grey-lighter;
     pointer-events: all;
-  }
 
-  .sidebar-toggle {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: $sidebar-closed-width;
-    height: $sidebar-closed-width;
-    cursor: pointer;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include until($tablet) {
+      right: 0;
+      transform: translateX(-3%);
+      opacity: 0;
+      visibility: hidden;
+      transition: all $sidebar-animation;
 
-    &:hover {
-      .toggle-icon span {
-        background-color: $grey-dark;
+      &.is-open {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
       }
     }
   }
 
-  .toggle-icon {
-    width: 24px;
-    display: block;
-    span {
-      width: 100%;
+  .desktop-toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+
+    @include tablet {
       display: block;
-      height: 3px;
-      border-radius: 4px;
-      background-color: $grey;
-      transition: all 0.2s ease-out;
-      margin-bottom: 3px;
+    }
+
+    @include from($sidebar-breakpoint) {
+      display: none;
     }
   }
 
   .sidebar-content {
-    width: $sidebar-closed-width;
+    width: 100%;
     overflow: hidden;
     transition: width $sidebar-animation;
 
     .is-open & {
+      width: $sidebar-open-width;
+    }
+
+    @include tablet {
+      width: $sidebar-closed-width;
+      top: $topbar-height;
+    }
+
+    @include from($sidebar-breakpoint) {
       width: $sidebar-open-width;
     }
   }

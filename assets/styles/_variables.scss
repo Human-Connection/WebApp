@@ -16,6 +16,7 @@ $grey:         hsl(0, 0%, 48%);
 $grey-light:   hsl(0, 0%, 71%);
 $grey-lighter: hsl(0, 0%, 86%);
 
+$white-dar:    hsl(0, 0%, 92%);
 $white-ter:    hsl(0, 0%, 96%);
 $white-bis:    hsl(0, 0%, 98%);
 $white:        hsl(0, 0%, 100%);
@@ -52,7 +53,27 @@ $padding: 1em;
 $padding-medium: 1.2em;
 $padding-large: 1.4em;
 
+// Topbar Settings
+$topbar-height: 54px;
+
+// Configbar Settings
+$configbar-height: 54px;
+
 // Sidebar Settings
-$sidebar-closed-width: 50px;
+$sidebar-closed-width: 54px;
 $sidebar-open-width: 250px;
 $sidebar-animation: 0.35s ease-out;
+$sidebar-breakpoint: 1600px;
+
+// Container Settings
+$container-gutter: 90px;
+
+// Responsiveness
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 769px;
+// 960px container + 40
+$desktop: 1000px;
+// 1152px container + 40
+$widescreen: 1192px;
+// 1260px container + 40
+$fullhd: 1300px;

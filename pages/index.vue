@@ -1,18 +1,20 @@
 <template>
-  <section class="container" style="position: relative">
-    <section class="hc__cards" v-cloak="ready">
-      <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
-            @ready="updateGrid">
-        <small slot="category">{{ contribution.type }}</small>
-      </card>
+  <div>
+    <section class="container" style="position: relative">
+      <section class="hc__cards" v-cloak="ready">
+        <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
+              @ready="updateGrid">
+          <small slot="category">{{ contribution.type }}</small>
+        </card>
+      </section>
+      <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
+      <div class="add-contribution">
+        <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+          <hc-icon icon="plus"/>
+        </hc-button>
+      </div>
     </section>
-    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
-    <div class="add-contribution">
-      <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
-        <hc-icon icon="plus"/>
-      </hc-button>
-    </div>
-  </section>
+  </div>
 </template>
 
 <script>
@@ -107,7 +109,8 @@
           {columns: 1, gutter: 15},
           {mq: '769px', columns: 2, gutter: 15},
           {mq: '1000px', columns: 3, gutter: 15},
-          {mq: '1384px', columns: 4, gutter: 15}
+          {mq: '1192px', columns: 4, gutter: 15},
+          {mq: '1300px', columns: 4, gutter: 15}
         ]
       })
       this.updateGrid()
@@ -127,6 +130,14 @@
 </script>
 
 <style scoped lang="scss">
+  @import "~assets/styles/utilities";
+
+  .config-bar {
+    background-color: $grey-lighter;
+    height:50px;
+    margin-bottom:20px;
+  }
+
   .hc__cards {
     padding: 0;
     margin-left: auto;

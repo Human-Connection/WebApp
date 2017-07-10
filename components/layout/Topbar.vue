@@ -2,20 +2,25 @@
   <nav>
     <div class="container">
       <div class="nav-left">
-        <div class="field">
-          <p class="control has-icons-right">
-            <input class="input" type="text" placeholder="Suchen ..." value="">
-            <span class="icon is-small is-right">
-              <hc-icon icon="search"></hc-icon>
-            </span>
-          </p>
+        <div class="mobile-toggle">
+          <hc-sidebar-toggle></hc-sidebar-toggle>
         </div>
-      </div>
-
-      <div class="nav-center">
         <nuxt-link class="logo" :to="{ name: 'index' }">
           <img src="/logo-hc.svg" alt="Human Connection">
         </nuxt-link>
+      </div>
+
+      <div class="nav-center">
+        <div class="search">
+          <div class="field">
+            <p class="control has-icons-right">
+              <input class="input" type="text" placeholder="Suchen ..." value="">
+              <span class="icon is-small is-right">
+                <hc-icon icon="search"></hc-icon>
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
 
       <div class="nav-right">
@@ -50,12 +55,14 @@
   // Todo: profile button in component
 
   import {mapGetters} from 'vuex'
-  import Notifications from '../Notifications/Notifications.vue'
+  import Notifications from '~components/Notifications/Notifications'
+  import HcSidebarToggle from '~components/layout/SidebarToggle'
 
   export default {
     name: 'hc-topbar',
     components: {
-      'notifications': Notifications
+      'notifications': Notifications,
+      HcSidebarToggle
     },
     data () {
       return {
@@ -95,7 +102,23 @@
   nav {
     @extend .nav;
     @extend .has-shadow;
-    padding-left: $sidebar-closed-width;
+    z-index: 130;
+    pointer-events: all;
+    padding:0 0.6em;
+    height: $topbar-height;
+    padding-left:0;
+
+    @include tablet() {
+      padding-left:5px;
+    }
+
+    @include desktop() {
+      padding-left: $sidebar-closed-width;
+    }
+
+    @include from($sidebar-breakpoint) {
+      padding-left: $sidebar-open-width;
+    }
 
     .nuxt-link-exact-active {
       @extend a.nav-item.is-active;
@@ -103,7 +126,19 @@
     }
   }
 
-  .nav-left {
+  .mobile-toggle {
+    position:relative;
+    background-color:$white-ter;
+    margin-right:10px;
+
+    @include tablet() {
+      display: none;
+    }
+  }
+
+  .search {
+    display: flex;
+
     .field {
       display: flex;
       align-items: center;
@@ -128,10 +163,10 @@
   .logo {
     display: inline-block;
     position: relative;
-    height: 50px;
+    height: $topbar-height;
     width: 150px;
     text-align: left;
-    padding: 8px 0 8px 8px;
+    padding: ($topbar-height - 34px)/2 0;
     margin: 0;
 
     img {

@@ -73,19 +73,24 @@
 <style scoped lang="scss">
   @import '~assets/styles/utilities';
 
+  $gutter: 15px;
+  $padding: 25px;
+
   .hc__card {
-    $padding: 25px;
     display: block;
     width: 100%;
     max-width: 100%;
     @include tablet() {
-      width: 345px;
+      width: ($tablet - 1*$gutter - $container-gutter) / 2;
     }
     @include desktop() {
-      width: 300px;
+      width: ($desktop - 2*$gutter - $container-gutter) / 3;
+    }
+    @include widescreen() {
+      width: ($widescreen - 3*$gutter - $container-gutter) / 4;
     }
     @include fullhd() {
-      width: 300px;
+      width: ($fullhd - 3*$gutter - $container-gutter) / 4;
     }
 
     opacity: 0;

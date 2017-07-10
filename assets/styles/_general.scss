@@ -9,13 +9,13 @@
 //}
 
 #main {
-  padding-top: 80px;
+  padding-top: $topbar-height + $configbar-height + 40px;
   padding-bottom: 40px;
   min-height: 80vh;
 }
 
 html, body {
-  background-color: #eee;
+  background-color: $white-dar;
   min-height: 100vh;
   font-family: $family-sans-serif;
   font-variant-ligatures: no-common-ligatures;
@@ -39,6 +39,30 @@ footer {
 
 input, textarea {
   box-shadow: none !important;
+}
+
+// Defining our own container gutter
+.container {
+  @include desktop() {
+    max-width: $desktop - $container-gutter;
+    width: $desktop - $container-gutter;
+
+    &.is-fluid {
+      margin: 0 20px;
+      max-width: none;
+      width: auto;
+    }
+  }
+
+  @include widescreen() {
+    max-width: $widescreen - $container-gutter;
+    width: $widescreen - $container-gutter;
+  }
+
+  @include fullhd() {
+    max-width: $fullhd - $container-gutter;
+    width: $fullhd - $container-gutter;
+  }
 }
 
 .card-footer {
