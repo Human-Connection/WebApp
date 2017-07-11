@@ -18,6 +18,12 @@
       </span>
           Nachrichten
     </nuxt-link>
+    <nuxt-link to="map" class="menu-item">
+      <span class="menu-icon">
+        <hc-icon icon="globe"></hc-icon>
+      </span>
+          Karte
+    </nuxt-link>
     <nuxt-link to="calender" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="calendar-o"></hc-icon>
@@ -52,7 +58,7 @@
     color: $grey-darker;
     align-items:center;
     width: $sidebar-open-width;
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
     letter-spacing:0.05em;
 
     &:hover {
@@ -76,7 +82,7 @@
     justify-content: center;
     font-size:1.2em;
     box-shadow: 0 5px 8px rgba(0,0,0,0.05);
-    transition: all 0.2s ease-out;
+    transition: all 0.1s ease-out;
 
     .nuxt-link-exact-active & {
       color: $white;
