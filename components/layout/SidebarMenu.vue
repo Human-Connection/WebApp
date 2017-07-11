@@ -46,6 +46,7 @@
 
   .menu-item {
     display:flex;
+    position:relative;
     padding:10px $icon-padding;
     margin-bottom:5px;
     color: $grey-darker;
@@ -55,11 +56,11 @@
     letter-spacing:0.05em;
 
     &:hover {
-      background-color: $white-dar;
+      background-color: $white-ter;
     }
 
     &.nuxt-link-exact-active {
-      //background-color: $white-dar;
+      background-color: $white-ter;
     }
   }
 
