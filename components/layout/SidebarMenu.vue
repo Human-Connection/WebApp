@@ -4,37 +4,37 @@
       <span class="menu-icon">
         <hc-icon icon="th"></hc-icon>
       </span>
-          Dashboard
+      Dashboard
     </nuxt-link>
     <nuxt-link to="profile" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="cog"></hc-icon>
       </span>
-          Einstellungen
+      Einstellungen
     </nuxt-link>
     <nuxt-link to="messages" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="comments"></hc-icon>
       </span>
-          Nachrichten
+      Nachrichten
     </nuxt-link>
     <nuxt-link to="map" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="globe"></hc-icon>
       </span>
-          Karte
+      Karte
     </nuxt-link>
     <nuxt-link to="calender" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="calendar-o"></hc-icon>
       </span>
-          Kalender
+      Kalender
     </nuxt-link>
     <nuxt-link to="help" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="question"></hc-icon>
       </span>
-          Hilfe
+      Hilfe
     </nuxt-link>
   </nav>
 </template>
@@ -48,18 +48,19 @@
 
 <style lang="scss" scoped>
   @import "~assets/styles/utilities";
+
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 
   .menu-item {
-    display:flex;
-    position:relative;
-    padding:10px $icon-padding;
-    margin-bottom:5px;
+    display: flex;
+    position: relative;
+    padding: 10px $icon-padding;
+    margin-bottom: 5px;
     color: $grey-darker;
-    align-items:center;
+    align-items: center;
     width: $sidebar-open-width;
     transition: all 0.1s ease-out;
-    letter-spacing:0.05em;
+    letter-spacing: 0.05em;
 
     &:hover {
       background-color: $white-ter;
@@ -71,17 +72,15 @@
   }
 
   .menu-icon {
-    display:inline-flex;
-    margin-right:$icon-padding + 2px;
-    width:40px;
-    height:40px;
-    border-radius:100%;
-    background-color: $white;
+    display: inline-flex;
+    margin-right: $icon-padding + 2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
     color: $grey-dark;
-    align-items:center;
+    align-items: center;
     justify-content: center;
-    font-size:1.2em;
-    box-shadow: 0 5px 8px rgba(0,0,0,0.05);
+    font-size: 1.2em;
     transition: all 0.1s ease-out;
 
     .nuxt-link-exact-active & {

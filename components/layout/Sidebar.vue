@@ -88,7 +88,7 @@
     width: 100%;
     overflow: hidden;
     transition: width $sidebar-animation;
-    padding-top:$sidebar-closed-width;
+    padding-top: $sidebar-closed-width;
 
     .is-open & {
       width: $sidebar-open-width;

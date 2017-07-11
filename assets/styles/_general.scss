@@ -1,4 +1,3 @@
-
 //.column--slim {
 //  @extend .is-10-tablet;
 //  @extend .is-offset-1-tablet;
@@ -9,7 +8,7 @@
 //}
 
 #main {
-  padding-top: $topbar-height + $configbar-height + 10px;
+  padding-top: $topbar-height + $configbar-height + 30px;
   padding-bottom: 40px;
   min-height: 80vh;
 }
@@ -22,7 +21,7 @@ html, body {
 }
 
 footer {
-  padding:    20px;
+  padding: 20px;
   text-align: center;
   border-top: 1px solid #ddd;
 }
@@ -30,9 +29,11 @@ footer {
 .page-leave-active {
   transition: opacity 100ms
 }
+
 .page-enter-active {
   transition: opacity 300ms
 }
+
 .page-enter, .page-leave-active {
   opacity: 0
 }
@@ -72,7 +73,7 @@ input, textarea {
 }
 
 .checkbox {
-  display:inline-flex !important;
+  display: inline-flex !important;
 }
 
 .ql-editor {

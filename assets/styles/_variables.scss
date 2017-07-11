@@ -1,35 +1,35 @@
 @import "~bulma/sass/utilities/initial-variables";
-
 //font-family
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i');
+
 $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-$body-size:    15px;
+$body-size: 15px;
 
 //colors
-$black:        hsl(0, 0%, 4%);
-$black-bis:    hsl(0, 0%, 7%);
-$black-ter:    hsl(0, 0%, 14%);
+$black: hsl(0, 0%, 4%);
+$black-bis: hsl(0, 0%, 7%);
+$black-ter: hsl(0, 0%, 14%);
 
-$grey-darker:  hsl(0, 0%, 25%);
-$grey-dark:    hsl(0, 0%, 34%);
-$grey:         hsl(0, 0%, 48%);
-$grey-light:   hsl(0, 0%, 71%);
+$grey-darker: hsl(0, 0%, 25%);
+$grey-dark: hsl(0, 0%, 34%);
+$grey: hsl(0, 0%, 48%);
+$grey-light: hsl(0, 0%, 71%);
 $grey-lighter: hsl(0, 0%, 86%);
 
-$white-dar:    hsl(0, 0%, 92%);
-$white-ter:    hsl(0, 0%, 96%);
-$white-bis:    hsl(0, 0%, 98%);
-$white:        hsl(0, 0%, 100%);
+$white-dar: hsl(0, 0%, 92%);
+$white-ter: hsl(0, 0%, 96%);
+$white-bis: hsl(0, 0%, 98%);
+$white: hsl(0, 0%, 100%);
 
-$orange:       hsl(14,  100%, 53%);
-$yellow:       hsl(48,  100%, 67%);
-$green:        hsl(78,  71%,  41%);
-$turquoise:    $green;
-$blue:         hsl(217, 71%,  53%);
-$purple:       hsl(271, 100%, 71%);
+$orange: hsl(14, 100%, 53%);
+$yellow: hsl(48, 100%, 67%);
+$green: hsl(78, 71%, 41%);
+$turquoise: $green;
+$blue: hsl(217, 71%, 53%);
+$purple: hsl(271, 100%, 71%);
 $red: hsl(12, 51%, 55%);
-$primary:      $green;
-$link:         $green;
+$primary: $green;
+$link: $green;
 
 $radius-small: 1px;
 $radius: 1px;
@@ -57,7 +57,7 @@ $padding-large: 1.4em;
 $topbar-height: 70px;
 
 // Configbar Settings
-$configbar-height: 70px;
+$configbar-height: 50px;
 
 // Sidebar Settings
 $sidebar-closed-width: 64px;

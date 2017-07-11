@@ -112,12 +112,12 @@
     }
 
     @include tablet() {
-       padding:0 20px;
+      padding: 0 20px;
     }
 
     @include until($sidebar-breakpoint - 1) {
       .container {
-        max-width:none;
+        max-width: none;
       }
     }
 
@@ -128,9 +128,9 @@
   }
 
   .mobile-toggle {
-    position:relative;
-    background-color:$white-ter;
-    margin-right:10px;
+    position: relative;
+    background-color: $white-ter;
+    margin-right: 10px;
 
     @include tablet() {
       display: none;
