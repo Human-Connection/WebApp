@@ -47,11 +47,11 @@
     span {
       width: 100%;
       display: block;
-      height: 3px;
+      height: 2px;
       border-radius: 4px;
       background-color: $grey;
       transition: all 0.2s ease-out;
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
   }
 </style>

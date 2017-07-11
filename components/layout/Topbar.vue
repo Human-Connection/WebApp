@@ -104,25 +104,26 @@
     @extend .has-shadow;
     z-index: 130;
     pointer-events: all;
-    padding:0 0.6em;
     height: $topbar-height;
-    padding-left:0;
-
-    @include tablet() {
-      padding-left:5px;
-    }
-
-    @include desktop() {
-      padding-left: $sidebar-closed-width;
-    }
-
-    @include from($sidebar-breakpoint) {
-      padding-left: $sidebar-open-width;
-    }
 
     .nuxt-link-exact-active {
       @extend a.nav-item.is-active;
       font-weight: bold;
+    }
+
+    @include tablet() {
+       padding:0 20px;
+    }
+
+    @include until($sidebar-breakpoint - 1) {
+      .container {
+        max-width:none;
+      }
+    }
+
+    @include from($sidebar-breakpoint) {
+      padding-left: $sidebar-open-width;
+      padding-right: 0;
     }
   }
 
@@ -166,7 +167,7 @@
     height: $topbar-height;
     width: 150px;
     text-align: left;
-    padding: ($topbar-height - 34px)/2 0;
+    padding: ($topbar-height - 40px)/2 0;
     margin: 0;
 
     img {

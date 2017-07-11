@@ -4,6 +4,7 @@
       <hc-sidebar-toggle></hc-sidebar-toggle>
     </div>
     <div class="sidebar-content">
+      <hc-sidebar-menu></hc-sidebar-menu>
     </div>
   </div>
 </template>
@@ -12,10 +13,12 @@
 <script>
   import {mapGetters, mapActions} from 'vuex'
   import HcSidebarToggle from '~components/layout/SidebarToggle'
+  import HcSidebarMenu from '~components/layout/SidebarMenu'
 
   export default {
     components: {
-      HcSidebarToggle
+      HcSidebarToggle,
+      HcSidebarMenu
     },
     name: 'hc-sidebar',
     computed: {
@@ -48,7 +51,7 @@
     left: 0;
     z-index: 120;
     width: auto;
-    background-color: $grey-lighter;
+    background-color: $white-bis;
     pointer-events: all;
 
     @include until($tablet) {
@@ -85,6 +88,7 @@
     width: 100%;
     overflow: hidden;
     transition: width $sidebar-animation;
+    padding-top:$sidebar-closed-width;
 
     .is-open & {
       width: $sidebar-open-width;
