@@ -1,5 +1,5 @@
 <template>
-  <div class="hc-frame" :class="classes">
+  <div class="hc-frame">
     <div class="hc-navigation">
       <hc-topbar></hc-topbar>
     </div>
