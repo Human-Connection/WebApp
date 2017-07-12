@@ -38,6 +38,7 @@ module.exports = {
    ** Add axios globally
    */
   build: {
+    presets: ['vue-app'],
     vendor: [
       'axios',
       'moment',

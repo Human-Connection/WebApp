@@ -2,7 +2,7 @@
   <div class="media hc__author" v-if="post">
     <div class="media-left">
       <figure class="image">
-        <div v-bind:style="{ backgroundImage: 'url(' + avatar.small + ')' }" class="img-circle profile-image"></div>
+        <div v-bind:style="{ backgroundImage: 'url(' + avatar + ')' }" class="img-circle profile-image"></div>
       </figure>
     </div>
     <div class="media-content">
@@ -27,11 +27,7 @@
     props: ['post'],
     computed: {
       avatar () {
-        const defaultAvatar = {
-          small: '/assets/images/avatar-default/male/avatar100x100.jpg',
-          medium: '/assets/images/avatar-default/male/avatar200x200.jpg',
-          large: '/assets/images/avatar-default/male/avatar200x200.jpg'
-        }
+        const defaultAvatar = '/assets/images/avatar-default/male/avatar200x200.jpg'
         return (this.post.user && this.post.user.avatar) ? this.post.user.avatar : defaultAvatar
       }
     }
