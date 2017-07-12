@@ -55,8 +55,8 @@
   // Todo: profile button in component
 
   import {mapGetters} from 'vuex'
-  import Notifications from '~components/Notifications/Notifications'
-  import HcSidebarToggle from '~components/layout/SidebarToggle'
+  import Notifications from '~components/Notifications/Notifications.vue'
+  import HcSidebarToggle from '~components/layout/SidebarToggle.vue'
 
   export default {
     name: 'hc-topbar',
