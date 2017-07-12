@@ -42,13 +42,13 @@ module.exports = {
     }
   ],
   // Return path with import example for specific components
-  getComponentPathLine(componentPath) {
-    const name = path.basename(componentPath, '.vue');
-    const dir = path.dirname(componentPath);
+  getComponentPathLine (componentPath) {
+    const name = path.basename(componentPath, '.vue')
+    const dir = path.dirname(componentPath)
     if (dir.includes('Global')) {
-      return componentPath;
+      return componentPath
     }
-    return `import ${name} from '${dir}/${name}.vue'`;
+    return `import ${name} from '${dir}/${name}.vue'`
   },
   assetsDir: 'static',
   require: ['assets/styles/styleguide.scss'],
@@ -71,12 +71,17 @@ module.exports = {
           test: /\.vue$/,
           exclude: /node_modules/,
           loader: 'vue-loader',
+          options: {
+            loaders: {
+              'js': 'babel-loader?presets[]=vue-app&babelrc=false'
+            }
+          }
         },
         // Babel loader, will use your project’s .babelrc
         {
           test: /\.js?$/,
           exclude: /node_modules/,
-          loader: 'babel-loader?presets[]=es2015'
+          loader: 'babel-loader?presets[]=vue-app&babelrc=false'
         },
         // Other loaders that are needed for your components
         {
@@ -90,7 +95,7 @@ module.exports = {
         {
           test: /\.(png|jpe?g|gif|svg)$/,
           loader: 'url-loader',
-          query: {
+          options: {
             limit: 1000, // 1KO
             name: 'img/[name].[hash:7].[ext]'
           }
@@ -98,7 +103,7 @@ module.exports = {
         {
           test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
           loader: 'url-loader',
-          query: {
+          options: {
             limit: 1000, // 1 KO
             name: 'fonts/[name].[hash:7].[ext]'
           }
