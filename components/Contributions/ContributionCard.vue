@@ -74,6 +74,7 @@
   @import '~assets/styles/utilities';
 
   $gutter: 15px;
+  $gutter-big: 30px;
   $padding: 25px;
 
   .hc__card {
@@ -87,10 +88,10 @@
       width: ($desktop - 2*$gutter - $container-gutter) / 3;
     }
     @include widescreen() {
-      width: ($widescreen - 3*$gutter - $container-gutter) / 4;
+      width: ($widescreen - 2*$gutter-big - $container-gutter) / 3;
     }
     @include fullhd() {
-      width: ($fullhd - 3*$gutter - $container-gutter) / 4;
+      width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
     }
 
     opacity: 0;
