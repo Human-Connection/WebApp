@@ -74,7 +74,7 @@
   @import '~assets/styles/utilities';
 
   $gutter: 15px;
-  $gutter-big: 30px;
+  $gutter-big: 20px;
   $padding: 25px;
 
   .hc__card {
