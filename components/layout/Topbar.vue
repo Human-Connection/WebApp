@@ -2,9 +2,6 @@
   <nav>
     <div class="container">
       <div class="nav-left">
-        <div class="mobile-toggle">
-          <hc-sidebar-toggle></hc-sidebar-toggle>
-        </div>
         <nuxt-link class="logo" :to="{ name: 'index' }">
           <img src="/logo-hc.svg" alt="Human Connection">
         </nuxt-link>
@@ -56,13 +53,11 @@
 
   import {mapGetters} from 'vuex'
   import Notifications from '~components/Notifications/Notifications.vue'
-  import HcSidebarToggle from '~components/layout/SidebarToggle.vue'
 
   export default {
     name: 'hc-topbar',
     components: {
-      'notifications': Notifications,
-      HcSidebarToggle
+      'notifications': Notifications
     },
     data () {
       return {
@@ -105,25 +100,15 @@
     z-index: 130;
     pointer-events: all;
     height: $topbar-height;
+    padding: 0 20px;
 
     .nuxt-link-exact-active {
       @extend a.nav-item.is-active;
       font-weight: bold;
     }
 
-    @include tablet() {
-      padding: 0 20px;
-    }
-
-    @include until($sidebar-breakpoint - 1) {
-      .container {
-        max-width: none;
-      }
-    }
-
-    @include from($sidebar-breakpoint) {
-      padding-left: $sidebar-open-width;
-      padding-right: 0;
+    @include desktop() {
+      padding: 0;
     }
   }
 
