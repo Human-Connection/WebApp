@@ -1,22 +1,23 @@
 <template>
-    <div class="hc__comments" v-if="post">
-        <transition-group name="comment">
-            <div class="hc__comment autowrap" v-for="comment in comments" :key="comment._id">
-                <author :post="comment"></author>
-                <p v-html="comment.content"></p>
-            </div>
-        </transition-group>
-        <comment-form :post="post" />
-    </div>
+  <div class="hc__comments" v-if="post">
+    <transition-group name="comment">
+      <div class="hc__comment autowrap" v-for="comment in comments" :key="comment._id">
+        <author :post="comment"></author>
+        <p v-html="comment.content"></p>
+      </div>
+    </transition-group>
+    <comment-form :post="post"/>
+  </div>
 </template>
 
 
 <script>
   import feathers from '~plugins/feathers'
-  import author from '~components/Author.vue'
-  import commentForm from './CommentForm.vue'
+  import author from '~components/Author/Author.vue'
+  import commentForm from '~components/Comments/CommentForm.vue'
 
   export default {
+    name: 'hc-comment',
     props: ['post'],
     components: {
       'author': author,
@@ -45,28 +46,29 @@
 </script>
 
 <style scoped lang="scss">
-    @import "../../assets/styles/utilities";
+  @import "../../assets/styles/utilities";
 
-    .hc__comment {
-        border-top:1px solid $grey-lighter;
-        padding: 20px 0;
-        position:relative;
+  .hc__comment {
+    border-top: 1px solid $grey-lighter;
+    padding: 20px 0;
+    position: relative;
 
-        p {
-            color: $grey;
-            padding-left: 51px;
-        }
-
-        &:first-child {
-            border-top: none;
-        }
+    p {
+      color: $grey;
+      padding-left: 51px;
     }
 
-    .comment-enter-active, .comment-leave-active {
-        transition: all .5s ease-out;
+    &:first-child {
+      border-top: none;
     }
-    .comment-enter, .comment-leave-to {
-        opacity: 0;
-        transform: translateX(-10px);
-    }
+  }
+
+  .comment-enter-active, .comment-leave-active {
+    transition: all .5s ease-out;
+  }
+
+  .comment-enter, .comment-leave-to {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
 </style>
