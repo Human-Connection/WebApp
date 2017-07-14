@@ -1,6 +1,7 @@
 @import "~bulma/sass/utilities/initial-variables";
 
 //font-family
+@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i');
 $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $body-size:    15px;
 
@@ -37,3 +38,16 @@ $border: $grey-light;
 $border-hover: $grey;
 
 $size-7: 0.8rem;
+$size-8: 0.6rem;
+
+$size-xsmall: $size-8;
+
+$margin-small: 0.8em;
+$margin: 1em;
+$margin-medium: 1.2em;
+$margin-large: 1.4em;
+
+$padding-small: 0.8em;
+$padding: 1em;
+$padding-medium: 1.2em;
+$padding-large: 1.4em;

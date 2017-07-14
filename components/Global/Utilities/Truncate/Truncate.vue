@@ -1,5 +1,5 @@
 <template>
-    <span v-html="truncatedText"></span>
+  <span v-html="truncatedText"></span>
 </template>
 
 
@@ -7,8 +7,19 @@
   import lodash from 'lodash'
 
   export default {
-    props: ['text', 'length'],
-    name: 'truncate',
+    name: 'hc-truncate',
+    props: {
+      /**
+       * The text to shorten
+       */
+      text: {
+        type: String
+      },
+      /**
+       * The number of characters
+       */
+      length: {}
+    },
     computed: {
       truncatedText () {
         if (!this.text) {

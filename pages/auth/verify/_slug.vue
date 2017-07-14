@@ -9,14 +9,15 @@
               <img src="/assets/svg/hc-smilies-02.svg" width="150px">
               <h1 class="title is-2">Email verification</h1>
               <p>Your email address has been verified successfully.</p>
-              <nuxt-link :to="{ name: 'login' }" class="button is-primary is-medium">
+              <nuxt-link :to="{ name: 'auth-login' }" class="button is-primary is-medium">
                 Login to your account
               </nuxt-link>
             </template>
             <template v-else>
               <img src="/assets/svg/hc-smilies-03.svg" width="150px">
               <h1 class="title is-2">Ooooops ...</h1>
-              <p>We were not able to verify your email address. Maybe you the link you clicked is outdated. Please request a new verification mail.</p>
+              <p>
+                We were not able to verify your email address. Maybe you the link you clicked is outdated. Please request a new verification mail.</p>
             </template>
           </div>
         </div>

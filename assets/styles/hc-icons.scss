@@ -1,7 +1,7 @@
 @font-face {
   font-family: 'hc';
-  src: url('../fonts/hc.woff2?43141666') format('woff2'),
-       url('../fonts/hc.woff?43141666') format('woff');
+  src: url('~assets/fonts/hc.woff2?43141666') format('woff2'),
+       url('~assets/fonts/hc.woff?43141666') format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,7 +16,7 @@
 }
 */
  
- [class^="icon-"]:before, [class*=" icon-"]:before {
+[class^="hc-"]:before, [class*=" hc-"]:before {
   font-family: "hc";
   font-style: normal;
   font-weight: normal;
@@ -51,11 +51,11 @@
   /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
  
-.icon-tools-bestlist:before { content: '\e800'; } /* '' */
-.icon-tools-cando:before { content: '\e801'; } /* '' */
-.icon-tools-event:before { content: '\e802'; } /* '' */
-.icon-tools-post:before { content: '\e804'; } /* '' */
-.icon-tools-procon:before { content: '\e805'; } /* '' */
-.icon-tools-project:before { content: '\e806'; } /* '' */
-.icon-tools-review:before { content: '\e807'; } /* '' */
-.icon-tools-vote:before { content: '\e808'; } /* '' */
+.hc-tools-bestlist:before { content: '\e800'; } /* '' */
+.hc-tools-cando:before { content: '\e801'; } /* '' */
+.hc-tools-event:before { content: '\e802'; } /* '' */
+.hc-tools-post:before { content: '\e804'; } /* '' */
+.hc-tools-procon:before { content: '\e805'; } /* '' */
+.hc-tools-project:before { content: '\e806'; } /* '' */
+.hc-tools-review:before { content: '\e807'; } /* '' */
+.hc-tools-vote:before { content: '\e808'; } /* '' */

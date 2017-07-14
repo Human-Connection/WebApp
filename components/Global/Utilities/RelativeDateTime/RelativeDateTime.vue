@@ -1,13 +1,17 @@
 <template>
-    <span>{{ relativeDateTime }}</span>
+  <span>{{ relativeDateTime }}</span>
 </template>
 
 <script>
   import moment from 'moment'
 
   export default {
-    props: ['dateTime'],
-    name: 'relative-date-time',
+    name: 'hc-relative-date-time',
+    props: {
+      dateTime: {
+        type: [Date, String]
+      }
+    },
     data () {
       return {
         relativeDateTime: null,

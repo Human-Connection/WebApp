@@ -8,10 +8,10 @@ npm-debug.log
 .nuxt
 
 # Nuxt generate
-dist
+/dist
 
 # Backpack build
-build
+/build
 
 # Ignore the jetbrain settings folder
 .idea/
