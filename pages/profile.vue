@@ -133,25 +133,11 @@
 <script>
   import {mapGetters} from 'vuex'
   import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
-  import Button from '~components/Global/Elements/Button/Button.vue'
-  import Dropdown from '~components/Global/Elements/Dropdown/Dropdown.vue'
-  import Label from '~components/Global/Typography/Label/Label.vue'
-  import Title from '~components/Global/Typography/Title/Title.vue'
-  import Subtitle from '~components/Global/Typography/Subtitle/Subtitle.vue'
-  import TextCount from '~components/Global/Typography/Textcount/Textcount.vue'
-  import Box from '~components/Global/Layout/Box/Box.vue'
   import Map from '~components/Map/Map.vue'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
-      'hc-btn': Button,
-      'lbl': Label,
-      'box': Box,
-      'hc-title': Title,
-      'hc-subtitle': Subtitle,
-      'hc-textcount': TextCount,
-      'hc-dropdown': Dropdown,
       'hc-map': Map
     },
     middleware: ['authenticated'],
