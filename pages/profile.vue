@@ -123,6 +123,7 @@
             <hc-textcount class="textcountitem" count="5" text="can do's"/>
             <hc-textcount class="textcountitem" count="3" text="geschafft"/>
           </div>
+          <hc-map />
         </hc-box>
       </div>
     </div>
@@ -133,13 +134,13 @@
   import {mapGetters} from 'vuex'
   import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
   import Button from '~components/Global/Elements/Button/Button.vue'
-  import Dropdown from '~components/Global/Elements/Dropdown.vue'
+  import Dropdown from '~components/Global/Elements/Dropdown/Dropdown.vue'
   import Label from '~components/Global/Typography/Label/Label.vue'
-  import Title from '~components/Global/Typography/Title.vue'
-  import Subtitle from '~components/Global/Typography/Subtitle.vue'
-  import TextCount from '~components/Global/Typography/TextCount.vue'
-  import Box from '~components/Global/Layout/Box.vue'
-  import Mapp from '~components/Map/Map.vue'
+  import Title from '~components/Global/Typography/Title/Title.vue'
+  import Subtitle from '~components/Global/Typography/Subtitle/Subtitle.vue'
+  import TextCount from '~components/Global/Typography/Textcount/Textcount.vue'
+  import Box from '~components/Global/Layout/Box/Box.vue'
+  import Map from '~components/Map/Map.vue'
 
   export default {
     components: {
@@ -151,8 +152,7 @@
       'hc-subtitle': Subtitle,
       'hc-textcount': TextCount,
       'hc-dropdown': Dropdown,
-      'hc-follower-item': FollowerItem,
-      'hc-map': Mapp
+      'hc-map': Map
     },
     middleware: ['authenticated'],
     computed: {
