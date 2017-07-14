@@ -1,22 +1,25 @@
 <template>
-    <section class="container" style="position: relative">
-        <section class="hc__cards" v-cloak="ready">
-            <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug" @ready="updateGrid">
-                <small slot="category">{{ contribution.type }}</small>
-            </card>
-        </section>
-        <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
-        <button type="button" class="button is-success" id="hc-add-contribution" v-on:click="$router.push('/contributions/write')" v-if="isVerified">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
+  <section class="container" style="position: relative">
+    <section class="hc__cards" v-cloak="ready">
+      <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
+            @ready="updateGrid">
+        <small slot="category">{{ contribution.type }}</small>
+      </card>
     </section>
+    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
+    <div class="add-contribution">
+      <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+        <hc-icon icon="plus"/>
+      </hc-button>
+    </div>
+  </section>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import {mapGetters} from 'vuex'
   import feathers from '~plugins/feathers'
   import Bricks from 'bricks.js'
-  import Card from '../components/Card'
+  import Card from '../components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
 
   export default {
@@ -124,31 +127,21 @@
 </script>
 
 <style scoped lang="scss">
-    .hc__cards {
-        padding:      0;
-        margin-left:  auto;
-        margin-right: auto;
-        max-width:    100%;
+  .hc__cards {
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+  }
+
+  .add-contribution {
+    z-index: 50;
+    position: fixed;
+    bottom: 50px;
+    right: 50px;
+
+    .button {
+      box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
     }
-
-    #hc-add-contribution {
-        cursor:        pointer;
-        z-index:       50;
-        position:      fixed;
-        bottom:        50px;
-        right:         50px;
-        box-shadow:    0 2px 3px rgba(10, 10, 10, 0.1);
-
-        &, &:link, &:active {
-            outline: none !important;
-        }
-
-        text-align:    center;
-        width:         70px;
-        height:        70px;
-        padding:       10px 16px;
-        font-size:     24px;
-        line-height:   1.33;
-        border-radius: 35px !important;
-    }
+  }
 </style>

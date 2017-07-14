@@ -23,6 +23,15 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 E-Mail: `test@test.de`  
 Password: `1234`
 
+## Styleguide
+
+The Developer Style Guide provides important infos about components and styles. To start it simply type:
+
+``` bash
+$ npm run styleguide
+```
+When built you can open it at [http://localhost:6060](http://localhost:6060)
+
 ## Backpack
 
 We use [backpack](https://github.com/palmerhq/backpack) to watch and build the application, so you can use the latest ES6 features (module syntax, async/await, etc.).

@@ -72,6 +72,7 @@ module.exports = {
   plugins: [
     {src: '~plugins/buefy.js'},
     {src: '~plugins/client-auth.js', ssr: false},
+    {src: '~plugins/global-components.js', injectAs: 'globalComponents'},
     {src: '~plugins/vue-clip.js'},
     {src: '~plugins/quill-editor.js'},
     {src: '~plugins/feathers.js'}

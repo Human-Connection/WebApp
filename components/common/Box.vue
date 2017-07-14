@@ -1,7 +1,7 @@
 <template>
-    <div :style="hcBox" class="card">
-        <slot></slot>
-    </div>
+  <div :style="hcBox" class="card">
+    <slot></slot>
+  </div>
 </template>
 
 <script>
@@ -20,4 +20,6 @@
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+  
+</style>
