@@ -106,6 +106,7 @@
                         <hc-textcount class="textcountitem" count="5" text="can do's"/>
                         <hc-textcount class="textcountitem" count="3" text="geschafft"/>
                     </div>
+                    <hc-map />
                 </box>
             </div>
         </div>
@@ -122,6 +123,7 @@
   import TextCount from '~components/elements/TextCount.vue'
   import Dropdown from '~components/elements/Dropdown.vue'
   import FollowerItem from '~components/hc_components/FollowerItem.vue'
+  import Mapp from '~components/Map/Map.vue'
 
   export default {
     components: {
@@ -132,7 +134,8 @@
       'hc-subtitle': Subtitle,
       'hc-textcount': TextCount,
       'hc-dropdown': Dropdown,
-      'hc-follower-item': FollowerItem
+      'hc-follower-item': FollowerItem,
+      'hc-map': Mapp
     },
     middleware: ['authenticated'],
     computed: {
