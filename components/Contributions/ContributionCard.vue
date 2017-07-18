@@ -1,11 +1,13 @@
 <template>
-  <div class="hc__card" v-bind:class="{ show: ready }">
-    <div class="hc__card__wrapper" @click="clicked">
-      <img class="hc__card__image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
-      <div class="hc__card__content autowrap">
+  <div class="card" v-bind:class="{ show: ready }">
+    <div class="wrapper" @click="clicked">
+      <img class="image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
+      <div class="content autowrap">
         <header>
-          <slot name="category"></slot>
-          <br/>
+          <div class="ribbon">
+            <slot name="category"></slot>
+          </div>
+          <author :post="post"/>
           <h3 class="title is-4">
             <hc-truncate :text="post.title" length=70></hc-truncate>
             <slot name="header"></slot>
@@ -15,9 +17,14 @@
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
         </main>
         <footer>
-          <author :post="post"/>
-          <br/>
-          <span><i class="fa fa-bullhorn"></i> 214&nbsp;&nbsp;<i class="fa fa-comments"></i> {{ commentCount }}</span>
+          <div class="infos">
+            <span>
+              <i class="fa fa-bullhorn"></i><small>214</small>
+            </span>
+            <span>
+              <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
+            </span>
+          </div>
         </footer>
       </div>
     </div>
@@ -73,7 +80,7 @@
 <style scoped lang="scss">
   @import '~assets/styles/utilities';
 
-  .hc__card {
+  .card {
     $padding: 25px;
     display: block;
     width: 100%;
@@ -87,31 +94,43 @@
     @include fullhd() {
       width: 300px;
     }
+    box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
 
     opacity: 0;
     transition-duration: 0ms;
     transition: opacity 150ms;
     transition-delay: 150ms;
+
     &.show {
       opacity: 1;
     }
 
-    .hc__card__wrapper {
+    .wrapper {
       background-color: #fff;
       cursor: pointer;
-      transition: box-shadow 100ms;
+      transition: box-shadow 200ms, transform 200ms;
+      position: relative;
+
+      z-index: 1;
 
       &:hover {
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        transform: scale(1.02);
+        z-index: 2;
       }
     }
 
-    .hc__card__content {
+    .content {
       padding: $padding;
 
       header {
         margin-bottom: 10px;
+        margin-top: 0;
       }
+    }
+
+    main.content {
+      padding: 0;
     }
 
     .profile-image {
@@ -125,20 +144,58 @@
       margin: 0 auto;
     }
 
-    .hc__card__image {
+    .image {
       display: block;
     }
 
-    footer {
-      margin-top: 20px;
-      margin-bottom: -20px;
+    .profile-image {
+      width: 36px;
+      height: 36px;
+      background-position: center;
+      background-size: cover;
+    }
 
-      .profile-image {
-        width: 36px;
-        height: 36px;
-        background-position: center;
-        background-size: cover;
+    footer {
+      margin-top: 0;
+      margin-bottom: -20px;
+      padding-top: 0;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: left;
+      border: none;
+
+      .infos {
+        color: #7f7f7f;
+        small {
+          padding-left: 3px;
+        }
       }
+    }
+  }
+
+  .ribbon {
+    position:         absolute;
+    font-size:        0.9em;
+    font-weight:      bold;
+    padding:          6px 6px;
+    color:            #7e7e7e;
+    background-color: #f9f9f9;
+    right:            -7px;
+    top:              10px;
+    border-radius:    2px 0 0 2px;
+    box-shadow: 0 1px 3px rgba(10, 10, 10, 0.1);
+    border:           1px solid #ccc;
+
+    &:before {
+      content: ' ';
+      position: absolute;
+      width: 0;
+      height: 0;
+      right: -1px;
+      bottom: -7px;
+      border-width: 3px 4px 3px 3px;
+      border-style: solid;
+      border-color: #ccc transparent transparent #ccc;
     }
   }
 </style>
