@@ -151,7 +151,7 @@
       transition: all .2s ease-out;
 
       &:hover {
-        box-shadow: 0px 2px 7px rgba($black, 0.2);
+        // box-shadow: 0px 2px 7px rgba($black, 0.2);
       }
 
       &:last-of-type {
