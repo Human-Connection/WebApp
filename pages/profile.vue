@@ -123,6 +123,7 @@
             <hc-textcount class="textcountitem" count="5" text="can do's"/>
             <hc-textcount class="textcountitem" count="3" text="geschafft"/>
           </div>
+          <hc-map />
         </hc-box>
       </div>
     </div>
@@ -132,10 +133,12 @@
 <script>
   import {mapGetters} from 'vuex'
   import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
+  import Map from '~components/Map/Map.vue'
 
   export default {
     components: {
-      'hc-follower-item': FollowerItem
+      'hc-follower-item': FollowerItem,
+      'hc-map': Map
     },
     middleware: ['authenticated'],
     computed: {

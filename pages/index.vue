@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <section class="container" style="position: relative">
-      <section class="hc__cards" v-cloak="ready">
-        <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
-              @ready="updateGrid">
-          <small slot="category">{{ contribution.type }}</small>
-        </card>
-      </section>
-      <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
-      <div class="add-contribution">
-        <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
-          <hc-icon icon="plus"/>
-        </hc-button>
-      </div>
+  <section class="container" style="position: relative">
+    <section class="cards" v-cloak="ready">
+      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
+            @ready="updateGrid">
+        <small slot="category">{{ contribution.type }}</small>
+      </card>
     </section>
-  </div>
+    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
+    <div class="add-contribution">
+      <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+        <hc-icon icon="plus"/>
+      </hc-button>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -103,7 +101,7 @@
     },
     mounted () {
       this.bricksInstance = new Bricks({
-        container: '.hc__cards',
+        container: '.cards',
         packed: 'data-packed',
         sizes: [
           {columns: 1, gutter: 15},
@@ -130,15 +128,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "~assets/styles/utilities";
-
-  .config-bar {
-    background-color: $grey-lighter;
-    height:50px;
-    margin-bottom:20px;
-  }
-
-  .hc__cards {
+  .cards {
     padding: 0;
     margin-left: auto;
     margin-right: auto;
