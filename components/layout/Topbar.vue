@@ -21,6 +21,9 @@
       </div>
 
       <div class="nav-right">
+        <nuxt-link v-if="isAdmin" to="/admin" class="nav-item">
+          <hc-icon icon="cog"></hc-icon>
+        </nuxt-link>
         <a href="" class="nav-item">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
@@ -73,6 +76,7 @@
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
+        isAdmin: 'auth/isAdmin',
         user: 'auth/user'
       })
     },
@@ -102,7 +106,7 @@
     height: $topbar-height;
     padding: 0 20px;
 
-    .nuxt-link-exact-active {
+    .active-link {
       @extend a.nav-item.is-active;
       font-weight: bold;
     }
