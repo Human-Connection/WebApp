@@ -107,7 +107,8 @@
           {columns: 1, gutter: 15},
           {mq: '769px', columns: 2, gutter: 15},
           {mq: '1000px', columns: 3, gutter: 15},
-          {mq: '1384px', columns: 4, gutter: 15}
+          {mq: '1192px', columns: 3, gutter: 20},
+          {mq: '1300px', columns: 3, gutter: 20}
         ]
       })
       this.updateGrid()

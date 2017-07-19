@@ -1,34 +1,35 @@
 @import "~bulma/sass/utilities/initial-variables";
-
 //font-family
 @import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i');
+
 $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
-$body-size:    15px;
+$body-size: 15px;
 
 //colors
-$black:        hsl(0, 0%, 4%);
-$black-bis:    hsl(0, 0%, 7%);
-$black-ter:    hsl(0, 0%, 14%);
+$black: hsl(0, 0%, 4%);
+$black-bis: hsl(0, 0%, 7%);
+$black-ter: hsl(0, 0%, 14%);
 
-$grey-darker:  hsl(0, 0%, 25%);
-$grey-dark:    hsl(0, 0%, 34%);
-$grey:         hsl(0, 0%, 48%);
-$grey-light:   hsl(0, 0%, 71%);
+$grey-darker: hsl(0, 0%, 25%);
+$grey-dark: hsl(0, 0%, 34%);
+$grey: hsl(0, 0%, 48%);
+$grey-light: hsl(0, 0%, 71%);
 $grey-lighter: hsl(0, 0%, 86%);
 
-$white-ter:    hsl(0, 0%, 96%);
-$white-bis:    hsl(0, 0%, 98%);
-$white:        hsl(0, 0%, 100%);
+$white-dar: hsl(0, 0%, 92%);
+$white-ter: hsl(0, 0%, 96%);
+$white-bis: hsl(0, 0%, 98%);
+$white: hsl(0, 0%, 100%);
 
-$orange:       hsl(14,  100%, 53%);
-$yellow:       hsl(48,  100%, 67%);
-$green:        hsl(78,  71%,  41%);
-$turquoise:    $green;
-$blue:         hsl(217, 71%,  53%);
-$purple:       hsl(271, 100%, 71%);
+$orange: hsl(14, 100%, 53%);
+$yellow: hsl(48, 100%, 67%);
+$green: hsl(78, 71%, 41%);
+$turquoise: $green;
+$blue: hsl(217, 71%, 53%);
+$purple: hsl(271, 100%, 71%);
 $red: hsl(12, 51%, 55%);
-$primary:      $green;
-$link:         $green;
+$primary: $green;
+$link: $green;
 
 $radius-small: 1px;
 $radius: 1px;
@@ -51,3 +52,29 @@ $padding-small: 0.8em;
 $padding: 1em;
 $padding-medium: 1.2em;
 $padding-large: 1.4em;
+
+// Topbar Settings
+$topbar-height: 70px;
+
+// Configbar Settings
+$configbar-height: 50px;
+
+// Sidebar Settings
+$sidebar-closed-width: 64px;
+$sidebar-open-width: 250px;
+$sidebar-animation: 0.35s ease-out;
+$sidebar-breakpoint: 1600px;
+$sidebar-icon-width: 40px;
+
+// Container Settings
+$container-gutter: 90px;
+
+// Responsiveness
+// 960, 1152, and 1344 have been chosen because they are divisible by both 12 and 16
+$tablet: 769px;
+// 960px container + 40
+$desktop: 1000px;
+// 1152px container + 40
+$widescreen: 1192px;
+// 1260px container + 40
+$fullhd: 1300px;

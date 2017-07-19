@@ -5,26 +5,26 @@
         <nuxt-link class="logo" :to="{ name: 'index' }">
           <img src="/logo-hc.svg" alt="Human Connection">
         </nuxt-link>
+      </div>
+
+      <div class="nav-center">
+        <div class="search">
+          <div class="field">
+            <p class="control has-icons-right">
+              <input class="input" type="text" placeholder="Suchen ..." value="">
+              <span class="icon is-small is-right">
+                <hc-icon icon="search"></hc-icon>
+              </span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nav-right">
         <a href="" class="nav-item">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
         <notifications></notifications>
-      </div>
-
-      <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-      <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-      <span class="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-                </span>
-
-      <!-- This "nav-menu" is hidden on mobile -->
-      <!-- Add the modifier "is-active" to display it on mobile -->
-      <div class="nav-right nav-menu">
-        <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
-          Dashboard
-        </nuxt-link>
         <nuxt-link v-if="!isAuthenticated" :to="{ name: 'auth-login' }" class="nav-item is-tab">
           Login
         </nuxt-link>
@@ -47,11 +47,15 @@
 
 
 <script>
+  // Todo: search in component,
+  // Todo: messages in component,
+  // Todo: profile button in component
+
   import {mapGetters} from 'vuex'
-  import Notifications from '../Notifications/Notifications.vue'
+  import Notifications from '~components/Notifications/Notifications.vue'
 
   export default {
-    name: 'hc-main-nav',
+    name: 'hc-topbar',
     components: {
       'notifications': Notifications
     },
@@ -93,27 +97,62 @@
   nav {
     @extend .nav;
     @extend .has-shadow;
-    position: fixed !important;
-    width: 100%;
-    top: 0;
+    z-index: 130;
+    pointer-events: all;
+    height: $topbar-height;
+    padding: 0 20px;
 
     .nuxt-link-exact-active {
       @extend a.nav-item.is-active;
       font-weight: bold;
     }
+
+    @include desktop() {
+      padding: 0;
+    }
   }
 
-  .nav-left {
+  .mobile-toggle {
+    position: relative;
+    background-color: $white-ter;
+    margin-right: 10px;
+
+    @include tablet() {
+      display: none;
+    }
+  }
+
+  .search {
+    display: flex;
+
+    .field {
+      display: flex;
+      align-items: center;
+    }
+
+    .control {
+      input {
+        border-radius: 1em;
+        height: 2em;
+      }
+
+      .icon {
+        height: 2em;
+      }
+    }
+  }
+
+  .nav-left, .nav-middle, .nav-right {
     overflow: visible;
   }
 
   .logo {
     display: inline-block;
     position: relative;
-    height: 50px;
+    height: $topbar-height;
     width: 150px;
     text-align: left;
-    padding: 8px 0 8px 15px;
+    padding: ($topbar-height - 40px)/2 0;
     margin: 0;
 
     img {
