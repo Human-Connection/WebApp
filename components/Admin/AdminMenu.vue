@@ -39,6 +39,10 @@
 
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 
+  .sidebar-menu {
+    background-color: $white-bis;
+  }
+
   .menu-item {
     display: flex;
     position: relative;
@@ -46,7 +50,7 @@
     margin-bottom: 5px;
     color: $grey-darker;
     align-items: center;
-    width: $sidebar-open-width;
+    width: 100%;
     transition: all 0.1s ease-out;
     letter-spacing: 0.05em;
 
