@@ -36,6 +36,8 @@
     "font-awesome": "^4.7.0",
     "js-cookie": "^2.1.4",
     "lodash": "^4.17.4",
+    "mapbox-gl": "^0.38.0",
+    "mapbox-gl-vue": "^1.4.0",
     "moment": "^2.18.1",
     "nuxt": "1.0.0-alpha.4",
     "vue": "2.3.4",

@@ -13,8 +13,9 @@ npm-debug.log
 # Backpack build
 /build
 
-# Ignore the jetbrain settings folder
+# Ignore ide settings
 .idea/
+.vscode/
 
 # Do not commit the env.js file as it my contain sensitive data
 env.js
