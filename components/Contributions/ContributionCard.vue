@@ -94,12 +94,14 @@
     @include fullhd() {
       width: 300px;
     }
-    box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
+    // box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
+    box-shadow: none;
 
     opacity: 0;
     transition-duration: 0ms;
     transition: opacity 150ms;
     transition-delay: 150ms;
+    border: 1px solid rgba(black, 0.15);
 
     &.show {
       opacity: 1;
@@ -108,7 +110,7 @@
     .wrapper {
       background-color: #fff;
       cursor: pointer;
-      transition: box-shadow 200ms, transform 200ms;
+      transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
       position: relative;
 
       z-index: 1;
