@@ -1,11 +1,14 @@
 import Nuxt from 'nuxt'
 import express from 'express'
 import bodyParser from 'body-parser'
+import expressHealthcheck from 'express-healthcheck'
 
 const app = express()
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+
+app.use('/healthcheck', expressHealthcheck())
 
 // Start nuxt.js
 async function start () {
