@@ -1,7 +1,7 @@
 <template>
   <section class="container" style="position: relative">
-    <section class="hc__cards" v-cloak="ready">
-      <card class="card hc__card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
+    <section class="cards" v-cloak="ready">
+      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
             @ready="updateGrid">
         <small slot="category">{{ contribution.type }}</small>
       </card>
@@ -101,13 +101,14 @@
     },
     mounted () {
       this.bricksInstance = new Bricks({
-        container: '.hc__cards',
+        container: '.cards',
         packed: 'data-packed',
         sizes: [
           {columns: 1, gutter: 15},
           {mq: '769px', columns: 2, gutter: 15},
           {mq: '1000px', columns: 3, gutter: 15},
-          {mq: '1384px', columns: 4, gutter: 15}
+          {mq: '1192px', columns: 3, gutter: 20},
+          {mq: '1300px', columns: 3, gutter: 20}
         ]
       })
       this.updateGrid()
@@ -127,7 +128,7 @@
 </script>
 
 <style scoped lang="scss">
-  .hc__cards {
+  .cards {
     padding: 0;
     margin-left: auto;
     margin-right: auto;

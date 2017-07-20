@@ -1,11 +1,11 @@
 <template>
-    <div>
-        <div class="profile-header card">
-            <img src="http://lorempixel.com/781/561/?95976">
-        </div>
-        <div class="columns profile-body">
-            <div class="column user-sidebar">
-                <hc-box top="true" class="user-hc-box">
+  <div>
+    <div class="profile-header card">
+      <img src="http://lorempixel.com/781/561/?95976">
+    </div>
+    <div class="columns profile-body">
+      <div class="column user-sidebar">
+        <hc-box top="true" class="user-hc-box">
                     <div class="user-avatar">
                         <upload-avatar class="avatar-upload"></upload-avatar>
                     </div>
@@ -13,121 +13,139 @@
                         <!--&nbsp;-->
                     <!--</div>-->
                     <div class="user-name">{{ user.name }}</div>
-                    <div class="user-badges columns is-gapless">
-                        <div class="column user-badges-icons">
-                            <ul>
-                                <li>
-                                    <img width="35" height="35" src="https://cdn.frontify.com/api/screen/thumbnail/XX9MuecGg2sy_CuMKs6FulhegxuoRIqi-7nhTI65O6DOzyS6YQc2s5XIQJgeScEJjTq8puwTMSRzlVkpWRnP3A/1524">
-                                </li>
-                                <li>
-                                    <img width="35" height="35" src="https://cdn.frontify.com/api/screen/thumbnail/hEfr-hvcLC7ZI4QVesiQeMSZ78Sxf1JupKwe26VKT50M2gZGJ7VzfANRtKXraLMoRU8IJJ1MaM2y4T40CoU4oA/1524">
-                                </li>
-                                <li>
-                                    <img width="35" height="35" src="https://cdn.frontify.com/api/screen/thumbnail/mBlEor48pXBdaKe74aofLOVOwe9v2_9xydD254329f7KgHK3YNwhY8oA_YKcqqeC1RNZoRXot-wSA8lmA86QPg/1524">
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="column user-badges-summary is-one-third">
-                            <span>3</span>
-                            Badges
-                        </div>
-                    </div>
-                </hc-box>
-                <div class="hc-shortcuts">
-                    <hc-box class="shortcut-hc-box" top="true">
-                        <img src="https://cdn.frontify.com/api/screen/thumbnail/gjtyyT-91-nld9zkg6pHvZScdj53BVk0JfE8Sw6FhH9BiqTXfzYSLzzDuu8QB_aqQYMeiYMpaSQBC6WHt8DteA/1524" alt=""/>
-                        <span>Message</span>
-                    </hc-box>
-                    <hc-box class="shortcut-hc-box" top="true">
-                        <img src="https://cdn.frontify.com/api/screen/thumbnail/1fqGheyFlTsQPstpdVg9SR8wfemIhyOStsyENZcKEKtMiLxld4pStcUBPSFBIKum4P5xe_ZyEY9BDGF4KyTFiA/1539" alt=""/>
-                        <span>Follower</span>
-                    </hc-box>
-                    <hc-box class="shortcut-hc-box" top="true">
-                        <img src="https://cdn.frontify.com/api/screen/thumbnail/Ed0RNoWMNm8YoAQp3GScFQMGi9BNPozGyBPL4Ov-fpjh6VnBCfS6bj2PBXlAUDtpUMxuydlCPfyy4_fFvcIewQ/1524" alt=""/>
-                        <span>Lesez.</span>
-                    </hc-box>
-                    <hc-box class="shortcut-hc-box" top="true">
-                        <img src="https://cdn.frontify.com/api/screen/thumbnail/j59T8yA8_NwQQdrtbqrgxYyKoKbZaVTT9zaEBOPOsRiHF4TbmlDuGrJcUYbp7OJ7z0HmFWl-rDEvGnjUJdEVDA/1524" alt=""/>
-                        <span>Gallerie</span>
-                    </hc-box>
-                    <hc-box class="shortcut-hc-box" top="true">
-                        <img src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524" alt=""/>
-                        <span>Mehr</span>
-                    </hc-box>
-                </div>
-                <hc-box top="true" bottom="true">
-                    <hc-title>Netzwerk</hc-title>
-                </hc-box>
-                <hc-box bottom="true">
-                    <hc-subtitle>Following</hc-subtitle>
-                    <div class="hc-textcounters">
-                        <hc-textcount class="textcountitem" count="16" text="ngo's"/>
-                        <hc-textcount class="textcountitem" count="44" text="personen"/>
-                        <hc-textcount class="textcountitem" count="20" text="projekte"/>
-                    </div>
-                    <hc-dropdown :showLabels="['Alle anzeigen','Meine anzeigen']" :sortLabels="['Sortieren nach', 'Datum', 'Kategorie']"/>
-                    <div class="hc-follower-list">
-                        <hc-follower-item title="item 1" timestamp="vor 3 Tagen"/>
-                        <hc-follower-item title="item 2" timestamp="vor 2 Tagen"/>
-                    </div>
-                </hc-box>
-                <hc-box bottom="true">
-                    <hc-subtitle>Interessen</hc-subtitle>
-                    <div class="hc-textcounters">
-                        <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-                        <hc-textcount class="textcountitem" count="5" text="suchen"/>
-                    </div>
-                </hc-box>
-                <hc-box bottom="true">
-                    <hc-subtitle>Meine Karte</hc-subtitle>
-                    <div class="hc-textcounters">
-                        <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-                        <hc-textcount class="textcountitem" count="5" text="suchen"/>
-                    </div>
-                </hc-box>
-                <hc-box>
-                    <hc-subtitle>My Friends</hc-subtitle>
-                    <div class="hc-textcounters">
-                        <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-                        <hc-textcount class="textcountitem" count="5" text="suchen"/>
-                    </div>
-                </hc-box>
+          <div class="user-badges columns is-gapless">
+            <div class="column user-badges-icons">
+              <ul>
+                <li>
+                  <img width="35" height="35"
+                       src="https://cdn.frontify.com/api/screen/thumbnail/XX9MuecGg2sy_CuMKs6FulhegxuoRIqi-7nhTI65O6DOzyS6YQc2s5XIQJgeScEJjTq8puwTMSRzlVkpWRnP3A/1524">
+                </li>
+                <li>
+                  <img width="35" height="35"
+                       src="https://cdn.frontify.com/api/screen/thumbnail/hEfr-hvcLC7ZI4QVesiQeMSZ78Sxf1JupKwe26VKT50M2gZGJ7VzfANRtKXraLMoRU8IJJ1MaM2y4T40CoU4oA/1524">
+                </li>
+                <li>
+                  <img width="35" height="35"
+                       src="https://cdn.frontify.com/api/screen/thumbnail/mBlEor48pXBdaKe74aofLOVOwe9v2_9xydD254329f7KgHK3YNwhY8oA_YKcqqeC1RNZoRXot-wSA8lmA86QPg/1524">
+                </li>
+              </ul>
             </div>
-            <div class="column is-6 timelinecontent">
-                <hc-box top="true" bottom="true">
-                    <hc-title>Timeline</hc-title>
-                </hc-box>
-                <div class="timeline-intro"><p>Hallo Dennis, was sind deine Pläne für heute?</p>
-                    <hc-button color="primary" size="large" type="nuxt" to="/contributions/write"circle >
+            <div class="column user-badges-summary is-one-third">
+              <span>3</span>
+              Badges
+            </div>
+          </div>
+        </hc-box>
+        <div class="hc-shortcuts">
+          <hc-box class="shortcut-hc-box" top="true">
+            <img
+              src="https://cdn.frontify.com/api/screen/thumbnail/gjtyyT-91-nld9zkg6pHvZScdj53BVk0JfE8Sw6FhH9BiqTXfzYSLzzDuu8QB_aqQYMeiYMpaSQBC6WHt8DteA/1524"
+              alt=""/>
+            <span>Message</span>
+          </hc-box>
+          <hc-box class="shortcut-hc-box" top="true">
+            <img
+              src="https://cdn.frontify.com/api/screen/thumbnail/1fqGheyFlTsQPstpdVg9SR8wfemIhyOStsyENZcKEKtMiLxld4pStcUBPSFBIKum4P5xe_ZyEY9BDGF4KyTFiA/1539"
+              alt=""/>
+            <span>Follower</span>
+          </hc-box>
+          <hc-box class="shortcut-hc-box" top="true">
+            <img
+              src="https://cdn.frontify.com/api/screen/thumbnail/Ed0RNoWMNm8YoAQp3GScFQMGi9BNPozGyBPL4Ov-fpjh6VnBCfS6bj2PBXlAUDtpUMxuydlCPfyy4_fFvcIewQ/1524"
+              alt=""/>
+            <span>Lesez.</span>
+          </hc-box>
+          <hc-box class="shortcut-hc-box" top="true">
+            <img
+              src="https://cdn.frontify.com/api/screen/thumbnail/j59T8yA8_NwQQdrtbqrgxYyKoKbZaVTT9zaEBOPOsRiHF4TbmlDuGrJcUYbp7OJ7z0HmFWl-rDEvGnjUJdEVDA/1524"
+              alt=""/>
+            <span>Gallerie</span>
+          </hc-box>
+          <hc-box class="shortcut-hc-box" top="true">
+            <img
+              src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524"
+              alt=""/>
+            <span>Mehr</span>
+          </hc-box>
+        </div>
+        <hc-box top="true" bottom="true">
+          <hc-title>Netzwerk</hc-title>
+        </hc-box>
+        <hc-box bottom="true">
+          <hc-subtitle>Following</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="16" text="ngo's"/>
+            <hc-textcount class="textcountitem" count="44" text="personen"/>
+            <hc-textcount class="textcountitem" count="20" text="projekte"/>
+          </div>
+          <hc-dropdown :showLabels="['Alle anzeigen','Meine anzeigen']"
+                       :sortLabels="['Sortieren nach', 'Datum', 'Kategorie']"/>
+          <div class="hc-follower-list">
+            <hc-follower-item title="item 1" timestamp="vor 3 Tagen"/>
+            <hc-follower-item title="item 2" timestamp="vor 2 Tagen"/>
+          </div>
+        </hc-box>
+        <hc-box bottom="true">
+          <hc-subtitle>Interessen</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
+            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+          </div>
+        </hc-box>
+        <hc-box bottom="true">
+          <hc-subtitle>Meine Karte</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
+            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+          </div>
+        </hc-box>
+        <hc-box>
+          <hc-subtitle>My Friends</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
+            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+          </div>
+        </hc-box>
+      </div>
+      <div class="column is-6 timeline content">
+        <hc-box top="true" bottom="true">
+          <hc-title>Timeline</hc-title>
+        </hc-box>
+        <div class="timeline-intro">
+          <p>Hallo Dennis, was sind deine Pläne für heute?</p>
+          <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
             <hc-icon icon="plus"/>
           </hc-button>
-                </div>
-            </div>
-            <div class="column actions-sidebar">
-                <hc-box top="true" bottom="true">
-                    <hc-title>Aktionen</hc-title>
-                </hc-box>
-                <hc-box>
-                    <hc-subtitle>Meine Can Do's</hc-subtitle>
-                    <div class="hc-textcounters">
-                        <hc-textcount class="textcountitem" count="5" text="can do's"/>
-                        <hc-textcount class="textcountitem" count="3" text="geschafft"/>
-                    </div>
-                </hc-box>
-            </div>
         </div>
+      </div>
+      <div class="column actions-sidebar">
+        <hc-box top="true" bottom="true">
+          <hc-title>Aktionen</hc-title>
+        </hc-box>
+        <hc-box>
+          <hc-subtitle>Meine Can Do's</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="5" text="can do's"/>
+            <hc-textcount class="textcountitem" count="3" text="geschafft"/>
+          </div>
+          <hc-map />
+        </hc-box>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
   import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
+  import Map from '~components/Map/Map.vue'
   import UploadAvatar from '~components/User/UploadAvatar'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
-      'upload-avatar': UploadAvatar
+      'upload-avatar': UploadAvatar,
+      'hc-map': Map
     },
     middleware: ['authenticated'],
     computed: {

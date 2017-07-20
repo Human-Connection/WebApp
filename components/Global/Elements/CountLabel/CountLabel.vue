@@ -22,21 +22,25 @@
   @import "~assets/styles/utilities";
 
   .count {
+    $batchSize: 20px;
+
     position: absolute;
-    top: -7px;
+    top: -$batchSize / 2;
     left: 100%;
-    margin-left: -9px;
+    font-weight: bold;
+    margin-left: -$batchSize / 2;
     background-color: $primary;
     color: $white;
-    min-width: 20px;
-    height: 20px;
-    padding: 0 2px;
+    min-width: $batchSize;
+    height: $batchSize;
+    padding: 0 4px;
     text-align: center;
     font-size: $size-7;
-    line-height: 20px;
-    border-radius: 50%;
-    box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+    line-height: $batchSize;
+    border-radius: $batchSize / 2;
+    border: 1px solid $white;
     pointer-events: none;
     user-select: none;
+    z-index: 1;
   }
 </style>

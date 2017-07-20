@@ -113,6 +113,7 @@
     .box {
       padding: 0.2em;
       transform: translateY(-50%) translateX(-50%);
+      z-index: 1001;
 
       @include desktop() {
         position: absolute;
@@ -129,6 +130,7 @@
       right: 0;
       bottom: 0;
       background-color: rgba($black, 0.4);
+      z-index: 1000;
       @include desktop() {
         display: none;
       }
@@ -151,7 +153,7 @@
       transition: all .2s ease-out;
 
       &:hover {
-        box-shadow: 0px 2px 7px rgba($black, 0.2);
+        // box-shadow: 0px 2px 7px rgba($black, 0.2);
       }
 
       &:last-of-type {
