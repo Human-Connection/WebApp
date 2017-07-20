@@ -36,7 +36,7 @@ new Vue({
       }
     }
   },
-  template: `<hc-map :places="places" :zoom="zoom" :center="center" />`
+  template: `<hc-map :places="places" :zoom="zoom" :center="center" style="height: 500px;" />`
 })
 ```
 
