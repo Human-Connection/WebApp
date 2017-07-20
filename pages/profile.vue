@@ -128,7 +128,7 @@
             <hc-textcount class="textcountitem" count="5" text="can do's"/>
             <hc-textcount class="textcountitem" count="3" text="geschafft"/>
           </div>
-          <hc-map />
+          <hc-map :places="places" :zoom="zoom" :center="center" />
         </hc-box>
       </div>
     </div>
@@ -146,6 +146,37 @@
       'hc-follower-item': FollowerItem,
       'upload-avatar': UploadAvatar,
       'hc-map': Map
+    },
+    data () {
+      return {
+        places: [{
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-77.032, 38.913]
+          },
+          properties: {
+            title: 'Mapbox',
+            description: 'Washington, D.C.'
+          }
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [-122.414, 37.776]
+          },
+          properties: {
+            title: 'Mapbox',
+            description: 'San Francisco, California'
+          }
+        }],
+        zoom: 1.5,
+        center: {
+          lng: -102.0073,
+          lat: 40.7124
+        }
+      }
     },
     middleware: ['authenticated'],
     computed: {
