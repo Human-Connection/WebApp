@@ -8,7 +8,7 @@
             <slot name="category"></slot>
           </div>
           <author :post="post"/>
-          <h3 class="title is-4">
+          <h3 class="title is-5">
             <hc-truncate :text="post.title" length=70></hc-truncate>
             <slot name="header"></slot>
           </h3>
@@ -139,6 +139,7 @@
 
     main.content {
       padding: 0;
+      line-height: 1.2em;
     }
 
     .profile-image {
