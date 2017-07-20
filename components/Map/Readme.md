@@ -39,3 +39,5 @@ new Vue({
   template: `<hc-map :places="places" :zoom="zoom" :center="center" />`
 })
 ```
+
+Documentation of places object: https://github.com/DannyFeliz/vue-mapbox-gl
