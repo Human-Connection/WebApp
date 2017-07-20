@@ -5,7 +5,8 @@
         </div>
         <div class="media-content">
             <p class="title" v-if="!post.user">
-                Anonymus </p>
+                Anonymus
+            </p>
             <p class="title" v-else>
                 {{ post.user.name }} </p>
             <p class="subtitle">
