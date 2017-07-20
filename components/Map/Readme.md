@@ -1,4 +1,4 @@
-# Map example
+### Map example
 
 ```
 new Vue({
