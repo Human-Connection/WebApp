@@ -20,6 +20,7 @@
         }
       }
     },
+    name: 'UploadAvatar',
     computed: {
       ...mapGetters({
         user: 'auth/user'

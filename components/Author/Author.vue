@@ -19,7 +19,7 @@
 
 
 <script>
-  import HcAvatar from '~components/Avatar/Avatar'
+  import HcAvatar from '~components/Avatar/Avatar.vue'
   export default {
     components: {HcAvatar},
     name: 'hc-author',
