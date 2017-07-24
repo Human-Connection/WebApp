@@ -13,24 +13,18 @@
       </ul>
     </div>
     <div class="field">
-      <label class="label">Title</label>
+      <label class="label">Überschrift</label>
       <p class="control">
         <input class="input" v-model="form.title" type="text" placeholder="How do you call that story?"
                v-bind:disabled="loading">
       </p>
     </div>
     <div class="field">
-      <label class="label">Category</label>
-      <p class="control">
-        <div>
-          <select v-model="form.categoryIds" v-bind:disabled="loading" multiple>
-            <option :value="category._id" v-for="category in categories" :key="category._id">{{ category.title }}</option>
-          </select>
-        </div>
-      </p>
+      <label class="label">Kategorien</label>
+      <categories-select v-model="form.categoryIds"></categories-select>
     </div>
     <div class="field">
-      <label class="label">Content</label>
+      <label class="label">Inhalt</label>
       <div class="control">
         <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
       </div>
@@ -51,13 +45,14 @@
 <script>
   import NoSSR from 'vue-no-ssr'
   import feathers from '~plugins/feathers'
-  import {mapGetters} from 'vuex'
+  import CategoriesSelect from '~components/Categories/CategoriesSelect.vue'
 
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
     components: {
-      'no-ssr': NoSSR
+      'no-ssr': NoSSR,
+      'categories-select': CategoriesSelect
     },
     data () {
       return {
@@ -97,9 +92,6 @@
       }
     },
     computed: {
-      ...mapGetters({
-        categories: 'categories/all'
-      }),
       buttonLabel () {
         return this.form._id ? 'Update' : 'Publish'
       }
