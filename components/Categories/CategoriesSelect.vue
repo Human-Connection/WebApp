@@ -98,7 +98,8 @@
 
     &.disabled {
       background-color: $white-ter;
-      opacity:0.5;
+      opacity: 0.5;
+      cursor: default;
     }
   }
 </style>
