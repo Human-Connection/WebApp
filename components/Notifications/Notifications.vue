@@ -38,7 +38,6 @@
 
 <script>
   import {mapGetters, mapMutations} from 'vuex'
-  import feathers from '~plugins/feathers'
   import author from '~components/Author/Author.vue'
 
   export default {
@@ -62,19 +61,10 @@
       ...mapMutations({
         addNotification: 'notifications/add'
       }),
-      subscribeToNotifications () {
-        feathers.service('notifications')
-          .on('created', notification => {
-            this.addNotification(notification)
-          })
-      },
       followNotification (notification) {
         this.$router.push(`/contributions/${notification.contribution.slug}`)
         this.active = false
       }
-    },
-    mounted () {
-      this.subscribeToNotifications()
     }
   }
 </script>

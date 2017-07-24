@@ -11,7 +11,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(category, key) in categories" :key="key">
+          <tr v-for="(category, key) in categoriesList" :key="key">
             <td>
               <input v-model="category.title" class="input" placeholder="Titel der Kategorie ...">
             </td>
@@ -44,6 +44,7 @@
 
 <script>
   import feathers from '~plugins/feathers'
+  import {mapGetters} from 'vuex'
 
   const categoriesService = feathers.service('categories')
 
@@ -55,29 +56,30 @@
         title: 'Kategorien verwalten'
       }
     },
-    async asyncData () {
-      let sort = {
-        slug: 1
-      }
-      let res = await categoriesService.find({
-        query: {
-          $sort: sort,
-          $limit: 100
-        }
+    computed: {
+      ...mapGetters({
+        categories: 'categories/all'
       })
+    },
+    data () {
       return {
-        categories: res.data
+        categoriesList: []
+      }
+    },
+    watch: {
+      categories (categories) {
+        this.categoriesList = categories
       }
     },
     methods: {
       addEntry () {
-        this.categories.push({
+        this.categoriesList.push({
           title: '',
           slug: ''
         })
       },
       saveEntries () {
-        this.categories.forEach(category => {
+        this.categoriesList.forEach(category => {
           if (!category._id) {
             categoriesService.create(category)
           } else {
@@ -92,10 +94,12 @@
         })
       },
       deleteEntry (key) {
-        const category = this.categories.splice(key, 1)[0]
-        console.log(category)
+        const category = this.categoriesList.splice(key, 1)[0]
         categoriesService.remove(category._id)
       }
+    },
+    created () {
+      this.categoriesList = this.categories
     }
   }
 </script>

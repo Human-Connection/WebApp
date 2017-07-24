@@ -20,6 +20,16 @@
       </p>
     </div>
     <div class="field">
+      <label class="label">Category</label>
+      <p class="control">
+        <div class="select">
+          <select v-model="form.categoryId" v-bind:disabled="loading">
+            <option :value="category._id" v-for="category in categories" :key="category._id">{{ category.title }}</option>
+          </select>
+      </div>
+      </p>
+    </div>
+    <div class="field">
       <label class="label">Content</label>
       <div class="control">
         <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
@@ -41,6 +51,7 @@
 <script>
   import NoSSR from 'vue-no-ssr'
   import feathers from '~plugins/feathers'
+  import {mapGetters} from 'vuex'
 
   export default {
     name: 'hc-contributions-form',
@@ -86,6 +97,9 @@
       }
     },
     computed: {
+      ...mapGetters({
+        categories: 'categories/all'
+      }),
       buttonLabel () {
         return this.form._id ? 'Update' : 'Publish'
       }

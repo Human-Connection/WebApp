@@ -18,6 +18,9 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
+            <p v-if="contribution.category">
+              <span class="tag is-primary">{{ contribution.category.title }}</span>
+            </p>
             <p class="content" v-html="content"></p>
             <h3>How do you feel?</h3>
             <div class="hc__rating">
