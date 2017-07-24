@@ -5,67 +5,57 @@
 <script>
   import NoSSR from 'vue-no-ssr'
   
-  var geojson = {
-    type: 'FeatureCollection',
-    features: [{
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-77.032, 38.913]
-      },
-      properties: {
-        title: 'Mapbox',
-        description: 'Washington, D.C.'
-      }
-    },
-    {
-      type: 'Feature',
-      geometry: {
-        type: 'Point',
-        coordinates: [-122.414, 37.776]
-      },
-      properties: {
-        title: 'Mapbox',
-        description: 'San Francisco, California'
-      }
-    }]
-  }
-  
   export default {
-    head: {
-      link: [{
-        rel: 'stylesheet',
-        href: 'https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css'
-      }]
+    props: {
+      /**
+       * Collection of points on the map
+       */
+      places: {
+        type: Array,
+        required: true,
+        default: []
+      },
+      /**
+       * Center point of the map
+       */
+      center: {
+        type: [Object, Array],
+        default () {
+          return { lng: -60.0073, lat: 40.7124 }
+        }
+      },
+      /**
+       * Zoom parameter
+       */
+      zoom: {
+        type: [Number, String],
+        default: 16
+      }
     },
     components: {
       'no-ssr': NoSSR
     },
-    name: 'MapBox',
+    name: 'hc-map',
     mounted () {
       this.createMap()
-      // this.loadUserEvents()
-    },
-    computed: {
-      location () {
-        // console.log(this.$store.state.location)
-      }
     },
     methods: {
-      createMap: () => {
+      createMap () {
         const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
         mapboxgl.accessToken = 'pk.eyJ1Ijoic29ubmVuZmVsZDI2OSIsImEiOiJjajQwMmlvaTEwOXFzMnF0MTM3MjZuY2U0In0.T1X3PSCiYOI87qNi6AYBYw'
         // init the map
         let map = new mapboxgl.Map({
           container: 'map',
           style: 'mapbox://styles/mapbox/streets-v10',
-          zoom: 16,
-          center: [-74.0073, 40.7124]
+          zoom: this.zoom,
+          center: this.center
         })
-        geojson.features.forEach(function (marker) {
+        this.places.forEach(function (marker) {
+          console.log(marker)
           console.log('MARKER IS', marker)
+
           // create a HTML element for each feature
-          var el = document.createElement('div')
+          let el = document.createElement('div')
           el.className = 'marker'
 
           // make a marker for each feature and add to the map
@@ -73,14 +63,14 @@
             .setLngLat(marker.geometry.coordinates)
             .addTo(map)
         })
-      },
-      loadUserEvents: () => {
       }
     }
   }
 </script>
 
-<style>
+<style lang="scss">
+  @import "~mapbox-gl/dist/mapbox-gl.css";
+
   #map {
     height: 200px;
   }

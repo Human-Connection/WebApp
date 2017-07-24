@@ -38,6 +38,7 @@ module.exports = {
    ** Add axios globally
    */
   build: {
+    presets: ['vue-app'],
     vendor: [
       'axios',
       'moment',
@@ -74,7 +75,7 @@ module.exports = {
     {src: '~plugins/client-auth.js', ssr: false},
     {src: '~plugins/init-store-subscriptions.js', ssr: false},
     {src: '~plugins/global-components.js', injectAs: 'globalComponents'},
-    {src: '~plugins/vue-clip.js'},
+    {src: '~plugins/vue-clip.js', ssr: false},
     {src: '~plugins/quill-editor.js'},
     {src: '~plugins/feathers.js'}
   ],

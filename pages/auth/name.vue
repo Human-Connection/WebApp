@@ -1,19 +1,20 @@
 <template>
-  <section class="container content">
-    <div class="card">
-      <div class="card-content">
-        <div class="card-teaser">
-          <img src="/assets/images/registration/nicetomeetyou.svg" alt="Human Connection"/>
-        </div>
-        <h1 class="title is-3 is-spaced">Wie dürfen wir dich nennen?</h1>
-        <p class="subtitle is-6">
-          Es ist nicht erforderlich deinen vollen Namen anzugeben, du erleichterst damit aber Freunden und Bekannten dich auf Human Connection zu finden.</p>
-        <form @submit.prevent="register">
-          <div class="field">
-            <p class="control has-icons-right">
-              <input class="input is-medium" v-bind:class="{ 'is-danger': errors }" type="text"
-                     placeholder="Dein Name ..." v-model="data.name" autofocus>
-              <span v-if="errors" class="icon is-small is-right">
+    <section class="container content">
+        <div class="card">
+            <div class="card-content">
+                <div class="card-teaser">
+                    <img src="/assets/images/registration/nicetomeetyou.svg" alt="Human Connection"/>
+                </div>
+                <h1 class="title is-3 is-spaced">Wie dürfen wir dich nennen?</h1>
+                <p class="subtitle is-6">Es ist nicht erforderlich deinen vollen Namen anzugeben, du erleichterst damit aber Freunden und Bekannten dich auf Human Connection zu finden.</p>
+
+                <upload-avatar></upload-avatar>
+
+                <form @submit.prevent="save">
+                    <div class="field">
+                        <p class="control has-icons-right">
+                            <input class="input " v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Dein Name ..." v-model="data.name" autofocus>
+                            <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
             </p>
@@ -35,9 +36,14 @@
 </template>
 
 <script>
+  import UploadAvatar from '~components/User/UploadAvatar'
+
   export default {
     middleware: 'authenticated',
     layout: 'blank',
+    components: {
+      'upload-avatar': UploadAvatar
+    },
     data () {
       return {
         data: {
@@ -48,8 +54,7 @@
       }
     },
     methods: {
-      async register (e) {
-        e.preventDefault()
+      async save () {
         this.errors = false
         this.loading = true
         this.$store.dispatch('auth/patch', this.data)

@@ -103,6 +103,7 @@
     .box {
       padding: 0.2em;
       transform: translateY(-50%) translateX(-50%);
+      z-index: 1001;
 
       @include desktop() {
         position: absolute;
@@ -119,6 +120,7 @@
       right: 0;
       bottom: 0;
       background-color: rgba($black, 0.4);
+      z-index: 1000;
       @include desktop() {
         display: none;
       }

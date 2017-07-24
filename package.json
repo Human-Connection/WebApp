@@ -14,7 +14,7 @@
     "styleguide:build": "vue-styleguidist build"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 6.0.0"
   },
   "dependencies": {
     "@nuxtjs/pwa": "^0.2.0",

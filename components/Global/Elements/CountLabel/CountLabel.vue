@@ -41,5 +41,6 @@
     border: 1px solid $white;
     pointer-events: none;
     user-select: none;
+    z-index: 1;
   }
 </style>
