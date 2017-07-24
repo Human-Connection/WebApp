@@ -22,11 +22,11 @@
     <div class="field">
       <label class="label">Category</label>
       <p class="control">
-        <div class="select">
-          <select v-model="form.categoryId" v-bind:disabled="loading">
+        <div>
+          <select v-model="form.categoryIds" v-bind:disabled="loading" multiple>
             <option :value="category._id" v-for="category in categories" :key="category._id">{{ category.title }}</option>
           </select>
-      </div>
+        </div>
       </p>
     </div>
     <div class="field">
@@ -69,7 +69,7 @@
           content: '',
           language: 'de_DE',
           visibility: 'public',
-          topics: [0, 1],
+          categoryIds: [],
           tags: [],
           attachments: [],
           ...this.data
