@@ -23,6 +23,9 @@ export const getters = {
   isVerified (state) {
     return !!state.user && state.user.isVerified && !!state.user.name
   },
+  isAdmin (state) {
+    return !!state.user && state.user.role === 'admin'
+  },
   user (state) {
     return state.user
   }

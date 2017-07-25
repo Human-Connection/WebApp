@@ -13,7 +13,7 @@ export default ({ params, route, error }, callback) => {
       // If we get an array back, we are allowed to edit
       if (res.length) return callback()
       // Otherwise we are not
-      error({statusCode: 401, message: "You can't edit that contribution!"})
+      error({statusCode: 401, message: "You can't edit that!"})
     })
     .catch((err) => {
       error({statusCode: err.code || 500, message: err.message})

@@ -18,6 +18,11 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
+            <p v-if="contribution.categories && contribution.categories.length">
+              <span class="tag is-primary" v-for="contribution in contribution.categories">
+                {{ contribution.title }}
+              </span>
+            </p>
             <p class="content" v-html="content"></p>
             <h3>How do you feel?</h3>
             <div class="hc__rating">

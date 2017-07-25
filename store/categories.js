@@ -1,32 +1,26 @@
 import feathers from '~plugins/feathers'
 
-const notificationsService = feathers.service('notifications')
+const categoriesService = feathers.service('categories')
 
 export const state = () => {
   return {
-    notifications: false
+    categories: false
   }
 }
 
 export const mutations = {
-  set (state, notifications) {
-    if (!notifications || notifications === undefined) {
-      state.notifications = null
+  set (state, categories) {
+    if (!categories || categories === undefined) {
+      state.categories = null
     } else {
-      state.notifications = notifications
+      state.categories = categories
     }
-  },
-  clear (state) {
-    state.notifications = []
-  },
-  add (state, notification) {
-    state.notifications.unshift(notification)
   }
 }
 
 export const getters = {
   all (state) {
-    return state.notifications
+    return state.categories
   }
 }
 
@@ -37,17 +31,17 @@ export const actions = {
   },
   // Called from plugins/init-store-subscriptions only once
   subscribe ({dispatch}) {
-    return notificationsService
+    return categoriesService
       .on('created', () => {
         dispatch('fetch')
       })
   },
   fetch ({commit}) {
-    return notificationsService.find({
+    return categoriesService.find({
       query: {
-        '$limit': 30,
+        '$limit': 200,
         '$sort': {
-          createdAt: -1
+          slug: 1
         }
       }
     })
@@ -57,5 +51,8 @@ export const actions = {
       .catch(() => {
         commit('clear')
       })
+  },
+  add ({dispatch}, category) {
+    return categoriesService.create(category)
   }
 }
