@@ -107,17 +107,7 @@
           </div>
         </hc-box>
       </div>
-      <div class="column is-6 timeline content">
-        <hc-box top="true" bottom="true">
-          <hc-title>Timeline</hc-title>
-        </hc-box>
-        <div class="timeline-intro">
-          <p>Hallo Dennis, was sind deine Pläne für heute?</p>
-          <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
-            <hc-icon icon="plus"/>
-          </hc-button>
-        </div>
-      </div>
+      <hc-timeline />
       <div class="column actions-sidebar">
         <hc-box top="true" bottom="true">
           <hc-title>Aktionen</hc-title>
@@ -140,12 +130,14 @@
   import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~components/Map/Map.vue'
   import UploadAvatar from '~components/User/UploadAvatar'
+  import Timeline from '~components/layout/Timeline'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
       'upload-avatar': UploadAvatar,
-      'hc-map': Map
+      'hc-map': Map,
+      'hc-timeline': Timeline
     },
     data () {
       return {
@@ -278,32 +270,6 @@
         }
       }
     }
-  }
-
-  .timeline {
-    .timeline-intro {
-      text-transform: uppercase;
-      text-align: center;
-      color: grey;
-      padding: 10px 0;
-      font-size: 14px;
-      letter-spacing: 1px;
-
-      .add-post {
-        display: block;
-        margin: 10px auto;
-        border: 0;
-        border-radius: 50px;
-        width: 50px;
-        height: 50px;
-        background-color: #9c3;
-        hc-box-shadow: 1px 1px 3px grey;
-        font-size: 30px;
-        color: white;
-        font-weight: lighter;
-      }
-    }
-
   }
 
   .hc-shortcuts {
