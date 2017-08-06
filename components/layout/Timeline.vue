@@ -13,9 +13,9 @@
       </hc-button>
     </div>
     <div>
-      <span v-if="loading">Loading ...</span>
+      <a class="button is-loading" v-if="loading">Loading ...</a>
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
-      <div class="timeline-post-wrapper" v-if="contributions.length > 0"
+      <div class="timeline-post-wrapper is-clearfix" v-if="contributions.length > 0"
         v-for="(contribution, index) in contributions">
         <div class="timeline-post-direction" :class="oddOrEven(index)">
           <contribution-card class="card timeline"
@@ -92,7 +92,6 @@ $green: hsl(78, 71%, 41%);
   }
   .timeline-post-wrapper {
     width: 100%;
-    clear: both;
   }
   .timeline-post-direction {
     width: 50%;
