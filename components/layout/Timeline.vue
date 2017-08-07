@@ -5,7 +5,7 @@
     </hc-box>
     <div class="timeline-intro">
       <p>Hallo Dennis, was sind deine Pläne für heute?</p>
-      <p v-if="contributions.length == 0">
+      <p v-if="contributions.length == 0 && loadingFinished">
         Keine Beträge, schreibe doch etwas.
       </p>
       <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
@@ -18,8 +18,8 @@
       <div class="timeline-post-wrapper is-clearfix" v-if="contributions.length > 0"
         v-for="(contribution, index) in contributions">
         <div class="timeline-post-direction" :class="oddOrEven(index)"
-         @mouseenter="mouseenter" @mouseleave="mouseleave">
-          <contribution-card class="card timeline" :class="getarrow()"
+         @mouseenter="mouseenter(contribution.slug)" @mouseleave="mouseleave(contribution.slug)">
+          <contribution-card class="card timeline" :class="getarrow(contribution.slug)"
             :post="contribution" :key="contribution.slug">
             <small slot="category">{{ contribution.type }}</small>
           </contribution-card>
@@ -34,11 +34,18 @@
   import feathers from '~plugins/feathers'
   import ContributionCard from '~components/Contributions/ContributionCard'
 
+  const enhanceArrows = (slug, value) => {
+    let enhance = {}
+    enhance[slug] = value
+    return {...this.hasArrows, ...enhance}
+  }
+
   export default {
     data () {
       return {
-        hasArrow: true,
+        hasArrows: {},
         loading: false,
+        loadingFinished: false,
         contributions: []
       }
     },
@@ -54,27 +61,29 @@
       oddOrEven (index) {
         return parseInt(index) % 2 === 0 ? 'even' : 'odd'
       },
-      mouseenter () {
-        console.log('enter')
-        this.hasArrow = false
+      mouseenter (slug) {
+        // change the complete object hasArrows
+        // so vue.js detects the change and re-renders
+        // changing only a property of hasArrows does not trigger a re-render
+        // e.g. this.hasArrows[slug] = false -> no effect
+        this.hasArrows = enhanceArrows(slug, false)
       },
-      mouseleave () {
-        console.log('leave')
-        this.hasArrow = true
+      mouseleave (slug) {
+        this.hasArrows = enhanceArrows(slug, true)
       },
-      getarrow () {
-        console.log('arrow')
-        return this.hasArrow ? 'arrow' : ''
+      getarrow (slug) {
+        return this.hasArrows[slug] ? 'arrow' : ''
       }
     },
     mounted () {
       console.log('mounted')
-      this.loading = true;
+      this.loading = true
+      this.loadingFinished = false;
+
+      // get the contributions by the userId and sort it
+      // by createdAt DESC
       (async () => {
         let user = this.user
-
-        console.log({user})
-
         try {
           let res = await feathers.service('contributions').find({
             query: {
@@ -85,9 +94,16 @@
             }
           })
           this.loading = false
+          this.loadingFinished = true
           console.log({res})
-          this.contributions = Array.isArray(res.data) ? res.data : []
+          let contributions = Array.isArray(res.data) ? res.data : []
+          contributions.forEach((item) => {
+            this.hasArrows[item.slug] = true
+          })
+          this.contributions = contributions
         } catch (err) {
+          // this just displays nothing
+          // @todo implement some user feedback
           console.log(err)
           this.loading = false
         }
@@ -96,15 +112,19 @@
   }
 </script>
 <style scoped lang="scss">
+
+// @todo maybe move this to global css
 $green: hsl(78, 71%, 41%);
 .timeline {
   .timeline-missing-line {
     width: 50%;
     height: 20px;
     border-right: 2px solid $green;
+    margin-left: 1px;
     margin-top: -10px;
   }
   .timeline-post-wrapper {
+    position: relative;
     width: 100%;
   }
   .timeline-post-direction {
@@ -135,7 +155,7 @@ $green: hsl(78, 71%, 41%);
     &.odd {
       float: right;
       border-left: 2px solid $green;
-      margin-right: 2px;
+      margin-right: 1px;
       .card {
         &.timeline {
           float: right;
@@ -153,6 +173,7 @@ $green: hsl(78, 71%, 41%);
     }
     &.even {
       border-right: 2px solid $green;
+      margin-left: 1px;
       .arrow:after, .arrow:before {
         left: 100%
       }
