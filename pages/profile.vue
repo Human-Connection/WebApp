@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <section class="container" style="position: relative">
     <div class="profile-header card">
       <img src="http://lorempixel.com/781/561/?95976">
     </div>
-    <div class="columns profile-body">
+    <div class="columns">
       <div class="column user-sidebar">
         <hc-box top="true" class="user-hc-box">
                     <div class="user-avatar">
@@ -122,7 +122,7 @@
         </hc-box>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -205,10 +205,6 @@
     left: 0;
     top: 50%;
     transform: translateY(-50%);
-  }
-
-  .profile-body {
-    height: 800px;
   }
 
   .user-sidebar {

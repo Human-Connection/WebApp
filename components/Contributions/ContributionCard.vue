@@ -13,6 +13,11 @@
             <slot name="header"></slot>
           </h3>
         </header>
+        <p v-if="post.categories && post.categories.length">
+          <span class="tag is-primary" v-for="contribution in post.categories">
+            {{ contribution.title }}
+          </span>
+        </p>
         <main class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
         </main>
