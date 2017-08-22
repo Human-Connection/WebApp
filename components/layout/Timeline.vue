@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   import feathers from '~plugins/feathers'
   import ContributionCard from '~components/Contributions/ContributionCard'
 
