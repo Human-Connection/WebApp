@@ -17,9 +17,8 @@
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
       <div class="timeline-post-wrapper is-clearfix" v-if="contributions.length > 0"
         v-for="(contribution, index) in contributions">
-        <div class="timeline-post-direction" :class="oddOrEven(index)"
-         @mouseenter="mouseenter(contribution.slug)" @mouseleave="mouseleave(contribution.slug)">
-          <contribution-card class="card timeline" :class="getarrow(contribution.slug)"
+        <div class="timeline-post-direction" :class="oddOrEven(index)">
+          <contribution-card class="card timeline arrow"
             :post="contribution" :key="contribution.slug">
             <small slot="category">{{ contribution.type }}</small>
           </contribution-card>
@@ -34,16 +33,9 @@
   import feathers from '~plugins/feathers'
   import ContributionCard from '~components/Contributions/ContributionCard'
 
-  const enhanceArrows = (slug, value) => {
-    let enhance = {}
-    enhance[slug] = value
-    return {...this.hasArrows, ...enhance}
-  }
-
   export default {
     data () {
       return {
-        hasArrows: {},
         loading: false,
         loadingFinished: false,
         contributions: []
@@ -60,19 +52,6 @@
     methods: {
       oddOrEven (index) {
         return parseInt(index) % 2 === 0 ? 'even' : 'odd'
-      },
-      mouseenter (slug) {
-        // change the complete object hasArrows
-        // so vue.js detects the change and re-renders
-        // changing only a property of hasArrows does not trigger a re-render
-        // e.g. this.hasArrows[slug] = false -> no effect
-        this.hasArrows = enhanceArrows(slug, false)
-      },
-      mouseleave (slug) {
-        this.hasArrows = enhanceArrows(slug, true)
-      },
-      getarrow (slug) {
-        return this.hasArrows[slug] ? 'arrow' : ''
       }
     },
     mounted () {
@@ -97,9 +76,6 @@
           this.loadingFinished = true
           console.log({res})
           let contributions = Array.isArray(res.data) ? res.data : []
-          contributions.forEach((item) => {
-            this.hasArrows[item.slug] = true
-          })
           this.contributions = contributions
         } catch (err) {
           // this just displays nothing
@@ -131,24 +107,19 @@ $green: hsl(78, 71%, 41%);
     .arrow {
       position: relative;
     }
-    .arrow:after, .arrow:before {
+    .arrow:after,
+    .arrow:before {
       top: 50%;
+      z-index: 10;
       border: solid transparent;
       content: " ";
       height: 0;
       width: 0;
       position: absolute;
+      border-color: rgba(255, 255, 255, 0);
+      border-width: 10px;
+      margin-top: -10px;
       pointer-events: none;
-    }
-    .arrow:after {
-      border-color: rgba(255, 255, 255, 0);
-      border-width: 10px;
-      margin-top: -10px;
-    }
-    .arrow:before {
-      border-color: rgba(255, 255, 255, 0);
-      border-width: 10px;
-      margin-top: -10px;
     }
 
     width: 50%;
