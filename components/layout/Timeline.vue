@@ -15,9 +15,9 @@
     <div>
       <a class="button is-loading" v-if="loading">Loading ...</a>
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
-      <div class="timeline-post-wrapper is-clearfix" v-if="contributions.length > 0"
-        v-for="(contribution, index) in contributions">
-        <div class="timeline-post-direction" :class="oddOrEven(index)">
+      <div class="timeline-post-wrapper is-clearfix">
+        <div class="timeline-post-direction" v-if="contributions.length > 0"
+                                             v-for="(contribution, index) in contributions">
           <contribution-card class="card timeline arrow"
             :post="contribution" :key="contribution.slug">
             <small slot="category">{{ contribution.type }}</small>
@@ -48,11 +48,6 @@
     },
     components: {
       ContributionCard
-    },
-    methods: {
-      oddOrEven (index) {
-        return parseInt(index) % 2 === 0 ? 'even' : 'odd'
-      }
     },
     mounted () {
       console.log('mounted')
@@ -123,7 +118,7 @@ $green: hsl(78, 71%, 41%);
     }
 
     width: 50%;
-    &.odd {
+    &:nth-child(even) {
       float: right;
       border-left: 2px solid $green;
       margin-right: 1px;
@@ -142,7 +137,7 @@ $green: hsl(78, 71%, 41%);
         border-right-color: #ffffff;
       }
     }
-    &.even {
+    &:nth-child(odd) {
       border-right: 2px solid $green;
       margin-left: 1px;
       .arrow:after, .arrow:before {
