@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <section class="container" style="position: relative">
     <div class="profile-header card">
       <img src="http://lorempixel.com/781/561/?95976">
     </div>
-    <div class="columns profile-body">
+    <div class="columns">
       <div class="column user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
@@ -86,17 +86,7 @@
           </div>
         </hc-box>
       </div>
-      <div class="column is-6 timeline content">
-        <hc-box top="true" bottom="true">
-          <hc-title>Timeline</hc-title>
-        </hc-box>
-        <div class="timeline-intro">
-          <p>Hallo Dennis, was sind deine Pläne für heute?</p>
-          <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
-            <hc-icon icon="plus"/>
-          </hc-button>
-        </div>
-      </div>
+      <hc-timeline />
       <div class="column actions-sidebar">
         <hc-box top="true" bottom="true">
           <hc-title>Aktionen</hc-title>
@@ -111,7 +101,7 @@
         </hc-box>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -119,6 +109,7 @@
   import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~components/Map/Map.vue'
   import UploadAvatar from '~components/User/UploadAvatar'
+  import Timeline from '~components/layout/Timeline'
   import Badges from '~components/Profile/Badges/Badges'
 
   export default {
@@ -126,7 +117,8 @@
       'hc-follower-item': FollowerItem,
       'upload-avatar': UploadAvatar,
       'hc-profile-badges': Badges,
-      'hc-map': Map
+      'hc-map': Map,
+      'hc-timeline': Timeline
     },
     data () {
       return {
@@ -196,10 +188,6 @@
     transform: translateY(-50%);
   }
 
-  .profile-body {
-    height: 800px;
-  }
-
   .user-sidebar {
     min-height: 200px;
 
@@ -231,32 +219,6 @@
         padding-top: 60px;
       }
     }
-  }
-
-  .timeline {
-    .timeline-intro {
-      text-transform: uppercase;
-      text-align: center;
-      color: grey;
-      padding: 10px 0;
-      font-size: 14px;
-      letter-spacing: 1px;
-
-      .add-post {
-        display: block;
-        margin: 10px auto;
-        border: 0;
-        border-radius: 50px;
-        width: 50px;
-        height: 50px;
-        background-color: #9c3;
-        hc-box-shadow: 1px 1px 3px grey;
-        font-size: 30px;
-        color: white;
-        font-weight: lighter;
-      }
-    }
-
   }
 
   .hc-shortcuts {

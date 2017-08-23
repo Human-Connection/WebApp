@@ -13,14 +13,18 @@
       </ul>
     </div>
     <div class="field">
-      <label class="label">Title</label>
+      <label class="label">Überschrift</label>
       <p class="control">
         <input class="input" v-model="form.title" type="text" placeholder="How do you call that story?"
                v-bind:disabled="loading">
       </p>
     </div>
     <div class="field">
-      <label class="label">Content</label>
+      <label class="label">Kategorien</label>
+      <categories-select v-model="form.categoryIds"></categories-select>
+    </div>
+    <div class="field">
+      <label class="label">Inhalt</label>
       <div class="control">
         <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
       </div>
@@ -41,12 +45,14 @@
 <script>
   import NoSSR from 'vue-no-ssr'
   import feathers from '~plugins/feathers'
+  import CategoriesSelect from '~components/Categories/CategoriesSelect.vue'
 
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
     components: {
-      'no-ssr': NoSSR
+      'no-ssr': NoSSR,
+      'categories-select': CategoriesSelect
     },
     data () {
       return {
@@ -58,7 +64,7 @@
           content: '',
           language: 'de_DE',
           visibility: 'public',
-          topics: [0, 1],
+          categoryIds: [],
           tags: [],
           attachments: [],
           ...this.data
