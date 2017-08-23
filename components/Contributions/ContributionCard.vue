@@ -117,7 +117,6 @@
     &.show {
       opacity: 1;
     }
-
     .wrapper {
       background-color: #fff;
       cursor: pointer;
@@ -131,6 +130,9 @@
         transform: scale(1.02);
         z-index: 2;
       }
+    }
+    &.timeline {
+      width: 95%;
     }
 
     .content {
