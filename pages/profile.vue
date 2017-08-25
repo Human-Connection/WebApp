@@ -6,35 +6,14 @@
     <div class="columns">
       <div class="column user-sidebar">
         <hc-box top="true" class="user-hc-box">
-                    <div class="user-avatar">
-                        <upload-avatar class="avatar-upload"></upload-avatar>
-                    </div>
-                    <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
-                        <!--&nbsp;-->
-                    <!--</div>-->
-                    <div class="user-name">{{ user.name }}</div>
-          <div class="user-badges columns is-gapless">
-            <div class="column user-badges-icons">
-              <ul>
-                <li>
-                  <img width="35" height="35"
-                       src="https://cdn.frontify.com/api/screen/thumbnail/XX9MuecGg2sy_CuMKs6FulhegxuoRIqi-7nhTI65O6DOzyS6YQc2s5XIQJgeScEJjTq8puwTMSRzlVkpWRnP3A/1524">
-                </li>
-                <li>
-                  <img width="35" height="35"
-                       src="https://cdn.frontify.com/api/screen/thumbnail/hEfr-hvcLC7ZI4QVesiQeMSZ78Sxf1JupKwe26VKT50M2gZGJ7VzfANRtKXraLMoRU8IJJ1MaM2y4T40CoU4oA/1524">
-                </li>
-                <li>
-                  <img width="35" height="35"
-                       src="https://cdn.frontify.com/api/screen/thumbnail/mBlEor48pXBdaKe74aofLOVOwe9v2_9xydD254329f7KgHK3YNwhY8oA_YKcqqeC1RNZoRXot-wSA8lmA86QPg/1524">
-                </li>
-              </ul>
-            </div>
-            <div class="column user-badges-summary is-one-third">
-              <span>3</span>
-              Badges
-            </div>
+          <div class="user-avatar">
+            <upload-avatar class="avatar-upload"></upload-avatar>
           </div>
+          <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
+            <!--&nbsp;-->
+          <!--</div>-->
+          <div class="user-name">{{ user.name }}</div>
+          <hc-profile-badges title="Badges" :badges="user.badges" />
         </hc-box>
         <div class="hc-shortcuts">
           <hc-box class="shortcut-hc-box" top="true">
@@ -131,11 +110,13 @@
   import Map from '~components/Map/Map.vue'
   import UploadAvatar from '~components/User/UploadAvatar'
   import Timeline from '~components/layout/Timeline'
+  import Badges from '~components/Profile/Badges/Badges'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
       'upload-avatar': UploadAvatar,
+      'hc-profile-badges': Badges,
       'hc-map': Map,
       'hc-timeline': Timeline
     },
@@ -236,34 +217,6 @@
         font-size: 16px;
         text-align: center;
         padding-top: 60px;
-      }
-
-      .user-badges {
-        width: 100%;
-        padding: 10px 0;
-
-        li {
-          list-style: none;
-          float: left;
-        }
-        li:first-child {
-          margin-left: 0;
-        }
-        .user-badges-summary {
-          border-left: 1px solid #9c3;
-          text-transform: uppercase;
-          line-height: 19px;
-          padding-left: 5px;
-          font-size: 10px;
-          color: #9c3;
-          font-weight: normal;
-
-          span {
-            font-size: 19px;
-            color: grey;
-            display: block;
-          }
-        }
       }
     }
   }
