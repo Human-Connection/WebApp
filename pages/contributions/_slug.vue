@@ -24,14 +24,7 @@
               </span>
             </p>
             <p class="content" v-html="content"></p>
-            <h3>How do you feel?</h3>
-            <div class="hc__rating">
-              <img src="/assets/svg/hc-smilies-01.svg"/>
-              <img src="/assets/svg/hc-smilies-02.svg"/>
-              <img src="/assets/svg/hc-smilies-03.svg"/>
-              <img src="/assets/svg/hc-smilies-04.svg"/>
-              <img src="/assets/svg/hc-smilies-05.svg"/>
-            </div>
+            <emotion-rating :contribution="contribution" :user="user"></emotion-rating>
           </div>
           <b-tabs class="footer">
             <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">
@@ -56,11 +49,13 @@
   import feathers from '~plugins/feathers'
   import comments from '~components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
+  import EmotionRating from '~components/Contributions/EmotionRating.vue'
 
   export default {
     components: {
       'author': author,
-      'comments': comments
+      'comments': comments,
+      'emotion-rating': EmotionRating
     },
     data () {
       return {
@@ -116,20 +111,6 @@
     height: 300px;
     overflow: hidden;
     margin: -3rem -1.5rem 1.5rem;
-  }
-
-  .hc__rating {
-    margin-top: 1rem;
-    height: 50px;
-    img {
-      float: left;
-      margin-right: 10px;
-      height: 50px;
-    }
-
-    &:after {
-      clear: both;
-    }
   }
 
   .b-tabs.footer {
