@@ -2,14 +2,14 @@
   <div>
     <br/>
     <nav class="level is-mobile">
-      <div class="level-item has-text-centered" v-for="(emotionCount, key, index) in contribution.emotions"
+      <div class="level-item has-text-centered" v-for="(emotion, key) in contribution.emotions"
            @click="onClick(key)">
         <div>
           <p class="smiley heading">
             <hc-emoji :type="key" width="50" height="50"></hc-emoji><br/>
             {{key}}
           </p>
-          <p class="title">{{ formatCount(emotionCount) }}</p>
+          <p class="title">{{ formatPercent(emotion.percent) }}</p>
         </div>
       </div>
     </nav>
@@ -71,6 +71,9 @@
           count = count.toString().substr(0, (count.toString().length - 3)) + 'K'
         }
         return count
+      },
+      formatPercent (percent) {
+        return Math.floor(percent) + '%'
       }
     }
   }
