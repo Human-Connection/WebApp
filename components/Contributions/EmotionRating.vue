@@ -6,7 +6,7 @@
            @click="onClick(key)">
         <div>
           <p class="smiley heading">
-            <img v-bind:src="generateSrc(index)" /><br/>
+            <hc-emoji :type="key" width="50"></hc-emoji><br/>
             {{key}}
           </p>
           <p class="title">{{ formatCount(emotionCount) }}</p>
@@ -63,9 +63,8 @@
           })
         }
       },
-      generateSrc (index) {
-        let i = parseInt(index) + 1
-        return `/assets/svg/hc-smilies-0${i}.svg`
+      generateSrc (key) {
+        return `/assets/svg/emoji/${key}.svg`
       },
       formatCount (count) {
         if (parseInt(count) >= 100000) {
@@ -82,26 +81,9 @@
     user-select: none;
     cursor: pointer;
 
-    img {
-      height: 50px;
-      display: block;
-      margin: auto;
-    }
     .title {
       font-size: 1.2rem;
       margin-top: -0.5rem;
-    }
-  }
-  .rating {
-    margin-top: 1rem;
-    height: 50px;
-    img {
-      float: left;
-      margin-right: 10px;
-      height: 50px;
-    }
-    &:after {
-      clear: both;
     }
   }
 </style>
