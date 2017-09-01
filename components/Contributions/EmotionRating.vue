@@ -88,5 +88,9 @@
       font-size: 1.2rem;
       margin-top: -0.5rem;
     }
+
+    .level-item:active {
+      transform: scale(0.9);
+    }
   }
 </style>
