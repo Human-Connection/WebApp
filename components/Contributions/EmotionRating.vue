@@ -6,7 +6,7 @@
            @click="onClick(key)">
         <div>
           <p class="smiley heading">
-            <hc-emoji :type="key" width="50"></hc-emoji><br/>
+            <hc-emoji :type="key" width="50" height="50"></hc-emoji><br/>
             {{key}}
           </p>
           <p class="title">{{ formatCount(emotionCount) }}</p>

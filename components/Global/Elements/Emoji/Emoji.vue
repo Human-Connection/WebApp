@@ -12,11 +12,11 @@
       },
       width: {
         type: String,
-        default: '100%'
+        default: 'auto'
       },
       height: {
         type: String,
-        default: '100%'
+        default: 'auto'
       }
     }
   }
