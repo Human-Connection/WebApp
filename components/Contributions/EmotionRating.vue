@@ -90,8 +90,12 @@
       margin-top: -0.5rem;
     }
 
-    .level-item:active {
-      transform: scale(0.9);
+    .level-item {
+      transition: 100ms ease-in-out;
+
+      &:active {
+        transform: scale(0.92);
+      }
     }
   }
 </style>
