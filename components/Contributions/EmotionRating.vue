@@ -19,8 +19,10 @@
 <script>
   import feathers from '~plugins/feathers'
 
+  // TODO: move logic to store
+
   export default {
-    name: 'emotion-rating',
+    name: 'hc-emotion-rating',
     props: {
       contribution: {
         type: Object,
@@ -66,12 +68,6 @@
       },
       generateSrc (key) {
         return `/assets/svg/emoji/${key}.svg`
-      },
-      formatCount (count) {
-        if (parseInt(count) >= 100000) {
-          count = count.toString().substr(0, (count.toString().length - 3)) + 'K'
-        }
-        return count
       },
       formatPercent (percent) {
         return Math.floor(percent) + '%'

@@ -24,7 +24,7 @@
               </span>
             </p>
             <p class="content" v-html="content"></p>
-            <emotion-rating :contribution="contribution" :user="user"></emotion-rating>
+            <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
           </div>
           <b-tabs class="footer">
             <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">
@@ -55,7 +55,7 @@
     components: {
       'author': author,
       'comments': comments,
-      'emotion-rating': EmotionRating
+      'hc-emotion-rating': EmotionRating
     },
     data () {
       return {

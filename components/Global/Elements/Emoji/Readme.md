@@ -1,8 +1,12 @@
-### Colors
+### Emoji
 
-A button can have different colors
+#### Types: 
+- Funny
+- Happy
+- Surprised
+- Cry
+- Angry
 
 ```
-<hc-emoji type="happy"></hc-emoji>
-<hc-emoji type="funny"></hc-emoji>
+<hc-emoji type="happy" width="150"></hc-emoji>
 ```
