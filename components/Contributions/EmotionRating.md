@@ -1,7 +1,5 @@
 ### Emotion Rating
 
-Ahhhhhhhh
-
 ```js
 new Vue({
   components: {
