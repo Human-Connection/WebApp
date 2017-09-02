@@ -33,8 +33,15 @@
     mounted () {
       console.log('try to listen on patch')
       feathers.service('contributions').on('patched', res => {
-        this.contribution.emotions = res.emotions
+        // TODO: use the new channels feature for the feathers (buzzard) when its released
+        if (res._id === this.contribution._id) {
+          this.contribution.emotions = res.emotions
+        }
       })
+    },
+    beforeDestroy () {
+      console.log('DESTROYING')
+      feathers.service('contributions').off('patched')
     },
     methods: {
       async onClick (key) {
@@ -48,13 +55,7 @@
         console.log(postData)
 
         try {
-          let res = await feathers.service('emotions').create(postData)
-          console.log(res)
-          this.$toast.open({
-            message: 'Thanks for your rating. You are awesome.',
-            duration: 2000,
-            type: 'is-success'
-          })
+          await feathers.service('emotions').create(postData)
         } catch (err) {
           this.$toast.open({
             message: err.message,
