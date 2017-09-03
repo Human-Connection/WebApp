@@ -31,7 +31,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import feathers from '~plugins/feathers'
-  import ContributionCard from '~components/Contributions/ContributionCard'
+  import ContributionCard from '~components/Contributions/ContributionCard.vue'
 
   export default {
     data () {
@@ -41,6 +41,7 @@
         contributions: []
       }
     },
+    name: 'hc-timeline',
     computed: {
       ...mapGetters({
         user: 'auth/user'
