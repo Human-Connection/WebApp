@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Buefy from 'buefy'
 
-if (process.BROWSER_BUILD) {
+if (process.browser) {
   Vue.use(Buefy)
 }

@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 let vueClip
 
-if (process.BROWSER_BUILD) {
+if (process.browser) {
   vueClip = require('vue-clip')
   Vue.use(vueClip)
 }
