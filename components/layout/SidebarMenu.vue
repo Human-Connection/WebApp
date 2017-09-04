@@ -47,7 +47,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 

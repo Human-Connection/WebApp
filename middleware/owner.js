@@ -1,4 +1,4 @@
-import feathers from '~plugins/feathers'
+import feathers from '~/plugins/feathers'
 
 export default ({ params, route, error }, callback) => {
   const serviceName = route.name.split('-')[0]

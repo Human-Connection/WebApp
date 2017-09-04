@@ -38,7 +38,7 @@
 
 <script>
   import {mapGetters, mapMutations} from 'vuex'
-  import author from '~components/Author/Author.vue'
+  import author from '~/components/Author/Author.vue'
 
   export default {
     name: 'hc-notifications',
@@ -70,7 +70,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "../../assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .nav-item {
     position: relative;
@@ -106,10 +106,12 @@
       width: 300px;
       transform: translateY(-50%) translateX(-50%);
       z-index: 1001;
+      // box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
 
       @include desktop() {
         position: absolute;
         top: 100%;
+        margin-top: 1px;
         left: 50% !important;
         transform: translateX(-50%);
       }
@@ -148,6 +150,7 @@
 
       &:hover {
         // box-shadow: 0px 2px 7px rgba($black, 0.2);
+        background-color: lighten($grey-lighter, 10%);
       }
 
       &:last-of-type {
@@ -164,7 +167,7 @@
     }
 
     .box-enter-active, .box-leave-active {
-      transition: all .2s ease-out;
+      transition: all 100ms ease-out;
     }
 
     .box-enter, .box-leave-to {
@@ -172,7 +175,7 @@
       transform: translateX(-50%) translateY(-50%) scale(0.7);
 
       @include desktop() {
-        transform: translateX(-50%) translateY(-7px);
+        transform: translateX(-50%) translateY(-5px) scaleX(0.95);
       }
     }
 

@@ -16,7 +16,7 @@
   </section>
 </template>
 <script>
-  import HcEmoji from '../components/Global/Elements/Emoji/Emoji.vue'
+  import HcEmoji from '~/components/Global/Elements/Emoji/Emoji.vue'
 
   export default {
     components: {HcEmoji},

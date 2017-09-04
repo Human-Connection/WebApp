@@ -13,11 +13,11 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <p v-if="post.categories && post.categories.length">
+        <div class="tags" v-if="post.categories && post.categories.length">
           <span class="tag is-primary" v-for="contribution in post.categories">
             {{ contribution.title }}
           </span>
-        </p>
+        </div>
         <main class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
         </main>
@@ -38,7 +38,7 @@
 
 
 <script>
-  import author from '~components/Author/Author.vue'
+  import author from '~/components/Author/Author.vue'
 
   export default {
     name: 'hc-contribution-card',
@@ -83,7 +83,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '~assets/styles/utilities';
+  @import 'assets/styles/utilities';
 
   $gutter: 15px;
   $gutter-big: 20px;

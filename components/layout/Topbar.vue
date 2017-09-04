@@ -54,8 +54,8 @@
   // Todo: profile button in component
 
   import {mapGetters} from 'vuex'
-  import Notifications from '~components/Notifications/Notifications.vue'
-  import Avatar from '~components/Avatar/Avatar.vue'
+  import Notifications from '~/components/Notifications/Notifications.vue'
+  import Avatar from '~/components/Avatar/Avatar.vue'
 
   export default {
     name: 'hc-topbar',
@@ -96,7 +96,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
   @import "~bulma/sass/components/nav.sass";
 
   nav {

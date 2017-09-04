@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import feathers from '~plugins/feathers'
+  import feathers from '~/plugins/feathers'
 
   // TODO: move logic to store
 

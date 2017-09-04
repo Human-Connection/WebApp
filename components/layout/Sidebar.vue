@@ -12,8 +12,8 @@
 
 <script>
   import {mapGetters, mapActions} from 'vuex'
-  import HcSidebarToggle from '~components/layout/SidebarToggle.vue'
-  import HcSidebarMenu from '~components/layout/SidebarMenu.vue'
+  import HcSidebarToggle from '~/components/layout/SidebarToggle.vue'
+  import HcSidebarMenu from '~/components/layout/SidebarMenu.vue'
 
   export default {
     components: {
@@ -42,7 +42,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .sidebar {
     position: absolute;

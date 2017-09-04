@@ -44,8 +44,8 @@
 
 <script>
   import NoSSR from 'vue-no-ssr'
-  import feathers from '~plugins/feathers'
-  import CategoriesSelect from '~components/Categories/CategoriesSelect.vue'
+  import feathers from '~/plugins/feathers'
+  import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
 
   export default {
     name: 'hc-contributions-form',
@@ -131,7 +131,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .textarea {
     margin-bottom: 10px;

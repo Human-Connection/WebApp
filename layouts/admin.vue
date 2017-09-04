@@ -26,9 +26,9 @@
 </template>
 
 <script>
-  import HcFooter from '~components/layout/Footer.vue'
-  import HcFrame from '~components/layout/Frame.vue'
-  import HcAdminMenu from '~components/Admin/AdminMenu.vue'
+  import HcFooter from '~/components/layout/Footer.vue'
+  import HcFrame from '~/components/layout/Frame.vue'
+  import HcAdminMenu from '~/components/Admin/AdminMenu.vue'
 
   export default {
     components: {
@@ -40,7 +40,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/styles/utilities';
+  @import 'assets/styles/utilities';
 
   .hero {
     margin-bottom:30px;

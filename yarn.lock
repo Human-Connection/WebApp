@@ -1080,7 +1080,7 @@ babel-preset-stage-3@^6.24.1:
     babel-plugin-transform-exponentiation-operator "^6.24.1"
     babel-plugin-transform-object-rest-spread "^6.22.0"
 
-babel-preset-vue-app@^1.2.0, babel-preset-vue-app@^1.2.1:
+babel-preset-vue-app@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/babel-preset-vue-app/-/babel-preset-vue-app-1.2.1.tgz#2f6b71890a21a675019ca1db8d0da15bf017ba24"
   dependencies:
@@ -3102,7 +3102,7 @@ express-healthcheck@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/express-healthcheck/-/express-healthcheck-0.1.0.tgz#cabec78129c4cb90cd7fb894dfae21b82e27cb07"
 
-express-session@^1.15.4:
+express-session@^1.15.5:
   version "1.15.5"
   resolved "https://registry.yarnpkg.com/express-session/-/express-session-1.15.5.tgz#f49a18227263b316f6f8544da5fee25a540259ec"
   dependencies:
@@ -8602,7 +8602,7 @@ vue-clip@^1.0.0:
     dropzone "^4.3.0"
     lodash.clone "^4.5.0"
 
-vue-docgen-api@^2.0.12, vue-docgen-api@^2.0.9:
+vue-docgen-api@^2.0.11, vue-docgen-api@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/vue-docgen-api/-/vue-docgen-api-2.0.12.tgz#b3f8231edd23e3114cfac946282e36cb2f5b5678"
   dependencies:
@@ -8661,7 +8661,7 @@ vue-no-ssr@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-0.2.0.tgz#6d812908e6ddefe7d39b10d19db9311778fa49d4"
 
-vue-quill-editor@^2.2.4:
+vue-quill-editor@^2.3.0:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/vue-quill-editor/-/vue-quill-editor-2.3.2.tgz#fcfd4efbf231a04f6fd0e47cdff65dfd5e456120"
   dependencies:
@@ -8691,7 +8691,7 @@ vue-style-loader@^3.0.0, vue-style-loader@^3.0.1:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
 
-vue-styleguidist@^1.2.0:
+vue-styleguidist@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/vue-styleguidist/-/vue-styleguidist-1.2.5.tgz#0e78b177213b099eaaa75935a7b22ab3777f3e7d"
   dependencies:

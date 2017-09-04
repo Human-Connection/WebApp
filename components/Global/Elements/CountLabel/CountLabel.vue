@@ -19,7 +19,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .count {
     $batchSize: 20px;
