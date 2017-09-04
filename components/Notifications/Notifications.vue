@@ -20,7 +20,7 @@
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
             <transition-group name="notification">
-              <div class="hc__notification option" v-for="notification in notifications" :key="notification._id"
+              <div class="hc__notification option is-hoverable" v-for="notification in notifications" :key="notification._id"
                    @click="followNotification(notification)">
                 <author :post="notification.comment"></author>
                 <p class="notification-message" v-html="notification.message"></p>
@@ -79,6 +79,7 @@
   .hc__notifications.dropdown {
     outline: none !important;
     box-shadow: none !important;
+    background-color: #fff;
 
     position: relative;
     user-select: none;
@@ -102,6 +103,7 @@
 
     .box {
       padding: 0.2em;
+      width: 300px;
       transform: translateY(-50%) translateX(-50%);
       z-index: 1001;
 
@@ -141,6 +143,8 @@
     .option {
       border-bottom: 1px solid lighten($grey-lighter, 6%);
       transition: all .2s ease-out;
+      padding: 8px 8px;
+      cursor: pointer;
 
       &:hover {
         // box-shadow: 0px 2px 7px rgba($black, 0.2);
@@ -152,7 +156,7 @@
     }
 
     .notification-message {
-      margin-top: 0.3em;
+      margin-top: 0.5em;
     }
 
     .dropdown-content {
