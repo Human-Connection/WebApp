@@ -20,7 +20,7 @@
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
             <transition-group name="notification">
-              <div class="hc__notification option is-hoverable" v-for="notification in notifications" :key="notification._id"
+              <div class="hc__notification option" v-for="notification in notifications" :key="notification._id"
                    @click="followNotification(notification)">
                 <author :post="notification.comment"></author>
                 <p class="notification-message" v-html="notification.message"></p>

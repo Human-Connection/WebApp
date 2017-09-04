@@ -19,7 +19,9 @@
   import HcEmoji from '~/components/Global/Elements/Emoji/Emoji.vue'
 
   export default {
-    components: {HcEmoji},
+    components: {
+      HcEmoji
+    },
     props: ['error'],
     head () {
       return {
