@@ -21,6 +21,7 @@
   import Bricks from 'bricks.js'
   import Card from '~/components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
+  import _ from 'lodash'
 
   export default {
     components: {
@@ -57,14 +58,25 @@
     computed: {
       ...mapGetters({
         changeLayout: 'layout/change',
+        searchQuery: 'search/query',
         isVerified: 'auth/isVerified'
       })
     },
     watch: {
       changeLayout () {
-        var app = this
+        const app = this
         app.$nextTick(() => {
           app.updateGrid()
+        })
+      },
+      searchQuery () {
+        const app = this
+        app.$nextTick(async () => {
+          console.log(this.searchQuery)
+          app.contributions = []
+          app.skip = 0
+          app.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+          app.onInfinite()
         })
       }
     },
@@ -73,12 +85,14 @@
         this.bricksInstance.resize(true).pack()
       },
       onInfinite () {
-        feathers.service('contributions').find({
-          query: {
-            $skip: this.skip,
-            $sort: this.sort
-          }
-        }).then(res => {
+        let query = {
+          $skip: this.skip,
+          $sort: this.sort
+        }
+        if (!_.isEmpty(this.searchQuery)) {
+          query.$search = this.searchQuery
+        }
+        feathers.service('contributions').find({query: query}).then(res => {
           console.log(res)
           this.contributions = this.contributions.concat(res.data)
           setTimeout(() => {

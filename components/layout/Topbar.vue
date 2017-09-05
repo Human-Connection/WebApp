@@ -11,16 +11,7 @@
       </div>
 
       <div class="nav-center">
-        <div class="search">
-          <div class="field">
-            <p class="control has-icons-right">
-              <input class="input" type="text" placeholder="Suchen ..." value="">
-              <span class="icon is-small is-right">
-                                <hc-icon icon="search"></hc-icon>
-                            </span>
-            </p>
-          </div>
-        </div>
+        <search-input></search-input>
       </div>
 
       <div class="nav-right nav-end">
@@ -63,13 +54,15 @@
   import Notifications from '~/components/Notifications/Notifications.vue'
   import Avatar from '~/components/Avatar/Avatar.vue'
   import HcButton from '../Global/Elements/Button/Button.vue'
+  import SearchInput from '../Search/SearchInput.vue'
 
   export default {
     name: 'hc-topbar',
     components: {
+      SearchInput,
       HcButton,
-      'hc-avatar': Avatar,
-      'notifications': Notifications
+      Avatar,
+      Notifications
     },
     data () {
       return {
@@ -137,28 +130,6 @@
 
     @include tablet() {
       display: none;
-    }
-  }
-
-  .search {
-    display: flex;
-
-    .field {
-      display: flex;
-      align-items: center;
-    }
-
-    .control {
-      input {
-        border-radius: 2em;
-        height: 2.5em;
-        padding-left: 1em;
-        padding-right: 2em;
-      }
-
-      .icon {
-        height: 2.5em;
-      }
     }
   }
 
