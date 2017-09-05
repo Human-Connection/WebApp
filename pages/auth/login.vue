@@ -81,7 +81,7 @@
             })
             this.loading = false
             this.data.password = null
-            this.$router.replace(this.$route.params.path || '/')
+            this.$router.replace(this.$route.params.path || this.$route.query.path || '/')
           })
           .catch(error => {
             this.$toast.open({
