@@ -68,9 +68,6 @@
       })
     },
     methods: {
-      hello () {
-        console.log('hello')
-      },
       async login (e) {
         e.preventDefault()
         this.errors = false
@@ -84,7 +81,7 @@
             })
             this.loading = false
             this.data.password = null
-            this.$router.replace(this.$route.query.path || '/')
+            this.$router.replace(this.$route.params.path || '/')
           })
           .catch(error => {
             this.$toast.open({
