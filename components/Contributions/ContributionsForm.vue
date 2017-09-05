@@ -1,5 +1,22 @@
 <template>
   <form v-bind:disabled="loading">
+    <div class="text-center hc__imagecontainer" v-if="isValidURL(form.teaserImg)">
+      <img :src="form.teaserImg" :alt="form.title" style="display:block; width: 100%;" />
+    </div>
+    <div class="columns">
+      <div class="column">
+        <author :post="{ user: user }"></author>
+      </div>
+      <div class="column"></div>
+    </div>
+    <hr/>
+    <div class="field">
+      <label class="label">Teaserbild URL</label>
+      <p class="control">
+        <input class="input" v-model="form.teaserImg" type="text" placeholder="BildURL"
+               v-bind:disabled="loading">
+      </p>
+    </div>
     <!--<div class="tabs is-toggle is-fullwidth">-->
       <!--<ul>-->
         <!--<li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">-->
@@ -19,32 +36,35 @@
                v-bind:disabled="loading">
       </p>
     </div>
-    <label class="label">Titelbild</label>
-    <b-field>
-      <b-upload v-model="dropFiles" drag-drop>
-        <section class="section">
-          <div class="content has-text-centered">
-            <p>
-              <b-icon
-                  icon="file_upload"
-                  size="is-large">
-              </b-icon>
-            </p>
-            <p>Drop your files here or click to upload</p>
-          </div>
-        </section>
-      </b-upload>
-    </b-field>
+    <!--<label class="label">Titelbild Upload</label>-->
+    <!--<b-field>-->
+      <!--<b-upload v-model="dropFiles" drag-drop>-->
+        <!--<section class="section">-->
+          <!--<div class="content has-text-centered">-->
+            <!--<p>-->
+              <!--<b-icon-->
+                  <!--icon="file_upload"-->
+                  <!--size="is-large">-->
+              <!--</b-icon>-->
+            <!--</p>-->
+            <!--<p>Drop your files here or click to upload</p>-->
+          <!--</div>-->
+        <!--</section>-->
+      <!--</b-upload>-->
+    <!--</b-field>-->
+    <!--<figure class="image" style="background-image: url('http://bulma.io/images/placeholders/640x320.png')">-->
+      <!--<img v-bind:src="form.teaserImg" style="min-height: 320px;">-->
+    <!--</figure>-->
     <div class="tags">
-    <span v-for="(file, index) in dropFiles"
-          :key="index"
-          class="tag is-primary" >
-        {{file.name}}
-        <button class="delete is-small"
-                type="button"
-                @click="deleteDropFile(index)">
-        </button>
-    </span>
+      <span v-for="(file, index) in dropFiles"
+            :key="index"
+            class="tag is-primary" >
+          {{file.name}}
+          <button class="delete is-small"
+                  type="button"
+                  @click="deleteDropFile(index)">
+          </button>
+      </span>
     </div>
     <div class="field">
       <label class="label">Kategorien</label>
@@ -73,11 +93,15 @@
   import NoSSR from 'vue-no-ssr'
   import feathers from '~/plugins/feathers'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
+  import Author from '~/components/Author/Author.vue'
+  import {mapGetters} from 'vuex'
+  import validUrl from 'valid-url'
 
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
     components: {
+      Author,
       'no-ssr': NoSSR,
       'categories-select': CategoriesSelect
     },
@@ -88,6 +112,7 @@
         form: {
           _id: null,
           type: 'post',
+          teaserImg: null,
           title: '',
           content: '',
           language: 'de_DE',
@@ -120,11 +145,17 @@
       }
     },
     computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      }),
       buttonLabel () {
         return this.form._id ? 'Update' : 'Publish'
       }
     },
     methods: {
+      isValidURL (url) {
+        return !!validUrl.isWebUri(url)
+      },
       deleteDropFile (index) {
         this.dropFiles.splice(index, 1)
       },
@@ -167,5 +198,11 @@
   .textarea {
     margin-bottom: 10px;
     min-height: 80px;
+  }
+
+  .hc__imagecontainer {
+    height: 300px;
+    overflow: hidden;
+    margin: -3.8rem -2.25rem 2.25rem;
   }
 </style>

@@ -4,7 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg">
+            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg" @click="imageModal()">
               <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
             </div>
             <div class="columns">
@@ -98,6 +98,15 @@
         return this.isVerified && this.contribution.user._id === userId
       }
     },
+    methods: {
+      imageModal () {
+        this.$modal.open(
+          `<p class="image">
+              <img src="${this.contribution.teaserImg}">
+          </p>`
+        )
+      }
+    },
     head () {
       return {
         title: this.title
@@ -112,6 +121,7 @@
     height: 300px;
     overflow: hidden;
     margin: -3rem -1.5rem 1.5rem;
+    cursor: zoom-in;
   }
 
   .b-tabs.footer {

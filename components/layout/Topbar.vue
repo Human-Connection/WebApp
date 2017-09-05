@@ -33,7 +33,7 @@
         </div>
         <template v-else>
           <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
-            <hc-avatar :url="user.avatar"></hc-avatar>&nbsp;&nbsp;
+            <avatar :url="user.avatar"></avatar>&nbsp;&nbsp;
           </nuxt-link>
           <a class="nav-item is-tab" @click.prevent="logout()">
             <i class="fa fa-sign-out" aria-hidden="true"></i>
