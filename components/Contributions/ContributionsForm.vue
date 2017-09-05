@@ -1,23 +1,50 @@
 <template>
   <form v-bind:disabled="loading">
-    <div class="tabs is-toggle is-fullwidth">
-      <ul>
-        <li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">
-          <a v-bind:disabled="postType.disabled" class="button is-medium">
-                        <span class="icon">
-                            <hc-icon :icon="'tools-'+postType.value" set="hc"></hc-icon>
-                        </span>
-            <span>{{ postType.label }}</span>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <!--<div class="tabs is-toggle is-fullwidth">-->
+      <!--<ul>-->
+        <!--<li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">-->
+          <!--<a v-bind:disabled="postType.disabled" class="button is-medium">-->
+                        <!--<span class="icon">-->
+                            <!--<hc-icon :icon="'tools-'+postType.value" set="hc"></hc-icon>-->
+                        <!--</span>-->
+            <!--<span>{{ postType.label }}</span>-->
+          <!--</a>-->
+        <!--</li>-->
+      <!--</ul>-->
+    <!--</div>-->
     <div class="field">
       <label class="label">Überschrift</label>
       <p class="control">
         <input class="input" v-model="form.title" type="text" placeholder="How do you call that story?"
                v-bind:disabled="loading">
       </p>
+    </div>
+    <label class="label">Titelbild</label>
+    <b-field>
+      <b-upload v-model="dropFiles" drag-drop>
+        <section class="section">
+          <div class="content has-text-centered">
+            <p>
+              <b-icon
+                  icon="file_upload"
+                  size="is-large">
+              </b-icon>
+            </p>
+            <p>Drop your files here or click to upload</p>
+          </div>
+        </section>
+      </b-upload>
+    </b-field>
+    <div class="tags">
+    <span v-for="(file, index) in dropFiles"
+          :key="index"
+          class="tag is-primary" >
+        {{file.name}}
+        <button class="delete is-small"
+                type="button"
+                @click="deleteDropFile(index)">
+        </button>
+    </span>
     </div>
     <div class="field">
       <label class="label">Kategorien</label>
@@ -57,6 +84,7 @@
     data () {
       return {
         loading: false,
+        dropFiles: null,
         form: {
           _id: null,
           type: 'post',
@@ -97,6 +125,9 @@
       }
     },
     methods: {
+      deleteDropFile (index) {
+        this.dropFiles.splice(index, 1)
+      },
       async onSubmit () {
         this.loading = true
         console.log(this.form)

@@ -15,23 +15,19 @@
 
 <script>
   import _ from 'lodash'
+  let app
   export default {
     name: 'hc-search-input',
     data () {
+      app = this
       return {
         value: ''
       }
     },
     methods: {
-      onInput () {
-        console.log(this.value)
-        this.$store.commit('search/query', this.value)
-        _.throttle(this.doSearch, 500)
-      },
-      doSearch () {
-        console.log('search for:')
-        console.log(this.value)
-      }
+      onInput: _.throttle(() => {
+        app.$store.commit('search/query', app.value)
+      }, 500)
     }
   }
 </script>

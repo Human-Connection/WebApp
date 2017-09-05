@@ -94,7 +94,7 @@
         }
         feathers.service('contributions').find({query: query}).then(res => {
           console.log(res)
-          this.contributions = this.contributions.concat(res.data)
+          this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
           setTimeout(() => {
             this.updateGrid()
 
