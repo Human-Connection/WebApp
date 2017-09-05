@@ -9,7 +9,10 @@
             <hc-emoji :type="key" width="50" height="50"></hc-emoji><br/>
             {{key}}
           </p>
-          <p class="title">{{ formatPercent(emotion.percent) }}</p>
+          <p class="title">
+            <count-to :ref=key :startVal=values[key].startVal :endVal=values[key].endVal
+                      suffix=' %' :duration=1000 :autoplay="true"></count-to>
+          </p>
         </div>
       </div>
     </nav>
@@ -18,11 +21,16 @@
 
 <script>
   import feathers from '~/plugins/feathers'
+  import countTo from 'vue-count-to'
+  import _ from 'lodash'
 
   // TODO: move logic to store
 
   export default {
     name: 'hc-emotion-rating',
+    components: {
+      'count-to': countTo
+    },
     props: {
       contribution: {
         type: Object,
@@ -32,30 +40,45 @@
         type: Object
       }
     },
+    data () {
+      return {
+        values: {}
+      }
+    },
+    created () {
+      // calculate current value
+      _.keys(this.contribution.emotions).forEach(key => {
+        this.values[key] = {
+          startVal: 0,
+          endVal: this.contribution.emotions[key].percent
+        }
+      })
+    },
     mounted () {
       console.log('try to listen on patch')
       feathers.service('contributions').on('patched', res => {
         // TODO: use the new channels feature for the feathers (buzzard) when its released
         if (res._id === this.contribution._id) {
+          _.keys(this.contribution.emotions).forEach((key) => {
+            this.$refs[key][0].pause()
+            this.values[key].startVal = this.values[key].endVal
+            this.values[key].endVal = this.contribution.emotions[key].percent
+            this.$refs[key][0].start()
+          })
           this.contribution.emotions = res.emotions
         }
       })
     },
     beforeDestroy () {
-      console.log('DESTROYING')
       feathers.service('contributions').off('patched')
     },
     methods: {
       async onClick (key) {
-        console.log(key)
-
         let postData = {
           contributionId: this.contribution._id,
           userId: this.user ? this.user._id : null,
           rated: key
         }
-        console.log(postData)
-
         try {
           await feathers.service('emotions').create(postData)
         } catch (err) {
@@ -65,12 +88,6 @@
             type: 'is-danger'
           })
         }
-      },
-      generateSrc (key) {
-        return `/assets/svg/emoji/${key}.svg`
-      },
-      formatPercent (percent) {
-        return Math.floor(percent) + '%'
       }
     }
   }

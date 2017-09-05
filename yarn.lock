@@ -1091,6 +1091,17 @@ babel-preset-vue-app@^1.2.1:
     babel-preset-vue "^0.1.0"
     babel-runtime "^6.20.0"
 
+babel-preset-vue-app@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-vue-app/-/babel-preset-vue-app-1.3.0.tgz#4b31f690a353c8735963e06927a072a0bb82126f"
+  dependencies:
+    babel-plugin-syntax-dynamic-import "^6.18.0"
+    babel-plugin-transform-object-rest-spread "^6.26.0"
+    babel-plugin-transform-runtime "^6.15.0"
+    babel-preset-env "^1.6.0"
+    babel-preset-vue "^0.1.0"
+    babel-runtime "^6.20.0"
+
 babel-preset-vue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/babel-preset-vue/-/babel-preset-vue-0.1.0.tgz#adb84ceab3873bd72606fdd3f7047640f032301f"
@@ -2855,7 +2866,7 @@ eslint-module-utils@^2.1.1:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
 
-eslint-plugin-html@^3.2.0:
+eslint-plugin-html@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/eslint-plugin-html/-/eslint-plugin-html-3.2.1.tgz#4289d38245f3d95134d22c17b1894d78db92c572"
   dependencies:
@@ -2901,7 +2912,7 @@ eslint-scope@^3.7.1:
     esrecurse "^4.1.0"
     estraverse "^4.1.1"
 
-eslint@^4.5.0:
+eslint@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-4.6.1.tgz#ddc7fc7fd70bf93205b0b3449bb16a1e9e7d4950"
   dependencies:
@@ -3245,7 +3256,7 @@ feathers-authentication-client@^0.3.1, feathers-authentication-client@^0.3.3:
     feathers-errors "^2.4.0"
     jwt-decode "^2.1.0"
 
-feathers-client@^2.3.0:
+feathers-client@^2.4.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/feathers-client/-/feathers-client-2.4.0.tgz#babfca8163ff8b07f29837a9f5a521a5f20f98a2"
   dependencies:
@@ -5056,7 +5067,7 @@ mapbox-gl-supported@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/mapbox-gl-supported/-/mapbox-gl-supported-1.2.0.tgz#cbd34df894206cadda9a33c8d9a4609f26bb1989"
 
-mapbox-gl-vue@^1.4.0:
+mapbox-gl-vue@^1.4.2:
   version "1.4.2"
   resolved "https://registry.yarnpkg.com/mapbox-gl-vue/-/mapbox-gl-vue-1.4.2.tgz#7fb6f8f89f8d5fa961d0b4860f1767a9104091e3"
 
@@ -7706,7 +7717,7 @@ source-list-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/source-list-map/-/source-list-map-2.0.0.tgz#aaa47403f7b245a92fbc97ea08f250d6087ed085"
 
-source-map-support@^0.4.15, source-map-support@^0.4.16:
+source-map-support@^0.4.15, source-map-support@^0.4.16, source-map-support@^0.4.17:
   version "0.4.17"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.17.tgz#6f2150553e6375375d0ccb3180502b78c18ba430"
   dependencies:
@@ -8602,7 +8613,11 @@ vue-clip@^1.0.0:
     dropzone "^4.3.0"
     lodash.clone "^4.5.0"
 
-vue-docgen-api@^2.0.11, vue-docgen-api@^2.0.12:
+vue-count-to@^1.0.10:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/vue-count-to/-/vue-count-to-1.0.10.tgz#5ab453bfefcb2adc826fabeab0c0c49472e78280"
+
+vue-docgen-api@^2.0.12:
   version "2.0.12"
   resolved "https://registry.yarnpkg.com/vue-docgen-api/-/vue-docgen-api-2.0.12.tgz#b3f8231edd23e3114cfac946282e36cb2f5b5678"
   dependencies:
@@ -8661,7 +8676,7 @@ vue-no-ssr@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/vue-no-ssr/-/vue-no-ssr-0.2.0.tgz#6d812908e6ddefe7d39b10d19db9311778fa49d4"
 
-vue-quill-editor@^2.3.0:
+vue-quill-editor@^2.3.2:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/vue-quill-editor/-/vue-quill-editor-2.3.2.tgz#fcfd4efbf231a04f6fd0e47cdff65dfd5e456120"
   dependencies:
