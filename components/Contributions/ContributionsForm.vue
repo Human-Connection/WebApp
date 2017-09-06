@@ -1,8 +1,7 @@
 <template>
   <form v-bind:disabled="loading">
-    <div class="text-center hc__imagecontainer" v-if="isValidURL(form.teaserImg)">
-      <img :src="form.teaserImg" :alt="form.title" style="display:block; width: 100%;" />
-    </div>
+    <contribution-image :src="form.teaserImg" v-if="isValidURL(form.teaserImg)"
+                        style="margin: -3.8rem -2.25rem 2.25rem;"></contribution-image>
     <div class="columns">
       <div class="column">
         <author :post="{ user: user }"></author>
@@ -96,12 +95,14 @@
   import Author from '~/components/Author/Author.vue'
   import {mapGetters} from 'vuex'
   import validUrl from 'valid-url'
+  import ContributionImage from '~/components/Contributions/ContributionImage.vue'
 
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
     components: {
       Author,
+      ContributionImage,
       'no-ssr': NoSSR,
       'categories-select': CategoriesSelect
     },
@@ -198,11 +199,5 @@
   .textarea {
     margin-bottom: 10px;
     min-height: 80px;
-  }
-
-  .hc__imagecontainer {
-    height: 300px;
-    overflow: hidden;
-    margin: -3.8rem -2.25rem 2.25rem;
   }
 </style>

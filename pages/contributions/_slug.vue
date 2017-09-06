@@ -4,9 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg"
-                 v-bind:style="{'background-image': `url(${contribution.teaserImg})`}" @click="imageModal()">
-            </div>
+            <contribution-image :src="contribution.teaserImg"></contribution-image>
             <div class="columns">
               <div class="column">
                 <author :post="contribution"></author>
@@ -50,13 +48,15 @@
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
+  import ContributionImage from '~/components/Contributions/ContributionImage.vue'
 
   export default {
     scrollToTop: false,
     components: {
       'author': author,
       'comments': comments,
-      'hc-emotion-rating': EmotionRating
+      'hc-emotion-rating': EmotionRating,
+      ContributionImage
     },
     data () {
       return {
@@ -98,15 +98,6 @@
         return this.isVerified && this.contribution.user._id === userId
       }
     },
-    methods: {
-      imageModal () {
-        this.$modal.open(
-          `<p class="image">
-              <img src="${this.contribution.teaserImg}">
-          </p>`
-        )
-      }
-    },
     head () {
       return {
         title: this.title
@@ -117,14 +108,6 @@
 
 
 <style scoped lang="scss">
-  .hc__imagecontainer {
-    height: 300px;
-    background-size: cover;
-    background-position: center;
-    // overflow: hidden;
-    margin: -3rem -1.5rem 1.5rem;
-    cursor: zoom-in;
-  }
 
   .b-tabs.footer {
     padding-top: 10px;
