@@ -17,9 +17,9 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import feathers from '~plugins/feathers'
+  import feathers from '~/plugins/feathers'
   import Bricks from 'bricks.js'
-  import Card from '../components/Contributions/ContributionCard.vue'
+  import Card from '~/components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
 
   export default {

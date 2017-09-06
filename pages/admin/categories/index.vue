@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import feathers from '~plugins/feathers'
+  import feathers from '~/plugins/feathers'
   import {mapGetters} from 'vuex'
 
   const categoriesService = feathers.service('categories')

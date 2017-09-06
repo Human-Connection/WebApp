@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 let init = false
 
-if (process.BROWSER_BUILD) {
+if (process.browser) {
   const clientAuth = {}
   clientAuth.install = (Vue) => {
     Vue.mixin({

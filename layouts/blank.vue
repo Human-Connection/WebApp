@@ -8,7 +8,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../assets/styles/utilities';
+  @import 'assets/styles/utilities';
 
   .hc__blank {
     min-height: 100vh;

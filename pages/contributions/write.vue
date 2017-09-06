@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import ContributionsForm from '~components/Contributions/ContributionsForm.vue'
+  import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
 
   export default {
     middleware: 'verified',

@@ -106,11 +106,11 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
-  import Map from '~components/Map/Map.vue'
-  import UploadAvatar from '~components/User/UploadAvatar'
-  import Timeline from '~components/layout/Timeline'
-  import Badges from '~components/Profile/Badges/Badges'
+  import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
+  import Map from '~/components/Map/Map.vue'
+  import UploadAvatar from '~/components/User/UploadAvatar'
+  import Timeline from '~/components/layout/Timeline'
+  import Badges from '~/components/Profile/Badges/Badges'
 
   export default {
     components: {

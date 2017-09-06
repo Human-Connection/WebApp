@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import ContributionsForm from '~components/Contributions/ContributionsForm.vue'
-  import feathers from '~plugins/feathers'
+  import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
+  import feathers from '~/plugins/feathers'
 
   export default {
     middleware: ['verified', 'owner'],

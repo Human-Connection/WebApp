@@ -112,16 +112,11 @@ module.exports = {
     },
     resolve: {
       alias: {
-        '~assets': path.resolve(__dirname, 'assets/'),
         'assets': path.resolve(__dirname, 'assets/'),
-        '~components': path.resolve(__dirname, 'components/'),
-        'components': path.resolve(__dirname, 'components/'),
-        '~docs': path.resolve(__dirname, 'docs/'),
-        'docs': path.resolve(__dirname, 'docs/'),
-        '~helpers': path.resolve(__dirname, 'helpers/'),
-        'helpers': path.resolve(__dirname, 'helpers/'),
-        '~plugins': path.resolve(__dirname, 'plugins/'),
-        'plugins': path.resolve(__dirname, 'plugins/')
+        '~/components': path.resolve(__dirname, 'components/'),
+        '~/docs': path.resolve(__dirname, 'docs/'),
+        '~/helpers': path.resolve(__dirname, 'helpers/'),
+        '~/plugins': path.resolve(__dirname, 'plugins/'),
       }
     }
   }

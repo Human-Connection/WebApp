@@ -30,12 +30,12 @@
 
 <script>
   export default {
-    name: 'hc-sidebar-menu'
+    name: 'hc-admin-menu'
   }
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 

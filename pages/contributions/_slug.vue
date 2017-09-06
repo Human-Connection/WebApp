@@ -18,11 +18,11 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <p v-if="contribution.categories && contribution.categories.length">
+            <div class="tags" v-if="contribution.categories && contribution.categories.length">
               <span class="tag is-primary" v-for="contribution in contribution.categories">
                 {{ contribution.title }}
               </span>
-            </p>
+            </div>
             <p class="content" v-html="content"></p>
             <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
           </div>
@@ -45,13 +45,14 @@
 
 
 <script>
-  import author from '~components/Author/Author.vue'
-  import feathers from '~plugins/feathers'
-  import comments from '~components/Comments/Comments.vue'
+  import author from '~/components/Author/Author.vue'
+  import feathers from '~/plugins/feathers'
+  import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
-  import EmotionRating from '~components/Contributions/EmotionRating.vue'
+  import EmotionRating from '~/components/Contributions/EmotionRating.vue'
 
   export default {
+    scrollToTop: false,
     components: {
       'author': author,
       'comments': comments,

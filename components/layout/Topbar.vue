@@ -23,17 +23,23 @@
         </div>
       </div>
 
-      <div class="nav-right">
+      <div class="nav-right nav-end">
         <nuxt-link v-if="isAdmin" to="/admin" class="nav-item">
           <hc-icon icon="cog"></hc-icon>
         </nuxt-link>
-        <a href="" class="nav-item">
+        <a v-if="isAuthenticated" href="" class="nav-item">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
-        <notifications></notifications>
-        <nuxt-link v-if="!isAuthenticated" :to="{ name: 'auth-login' }" class="nav-item is-tab">
-          Login / Sign-In
-        </nuxt-link>
+        <notifications v-if="isAuthenticated"></notifications>
+        <div v-if="!isAuthenticated" class="navbar-item">
+          <div class="field is-grouped">
+            <div class="control">
+              <hc-button type="nuxt" class="is-primary"
+                         style="font-weight: bold;"
+                         :to="{ name: 'auth-login', params: { path: this.$route.path } }">Login / Sign-In</hc-button>
+            </div>
+          </div>
+        </div>
         <template v-else>
           <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
             <hc-avatar :url="user.avatar"></hc-avatar>&nbsp;&nbsp;
@@ -54,12 +60,14 @@
   // Todo: profile button in component
 
   import {mapGetters} from 'vuex'
-  import Notifications from '~components/Notifications/Notifications.vue'
-  import Avatar from '~components/Avatar/Avatar.vue'
+  import Notifications from '~/components/Notifications/Notifications.vue'
+  import Avatar from '~/components/Avatar/Avatar.vue'
+  import HcButton from '../Global/Elements/Button/Button.vue'
 
   export default {
     name: 'hc-topbar',
     components: {
+      HcButton,
       'hc-avatar': Avatar,
       'notifications': Notifications
     },
@@ -81,6 +89,9 @@
         user: 'auth/user'
       })
     },
+    mounted () {
+      console.log(this.$route.path)
+    },
     methods: {
       logout () {
         this.$store.dispatch('auth/logout')
@@ -96,7 +107,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
   @import "~bulma/sass/components/nav.sass";
 
   nav {
