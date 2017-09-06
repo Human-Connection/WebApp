@@ -4,8 +4,8 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg" @click="imageModal()">
-              <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
+            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg"
+                 v-bind:style="{'background-image': `url(${contribution.teaserImg})`}" @click="imageModal()">
             </div>
             <div class="columns">
               <div class="column">
@@ -119,7 +119,9 @@
 <style scoped lang="scss">
   .hc__imagecontainer {
     height: 300px;
-    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    // overflow: hidden;
     margin: -3rem -1.5rem 1.5rem;
     cursor: zoom-in;
   }
