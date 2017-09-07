@@ -41,6 +41,8 @@
     "mapbox-gl-vue": "^1.4.2",
     "moment": "^2.18.1",
     "nuxt": "1.0.0-rc8",
+    "raven": "^2.1.2",
+    "raven-js": "^3.17.0",
     "socket.io-client": "^2.0.3",
     "valid-url": "^1.0.9",
     "vue-clip": "^1.0.0",

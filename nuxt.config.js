@@ -6,7 +6,8 @@ module.exports = {
     HOST: process.env.HOST || 'localhost',
     PORT: process.env.PORT || 3000,
     API_HOST: process.env.API_HOST || 'localhost',
-    API_PORT: process.env.API_PORT || 3030
+    API_PORT: process.env.API_PORT || 3030,
+    SENTRY_DNS_PUBLIC: process.env.SENTRY_DNS_PUBLIC || 'https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871'
   },
   /*
    ** Headers of the page
@@ -28,7 +29,7 @@ module.exports = {
   /*
    ** Global CSS
    *
-   *  NOTE: Needed to add fonr-awesome and mapbox-gl here as otherwise
+   *  NOTE: Needed to add font-awesome and mapbox-gl here as otherwise
    *        we get issues with the styleguide after the nuxt update as they
    *        now use "~" alias for the srcDir instead of the node_modules
    *        like it would be the standard :-/
@@ -83,6 +84,8 @@ module.exports = {
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
     {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
     {src: '~/plugins/vue-clip.js', ssr: false},
+    {src: '~/plugins/raven-client.js', ssr: false},
+    {src: '~/plugins/raven-server.js', ssr: true},
     {src: '~/plugins/quill-editor.js'},
     {src: '~/plugins/feathers.js'}
   ],
