@@ -1,7 +1,7 @@
 <template>
   <section class="container" style="position: relative">
     <div class="profile-header card">
-      <img src="http://lorempixel.com/781/561/?95976">
+      <img :src="user.coverImg">
     </div>
     <div class="columns">
       <div class="column user-sidebar">
