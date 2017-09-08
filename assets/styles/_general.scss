@@ -110,3 +110,11 @@ hr {
 .button {
   border-radius: $radius !important;
 }
+
+.card-footer {
+  border-top-color: $grey-lighter;
+
+  .card-footer-item:not(:last-child) {
+    border-right-color: $grey-lighter;
+  }
+}
