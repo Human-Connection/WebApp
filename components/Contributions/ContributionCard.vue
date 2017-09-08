@@ -199,16 +199,16 @@
     right:            -7px;
     top:              10px;
     border-radius:    2px 0 0 2px;
-    box-shadow: 0 1px 3px rgba(10, 10, 10, 0.1);
-    border:           1px solid #ccc;
+    box-shadow:       $card-shadow;
+    // border:           1px solid #ccc;
 
     &:before {
       content: ' ';
       position: absolute;
       width: 0;
       height: 0;
-      right: -1px;
-      bottom: -7px;
+      right: 0;
+      bottom: -6px;
       border-width: 3px 4px 3px 3px;
       border-style: solid;
       border-color: #ccc transparent transparent #ccc;
