@@ -19,8 +19,8 @@
 
 
 <script>
-  import HcAvatar from '~components/Avatar/Avatar.vue'
-  import HcRelativeDateTime from '~components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'
+  import HcAvatar from '~/components/Avatar/Avatar.vue'
+  import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'
   export default {
     components: {
       HcAvatar,
@@ -36,7 +36,7 @@
 </script>
 
 <style scoped lang="scss">
-    @import "~assets/styles/utilities";
+    @import "assets/styles/utilities";
 
     .hc__author {
         .profile-image {

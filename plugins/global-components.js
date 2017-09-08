@@ -12,13 +12,13 @@ const getComponentName = (path) => {
 }
 
 // require all global components
-const req = require.context('../components/Global', true, /\.vue$/)
+const req = require.context('~/components/Global', true, /\.vue$/)
 
 let globalComponents = {}
 req.keys().forEach(path => {
   const component = req(path)
   let name = getComponentName(path)
-  Vue.component(name, component)
+  Vue.component(name, component.default)
 })
 
 export default ({ app }) => (

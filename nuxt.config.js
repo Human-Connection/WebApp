@@ -6,7 +6,8 @@ module.exports = {
     HOST: process.env.HOST || 'localhost',
     PORT: process.env.PORT || 3000,
     API_HOST: process.env.API_HOST || 'localhost',
-    API_PORT: process.env.API_PORT || 3030
+    API_PORT: process.env.API_PORT || 3030,
+    SENTRY_DNS_PUBLIC: process.env.SENTRY_DNS_PUBLIC || 'https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871'
   },
   /*
    ** Headers of the page
@@ -27,9 +28,16 @@ module.exports = {
   },
   /*
    ** Global CSS
+   *
+   *  NOTE: Needed to add font-awesome and mapbox-gl here as otherwise
+   *        we get issues with the styleguide after the nuxt update as they
+   *        now use "~" alias for the srcDir instead of the node_modules
+   *        like it would be the standard :-/
    */
   css: [
-    '~assets/styles/main.scss',
+    'font-awesome/css/font-awesome.min.css',
+    'mapbox-gl/dist/mapbox-gl.css',
+    'assets/styles/main.scss',
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css'
@@ -65,20 +73,23 @@ module.exports = {
       }
       // Add aliases
       const aliases = Object.assign(config.resolve.alias, {
-        '~helpers': path.resolve(__dirname, 'helpers')
+        '~/helpers': path.resolve(__dirname, 'helpers')
       })
       config.resolve.alias = aliases // eslint-disable-line no-param-reassign
     }
   },
   plugins: [
-    {src: '~plugins/buefy.js'},
-    {src: '~plugins/client-auth.js', ssr: false},
-    {src: '~plugins/init-store-subscriptions.js', ssr: false},
-    {src: '~plugins/global-components.js', injectAs: 'globalComponents'},
-    {src: '~plugins/vue-clip.js', ssr: false},
-    {src: '~plugins/quill-editor.js'},
-    {src: '~plugins/feathers.js'}
+    {src: '~/plugins/buefy.js'},
+    {src: '~/plugins/client-auth.js', ssr: false},
+    {src: '~/plugins/init-store-subscriptions.js', ssr: false},
+    {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
+    {src: '~/plugins/vue-clip.js', ssr: false},
+    {src: '~/plugins/raven-client.js', ssr: false},
+    {src: '~/plugins/raven-server.js', ssr: true},
+    {src: '~/plugins/quill-editor.js'},
+    {src: '~/plugins/feathers.js'}
   ],
+  modules: [],
   router: {
     middleware: ['check-auth'],
     linkActiveClass: 'active-link'

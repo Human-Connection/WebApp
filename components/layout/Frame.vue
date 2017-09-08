@@ -11,7 +11,7 @@
 
 
 <script>
-  import HcTopbar from '~components/layout/Topbar.vue'
+  import HcTopbar from '~/components/layout/Topbar.vue'
 
   export default {
     name: 'hc-frame',
@@ -22,7 +22,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .hc-navigation {
     position: fixed !important;

@@ -1,4 +1,4 @@
-import feathers from '~plugins/feathers'
+import feathers from '~/plugins/feathers'
 
 const notificationsService = feathers.service('notifications')
 

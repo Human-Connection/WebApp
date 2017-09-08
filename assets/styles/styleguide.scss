@@ -1,5 +1,12 @@
 // Only used by Style Guide
-@import "~assets/styles/main.scss";
+@import "assets/styles/main.scss";
+
+// We have to import that here again as otherwise nuxt would break as
+// they use "~" as an alias for the srcDir instead of the node_modules folder
+// so this here is a workaround :-/
+@import "assets/styles/hc-icons.scss";
+@import "~font-awesome/css/font-awesome.min.css";
+@import "~mapbox-gl/dist/mapbox-gl.css";
 
 $breakpoint: 601px;
 $breakpoint-big: 1001px;

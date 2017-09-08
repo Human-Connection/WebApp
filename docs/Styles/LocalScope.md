@@ -13,13 +13,13 @@ You most probably need some global SCSS in your components local scope.
 If you need any variables or Bulma files, first of all include `_utilities.scss`:
 
 ```scss
-@import "~assets/styles/utilities";
+@import "assets/styles/utilities";
 ```
 
 Now you have access to all variables and utilities, for example you can do:
 
 ```scss
-@import "~assets/styles/utilities";
+@import "assets/styles/utilities";
 
 .button {
   color: $primary;
@@ -31,7 +31,7 @@ If you want to use specific Bulma styles and extend them, include these styles a
 
 Example:
 ```scss
-@import "~assets/styles/utilities";
+@import "assets/styles/utilities";
 @import "~bulma/sass/components/nav.sass";
 
 nav {

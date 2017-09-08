@@ -29,7 +29,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~font-awesome/css/font-awesome.min.css";
+  // @import "font-awesome/css/font-awesome.min.css";
   @import "~assets/styles/hc-icons.scss";
 
   i {

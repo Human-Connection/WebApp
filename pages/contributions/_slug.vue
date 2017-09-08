@@ -4,9 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg">
-              <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
-            </div>
+            <contribution-image :src="contribution.teaserImg"></contribution-image>
             <div class="columns">
               <div class="column">
                 <author :post="contribution"></author>
@@ -18,11 +16,11 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <p v-if="contribution.categories && contribution.categories.length">
+            <div class="tags" v-if="contribution.categories && contribution.categories.length">
               <span class="tag is-primary" v-for="contribution in contribution.categories">
                 {{ contribution.title }}
               </span>
-            </p>
+            </div>
             <p class="content" v-html="content"></p>
             <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
           </div>
@@ -45,17 +43,20 @@
 
 
 <script>
-  import author from '~components/Author/Author.vue'
-  import feathers from '~plugins/feathers'
-  import comments from '~components/Comments/Comments.vue'
+  import author from '~/components/Author/Author.vue'
+  import feathers from '~/plugins/feathers'
+  import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
-  import EmotionRating from '~components/Contributions/EmotionRating.vue'
+  import EmotionRating from '~/components/Contributions/EmotionRating.vue'
+  import ContributionImage from '~/components/Contributions/ContributionImage.vue'
 
   export default {
+    scrollToTop: false,
     components: {
       'author': author,
       'comments': comments,
-      'hc-emotion-rating': EmotionRating
+      'hc-emotion-rating': EmotionRating,
+      ContributionImage
     },
     data () {
       return {
@@ -109,11 +110,6 @@
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
 
-  .hc__imagecontainer {
-    height: 300px;
-    overflow: hidden;
-    margin: -3rem -1.5rem 1.5rem;
-  }
   .card {
     border: none;
     box-shadow: $card-shadow;

@@ -1,7 +1,5 @@
 <template>
-  <figure class="image">
     <div v-bind:style="{ backgroundImage: 'url(' + avatar + ')' }" class="img-circle profile-image"></div>
-  </figure>
 </template>
 
 
@@ -22,14 +20,14 @@
 </script>
 
 <style scoped lang="scss">
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .profile-image {
     border:          1px solid #ccc;
     width:           36px;
     height:          36px;
     background:      #fff no-repeat center;
-    background-size: contain;
+    background-size: cover;
   }
 
   .img-circle {
