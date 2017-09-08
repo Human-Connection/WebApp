@@ -82,12 +82,14 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "assets/styles/utilities";
+  @import "assets/styles/_utilities";
 
   .card {
-    margin: 0 auto;
-    max-width: 460px;
-    text-align: center;
+      margin: 0 auto;
+      max-width: 460px;
+      text-align: center;
+      border: none;
+      box-shadow: $card-shadow;
   }
 
   .card-teaser {

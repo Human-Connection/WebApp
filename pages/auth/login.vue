@@ -103,10 +103,14 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "assets/styles/_utilities";
+
   .card {
     margin: 0 auto;
     max-width: 460px;
     text-align: center;
+    border: none;
+    box-shadow: $card-shadow;
   }
 
   .subtitle {

@@ -102,10 +102,12 @@
     }
 
     .box {
-      padding: 0.2em;
+      padding: 0;
       width: 300px;
       transform: translateY(-50%) translateX(-50%);
       z-index: 1001;
+      box-shadow: $card-shadow-hover;
+      overflow: hidden;
       // box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
 
       @include desktop() {
