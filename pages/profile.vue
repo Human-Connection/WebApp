@@ -167,6 +167,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import "assets/styles/utilities";
+
   #main {
     margin-top: 0;
   }
@@ -178,15 +180,19 @@
     overflow: hidden;
     position: relative;
     background: darkgrey;
+
+    border: none;
+    box-shadow: $card-shadow;
+
+    img {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
-  .profile-header img {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 
   .user-sidebar {
     min-height: 200px;
