@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="card column is-8 is-offset-2">
       <section class="section">
-        <h1 class="title">Edit {{ title }}</h1>
+        <!--<h1 class="title">Edit {{ title }}</h1>-->
         <contributions-form :data="form"></contributions-form>
       </section>
     </div>

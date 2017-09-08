@@ -2,8 +2,8 @@
     <div class="upload">
         <div class="upload-input" @click="choose">
             <input type="file" class="file-input" @change="upload" ref="file" accept=".jpg,.jpeg,.gif,.png,.pneg">
-            <div class="preview" v-bind:style="{ 'background-image': 'url(' + user.avatar + ')' }">
-                <strong v-if="!user.avatar"><br/>Avatar auswählen</strong>
+            <div class="preview" v-bind:style="{ 'background-image': 'url(' + getAvatar + ')' }">
+                <strong v-if="!getAvatar"><br/>Avatar auswählen</strong>
             </div>
         </div>
     </div>
@@ -20,11 +20,28 @@
         }
       }
     },
+    created () {
+      this.data.avatarUri = this.user.avatar
+    },
     name: 'UploadAvatar',
     computed: {
       ...mapGetters({
         user: 'auth/user'
-      })
+      }),
+      getAvatar () {
+        return this.data.avatarUri
+      }
+    },
+    mounted () {
+      // this is fixin an issue with the default avatar
+      // while picking the name after regestration
+      setTimeout(() => {
+        // retry to load image
+        this.data.avatarUri = null
+        setTimeout(() => {
+          this.data.avatarUri = this.user.avatar
+        }, 0)
+      }, 700)
     },
     methods: {
       choose () {

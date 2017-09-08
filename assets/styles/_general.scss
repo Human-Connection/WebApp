@@ -98,3 +98,11 @@ input, textarea {
   -webkit-hyphens: auto;
   hyphens: auto;
 }
+
+hr {
+  opacity: 0.4 !important;
+}
+
+.modal.is-active {
+  z-index: 10000;
+}
