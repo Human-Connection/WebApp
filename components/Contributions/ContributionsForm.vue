@@ -35,7 +35,7 @@
     <!-- tags -->
     <!-- uploads -->
     <div class="field has-text-right">
-      <button class="button is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
+      <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
               @click.prevent="onSubmit">{{ buttonLabel }}
       </button>
     </div>

@@ -26,6 +26,11 @@
 <style lang="scss" scoped>
   @import "~assets/styles/utilities";
 
+  .card {
+    border: none;
+    box-shadow: 0px 5px 13px -4px rgba(0, 0, 0, .1);
+  }
+
   .is-box {
     background-color: $white;
     padding: 15px;

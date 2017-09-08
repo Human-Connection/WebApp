@@ -107,12 +107,17 @@
 
 
 <style scoped lang="scss">
+  @import 'assets/styles/utilities';
+
   .hc__imagecontainer {
     height: 300px;
     overflow: hidden;
     margin: -3rem -1.5rem 1.5rem;
   }
-
+  .card {
+    border: none;
+    box-shadow: $card-shadow;
+  }
   .b-tabs.footer {
     padding-top: 10px;
     padding-bottom: 40px;

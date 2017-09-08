@@ -6,7 +6,14 @@
         <small slot="category">{{ contribution.type }}</small>
       </card>
     </section>
-    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots"></infinite-loading>
+    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
+      <span slot="no-results">
+        <strong class="loader-no-data">Sorry but we didn't found anything &nbsp;<hc-emoji type="cry" width="26" /></strong>
+      </span>
+      <span slot="no-more">
+        <strong class="loader-no-more">There are no more &nbsp;<hc-emoji type="cry" width="26" /></strong>
+      </span>
+    </infinite-loading>
     <div class="add-contribution">
       <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
         <hc-icon icon="plus"/>
@@ -79,7 +86,6 @@
             $sort: this.sort
           }
         }).then(res => {
-          console.log(res)
           this.contributions = this.contributions.concat(res.data)
           setTimeout(() => {
             this.updateGrid()
@@ -128,11 +134,24 @@
 </script>
 
 <style scoped lang="scss">
+  @import 'assets/styles/utilities';
+
   .cards {
     padding: 0;
     margin-left: auto;
     margin-right: auto;
     max-width: 100%;
+  }
+
+  .loader-no-data,
+  .loader-no-more {
+    padding-top: 20px !important;
+    color: lighten($grey, 10%);
+
+    img {
+      display: inline-block;
+      margin-bottom: -0.5rem;
+    }
   }
 
   .add-contribution {

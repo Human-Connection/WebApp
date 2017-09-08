@@ -1,6 +1,4 @@
 @import "~bulma/sass/utilities/initial-variables";
-//font-family
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i');
 
 $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 $body-size: 15px;
@@ -33,7 +31,7 @@ $link: $green;
 
 $radius-small: 1px;
 $radius: 1px;
-$radius-large: 2px;
+$radius-large: 3px;
 
 $border: $grey-light;
 $border-hover: $grey;
@@ -78,3 +76,6 @@ $desktop: 1000px;
 $widescreen: 1192px;
 // 1260px container + 40
 $fullhd: 1300px;
+
+$card-shadow: 0px 12px 26px -4px rgba(0, 0, 0, .1);
+$card-shadow-hover: 0 20px 60px 0 rgba(0, 0, 0, .15);

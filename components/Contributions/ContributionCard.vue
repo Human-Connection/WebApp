@@ -106,13 +106,13 @@
       width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
     }
     // box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
-    box-shadow: none;
+    box-shadow: $card-shadow;
 
     opacity: 0;
     transition-duration: 0ms;
     transition: opacity 150ms;
     transition-delay: 150ms;
-    border: 1px solid rgba(black, 0.15);
+    //  border: 1px solid rgba(black, 0.15);
 
     &.show {
       opacity: 1;
@@ -126,7 +126,7 @@
       z-index: 1;
 
       &:hover {
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: $card-shadow-hover;
         transform: scale(1.02);
         z-index: 2;
       }

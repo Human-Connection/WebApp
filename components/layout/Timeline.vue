@@ -100,9 +100,11 @@ $green: hsl(78, 71%, 41%);
     width: 100%;
   }
   .timeline-post-direction {
+
     .arrow {
       position: relative;
     }
+
     .arrow:after,
     .arrow:before {
       top: 50%;
@@ -118,6 +120,7 @@ $green: hsl(78, 71%, 41%);
       pointer-events: none;
     }
 
+    padding-top: 2rem;
     width: 50%;
     &:nth-child(even) {
       float: right;

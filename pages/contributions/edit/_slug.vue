@@ -49,6 +49,11 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
+  @import 'assets/styles/utilities';
 
+  .card {
+    border: none;
+    box-shadow: $card-shadow;
+  }
 </style>
