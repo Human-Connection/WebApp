@@ -106,8 +106,8 @@
   nav {
     @extend .nav;
     // @extend .has-shadow;
-    box-shadow: 0 2px 5px rgba($black, 0.05);
-    border-bottom: 1px solid rgba(black, 0.15);
+    box-shadow: $card-shadow-hover;
+    // border-bottom: 1px solid rgba(black, 0.15);
     z-index: 130;
     pointer-events: all;
     height: $topbar-height;

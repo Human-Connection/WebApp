@@ -166,6 +166,8 @@
 
     .dropdown-content {
       padding: 0.5rem 1rem 0.8rem;
+      border: none;
+      box-shadow: none;
     }
 
     .box-enter-active, .box-leave-active {
