@@ -23,7 +23,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .sidebar-toggle {
     width: $sidebar-closed-width;

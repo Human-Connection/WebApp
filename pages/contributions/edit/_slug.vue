@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="card column is-8 is-offset-2">
       <section class="section">
-        <h1 class="title">Edit {{ title }}</h1>
+        <!--<h1 class="title">Edit {{ title }}</h1>-->
         <contributions-form :data="form"></contributions-form>
       </section>
     </div>
@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import ContributionsForm from '~components/Contributions/ContributionsForm.vue'
-  import feathers from '~plugins/feathers'
+  import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
+  import feathers from '~/plugins/feathers'
 
   export default {
     middleware: ['verified', 'owner'],
@@ -49,6 +49,11 @@
   }
 </script>
 
-<style>
+<style scoped lang="scss">
+  @import 'assets/styles/utilities';
 
+  .card {
+    border: none;
+    box-shadow: $card-shadow;
+  }
 </style>

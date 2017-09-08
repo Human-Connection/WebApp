@@ -69,7 +69,7 @@
 </script>
 
 <style lang="scss">
-  @import "~mapbox-gl/dist/mapbox-gl.css";
+  // @import "mapbox-gl/dist/mapbox-gl.css";
 
   #map {
     height: 200px;

@@ -8,7 +8,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import feathers from '~plugins/feathers'
+  import feathers from '~/plugins/feathers'
 
   export default {
     name: 'hc-comment-form',
@@ -64,7 +64,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "../../assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .textarea {
     margin-bottom: 10px;

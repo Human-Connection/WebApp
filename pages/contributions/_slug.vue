@@ -4,9 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <div class="text-center hc__imagecontainer" v-if="contribution.teaserImg">
-              <img :src="contribution.teaserImg" :alt="contribution.titel" style="display:block; width: 100%;"/>
-            </div>
+            <contribution-image :src="contribution.teaserImg"></contribution-image>
             <div class="columns">
               <div class="column">
                 <author :post="contribution"></author>
@@ -18,20 +16,13 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <p v-if="contribution.categories && contribution.categories.length">
+            <div class="tags" v-if="contribution.categories && contribution.categories.length">
               <span class="tag is-primary" v-for="contribution in contribution.categories">
                 {{ contribution.title }}
               </span>
-            </p>
-            <p class="content" v-html="content"></p>
-            <h3>How do you feel?</h3>
-            <div class="hc__rating">
-              <img src="/assets/svg/hc-smilies-01.svg"/>
-              <img src="/assets/svg/hc-smilies-02.svg"/>
-              <img src="/assets/svg/hc-smilies-03.svg"/>
-              <img src="/assets/svg/hc-smilies-04.svg"/>
-              <img src="/assets/svg/hc-smilies-05.svg"/>
             </div>
+            <p class="content" v-html="content"></p>
+            <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
           </div>
           <b-tabs class="footer">
             <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">
@@ -52,15 +43,20 @@
 
 
 <script>
-  import author from '~components/Author/Author.vue'
-  import feathers from '~plugins/feathers'
-  import comments from '~components/Comments/Comments.vue'
+  import author from '~/components/Author/Author.vue'
+  import feathers from '~/plugins/feathers'
+  import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
+  import EmotionRating from '~/components/Contributions/EmotionRating.vue'
+  import ContributionImage from '~/components/Contributions/ContributionImage.vue'
 
   export default {
+    scrollToTop: false,
     components: {
       'author': author,
-      'comments': comments
+      'comments': comments,
+      'hc-emotion-rating': EmotionRating,
+      ContributionImage
     },
     data () {
       return {
@@ -112,26 +108,12 @@
 
 
 <style scoped lang="scss">
-  .hc__imagecontainer {
-    height: 300px;
-    overflow: hidden;
-    margin: -3rem -1.5rem 1.5rem;
+  @import 'assets/styles/utilities';
+
+  .card {
+    border: none;
+    box-shadow: $card-shadow;
   }
-
-  .hc__rating {
-    margin-top: 1rem;
-    height: 50px;
-    img {
-      float: left;
-      margin-right: 10px;
-      height: 50px;
-    }
-
-    &:after {
-      clear: both;
-    }
-  }
-
   .b-tabs.footer {
     padding-top: 10px;
     padding-bottom: 40px;

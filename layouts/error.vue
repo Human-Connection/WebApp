@@ -3,7 +3,7 @@
     <br/><br/><br/>
     <div class="columns is-vcentered">
       <div class=" column is-6 is-offset-3 has-text-centered">
-        <img src="/assets/svg/hc-smilies-03.svg" width="150px">
+        <hc-emoji type="surprised" width="150px"></hc-emoji>
         <h1 class="title is-1">
           <strong>{{ error.statusCode }}</strong>
         </h1>
@@ -16,7 +16,12 @@
   </section>
 </template>
 <script>
+  import HcEmoji from '~/components/Global/Elements/Emoji/Emoji.vue'
+
   export default {
+    components: {
+      HcEmoji
+    },
     props: ['error'],
     head () {
       return {

@@ -1,40 +1,19 @@
 <template>
   <section class="container" style="position: relative">
     <div class="profile-header card">
-      <img src="http://lorempixel.com/781/561/?95976">
+      <img :src="user.coverImg">
     </div>
     <div class="columns">
       <div class="column user-sidebar">
         <hc-box top="true" class="user-hc-box">
-                    <div class="user-avatar">
-                        <upload-avatar class="avatar-upload"></upload-avatar>
-                    </div>
-                    <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
-                        <!--&nbsp;-->
-                    <!--</div>-->
-                    <div class="user-name">{{ user.name }}</div>
-          <div class="user-badges columns is-gapless">
-            <div class="column user-badges-icons">
-              <ul>
-                <li>
-                  <img width="35" height="35"
-                       src="https://cdn.frontify.com/api/screen/thumbnail/XX9MuecGg2sy_CuMKs6FulhegxuoRIqi-7nhTI65O6DOzyS6YQc2s5XIQJgeScEJjTq8puwTMSRzlVkpWRnP3A/1524">
-                </li>
-                <li>
-                  <img width="35" height="35"
-                       src="https://cdn.frontify.com/api/screen/thumbnail/hEfr-hvcLC7ZI4QVesiQeMSZ78Sxf1JupKwe26VKT50M2gZGJ7VzfANRtKXraLMoRU8IJJ1MaM2y4T40CoU4oA/1524">
-                </li>
-                <li>
-                  <img width="35" height="35"
-                       src="https://cdn.frontify.com/api/screen/thumbnail/mBlEor48pXBdaKe74aofLOVOwe9v2_9xydD254329f7KgHK3YNwhY8oA_YKcqqeC1RNZoRXot-wSA8lmA86QPg/1524">
-                </li>
-              </ul>
-            </div>
-            <div class="column user-badges-summary is-one-third">
-              <span>3</span>
-              Badges
-            </div>
+          <div class="user-avatar">
+            <upload-avatar class="avatar-upload"></upload-avatar>
           </div>
+          <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
+            <!--&nbsp;-->
+          <!--</div>-->
+          <div class="user-name">{{ user.name }}</div>
+          <hc-profile-badges title="Badges" :badges="user.badges" />
         </hc-box>
         <div class="hc-shortcuts">
           <hc-box class="shortcut-hc-box" top="true">
@@ -107,17 +86,7 @@
           </div>
         </hc-box>
       </div>
-      <div class="column is-6 timeline content">
-        <hc-box top="true" bottom="true">
-          <hc-title>Timeline</hc-title>
-        </hc-box>
-        <div class="timeline-intro">
-          <p>Hallo Dennis, was sind deine Pläne für heute?</p>
-          <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
-            <hc-icon icon="plus"/>
-          </hc-button>
-        </div>
-      </div>
+      <hc-timeline />
       <div class="column actions-sidebar">
         <hc-box top="true" bottom="true">
           <hc-title>Aktionen</hc-title>
@@ -137,15 +106,19 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import FollowerItem from '~components/Profile/FollowerItem/FollowerItem.vue'
-  import Map from '~components/Map/Map.vue'
-  import UploadAvatar from '~components/User/UploadAvatar'
+  import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
+  import Map from '~/components/Map/Map.vue'
+  import UploadAvatar from '~/components/User/UploadAvatar'
+  import Timeline from '~/components/layout/Timeline'
+  import Badges from '~/components/Profile/Badges/Badges'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
       'upload-avatar': UploadAvatar,
-      'hc-map': Map
+      'hc-profile-badges': Badges,
+      'hc-map': Map,
+      'hc-timeline': Timeline
     },
     data () {
       return {
@@ -194,6 +167,8 @@
 </script>
 
 <style scoped lang="scss">
+  @import "assets/styles/utilities";
+
   #main {
     margin-top: 0;
   }
@@ -205,15 +180,19 @@
     overflow: hidden;
     position: relative;
     background: darkgrey;
+
+    border: none;
+    box-shadow: $card-shadow;
+
+    img {
+      width: 100%;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 
-  .profile-header img {
-    width: 100%;
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-  }
 
   .user-sidebar {
     min-height: 200px;
@@ -245,61 +224,7 @@
         text-align: center;
         padding-top: 60px;
       }
-
-      .user-badges {
-        width: 100%;
-        padding: 10px 0;
-
-        li {
-          list-style: none;
-          float: left;
-        }
-        li:first-child {
-          margin-left: 0;
-        }
-        .user-badges-summary {
-          border-left: 1px solid #9c3;
-          text-transform: uppercase;
-          line-height: 19px;
-          padding-left: 5px;
-          font-size: 10px;
-          color: #9c3;
-          font-weight: normal;
-
-          span {
-            font-size: 19px;
-            color: grey;
-            display: block;
-          }
-        }
-      }
     }
-  }
-
-  .timeline {
-    .timeline-intro {
-      text-transform: uppercase;
-      text-align: center;
-      color: grey;
-      padding: 10px 0;
-      font-size: 14px;
-      letter-spacing: 1px;
-
-      .add-post {
-        display: block;
-        margin: 10px auto;
-        border: 0;
-        border-radius: 50px;
-        width: 50px;
-        height: 50px;
-        background-color: #9c3;
-        hc-box-shadow: 1px 1px 3px grey;
-        font-size: 30px;
-        color: white;
-        font-weight: lighter;
-      }
-    }
-
   }
 
   .hc-shortcuts {

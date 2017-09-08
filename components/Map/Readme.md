@@ -1,10 +1,7 @@
 ### Map example
 
-```
+```js
 new Vue({
-  components: {
-    'hc-map': require('~components/Map/Map.vue')
-  },
   data () {
     return {
       places: [{

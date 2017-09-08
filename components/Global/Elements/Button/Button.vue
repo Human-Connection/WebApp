@@ -87,7 +87,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
   @import "~bulma/sass/elements/button.sass";
 
   .is-xsmall {

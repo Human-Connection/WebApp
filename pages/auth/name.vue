@@ -36,7 +36,7 @@
 </template>
 
 <script>
-  import UploadAvatar from '~components/User/UploadAvatar'
+  import UploadAvatar from '~/components/User/UploadAvatar'
 
   export default {
     middleware: 'authenticated',
@@ -82,7 +82,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "~assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .card {
     margin: 0 auto;

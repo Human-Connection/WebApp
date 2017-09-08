@@ -12,9 +12,9 @@
 
 
 <script>
-  import feathers from '~plugins/feathers'
-  import author from '~components/Author/Author.vue'
-  import commentForm from '~components/Comments/CommentForm.vue'
+  import feathers from '~/plugins/feathers'
+  import author from '~/components/Author/Author.vue'
+  import commentForm from '~/components/Comments/CommentForm.vue'
 
   export default {
     name: 'hc-comment',
@@ -46,7 +46,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import "../../assets/styles/utilities";
+  @import "assets/styles/utilities";
 
   .hc__comment {
     border-top: 1px solid $grey-lighter;

@@ -13,11 +13,11 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <p v-if="post.categories && post.categories.length">
+        <div class="tags" v-if="post.categories && post.categories.length">
           <span class="tag is-primary" v-for="contribution in post.categories">
             {{ contribution.title }}
           </span>
-        </p>
+        </div>
         <main class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
         </main>
@@ -38,7 +38,7 @@
 
 
 <script>
-  import author from '~components/Author/Author.vue'
+  import author from '~/components/Author/Author.vue'
 
   export default {
     name: 'hc-contribution-card',
@@ -83,7 +83,7 @@
 </script>
 
 <style scoped lang="scss">
-  @import '~assets/styles/utilities';
+  @import 'assets/styles/utilities';
 
   $gutter: 15px;
   $gutter-big: 20px;
@@ -106,18 +106,17 @@
       width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
     }
     // box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
-    box-shadow: none;
+    box-shadow: $card-shadow;
 
     opacity: 0;
     transition-duration: 0ms;
     transition: opacity 150ms;
     transition-delay: 150ms;
-    border: 1px solid rgba(black, 0.15);
+    //  border: 1px solid rgba(black, 0.15);
 
     &.show {
       opacity: 1;
     }
-
     .wrapper {
       background-color: #fff;
       cursor: pointer;
@@ -127,10 +126,13 @@
       z-index: 1;
 
       &:hover {
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: $card-shadow-hover;
         transform: scale(1.02);
         z-index: 2;
       }
+    }
+    &.timeline {
+      width: 95%;
     }
 
     .content {
