@@ -1,7 +1,7 @@
 <template>
   <div class="user-badges columns is-gapless">
     <div class="column user-badges-icons">
-      <ul>
+      <ul v-if="badges">
         <li v-for="badge in getBadges">
           <!-- @todo maybe there will be some different styling depending in the type -->
           <span :class="badge.type">
@@ -11,8 +11,10 @@
       </ul>
     </div>
     <div class="column user-badges-summary is-one-third">
-      <span>{{getBadges.length}}</span>
-      {{title}}
+      <div v-if="badges" >
+        <span>{{badges.length}}</span>
+        {{title}}
+      </div>
     </div>
   </div>
 </template>

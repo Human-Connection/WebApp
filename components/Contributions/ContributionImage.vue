@@ -1,6 +1,6 @@
 <template>
     <div class="text-center hc__imagecontainer" v-if="src"
-         v-bind:style="{'background-image': `url(${src})`}" @click="imageModal()">
+         v-bind:style="{'background-image': `url(${getUrl})`}" @click="imageModal()">
     </div>
 </template>
 
@@ -14,15 +14,29 @@
         type: String
       }
     },
+    data () {
+      return {
+        data: {
+          url: ''
+        }
+      }
+    },
+    created () {
+      this.data.url = this.src
+    },
+    computed: {
+      getUrl () {
+        return this.data.url
+      }
+    },
     mounted () {
       // this is fixin an issue with the default avatar
       // while picking the name after regestration
       setTimeout(() => {
         // retry to load image
-        let src = this.src
-        this.src = null
+        this.data.url = null
         setTimeout(() => {
-          this.src = src
+          this.data.url = this.src
         }, 0)
       }, 700)
     },

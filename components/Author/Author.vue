@@ -1,7 +1,7 @@
 <template>
     <div class="media hc__author" v-if="post">
         <div class="media-left">
-            <hc-avatar :url="post.user.avatar"></hc-avatar>
+            <hc-avatar :url="getAvatar()"></hc-avatar>
         </div>
         <div class="media-content">
             <p class="title" v-if="!post.user">
@@ -21,6 +21,8 @@
 <script>
   import HcAvatar from '~/components/Avatar/Avatar.vue'
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'
+  import _ from 'lodash'
+
   export default {
     components: {
       HcAvatar,
@@ -30,6 +32,11 @@
     props: {
       post: {
         type: Object
+      }
+    },
+    methods: {
+      getAvatar () {
+        return _.isEmpty(this.post.user.avatar) ? '' : this.post.user.avatar
       }
     }
   }
