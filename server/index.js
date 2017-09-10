@@ -16,7 +16,7 @@ if (process.server) {
 
   // Must configure Raven before doing anything else with it
   Raven.config('https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871', {
-    release: config.RELEASE,
+    release: process.env.RELEASE,
     environment: process.env.NODE_ENV,
     extra: {
       ssr: true
