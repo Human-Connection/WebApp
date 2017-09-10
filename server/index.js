@@ -5,6 +5,10 @@ import expressHealthcheck from 'express-healthcheck'
 
 const app = express()
 
+// Import and Set Nuxt.js options
+let config = require('../nuxt.config.js')
+config.dev = !(process.env.NODE_ENV === 'production')
+
 import Raven from 'raven'
 if (process.server) {
   // LOGGING IS ENABLED
@@ -12,7 +16,7 @@ if (process.server) {
 
   // Must configure Raven before doing anything else with it
   Raven.config('https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871', {
-    release: 'pre-alpha',
+    release: config.RELEASE,
     environment: process.env.NODE_ENV,
     extra: {
       ssr: true
@@ -36,10 +40,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.use('/healthcheck', expressHealthcheck())
-
-// Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
 
 // Init Nuxt.js
 const nuxt = new Nuxt(config)
