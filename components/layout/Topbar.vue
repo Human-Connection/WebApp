@@ -27,7 +27,7 @@
             <div class="control">
               <hc-button type="nuxt" class="is-primary"
                          style="font-weight: bold;"
-                         :to="{ name: 'auth-login', params: { path: this.$route.path } }">Login / Sign-In</hc-button>
+                         :to="{ name: 'auth-login', params: { path: this.$route.path } }">Login / Sign-Up</hc-button>
             </div>
           </div>
         </div>
@@ -89,7 +89,8 @@
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
-            this.$router.replace('/')
+            // refresh page to rerun middleware
+            window.location = window.location
           })
           .catch(err => {
             console.error(err)
