@@ -9,8 +9,8 @@
         <form @submit.prevent="login">
           <div class="field">
             <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Email"
-                     v-model="data.email">
+              <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
+                     placeholder="Email" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -47,6 +47,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import Vue from 'vue'
 
   export default {
     middleware: 'anonymous',
@@ -65,6 +66,11 @@
     computed: {
       ...mapGetters({
         user: 'auth/user'
+      })
+    },
+    mounted () {
+      Vue.nextTick(() => {
+        this.$refs['focus'].focus()
       })
     },
     methods: {

@@ -23,6 +23,15 @@
             </div>
             <p class="content" v-html="content"></p>
             <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+            <div v-if="!user" class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
+              <div class="column is-9 is-paddingless">
+                You need to be logged-in to be able to vote or comment on Human Connection.
+              </div>
+              <div class="column is-3 is-paddingless">
+                <hc-button size="small" class="is-pulled-right" type="nuxt"
+                           :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up</hc-button>
+              </div>
+            </div>
           </div>
           <b-tabs class="footer">
             <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">

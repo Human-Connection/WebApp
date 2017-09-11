@@ -10,8 +10,8 @@
         <form @submit.prevent="register">
           <div class="field">
             <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail"
-                     v-model="data.email">
+              <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
+                     placeholder="E-Mail" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -52,6 +52,8 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+
   export default {
     middleware: 'anonymous',
     layout: 'blank',
@@ -64,6 +66,11 @@
         loading: false,
         errors: null
       }
+    },
+    mounted () {
+      Vue.nextTick(() => {
+        this.$refs['focus'].focus()
+      })
     },
     methods: {
       async register (e) {
