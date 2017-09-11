@@ -29,7 +29,7 @@
               </div>
               <div class="column is-3 is-paddingless">
                 <hc-button size="small" class="is-pulled-right" type="nuxt"
-                           :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up</hc-button>
+                           :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/></hc-button>
               </div>
             </div>
           </div>

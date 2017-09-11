@@ -2,6 +2,7 @@
   <section class="container content">
     <div class="card">
       <div class="card-content">
+        <nuxt-link to="/" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
           <nuxt-link to="/">
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
