@@ -8,7 +8,7 @@
     </section>
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
       <span slot="no-results">
-        <strong class="loader-no-data">Sorry but we didn't found anything &nbsp;<hc-emoji type="cry" width="26" /></strong>
+        <strong class="loader-no-data">Sorry thats all that we found &nbsp;<hc-emoji type="cry" width="26" /></strong>
       </span>
       <span slot="no-more">
         <strong class="loader-no-more">There are no more &nbsp;<hc-emoji type="cry" width="26" /></strong>
