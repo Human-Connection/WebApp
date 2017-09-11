@@ -13,7 +13,8 @@
                 <form @submit.prevent="save">
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input class="input " v-bind:class="{ 'is-danger': errors }" type="text" placeholder="Dein Name ..." v-model="data.name" autofocus>
+                            <input ref="focus" autofocus class="input " v-bind:class="{ 'is-danger': errors }"
+                                   type="text" placeholder="Dein Name ..." v-model="data.name" autofocus>
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -37,6 +38,7 @@
 
 <script>
   import UploadAvatar from '~/components/User/UploadAvatar'
+  import Vue from 'vue'
 
   export default {
     middleware: 'authenticated',
@@ -52,6 +54,11 @@
         loading: false,
         errors: null
       }
+    },
+    mounted () {
+      Vue.nextTick(() => {
+        this.$refs['focus'].focus()
+      })
     },
     methods: {
       async save () {

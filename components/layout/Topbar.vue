@@ -22,14 +22,11 @@
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
         <notifications v-if="isAuthenticated"></notifications>
-        <div v-if="!isAuthenticated" class="navbar-item">
-          <div class="field is-grouped">
-            <div class="control">
-              <hc-button type="nuxt" class="is-primary"
-                         style="font-weight: bold;"
-                         :to="{ name: 'auth-login', params: { path: this.$route.path } }">Login / Sign-In</hc-button>
-            </div>
-          </div>
+        <div v-if="!isAuthenticated" class="navbar-item control is-grouped is-paddingless">
+          <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
+                     :to="{ name: 'auth-login', params: { path: this.$route.path } }">
+            Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/>
+          </hc-button>
         </div>
         <template v-else>
           <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
@@ -89,7 +86,8 @@
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
-            this.$router.replace('/')
+            // refresh page to rerun middleware
+            window.location = window.location
           })
           .catch(err => {
             console.error(err)

@@ -42,7 +42,6 @@
           .then((res) => {
             this.loading = false
             this.form.content = ''
-            console.log(res)
             this.$toast.open({
               message: 'Thanks for your comment. You are awesome.',
               duration: 2000,

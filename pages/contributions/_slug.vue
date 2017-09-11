@@ -16,13 +16,22 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <div class="tags" v-if="contribution.categories && contribution.categories.length">
-              <span class="tag is-primary" v-for="contribution in contribution.categories">
-                {{ contribution.title }}
+            <div class="tags" v-if="categories.length">
+              <span class="tag is-primary" v-for="category in categories">
+                {{ category.title }}
               </span>
             </div>
             <p class="content" v-html="content"></p>
             <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+            <div v-if="!user" class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
+              <div class="column is-9 is-paddingless">
+                You need to be logged-in to be able to vote or comment on Human Connection.
+              </div>
+              <div class="column is-3 is-paddingless">
+                <hc-button size="small" class="is-pulled-right" type="nuxt"
+                           :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/></hc-button>
+              </div>
+            </div>
           </div>
           <b-tabs class="footer">
             <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">
@@ -49,6 +58,7 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import _ from 'lodash'
 
   export default {
     scrollToTop: false,
@@ -90,8 +100,11 @@
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
       },
       commentCount () {
-        const count = this.contribution.comments ? this.contribution.comments.length : 0
-        return (count === undefined) ? 0 : count
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.contribution.comments) ? 0 : _.castArray(this.contribution.comments).length
+      },
+      categories () {
+        return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)
       },
       canEdit () {
         const userId = this.user ? this.user._id : null

@@ -2,16 +2,19 @@
   <section class="container content">
     <div class="card">
       <div class="card-content">
+        <nuxt-link to="/" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
-          <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
+          <nuxt-link to="/">
+            <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
+          </nuxt-link>
         </div>
         <p class="subtitle is-6">
           Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
         <form @submit.prevent="register">
           <div class="field">
             <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="text" placeholder="E-Mail"
-                     v-model="data.email">
+              <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
+                     placeholder="E-Mail" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -52,6 +55,8 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+
   export default {
     middleware: 'anonymous',
     layout: 'blank',
@@ -64,6 +69,11 @@
         loading: false,
         errors: null
       }
+    },
+    mounted () {
+      Vue.nextTick(() => {
+        this.$refs['focus'].focus()
+      })
     },
     methods: {
       async register (e) {

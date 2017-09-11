@@ -1,7 +1,7 @@
 <template>
   <section class="container" style="position: relative">
     <div class="profile-header card">
-      <img :src="user.coverImg">
+        <img :src="coverImg">
     </div>
     <div class="columns">
       <div class="column user-sidebar">
@@ -156,7 +156,10 @@
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
         user: 'auth/user'
-      })
+      }),
+      coverImg () {
+        return this.user.coverImg ? this.user.coverImg : 'https://source.unsplash.com/random/1250x280'
+      }
     },
     head () {
       return {

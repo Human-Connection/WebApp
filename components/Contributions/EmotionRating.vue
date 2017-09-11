@@ -82,6 +82,14 @@
         try {
           await feathers.service('emotions').create(postData)
         } catch (err) {
+          if (err.code === 401) {
+            this.$router.push({
+              name: 'auth-login',
+              params: {
+                path: this.$route.path
+              }
+            })
+          }
           this.$toast.open({
             message: err.message,
             duration: 3000,
