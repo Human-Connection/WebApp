@@ -16,9 +16,9 @@
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <div class="tags" v-if="contribution.categories && contribution.categories.length">
-              <span class="tag is-primary" v-for="contribution in contribution.categories">
-                {{ contribution.title }}
+            <div class="tags" v-if="categories.length">
+              <span class="tag is-primary" v-for="category in categories">
+                {{ category.title }}
               </span>
             </div>
             <p class="content" v-html="content"></p>
@@ -58,6 +58,7 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import _ from 'lodash'
 
   export default {
     scrollToTop: false,
@@ -99,8 +100,11 @@
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
       },
       commentCount () {
-        const count = this.contribution.comments ? this.contribution.comments.length : 0
-        return (count === undefined) ? 0 : count
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.contribution.comments) ? 0 : _.castArray(this.contribution.comments).length
+      },
+      categories () {
+        return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)
       },
       canEdit () {
         const userId = this.user ? this.user._id : null

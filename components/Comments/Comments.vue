@@ -1,11 +1,15 @@
 <template>
-  <div class="hc__comments" v-if="post">
-    <transition-group name="comment">
+  <div class="hc__comments">
+    <transition-group name="comment" v-if="comments.length >= 1">
       <div class="hc__comment autowrap" v-for="comment in comments" :key="comment._id">
         <author :post="comment"></author>
         <p v-html="comment.content"></p>
       </div>
     </transition-group>
+    <div v-else class="notification">
+      <br/>
+      <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; No comments yet, you sould write some!</strong>
+    </div>
     <comment-form :post="post"/>
   </div>
 </template>
@@ -15,6 +19,7 @@
   import feathers from '~/plugins/feathers'
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
+  import _ from 'lodash'
 
   export default {
     name: 'hc-comment',
@@ -29,8 +34,10 @@
       }
     },
     created () {
-      if (this.post.comments) {
-        this.comments = this.post.comments
+      console.log(this.post)
+      if (!_.isEmpty(this.post.comments)) {
+        // we need to cast the comments array as it might be an object when only one is present
+        this.comments = _.castArray(this.post.comments)
       }
     },
     mounted () {

@@ -13,8 +13,8 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <div class="tags" v-if="post.categories && post.categories.length">
-          <span class="tag is-primary" v-for="contribution in post.categories">
+        <div class="tags" v-if="categories">
+          <span class="tag is-primary" v-for="contribution in categories">
             {{ contribution.title }}
           </span>
         </div>
@@ -39,6 +39,7 @@
 
 <script>
   import author from '~/components/Author/Author.vue'
+  import _ from 'lodash'
 
   export default {
     name: 'hc-contribution-card',
@@ -53,8 +54,11 @@
     },
     computed: {
       commentCount () {
-        const count = this.post.comments ? this.post.comments.length : 0
-        return (count === undefined) ? 0 : count
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.post.comments) ? 0 : _.castArray(this.post.comments).length
+      },
+      categories () {
+        return _.isEmpty(this.post.categories) ? [] : _.castArray(this.post.categories)
       }
     },
     methods: {
