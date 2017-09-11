@@ -3,7 +3,9 @@
     <div class="card">
       <div class="card-content">
         <div class="card-teaser">
-          <nuxt-link to="/"><img src="/logo-vertical.svg" alt="Human Connection" class="logo"/></nuxt-link>
+          <nuxt-link to="/">
+            <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
+          </nuxt-link>
         </div>
         <p class="subtitle is-6">Wenn du einen Account bei Human Connection besitzt, logge dich bitte hier ein.</p>
         <form @submit.prevent="login">
@@ -37,7 +39,7 @@
         <nuxt-link :to="{ name: 'auth-register' }" class="card-footer-item">
           Noch kein Konto?
         </nuxt-link>
-        <a href="" class="card-footer-item">
+        <a href="#" style="cursor: not-allowed" class="card-footer-item is-disabled disabled">
           Passwort vergessen?
         </a>
       </footer>

@@ -3,7 +3,9 @@
     <div class="card">
       <div class="card-content">
         <div class="card-teaser">
-          <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
+          <nuxt-link to="/">
+            <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
+          </nuxt-link>
         </div>
         <p class="subtitle is-6">
           Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
