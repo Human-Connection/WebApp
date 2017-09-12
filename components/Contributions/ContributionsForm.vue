@@ -69,27 +69,30 @@
       <label class="label">Kategorien</label>
       <categories-select v-model="form.categoryIds"></categories-select>
     </div>
-    <div class="field">
-      <label class="label">Inhalt</label>
-      <div class="control">
-        <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+    <no-ssr>
+      <div class="field">
+        <label class="label">Inhalt</label>
+        <div class="control">
+          <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+        </div>
       </div>
-    </div>
+    </no-ssr>
     <!-- language -->
     <!-- visibility -->
     <!-- topics -->
     <!-- tags -->
     <!-- uploads -->
-    <div class="field has-text-right">
-      <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
-              @click.prevent="onSubmit">{{ buttonLabel }}
-      </button>
-    </div>
+    <no-ssr>
+      <div class="field has-text-right">
+        <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
+                @click.prevent="onSubmit">{{ buttonLabel }}
+        </button>
+      </div>
+    </no-ssr>
   </form>
 </template>
 
 <script>
-  import NoSSR from 'vue-no-ssr'
   import feathers from '~/plugins/feathers'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
   import Author from '~/components/Author/Author.vue'
@@ -103,7 +106,6 @@
     components: {
       Author,
       ContributionImage,
-      'no-ssr': NoSSR,
       'categories-select': CategoriesSelect
     },
     data () {
@@ -137,10 +139,13 @@
         editorOption: {
           placeholder: 'What to write?',
           modules: {
-            toolbar: [
-              ['bold', 'italic', 'underline', 'strike'],
-              ['blockquote', 'code-block']
-            ]
+            toolbar: {
+              container: [
+                ['bold', 'strike'],
+                ['blockquote'],
+                ['link', 'video']
+              ]
+            }
           }
         }
       }
