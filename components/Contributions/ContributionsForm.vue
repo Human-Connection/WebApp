@@ -182,7 +182,7 @@
             duration: 2000,
             type: 'is-success'
           })
-          this.$router.push(`/contributions/${res.slug}`)
+          this.$router.push(`/contributions/${res.slug}?refresh=true`)
         } catch (err) {
           console.log(err)
           this.loading = false
