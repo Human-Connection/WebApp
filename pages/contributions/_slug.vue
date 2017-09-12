@@ -4,7 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <contribution-image refresh="800" :src="contribution.teaserImg"></contribution-image>
+            <contribution-image :refresh="refrashOrNot" :src="contribution.teaserImg"></contribution-image>
             <div class="columns">
               <div class="column">
                 <author :post="contribution"></author>
@@ -115,6 +115,10 @@
       canEdit () {
         const userId = this.user ? this.user._id : null
         return this.isVerified && this.contribution.user._id === userId
+      },
+      refrashOrNot () {
+        let newVar = !!this.$route.query.refresh === true ? 800 : null
+        return newVar
       }
     },
     head () {
