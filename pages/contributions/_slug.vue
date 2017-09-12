@@ -22,28 +22,34 @@
               </span>
             </div>
             <p class="content" v-html="content"></p>
-            <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
-            <div v-if="!user" class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
-              <div class="column is-9 is-paddingless">
-                You need to be logged-in to be able to vote or comment on Human Connection.
+            <no-ssr>
+              <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+            </no-ssr>
+            <no-ssr>
+              <div v-if="!user" class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
+                <div class="column is-9 is-paddingless">
+                  You need to be logged-in to be able to vote or comment on Human Connection.
+                </div>
+                <div class="column is-3 is-paddingless">
+                  <hc-button size="small" class="is-pulled-right" type="nuxt"
+                             :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/></hc-button>
+                </div>
               </div>
-              <div class="column is-3 is-paddingless">
-                <hc-button size="small" class="is-pulled-right" type="nuxt"
-                           :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/></hc-button>
-              </div>
-            </div>
+            </no-ssr>
           </div>
-          <b-tabs class="footer">
-            <b-tab-item v-bind:label="'Comments (' + commentCount + ')'">
-              <comments :post="contribution"/>
-            </b-tab-item>
-            <b-tab-item label="Versus">
-              Versus
-            </b-tab-item>
-            <b-tab-item label="Can Do">
-              Can Do
-            </b-tab-item>
-          </b-tabs>
+          <no-ssr>
+            <b-tabs class="footer">
+              <b-tab-item :label="'Comments (' + commentCount + ')'">
+                <comments :post="contribution"/>
+              </b-tab-item>
+              <b-tab-item label="Versus">
+                Versus
+              </b-tab-item>
+              <b-tab-item label="Can Do">
+                Can Do
+              </b-tab-item>
+            </b-tabs>
+          </no-ssr>
         </section>
       </div>
     </div>

@@ -55,7 +55,6 @@
       })
     },
     mounted () {
-      console.log('try to listen on patch')
       feathers.service('contributions').on('patched', res => {
         // TODO: use the new channels feature for the feathers (buzzard) when its released
         if (res._id === this.contribution._id) {

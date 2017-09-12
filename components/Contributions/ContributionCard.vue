@@ -114,8 +114,8 @@
 
     opacity: 0;
     transition-duration: 0ms;
-    transition: opacity 150ms;
-    transition-delay: 150ms;
+    transition: opacity 0ms;
+    transition-delay: 100ms;
     //  border: 1px solid rgba(black, 0.15);
 
     &.show {

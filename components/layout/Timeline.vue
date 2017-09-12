@@ -51,7 +51,6 @@
       ContributionCard
     },
     mounted () {
-      console.log('mounted')
       this.loading = true
       this.loadingFinished = false;
 
@@ -70,7 +69,6 @@
           })
           this.loading = false
           this.loadingFinished = true
-          console.log({res})
           let contributions = Array.isArray(res.data) ? res.data : []
           this.contributions = contributions
         } catch (err) {

@@ -27,11 +27,11 @@ footer {
 }
 
 .page-leave-active {
-  transition: opacity 100ms
+  transition: opacity 50ms
 }
 
 .page-enter-active {
-  transition: opacity 300ms
+  transition: opacity 150ms
 }
 
 .page-enter, .page-leave-active {

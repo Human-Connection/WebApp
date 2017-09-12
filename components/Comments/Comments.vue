@@ -34,7 +34,6 @@
       }
     },
     created () {
-      console.log(this.post)
       if (!_.isEmpty(this.post.comments)) {
         // we need to cast the comments array as it might be an object when only one is present
         this.comments = _.castArray(this.post.comments)

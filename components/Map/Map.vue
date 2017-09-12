@@ -51,9 +51,6 @@
           center: this.center
         })
         this.places.forEach(function (marker) {
-          console.log(marker)
-          console.log('MARKER IS', marker)
-
           // create a HTML element for each feature
           let el = document.createElement('div')
           el.className = 'marker'

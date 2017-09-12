@@ -172,7 +172,6 @@
             res = await feathers.service('contributions').create(this.form)
           }
           this.loading = false
-          console.log(res)
           this.$toast.open({
             message: 'Thanks for your contribution. You are awesome.',
             duration: 2000,
