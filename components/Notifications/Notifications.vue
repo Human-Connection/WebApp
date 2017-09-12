@@ -237,11 +237,11 @@
   }
 
   @keyframes notify {
-    0%   { transform: rotate(15deg); }
-    20%  { transform: rotate(0deg); }
-    40%  { transform: rotate(-15deg); }
-    60%  { transform: rotate(0deg); }
-    80%  { transform: rotate(15deg); }
+    0%   { transform: rotate(0deg); }
+    10%   { transform: rotate(10deg); }
+    30%  { transform: rotate(-15deg); }
+    60%  { transform: rotate(20deg); }
+    90%  { transform: rotate(-15deg); }
     100% { transform: rotate(0deg); }
   }
 

@@ -12,6 +12,9 @@
     props: {
       src: {
         type: String
+      },
+      refresh: {
+        type: [Number, String]
       }
     },
     data () {
@@ -24,6 +27,11 @@
     created () {
       this.data.url = this.src
     },
+    watch: {
+      src (src) {
+        this.data.url = src
+      }
+    },
     computed: {
       getUrl () {
         return this.data.url
@@ -32,13 +40,15 @@
     mounted () {
       // this is fixin an issue with the default avatar
       // while picking the name after regestration
-      setTimeout(() => {
-        // retry to load image
-        this.data.url = null
+      if (parseInt(this.refresh) > 0) {
         setTimeout(() => {
-          this.data.url = this.src
-        }, 0)
-      }, 700)
+          // retry to load image
+          this.data.url = null
+          this.$nextTick(() => {
+            this.data.url = this.src
+          }, 0)
+        }, parseInt(this.refresh))
+      }
     },
     methods: {
       imageModal () {

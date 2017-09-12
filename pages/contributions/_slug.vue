@@ -4,7 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <contribution-image :src="contribution.teaserImg"></contribution-image>
+            <contribution-image refresh="800" :src="contribution.teaserImg"></contribution-image>
             <div class="columns">
               <div class="column">
                 <author :post="contribution"></author>

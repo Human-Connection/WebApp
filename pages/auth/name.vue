@@ -8,7 +8,7 @@
                 <h1 class="title is-3 is-spaced">Wie dürfen wir dich nennen?</h1>
                 <p class="subtitle is-6">Es ist nicht erforderlich deinen vollen Namen anzugeben, du erleichterst damit aber Freunden und Bekannten dich auf Human Connection zu finden.</p>
 
-                <upload-avatar></upload-avatar>
+                <upload-avatar refresh="800"></upload-avatar>
 
                 <form @submit.prevent="save">
                     <div class="field">
