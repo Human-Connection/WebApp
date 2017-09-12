@@ -2,7 +2,7 @@
   <section class="container content">
     <div class="card">
       <div class="card-content">
-        <nuxt-link to="/" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
+        <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
           <nuxt-link to="/">
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
@@ -46,7 +46,7 @@
         </p>
       </div>
       <footer class="card-footer">
-        <nuxt-link :to="{ name: 'auth-login' }" class="card-footer-item">
+        <nuxt-link :to="{ name: 'auth-login', params: { path: this.$route.params.path } }" class="card-footer-item">
           Du hast ein Konto?
         </nuxt-link>
       </footer>

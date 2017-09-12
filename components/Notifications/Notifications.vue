@@ -1,6 +1,6 @@
 <template>
   <div class="hc__notifications dropdown" @blur="active = false" tabindex="0">
-    <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active }">
+    <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active, animate: notify }">
       <span class="notification-icon">
         <i class="fa fa-bell" aria-hidden="true"></i>
         <hc-count-label :count="notifications.length" v-if="notifications"></hc-count-label>
@@ -48,7 +48,10 @@
     data () {
       return {
         ready: false,
-        active: false
+        active: false,
+        notify: false,
+        timeout: null,
+        lastCount: 0
       }
     },
     computed: {
@@ -57,12 +60,38 @@
         notifications: 'notifications/all'
       })
     },
+    watch: {
+      notifications (notifications) {
+        // only add animation to notification icon then we got some new notifications
+        if (notifications.length <= this.lastCount) {
+          this.lastCount = notifications.length
+          return
+        }
+        // remember the notification count
+        this.lastCount = notifications.length
+
+        // add the notify flag wich is used to animate the notification icon
+        this.notify = true
+        clearTimeout(this.timeout)
+        this.timeout = setTimeout(() => {
+          clearTimeout(this.timeout)
+
+          // remove the notify flag to clean the class from the animation as preperation froe the next time
+          this.notify = false
+        }, 500)
+      }
+    },
     methods: {
       ...mapMutations({
         addNotification: 'notifications/add'
       }),
       followNotification (notification) {
         this.$router.push(`/contributions/${notification.contribution.slug}`)
+
+        // mark all notifications with the same contribution id as read
+        this.$store.dispatch('notifications/markAsRead', {
+          id: notification.contribution._id
+        })
         this.active = false
       }
     }
@@ -204,6 +233,26 @@
   .hc__notification {
     p {
       font-size: $size-7;
+    }
+  }
+
+  @keyframes notify {
+    0%   { transform: rotate(0deg); }
+    10%   { transform: rotate(10deg); }
+    30%  { transform: rotate(-15deg); }
+    60%  { transform: rotate(20deg); }
+    90%  { transform: rotate(-15deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .dropdown-toggle {
+    &.animate {
+      i {
+        transform: rotate(0deg);
+        transform-origin: 50% 0;
+        animation-name: notify;
+        animation-duration: 300ms;
+      }
     }
   }
 </style>

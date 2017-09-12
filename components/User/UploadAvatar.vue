@@ -13,6 +13,11 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    props: {
+      refresh: {
+        type: [Number, String]
+      }
+    },
     data () {
       return {
         data: {
@@ -35,13 +40,15 @@
     mounted () {
       // this is fixin an issue with the default avatar
       // while picking the name after regestration
-      setTimeout(() => {
-        // retry to load image
-        this.data.avatarUri = null
+      if (parseInt(this.refresh) > 0) {
         setTimeout(() => {
-          this.data.avatarUri = this.user.avatar
-        }, 0)
-      }, 700)
+          // retry to load image
+          this.data.avatarUri = null
+          this.$nextTick(() => {
+            this.data.avatarUri = this.user.avatar
+          })
+        }, this.refresh)
+      }
     },
     methods: {
       choose () {
