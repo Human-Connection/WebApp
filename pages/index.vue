@@ -175,7 +175,15 @@
     right: 50px;
 
     .button {
-      box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1);
+      box-shadow: $card-shadow-hover;
+      transition: box-shadow, transform;
+      transition-duration: 100ms;
+      transition-timing-function: ease-in-out;
+
+      &:hover {
+        transform: scale(1.1);
+        box-shadow: $card-shadow-hover;
+      }
     }
   }
 </style>

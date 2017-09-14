@@ -118,3 +118,22 @@ hr {
     border-right-color: $grey-lighter;
   }
 }
+
+.dropdown-menu {
+  .dropdown-content {
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.tags {
+  > .tag {
+    margin-bottom: 5px;
+    margin-right: 5px !important;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

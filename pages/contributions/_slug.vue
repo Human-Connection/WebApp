@@ -22,9 +22,29 @@
               </span>
             </div>
             <p class="content" v-html="content"></p>
-            <no-ssr>
-              <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
-            </no-ssr>
+            <div class="columns is-mobile">
+              <div class="column is-10-mobile is-9">
+                <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+              </div>
+              <div class="column is-2">
+                <nav class="level is-mobile" style="margin-top: 0.5rem;">
+                  <div class="level-item has-text-centered">
+                    <div>
+                      <p class="smiley heading">
+                        <hc-button circle size="large" color="success"
+                                   style="font-size: 2em; margin-bottom: 0.8rem;">
+                          <hc-icon set="fa" icon="bullhorn" />
+                        </hc-button>
+                        Recommend
+                      </p>
+                      <p class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
+                        1000k
+                      </p>
+                    </div>
+                  </div>
+                </nav>
+              </div>
+            </div>
             <no-ssr>
               <div v-if="!user" class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
                 <div class="column is-9 is-paddingless">

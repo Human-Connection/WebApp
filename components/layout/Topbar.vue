@@ -15,10 +15,7 @@
       </div>
 
       <div class="nav-right nav-end">
-        <nuxt-link v-if="isAdmin" to="/admin" class="nav-item">
-          <hc-icon icon="cog"></hc-icon>
-        </nuxt-link>
-        <a v-if="isAuthenticated" href="" class="nav-item">
+        <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled" style="cursor: not-allowed;">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
         <notifications v-if="isAuthenticated"></notifications>
@@ -29,12 +26,37 @@
           </hc-button>
         </div>
         <template v-else>
-          <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
-            <avatar :url="user.avatar"></avatar>&nbsp;&nbsp;
-          </nuxt-link>
-          <a class="nav-item is-tab" @click.prevent="logout()">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-          </a>
+          <b-dropdown position="is-bottom-left" style="text-align: left;">
+            <a class="navbar-item" style="white-space: nowrap !important;" slot="trigger">
+              <span><avatar :url="user.avatar"></avatar></span>
+              <b-icon icon="arrow_drop_down"></b-icon>
+            </a>
+            <b-dropdown-item custom>
+              Hello <b>{{ user.name }}</b>
+            </b-dropdown-item>
+            <hr class="dropdown-divider">
+            <b-dropdown-item hasLink>
+              <nuxt-link :to="{ name: 'profile' }">
+                <b-icon icon="person"></b-icon>
+                Profile
+              </nuxt-link>
+            </b-dropdown-item>
+            <b-dropdown-item value="settings" disabled>
+              <i class="fa fa-sliders" style="padding-right: 5px;"></i>
+              Settings
+            </b-dropdown-item>
+            <b-dropdown-item v-if="isAdmin" hasLink="" value="admin">
+              <nuxt-link to="/admin" class="nav-item">
+                <b-icon icon="settings"></b-icon>
+                Admin
+              </nuxt-link>
+            </b-dropdown-item>
+            <hr class="dropdown-divider">
+            <b-dropdown-item value="logout" @click="logout()">
+              <b-icon icon="exit_to_app"></b-icon>
+              Logout
+            </b-dropdown-item>
+          </b-dropdown>
         </template>
       </div>
     </div>
@@ -118,6 +140,17 @@
 
     @include desktop() {
       padding: 0;
+    }
+
+    .dropdown-content {
+      border: none;
+      .dropdown-item, .has-link a {
+        padding: 0.7rem 1rem;
+      }
+
+      hr {
+        margin: 0;
+      }
     }
   }
 
