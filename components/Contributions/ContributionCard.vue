@@ -13,7 +13,7 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <div class="tags" v-if="categories">
+        <div class="tags" v-if="categories.length">
           <span class="tag is-primary" v-for="contribution in categories">
             {{ contribution.title }}
           </span>
@@ -150,7 +150,6 @@
 
     main.content {
       padding: 0;
-      line-height: 1.2em;
     }
 
     .profile-image {

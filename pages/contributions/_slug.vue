@@ -11,22 +11,23 @@
               </div>
               <div class="column">
                 <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
-                  Edit
+                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; Edit
                 </nuxt-link>
               </div>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <div class="tags" v-if="categories.length">
+            <div class="tags" v-if= "categories.length">
               <span class="tag is-primary" v-for="category in categories">
                 {{ category.title }}
               </span>
             </div>
             <p class="content" v-html="content"></p>
+            <br/>
             <div class="columns is-mobile">
-              <div class="column is-10-mobile is-9">
+              <div class="column is-9">
                 <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
               </div>
-              <div class="column is-2">
+              <div class="column is-3">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
                   <div class="level-item has-text-centered">
                     <div>
@@ -34,7 +35,7 @@
                         <hc-button circle size="large" color="success"
                                    style="font-size: 2em; margin-bottom: 0.8rem;">
                           <hc-icon set="fa" icon="bullhorn" />
-                        </hc-button>
+                        </hc-button><br/>
                         Recommend
                       </p>
                       <p class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">

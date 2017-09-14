@@ -45,11 +45,19 @@
               <i class="fa fa-sliders" style="padding-right: 5px;"></i>
               Settings
             </b-dropdown-item>
-            <b-dropdown-item v-if="isAdmin" hasLink="" value="admin">
+            <b-dropdown-item value="calendar" disabled>
+              <b-icon icon="date_range"></b-icon>
+              Calendar
+            </b-dropdown-item>
+            <b-dropdown-item v-if="isAdmin" hasLink value="admin">
               <nuxt-link to="/admin" class="nav-item">
                 <b-icon icon="settings"></b-icon>
                 Admin
               </nuxt-link>
+            </b-dropdown-item>
+            <b-dropdown-item value="help" disabled>
+              <b-icon icon="help"></b-icon>
+              Help
             </b-dropdown-item>
             <hr class="dropdown-divider">
             <b-dropdown-item value="logout" @click="logout()">
@@ -108,8 +116,7 @@
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
-            // refresh page to rerun middleware
-            window.location = window.location
+            this.$router.push('/')
           })
           .catch(err => {
             console.error(err)
@@ -183,6 +190,10 @@
       display: inline-block;
       position: relative;
     }
+  }
+
+  .dropdown-item.is-disabled {
+    cursor: default !important;
   }
 
   .nav-item .fa {

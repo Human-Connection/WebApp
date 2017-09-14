@@ -164,7 +164,7 @@
     .dropdown-title {
       font-weight: $weight-bold;
       margin-bottom: 0.2em;
-      padding: 0.5rem 1rem 0.7rem;
+      padding: 0.8rem 1rem 0.8rem;
       border-bottom: 1px solid $grey-lighter;
     }
 
