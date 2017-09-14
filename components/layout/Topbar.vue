@@ -5,7 +5,7 @@
         <nuxt-link class="logo" :to="{ name: 'index' }">
           <img src="/logo-hc.svg" alt="Human Connection">
         </nuxt-link>
-        <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
+        <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
           Newsfeed
         </nuxt-link>
       </div>
@@ -20,14 +20,16 @@
         </a>
         <notifications v-if="isAuthenticated"></notifications>
         <div v-if="!isAuthenticated" class="navbar-item control is-grouped is-paddingless">
-          <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
-                     :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-            Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/>
-          </hc-button>
+          <div class="login-button">
+            <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
+                       :to="{ name: 'auth-login', params: { path: this.$route.path } }">
+              <span class="is-hidden-mobile">Login / Sign-Up &nbsp; </span><hc-icon icon="sign-in"/>
+            </hc-button>
+          </div>
         </div>
         <template v-else>
           <b-dropdown position="is-bottom-left" style="text-align: left;">
-            <a class="navbar-item" style="white-space: nowrap !important;" slot="trigger">
+            <a class="navbar-item" slot="trigger">
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
             </a>
@@ -171,8 +173,21 @@
     }
   }
 
-  .nav-left, .nav-middle, .nav-right {
+  .nav-start, .nav-left, .nav-middle, .nav-right, .nav-end {
     overflow: visible;
+  }
+
+  .nav-end .login-button {
+    align-items: center !important;
+    display: flex;
+    height: 100%;
+  }
+
+  .dropdown-trigger {
+    &, & .navbar-item {
+      align-items: center !important;
+      display: flex !important;
+    }
   }
 
   .logo {
@@ -198,5 +213,11 @@
 
   .nav-item .fa {
     font-size: 1.4rem;
+  }
+
+  @include mobile() {
+    .nav-center {
+      width: 30vw;
+    }
   }
 </style>
