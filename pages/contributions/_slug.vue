@@ -46,8 +46,8 @@
                 </nav>
               </div>
             </div>
-            <no-ssr>
-              <div v-if="!user" class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
+            <no-ssr v-if="!user" >
+              <div class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
                 <div class="column is-9 is-paddingless">
                   You need to be logged-in to be able to vote or comment on Human Connection.
                 </div>
