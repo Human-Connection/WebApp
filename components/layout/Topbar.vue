@@ -5,7 +5,7 @@
         <nuxt-link class="logo" :to="{ name: 'index' }">
           <img src="/logo-hc.svg" alt="Human Connection">
         </nuxt-link>
-        <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
+        <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
           Newsfeed
         </nuxt-link>
       </div>
@@ -15,26 +15,58 @@
       </div>
 
       <div class="nav-right nav-end">
-        <nuxt-link v-if="isAdmin" to="/admin" class="nav-item">
-          <hc-icon icon="cog"></hc-icon>
-        </nuxt-link>
-        <a v-if="isAuthenticated" href="" class="nav-item">
+        <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled" style="cursor: not-allowed;">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
         <notifications v-if="isAuthenticated"></notifications>
         <div v-if="!isAuthenticated" class="navbar-item control is-grouped is-paddingless">
-          <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
-                     :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-            Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/>
-          </hc-button>
+          <div class="login-button">
+            <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
+                       :to="{ name: 'auth-login', params: { path: this.$route.path } }">
+              <span class="is-hidden-mobile">Login / Sign-Up &nbsp; </span><hc-icon icon="sign-in"/>
+            </hc-button>
+          </div>
         </div>
         <template v-else>
-          <nuxt-link :to="{ name: 'profile' }" class="nav-item is-tab">
-            <avatar :url="user.avatar"></avatar>&nbsp;&nbsp;
-          </nuxt-link>
-          <a class="nav-item is-tab" @click.prevent="logout()">
-            <i class="fa fa-sign-out" aria-hidden="true"></i>
-          </a>
+          <b-dropdown position="is-bottom-left" style="text-align: left;">
+            <a class="navbar-item" slot="trigger">
+              <span><avatar :url="user.avatar"></avatar></span>
+              <b-icon icon="arrow_drop_down"></b-icon>
+            </a>
+            <b-dropdown-item custom>
+              Hello <b>{{ user.name }}</b>
+            </b-dropdown-item>
+            <hr class="dropdown-divider">
+            <b-dropdown-item hasLink>
+              <nuxt-link :to="{ name: 'profile' }">
+                <b-icon icon="person"></b-icon>
+                Profile
+              </nuxt-link>
+            </b-dropdown-item>
+            <b-dropdown-item value="settings" disabled>
+              <i class="fa fa-sliders" style="padding-right: 5px;"></i>
+              Settings
+            </b-dropdown-item>
+            <b-dropdown-item value="calendar" disabled>
+              <b-icon icon="date_range"></b-icon>
+              Calendar
+            </b-dropdown-item>
+            <b-dropdown-item v-if="isAdmin" hasLink value="admin">
+              <nuxt-link to="/admin" class="nav-item">
+                <b-icon icon="settings"></b-icon>
+                Admin
+              </nuxt-link>
+            </b-dropdown-item>
+            <b-dropdown-item value="help" disabled>
+              <b-icon icon="help"></b-icon>
+              Help
+            </b-dropdown-item>
+            <hr class="dropdown-divider">
+            <b-dropdown-item value="logout" @click="logout()">
+              <b-icon icon="exit_to_app"></b-icon>
+              Logout
+            </b-dropdown-item>
+          </b-dropdown>
         </template>
       </div>
     </div>
@@ -86,8 +118,7 @@
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
-            // refresh page to rerun middleware
-            window.location = window.location
+            this.$router.push('/')
           })
           .catch(err => {
             console.error(err)
@@ -119,6 +150,17 @@
     @include desktop() {
       padding: 0;
     }
+
+    .dropdown-content {
+      border: none;
+      .dropdown-item, .has-link a {
+        padding: 0.7rem 1rem;
+      }
+
+      hr {
+        margin: 0;
+      }
+    }
   }
 
   .mobile-toggle {
@@ -131,8 +173,21 @@
     }
   }
 
-  .nav-left, .nav-middle, .nav-right {
+  .nav-start, .nav-left, .nav-middle, .nav-right, .nav-end {
     overflow: visible;
+  }
+
+  .nav-end .login-button {
+    align-items: center !important;
+    display: flex;
+    height: 100%;
+  }
+
+  .dropdown-trigger {
+    &, & .navbar-item {
+      align-items: center !important;
+      display: flex !important;
+    }
   }
 
   .logo {
@@ -152,7 +207,17 @@
     }
   }
 
+  .dropdown-item.is-disabled {
+    cursor: default !important;
+  }
+
   .nav-item .fa {
     font-size: 1.4rem;
+  }
+
+  @include mobile() {
+    .nav-center {
+      width: 30vw;
+    }
   }
 </style>

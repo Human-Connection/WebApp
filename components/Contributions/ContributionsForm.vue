@@ -83,10 +83,18 @@
     <!-- tags -->
     <!-- uploads -->
     <no-ssr>
-      <div class="field has-text-right">
-        <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
-                @click.prevent="onSubmit">{{ buttonLabel }}
-        </button>
+      <div class="field is-grouped is-grouped-right">
+        <div class="control">
+          <button class="button is-medium is-white" @click.prevent="$router.back()">
+            <i class="fa fa-times"></i> &nbsp;Cancel
+          </button>
+        </div>
+        <div class="control">
+          <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
+                  @click.prevent="onSubmit">
+            <i class="fa fa-check"></i> &nbsp;{{ buttonLabel }}
+          </button>
+        </div>
       </div>
     </no-ssr>
   </form>

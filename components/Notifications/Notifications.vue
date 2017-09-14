@@ -9,13 +9,13 @@
     <transition name="box">
       <div class="box" v-if="active">
         <p class="dropdown-title">Notifications</p>
-        <p v-if="!isAuthenticated" class="dropdown-content">
+        <p v-if="!isAuthenticated" class="dropdown-content empty">
           Please
           <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
           to see your notifications.
         </p>
         <div v-if="notifications">
-          <p v-if="notifications.length === 0" class="dropdown-content">
+          <p v-if="notifications.length === 0" class="dropdown-content empty">
             You don't have any notifications.
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
@@ -164,7 +164,7 @@
     .dropdown-title {
       font-weight: $weight-bold;
       margin-bottom: 0.2em;
-      padding: 0.5rem 1rem 0.7rem;
+      padding: 0.8rem 1rem 0.8rem;
       border-bottom: 1px solid $grey-lighter;
     }
 
@@ -228,6 +228,13 @@
       opacity: 0;
       transform: translateX(-10px);
     }
+  }
+
+  .dropdown-content.empty {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+    text-align: center;
+    color: $grey-light;
   }
 
   .hc__notification {

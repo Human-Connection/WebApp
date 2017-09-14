@@ -8,12 +8,12 @@
             <slot name="category"></slot>
           </div>
           <author :post="post"/>
-          <h3 class="title is-5">
+          <h3 class="title is-4">
             <hc-truncate :text="post.title" length=70></hc-truncate>
             <slot name="header"></slot>
           </h3>
         </header>
-        <div class="tags" v-if="categories">
+        <div class="tags" v-if="categories.length">
           <span class="tag is-primary" v-for="contribution in categories">
             {{ contribution.title }}
           </span>
@@ -150,7 +150,6 @@
 
     main.content {
       padding: 0;
-      line-height: 1.2em;
     }
 
     .profile-image {

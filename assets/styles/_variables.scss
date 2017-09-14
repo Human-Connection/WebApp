@@ -1,6 +1,7 @@
 @import "~bulma/sass/utilities/initial-variables";
 
 $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$body-line-height: 1.5em;
 $body-size: 15px;
 
 //colors
@@ -79,3 +80,7 @@ $fullhd: 1300px;
 
 $card-shadow: 0px 12px 26px -4px rgba(0, 0, 0, .1);
 $card-shadow-hover: 0 20px 60px 0 rgba(0, 0, 0, .15);
+
+$dropdown-content-shadow: $card-shadow-hover;
+$dropdown-content-radius: 3px;
+$dropdown-content-offset: 1px;

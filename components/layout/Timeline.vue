@@ -4,7 +4,7 @@
       <hc-title>Timeline</hc-title>
     </hc-box>
     <div class="timeline-intro">
-      <p>Hallo Dennis, was sind deine Pläne für heute?</p>
+      <p>{{ user.name }}, was sind deine Pläne für heute?</p>
       <p v-if="contributions.length == 0 && loadingFinished">
         Keine Beträge, schreibe doch etwas.
       </p>

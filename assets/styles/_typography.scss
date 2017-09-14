@@ -6,6 +6,10 @@
   color: $grey;
 }
 
+p, .content {
+  line-height: $body-line-height;
+}
+
 .is-xsmall {
   font-size: $size-xsmall;
 }
