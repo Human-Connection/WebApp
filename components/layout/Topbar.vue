@@ -28,7 +28,7 @@
           </div>
         </div>
         <template v-else>
-          <b-dropdown position="is-bottom-left" style="text-align: left;">
+          <b-dropdown class="navigation-dropdown" position="is-bottom-left" style="text-align: left;">
             <a class="navbar-item" slot="trigger">
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
@@ -218,6 +218,12 @@
   @include mobile() {
     .nav-center {
       width: 30vw;
+    }
+  }
+
+  .navigation-dropdown {
+    & > hr, & > b-dropdown-item {
+      visibility: hidden;
     }
   }
 </style>
