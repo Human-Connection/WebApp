@@ -10,12 +10,21 @@
           <div class="notification">
             <strong>This is currenty dummy content</strong>
           </div>
+
           <h3 v-if= "categories.length">Themen</h3>
           <div class="tags" v-if= "categories.length">
-              <span class="tag is-primary" v-for="category in categories">
-                {{ category.title }}
-              </span>
+            <span class="tag is-primary" v-for="category in categories">
+              {{ category.title }}
+            </span>
           </div>
+
+          <h3>Tags</h3>
+          <div class="tags">
+            <span class="tag">Tag 1</span>
+            <span class="tag">Tag 2</span>
+            <span class="tag">Tag 3</span>
+          </div>
+
           <h3>Verwandte Posts</h3>
           <table>
             <tbody>
@@ -33,6 +42,7 @@
               </tr>
             </tbody>
           </table>
+
           <h3>Pro & Kontras</h3>
           <table>
             <tbody>
@@ -46,6 +56,7 @@
               </tr>
             </tbody>
           </table>
+
           <h3>Bestlisten</h3>
           <table>
             <tbody>
@@ -59,6 +70,7 @@
               </tr>
             </tbody>
           </table>
+
           <h3>Votes</h3>
           <table>
             <tbody>

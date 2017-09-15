@@ -27,7 +27,7 @@
                   <td class="has-text-right"><strong>1234</strong> Follower</td>
                 </tr>
                 <tr>
-                  <td>Safe the Honeybee Fundation</td>
+                  <td>Save the Honeybee Fundation</td>
                   <td class="has-text-right"><strong>321</strong> Follower</td>
                 </tr>
               </tbody>
