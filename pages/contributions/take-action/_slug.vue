@@ -10,6 +10,13 @@
             </div>
 
             <h3>Organisationen</h3>
+            <div class="tabs is-small">
+              <ul>
+                <li class="is-active"><a>Wohltätig</a></li>
+                <li><a>Non-Profit</a></li>
+                <li><a>Andere</a></li>
+              </ul>
+            </div>
             <table>
               <tbody>
                 <tr>
@@ -27,16 +34,19 @@
             <table>
               <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td>Einen bienenfreundlichen Garten anlegen</td>
+                <td>Schwer</td>
+                <td class="has-text-right"><strong>58</strong> haben das geschafft</td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
+                <td>Einen Bienenstock Bauen</td>
+                <td>Einfach</td>
+                <td class="has-text-right"><strong>1023</strong> haben das geschafft</td>
               </tr>
               <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
+                <td>Lokales Biogemüse kaufen</td>
+                <td>Einfach</td>
+                <td class="has-text-right"><strong>12.038</strong> haben das geschafft</td>
               </tr>
               </tbody>
             </table>
@@ -45,16 +55,16 @@
             <table>
               <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td>
+                  <strong>We build Bee City</strong><br/>
+                  <small>Wir haben bereits 20 Bienenstöcke gebaut!</small>
+                </td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
-              </tr>
-              <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
+                <td>
+                  <strong>Semabelha Semelimento - Bee or not to be</strong><br/>
+                  <small>Die Bee Alert App</small>
+                </td>
               </tr>
               </tbody>
             </table>
@@ -63,22 +73,23 @@
             <table>
               <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td>Bienenstöcke bauen</td>
+                <td>Anleitung erstellen</td>
+                <td class="has-text-right">Unbegrenzt</td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
-              </tr>
-              <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
+                <td>Bienenstockbauer</td>
+                <td>Handwerker</td>
+                <td class="has-text-right"><strong>10</strong> benötigt</td>
               </tr>
               </tbody>
             </table>
 
+            <h3>Bevorstehende Events</h3>
+            <div class="notification">Keine Events</div>
+
             <h3>Karte</h3>
-            <hc-map :places="places" :zoom="zoom" :center="center" style="height: 500px;" />
+            <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
           </div>
         </section>
       </div>
@@ -88,17 +99,17 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. {{ contribution.type }}
+              1. <strong>{{ contribution.type }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. More Info
+              2. <strong>More Info</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
-              3. Take Action
+              3. <strong>Take Action</strong>
             </nuxt-link>
             <ul>
               <li><a>Organisationen</a></li>

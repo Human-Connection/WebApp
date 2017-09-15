@@ -83,7 +83,7 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. {{ contribution.type }}
+              1. <strong>{{ contribution.type }}</strong>
             </nuxt-link>
             <ul>
               <li>
@@ -99,12 +99,12 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. More Info
+              2. <strong>More Info</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. Take Action
+              3. <strong>Take Action</strong>
             </nuxt-link>
           </li>
         </ul>

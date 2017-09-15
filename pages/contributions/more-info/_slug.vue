@@ -7,7 +7,12 @@
           <div class="notification">
             <strong>This is currenty dummy content</strong>
           </div>
-          <hr/>
+          <h3 v-if= "categories.length">Themen</h3>
+          <div class="tags" v-if= "categories.length">
+              <span class="tag is-primary" v-for="category in categories">
+                {{ category.title }}
+              </span>
+          </div>
           <h3>Verwandte Posts</h3>
           <table>
             <tbody>
@@ -29,20 +34,12 @@
           <table>
             <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>3</strong> Pros | <strong>7</strong> Cons</td>
+                <td>Kann die globale Erwärmung positive Effekte...</td>
+                <td class="has-text-right"><strong>3</strong> Pro | <strong>7</strong> Con</td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>11</strong> Pros | <strong>3</strong> Cons</td>
-              </tr>
-              <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>5</strong> Pros | <strong>1</strong> Cons</td>
-              </tr>
-              <tr>
-                <td>Lorem Ipsum</td>
-                <td class="has-text-right"><strong>11</strong> Pros | <strong>3</strong> Cons</td>
+                <td>Gryphosat - eine Bedrohung für Bienen?</td>
+                <td class="has-text-right"><strong>11</strong> Pro | <strong>3</strong> Con</td>
               </tr>
             </tbody>
           </table>
@@ -50,11 +47,11 @@
           <table>
             <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
+                <td>Die größsten Bedrohungen für Bienen</td>
                 <td class="has-text-right"><strong>4</strong> Optionen</td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
+                <td>Bienenpollen und Gesundheit</td>
                 <td class="has-text-right"><strong>7</strong> Optionen</td>
               </tr>
             </tbody>
@@ -63,12 +60,8 @@
           <table>
             <tbody>
             <tr>
-              <td>Strategien für Honigbienen</td>
-              <td class="has-text-right"><strong>4</strong> Optionen</td>
-            </tr>
-            <tr>
-              <td>Warum brauchen Bienen unsere hilfe?</td>
-              <td class="has-text-right"><strong>7</strong> Optionen</td>
+              <td>Soll die EU Neonicotinoide Verbieten?</td>
+              <td class="has-text-right"><strong>204</strong> Votes</td>
             </tr>
             </tbody>
           </table>
@@ -77,12 +70,14 @@
           <table>
             <tbody>
             <tr>
-              <td>Strategien für Honigbienen</td>
-              <td class="has-text-right"><strong>4</strong> Optionen</td>
+              <td>Eventchat mit immer Gene Brandi</td>
+              <td>Heute: 16 Uhr - 20 Uhr</td>
+              <td class="has-text-right"><strong>20</strong> Personen</td>
             </tr>
             <tr>
-              <td>Warum brauchen Bienen unsere hilfe?</td>
-              <td class="has-text-right"><strong>7</strong> Optionen</td>
+              <td>Biodiversität</td>
+              <td>Permanenter Chat</td>
+              <td class="has-text-right"><strong>124</strong> Personen</td>
             </tr>
             </tbody>
           </table>
@@ -94,12 +89,12 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. {{ contribution.type }}
+              1. <strong>{{ contribution.type }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
-              2. More Info
+              2. <strong>More Info</strong>
             </nuxt-link>
             <ul>
               <li><a>Verwandte Posts</a></li>
@@ -111,7 +106,7 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. Take Action
+              3. <strong>Take Action</strong>
             </nuxt-link>
           </li>
         </ul>
