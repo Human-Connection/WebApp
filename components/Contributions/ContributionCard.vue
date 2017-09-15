@@ -174,6 +174,7 @@
 
     .image {
       display: block;
+      width: 100%;
     }
 
     .profile-image {
