@@ -115,8 +115,9 @@
     @include fullhd() {
       width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
     }
-    // box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
-    box-shadow: $card-shadow;
+    @include tablet() {
+      box-shadow: $card-shadow;
+    }
 
     opacity: 0;
     // transition-duration: 0ms;
@@ -135,10 +136,12 @@
 
       z-index: 1;
 
-      &:hover {
-        box-shadow: $card-shadow-hover;
-        transform: scale(1.02);
-        z-index: 2;
+      @include tablet() {
+        &:hover {
+          box-shadow: $card-shadow-hover;
+          transform: scale(1.02);
+          z-index: 2;
+        }
       }
     }
     &.timeline {
