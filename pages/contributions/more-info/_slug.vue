@@ -90,7 +90,7 @@
       </div>
     </div>
     <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: absolute; width: 100%;">
+      <aside class="menu" style="position: fixed; width: 100%;">
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
