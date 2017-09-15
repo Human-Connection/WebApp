@@ -5,7 +5,7 @@
         <section class="section">
           <div class="content autowrap">
             <contribution-image :refresh="refrashOrNot" :src="contribution.teaserImg"></contribution-image>
-            <div class="columns">
+            <div class="columns is-mobile">
               <div class="column">
                 <author :post="contribution"></author>
               </div>
