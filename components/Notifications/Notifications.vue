@@ -1,5 +1,5 @@
 <template>
-  <div class="hc__notifications dropdown" @blur="active = false" tabindex="0">
+  <div class="notifications dropdown" @blur="active = false" tabindex="0">
     <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active, animate: notify }">
       <span class="notification-icon">
         <i class="fa fa-bell" aria-hidden="true"></i>
@@ -7,7 +7,7 @@
       </span>
     </a>
     <transition name="box">
-      <div class="box" v-if="active">
+      <div class="box notification-box" v-if="active">
         <p class="dropdown-title">Notifications</p>
         <p v-if="!isAuthenticated" class="dropdown-content empty">
           Please
@@ -20,7 +20,7 @@
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
             <transition-group name="notification">
-              <div class="hc__notification option" v-for="notification in notifications" :key="notification._id"
+              <div class="notification option" v-for="notification in notifications" :key="notification._id"
                    @click="followNotification(notification)">
                 <author :post="notification.comment"></author>
                 <p class="notification-message" v-html="notification.message"></p>
@@ -105,7 +105,7 @@
     position: relative;
   }
 
-  .hc__notifications.dropdown {
+  .notifications.dropdown {
     outline: none !important;
     box-shadow: none !important;
     background-color: #fff;
@@ -130,21 +130,27 @@
       display: inline-block;
     }
 
-    .box {
+    .notification-box {
       padding: 0;
       width: 300px;
-      transform: translateY(-50%) translateX(-50%);
+      position: fixed;
+      // transform: translateY(-50%) translateX(-50%);
       z-index: 1001;
       box-shadow: $card-shadow-hover;
-      overflow: hidden;
-      // box-shadow: 0 2px 10px rgba(0, 0, 0, .4);
+      // background-color: #fff;
+
+      transform: translateY(-50%) translateX(-50%);
+      left: 50vw;
+      top: 50vh;
 
       @include desktop() {
         position: absolute;
+        overflow: hidden;
         top: 100%;
         margin-top: 1px;
         left: 50% !important;
         transform: translateX(-50%);
+        margin-left: auto;
       }
     }
 
@@ -154,7 +160,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba($black, 0.4);
+      background-color: $backdrop-color;
       z-index: 1000;
       @include desktop() {
         display: none;
@@ -163,21 +169,28 @@
 
     .dropdown-title {
       font-weight: $weight-bold;
-      margin-bottom: 0.2em;
+      // margin-bottom: 0.2em;
       padding: 0.8rem 1rem 0.8rem;
       border-bottom: 1px solid $grey-lighter;
+      background-color: #fff;
     }
 
     .dropdown-scroll {
       overflow: auto;
-      max-height: 400px;
+
+      max-height: 70vh;
+      @include desktop() {
+        max-height: 400px;
+      }
     }
 
     .option {
       border-bottom: 1px solid lighten($grey-lighter, 6%);
       transition: all .2s ease-out;
       padding: 8px 8px;
+      margin-bottom: 0;
       cursor: pointer;
+      background-color: $white;
 
       &:hover {
         // box-shadow: 0px 2px 7px rgba($black, 0.2);
@@ -190,7 +203,7 @@
     }
 
     .notification-message {
-      margin-top: 0.5em;
+      // margin-top: 0.5em;
     }
 
     .dropdown-content {
@@ -237,7 +250,7 @@
     color: $grey-light;
   }
 
-  .hc__notification {
+  .notification {
     p {
       font-size: $size-7;
     }

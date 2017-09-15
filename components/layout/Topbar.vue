@@ -28,7 +28,7 @@
           </div>
         </div>
         <template v-else>
-          <b-dropdown position="is-bottom-left" style="text-align: left;">
+          <b-dropdown class="navigation-dropdown" position="is-bottom-left" style="text-align: left;">
             <a class="navbar-item" slot="trigger">
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
@@ -43,14 +43,14 @@
                 Profile
               </nuxt-link>
             </b-dropdown-item>
-            <b-dropdown-item value="settings" disabled>
+            <!--<b-dropdown-item value="settings" disabled>
               <i class="fa fa-sliders" style="padding-right: 5px;"></i>
               Settings
             </b-dropdown-item>
             <b-dropdown-item value="calendar" disabled>
               <b-icon icon="date_range"></b-icon>
               Calendar
-            </b-dropdown-item>
+            </b-dropdown-item>-->
             <b-dropdown-item v-if="isAdmin" hasLink value="admin">
               <nuxt-link to="/admin" class="nav-item">
                 <b-icon icon="settings"></b-icon>
@@ -218,6 +218,12 @@
   @include mobile() {
     .nav-center {
       width: 30vw;
+    }
+  }
+
+  .navigation-dropdown {
+    & > hr, & > b-dropdown-item {
+      visibility: hidden;
     }
   }
 </style>

@@ -72,14 +72,20 @@
       imageLoaded () {
         // show card after the image has been loaded
         this.$emit('ready')
-        this.ready = true
+        setTimeout(() => {
+          this.$nextTick(() => {
+            this.ready = true
+          })
+        }, 50)
       }
     },
     mounted () {
       if (!this.post.image) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
-          this.ready = true
+          this.$nextTick(() => {
+            this.ready = true
+          })
         }, 50)
       }
     }
@@ -109,13 +115,14 @@
     @include fullhd() {
       width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
     }
-    // box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
-    box-shadow: $card-shadow;
+    @include tablet() {
+      box-shadow: $card-shadow;
+    }
 
     opacity: 0;
-    transition-duration: 0ms;
-    transition: opacity 0ms;
-    transition-delay: 100ms;
+    // transition-duration: 0ms;
+    transition: opacity 250ms;
+    transition-delay: 10ms;
     //  border: 1px solid rgba(black, 0.15);
 
     &.show {
@@ -129,10 +136,12 @@
 
       z-index: 1;
 
-      &:hover {
-        box-shadow: $card-shadow-hover;
-        transform: scale(1.02);
-        z-index: 2;
+      @include tablet() {
+        &:hover {
+          box-shadow: $card-shadow-hover;
+          transform: scale(1.02);
+          z-index: 2;
+        }
       }
     }
     &.timeline {

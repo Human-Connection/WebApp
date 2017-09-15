@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column is-8 is-offset-2">
+    <div class="column is-8">
       <div class="card">
         <section class="section">
           <div class="content autowrap">
@@ -23,11 +23,11 @@
             </div>
             <p class="content" v-html="content"></p>
             <br/>
-            <div class="columns is-mobile">
-              <div class="column is-9">
+            <div class="columns">
+              <div class="column is-9 is-mobile">
                 <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
               </div>
-              <div class="column is-3">
+              <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
                   <div class="level-item has-text-centered">
                     <div>
@@ -73,6 +73,36 @@
           </no-ssr>
         </section>
       </div>
+    </div>
+    <div class="column is-hidden-mobile" style="position: relative;">
+      <aside class="menu" style="position: fixed; width: 100%;">
+        <p class="menu-label">
+          Human Connection
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a class="is-active is-capitalized">
+              1. {{ contribution.type }}
+            </a>
+          </li>
+          <li>
+            <nuxt-link :to="{ path: '/' }">
+              2. More Info
+            </nuxt-link>
+          </li>
+          <li>
+            <a>
+              3. Take Action
+            </a>
+          </li>
+        </ul>
+        <p class="menu-label">
+          Discuss
+        </p>
+        <ul class="menu-list">
+          <li><a style="position: relative; display: inline-block;">Comments <hc-count-label :count="commentCount"></hc-count-label></a></li>
+        </ul>
+      </aside>
     </div>
   </div>
 </template>
