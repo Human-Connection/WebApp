@@ -152,7 +152,7 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
   @import 'assets/styles/utilities';
 
   .cards {
@@ -183,15 +183,20 @@
     bottom: 50px;
     right: 50px;
 
+    @include mobile() {
+      bottom: 25px;
+      right: 25px;
+    }
+
     .button {
-      box-shadow: $card-shadow-hover;
+      box-shadow: 0 20px 60px 0 rgba(0, 0, 0, .35) !important;
       transition: box-shadow, transform;
       transition-duration: 100ms;
       transition-timing-function: ease-in-out;
 
       &:hover {
         transform: scale(1.1);
-        box-shadow: $card-shadow-hover;
+        box-shadow: 0 20px 60px 0 rgba(0, 0, 0, .35);
       }
     }
   }
