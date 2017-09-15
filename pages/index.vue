@@ -101,7 +101,7 @@
         }
         feathers.service('contributions').find({query: query}).then(res => {
           this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
-          setTimeout(() => {
+          this.$nextTick(() => {
             this.updateGrid()
 
             let lastItemNum = res.data.length + res.skip
@@ -135,9 +135,14 @@
 
       this.ready = true
 
-      window.onload = () => {
+      window.addEventListener('load', () => {
         this.updateGrid()
-      }
+      })
+      window.addEventListener('resize', _.debounce((e) => {
+        if (e.target.innerWidth < 769) {
+          this.updateGrid()
+        }
+      }, 200))
     },
     head () {
       return {
@@ -154,7 +159,11 @@
     padding: 0;
     margin-left: auto;
     margin-right: auto;
-    max-width: 100%;
+
+    @include mobile() {
+      margin-top: -1rem;
+      width: 100vw !important;
+    }
   }
 
   .loader-no-data,
