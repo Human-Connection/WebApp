@@ -74,15 +74,27 @@
         </section>
       </div>
     </div>
-    <div class="column" style="position: relative;">
+    <div class="column is-hidden-mobile" style="position: relative;">
       <aside class="menu" style="position: fixed; width: 100%;">
         <p class="menu-label">
           Human Connection
         </p>
         <ul class="menu-list">
-          <li><a class="is-active">{{ contribution.title }}</a></li>
-          <li><a>More Info</a></li>
-          <li><a>Take Action</a></li>
+          <li>
+            <a class="is-active is-capitalized">
+              1. {{ contribution.type }}
+            </a>
+          </li>
+          <li>
+            <nuxt-link :to="{ path: '/' }">
+              2. More Info
+            </nuxt-link>
+          </li>
+          <li>
+            <a>
+              3. Take Action
+            </a>
+          </li>
         </ul>
         <p class="menu-label">
           Discuss
