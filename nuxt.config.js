@@ -22,7 +22,7 @@ module.exports = {
     ],
     link: [
       {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
-      {rel: 'link', reql: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons'}
+      {rel: 'stylesheet', href: '//fonts.googleapis.com/icon?family=Material+Icons'}
     ]
   },
   /*
