@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column is-8">
+    <div class="column is-8 is-offset-1-widescreen">
       <div class="card">
         <section class="section">
           <div class="content autowrap">
@@ -63,44 +63,50 @@
               <b-tab-item :label="'Comments (' + commentCount + ')'">
                 <comments :post="contribution"/>
               </b-tab-item>
-              <b-tab-item label="Versus">
-                Versus
+              <b-tab-item label="Let's Talk">
+                <div class="notification is-warning">
+                  <strong>Lets Talk</strong>, comming soon...
+                </div>
               </b-tab-item>
-              <b-tab-item label="Can Do">
-                Can Do
+              <b-tab-item label="Versus">
+                <div class="notification is-warning">
+                  <strong>Versus</strong>, comming soon...
+                </div>
               </b-tab-item>
             </b-tabs>
           </no-ssr>
         </section>
       </div>
     </div>
-    <div class="column is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: fixed; width: 100%;">
-        <p class="menu-label">
-          Human Connection
-        </p>
+    <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
+      <aside class="menu" style="position: absolute; width: 100%;">
         <ul class="menu-list">
           <li>
-            <a class="is-active is-capitalized">
+            <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
               1. {{ contribution.type }}
-            </a>
+            </nuxt-link>
+            <ul>
+              <li>
+                <a>Kommentare ({{commentCount}})</a>
+              </li>
+              <li>
+                <a>Let's Talk</a>
+              </li>
+              <li>
+                <a>Versus</a>
+              </li>
+            </ul>
           </li>
           <li>
-            <nuxt-link :to="{ path: '/' }">
+            <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
               2. More Info
             </nuxt-link>
           </li>
           <li>
-            <a>
+            <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
               3. Take Action
-            </a>
+            </nuxt-link>
           </li>
-        </ul>
-        <p class="menu-label">
-          Discuss
-        </p>
-        <ul class="menu-list">
-          <li><a style="position: relative; display: inline-block;">Comments <hc-count-label :count="commentCount"></hc-count-label></a></li>
         </ul>
       </aside>
     </div>
