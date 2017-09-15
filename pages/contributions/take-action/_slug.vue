@@ -4,6 +4,9 @@
       <div class="card">
         <section class="section">
           <div class="content">
+            <div class="notification is-danger is-hidden-tablet">
+              <strong>The sidebar is currently hidden on mobile!</strong>
+            </div>
             <h1>Take Action</h1>
             <div class="notification">
               <strong>This is currenty dummy content</strong>

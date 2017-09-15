@@ -15,6 +15,9 @@
                 </nuxt-link>
               </div>
             </div>
+            <div class="notification is-danger is-hidden-tablet">
+              <strong>The sidebar is currently hidden on mobile!</strong>
+            </div>
             <h1>{{ contribution.title }}</h1>
             <div class="tags" v-if= "categories.length">
               <span class="tag is-primary" v-for="category in categories">
