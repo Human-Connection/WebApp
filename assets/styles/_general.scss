@@ -27,15 +27,16 @@ footer {
 }
 
 .page-leave-active {
-  transition: opacity 50ms
+  transition: opacity 0ms;
 }
 
 .page-enter-active {
-  transition: opacity 150ms
+  transition: opacity 250ms;
+  transition-delay: 10ms;
 }
 
 .page-enter, .page-leave-active {
-  opacity: 0
+  opacity: 0;
 }
 
 input, textarea {

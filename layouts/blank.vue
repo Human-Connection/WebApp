@@ -1,10 +1,22 @@
 <template>
-  <div class="hc__blank">
+  <div class="hc__blank" :class="{ hidden: hidden }">
     <nuxt/>
   </div>
 </template>
 
 <script>
+  export default {
+    data () {
+      return {
+        hidden: true
+      }
+    },
+    mounted () {
+      this.$nextTick(() => {
+        this.hidden = false
+      })
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -15,5 +27,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: opacity 150ms;
+    opacity: 1;
+  }
+
+  .hidden {
+    opacity: 0;
   }
 </style>

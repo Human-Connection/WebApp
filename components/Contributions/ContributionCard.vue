@@ -72,14 +72,20 @@
       imageLoaded () {
         // show card after the image has been loaded
         this.$emit('ready')
-        this.ready = true
+        setTimeout(() => {
+          this.$nextTick(() => {
+            this.ready = true
+          })
+        }, 50)
       }
     },
     mounted () {
       if (!this.post.image) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
-          this.ready = true
+          this.$nextTick(() => {
+            this.ready = true
+          })
         }, 50)
       }
     }
@@ -113,9 +119,9 @@
     box-shadow: $card-shadow;
 
     opacity: 0;
-    transition-duration: 0ms;
-    transition: opacity 0ms;
-    transition-delay: 100ms;
+    // transition-duration: 0ms;
+    transition: opacity 250ms;
+    transition-delay: 10ms;
     //  border: 1px solid rgba(black, 0.15);
 
     &.show {
