@@ -204,6 +204,7 @@
 
     .notification-message {
       // margin-top: 0.5em;
+      padding: 1rem 0 0.5rem;
     }
 
     .dropdown-content {
