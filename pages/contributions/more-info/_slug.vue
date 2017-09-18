@@ -7,7 +7,7 @@
             <strong>The sidebar is currently hidden on mobile!</strong>
           </div>
           <h1>More Info</h1>
-          <div class="notification">
+          <div class="notification is-hidden">
             <strong>This is currenty dummy content</strong>
           </div>
 
@@ -20,13 +20,16 @@
 
           <h3>Tags</h3>
           <div class="tags">
-            <span class="tag">Tag 1</span>
-            <span class="tag">Tag 2</span>
-            <span class="tag">Tag 3</span>
+            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
+            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
+            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Imkern</span>
+            <a>
+              <span class="tag"><hc-icon icon="plus"></hc-icon></span>
+            </a>
           </div>
 
           <h3>Verwandte Posts</h3>
-          <table>
+          <table class="table is-striped">
             <tbody>
               <tr>
                 <td>Strategienn für Honigbienen</td>
@@ -44,7 +47,7 @@
           </table>
 
           <h3>Pro & Kontras</h3>
-          <table>
+          <table class="table is-striped">
             <tbody>
               <tr>
                 <td>Kann die globale Erwärmung positive Effekte...</td>
@@ -58,7 +61,7 @@
           </table>
 
           <h3>Bestlisten</h3>
-          <table>
+          <table class="table is-striped">
             <tbody>
               <tr>
                 <td>Die größsten Bedrohungen für Bienen</td>
@@ -72,7 +75,7 @@
           </table>
 
           <h3>Votes</h3>
-          <table>
+          <table class="table is-striped">
             <tbody>
             <tr>
               <td>Soll die EU Neonicotinoide Verbieten?</td>
@@ -82,16 +85,26 @@
           </table>
 
           <h3>Chatrooms</h3>
-          <table>
+          <table class="table is-striped">
             <tbody>
             <tr>
+              </td>
+              <td style="width: 130px;">
+                <div class="has-text-centered">
+                  <span class="title">Heute</span><br/>
+                  <span class="heading is-inline">16:00 - 20:00 Uhr</span>
+                </div>
+              </td>
               <td>Eventchat mit immer Gene Brandi</td>
-              <td>Heute: 16 Uhr - 20 Uhr</td>
               <td class="has-text-right"><strong>20</strong> Personen</td>
             </tr>
             <tr>
+              <td style="width: 130px;">
+                <div class="has-text-centered">
+                  <span class="title">∞</span><br/>
+                  <span class="heading is-inline">Permanent</span>
+                </div>
               <td>Biodiversität</td>
-              <td>Permanenter Chat</td>
               <td class="has-text-right"><strong>124</strong> Personen</td>
             </tr>
             </tbody>
@@ -207,6 +220,11 @@
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
 
+  .table {
+    td {
+      border-color: $grey-lighter;
+    }
+  }
   .card {
     border: none;
     box-shadow: $card-shadow;

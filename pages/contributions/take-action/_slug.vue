@@ -7,12 +7,38 @@
             <div class="notification is-danger is-hidden-tablet">
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
+            <div class="is-inline-flex is-hidden">
+              <div class="has-text-centered" style="padding-right: 1rem;">
+                <p class="heading">
+                  <hc-button color="primary" size="medium" circle>
+                    <hc-icon set="hc" icon="categories-justforfun"></hc-icon>
+                  </hc-button>
+                </p>
+                <p class="heading">Just for Fun</p>
+              </div>
+              <div class="has-text-centered" style="padding-right: 1rem;">
+                <p class="heading">
+                  <hc-button color="" size="medium" circle>
+                    <hc-icon set="hc" icon="categories-luck"></hc-icon>
+                  </hc-button>
+                </p>
+                <p class="heading">Glück & Werte</p>
+              </div>
+              <div class="has-text-centered" style="padding-right: 1rem;">
+                <p class="heading">
+                  <hc-button color="primary" size="medium" circle>
+                    <hc-icon set="hc" icon="categories-health"></hc-icon>
+                  </hc-button>
+                </p>
+                <p class="heading">Gesundheit & Wohlbefinden</p>
+              </div>
+            </div>
             <h1>Take Action</h1>
-            <div class="notification">
+            <div class="notification is-hidden">
               <strong>This is currenty dummy content</strong>
             </div>
 
-            <h3>Organisationen</h3>
+            <h3 id="ngos">Organisationen</h3>
             <div class="tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
@@ -20,7 +46,7 @@
                 <li><a>Andere</a></li>
               </ul>
             </div>
-            <table>
+            <table class="table is-striped">
               <tbody>
                 <tr>
                   <td>
@@ -45,8 +71,8 @@
               </tbody>
             </table>
 
-            <h3>Can Do's</h3>
-            <table>
+            <h3 id="can-dos">Can Do's</h3>
+            <table class="table is-striped">
               <tbody>
               <tr>
                 <td>Einen bienenfreundlichen Garten anlegen</td>
@@ -66,8 +92,8 @@
               </tbody>
             </table>
 
-            <h3>Projekte</h3>
-            <table>
+            <h3 id="projects">Projekte</h3>
+            <table class="table is-striped">
               <tbody>
               <tr>
                 <td>
@@ -84,8 +110,8 @@
               </tbody>
             </table>
 
-            <h3>Jobs</h3>
-            <table>
+            <h3 id="jobs">Jobs</h3>
+            <table class="table is-striped">
               <tbody>
               <tr>
                 <td>Bienenstöcke bauen</td>
@@ -100,11 +126,48 @@
               </tbody>
             </table>
 
-            <h3>Bevorstehende Events</h3>
-            <div class="notification">Keine Events</div>
+            <h3 id="events">Events</h3>
+            <table class="table is-striped">
+              <tbody>
+              <tr>
+                <td style="width: 130px;">
+                  <div class="has-text-centered is-pulled-left">
+                    <div class="is-inline-block has-text-centered">
+                      <span class="title">10</span><br/>
+                      <span class="heading is-inline">Aug</span>
+                    </div>
+                    <div class="is-inline-block has-text-centered">
+                      <span class="title">&nbsp;-&nbsp;</span><br/>
+                      <span class="heading is-inline">&nbsp;</span>
+                    </div>
+                    <div class="is-inline-block has-text-centered">
+                      <span class="title">12</span><br/>
+                      <span class="heading is-inline">Aug</span>
+                    </div>
+                  </div>
+                </td>
+                <td>Online-Workshop Bienen züchten</td>
+                <td>Überall</td>
+                <td class="has-text-right"><strong>158</strong> nehmen teil</td>
+              </tr>
+              <tr>
+                <td style="width: 130px;">
+                  <div class="has-text-centered is-pulled-left">
+                    <span class="title">03</span><br/>
+                    <span class="heading is-inline">Sep</span>
+                  </div>
+                </td>
+                <td>Weltweiter Honigbienentag</td>
+                <td>Berlin</td>
+                <td class="has-text-right"><strong>171.526</strong> nehmen teil</td>
+              </tr>
+              </tbody>
+            </table>
 
-            <h3>Karte</h3>
-            <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
+            <h3 id="maps">Karte</h3>
+            <no-ssr>
+              <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
+            </no-ssr>
           </div>
         </section>
       </div>
@@ -127,11 +190,12 @@
               3. <strong>Take Action</strong>
             </nuxt-link>
             <ul>
-              <li><a>Organisationen</a></li>
-              <li><a>Can Do's</a></li>
-              <li><a>Projekte</a></li>
-              <li><a>Jobs</a></li>
-              <li><a>Karte</a></li>
+              <li><a href="#ngos">Organisationen</a></li>
+              <li><a href="#can-dos">Can Do's</a></li>
+              <li><a href="#projects">Projekte</a></li>
+              <li><a href="#jobs">Jobs</a></li>
+              <li><a href="#events">Events</a></li>
+              <li><a href="#maps">Karte</a></li>
             </ul>
           </li>
         </ul>
@@ -250,6 +314,12 @@
     border: none;
     box-shadow: $card-shadow;
   }
+  .table {
+    td {
+      border-color: $grey-lighter;
+    }
+  }
+
   .b-tabs.footer {
     padding-top: 10px;
     padding-bottom: 40px;
