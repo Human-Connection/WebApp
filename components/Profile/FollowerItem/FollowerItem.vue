@@ -1,6 +1,6 @@
 <template>
   <div class="hc-follower-item">
-    <div class="hc-follower-image"><img src="https://randomuser.me/api/portraits/women/42.jpg" alt=""></div>
+    <hc-avatar class="hc-follower-image" url="https://randomuser.me/api/portraits/women/42.jpg"></hc-avatar>
     <div class="hc-follower-details">
       <span class="details-title">{{ title }}</span>
       <span class="details-timestamp">Letzter Post: {{ timestamp }}</span>
@@ -10,8 +10,13 @@
 </template>
 
 <script>
+  import Avatar from '~/components/Avatar/Avatar'
+
   export default {
     name: 'hc-follower-item',
+    components: {
+      'hc-avatar': Avatar
+    },
     props: ['title', 'timestamp']
   }
 </script>
@@ -21,12 +26,8 @@
     display: flex;
     .hc-follower-image {
       padding-right: 5px;
-      img {
-        width: 60px;
-        height: 60px;
-        border-radius: 60px;
-        border: 1px solid lightgrey;
-      }
+      width:         60px;
+      height:        60px;
     }
     .hc-follower-details {
       display: flex;
