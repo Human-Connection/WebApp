@@ -4,13 +4,16 @@
       <div class="column is-6 is-offset-3 has-text-centered">
         <div class="card">
           <div class="card-content">
-            <p v-if="loading && !user.isVerified">Verfifying your email address ...</p>
-            <template v-else-if="user.isVerified">
+            <p v-if="loading && !isVerified">Verfifying your email address ...</p>
+            <template v-else-if="isVerified">
               <hc-emoji type="happy" width="150px"></hc-emoji>
               <h1 class="title is-2">Email verification</h1>
               <p>Your email address has been verified successfully.</p>
-              <nuxt-link :to="{ name: 'auth-login' }" class="button is-primary is-medium">
+              <nuxt-link v-if="!user" :to="{ name: 'auth-login' }" class="button is-primary is-medium">
                 Login to your account
+              </nuxt-link>
+              <nuxt-link v-else to="/" class="button is-primary is-medium">
+                Let's go!
               </nuxt-link>
             </template>
             <template v-else>
@@ -38,18 +41,24 @@
     computed: {
       ...mapGetters({
         user: 'auth/user'
-      })
+      }),
+      isVerified () {
+        return !this.user ? this.verified : this.user.isVerified
+      }
     },
     data () {
       return {
-        loading: true
+        loading: true,
+        verified: false
       }
     },
     mounted () {
       const app = this
       const verfifyToken = app.$route.params.slug
       this.verify(verfifyToken)
-        .then(() => {
+        .then((res) => {
+          console.log('RES:', res)
+          this.verified = !!res
           app.loading = false
         })
         .catch((error) => {
