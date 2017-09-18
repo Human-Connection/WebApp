@@ -6,7 +6,7 @@
            @click="onClick(key)">
         <div>
           <p class="smiley heading">
-            <hc-emoji :type="key" width="50" height="50"></hc-emoji><br/>
+            <hc-emoji :type="getEmoticon(key)" width="50" height="50"></hc-emoji><br/>
             {{key}}
           </p>
           <p class="title">
@@ -42,7 +42,8 @@
     },
     data () {
       return {
-        values: {}
+        values: {},
+        selected: null
       }
     },
     created () {
@@ -67,12 +68,29 @@
           this.contribution.emotions = res.emotions
         }
       })
+      feathers.service('emotions').find({
+        query: {
+          contributionId: this.contribution._id,
+          userId: this.user._id
+        }
+      }).then((res) => {
+        if (res && !_.isEmpty(res.data)) {
+          this.selected = res.data[0].rated
+        }
+      })
     },
     beforeDestroy () {
       feathers.service('contributions').off('patched')
     },
     methods: {
+      getEmoticon (key) {
+        if (this.selected === key) {
+          return `${key}_color`
+        }
+        return key
+      },
       async onClick (key) {
+        this.selected = key
         let postData = {
           contributionId: this.contribution._id,
           userId: this.user ? this.user._id : null,
