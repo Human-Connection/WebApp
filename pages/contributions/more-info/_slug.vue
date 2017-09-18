@@ -43,6 +43,11 @@
                 <td>Stadtbienen</td>
                 <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
               </tr>
+              <tr>
+                <td colspan="2" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -56,6 +61,11 @@
               <tr>
                 <td>Gryphosat - eine Bedrohung für Bienen?</td>
                 <td class="has-text-right"><strong>11</strong> Pro | <strong>3</strong> Con</td>
+              </tr>
+              <tr>
+                <td colspan="2" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
               </tr>
             </tbody>
           </table>
@@ -71,6 +81,11 @@
                 <td>Bienenpollen und Gesundheit</td>
                 <td class="has-text-right"><strong>7</strong> Optionen</td>
               </tr>
+              <tr>
+                <td colspan="2" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -80,6 +95,11 @@
             <tr>
               <td>Soll die EU Neonicotinoide Verbieten?</td>
               <td class="has-text-right"><strong>204</strong> Votes</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="is-white">
+                <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+              </td>
             </tr>
             </tbody>
           </table>
@@ -106,6 +126,11 @@
                 </div>
               <td>Biodiversität</td>
               <td class="has-text-right"><strong>124</strong> Personen</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="is-white">
+                <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+              </td>
             </tr>
             </tbody>
           </table>

@@ -39,7 +39,7 @@
             </div>
 
             <h3 class="title is-4" id="ngos">Organisationen</h3>
-            <div class="tabs is-small">
+            <div class="is-hidden tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
                 <li><a>Non-Profit</a></li>
@@ -68,6 +68,11 @@
                   </td>
                   <td class="has-text-right"><strong>321</strong>&nbsp;Follower</td>
                 </tr>
+                <tr>
+                  <td colspan="3" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
               </tbody>
             </table>
 
@@ -89,6 +94,11 @@
                 <td>Einfach</td>
                 <td class="has-text-right"><strong>12.038</strong> haben das geschafft</td>
               </tr>
+              <tr>
+                <td colspan="3" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
+              </tr>
               </tbody>
             </table>
 
@@ -107,6 +117,11 @@
                   <small>Die Bee Alert App</small>
                 </td>
               </tr>
+              <tr>
+                <td colspan="2" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
+              </tr>
               </tbody>
             </table>
 
@@ -122,6 +137,11 @@
                 <td>Bienenstockbauer</td>
                 <td>Handwerker</td>
                 <td class="has-text-right"><strong>10</strong> benötigt</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
               </tr>
               </tbody>
             </table>
@@ -160,6 +180,11 @@
                 <td>Weltweiter Honigbienentag</td>
                 <td>Berlin</td>
                 <td class="has-text-right"><strong>171.526</strong> nehmen teil</td>
+              </tr>
+              <tr>
+                <td colspan="4" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
               </tr>
               </tbody>
             </table>
