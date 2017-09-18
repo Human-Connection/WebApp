@@ -68,16 +68,18 @@
           this.contribution.emotions = res.emotions
         }
       })
-      feathers.service('emotions').find({
-        query: {
-          contributionId: this.contribution._id,
-          userId: this.user._id
-        }
-      }).then((res) => {
-        if (res && !_.isEmpty(res.data)) {
-          this.selected = res.data[0].rated
-        }
-      })
+      if (this.user) {
+        feathers.service('emotions').find({
+          query: {
+            contributionId: this.contribution._id,
+            userId: this.user._id
+          }
+        }).then((res) => {
+          if (res && !_.isEmpty(res.data)) {
+            this.selected = res.data[0].rated
+          }
+        })
+      }
     },
     beforeDestroy () {
       feathers.service('contributions').off('patched')
