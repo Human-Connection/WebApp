@@ -91,7 +91,7 @@
               </td>
               <td style="width: 130px;">
                 <div class="has-text-centered">
-                  <span class="title">Heute</span><br/>
+                  <span class="title is-5">Heute</span><br/>
                   <span class="heading is-inline">16:00 - 20:00 Uhr</span>
                 </div>
               </td>
@@ -101,7 +101,7 @@
             <tr>
               <td style="width: 130px;">
                 <div class="has-text-centered">
-                  <span class="title">∞</span><br/>
+                  <span class="title is-5">∞</span><br/>
                   <span class="heading is-inline">Permanent</span>
                 </div>
               <td>Biodiversität</td>

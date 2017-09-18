@@ -33,12 +33,12 @@
                 <p class="heading">Gesundheit & Wohlbefinden</p>
               </div>
             </div>
-            <h1>Take Action</h1>
+            <h1 class="title is-1"> Take Action</h1>
             <div class="notification is-hidden">
               <strong>This is currenty dummy content</strong>
             </div>
 
-            <h3 id="ngos">Organisationen</h3>
+            <h3 class="title is-4" id="ngos">Organisationen</h3>
             <div class="tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
@@ -71,7 +71,7 @@
               </tbody>
             </table>
 
-            <h3 id="can-dos">Can Do's</h3>
+            <h3 class="title is-4" id="can-dos">Can Do's</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -92,7 +92,7 @@
               </tbody>
             </table>
 
-            <h3 id="projects">Projekte</h3>
+            <h3 class="title is-4" id="projects">Projekte</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -110,7 +110,7 @@
               </tbody>
             </table>
 
-            <h3 id="jobs">Jobs</h3>
+            <h3 class="title is-4" id="jobs">Jobs</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -126,22 +126,22 @@
               </tbody>
             </table>
 
-            <h3 id="events">Events</h3>
+            <h3 class="title is-4" id="events">Events</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
-                <td style="width: 130px;">
+                <td style="width: 110px;">
                   <div class="has-text-centered is-pulled-left">
                     <div class="is-inline-block has-text-centered">
-                      <span class="title">10</span><br/>
+                      <span class="title is-5">10</span><br/>
                       <span class="heading is-inline">Aug</span>
                     </div>
                     <div class="is-inline-block has-text-centered">
-                      <span class="title">&nbsp;-&nbsp;</span><br/>
+                      <span class="title is-5">&nbsp;-&nbsp;</span><br/>
                       <span class="heading is-inline">&nbsp;</span>
                     </div>
                     <div class="is-inline-block has-text-centered">
-                      <span class="title">12</span><br/>
+                      <span class="title is-5">12</span><br/>
                       <span class="heading is-inline">Aug</span>
                     </div>
                   </div>
@@ -151,9 +151,9 @@
                 <td class="has-text-right"><strong>158</strong> nehmen teil</td>
               </tr>
               <tr>
-                <td style="width: 130px;">
+                <td style="width: 110px;">
                   <div class="has-text-centered is-pulled-left">
-                    <span class="title">03</span><br/>
+                    <span class="title is-5">03</span><br/>
                     <span class="heading is-inline">Sep</span>
                   </div>
                 </td>
