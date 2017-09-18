@@ -20,7 +20,7 @@
               <hc-emoji type="surprised" width="150px"></hc-emoji>
               <h1 class="title is-2">Ooooops ...</h1>
               <p>
-                We were not able to verify your email address. Maybe you the link you clicked is outdated. Please request a new verification mail.</p>
+                We were not able to verify your email address. Maybe the link you clicked is outdated. Please request a new verification mail.</p>
             </template>
           </div>
         </div>
