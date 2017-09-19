@@ -102,12 +102,12 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>More Info</strong>
+              2. <strong>Mehr Info</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>Take Action</strong>
+              3. <strong>Aktiv werden</strong>
             </nuxt-link>
           </li>
         </ul>

@@ -33,7 +33,7 @@
                 <p class="heading">Gesundheit & Wohlbefinden</p>
               </div>
             </div>
-            <h1 class="title is-1"> Take Action</h1>
+            <h1 class="title is-1"> Aktiv werden</h1>
             <div class="notification is-hidden">
               <strong>This is currenty dummy content</strong>
             </div>
@@ -207,12 +207,12 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>More Info</strong>
+              2. <strong>Mehr Info</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
-              3. <strong>Take Action</strong>
+              3. <strong>Aktiv werden</strong>
             </nuxt-link>
             <ul>
               <li><a href="#ngos">Organisationen</a></li>

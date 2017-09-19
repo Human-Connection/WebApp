@@ -6,7 +6,7 @@
           <div class="notification is-danger is-hidden-tablet">
             <strong>The sidebar is currently hidden on mobile!</strong>
           </div>
-          <h1>More Info</h1>
+          <h1>Mehr Info</h1>
           <div class="notification is-hidden">
             <strong>This is currenty dummy content</strong>
           </div>
@@ -59,7 +59,7 @@
                 <td class="has-text-right"><strong>3</strong> Pro | <strong>7</strong> Con</td>
               </tr>
               <tr>
-                <td>Gryphosat - eine Bedrohung für Bienen?</td>
+                <td>Glyphosat - eine Bedrohung für Bienen?</td>
                 <td class="has-text-right"><strong>11</strong> Pro | <strong>3</strong> Con</td>
               </tr>
               <tr>
@@ -147,7 +147,7 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
-              2. <strong>More Info</strong>
+              2. <strong>Mehr Info</strong>
             </nuxt-link>
             <ul>
               <li><a>Verwandte Posts</a></li>
@@ -159,7 +159,7 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>Take Action</strong>
+              3. <strong>Aktiv werden</strong>
             </nuxt-link>
           </li>
         </ul>
