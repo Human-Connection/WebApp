@@ -15,6 +15,9 @@
                 </nuxt-link>
               </div>
             </div>
+            <div class="notification is-danger is-hidden-tablet">
+              <strong>The sidebar is currently hidden on mobile!</strong>
+            </div>
             <h1>{{ contribution.title }}</h1>
             <div class="tags" v-if= "categories.length">
               <span class="tag is-primary" v-for="category in categories">
@@ -79,11 +82,11 @@
       </div>
     </div>
     <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: absolute; width: 100%;">
+      <aside class="menu" style="position: fixed; width: 100%;">
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. {{ contribution.type }}
+              1. <strong>{{ contribution.type }}</strong>
             </nuxt-link>
             <ul>
               <li>
@@ -99,12 +102,12 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. More Info
+              2. <strong>Mehr Info</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. Take Action
+              3. <strong>Aktiv werden</strong>
             </nuxt-link>
           </li>
         </ul>

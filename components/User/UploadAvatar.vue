@@ -109,7 +109,7 @@
         overflow:            hidden;
         border-radius:       100%;
         margin:              0 auto;
-        border:              1px solid rgba(204, 204, 204, 0.5);
+        box-shadow:          inset 0 0 0 1px rgba(0, 0, 0, .1);
         background-position: center;
         background-size:     cover;
     }

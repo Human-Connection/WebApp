@@ -4,108 +4,223 @@
       <div class="card">
         <section class="section">
           <div class="content">
-            <h1>Take Action</h1>
-            <div class="notification">
+            <div class="notification is-danger is-hidden-tablet">
+              <strong>The sidebar is currently hidden on mobile!</strong>
+            </div>
+            <div class="is-inline-flex is-hidden">
+              <div class="has-text-centered" style="padding-right: 1rem;">
+                <p class="heading">
+                  <hc-button color="primary" size="medium" circle>
+                    <hc-icon set="hc" icon="categories-justforfun"></hc-icon>
+                  </hc-button>
+                </p>
+                <p class="heading">Just for Fun</p>
+              </div>
+              <div class="has-text-centered" style="padding-right: 1rem;">
+                <p class="heading">
+                  <hc-button color="" size="medium" circle>
+                    <hc-icon set="hc" icon="categories-luck"></hc-icon>
+                  </hc-button>
+                </p>
+                <p class="heading">Glück & Werte</p>
+              </div>
+              <div class="has-text-centered" style="padding-right: 1rem;">
+                <p class="heading">
+                  <hc-button color="primary" size="medium" circle>
+                    <hc-icon set="hc" icon="categories-health"></hc-icon>
+                  </hc-button>
+                </p>
+                <p class="heading">Gesundheit & Wohlbefinden</p>
+              </div>
+            </div>
+            <h1 class="title is-1"> Aktiv werden</h1>
+            <div class="notification is-hidden">
               <strong>This is currenty dummy content</strong>
             </div>
 
-            <h3>Organisationen</h3>
-            <table>
+            <h3 class="title is-4" id="ngos">Organisationen</h3>
+            <div class="is-hidden tabs is-small">
+              <ul>
+                <li class="is-active"><a>Wohltätig</a></li>
+                <li><a>Non-Profit</a></li>
+                <li><a>Andere</a></li>
+              </ul>
+            </div>
+            <table class="table is-striped">
               <tbody>
                 <tr>
-                  <td>Natural Wildlife Fundation</td>
-                  <td class="has-text-right"><strong>1234</strong> Follower</td>
+                  <td>
+                    <img style="max-width: 100px;" src="http://www.nwf.org/~/media/Design/Footer/logo-homepage-footer.ashx" alt=""/>
+                  </td>
+                  <td>
+                    <strong>Natural Wildlife Fundation</strong><br/>
+                    <small>Die National Wildlife Federation (NWF) ist die größte Umweltschutzorganisation der Vereinigten Staaten. DIe Organisation hat über fünf Millionen Mitglieder und ein jährliches Budget von mehr als 125 Millionen USD (2006).</small>
+                  </td>
+                  <td class="has-text-right"><strong>1234</strong>&nbsp;Follower</td>
                 </tr>
                 <tr>
-                  <td>Safe the Honeybee Fundation</td>
-                  <td class="has-text-right"><strong>321</strong> Follower</td>
+                  <td>
+                    <img style="max-width: 100px;" src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fst2.depositphotos.com%2F3573725%2F6558%2Fv%2F950%2Fdepositphotos_65587587-stock-illustration-logo-for-honey-bee.jpg&f=1" alt=""/>
+                  </td>
+                  <td>
+                    <strong></strong>Save the Honeybee Fundation<br/>
+                    <small>Der Bienenhalter hat zahlreiche Möglichkeiten auf seinen Bienenbestand Einfluss zunehmen. In der Regel wird dem Eingriff eine Volkskontrolle vorangestellt, und dann entsprechende Maßnahmen eingeleitet. </small>
+                  </td>
+                  <td class="has-text-right"><strong>321</strong>&nbsp;Follower</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
                 </tr>
               </tbody>
             </table>
 
-            <h3>Can Do's</h3>
-            <table>
+            <h3 class="title is-4" id="can-dos">Can Do's</h3>
+            <table class="table is-striped">
               <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td>Einen bienenfreundlichen Garten anlegen</td>
+                <td>Schwer</td>
+                <td class="has-text-right"><strong>58</strong> haben das geschafft</td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
+                <td>Einen Bienenstock Bauen</td>
+                <td>Einfach</td>
+                <td class="has-text-right"><strong>1023</strong> haben das geschafft</td>
               </tr>
               <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
+                <td>Lokales Biogemüse kaufen</td>
+                <td>Einfach</td>
+                <td class="has-text-right"><strong>12.038</strong> haben das geschafft</td>
+              </tr>
+              <tr>
+                <td colspan="3" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
               </tr>
               </tbody>
             </table>
 
-            <h3>Projekte</h3>
-            <table>
+            <h3 class="title is-4" id="projects">Projekte</h3>
+            <table class="table is-striped">
               <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td>
+                  <strong>We build Bee City</strong><br/>
+                  <small>Wir haben bereits 20 Bienenstöcke gebaut!</small>
+                </td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
+                <td>
+                  <strong>Semabelha Semelimento - Bee or not to be</strong><br/>
+                  <small>Die Bee Alert App</small>
+                </td>
               </tr>
               <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
+                <td colspan="2" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
               </tr>
               </tbody>
             </table>
 
-            <h3>Jobs</h3>
-            <table>
+            <h3 class="title is-4" id="jobs">Jobs</h3>
+            <table class="table is-striped">
               <tbody>
               <tr>
-                <td>Strategien für Honigbienen</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td>Bienenstöcke bauen</td>
+                <td>Anleitung erstellen</td>
+                <td class="has-text-right">Unbegrenzt</td>
               </tr>
               <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
+                <td>Bienenstockbauer</td>
+                <td>Handwerker</td>
+                <td class="has-text-right"><strong>10</strong> benötigt</td>
               </tr>
               <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
+                <td colspan="3" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
               </tr>
               </tbody>
             </table>
 
-            <h3>Karte</h3>
-            <hc-map :places="places" :zoom="zoom" :center="center" style="height: 500px;" />
+            <h3 class="title is-4" id="events">Events</h3>
+            <table class="table is-striped">
+              <tbody>
+              <tr>
+                <td style="width: 110px;">
+                  <div class="has-text-centered is-pulled-left">
+                    <div class="is-inline-block has-text-centered">
+                      <span class="title is-5">10</span><br/>
+                      <span class="heading is-inline">Aug</span>
+                    </div>
+                    <div class="is-inline-block has-text-centered">
+                      <span class="title is-5">&nbsp;-&nbsp;</span><br/>
+                      <span class="heading is-inline">&nbsp;</span>
+                    </div>
+                    <div class="is-inline-block has-text-centered">
+                      <span class="title is-5">12</span><br/>
+                      <span class="heading is-inline">Aug</span>
+                    </div>
+                  </div>
+                </td>
+                <td>Online-Workshop Bienen züchten</td>
+                <td>Überall</td>
+                <td class="has-text-right"><strong>158</strong> nehmen teil</td>
+              </tr>
+              <tr>
+                <td style="width: 110px;">
+                  <div class="has-text-centered is-pulled-left">
+                    <span class="title is-5">03</span><br/>
+                    <span class="heading is-inline">Sep</span>
+                  </div>
+                </td>
+                <td>Weltweiter Honigbienentag</td>
+                <td>Berlin</td>
+                <td class="has-text-right"><strong>171.526</strong> nehmen teil</td>
+              </tr>
+              <tr>
+                <td colspan="4" class="is-white">
+                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+            <h3 id="maps">Karte</h3>
+            <no-ssr>
+              <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
+            </no-ssr>
           </div>
         </section>
       </div>
     </div>
     <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: absolute; width: 100%;">
+      <aside class="menu" style="position: fixed; width: 100%;">
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. {{ contribution.type }}
+              1. <strong>{{ contribution.type }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. More Info
+              2. <strong>Mehr Info</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
-              3. Take Action
+              3. <strong>Aktiv werden</strong>
             </nuxt-link>
             <ul>
-              <li><a>Organisationen</a></li>
-              <li><a>Can Do's</a></li>
-              <li><a>Projekte</a></li>
-              <li><a>Jobs</a></li>
-              <li><a>Karte</a></li>
+              <li><a href="#ngos">Organisationen</a></li>
+              <li><a href="#can-dos">Can Do's</a></li>
+              <li><a href="#projects">Projekte</a></li>
+              <li><a href="#jobs">Jobs</a></li>
+              <li><a href="#events">Events</a></li>
+              <li><a href="#maps">Karte</a></li>
             </ul>
           </li>
         </ul>
@@ -224,6 +339,12 @@
     border: none;
     box-shadow: $card-shadow;
   }
+  .table {
+    td {
+      border-color: $grey-lighter;
+    }
+  }
+
   .b-tabs.footer {
     padding-top: 10px;
     padding-bottom: 40px;
