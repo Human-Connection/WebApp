@@ -19,3 +19,6 @@ npm-debug.log
 
 # Do not commit the env.js file as it my contain sensitive data
 env.js
+
+package-lock.json
+yarn.lock
