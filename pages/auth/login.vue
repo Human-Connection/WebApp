@@ -4,7 +4,7 @@
       <div class="card-content">
         <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
-          <nuxt-link to="/">
+          <nuxt-link :to="this.$route.params.path || '/'">
             <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
           </nuxt-link>
         </div>

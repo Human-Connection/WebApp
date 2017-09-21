@@ -78,7 +78,11 @@ input, textarea {
 }
 
 .ql-editor {
-  min-height: 100px;
+
+  .story & {
+    min-height: 100px;
+  }
+
   background-color: $white;
 }
 
