@@ -73,7 +73,7 @@
       <div class="field">
         <label class="label">Inhalt</label>
         <div class="control">
-          <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>

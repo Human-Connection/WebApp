@@ -48,7 +48,7 @@
     "vue-clip": "^1.0.0",
     "vue-count-to": "^1.0.10",
     "vue-docgen-api": "^2.0.12",
-    "vue-infinite-loading": "^2.1.3",
+    "vue-infinite-loading": "=2.1.3",
     "vue-no-ssr": "^0.2.0",
     "vue-quill-editor": "^2.3.2",
     "vue-styleguidist": "^1.2.5"
