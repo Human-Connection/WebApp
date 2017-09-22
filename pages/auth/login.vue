@@ -83,9 +83,9 @@
         this.loading = true
         this.$store.dispatch('auth/login', this.data)
           .then(() => {
-            this.$toast.open({
+            this.$snackbar.open({
               message: 'congratulations, you are in!',
-              duration: 3000,
+              duration: 4000,
               type: 'is-success'
             })
             this.loading = false

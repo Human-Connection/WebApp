@@ -49,9 +49,9 @@
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
             this.$store.dispatch('comments/fetchByContributionId', this.post._id)
-            this.$toast.open({
+            this.$snackbar.open({
               message: 'Thanks for your comment. You are awesome.',
-              duration: 2000,
+              duration: 4000,
               type: 'is-success'
             })
           })
