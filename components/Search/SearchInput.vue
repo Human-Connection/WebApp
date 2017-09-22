@@ -25,9 +25,9 @@
       }
     },
     methods: {
-      onInput: _.throttle(() => {
+      onInput: _.debounce(() => {
         app.$store.commit('search/query', app.value)
-      }, 500)
+      }, 300)
     }
   }
 </script>
