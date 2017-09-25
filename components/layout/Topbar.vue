@@ -3,19 +3,48 @@
     <div class="container">
       <div class="nav-left">
         <nuxt-link class="logo" :to="{ name: 'index' }">
-          <img src="/logo-hc.svg" alt="Human Connection">
+          <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection">
+          <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection">
         </nuxt-link>
-        <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
+        <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
           Newsfeed
         </nuxt-link>
       </div>
 
       <div class="nav-center">
         <search-input></search-input>
+        <div class="navbar-item has-dropdown is-hoverable is-mega">
+          <div class="navbar-link">
+            <span class="icon">
+              <i class="fa fa-filter"></i>
+            </span>
+          </div>
+          <div class="navbar-dropdown">
+            <div class="container is-fluid has-text-left">
+              <div class="columns">
+                <div class="column is-hidden">
+                  <br/>
+                  <h3 class="title is-6">Categories</h3>
+                  <categories-select v-model="categoryIds"></categories-select>
+                  <hr/>
+                  <h3 class="title is-6">Emotions</h3>
+                  <div>
+                    <hc-emoji class="emotion" type="funny"></hc-emoji>
+                    <hc-emoji class="emotion" type="happy"></hc-emoji>
+                    <hc-emoji class="emotion" type="surprised"></hc-emoji>
+                    <hc-emoji class="emotion" type="cry"></hc-emoji>
+                    <hc-emoji class="emotion" type="angry"></hc-emoji>
+                  </div>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="nav-right nav-end">
-        <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled" style="cursor: not-allowed;">
+        <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled is-hidden-mobile" style="cursor: not-allowed;">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
         <notifications v-if="isAuthenticated"></notifications>
@@ -84,6 +113,7 @@
   import Avatar from '~/components/Avatar/Avatar.vue'
   import HcButton from '../Global/Elements/Button/Button.vue'
   import SearchInput from '../Search/SearchInput.vue'
+  import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
 
   export default {
     name: 'hc-topbar',
@@ -91,7 +121,8 @@
       SearchInput,
       HcButton,
       Avatar,
-      Notifications
+      Notifications,
+      CategoriesSelect
     },
     data () {
       return {
@@ -101,7 +132,8 @@
         },
         loading: false,
         stayLoggedIn: false,
-        errors: null
+        errors: null,
+        categoryIds: []
       }
     },
     computed: {
@@ -163,6 +195,29 @@
     }
   }
 
+  .navbar-item.is-mega {
+    position: static;
+    cursor: pointer;
+
+    @include mobile() {
+      display: none;
+    }
+    @include tablet-only() {
+      display: none;
+    }
+
+    img.emotion {
+      padding-right: 1rem;
+      display: inline-block;
+    }
+
+    .navbar-dropdown {
+      background-image: url("/filter-mock.png");
+      background-size: cover;
+      height: 510px;
+    }
+  }
+
   .mobile-toggle {
     position: relative;
     background-color: $white-ter;
@@ -198,6 +253,10 @@
     text-align: left;
     padding: ($topbar-height - 40px)/2 0;
     margin: 0;
+
+    @include mobile() {
+      width: 50px;
+    }
 
     img {
       max-height: none;

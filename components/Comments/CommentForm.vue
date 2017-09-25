@@ -54,6 +54,7 @@
               duration: 4000,
               type: 'is-success'
             })
+            this.form.content = ''
           })
           .catch((error) => {
             console.error(error)
@@ -63,7 +64,6 @@
               type: 'is-danger'
             })
           })
-        this.form.content = ''
         this.loading = false
       }
     }

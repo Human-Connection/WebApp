@@ -146,3 +146,34 @@ hr {
 .dropdown .background {
   background-color: $backdrop-color;
 }
+
+.ql-video {
+  width: 100%;
+
+  @include mobile() {
+    height: 52vw;
+  }
+
+  @include tablet-only() {
+    height: 34vw;
+  }
+
+  @include desktop-only() {
+    height: 312px;
+  }
+
+  @include widescreen() {
+    height: 384px;
+  }
+
+  @include fullhd() {
+    height: 425px;
+  }
+}
+
+#main.container {
+  @include mobile() {
+    margin-right: 1.0rem;
+    margin-left: 1.0rem;
+  }
+}
