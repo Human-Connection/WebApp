@@ -6,7 +6,7 @@
           <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection">
           <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection">
         </nuxt-link>
-        <nuxt-link class="nav-item is-tab" :to="{ name: 'index' }">
+        <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
           Newsfeed
         </nuxt-link>
       </div>
@@ -57,7 +57,7 @@
           </div>
         </div>
         <template v-else>
-          <b-dropdown class="navigation-dropdown" position="is-bottom-left" style="text-align: left;">
+          <b-dropdown class="user-menu navigation-dropdown" position="is-bottom-left" style="text-align: left;">
             <a class="navbar-item" slot="trigger">
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
@@ -230,6 +230,14 @@
 
   .nav-start, .nav-left, .nav-middle, .nav-right, .nav-end {
     overflow: visible;
+  }
+
+  .user-menu {
+    margin-left: 0;
+    .navbar-item {
+      padding-left: .5rem;
+      padding-right: 0;
+    }
   }
 
   .nav-end .login-button {
