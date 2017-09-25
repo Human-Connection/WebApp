@@ -170,3 +170,10 @@ hr {
     height: 425px;
   }
 }
+
+#main.container {
+  @include mobile() {
+    margin-right: 1.0rem;
+    margin-left: 1.0rem;
+  }
+}

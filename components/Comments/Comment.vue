@@ -1,6 +1,6 @@
 <template>
   <div class="comment is-unselectable autowrap">
-    <div class="columns">
+    <div class="columns is-mobile">
       <div class="column">
         <author :post="comment"></author>
       </div>
@@ -14,7 +14,7 @@
       </div>
     </div>
     <p v-html="getText"></p>
-    <div class="columns" style="padding-top: 1rem; padding-left: 3.5rem;">
+    <div class="columns is-mobile" style="padding-top: 1rem; padding-left: 3.5rem;">
       <div class="column" style="padding-top: 1rem;">
         <nav class="level is-mobile">
           <div class="level-left">

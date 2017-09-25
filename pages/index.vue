@@ -162,7 +162,7 @@
 
     @include mobile() {
       margin-top: -1rem;
-      width: 100vw !important;
+      width: 100% !important;
     }
   }
 
