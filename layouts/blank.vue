@@ -29,6 +29,7 @@
     justify-content: center;
     transition: opacity 150ms;
     opacity: 1;
+    padding: 1.2rem;
   }
 
   .hidden {
