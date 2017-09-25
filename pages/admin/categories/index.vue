@@ -7,6 +7,7 @@
           <tr>
             <th>Titel</th>
             <th>Bezeichner</th>
+            <th>Icon</th>
             <th></th>
           </tr>
         </thead>
@@ -17,6 +18,9 @@
             </td>
             <td>
               <input v-model="category.slug" class="input" placeholder="Bezeichner (optional) ...">
+            </td>
+            <td>
+              <input v-model="category.icon" class="input" placeholder="Icon (optional) ...">
             </td>
             <td>
               <span @click.prevent="deleteEntry(key)" class="button is-danger">
@@ -43,10 +47,7 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import {mapGetters} from 'vuex'
-
-  const categoriesService = feathers.service('categories')
 
   export default {
     middleware: 'admin',
@@ -68,38 +69,44 @@
     },
     watch: {
       categories (categories) {
-        this.categoriesList = categories
+        this.categoriesList = JSON.parse(JSON.stringify(categories))
       }
     },
     methods: {
       addEntry () {
         this.categoriesList.push({
           title: '',
-          slug: ''
+          slug: '',
+          icon: ''
         })
       },
       saveEntries () {
         this.categoriesList.forEach(category => {
           if (!category._id) {
-            categoriesService.create(category)
+            this.$store.dispatch('categories/create', category)
+              .then((res) => {
+                this.$store.dispatch('categories/fetch')
+              })
           } else {
-            categoriesService.patch(
-              category._id,
-              {
-                title: category.title,
-                slug: category.slug
-              }
-            )
+            this.$store.dispatch('categories/patch', category)
+              .then((res) => {
+                this.$store.dispatch('categories/fetch')
+              })
           }
         })
       },
       deleteEntry (key) {
         const category = this.categoriesList.splice(key, 1)[0]
-        categoriesService.remove(category._id)
+        if (category._id) {
+          this.$store.dispatch('categories/delete', category)
+            .then((res) => {
+              this.$store.dispatch('categories/fetch')
+            })
+        }
       }
     },
     created () {
-      this.categoriesList = this.categories
+      this.categoriesList = JSON.parse(JSON.stringify(this.categories))
     }
   }
 </script>

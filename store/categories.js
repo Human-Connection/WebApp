@@ -52,7 +52,13 @@ export const actions = {
         commit('clear')
       })
   },
-  add ({dispatch}, category) {
+  create ({dispatch}, category) {
     return categoriesService.create(category)
+  },
+  patch ({dispatch}, category) {
+    return categoriesService.patch(category._id, category)
+  },
+  delete ({dispatch}, category) {
+    return categoriesService.remove(category._id)
   }
 }
