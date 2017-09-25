@@ -161,7 +161,6 @@
     margin-right: auto;
 
     @include mobile() {
-      margin-top: -1rem;
       width: 100% !important;
     }
   }
