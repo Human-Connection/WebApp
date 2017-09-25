@@ -173,6 +173,12 @@ hr {
 
 #main.container {
   @include mobile() {
+    margin-top: -1rem;
+    margin-right: 1.0rem;
+    margin-left: 1.0rem;
+  }
+  @include tablet-only() {
+    margin-top: -1rem;
     margin-right: 1.0rem;
     margin-left: 1.0rem;
   }
