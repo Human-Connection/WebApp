@@ -183,3 +183,9 @@ hr {
     margin-left: 1.0rem;
   }
 }
+
+a, .is-link, button {
+  &, &:link, &:visited, &:active {
+    outline: none;
+  }
+}
