@@ -57,45 +57,47 @@
           </div>
         </div>
         <template v-else>
-          <b-dropdown class="user-menu navigation-dropdown" position="is-bottom-left" style="text-align: left;">
-            <a class="navbar-item" slot="trigger">
-              <span><avatar :url="user.avatar"></avatar></span>
-              <b-icon icon="arrow_drop_down"></b-icon>
-            </a>
-            <b-dropdown-item custom>
-              Hello <b>{{ user.name }}</b>
-            </b-dropdown-item>
-            <hr class="dropdown-divider">
-            <b-dropdown-item hasLink>
-              <nuxt-link :to="{ name: 'profile' }">
-                <b-icon icon="person"></b-icon>
-                Profile
-              </nuxt-link>
-            </b-dropdown-item>
-            <!--<b-dropdown-item value="settings" disabled>
-              <i class="fa fa-sliders" style="padding-right: 5px;"></i>
-              Settings
-            </b-dropdown-item>
-            <b-dropdown-item value="calendar" disabled>
-              <b-icon icon="date_range"></b-icon>
-              Calendar
-            </b-dropdown-item>-->
-            <b-dropdown-item v-if="isAdmin" hasLink value="admin">
-              <nuxt-link to="/admin" class="nav-item">
-                <b-icon icon="settings"></b-icon>
-                Admin
-              </nuxt-link>
-            </b-dropdown-item>
-            <b-dropdown-item value="help" disabled>
-              <b-icon icon="help"></b-icon>
-              Help
-            </b-dropdown-item>
-            <hr class="dropdown-divider">
-            <b-dropdown-item value="logout" @click="logout()">
-              <b-icon icon="exit_to_app"></b-icon>
-              Logout
-            </b-dropdown-item>
-          </b-dropdown>
+          <no-ssr>
+            <b-dropdown class="user-menu navigation-dropdown" position="is-bottom-left" style="text-align: left;">
+              <a class="navbar-item" slot="trigger">
+                <span><avatar :url="user.avatar"></avatar></span>
+                <b-icon icon="arrow_drop_down"></b-icon>
+              </a>
+              <b-dropdown-item custom>
+                Hello <b>{{ user.name }}</b>
+              </b-dropdown-item>
+              <hr class="dropdown-divider">
+              <b-dropdown-item hasLink>
+                <nuxt-link :to="{ name: 'profile' }">
+                  <b-icon icon="person"></b-icon>
+                  Profile
+                </nuxt-link>
+              </b-dropdown-item>
+              <!--<b-dropdown-item value="settings" disabled>
+                <i class="fa fa-sliders" style="padding-right: 5px;"></i>
+                Settings
+              </b-dropdown-item>
+              <b-dropdown-item value="calendar" disabled>
+                <b-icon icon="date_range"></b-icon>
+                Calendar
+              </b-dropdown-item>-->
+              <b-dropdown-item v-if="isAdmin" hasLink value="admin">
+                <nuxt-link to="/admin" class="nav-item">
+                  <b-icon icon="settings"></b-icon>
+                  Admin
+                </nuxt-link>
+              </b-dropdown-item>
+              <b-dropdown-item value="help" disabled>
+                <b-icon icon="help"></b-icon>
+                Help
+              </b-dropdown-item>
+              <hr class="dropdown-divider">
+              <b-dropdown-item value="logout" @click="logout()">
+                <b-icon icon="exit_to_app"></b-icon>
+                Logout
+              </b-dropdown-item>
+            </b-dropdown>
+          </no-ssr>
         </template>
       </div>
     </div>
