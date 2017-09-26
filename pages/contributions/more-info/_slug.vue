@@ -6,7 +6,7 @@
           <div class="notification is-danger is-hidden-tablet">
             <strong>The sidebar is currently hidden on mobile!</strong>
           </div>
-          <h1>More Info</h1>
+          <h1>{{ $tc('component.contribution.moreInfoBriefOrLong', 2) }}</h1>
           <div class="notification is-hidden">
             <strong>This is currenty dummy content</strong>
           </div>
@@ -18,7 +18,7 @@
             </span>
           </div>
 
-          <h3>Tags</h3>
+          <h3>{{ $tc('component.contribution.tagNoneOnePlural', 2) }}</h3>
           <div class="tags">
             <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
             <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
@@ -28,7 +28,7 @@
             </a>
           </div>
 
-          <h3>Verwandte Posts</h3>
+          <h3 id="relatedPosts">{{ $tc('component.contribution.postRelatedLabelPluralised', 2) }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -51,7 +51,7 @@
             </tbody>
           </table>
 
-          <h3>Pro & Kontras</h3>
+          <h3 id="proAndContras">{{ $tc('component.contribution.proAndContraPluralised', 2) }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -70,7 +70,7 @@
             </tbody>
           </table>
 
-          <h3>Bestlisten</h3>
+          <h3 id="bestlists">{{ $t('component.contribution.bestList') }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -89,7 +89,7 @@
             </tbody>
           </table>
 
-          <h3>Votes</h3>
+          <h3 id="votes">{{ $tc('component.contribution.voteNoneOnePlural', 2) }}</h3>
           <table class="table is-striped">
             <tbody>
             <tr>
@@ -104,7 +104,7 @@
             </tbody>
           </table>
 
-          <h3>Chatrooms</h3>
+          <h3 id="chatrooms">{{ $tc('component.contribution.chatroomBriefOrLong', 2) }}</h3>
           <table class="table is-striped">
             <tbody>
             <tr>
@@ -142,24 +142,24 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. <strong>{{ contribution.type }}</strong>
+              1. <strong>{{ $t('component.contribution.post') }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
-              2. <strong>More Info</strong>
+              2. <strong>{{ $tc('component.contribution.moreInfoBriefOrLong', 1) }}</strong>
             </nuxt-link>
             <ul>
-              <li><a>Verwandte Posts</a></li>
-              <li><a>Pro & Kontras</a></li>
-              <li><a>Bestlisten</a></li>
-              <li><a>Votes</a></li>
-              <li><a>Chatrooms</a></li>
+              <li><a href="#relatedPosts">{{ $tc('component.contribution.postRelatedLabelPluralised', 2) }}</a></li>
+              <li><a href="#proAndContras">{{ $tc('component.contribution.proAndContraPluralised', 2) }}</a></li>
+              <li><a href="#bestlists">{{ $tc('component.contribution.bestList') }}</a></li>
+              <li><a href="#votes">{{ $tc('component.contribution.voteNoneOnePlural', 2) }}</a></li>
+              <li><a href="#chatrooms">{{ $tc('component.contribution.chatroomBriefOrLong', 1) }}</a></li>
             </ul>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>Take Action</strong>
+              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
           </li>
         </ul>

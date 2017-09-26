@@ -23,10 +23,10 @@
         </main>
         <footer>
           <div class="infos">
-            <span>
+            <span v-bind:title="$tc('component.contribution.shoutsCountedDescription', 214, {count: 214})">
               <i class="fa fa-bullhorn"></i><small>214</small>
             </span>
-            <span>
+            <span v-bind:title="$tc('component.contribution.commentsCountedDescription', commentCount, {count: commentCount})">
               <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
             </span>
           </div>

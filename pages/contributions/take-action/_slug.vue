@@ -33,12 +33,12 @@
                 <p class="heading">Gesundheit & Wohlbefinden</p>
               </div>
             </div>
-            <h1 class="title is-1"> Take Action</h1>
+            <h1 class="title is-1">{{ $t('component.contribution.takeAction') }}</h1>
             <div class="notification is-hidden">
               <strong>This is currenty dummy content</strong>
             </div>
 
-            <h3 class="title is-4" id="ngos">Organisationen</h3>
+            <h3 class="title is-4" id="ngos">{{ $t('component.contribution.organisations') }}</h3>
             <div class="is-hidden tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
@@ -76,7 +76,7 @@
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="can-dos">Can Do's</h3>
+            <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -102,7 +102,7 @@
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="projects">Projekte</h3>
+            <h3 class="title is-4" id="projects">{{ $t('component.contribution.projects') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -125,7 +125,7 @@
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="jobs">Jobs</h3>
+            <h3 class="title is-4" id="jobs">{{ $t('component.contribution.jobs') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -146,7 +146,7 @@
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="events">Events</h3>
+            <h3 class="title is-4" id="events">{{ $t('component.contribution.events') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -189,7 +189,7 @@
               </tbody>
             </table>
 
-            <h3 id="maps">Karte</h3>
+            <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
             <no-ssr>
               <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
             </no-ssr>
@@ -202,25 +202,25 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. <strong>{{ contribution.type }}</strong>
+              1. <strong>{{ $t('component.contribution.post') }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>More Info</strong>
+              2. <strong>{{ $tc('component.contribution.moreInfoBriefOrLong', 1) }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
-              3. <strong>Take Action</strong>
+              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#ngos">Organisationen</a></li>
-              <li><a href="#can-dos">Can Do's</a></li>
-              <li><a href="#projects">Projekte</a></li>
-              <li><a href="#jobs">Jobs</a></li>
-              <li><a href="#events">Events</a></li>
-              <li><a href="#maps">Karte</a></li>
+              <li><a href="#ngos">{{ $t('component.contribution.organisations') }}</a></li>
+              <li><a href="#can-dos">{{ $t('component.contribution.canDos') }}</a></li>
+              <li><a href="#projects">{{ $t('component.contribution.projects') }}</a></li>
+              <li><a href="#jobs">{{ $t('component.contribution.jobs') }}</a></li>
+              <li><a href="#events">{{ $t('component.contribution.events') }}</a></li>
+              <li><a href="#maps">{{ $t('component.contribution.map') }}</a></li>
             </ul>
           </li>
         </ul>

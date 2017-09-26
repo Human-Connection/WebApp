@@ -8,13 +8,12 @@
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">
-          Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
+        <p class="subtitle is-6">{{ $t('auth.register.description') }}</p>
         <form @submit.prevent="register">
           <div class="field">
             <p class="control has-icons-right">
               <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
-                     placeholder="E-Mail" v-model="data.email">
+                     v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -22,7 +21,7 @@
           </div>
           <div class="field">
             <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password"
+              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" v-bind:placeholder="$t('auth.account.password')"
                      v-model="data.password" autocomplete="new-password">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
@@ -30,24 +29,22 @@
             </p>
           </div>
           <div class="field has-text-le">
-            <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
+            <b-checkbox>{{ $t('auth.account.confirmOlderThan18') }}</b-checkbox>
           </div>
           <p>
             <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
-              Registrieren
+              {{ $t('auth.register.label') }}
             </hc-button>
           </p>
         </form>
-        <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den
-          <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link>
-          einverstanden und bestätige, dass ich die Human Connection
-          <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link>
-          gelesen habe.
-        </p>
+				<i18n path="auth.account.confirmTermsOfUsage" tag="p" class="small-info">
+					<nuxt-link place="termsOfService" :to="{ name: 'legal' }">{{ $t('legal.termsOfService') }}</nuxt-link>
+					<nuxt-link place="dataPrivacyStatement" :to="{ name: 'legal' }">{{ $t('legal.dataPrivacyStatement') }}</nuxt-link>
+				</i18n>
       </div>
       <footer class="card-footer">
         <nuxt-link :to="{ name: 'auth-login', params: { path: this.$route.params.path } }" class="card-footer-item">
-          Du hast ein Konto?
+          {{ $t('auth.register.accountAlready') }}
         </nuxt-link>
       </footer>
     </div>
@@ -99,7 +96,7 @@
     },
     head () {
       return {
-        title: 'Register'
+        title: this.$t('auth.register.label')
       }
     }
   }

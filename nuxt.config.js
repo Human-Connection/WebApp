@@ -58,6 +58,7 @@ module.exports = {
       'moment',
       'lodash',
       'bricks.js',
+      'vue-i18n',
       // Feathers
       'feathers/client',
       'feathers-socketio/client',
@@ -85,6 +86,7 @@ module.exports = {
     }
   },
   plugins: [
+    {src: '~/plugins/i18n.js'},
     {src: '~/plugins/buefy.js'},
     {src: '~/plugins/client-auth.js', ssr: false},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
@@ -97,7 +99,10 @@ module.exports = {
   ],
   modules: [],
   router: {
-    middleware: ['check-auth'],
+    middleware: [
+      'check-auth',
+      'i18n'
+    ],
     linkActiveClass: 'active-link'
   },
   manifest: {

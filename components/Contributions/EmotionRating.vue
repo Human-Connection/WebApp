@@ -7,7 +7,7 @@
         <div>
           <p class="smiley heading">
             <hc-emoji :type="getEmoticon(key)" width="50" height="50"></hc-emoji><br/>
-            {{key}}
+            {{ $t('component.emotionRating.' + key) }}
           </p>
           <p class="title">
             <count-to :ref=key :startVal=values[key].startVal :endVal=values[key].endVal

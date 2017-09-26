@@ -39,7 +39,7 @@
                                    style="font-size: 2em; margin-bottom: 0.8rem;">
                           <hc-icon set="fa" icon="bullhorn" />
                         </hc-button><br/>
-                        Recommend
+                        {{ $t('component.contribution.shoutOf') }}
                       </p>
                       <p class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
                         1000k
@@ -52,28 +52,31 @@
             <no-ssr v-if="!user" >
               <div class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
                 <div class="column is-9 is-paddingless">
-                  You need to be logged-in to be able to vote or comment on Human Connection.
+                  {{ $t('auth.account.loginRequired4CommentOrVote') }}
                 </div>
                 <div class="column is-3 is-paddingless">
                   <hc-button size="small" class="is-pulled-right" type="nuxt"
-                             :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/></hc-button>
+                    :to="{ name: 'auth-login', params: { path: this.$route.path }}">{{ $t('auth.account.loginOrRegister') }} &nbsp;
+                    <hc-icon icon="sign-in"/>
+                  </hc-button>
                 </div>
               </div>
             </no-ssr>
           </div>
           <no-ssr>
             <b-tabs class="footer">
-              <b-tab-item :label="'Comments (' + commentCount + ')'">
+              <b-tab-item v-bind:label="$tc('component.contribution.commentsCounted', commentCount, {count: commentCount})" id="comments">
                 <comments :post="contribution"/>
               </b-tab-item>
-              <b-tab-item label="Let's Talk">
+              <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                 <div class="notification is-warning">
-                  <strong>Lets Talk</strong>, comming soon...
+                  <strong>Lets Talk</strong>, coming soon...
+                  {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
                 </div>
               </b-tab-item>
-              <b-tab-item label="Versus">
+              <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
                 <div class="notification is-warning">
-                  <strong>Versus</strong>, comming soon...
+                  <strong>Versus</strong>, coming soon...
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -86,28 +89,28 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. <strong>{{ contribution.type }}</strong>
+              1. <strong>{{ $t('component.contribution.post') }}</strong>
             </nuxt-link>
             <ul>
               <li>
-                <a>Kommentare ({{commentCount}})</a>
+                <a href="#comments">{{ $tc('component.contribution.commentsCounted', commentCount, {count: commentCount}) }}</a>
               </li>
               <li>
-                <a>Let's Talk</a>
+                <a href="#lets-talk">{{ $t('component.contribution.letsTalk') }}</a>
               </li>
               <li>
-                <a>Versus</a>
+                <a href="#versus">{{ $t('component.contribution.versus') }}</a>
               </li>
             </ul>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>More Info</strong>
+              2. <strong>{{ $tc('component.contribution.moreInfoBriefOrLong', 1) }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>Take Action</strong>
+              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
           </li>
         </ul>

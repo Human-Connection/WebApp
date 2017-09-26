@@ -6,7 +6,7 @@
           <img src="/logo-hc.svg" alt="Human Connection">
         </nuxt-link>
         <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
-          Newsfeed
+          {{ $t('component.layout.topbarLabel') }}
         </nuxt-link>
       </div>
 
@@ -23,7 +23,7 @@
           <div class="login-button">
             <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
                        :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-              <span class="is-hidden-mobile">Login / Sign-Up &nbsp; </span><hc-icon icon="sign-in"/>
+              <span class="is-hidden-mobile">{{ $t('auth.account.loginOrRegister') }} &nbsp; </span><hc-icon icon="sign-in"/>
             </hc-button>
           </div>
         </div>
@@ -33,38 +33,37 @@
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
             </a>
-            <b-dropdown-item custom>
-              Hello <b>{{ user.name }}</b>
+            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user.name})">
             </b-dropdown-item>
             <hr class="dropdown-divider">
             <b-dropdown-item hasLink>
               <nuxt-link :to="{ name: 'profile' }">
                 <b-icon icon="person"></b-icon>
-                Profile
+                {{ $t('auth.account.profile') }}
               </nuxt-link>
             </b-dropdown-item>
             <!--<b-dropdown-item value="settings" disabled>
               <i class="fa fa-sliders" style="padding-right: 5px;"></i>
-              Settings
+              {{ $t('auth.account.settings') }}
             </b-dropdown-item>
             <b-dropdown-item value="calendar" disabled>
               <b-icon icon="date_range"></b-icon>
-              Calendar
+              {{ $t('component.calendar.label') }}
             </b-dropdown-item>-->
             <b-dropdown-item v-if="isAdmin" hasLink value="admin">
               <nuxt-link to="/admin" class="nav-item">
                 <b-icon icon="settings"></b-icon>
-                Admin
+                {{ $t('component.admin.label') }}
               </nuxt-link>
             </b-dropdown-item>
             <b-dropdown-item value="help" disabled>
               <b-icon icon="help"></b-icon>
-              Help
+              {{ $t('component.help.label') }}
             </b-dropdown-item>
             <hr class="dropdown-divider">
             <b-dropdown-item value="logout" @click="logout()">
               <b-icon icon="exit_to_app"></b-icon>
-              Logout
+              {{ $t('auth.logout.label') }}
             </b-dropdown-item>
           </b-dropdown>
         </template>

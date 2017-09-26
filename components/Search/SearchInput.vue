@@ -2,7 +2,7 @@
     <div class="search">
         <div class="field">
             <p class="control has-icons-right">
-                <input class="input" type="text" placeholder="Suchen ..."
+                <input class="input" type="text" v-bind:placeholder="$t('component.search.placeholder')"
                        v-model="value"
                        v-on:keyup="onInput">
                 <span class="icon is-small is-right">

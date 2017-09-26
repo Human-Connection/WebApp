@@ -20,7 +20,8 @@
     },
     methods: {
       calcRelativeDateTime () {
-        let t = moment(this.dateTime)
+        let t = moment(this.dateTime).locale(this.$i18n.locale)
+        // t.locale(this.$i18n.locale)
         this.relativeDateTime = t.utc().fromNow()
         if (this.relativeDateTime === t.add(this.interval, 'milliseconds').utc().fromNow()) {
           this.interval += 15000
