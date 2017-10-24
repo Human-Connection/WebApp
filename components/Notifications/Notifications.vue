@@ -8,7 +8,7 @@
     </a>
     <transition name="box">
       <div class="box notification-box" v-if="active">
-        <p class="dropdown-title">Notifications</p>
+        <p class="dropdown-title">{{ $t('component.notification.label') }}</p>
         <p v-if="!isAuthenticated" class="dropdown-content empty">
           Please
           <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>

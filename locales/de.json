@@ -8,6 +8,9 @@
     "calendar": {
       "label": "Kalender"
     },
+    "notification": {
+      "label": "Benachrichtigungen"
+    },
     "contribution": {
       "bestList": "Bestenliste",
       "canDos": "Einfach machen",

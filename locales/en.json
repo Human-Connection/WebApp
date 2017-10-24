@@ -1,44 +1,47 @@
 {
-	"humanConnection":"Human Connection",
-	"humanConnectionMadewithHeart":"made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
+  "humanConnection": "Human Connection",
+  "humanConnectionMadewithHeart": "Made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
   "component": {
-		"admin": {
-			"label": "Admin"
-		},
-		"calendar": {
-			"label": "Kalender"
-		},
-  	"contribution": {
-			"bestList": "bestlist",
-			"canDos": "Can Do’s",
-      "chatroomBriefOrLong": "chatrooms",
-      "comment": "comment",
+    "admin": {
+      "label": "Admin"
+    },
+    "calendar": {
+      "label": "Kalender"
+    },
+    "notification": {
+      "label": "Notifications"
+    },
+    "contribution": {
+      "bestList": "Bestlist",
+      "canDos": "Can Do’s",
+      "chatroomBriefOrLong": "Chatrooms",
+      "comment": "Comment",
       "commentsCounted": "Comments | Comments (1) | Comments ({count})",
       "commentsCountedDescription": "This post has no coment | {count} human has commented this post | {count} people have given comments to this post",
-			"events": "events",
-			"jobs": "jobs",
+      "events": "Events",
+      "jobs": "Jobs",
       "letsTalk": "Let’s talk",
       "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
-			"organisations": "organisations",
-			"map": "map",
-			"moreInfoBriefOrLong": "mehr info | more information",
-      "post": "post",
-      "postsCounted": "posts | posts (1) | posts ({count})",
-			"postRelatedLabelPluralised": "related post | related posts",
-			"proAndContraPluralised": "Pro & Con | Pros & Cons",
-			"projects": "projects",
-      "shoutOf": "shouts",
+      "organisations": "Organisations",
+      "map": "Map",
+      "moreInfoBriefOrLong": "More info | More information",
+      "post": "Post",
+      "postsCounted": "Posts | Posts (1) | Posts ({count})",
+      "postRelatedLabelPluralised": "Related Post | Related Posts",
+      "proAndContraPluralised": "Pro & Con | Pros & Cons",
+      "projects": "Projects",
+      "shoutOf": "Shouts",
       "shoutsCountedDescription": "This post has no shout yet | {count} human would like to shout this post | {count} people would like to shout this post",
-      "takeAction": "take action",
-      "tagNoneOnePlural": "no tags | tag | tags ",
-			"type-cando": "Can Do",
+      "takeAction": "Take action",
+      "tagNoneOnePlural": "no Tags | Tag | Tags ",
+      "type-cando": "Can Do",
       "type-event": "Event",
-			"type-procon": "Pro & Contra",
+      "type-procon": "Pro & Contra",
       "type-post": "Post",
       "type-versus": "Versus",
       "type-vote": "Vote",
-      "versus": "versus",
-			"voteNoneOnePlural": "no vote | vote | votes"
+      "versus": "Versus",
+      "voteNoneOnePlural": "no Vote | Vote | Votes"
     },
     "emotionRating": {
       "angry": "angry",
@@ -47,16 +50,16 @@
       "happy": "happy",
       "surprised": "surprised"
     },
-		"help": {
-			"label": "Help"
-		},
+    "help": {
+      "label": "Help"
+    },
     "layout": {
       "topbarLabel": "Newsfeed"
     },
     "search": {
       "noMoreResults": "There are no more",
       "noResults": "Sorry thats all that we found",
-      "placeholder": "search ..."
+      "placeholder": "Search ..."
     }
   },
   "page": {
@@ -64,57 +67,57 @@
       "title": "Welcome"
     }
   },
-	"legal": {
-		"copyrights": "Copyrights:",
-		"copyrightsDescription": "The content and works provided on these Web pages are governed by the copyright laws of Germany. Duplication, processing, distribution, or any form of commercialization of such material beyond the scope of the copyright law shall require the prior written consent of its respective author or creator.",
-    "dataPrivacyStatement":"Data Privacy Statements",
-		"dataProtection":"Data Protection:",
-		"dataProtectionDescription":"Please be aware that there are inherent security risks in transmitting data, such as e-mails, via the Internet, because it is impossible to safeguard completely against unauthorized access by third parties. Nevertheless, we shall safeguard your data, subject to this limitation.</p><p>In particular, personal information will be transmitted via the Internet only if it does not infringe upon third-party rights, unless the respective party has given its prior consent in view of such security risks. Accordingly, as the Web site provider, we shall not be held liable for any damages incurred as a consequence of such security risks or for any related acts of omission on our part.</p><p>We oppose the use of any available contact information by a third party for sending unsolicited advertisements. As the Web site provider, we reserve the express right to take legal action against unsolicited mailing or e-mailing of spam and other similar advertising materials.",
-		"disclaimer": "Disclaimer",
-		"disclaimerUsageFacebookPlugin": "Disclaimer for the use of Facebook social plugins:",
-		"disclaimerUsageFacebookPluginDescription": "Our website uses social plugins (“plugins”) provided by the social network facebook.com, operated by Facebook Inc., 1601 S. California Avenue, Palo Alto, CA 94304, USA (“Facebook”). The plugins are identifiable by a Facebook logo (white letter f on blue background, the word like or a thumb up icon) or the notice “Facebook Social Plugin”. For a full list of all social Plugins please see the <a href=\"https://developers.facebook.com/docs/plugins/\">developer’s documentation (developers.facebook.com)</a></p>   <p>When you visit a page of our website that contains a social plugin, your browser establishes a direct connection to Facebook servers. Facebook directly transfers the plugin content to your browser which embeds the latter into the website, enabling Facebook to receive information about your having accessed the respective page of our website. Thus we have no influence on the data gathered by the plugin and inform you according to our state of knowledge by the <a href=\"http://www.facebook.com/help/?faq=17512\">Facebook-Help-Page (facebook.com)</a>.</p>     <p>The embedded plugins provide Facebook with the information that you have accessed the corresponding page of our website. If you are logged into Facebook, your visit can be assigned to your Facebook account. If you interact with the plugins, for example by clicking “Like”, or entering a comment, the corresponding information is transmitted from your browser directly to Facebook and stored by it. Even if you are not logged into Facebook, there is possibility that the plugins transmits your IP-address to Facebook.</p>    <p>For the information on the purpose and scope of data collection and procession by Facebook, as well as your rights in this respect and settings options for protecting your privacy please visit <a href=\"http://www.facebook.com/policy\">Facebook's privacy policy (facebook.com)</a></p>    <p>If you are a Facebook member and do not want Facebook to connect the data concerning your visit to our website with your member data already stored by Facebook, please log off Facebook before entering our website and delete your cookies. Furthermore it is possible to block the data generation of Facebook Plug-ins by using browser add-ons such as ‘Facebook Blocker’",
+  "legal": {
+    "copyrights": "Copyrights:",
+    "copyrightsDescription": "The content and works provided on these Web pages are governed by the copyright laws of Germany. Duplication, processing, distribution, or any form of commercialization of such material beyond the scope of the copyright law shall require the prior written consent of its respective author or creator.",
+    "dataPrivacyStatement": "Data Privacy Statements",
+    "dataProtection": "Data Protection:",
+    "dataProtectionDescription": "Please be aware that there are inherent security risks in transmitting data, such as e-mails, via the Internet, because it is impossible to safeguard completely against unauthorized access by third parties. Nevertheless, we shall safeguard your data, subject to this limitation.</p><p>In particular, personal information will be transmitted via the Internet only if it does not infringe upon third-party rights, unless the respective party has given its prior consent in view of such security risks. Accordingly, as the Web site provider, we shall not be held liable for any damages incurred as a consequence of such security risks or for any related acts of omission on our part.</p><p>We oppose the use of any available contact information by a third party for sending unsolicited advertisements. As the Web site provider, we reserve the express right to take legal action against unsolicited mailing or e-mailing of spam and other similar advertising materials.",
+    "disclaimer": "Disclaimer",
+    "disclaimerUsageFacebookPlugin": "Disclaimer for the use of Facebook social plugins:",
+    "disclaimerUsageFacebookPluginDescription": "Our website uses social plugins (“plugins”) provided by the social network facebook.com, operated by Facebook Inc., 1601 S. California Avenue, Palo Alto, CA 94304, USA (“Facebook”). The plugins are identifiable by a Facebook logo (white letter f on blue background, the word like or a thumb up icon) or the notice “Facebook Social Plugin”. For a full list of all social Plugins please see the <a href=\"https://developers.facebook.com/docs/plugins/\">developer’s documentation (developers.facebook.com)</a></p>   <p>When you visit a page of our website that contains a social plugin, your browser establishes a direct connection to Facebook servers. Facebook directly transfers the plugin content to your browser which embeds the latter into the website, enabling Facebook to receive information about your having accessed the respective page of our website. Thus we have no influence on the data gathered by the plugin and inform you according to our state of knowledge by the <a href=\"http://www.facebook.com/help/?faq=17512\">Facebook-Help-Page (facebook.com)</a>.</p>     <p>The embedded plugins provide Facebook with the information that you have accessed the corresponding page of our website. If you are logged into Facebook, your visit can be assigned to your Facebook account. If you interact with the plugins, for example by clicking “Like”, or entering a comment, the corresponding information is transmitted from your browser directly to Facebook and stored by it. Even if you are not logged into Facebook, there is possibility that the plugins transmits your IP-address to Facebook.</p>    <p>For the information on the purpose and scope of data collection and procession by Facebook, as well as your rights in this respect and settings options for protecting your privacy please visit <a href=\"http://www.facebook.com/policy\">Facebook's privacy policy (facebook.com)</a></p>    <p>If you are a Facebook member and do not want Facebook to connect the data concerning your visit to our website with your member data already stored by Facebook, please log off Facebook before entering our website and delete your cookies. Furthermore it is possible to block the data generation of Facebook Plug-ins by using browser add-ons such as ‘Facebook Blocker’",
     "imprint": "Imprint",
-		"informationAccordingTMG": "Information according to §5 of TMG (German Tele-Media Act):",
-		"informationAccordingTMGAddress": "<strong>Human Connection gGmbH</strong><br>Bahnhofstr. 11<br>73235 Weilheim / Teck<br>Germany",
-		"informationAccordingTMGBankAccount": "Bank account:",
-		"informationAccordingTMGCeoAndFounder": "CEO & founder:",
-		"informationAccordingTMGCeoDennisHack": "Dennis Hack",
-		"informationAccordingTMGContact": "Contact:",
-		"informationAccordingTMGUstId": "USt-ID. according to §27a of the German Sales Tax Law:",
-		"liabilityForContent": "Liability for Content:",
-		"liabilityForContentDescription": "We make every effort to keep the information on our Web site current, but accept no liability whatsoever for the content provided. Pursuant to §7 par. 1 of TMG (German Tele-Media Act), the law limits our responsibility as a service provider to our own content on these Web pages. According to §§8 to 10 of TMG, we are not obligated to monitor third party information provided or stored on our Web site. However, we shall promptly remove any content upon becoming aware that it violates the law. Our liability in such an instance shall commence at the time we become aware of the respective violation.",
-		"liabilityForLinks": "Liability for Links:",
-		"liabilityForLinksDescription": "Our site contains links to third-party Web sites. We have no influence whatsoever on the information on these Web sites and accept no guaranty for its correctness. The content of such third-party sites is the responsibility of the respective owners/providers. At the time third-party Web sites were linked to ours, we found NO GROUNDS WHATSOEVER of any likely contravention of the law. We shall promptly delete a link upon becoming aware that it violates the law.",
-		"references": "References:",
-		"termsOfService":"Terms of Service"
-	},
-  "auth":{
-		"account": {
-      "confirmOlderThan18":"I confirm that I’m 18 years or older.",
-      "confirmTermsOfUsage":"By clicking “register” I agree with the {termsOfService} and confirm, that I read the {dataPrivacyStatement} of Human Connection.",
-			"email":"Email",
-			"helloUser":"Hello <b>{username}</b>",
+    "informationAccordingTMG": "Information according to §5 of TMG (German Tele-Media Act):",
+    "informationAccordingTMGAddress": "<strong>Human Connection gGmbH</strong><br>Bahnhofstr. 11<br>73235 Weilheim / Teck<br>Germany",
+    "informationAccordingTMGBankAccount": "Bank account:",
+    "informationAccordingTMGCeoAndFounder": "CEO & founder:",
+    "informationAccordingTMGCeoDennisHack": "Dennis Hack",
+    "informationAccordingTMGContact": "Contact:",
+    "informationAccordingTMGUstId": "USt-ID. according to §27a of the German Sales Tax Law:",
+    "liabilityForContent": "Liability for Content:",
+    "liabilityForContentDescription": "We make every effort to keep the information on our Web site current, but accept no liability whatsoever for the content provided. Pursuant to §7 par. 1 of TMG (German Tele-Media Act), the law limits our responsibility as a service provider to our own content on these Web pages. According to §§8 to 10 of TMG, we are not obligated to monitor third party information provided or stored on our Web site. However, we shall promptly remove any content upon becoming aware that it violates the law. Our liability in such an instance shall commence at the time we become aware of the respective violation.",
+    "liabilityForLinks": "Liability for Links:",
+    "liabilityForLinksDescription": "Our site contains links to third-party Web sites. We have no influence whatsoever on the information on these Web sites and accept no guaranty for its correctness. The content of such third-party sites is the responsibility of the respective owners/providers. At the time third-party Web sites were linked to ours, we found NO GROUNDS WHATSOEVER of any likely contravention of the law. We shall promptly delete a link upon becoming aware that it violates the law.",
+    "references": "References:",
+    "termsOfService": "Terms of Service"
+  },
+  "auth": {
+    "account": {
+      "confirmOlderThan18": "I confirm that I’m 18 years or older.",
+      "confirmTermsOfUsage": "By clicking “register” I agree with the {termsOfService} and confirm, that I read the {dataPrivacyStatement} of Human Connection.",
+      "email": "Email",
+      "helloUser": "Hello <b>{username}</b>",
       "loginOrRegister": "Login / Sign-Up",
       "loginRequired4CommentOrVote": "You need to be logged-in to be able to vote or comment on Human Connection.",
-      "password":"Password",
-			"profile":"Profile",
-			"settings":"Settings"
+      "password": "Password",
+      "profile": "Profile",
+      "settings": "Settings"
     },
     "login": {
-      "label":"Login",
-      "description":"If you have an account at Human Connection, please log-in here.",
-      "stayLoggedIn":"Stay logged in",
-      "forgotPassword":"Forgot password?",
-      "successInfo":"Congratulations, you are in!"
+      "label": "Login",
+      "description": "If you have an account at Human Connection, please log-in here.",
+      "stayLoggedIn": "Stay logged in",
+      "forgotPassword": "Forgot password?",
+      "successInfo": "Congratulations, you are in!"
     },
     "logout": {
-      "label":"Logout"
-		},
+      "label": "Logout"
+    },
     "register": {
-      "description":"Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
-      "noAccountYet":"No account yet?",
-      "accountAlready":"You have an account?",
-      "label":"Register"
+      "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
+      "noAccountYet": "No account yet?",
+      "accountAlready": "You have an account?",
+      "label": "Register"
     }
   }
 }
