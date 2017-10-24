@@ -63,8 +63,7 @@
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
             </a>
-            <b-dropdown-item customv-html="$t('auth.account.helloUser', {username: user.name })">
-            </b-dropdown-item>
+            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user.name })"></b-dropdown-item>
             <hr class="dropdown-divider">
             <b-dropdown-item hasLink>
               <nuxt-link :to="{ name: 'profile' }">
