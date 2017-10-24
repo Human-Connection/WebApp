@@ -9,7 +9,8 @@
       "label": "Kalender"
     },
     "notification": {
-      "label": "Notifications"
+      "label": "Notifications",
+      "messageEmpty": "You don't have any notifications."
     },
     "contribution": {
       "bestList": "Bestlist",

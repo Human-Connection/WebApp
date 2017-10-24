@@ -16,7 +16,7 @@
         </p>
         <div v-if="notifications">
           <p v-if="notifications.length === 0" class="dropdown-content empty">
-            You don't have any notifications.
+            {{ $t('component.notification.messageEmpty') }}
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
             <transition-group name="notification">
