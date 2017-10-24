@@ -6,7 +6,7 @@
       "label": "Admin"
     },
     "calendar": {
-      "label": "Kalender"
+      "label": "Calendar"
     },
     "notification": {
       "label": "Notifications",
@@ -34,7 +34,7 @@
       "shoutOf": "Shouts",
       "shoutsCountedDescription": "This post has no shout yet | {count} human would like to shout this post | {count} people would like to shout this post",
       "takeAction": "Take action",
-      "tagNoneOnePlural": "no Tags | Tag | Tags ",
+      "tagNoneOnePlural": "no Tags | Tag | Tags",
       "type-cando": "Can Do",
       "type-event": "Event",
       "type-procon": "Pro & Contra",
@@ -61,7 +61,7 @@
     },
     "search": {
       "noMoreResults": "There are no more",
-      "noResults": "Sorry thats all that we found",
+      "noResults": "Sorry that's all what we found",
       "placeholder": "Search ..."
     }
   },
