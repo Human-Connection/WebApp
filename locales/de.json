@@ -42,7 +42,8 @@
       "type-vote": "Votum",
       "versus": "Versus",
       "voteNoneOnePlural": "Kein Votum | Votum | Vota",
-      "editorPlaceholder": "schreib etwas inspirierendes..."
+      "editorPlaceholder": "schreib etwas inspirierendes...",
+      "messageSaveSuccess": "Danke für deinen Beitrag. Du bist grandios."
     },
     "emotionRating": {
       "angry": "verärgert",
@@ -74,6 +75,7 @@
     "publish": "Veröffentlichen",
     "update": "Aktuallisieren",
     "cancel": "Abbrechen",
+    "edit": "Bearbeiten",
     "delete": "Löschen",
     "back": "Zurück"
   },

@@ -186,7 +186,7 @@
           }
           this.loading = false
           this.$snackbar.open({
-            message: 'Thanks for your contribution. You are awesome.',
+            message: this.$t('component.contribution.messageSaveSuccess'),
             duration: 4000,
             type: 'is-success'
           })

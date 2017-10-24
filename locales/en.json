@@ -42,7 +42,8 @@
       "type-vote": "Vote",
       "versus": "Versus",
       "voteNoneOnePlural": "no Vote | Vote | Votes",
-      "editorPlaceholder": "write something amazing..."
+      "editorPlaceholder": "write something amazing...",
+      "messageSaveSuccess": "Thanks for your contribution. You are awesome."
     },
     "emotionRating": {
       "angry": "angry",
@@ -74,6 +75,7 @@
     "publish": "Publish",
     "update": "Update",
     "cancel": "Cancel",
+    "edit": "Edit",
     "delete": "Delete",
     "back": "Back"
   },

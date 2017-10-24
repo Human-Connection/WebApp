@@ -11,7 +11,7 @@
               </div>
               <div class="column is-one-third">
                 <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
-                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; Edit
+                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('buttons.edit') }}
                 </nuxt-link>
               </div>
             </div>
