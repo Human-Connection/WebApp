@@ -13,22 +13,39 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <div class="tags" v-if="categories.length">
-          <span class="tag is-primary" v-for="contribution in categories">
-            {{ contribution.title }}
-          </span>
-        </div>
         <main class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
         </main>
         <footer>
-          <div class="infos">
-            <span v-bind:title="$tc('component.contribution.shoutsCountedDescription', 214, {count: 214})">
-              <i class="fa fa-bullhorn"></i><small>214</small>
-            </span>
-            <span v-bind:title="$tc('component.contribution.commentsCountedDescription', commentCount, {count: commentCount})">
-              <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
-            </span>
+          <div class="infos columns is-mobile">
+            <div class="column has-text-left">
+              <div class="tags " v-if="categories.length">
+                <b-tooltip :label="category.title"
+                           v-for="category in categories"
+                           :key="category._id"
+                           style="margin-right: 5px;"
+                           type="is-dark">
+                    <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
+                      <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
+                    </span>
+                </b-tooltip>
+              </div>
+            </div>
+            <div class="column has-text-right">
+              <span v-bind:title="$tc('component.contribution.shoutsCountedDescription', 214, {count: 214})">
+                <i class="fa fa-bullhorn"></i><small>214</small>
+              </span>
+              <span v-bind:title="$tc('component.contribution.commentsCountedDescription', commentCount, {count: commentCount})">
+                <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
+              </span>
+              <b-dropdown position="is-top-left" class="is-hidden">
+                <a slot="trigger">
+                    <hc-icon icon="angle-up"></hc-icon>
+                </a>
+                <b-dropdown-item>Melden</b-dropdown-item>
+                <b-dropdown-item>als gelesen markieren</b-dropdown-item>
+              </b-dropdown>
+            </div>
           </div>
         </footer>
       </div>
@@ -115,15 +132,11 @@
     @include fullhd() {
       width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
     }
-    @include tablet() {
-      box-shadow: $card-shadow;
-    }
+    box-shadow: $card-shadow;
 
     opacity: 0;
-    // transition-duration: 0ms;
     transition: opacity 250ms;
     transition-delay: 10ms;
-    //  border: 1px solid rgba(black, 0.15);
 
     &.show {
       opacity: 1;

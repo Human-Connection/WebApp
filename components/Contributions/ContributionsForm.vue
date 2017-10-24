@@ -73,7 +73,7 @@
       <div class="field">
         <label class="label">Inhalt</label>
         <div class="control">
-          <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
@@ -185,9 +185,9 @@
             res = await feathers.service('contributions').create(this.form)
           }
           this.loading = false
-          this.$toast.open({
+          this.$snackbar.open({
             message: 'Thanks for your contribution. You are awesome.',
-            duration: 2000,
+            duration: 4000,
             type: 'is-success'
           })
           this.$router.push(`/contributions/${res.slug}?refresh=true`)

@@ -8,7 +8,7 @@
             'disabled': isDisabled(category._id)
           }"
           @click.prevent="toggleCategory(category._id)">
-      {{ category.title }}
+      <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
     </span>
     <p class="small-info">
       {{ selectedCount }} von {{ selectedMax }} Kategorien ausgewählt

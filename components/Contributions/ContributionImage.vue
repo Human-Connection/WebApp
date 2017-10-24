@@ -65,12 +65,21 @@
 </script>
 
 <style scoped lang="scss">
+    @import 'assets/styles/utilities';
+
     .hc__imagecontainer {
         height: 300px;
         background-size: cover;
-        background-position: center;
+        background-position: top;
         // overflow: hidden;
         margin: -3rem -1.5rem 1.5rem;
         cursor: zoom-in;
+
+        @include mobile() {
+            height: 60vw;
+        }
+        @include tablet-only() {
+            height: 40vw;
+        }
     }
 </style>

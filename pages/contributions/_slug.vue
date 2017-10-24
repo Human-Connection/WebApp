@@ -9,7 +9,7 @@
               <div class="column">
                 <author :post="contribution"></author>
               </div>
-              <div class="column">
+              <div class="column is-one-third">
                 <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; Edit
                 </nuxt-link>
@@ -21,7 +21,7 @@
             <h1>{{ contribution.title }}</h1>
             <div class="tags" v-if= "categories.length">
               <span class="tag is-primary" v-for="category in categories">
-                {{ category.title }}
+                <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
               </span>
             </div>
             <p class="content" v-html="content"></p>

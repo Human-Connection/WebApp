@@ -14,7 +14,7 @@
           <h3 v-if= "categories.length">Themen</h3>
           <div class="tags" v-if= "categories.length">
             <span class="tag is-primary" v-for="category in categories">
-              {{ category.title }}
+              <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
             </span>
           </div>
 

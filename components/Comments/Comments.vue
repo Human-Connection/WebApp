@@ -1,10 +1,10 @@
 <template>
-  <div class="hc__comments">
-    <transition-group name="comment" v-if="comments.length >= 1">
-      <div class="hc__comment autowrap" v-for="comment in comments" :key="comment._id">
-        <author :post="comment"></author>
-        <p v-html="comment.content"></p>
-      </div>
+  <div class="comments">
+    <div v-if="isLoading" class="notification">
+      <strong>Loading Comments...</strong>
+    </div>
+    <transition-group v-else-if="comments.length >= 1" name="comment">
+      <comment v-for="comment in comments" :key="comment._id" :comment="comment" :onUpvote="upvote"></comment>
     </transition-group>
     <div v-else class="notification">
       <br/>
@@ -16,58 +16,44 @@
 
 
 <script>
-  import feathers from '~/plugins/feathers'
-  import author from '~/components/Author/Author.vue'
+  import {mapGetters} from 'vuex'
+  import comment from '~/components/Comments/Comment.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
-  import _ from 'lodash'
 
   export default {
-    name: 'hc-comment',
+    name: 'hc-comments',
     props: ['post'],
     components: {
-      'author': author,
+      'comment': comment,
       'comment-form': commentForm
     },
-    data () {
-      return {
-        comments: []
-      }
+    computed: {
+      ...mapGetters({
+        user: 'auth/user',
+        comments: 'comments/all',
+        isLoading: 'comments/isLoading'
+      })
     },
-    created () {
-      if (!_.isEmpty(this.post.comments)) {
-        // we need to cast the comments array as it might be an object when only one is present
-        this.comments = _.castArray(this.post.comments)
+    destroyed () {
+      this.$store.commit('comments/clear')
+    },
+    methods: {
+      upvote (comment) {
+        if (!this.user) {
+          this.$router.push({ name: 'auth-login', params: { path: this.$route.path } })
+        } else {
+          this.$store.dispatch('comments/upvote', comment)
+        }
       }
     },
     mounted () {
-      feathers.service('comments')
-        .on('created', comment => {
-          if (comment.contributionId === this.post._id) {
-            this.comments.push(comment)
-            this.$store.dispatch('layout/change')
-          }
-        })
+      this.$store.dispatch('comments/fetchByContributionId', this.post._id)
     }
   }
 </script>
 
 <style scoped lang="scss">
   @import "assets/styles/utilities";
-
-  .hc__comment {
-    border-top: 1px solid $grey-lighter;
-    padding: 20px 0;
-    position: relative;
-
-    p {
-      color: $grey;
-      padding-left: 51px;
-    }
-
-    &:first-child {
-      border-top: none;
-    }
-  }
 
   .comment-enter-active, .comment-leave-active {
     transition: all .5s ease-out;

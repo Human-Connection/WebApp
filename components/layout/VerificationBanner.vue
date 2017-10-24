@@ -38,9 +38,9 @@
       resendVerification () {
         this.resendVerifySignup()
           .then(() => {
-            this.$toast.open({
+            this.$snackbar.open({
               message: 'Die Bestätigung wurde erfolgreich verschickt.',
-              duration: 3000,
+              duration: 4000,
               type: 'is-success'
             })
           })
