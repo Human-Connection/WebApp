@@ -8,7 +8,32 @@
 		"calendar": {
 			"label": "Kalender"
 		},
+		"category": {
+			"infoSelectedNofMaxCategories": "{n} von {max} Kategorien ausgewählt",
+			"labelNoneOnePlural": "Keine Kategorie | Kategorie | Kategorien",
+      "slug2label-bildung-and-wissenschaft": "Bildung & Wissenschaft",
+      "slug2label-demokratie-and-politik": "Demokratie & Politik",
+      "slug2label-energie-and-technologie": "Energie & Technologie",
+      "slug2label-gesundheit-and-wohlbefinden": "Gesundheit & Wohlbefinden",
+      "slug2label-globaler-frieden-and-gewaltlosigkeit": "Globaler Frieden & Gewaltlosigkeit",
+      "slug2label-gluck-and-werte": "Glück & Werte",
+      "slug2label-it-internet-and-datenschutz": "IT, Internet & Datenschutz",
+      "slug2label-just-for-fun": "Vergnügliches & Just For Fun",
+      "slug2label-konsum-and-nachhaltigkeit": "Konsum & Nachhaltigkeit",
+      "slug2label-kooperation-and-entwicklung": "Kooperation & Entwicklung",
+      "slug2label-kunst-kultur-and-sport": "Kunst, Kultur & Sport",
+      "slug2label-menschenrechte-and-gerechtigkeit": "Menschenrechte & Gerechtigkeit",
+      "slug2label-presse-and-meinungsfreiheit": "Presse- & Meinungsfreiheit",
+      "slug2label-tierschutz": "Tierschutz",
+      "slug2label-umwelt-and-natur": "Umwelt & Natur",
+      "slug2label-wirtschaft-and-finanzen": "Wirtschaft & Finanzen"
+		},
     "contribution": {
+			"action-Cancel": "abbrechen",
+			"action-Publish": "veröffentlichen",
+			"action-Update": "aktualisieren",
+			"action-Save": "speichern",
+			"action-Submit": "übermittlen",
 			"bestList": "Bestenliste",
 			"canDos": "Einfach machen",
       "chatroomBriefOrLong": "Plausch & Meinungstausch | Plausch & Meinungstausch / Chat",
@@ -38,6 +63,13 @@
       "type-versus": "Versus",
       "type-vote": "Votum",
       "versus": "Versus",
+      "writePostContent": "Inhalt",
+      "writePostEditorContentPlaceholder": "Hier Inhalt hineinschreiben …",
+      "writePostImageLabel": "Beitragsbild",
+      "writePostImagePlaceholder": "URL-Adresse des Bildes",
+      "writePost": "Beitrag schreiben",
+      "writePostSection": "Überschrift",
+      "writePostSectionPlaceholder": "Welchen Titel soll Dein Beitrag bekommen?",
 			"voteNoneOnePlural": "Kein Votum | Votum | Vota"
     },
     "emotionRating": {

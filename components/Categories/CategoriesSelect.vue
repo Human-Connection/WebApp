@@ -8,10 +8,10 @@
             'disabled': isDisabled(category._id)
           }"
           @click.prevent="toggleCategory(category._id)">
-      {{ category.title }}
+      {{ $t('component.category.slug2label-' + category.slug )  }}
     </span>
     <p class="small-info">
-      {{ selectedCount }} von {{ selectedMax }} Kategorien ausgewählt
+      {{ $t('component.category.infoSelectedNofMaxCategories', {n:selectedCount, max:selectedMax} ) }}
     </p>
   </div>
 </template>

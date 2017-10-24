@@ -10,9 +10,9 @@
     </div>
     <hr/>
     <div class="field">
-      <label class="label">Teaserbild URL</label>
+      <label class="label">{{ $t('component.contribution.writePostImageLabel') }}</label>
       <p class="control">
-        <input class="input" v-model="form.teaserImg" type="text" placeholder="BildURL"
+        <input class="input" v-model="form.teaserImg" type="text" v-bind:placeholder="$t('component.contribution.writePostImagePlaceholder')"
                v-bind:disabled="loading">
       </p>
     </div>
@@ -29,9 +29,9 @@
       <!--</ul>-->
     <!--</div>-->
     <div class="field">
-      <label class="label">Überschrift</label>
+      <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
-        <input class="input" v-model="form.title" type="text" placeholder="How do you call that story?"
+        <input class="input" v-model="form.title" type="text" v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
                v-bind:disabled="loading">
       </p>
     </div>
@@ -66,12 +66,12 @@
       </span>
     </div>
     <div class="field">
-      <label class="label">Kategorien</label>
+      <label class="label">{{ $tc('component.category.labelNoneOnePlural', 2) }}</label>
       <categories-select v-model="form.categoryIds"></categories-select>
     </div>
     <no-ssr>
       <div class="field">
-        <label class="label">Inhalt</label>
+        <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
         <div class="control">
           <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         </div>
@@ -86,13 +86,13 @@
       <div class="field is-grouped is-grouped-right">
         <div class="control">
           <button class="button is-medium is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i> &nbsp;Cancel
+            <i class="fa fa-times"></i> &nbsp;{{ $t('component.contribution.actionCancel') }}
           </button>
         </div>
         <div class="control">
           <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
                   @click.prevent="onSubmit">
-            <i class="fa fa-check"></i> &nbsp;{{ buttonLabel }}
+            <i class="fa fa-check"></i> &nbsp;{{ $t('component.contribution.action-' + buttonLabelKey) }}
           </button>
         </div>
       </div>
@@ -115,6 +115,11 @@
       Author,
       ContributionImage,
       'categories-select': CategoriesSelect
+    },
+    head () {
+      return {
+        title: this.$t('component.contribution.writePost')
+      }
     },
     data () {
       return {
@@ -145,7 +150,7 @@
           ]
         },
         editorOption: {
-          placeholder: 'What to write?',
+          placeholder: this.$t('component.contribution.writePostEditorContentPlaceholder'),
           modules: {
             toolbar: {
               container: [
@@ -162,7 +167,7 @@
       ...mapGetters({
         user: 'auth/user'
       }),
-      buttonLabel () {
+      buttonLabelKey () {
         return this.form._id ? 'Update' : 'Publish'
       }
     },

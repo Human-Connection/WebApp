@@ -5,10 +5,35 @@
 		"admin": {
 			"label": "Admin"
 		},
+		"category": {
+			"infoSelectedNofMaxCategories": "{n} of {max} categories selected",
+			"labelNoneOnePlural": "Keine Kategorie | Kategorie | Kategorien",
+      "slug2label-bildung-and-wissenschaft": "Education & Sciences",
+      "slug2label-demokratie-and-politik": "Democracy & Politics",
+      "slug2label-energie-and-technologie": "Energy & Technology",
+      "slug2label-gesundheit-and-wohlbefinden": "Health & Wellbeing",
+      "slug2label-globaler-frieden-and-gewaltlosigkeit": "Global Peace & Non-Violence",
+      "slug2label-gluck-and-werte": "Happyness & Values",
+      "slug2label-it-internet-and-datenschutz": "IT, Internet & Data Protection",
+      "slug2label-just-for-fun": "Just For Fun",
+      "slug2label-konsum-and-nachhaltigkeit": "Consumption & Sustainability",
+      "slug2label-kooperation-and-entwicklung": "Cooperation & Development",
+      "slug2label-kunst-kultur-and-sport": "Art, Culture & Sports",
+      "slug2label-menschenrechte-and-gerechtigkeit": "Human Rights & Justice",
+      "slug2label-presse-and-meinungsfreiheit": "Freedom of Press & Opinion",
+      "slug2label-tierschutz": "Animal Welfare",
+      "slug2label-umwelt-and-natur": "Environment & Nature",
+      "slug2label-wirtschaft-and-finanzen": "Economy & Finances"
+		},
 		"calendar": {
 			"label": "Kalender"
 		},
   	"contribution": {
+			"action-Cancel": "cancel",
+			"action-Publish": "publish",
+			"action-Update": "update",
+			"action-Save": "save",
+			"action-Submit": "submit",
 			"bestList": "bestlist",
 			"canDos": "Can Do’s",
       "chatroomBriefOrLong": "chatrooms",
@@ -38,6 +63,13 @@
       "type-versus": "Versus",
       "type-vote": "Vote",
       "versus": "versus",
+      "writePostEditorContentPlaceholder": "What to write?",
+      "writePost": "Write a Post",
+      "writePostContent": "Content",
+      "writePostImageLabel": "Teaser Image",
+      "writePostImagePlaceholder": "image address url",
+      "writePostSection": "Title",
+      "writePostSectionPlaceholder": "How do you call that story?",
 			"voteNoneOnePlural": "no vote | vote | votes"
     },
     "emotionRating": {
