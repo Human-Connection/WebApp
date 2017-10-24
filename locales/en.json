@@ -41,7 +41,8 @@
       "type-versus": "Versus",
       "type-vote": "Vote",
       "versus": "Versus",
-      "voteNoneOnePlural": "no Vote | Vote | Votes"
+      "voteNoneOnePlural": "no Vote | Vote | Votes",
+      "editorPlaceholder": "write something amazing..."
     },
     "emotionRating": {
       "angry": "angry",
@@ -66,6 +67,15 @@
     "index": {
       "title": "Welcome"
     }
+  },
+  "buttons": {
+    "create": "Create",
+    "save": "Save",
+    "publish": "Publish",
+    "update": "Update",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "back": "Back"
   },
   "legal": {
     "copyrights": "Copyrights:",

@@ -86,7 +86,7 @@
       <div class="field is-grouped is-grouped-right">
         <div class="control">
           <button class="button is-medium is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i> &nbsp;Cancel
+            <i class="fa fa-times"></i> &nbsp;{{ $t('buttons.cancel') }}
           </button>
         </div>
         <div class="control">
@@ -145,7 +145,7 @@
           ]
         },
         editorOption: {
-          placeholder: 'What to write?',
+          placeholder: this.$t('component.contribution.editorPlaceholder'),
           modules: {
             toolbar: {
               container: [
@@ -163,7 +163,7 @@
         user: 'auth/user'
       }),
       buttonLabel () {
-        return this.form._id ? 'Update' : 'Publish'
+        return this.form._id ? this.$t('buttons.update') : this.$t('buttons.publish')
       }
     },
     methods: {

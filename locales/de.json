@@ -41,7 +41,8 @@
       "type-versus": "Versus",
       "type-vote": "Votum",
       "versus": "Versus",
-      "voteNoneOnePlural": "Kein Votum | Votum | Vota"
+      "voteNoneOnePlural": "Kein Votum | Votum | Vota",
+      "editorPlaceholder": "schreib etwas inspirierendes..."
     },
     "emotionRating": {
       "angry": "verärgert",
@@ -66,6 +67,15 @@
     "index": {
       "title": "Willkommen"
     }
+  },
+  "buttons": {
+    "create": "Erstellen",
+    "save": "Speichern",
+    "publish": "Veröffentlichen",
+    "update": "Aktuallisieren",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "back": "Zurück"
   },
   "legal": {
     "copyrights": "Urheberrecht:",
