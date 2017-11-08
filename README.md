@@ -2,6 +2,9 @@
 > uses the Nuxt.js and Express.js projects
 
 This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.
+
+## License
+Creative Commons Attribution NonCommercial (CC-BY-NC) [LICENSE.md](License)
  
 ## Build Setup
 
