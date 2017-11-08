@@ -3,8 +3,9 @@
 
 This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.
 
-## License
-Creative Commons Attribution NonCommercial (CC-BY-NC) [License](LICENSE.md)
+## Creative Commons (CC BY-NC-SA 4.0) License
+
+<img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"/>[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International Public License](https://creativecommons.org/licenses/by-nc-sa/4.0/)
  
 ## Build Setup
 
