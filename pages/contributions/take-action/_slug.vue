@@ -95,16 +95,10 @@
             <h3 class="title is-4" id="projects">Projekte</h3>
             <table class="table is-striped">
               <tbody>
-              <tr>
+              <tr v-for="project in projects" :key="project._id">
                 <td>
-                  <strong>We build Bee City</strong><br/>
-                  <small>Wir haben bereits 20 Bienenstöcke gebaut!</small>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Semabelha Semelimento - Bee or not to be</strong><br/>
-                  <small>Die Bee Alert App</small>
+                  <strong>{{ project.name }}</strong><br/>
+                  <small>{{ project.description }}</small>
                 </td>
               </tr>
               <tr>
@@ -274,12 +268,19 @@
     },
     async asyncData ({params, error}) {
       try {
-        let contributions = await feathers.service('contributions').find({
+        const contributions = await feathers.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
-        let organizations = await feathers.service('organizations').find({
+        const organizations = await feathers.service('organizations').find({
+          query: {
+            categoryIds: {
+              $in: contributions.data[0].categoryIds
+            }
+          }
+        })
+        const projects = await feathers.service('projects').find({
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds
@@ -287,7 +288,8 @@
           }
         })
         return {
-          organizations: organizations.data,
+          organizations: organizations.data || [],
+          projects: projects.data || [],
           contribution: contributions.data[0],
           title: contributions.data[0].title
         }
