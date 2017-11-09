@@ -48,26 +48,6 @@
             </div>
             <table class="table is-striped">
               <tbody>
-              <tr>
-                <td>
-                  <img style="max-width: 100px;" src="http://www.nwf.org/~/media/Design/Footer/logo-homepage-footer.ashx" alt=""/>
-                </td>
-                <td>
-                  <strong>Natural Wildlife Fundation</strong><br/>
-                  <small>Die National Wildlife Federation (NWF) ist die größte Umweltschutzorganisation der Vereinigten Staaten. DIe Organisation hat über fünf Millionen Mitglieder und ein jährliches Budget von mehr als 125 Millionen USD (2006).</small>
-                </td>
-                <td class="has-text-right"><strong>1234</strong>&nbsp;Follower</td>
-              </tr>
-              <tr>
-                <td>
-                  <img style="max-width: 100px;" src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fst2.depositphotos.com%2F3573725%2F6558%2Fv%2F950%2Fdepositphotos_65587587-stock-illustration-logo-for-honey-bee.jpg&f=1" alt=""/>
-                </td>
-                <td>
-                  <strong>Save the Honeybee Fundation</strong><br/>
-                  <small>Der Bienenhalter hat zahlreiche Möglichkeiten auf seinen Bienenbestand Einfluss zunehmen. In der Regel wird dem Eingriff eine Volkskontrolle vorangestellt, und dann entsprechende Maßnahmen eingeleitet. </small>
-                </td>
-                <td class="has-text-right"><strong>321</strong>&nbsp;Follower</td>
-              </tr>
                 <tr v-for="organization in organizations" :key="organization._id">
                   <td>
                     <img style="max-width: 100px;" src="" alt=""/>
@@ -294,12 +274,16 @@
     },
     async asyncData ({params, error}) {
       try {
-        let organizations = await feathers.service('organizations').find({
-          query: {}
-        })
         let contributions = await feathers.service('contributions').find({
           query: {
             slug: params.slug
+          }
+        })
+        let organizations = await feathers.service('organizations').find({
+          query: {
+            categoryIds: {
+              $in: contributions.data[0].categoryIds
+            }
           }
         })
         return {
