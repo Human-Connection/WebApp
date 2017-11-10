@@ -47,7 +47,7 @@
               </ul>
             </div>
             <table class="table is-striped">
-              <tbody>
+              <tbody v-if="organizations.length">
                 <tr v-for="organization in organizations" :key="organization._id">
                   <td>
                     <img style="max-width: 100px;" src="" alt=""/>
@@ -61,6 +61,14 @@
                 <tr>
                   <td colspan="3" class="is-white">
                     <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr>
+                  <td class="has-text-centered">
+                    <h6 class="is-size-6">Sorry there ar no Organizations that fit that post right now. Do you want to add one?</h6>
+                    <button class="button is-primary">Add Organization</button>
                   </td>
                 </tr>
               </tbody>
@@ -94,18 +102,26 @@
 
             <h3 class="title is-4" id="projects">Projekte</h3>
             <table class="table is-striped">
-              <tbody>
-              <tr v-for="project in projects" :key="project._id">
-                <td>
-                  <strong>{{ project.name }}</strong><br/>
-                  <small>{{ project.description }}</small>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
-                </td>
-              </tr>
+              <tbody v-if="projects.length">
+                <tr v-for="project in projects" :key="project._id">
+                  <td>
+                    <strong>{{ project.name }}</strong><br/>
+                    <small>{{ project.description }}</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr>
+                  <td class="has-text-centered">
+                    <h6 class="is-size-6">Sorry there ar no Projects that fit that post right now. Do you want to add one?</h6>
+                    <button class="button is-primary">Add Project</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
 
@@ -277,14 +293,16 @@
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds
-            }
+            },
+            $limit: 3
           }
         })
         const projects = await feathers.service('projects').find({
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds
-            }
+            },
+            $limit: 3
           }
         })
         return {
