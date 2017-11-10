@@ -240,6 +240,32 @@
   import Map from '~/components/Map/Map.vue'
   import _ from 'lodash'
 
+  const generatePlaces = (organizations) => {
+    let places = []
+    if (_.isEmpty(organizations)) {
+      return places
+    }
+    organizations.forEach(organization => {
+      if (_.isEmpty(organization.addresses)) {
+        return
+      }
+      organization.addresses.forEach(address => {
+        places.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [address.lng, address.lat]
+          },
+          properties: {
+            title: organization.name,
+            description: organization.description
+          }
+        })
+      })
+    })
+    return places
+  }
+
   export default {
     scrollToTop: false,
     components: {
@@ -253,32 +279,11 @@
       return {
         contribution: null,
         title: null,
-        places: [{
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-77.032, 38.913]
-          },
-          properties: {
-            title: 'Mapbox',
-            description: 'Washington, D.C.'
-          }
-        },
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-122.414, 37.776]
-          },
-          properties: {
-            title: 'Mapbox',
-            description: 'San Francisco, California'
-          }
-        }],
+        places: [],
         zoom: 3,
         center: {
-          lng: -99.0073,
-          lat: 40.7124
+          lat: 49.890860,
+          lng: 10.327148
         }
       }
     },
@@ -306,6 +311,7 @@
           }
         })
         return {
+          places: generatePlaces(organizations.data || []),
           organizations: organizations.data || [],
           projects: projects.data || [],
           contribution: contributions.data[0],
