@@ -31,7 +31,7 @@
           <h3>Verwandte Posts</h3>
           <table class="table is-striped">
             <tbody v-if="relatedPosts.length">
-              <tr v-for="contribution in relatedPosts" @click="$router.push('/contributions/' + contribution.slug)">
+              <tr style="cursor: pointer" v-for="contribution in relatedPosts" @click="$router.push('/contributions/' + contribution.slug)">
                 <td>{{ contribution.title }}</td>
                 <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
               </tr>
