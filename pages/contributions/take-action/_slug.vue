@@ -240,16 +240,17 @@
   import Map from '~/components/Map/Map.vue'
   import _ from 'lodash'
 
-  const generatePlaces = (organizations) => {
+  const generatePlaces = (models) => {
     let places = []
-    if (_.isEmpty(organizations)) {
+    if (_.isEmpty(models)) {
       return places
     }
-    organizations.forEach(organization => {
-      if (_.isEmpty(organization.addresses)) {
+
+    models.forEach(entity => {
+      if (_.isEmpty(entity.addresses)) {
         return
       }
-      organization.addresses.forEach(address => {
+      entity.addresses.forEach(address => {
         places.push({
           type: 'Feature',
           geometry: {
@@ -257,8 +258,8 @@
             coordinates: [address.lng, address.lat]
           },
           properties: {
-            title: organization.name,
-            description: organization.description
+            title: entity.name,
+            description: entity.description
           }
         })
       })
@@ -310,13 +311,14 @@
             $limit: 3
           }
         })
-        return {
-          places: generatePlaces(organizations.data || []),
+        let data = {
           organizations: organizations.data || [],
           projects: projects.data || [],
           contribution: contributions.data[0],
           title: contributions.data[0].title
         }
+        data.places = generatePlaces([...data.organizations, ...data.projects])
+        return data
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
         return {}
