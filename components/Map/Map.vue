@@ -54,6 +54,10 @@
           center: this.center
         })
         this.places.forEach(function (marker) {
+          // create the popup
+          let popup = new mapboxgl.Popup()
+            .setText(marker.properties.title)
+
           // create a HTML element for each feature
           let el = document.createElement('div')
           el.className = 'marker'
@@ -61,6 +65,7 @@
           // make a marker for each feature and add to the map
           new mapboxgl.Marker(el)
             .setLngLat(marker.geometry.coordinates)
+            .setPopup(popup) // sets a popup on this marker
             .addTo(map)
         })
       }
@@ -72,15 +77,19 @@
   // @import "mapbox-gl/dist/mapbox-gl.css";
 
   #map {
-    height: 200px;
+      height: 200px;
   }
-  
+
   .marker {
-    background:      url('https://company-16131.frontify.com/api/screen/download/yANNQjWD8CBlyq7i5p12wcMfB_W6GYbKREV4kvZIk9On6uxfu2lwIk_H62lvpe-GOkVlmiiZ8Cpx2OZADp4spQ') no-repeat center;
-    background-size: contain;
-    width:           30px;
-    height:          30px;
-    border-radius:   50%;
-    cursor:          pointer;
+      background:      url('https://company-16131.frontify.com/api/screen/download/yANNQjWD8CBlyq7i5p12wcMfB_W6GYbKREV4kvZIk9On6uxfu2lwIk_H62lvpe-GOkVlmiiZ8Cpx2OZADp4spQ') no-repeat center;
+      background-size: contain;
+      width:           30px;
+      height:          30px;
+      border-radius:   50%;
+      cursor:          pointer;
+  }
+
+  .mapboxgl-popup {
+      max-width: 200px;
   }
 </style>
