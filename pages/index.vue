@@ -99,7 +99,8 @@
         if (!_.isEmpty(this.searchQuery)) {
           query.$search = this.searchQuery
         }
-        feathers.service('contributions').find({query: query}).then(res => {
+        // feathers.service('contributions').find({query: query}).then(res => {
+        feathers.service('search').find({query: query}).then(res => {
           this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
           this.$nextTick(() => {
             this.updateGrid()
