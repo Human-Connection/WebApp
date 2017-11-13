@@ -38,7 +38,7 @@
               <strong>This is currenty dummy content</strong>
             </div>
 
-            <h3 class="title is-4" id="ngos">Organisationen</h3>
+            <h3 class="title is-4" id="organizations">Organisationen</h3>
             <div class="is-hidden tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
@@ -47,30 +47,28 @@
               </ul>
             </div>
             <table class="table is-striped">
-              <tbody>
-                <tr>
+              <tbody v-if="organizations.length">
+                <tr v-for="organization in organizations" :key="organization._id">
                   <td>
-                    <img style="max-width: 100px;" src="http://www.nwf.org/~/media/Design/Footer/logo-homepage-footer.ashx" alt=""/>
+                    <img style="max-width: 100px;" src="" alt=""/>
                   </td>
                   <td>
-                    <strong>Natural Wildlife Fundation</strong><br/>
-                    <small>Die National Wildlife Federation (NWF) ist die größte Umweltschutzorganisation der Vereinigten Staaten. DIe Organisation hat über fünf Millionen Mitglieder und ein jährliches Budget von mehr als 125 Millionen USD (2006).</small>
+                    <strong>{{ organization.name }}</strong><br/>
+                    <small>{{ organization.description }}</small>
                   </td>
-                  <td class="has-text-right"><strong>1234</strong>&nbsp;Follower</td>
-                </tr>
-                <tr>
-                  <td>
-                    <img style="max-width: 100px;" src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fst2.depositphotos.com%2F3573725%2F6558%2Fv%2F950%2Fdepositphotos_65587587-stock-illustration-logo-for-honey-bee.jpg&f=1" alt=""/>
-                  </td>
-                  <td>
-                    <strong></strong>Save the Honeybee Fundation<br/>
-                    <small>Der Bienenhalter hat zahlreiche Möglichkeiten auf seinen Bienenbestand Einfluss zunehmen. In der Regel wird dem Eingriff eine Volkskontrolle vorangestellt, und dann entsprechende Maßnahmen eingeleitet. </small>
-                  </td>
-                  <td class="has-text-right"><strong>321</strong>&nbsp;Follower</td>
+                  <td class="has-text-right"><strong>{{ organization.followerIds.length }}</strong>&nbsp;Follower</td>
                 </tr>
                 <tr>
                   <td colspan="3" class="is-white">
                     <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr>
+                  <td class="has-text-centered">
+                    <h6 class="is-size-6">Sorry there ar no Organizations that fit that post right now. Do you want to add one?</h6>
+                    <button class="button is-primary">Add Organization</button>
                   </td>
                 </tr>
               </tbody>
@@ -104,24 +102,26 @@
 
             <h3 class="title is-4" id="projects">Projekte</h3>
             <table class="table is-striped">
-              <tbody>
-              <tr>
-                <td>
-                  <strong>We build Bee City</strong><br/>
-                  <small>Wir haben bereits 20 Bienenstöcke gebaut!</small>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <strong>Semabelha Semelimento - Bee or not to be</strong><br/>
-                  <small>Die Bee Alert App</small>
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
-                </td>
-              </tr>
+              <tbody v-if="projects.length">
+                <tr v-for="project in projects" :key="project._id">
+                  <td>
+                    <strong>{{ project.name }}</strong><br/>
+                    <small>{{ project.description }}</small>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody v-else>
+                <tr>
+                  <td class="has-text-centered">
+                    <h6 class="is-size-6">Sorry there ar no Projects that fit that post right now. Do you want to add one?</h6>
+                    <button class="button is-primary">Add Project</button>
+                  </td>
+                </tr>
               </tbody>
             </table>
 
@@ -215,7 +215,7 @@
               3. <strong>Aktiv werden</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#ngos">Organisationen</a></li>
+              <li><a href="#organizations">Organisationen</a></li>
               <li><a href="#can-dos">Can Do's</a></li>
               <li><a href="#projects">Projekte</a></li>
               <li><a href="#jobs">Jobs</a></li>
@@ -240,6 +240,33 @@
   import Map from '~/components/Map/Map.vue'
   import _ from 'lodash'
 
+  const generatePlaces = (models) => {
+    let places = []
+    if (_.isEmpty(models)) {
+      return places
+    }
+
+    models.forEach(entity => {
+      if (_.isEmpty(entity.addresses)) {
+        return
+      }
+      entity.addresses.forEach(address => {
+        places.push({
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [address.lng, address.lat]
+          },
+          properties: {
+            title: entity.name,
+            description: entity.description
+          }
+        })
+      })
+    })
+    return places
+  }
+
   export default {
     scrollToTop: false,
     components: {
@@ -253,46 +280,45 @@
       return {
         contribution: null,
         title: null,
-        places: [{
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-77.032, 38.913]
-          },
-          properties: {
-            title: 'Mapbox',
-            description: 'Washington, D.C.'
-          }
-        },
-        {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [-122.414, 37.776]
-          },
-          properties: {
-            title: 'Mapbox',
-            description: 'San Francisco, California'
-          }
-        }],
+        places: [],
         zoom: 3,
         center: {
-          lng: -99.0073,
-          lat: 40.7124
+          lat: 49.890860,
+          lng: 10.327148
         }
       }
     },
     async asyncData ({params, error}) {
       try {
-        let res = await feathers.service('contributions').find({
+        const contributions = await feathers.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
-        return {
-          contribution: res.data[0],
-          title: res.data[0].title
+        const organizations = await feathers.service('organizations').find({
+          query: {
+            categoryIds: {
+              $in: contributions.data[0].categoryIds
+            },
+            $limit: 3
+          }
+        })
+        const projects = await feathers.service('projects').find({
+          query: {
+            categoryIds: {
+              $in: contributions.data[0].categoryIds
+            },
+            $limit: 3
+          }
+        })
+        let data = {
+          organizations: organizations.data || [],
+          projects: projects.data || [],
+          contribution: contributions.data[0],
+          title: contributions.data[0].title
         }
+        data.places = generatePlaces([...data.organizations, ...data.projects])
+        return data
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
         return {}

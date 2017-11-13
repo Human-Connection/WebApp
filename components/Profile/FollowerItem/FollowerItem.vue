@@ -1,10 +1,10 @@
 <template>
   <div class="hc-follower-item">
-    <hc-avatar class="hc-follower-image" url="https://randomuser.me/api/portraits/women/42.jpg"></hc-avatar>
+    <hc-avatar class="hc-follower-image" :url="image"></hc-avatar>
     <div class="hc-follower-details">
       <span class="details-title">{{ title }}</span>
       <span class="details-timestamp">Letzter Post: {{ timestamp }}</span>
-      <hc-action-item>some action text</hc-action-item>
+      <!--<hc-action-item>some action text</hc-action-item>-->
     </div>
   </div>
 </template>
@@ -17,17 +17,19 @@
     components: {
       'hc-avatar': Avatar
     },
-    props: ['title', 'timestamp']
+    props: ['title', 'timestamp', 'image']
   }
 </script>
 
 <style lang="scss">
   .hc-follower-item {
     display: flex;
+    padding-bottom: 8px;
+
     .hc-follower-image {
       padding-right: 5px;
-      width:         60px;
-      height:        60px;
+      width:         42px;
+      height:        42px;
     }
     .hc-follower-details {
       display: flex;

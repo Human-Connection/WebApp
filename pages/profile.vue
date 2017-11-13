@@ -53,15 +53,14 @@
         <hc-box bottom="true">
           <hc-subtitle>Following</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="16" text="ngo's"/>
-            <hc-textcount class="textcountitem" count="44" text="personen"/>
-            <hc-textcount class="textcountitem" count="20" text="projekte"/>
+            <hc-textcount class="textcountitem" :count="following.organizations" text="organization's"/>
+            <hc-textcount class="textcountitem" :count="following.users" text="personen"/>
+            <hc-textcount class="textcountitem" :count="following.projects" text="projekte"/>
           </div>
-          <hc-dropdown :showLabels="['Alle anzeigen','Meine anzeigen']"
-                       :sortLabels="['Sortieren nach', 'Datum', 'Kategorie']"/>
+          <!--<hc-dropdown :showLabels="['Alle anzeigen','Meine anzeigen']"
+                       :sortLabels="['Sortieren nach', 'Datum', 'Kategorie']"/>-->
           <div class="hc-follower-list">
-            <hc-follower-item title="item 1" timestamp="vor 3 Tagen"/>
-            <hc-follower-item title="item 2" timestamp="vor 2 Tagen"/>
+            <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
@@ -111,6 +110,7 @@
   import UploadAvatar from '~/components/User/UploadAvatar'
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
+  import feathers from '~/plugins/feathers'
 
   export default {
     components: {
@@ -148,6 +148,11 @@
         center: {
           lng: -102.0073,
           lat: 40.7124
+        },
+        following: {
+          users: [],
+          organizations: [],
+          projects: []
         }
       }
     },
@@ -160,6 +165,15 @@
       coverImg () {
         return this.user.coverImg ? this.user.coverImg : 'https://source.unsplash.com/random/1250x280'
       }
+    },
+    async mounted () {
+      const user = await feathers.service('follows').get(this.user._id)
+      this.following = {
+        users: user.users || [],
+        organizations: user.organizations || [],
+        projects: user.projects || []
+      }
+      return true
     },
     head () {
       return {
