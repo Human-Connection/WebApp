@@ -10,7 +10,7 @@
         <p class="info">
           {{ error.message }}
         </p>
-        <hc-button type="nuxt" to="/"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to normal</hc-button>
+        <hc-button type="button" @click="refresh"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to normal</hc-button>
       </div>
     </div>
   </section>
@@ -26,6 +26,15 @@
     head () {
       return {
         title: this.error.statusCode
+      }
+    },
+    methods: {
+      refresh () {
+        if (this.$route.name === 'index') {
+          location.reload()
+        } else {
+          this.$router.back()
+        }
       }
     }
   }
