@@ -66,6 +66,7 @@
       ...mapGetters({
         changeLayout: 'layout/change',
         searchQuery: 'search/query',
+        searchCategories: 'search/categoryIds',
         isVerified: 'auth/isVerified'
       })
     },
@@ -77,17 +78,21 @@
         })
       },
       searchQuery () {
-        const app = this
+        this.resetList(this)
+      },
+      searchCategories () {
+        this.resetList(this)
+      }
+    },
+    methods: {
+      resetList (app) {
         app.$nextTick(async () => {
-          console.log(this.searchQuery)
           app.contributions = []
           app.skip = 0
           app.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
           app.onInfinite()
         })
-      }
-    },
-    methods: {
+      },
       updateGrid () {
         this.bricksInstance.resize(true).pack()
       },
@@ -99,6 +104,14 @@
         if (!_.isEmpty(this.searchQuery)) {
           query.$search = this.searchQuery
         }
+        if (!_.isEmpty(this.searchCategories)) {
+          query.categoryIds = {
+            $in: this.searchCategories
+          }
+        } else {
+          delete query.categoryIds
+        }
+        console.log(query)
         feathers.service('contributions').find({query: query}).then(res => {
           this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
           this.$nextTick(() => {

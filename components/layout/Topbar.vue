@@ -22,10 +22,10 @@
           <div class="navbar-dropdown">
             <div class="container is-fluid has-text-left">
               <div class="columns">
-                <div class="column is-hidden">
+                <div class="column">
                   <br/>
                   <h3 class="title is-6">Categories</h3>
-                  <categories-select v-model="categoryIds"></categories-select>
+                  <categories-select @change="filterForCategories" v-model="categoryIds"></categories-select>
                   <hr/>
                   <h3 class="title is-6">Emotions</h3>
                   <div>
@@ -149,6 +149,9 @@
       console.log(this.$route.path)
     },
     methods: {
+      filterForCategories () {
+        this.$store.commit('search/categoryIds', this.categoryIds)
+      },
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
@@ -211,12 +214,6 @@
     img.emotion {
       padding-right: 1rem;
       display: inline-block;
-    }
-
-    .navbar-dropdown {
-      background-image: url("/filter-mock.png");
-      background-size: cover;
-      height: 510px;
     }
   }
 

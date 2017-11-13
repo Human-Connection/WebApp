@@ -47,6 +47,7 @@
     watch: {
       selectedCategoryIds (categoryIds) {
         this.$emit('input', categoryIds)
+        this.$emit('change', categoryIds)
       }
     },
     methods: {
