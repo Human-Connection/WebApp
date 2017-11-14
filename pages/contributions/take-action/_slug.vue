@@ -50,7 +50,7 @@
               <tbody v-if="organizations.length">
                 <tr v-for="organization in organizations" :key="organization._id">
                   <td>
-                    <img style="max-width: 100px;" src="" alt=""/>
+                    <img v-if="organization.logo" style="max-width: 100px;" :src="organization.logo" alt=""/>
                   </td>
                   <td>
                     <strong>{{ organization.name }}</strong><br/>
@@ -344,7 +344,7 @@
         const userId = this.user ? this.user._id : null
         return this.isVerified && this.contribution.user._id === userId
       },
-      refrashOrNot () {
+      refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
       }

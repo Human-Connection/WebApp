@@ -4,7 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="content autowrap">
-            <contribution-image :refresh="refrashOrNot" :src="contribution.teaserImg"></contribution-image>
+            <contribution-image :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
                 <author :post="contribution"></author>
@@ -176,9 +176,8 @@
         const userId = this.user ? this.user._id : null
         return this.isVerified && this.contribution.user._id === userId
       },
-      refrashOrNot () {
-        let newVar = !!this.$route.query.refresh === true ? 800 : null
-        return newVar
+      refreshOrNot () {
+        return !!this.$route.query.refresh === true ? 800 : null
       }
     },
     head () {

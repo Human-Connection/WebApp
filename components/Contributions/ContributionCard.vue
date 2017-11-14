@@ -1,7 +1,7 @@
 <template>
   <div class="card" v-bind:class="{ show: ready }">
     <div class="wrapper" @click="clicked">
-      <img class="image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
+      <img class="image" v-if="post.teaserImg" :src="post.thumbnails.teaserImg.placeholder" :srcset="srcset" @load="imageLoaded" @onLoad="imageLoaded"/>
       <div class="content autowrap">
         <header>
           <div class="ribbon">
@@ -76,6 +76,9 @@
       },
       categories () {
         return _.isEmpty(this.post.categories) ? [] : _.castArray(this.post.categories)
+      },
+      srcset () {
+        return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
       }
     },
     methods: {
@@ -121,22 +124,22 @@
     width: 100%;
     max-width: 100%;
     @include tablet() {
-      width: ($tablet - 1*$gutter - $container-gutter) / 2;
+      width: ($tablet - 1 * $gutter - $container-gutter) / 2;
     }
     @include desktop() {
-      width: ($desktop - 2*$gutter - $container-gutter) / 3;
+      width: ($desktop - 2 * $gutter - $container-gutter) / 3;
     }
     @include widescreen() {
-      width: ($widescreen - 2*$gutter-big - $container-gutter) / 3;
+      width: ($widescreen - 2 * $gutter-big - $container-gutter) / 3;
     }
     @include fullhd() {
-      width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
+      width: ($fullhd - 2 * $gutter-big - $container-gutter) / 3;
     }
     box-shadow: $card-shadow;
 
     opacity: 0;
     transition: opacity 250ms;
-    transition-delay: 10ms;
+    transition-delay: 20ms;
 
     &.show {
       opacity: 1;
