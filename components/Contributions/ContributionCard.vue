@@ -1,7 +1,13 @@
 <template>
   <div class="card" v-bind:class="{ show: ready }">
     <div class="wrapper" @click="clicked">
-      <img class="image" v-if="post.teaserImg" :src="post.thumbnails.teaserImg.placeholder" :srcset="srcset" @load="imageLoaded" @onLoad="imageLoaded"/>
+      <hc-progressive-image
+          v-if="post.teaserImg"
+          class="image"
+          :preview="post.thumbnails.teaserImg.placeholder"
+          :src="post.thumbnails.teaserImg.cardS"
+          :srcset="srcset"
+          @onPreview="imageLoaded" />
       <div class="content autowrap">
         <header>
           <div class="ribbon">
@@ -53,9 +59,9 @@
   </div>
 </template>
 
-
 <script>
   import author from '~/components/Author/Author.vue'
+  // import progressive from '~/plugins/progressive'
   import _ from 'lodash'
 
   export default {
@@ -64,9 +70,10 @@
     components: {
       'author': author
     },
-    data () {
+    data (process) {
       return {
-        ready: false
+        ready: false,
+        isBrowser: !!process.browser
       }
     },
     computed: {
@@ -91,16 +98,16 @@
       },
       imageLoaded () {
         // show card after the image has been loaded
-        this.$emit('ready')
-        setTimeout(() => {
-          this.$nextTick(() => {
-            this.ready = true
-          })
-        }, 50)
+        // setTimeout(() => {
+        this.$nextTick(() => {
+          this.ready = true
+          this.$emit('ready')
+        })
+        // }, 50)
       }
     },
     mounted () {
-      if (!this.post.image) {
+      if (!this.post.teaserImg) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
           this.$nextTick(() => {
@@ -114,10 +121,17 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+  // @import 'progressive-image/dist/index.css';
 
   $gutter: 15px;
   $gutter-big: 20px;
   $padding: 25px;
+
+  .progressive {
+    img.preview {
+      filter: none !important;
+    }
+  }
 
   .card {
     display: block;
@@ -139,7 +153,7 @@
 
     opacity: 0;
     transition: opacity 250ms;
-    transition-delay: 20ms;
+    transition-delay: 50ms;
 
     &.show {
       opacity: 1;
@@ -189,8 +203,25 @@
     }
 
     .image {
-      display: block;
+      display: inline-block;
       width: 100%;
+
+      /*transition: opacity 250ms ease-in-out;
+      transition-delay: 250ms;
+
+      &.placeholder {
+        opacity: 1;
+      }
+      &.teaser {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+
+        &.ready {
+          opacity: 1;
+          position: relative;
+        }
+      }*/
     }
 
     .profile-image {

@@ -91,6 +91,7 @@ module.exports = {
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
     {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
     {src: '~/plugins/vue-clip.js', ssr: false},
+    {src: '~/plugins/progressive.js', ssr: false, injectAs: 'progressive'},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/raven-server.js', ssr: true},
     {src: '~/plugins/quill-editor.js'},
