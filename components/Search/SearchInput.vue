@@ -12,6 +12,7 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
   import _ from 'lodash'
 
   let app
@@ -27,6 +28,16 @@
       onInput: _.debounce(() => {
         app.$store.commit('search/query', app.value)
       }, 300)
+    },
+    watch: {
+      searchQuery (query) {
+        this.value = query
+      }
+    },
+    computed: {
+      ...mapGetters({
+        searchQuery: 'search/query'
+      })
     }
   }
 </script>

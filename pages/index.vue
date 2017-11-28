@@ -8,14 +8,16 @@
     </section>
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
       <div slot="no-results">
-        <div v-if="!contributions.length">
-          <p>
-            <hc-emoji type="cry" width="128" /><br/>
-            <h4 class="is-size-4 loader-no-data">Sorry nothing there!</h4>
-          </p>
+        <div v-if="!contributions.length" class="has-text-centered">
+          <hc-emoji type="cry" width="128"></hc-emoji>
+          <h4 class="is-size-4 loader-no-data">Sorry nothing there!</h4>
           <p>
             <small>Try to adjust your search and filters on the top to find what you are searching for.</small>
           </p>
+          <br/>
+          <div v-if="searchQuery !== ''" class="control has-text-centered">
+            <hc-button @click="$store.commit('search/query', '')">Remove "<strong>{{ searchQuery }}</strong>" from Search</hc-button>
+          </div>
         </div>
       </div>
       <span slot="no-more">
@@ -152,6 +154,9 @@
           {mq: '1300px', columns: 3, gutter: 20}
         ]
       })
+      // feed the search filters with the current settings
+      this.resetList(this)
+
       this.updateGrid()
 
       this.ready = true
