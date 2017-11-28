@@ -1,7 +1,7 @@
 <template>
   <div class="card" v-bind:class="{ show: ready }">
     <div class="wrapper" @click="clicked">
-      <img class="image" v-if="post.teaserImg" :src="post.thumbnails.teaserImg.placeholder" :srcset="srcset" @load="imageLoaded" @onLoad="imageLoaded"/>
+      <img class="image" v-if="post.teaserImg" :src="post.thumbnails.teaserImg.placeholder" :srcset="srcset" @load="imageLoaded"/>
       <div class="content autowrap">
         <header>
           <div class="ribbon">
