@@ -16,7 +16,9 @@
           </p>
           <br/>
           <div v-if="searchQuery !== ''" class="control has-text-centered">
-            <hc-button @click="$store.commit('search/query', '')">Remove "<strong>{{ searchQuery }}</strong>" from Search</hc-button>
+            <hc-button @click="$store.commit('search/query', '')">
+              Remove "<strong>{{ searchQuery }}</strong>" from Search
+            </hc-button>
           </div>
         </div>
       </div>
