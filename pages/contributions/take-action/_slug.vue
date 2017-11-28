@@ -50,7 +50,7 @@
               <tbody v-if="organizations.length">
                 <tr v-for="organization in organizations" :key="organization._id">
                   <td>
-                    <img style="max-width: 100px;" src="" alt=""/>
+                    <img v-if="organization.logo" style="max-width: 100px;" :src="organization.logo" alt=""/>
                   </td>
                   <td>
                     <strong>{{ organization.name }}</strong><br/>
@@ -190,9 +190,10 @@
             </table>
 
             <h3 id="maps">Karte</h3>
-            <no-ssr>
-              <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
-            </no-ssr>
+            <hc-map v-if="showMap" :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
+            <div v-else class="has-text-centered">
+              <h6 class="is-size-6">loading map...</h6>
+            </div>
           </div>
         </section>
       </div>
@@ -285,7 +286,8 @@
         center: {
           lat: 49.890860,
           lng: 10.327148
-        }
+        },
+        showMap: false
       }
     },
     async asyncData ({params, error}) {
@@ -344,9 +346,16 @@
         const userId = this.user ? this.user._id : null
         return this.isVerified && this.contribution.user._id === userId
       },
-      refrashOrNot () {
+      refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
+      }
+    },
+    mounted () {
+      if (window) {
+        setTimeout(() => {
+          this.showMap = true
+        }, 1000)
       }
     },
     head () {

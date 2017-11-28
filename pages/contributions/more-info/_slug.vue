@@ -238,7 +238,7 @@
         const userId = this.user ? this.user._id : null
         return this.isVerified && this.contribution.user._id === userId
       },
-      refrashOrNot () {
+      refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
       }
