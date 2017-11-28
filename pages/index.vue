@@ -109,7 +109,7 @@
       updateGrid: _.throttle(() => {
         // throttle the grid updates for better performance
         app.bricksInstance.resize(true).pack()
-      }, 200),
+      }, 150),
       onInfinite () {
         let query = {
           $skip: this.skip,
@@ -168,11 +168,11 @@
       window.addEventListener('load', () => {
         this.updateGrid()
       })
-      window.addEventListener('resize', _.debounce((e) => {
+      window.addEventListener('resize', _.throttle((e) => {
         if (e.target.innerWidth < 769) {
           this.updateGrid()
         }
-      }, 200))
+      }, 100))
     },
     head () {
       return {
