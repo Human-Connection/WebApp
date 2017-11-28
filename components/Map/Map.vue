@@ -24,6 +24,9 @@
         type: [Number, String],
         default: '200px'
       },
+      token: {
+        type: [String]
+      },
       /**
        * Center point of the map
        */
@@ -58,7 +61,7 @@
     methods: {
       createMap () {
         const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
-        mapboxgl.accessToken = process.env.MAPBOX_TOKEN
+        mapboxgl.accessToken = process.env.MAPBOX_TOKEN || this.token
         // init the map
         let map = new mapboxgl.Map({
           container: 'map',
@@ -93,10 +96,10 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import 'assets/styles/utilities';
   @import '~bulma/sass/utilities/mixins.sass';
-  // @import "mapbox-gl/dist/mapbox-gl.css";
+  // @import "~mapbox-gl/dist/mapbox-gl.css";
 
   #map {
       width: 100%;
