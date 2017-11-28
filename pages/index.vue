@@ -40,6 +40,7 @@
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
   import _ from 'lodash'
 
+  let app
   export default {
     components: {
       'card': Card,
@@ -103,9 +104,10 @@
           app.onInfinite()
         })
       },
-      updateGrid () {
-        this.bricksInstance.resize(true).pack()
-      },
+      updateGrid: _.throttle(() => {
+        // throttle the grid updates for better performance
+        app.bricksInstance.resize(true).pack()
+      }, 200),
       onInfinite () {
         let query = {
           $skip: this.skip,
@@ -121,7 +123,6 @@
         } else {
           delete query.categoryIds
         }
-        console.log(query)
         feathers.service('contributions').find({query: query}).then(res => {
           this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
           this.$nextTick(() => {
@@ -143,6 +144,7 @@
       }
     },
     mounted () {
+      app = this
       this.bricksInstance = new Bricks({
         container: '.cards',
         packed: 'data-packed',
