@@ -190,9 +190,10 @@
             </table>
 
             <h3 id="maps">Karte</h3>
-            <no-ssr>
-              <hc-map :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
-            </no-ssr>
+            <hc-map v-if="showMap" :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
+            <div v-else class="has-text-centered">
+              <h6 class="is-size-6">loading map...</h6>
+            </div>
           </div>
         </section>
       </div>
@@ -285,7 +286,8 @@
         center: {
           lat: 49.890860,
           lng: 10.327148
-        }
+        },
+        showMap: false
       }
     },
     async asyncData ({params, error}) {
@@ -347,6 +349,13 @@
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
+      }
+    },
+    mounted () {
+      if (window) {
+        setTimeout(() => {
+          this.showMap = true
+        }, 1000)
       }
     },
     head () {
