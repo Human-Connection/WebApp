@@ -38,14 +38,15 @@
   import {mapGetters} from 'vuex'
   import feathers from '~/plugins/feathers'
   import Bricks from 'bricks.js'
-  import Card from '~/components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
   import _ from 'lodash'
+
+  const ContributionCard = () => import('~/components/Contributions/ContributionCard.vue')
 
   let app
   export default {
     components: {
-      'card': Card,
+      'card': ContributionCard,
       'infinite-loading': InfiniteLoading
     },
     async asyncData () {

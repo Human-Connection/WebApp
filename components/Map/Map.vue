@@ -1,10 +1,11 @@
 <template>
-  <div id="map" width="200px"></div>
+  <div class="map-wrapper" :style="{width: width, height: height}">
+    <div v-if="isLoading" class="is-loading">&nbsp;</div>
+    <div id="map"></div>
+  </div>
 </template>
 
 <script>
-  import NoSSR from 'vue-no-ssr'
-  
   export default {
     props: {
       /**
@@ -14,6 +15,14 @@
         type: Array,
         required: true,
         default: []
+      },
+      width: {
+        type: [Number, String],
+        default: 'auto'
+      },
+      height: {
+        type: [Number, String],
+        default: '200px'
       },
       /**
        * Center point of the map
@@ -35,12 +44,16 @@
         default: 16
       }
     },
-    components: {
-      'no-ssr': NoSSR
+    data () {
+      return {
+        isLoading: true
+      }
     },
     name: 'hc-map',
     mounted () {
-      this.createMap()
+      if (window) {
+        setTimeout(this.createMap, 1000)
+      }
     },
     methods: {
       createMap () {
@@ -53,6 +66,13 @@
           zoom: this.zoom,
           center: this.center
         })
+        map.on('data', (e) => {
+          if (e.isSourceLoaded) {
+            this.isLoading = false
+            map.off('data')
+          }
+        })
+
         this.places.forEach(function (marker) {
           // create the popup
           let popup = new mapboxgl.Popup()
@@ -73,14 +93,18 @@
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
+  @import 'assets/styles/utilities';
+  @import '~bulma/sass/utilities/mixins.sass';
   // @import "mapbox-gl/dist/mapbox-gl.css";
 
   #map {
-      height: 200px;
+      width: 100%;
+      height: 100%;
   }
 
   .marker {
+      // FIXME: use local graphics!
       background:      url('https://company-16131.frontify.com/api/screen/download/yANNQjWD8CBlyq7i5p12wcMfB_W6GYbKREV4kvZIk9On6uxfu2lwIk_H62lvpe-GOkVlmiiZ8Cpx2OZADp4spQ') no-repeat center;
       background-size: contain;
       width:           30px;
@@ -91,5 +115,23 @@
 
   .mapboxgl-popup {
       max-width: 200px;
+  }
+
+  .map-wrapper {
+    position: relative;
+  }
+
+  .is-loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    &:after {
+      @include loader;
+      @include center(1em);
+      height: 2em;
+      width: 2em;
+      border-color: transparent transparent #2A2A2A #2A2A2A;
+    }
   }
 </style>

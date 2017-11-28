@@ -38,13 +38,6 @@
               <span>
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
               </span>
-              <!--<b-dropdown v-if="false" position="is-top-left">
-                <a slot="trigger">
-                    <hc-icon icon="angle-up"></hc-icon>
-                </a>
-                <b-dropdown-item>Melden</b-dropdown-item>
-                <b-dropdown-item>als gelesen markieren</b-dropdown-item>
-              </b-dropdown>-->
             </div>
           </div>
         </footer>
@@ -56,17 +49,13 @@
 
 <script>
   import author from '~/components/Author/Author.vue'
-  import Tooltip from 'buefy/src/components/tooltip/Tooltip.vue'
-  import Dropdown from 'buefy/src/components/dropdown/Dropdown.vue'
   import _ from 'lodash'
 
   export default {
     name: 'hc-contribution-card',
     props: ['post'],
     components: {
-      'author': author,
-      'b-tooltip': Tooltip,
-      'b-dropdown': Dropdown
+      'author': author
     },
     data () {
       return {
