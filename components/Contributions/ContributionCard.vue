@@ -38,13 +38,13 @@
               <span>
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
               </span>
-              <b-dropdown v-if="false" position="is-top-left">
+              <!--<b-dropdown v-if="false" position="is-top-left">
                 <a slot="trigger">
                     <hc-icon icon="angle-up"></hc-icon>
                 </a>
                 <b-dropdown-item>Melden</b-dropdown-item>
                 <b-dropdown-item>als gelesen markieren</b-dropdown-item>
-              </b-dropdown>
+              </b-dropdown>-->
             </div>
           </div>
         </footer>
