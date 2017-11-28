@@ -7,9 +7,17 @@
       </card>
     </section>
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
-      <span slot="no-results">
-        <strong class="loader-no-data">Sorry thats all that we found &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </span>
+      <div slot="no-results">
+        <div v-if="!contributions.length">
+          <p>
+            <hc-emoji type="cry" width="128" /><br/>
+            <h4 class="is-size-4 loader-no-data">Sorry nothing there!</h4>
+          </p>
+          <p>
+            <small>Try to adjust your search and filters on the top to find what you are searching for.</small>
+          </p>
+        </div>
+      </div>
       <span slot="no-more">
         <strong class="loader-no-more">There are no more &nbsp;<hc-emoji type="cry" width="26" /></strong>
       </span>
@@ -175,6 +183,10 @@
 
     @include mobile() {
       width: 100% !important;
+    }
+
+    &:empty {
+      height: 20vh !important;
     }
   }
 
