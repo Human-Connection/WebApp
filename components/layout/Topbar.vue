@@ -3,7 +3,8 @@
     <div class="container">
       <div class="nav-left">
         <nuxt-link class="logo" :to="{ name: 'index' }">
-          <img src="/logo-hc.svg" alt="Human Connection">
+          <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection">
+          <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection">
         </nuxt-link>
         <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
           {{ $t('component.layout.topbarLabel') }}
@@ -12,10 +13,38 @@
 
       <div class="nav-center">
         <search-input></search-input>
+        <div class="navbar-item has-dropdown is-hoverable is-mega">
+          <div class="navbar-link">
+            <span class="icon">
+              <i class="fa fa-filter"></i>
+            </span>
+          </div>
+          <div class="navbar-dropdown">
+            <div class="container is-fluid has-text-left">
+              <div class="columns">
+                <div class="column is-hidden">
+                  <br/>
+                  <h3 class="title is-6">Categories</h3>
+                  <categories-select v-model="categoryIds"></categories-select>
+                  <hr/>
+                  <h3 class="title is-6">Emotions</h3>
+                  <div>
+                    <hc-emoji class="emotion" type="funny"></hc-emoji>
+                    <hc-emoji class="emotion" type="happy"></hc-emoji>
+                    <hc-emoji class="emotion" type="surprised"></hc-emoji>
+                    <hc-emoji class="emotion" type="cry"></hc-emoji>
+                    <hc-emoji class="emotion" type="angry"></hc-emoji>
+                  </div>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="nav-right nav-end">
-        <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled" style="cursor: not-allowed;">
+        <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled is-hidden-mobile" style="cursor: not-allowed;">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
         <notifications v-if="isAuthenticated"></notifications>
@@ -28,13 +57,13 @@
           </div>
         </div>
         <template v-else>
-          <b-dropdown class="navigation-dropdown" position="is-bottom-left" style="text-align: left;">
+          <no-ssr>
+            <b-dropdown class="user-menunavigation-dropdown" position="is-bottom-left" style="text-align: left;">
             <a class="navbar-item" slot="trigger">
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
             </a>
-            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user.name})">
-            </b-dropdown-item>
+            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user.name })"></b-dropdown-item>
             <hr class="dropdown-divider">
             <b-dropdown-item hasLink>
               <nuxt-link :to="{ name: 'profile' }">
@@ -65,7 +94,7 @@
               <b-icon icon="exit_to_app"></b-icon>
               {{ $t('auth.logout.label') }}
             </b-dropdown-item>
-          </b-dropdown>
+          </b-dropdown></no-ssr>
         </template>
       </div>
     </div>
@@ -83,6 +112,7 @@
   import Avatar from '~/components/Avatar/Avatar.vue'
   import HcButton from '../Global/Elements/Button/Button.vue'
   import SearchInput from '../Search/SearchInput.vue'
+  import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
 
   export default {
     name: 'hc-topbar',
@@ -90,7 +120,8 @@
       SearchInput,
       HcButton,
       Avatar,
-      Notifications
+      Notifications,
+      CategoriesSelect
     },
     data () {
       return {
@@ -100,7 +131,8 @@
         },
         loading: false,
         stayLoggedIn: false,
-        errors: null
+        errors: null,
+        categoryIds: []
       }
     },
     computed: {
@@ -162,6 +194,29 @@
     }
   }
 
+  .navbar-item.is-mega {
+    position: static;
+    cursor: pointer;
+
+    @include mobile() {
+      display: none;
+    }
+    @include tablet-only() {
+      display: none;
+    }
+
+    img.emotion {
+      padding-right: 1rem;
+      display: inline-block;
+    }
+
+    .navbar-dropdown {
+      background-image: url("/filter-mock.png");
+      background-size: cover;
+      height: 510px;
+    }
+  }
+
   .mobile-toggle {
     position: relative;
     background-color: $white-ter;
@@ -174,6 +229,14 @@
 
   .nav-start, .nav-left, .nav-middle, .nav-right, .nav-end {
     overflow: visible;
+  }
+
+  .user-menu {
+    margin-left: 0;
+    .navbar-item {
+      padding-left: .5rem;
+      padding-right: 0;
+    }
   }
 
   .nav-end .login-button {
@@ -197,6 +260,10 @@
     text-align: left;
     padding: ($topbar-height - 40px)/2 0;
     margin: 0;
+
+    @include mobile() {
+      width: 50px;
+    }
 
     img {
       max-height: none;

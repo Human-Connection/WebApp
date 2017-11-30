@@ -4,7 +4,7 @@
       <div class="card-content">
         <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
-          <nuxt-link to="/">
+          <nuxt-link :to="this.$route.params.path || '/'">
             <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
           </nuxt-link>
         </div>
@@ -83,9 +83,9 @@
         this.loading = true
         this.$store.dispatch('auth/login', this.data)
           .then(() => {
-            this.$toast.open({
+            this.$snackbar.open({
               message: this.$t('auth.login.successInfo'),
-              duration: 3000,
+              duration: 4000,
               type: 'is-success'
             })
             this.loading = false

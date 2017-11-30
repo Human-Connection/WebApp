@@ -2,12 +2,14 @@
     <div class="search">
         <div class="field">
             <p class="control has-icons-right">
-                <input class="input" type="text" v-bind:placeholder="$t('component.search.placeholder')"
-                       v-model="value"
-                       v-on:keyup="onInput">
-                <span class="icon is-small is-right">
+                <span class="icon is-small is-left">
                     <hc-icon icon="search"></hc-icon>
                 </span>
+                <input class="input"
+                       type="text"
+                       v-bind:placeholder="$t('component.search.placeholder')"
+                       v-model="value"
+                       v-on:keyup="onInput">
             </p>
         </div>
     </div>
@@ -15,6 +17,7 @@
 
 <script>
   import _ from 'lodash'
+
   let app
   export default {
     name: 'hc-search-input',
@@ -25,9 +28,9 @@
       }
     },
     methods: {
-      onInput: _.throttle(() => {
+      onInput: _.debounce(() => {
         app.$store.commit('search/query', app.value)
-      }, 500)
+      }, 300)
     }
   }
 </script>
@@ -45,10 +48,11 @@
 
         .control {
             input {
+                // border-radius: $radius-large;
                 border-radius: 2em;
                 height:        2.5em;
-                padding-left:  1em;
-                padding-right: 2em;
+                padding-left:  2em;
+                padding-right: 1em;
             }
 
             .icon {

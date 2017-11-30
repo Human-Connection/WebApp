@@ -1,23 +1,19 @@
 <template>
   <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
     <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
-    <button type="submit" class="button is-primary is-fullwidth" :class="{ 'is-loading': loading }">Submit comment
+    <button type="submit" class="submit-button button is-primary is-fullwidth"
+            :disabled="!this.hasContent" :class="{ 'is-loading': loading }">Submit comment
     </button>
   </form>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
-  import feathers from '~/plugins/feathers'
+  import _ from 'lodash'
 
   export default {
     name: 'hc-comment-form',
     props: ['post'],
-    computed: {
-      ...mapGetters({
-        isVerified: 'auth/isVerified'
-      })
-    },
     data () {
       return {
         loading: false,
@@ -34,29 +30,41 @@
         }
       }
     },
+    computed: {
+      ...mapGetters({
+        isVerified: 'auth/isVerified'
+      }),
+      hasContent () {
+        return !!_.trim(this.form.content.replace(/(<([^>]+)>)/ig, '')).length
+      }
+    },
     methods: {
-      submitComment () {
+      async submitComment () {
+        if (!this.hasContent) {
+          this.form.content = ''
+          return
+        }
         this.loading = true
         this.form.contributionId = this.post._id
-        feathers.service('comments').create(this.form)
+        await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
-            this.loading = false
-            this.form.content = ''
-            this.$toast.open({
+            this.$store.dispatch('comments/fetchByContributionId', this.post._id)
+            this.$snackbar.open({
               message: 'Thanks for your comment. You are awesome.',
-              duration: 2000,
+              duration: 4000,
               type: 'is-success'
             })
+            this.form.content = ''
           })
           .catch((error) => {
-            console.log(error)
-            this.loading = false
+            console.error(error)
             this.$toast.open({
               message: error.message,
               duration: 3000,
               type: 'is-danger'
             })
           })
+        this.loading = false
       }
     }
   }
@@ -65,8 +73,8 @@
 <style scoped lang="scss">
   @import "assets/styles/utilities";
 
-  .textarea {
-    margin-bottom: 10px;
-    min-height: 80px;
+  .submit-button {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
   }
 </style>

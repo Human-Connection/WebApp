@@ -73,7 +73,7 @@
       <div class="field">
         <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
         <div class="control">
-          <div class="quill-editor" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
@@ -86,7 +86,7 @@
       <div class="field is-grouped is-grouped-right">
         <div class="control">
           <button class="button is-medium is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i> &nbsp;{{ $t('component.contribution.actionCancel') }}
+            <i class="fa fa-times"></i> &nbsp;{{ $t('buttons.cancel') }}
           </button>
         </div>
         <div class="control">
@@ -150,7 +150,7 @@
           ]
         },
         editorOption: {
-          placeholder: this.$t('component.contribution.writePostEditorContentPlaceholder'),
+          placeholder: this.$t('component.contribution.editorPlaceholder'),
           modules: {
             toolbar: {
               container: [
@@ -167,8 +167,8 @@
       ...mapGetters({
         user: 'auth/user'
       }),
-      buttonLabelKey () {
-        return this.form._id ? 'Update' : 'Publish'
+      buttonLabel () {
+        return this.form._id ? this.$t('buttons.update') : this.$t('buttons.publish')
       }
     },
     methods: {
@@ -190,9 +190,9 @@
             res = await feathers.service('contributions').create(this.form)
           }
           this.loading = false
-          this.$toast.open({
-            message: 'Thanks for your contribution. You are awesome.',
-            duration: 2000,
+          this.$snackbar.open({
+            message: this.$t('component.contribution.messageSaveSuccess'),
+            duration: 4000,
             type: 'is-success'
           })
           this.$router.push(`/contributions/${res.slug}?refresh=true`)

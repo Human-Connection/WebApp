@@ -8,7 +8,7 @@
             'disabled': isDisabled(category._id)
           }"
           @click.prevent="toggleCategory(category._id)">
-      {{ $t('component.category.slug2label-' + category.slug )  }}
+      <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
     </span>
     <p class="small-info">
       {{ $t('component.category.infoSelectedNofMaxCategories', {n:selectedCount, max:selectedMax} ) }}

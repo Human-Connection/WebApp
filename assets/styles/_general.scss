@@ -78,7 +78,11 @@ input, textarea {
 }
 
 .ql-editor {
-  min-height: 100px;
+
+  .story & {
+    min-height: 100px;
+  }
+
   background-color: $white;
 }
 
@@ -144,4 +148,48 @@ hr {
 }
 dl dt {
   font-weight: bold;
+}
+
+
+.ql-video {
+  width: 100%;
+
+  @include mobile() {
+    height: 52vw;
+  }
+
+  @include tablet-only() {
+    height: 34vw;
+  }
+
+  @include desktop-only() {
+    height: 312px;
+  }
+
+  @include widescreen() {
+    height: 384px;
+  }
+
+  @include fullhd() {
+    height: 425px;
+  }
+}
+
+#main.container {
+  @include mobile() {
+    margin-top: -1rem;
+    margin-right: 1.0rem;
+    margin-left: 1.0rem;
+  }
+  @include tablet-only() {
+    margin-top: -1rem;
+    margin-right: 1.0rem;
+    margin-left: 1.0rem;
+  }
+}
+
+a, .is-link, button {
+  &, &:link, &:visited, &:active {
+    outline: none;
+  }
 }
