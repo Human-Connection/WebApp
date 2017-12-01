@@ -1,26 +1,28 @@
 <template>
   <div class="column is-6 timeline content">
     <hc-box top="true" bottom="true">
-      <hc-title>Timeline</hc-title>
+      <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     </hc-box>
     <div class="timeline-intro">
-      <p>{{ user.name }}, was sind deine Pläne für heute?</p>
+      <p>{{ $t('component.timeline.introQuestion', { 'username': user.name }) }}</p>
       <p v-if="contributions.length == 0 && loadingFinished">
-        Keine Beträge, schreibe doch etwas.
+        {{ $t('component.timeline.noContributionsFound') }}
       </p>
-      <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
-        <hc-icon icon="plus"/>
-      </hc-button>
+      <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" position="is-right">
+        <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
+          <hc-icon icon="plus"/>
+        </hc-button>
+      </b-tooltip>
     </div>
     <div>
-      <a class="button is-loading" v-if="loading">Loading ...</a>
+      <a class="button is-loading" v-if="loading">{{ $t('component.timeline.loadingContributions') }}</a>
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
       <div class="timeline-post-wrapper is-clearfix">
         <div class="timeline-post-direction" v-if="contributions.length > 0"
                                              v-for="(contribution, index) in contributions">
           <contribution-card class="card timeline arrow"
             :post="contribution" :key="contribution.slug">
-            <small slot="category">{{ contribution.type }}</small>
+            <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
           </contribution-card>
         </div>
       </div>

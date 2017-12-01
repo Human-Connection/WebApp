@@ -117,6 +117,7 @@ module.exports = {
         '~/docs': path.resolve(__dirname, 'docs/'),
         '~/helpers': path.resolve(__dirname, 'helpers/'),
         '~/plugins': path.resolve(__dirname, 'plugins/'),
+        '~/locales': path.resolve(__dirname, 'locales/')
       }
     }
   }

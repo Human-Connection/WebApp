@@ -7,6 +7,7 @@
           <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection">
         </nuxt-link>
         <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
+          <!-- TODO $t('component.dashboard.label') ? -->
           {{ $t('component.layout.topbarLabel') }}
         </nuxt-link>
       </div>
@@ -23,19 +24,24 @@
             <div class="container is-fluid has-text-left">
               <div class="columns">
                 <div class="column is-hidden">
+                  <p>{{ $t('component.layout.topbarFilterDescription') }}</p>
                   <br/>
-                  <h3 class="title is-6">Categories</h3>
+                  <h3 class="title is-6">{{ $t('component.layout.topbarSectionCategories', 'Categories') }}</h3>
                   <categories-select v-model="categoryIds"></categories-select>
                   <hr/>
-                  <h3 class="title is-6">Emotions</h3>
+                  <h3 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h3>
                   <div>
-                    <hc-emoji class="emotion" type="funny"></hc-emoji>
-                    <hc-emoji class="emotion" type="happy"></hc-emoji>
-                    <hc-emoji class="emotion" type="surprised"></hc-emoji>
-                    <hc-emoji class="emotion" type="cry"></hc-emoji>
-                    <hc-emoji class="emotion" type="angry"></hc-emoji>
+                    <nav class="level is-mobile">
+                    <div class="level-item has-text-centered" v-for="emotion in ['funny', 'happy', 'surprised', 'cry', 'angry']">
+                      <div>
+                        <p class="smiley heading">
+                          <hc-emoji :type='emotion' width="100" height="100"></hc-emoji>
+                          <br />{{ $t('component.emotionRating.' + emotion) }}
+                        </p>
+                      </div>
                   </div>
-                  <br/>
+                  </nav>
+                </div>
                 </div>
               </div>
             </div>
@@ -56,6 +62,7 @@
             </hc-button>
           </div>
         </div>
+        <!-- TODO add locale switch -->
         <template v-else>
           <no-ssr>
             <b-dropdown class="user-menunavigation-dropdown" position="is-bottom-left" style="text-align: left;">
@@ -63,7 +70,7 @@
               <span><avatar :url="user.avatar"></avatar></span>
               <b-icon icon="arrow_drop_down"></b-icon>
             </a>
-            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user.name })"></b-dropdown-item>
+            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user ? user.name : ''})"></b-dropdown-item>
             <hr class="dropdown-divider">
             <b-dropdown-item hasLink>
               <nuxt-link :to="{ name: 'profile' }">

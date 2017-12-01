@@ -86,6 +86,9 @@ input, textarea {
   background-color: $white;
 }
 
+.nowrap {
+  white-space: nowrap;
+}
 .autowrap {
   /* These are technically the same, but use both */
   overflow-wrap: break-word;

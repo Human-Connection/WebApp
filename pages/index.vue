@@ -6,7 +6,7 @@
         <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
       </card>
     </section>
-    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
+    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
       <span slot="no-results">
         <strong class="loader-no-data">{{ $t('component.search.noResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
       </span>
@@ -15,9 +15,11 @@
       </span>
     </infinite-loading>
     <div class="add-contribution">
+      <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
       <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
         <hc-icon icon="plus"/>
       </hc-button>
+      </b-tooltip>
     </div>
   </section>
 </template>

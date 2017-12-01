@@ -1,13 +1,16 @@
 {
   "humanConnection": "Human Connection",
-  "humanConnectionMadewithHeart": "Made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
+  "humanConnectionMadeWithHeart": "Made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
   "component": {
 		"admin": {
-			"label": "Admin"
+			"label": "Admin",
+			"settings": "Settings",
+      "users": "Users"
 		},
 		"category": {
 			"infoSelectedNofMaxCategories": "{n} of {max} categories selected",
-			"labelNoneOnePlural": "Keine Kategorie | Kategorie | Kategorien",
+			"labelOnePluralNone": "Category ::: Categories ::: No Category",
+      "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
       "slug2label-bildung-and-wissenschaft": "Education & Sciences",
       "slug2label-demokratie-and-politik": "Democracy & Politics",
       "slug2label-energie-and-technologie": "Energy & Technology",
@@ -26,70 +29,110 @@
       "slug2label-wirtschaft-and-finanzen": "Economy & Finances"
 		},
 		"calendar": {
-			"label": "Kalender"
+			"label": "Calender"
 		},
-  	"contribution": {
+    "contribution": {
+      "actionMarkAsRead": "mark as read",
+      "actionReport": "report",
       "bestList": "Bestlist",
-			"canDos": "Can Do’s",
+      "canDos": "Can Do’s",
       "chatroomBriefOrLong": "Chatrooms",
       "comment": "Comment",
-      "commentsCounted": "Comments | Comments (1) | Comments ({count})",
-      "commentsCountedDescription": "This post has no coment | {count} human has commented this post | {count} people have given comments to this post",
+      "commentsCounted": "Comments (1) ::: Comments ({count}) ::: Comments",
+      "commentsCountedDescription": "{count} human has commented this post ::: {count} people have given comments to this post ::: This post has no coment",
+      "commentsLoading": "Loading Comments...",
+      "commentsNoneYet": "No comments yet, you can write some!",
+      "commentPlaceholder": "Whatever comes to your mind...",
+      "commentSubmitSuccess": "Thanks for your comment. You are awesome.",
+      "commentUpvote": "Vote: +1",
+      "commentReplyThis": "Reply to this comment",
+      "creator": "Creator ::: Creator",
+      "creatorUnknown": "anonymous",
       "events": "Events",
       "jobs": "Jobs",
       "letsTalk": "Let’s talk",
       "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
       "organisations": "Organisations",
       "map": "Map",
-      "moreInfoBriefOrLong": "More info | More information",
+      "messages": "Messages",
+      "messageSaveSuccess": "Thanks for your contribution. You are awesome.",
+      "moreInfoBriefOrLong": "More info ::: More information",
       "post": "Post",
-      "postsCounted": "Posts | Posts (1) | Posts ({count})",
-      "postRelatedLabelPluralised": "Related Post | Related Posts",
-      "proAndContraPluralised": "Pro & Con | Pros & Cons",
+      "postsCounted": "Posts (1) ::: Posts ({count}) ::: Posts",
+      "postRelatedLabelPluralised": "Related Post ::: Related Posts",
+      "proAndContraPluralised": "Pro & Con ::: Pros & Cons",
       "projects": "Projects",
       "shoutOf": "Shouts",
-      "shoutsCountedDescription": "This post has no shout yet | {count} human would like to shout this post | {count} people would like to shout this post",
+      "shoutAddShout": "Shout this contribution further",
+      "shoutsCountedDescription": "{count} human want to shout this post ::: {count} people want to shout this post ::: This post has no shout yet",
       "takeAction": "Take action",
-      "tagNoneOnePlural": "no Tags | Tag | Tags",
+      "tagOnePluralNone": "Tag ::: Tags ::: No Tags",
       "type-cando": "Can Do",
       "type-event": "Event",
       "type-procon": "Pro & Contra",
       "type-post": "Post",
       "type-versus": "Versus",
       "type-vote": "Vote",
-      "versus": "versus",
+      "versus": "Versus",
+      "versusDescription": "In Versus, one deals fairly and critically on the basis of factual counter-arguments on this subject. That means one must necessarily remain factual, if one wants to compare one another with knowledge and arguments. Because the lack of respect, unfairness with one another or even in a manner of hate-filled speech will lead to the exclusion.",
+			"voteOnePluralNone": "vote ::: votes ::: no vote",
       "writePost": "Write a Post",
       "writePostContent": "Content",
       "writePostImageLabel": "Teaser Image",
-      "writePostImagePlaceholder": "image address url",
+      "writePostImagePlaceholder": "internet image address (url)",
       "writePostSection": "Title",
       "writePostSectionPlaceholder": "How do you call that story?",
-      "writePostContentPlaceholder": "write something amazing...",
-			"voteNoneOnePlural": "no vote | vote | votes",
-      "versus": "Versus",
-      "messageSaveSuccess": "Thanks for your contribution. You are awesome."
+      "writePostContentPlaceholder": "write something amazing..."
     },
     "notification": {
       "label": "Notifications",
       "messageEmpty": "You don't have any notifications."
+    },
+    "dashbord": {
+      "label": "Dashboard"
+    },
+    "editor": {
+      "bold": "bold font",
+      "blockquote": "block quote",
+      "italic": "italic font",
+      "link": "insert a link (mark text in advance)",
+      "linkEnterUrl": "enter link (http:…, https:…, mailto:some@email.org or tel:0123456789)",
+      "listOrdered": "ordered list",
+      "listUnordered": "unordered list",
+      "video": "embed a video",
+      "videoEnterUrl": "insert embed URL",
+      "strike": "strike through"
     },
     "emotionRating": {
       "angry": "angry",
       "cry": "cry",
       "funny": "funny",
       "happy": "happy",
-      "surprised": "surprised"
+      "surprised": "surprised",
+      "tooltip": "Vote this how you feel"
     },
     "help": {
       "label": "Help"
     },
     "layout": {
-      "topbarLabel": "Newsfeed"
+      "configbarDisplaymode": "Display mode",
+      "configbarFilter": "Filtern",
+      "configbarSort": "Sortieren",
+      "topbarFilterDescription": "Here you can filter contributions that will be displayed by resetting the properties. Click on the topic categories or emoticons to display only contributions that match your properties.",
+      "topbarLabel": "Newsfeed",
+      "topbarSectionCategories": "Category of Topics",
+      "topbarSectionEmotions": "Emotions"
     },
     "search": {
       "noMoreResults": "There are no more",
       "noResults": "Sorry that's all what we found",
       "placeholder": "Search ..."
+    },
+    "timeline": {
+      "loadingContributions": "Loading content …",
+      "noContributionsFound": "No contributions found, write something.",
+      "introQuestion": "What are your plans, {username}, for today?",
+      "title": "Timeline"
     }
   },
   "page": {
@@ -97,15 +140,21 @@
       "title": "Welcome"
     }
   },
-  "buttons": {
+  "button": {
     "back": "Back",
     "cancel": "Cancel",
     "create": "Create",
     "delete": "Delete",
     "edit": "Edit",
+    "getStarted": "Get started",
+    "letsGo": "Let's go!",
     "publish": "Publish",
     "save": "Save",
+    "skip": "Skip",
     "submit": "Submit",
+    "submitComment": "Submit comment",
+    "showLess": "hide",
+    "showMore": "show more",
     "update": "Update"
   },
   "legal": {
@@ -134,15 +183,63 @@
   },
   "auth": {
     "account": {
-      "confirmOlderThan18": "I confirm that I’m 18 years or older.",
-      "confirmTermsOfUsage": "By clicking “register” I agree with the {termsOfService} and confirm, that I read the {dataPrivacyStatement} of Human Connection.",
+      "avatarUpload": "Upload image for avatar or user profile",
+      "avatarSelect": "select avatar image",
+      "confirmOlderThan18": "I confirm that I’m at least 18 years old.",
+      "confirmTermsOfUsage": "By clicking “register” I agree with the <a href=\"{url}\">{termsOfService}</a> and confirm, that I read the <a href=\"{url}\">{dataPrivacyStatement}</a> of Human Connection.",
       "email": "Email",
       "helloUser": "Hello <b>{username}</b>",
       "loginOrRegister": "Login / Sign-Up",
-      "loginRequired4CommentOrVote": "You need to be logged-in to be able to vote or comment on Human Connection.",
+      "loginToAccount": "Login to your account",
+      "loginRequired4CommentOrVote": "You need to be logged-in to be able to comment, vote or rate on Human Connection.",
+      "myCanDos": "Can Dos",
+      "myCanDosAltogether": "altogether",
+      "myCanDosDone": "realized",
+      "myDoings": "Being active",
+      "myBadgeOnePluralNone": "Badge ::: Badges ::: No badges",
+      "myBookmarksBriefOrLong": "Bookm. ::: Bookmarks",
+      "myFollowersBrief": "Followers",
+      "myFollowerItemLastContribution": "Last contribution:",
+      "myFollowing": "Following activities",
+      "myFollowingNgoOnePluralNone": "NGO ::: NGOs ::: No NGO",
+      "myFollowingPeopleOnePluralNone": "Human ::: People ::: None",
+      "myFollowingProjectsOnePluralNone": "Project ::: Projects ::: No Project",
+      "myFollowingShowAll": "show all",
+      "myFollowingShowMine": "show mine",
+      "myFollowingSortBy": "sort by",
+      "myFollowingSortByDate": "date",
+      "myFollowingSortByCategory": "category",
+      "myGallery": "Gallery",
+      "myConnections": "Stay connected",
+      "myInterests": "Interests",
+      "myMap": "My Map",
+      "myMessagesOnePluralNone": "Message ::: Messages ::: No message",
+      "myMore": "More",
+      "myNetwork": "Network",
+      "myProfile": "My Profile",
+      "mySearch": "search",
+      "name": "Name",
+      "nameAddAction": "Add Name",
+      "nameDescription": "It is not essential that you provide your full name, but it’s easier for friends and contacts to be found on Human Connection.",
+      "namePlaceholder": "your name ...",
+      "nameSection": "How may we call you?",
+      "nameTitle": "Nice to meet you",
       "password": "Password",
-      "profile": "Profile",
-      "settings": "Settings"
+      "profile": "My Profile",
+      "settings": "Settings",
+      "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the mail verification.",
+      "verifyingErrorSection": "Ooooops ...",
+      "verifyingInfo": "Verifying your email address ...",
+      "verifyingResendAction": "Send confirmation anew",
+      "verifyingResendDescription": "Please confirm your E-Mail Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können:",
+      "verifyingResendSuccess": "The confirmation was sent successfullyto {email}. Please check your mail account.",
+      "verifyingSection": "Email Verification",
+      "verifyingSuccessDescription": "Your email address has been verified successfully.",
+      "verifyingTitle": "Verification",
+      "welcomeGreeting1": "Good to have you on bord{username}! Welcome at Human Connection. We hope you enjoy discovering and becoming active.",
+      "welcomeGreeting2": "Let us embark on the journey into a future together!",
+      "welcomeSection": "The Journey Starts",
+      "welcomeTitle": "Welcome"
     },
     "login": {
       "label": "Login",

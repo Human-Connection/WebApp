@@ -11,7 +11,7 @@
               </div>
               <div class="column is-one-third">
                 <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
-                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('buttons.edit') }}
+                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
                 </nuxt-link>
               </div>
             </div>
@@ -28,17 +28,20 @@
             <br/>
             <div class="columns">
               <div class="column is-9 is-mobile">
-                <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+                  <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
               </div>
               <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
                   <div class="level-item has-text-centered">
                     <div>
                       <p class="smiley heading">
+                        <b-tooltip :label="$t('component.contribution.shoutAddShout')" type="is-black" >
                         <hc-button circle size="large" color="success"
                                    style="font-size: 2em; margin-bottom: 0.8rem;">
                           <hc-icon set="fa" icon="bullhorn" />
-                        </hc-button><br/>
+                        </hc-button>
+                        </b-tooltip>
+                        <br/>
                         {{ $t('component.contribution.shoutOf') }}
                       </p>
                       <p class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
@@ -65,18 +68,19 @@
           </div>
           <no-ssr>
             <b-tabs class="footer">
-              <b-tab-item v-bind:label="$tc('component.contribution.commentsCounted', commentCount, {count: commentCount})" id="comments">
+              <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
                 <comments :post="contribution"/>
               </b-tab-item>
               <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                 <div class="notification is-warning">
-                  <strong>Lets Talk</strong>, coming soon...
+                  (<strong>Lets Talk</strong>, coming soon...)
                   {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
                 </div>
               </b-tab-item>
               <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
                 <div class="notification is-warning">
-                  <strong>Versus</strong>, coming soon...
+                  (<strong>Versus</strong>, coming soon...)
+                  {{ $t('component.contribution.versusDescription') }}
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -93,19 +97,19 @@
             </nuxt-link>
             <ul>
               <li>
-                <a href="#comments">{{ $tc('component.contribution.commentsCounted', commentCount, {count: commentCount}) }}</a>
+                <nuxt-link to="#comments">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</nuxt-link>
               </li>
               <li>
-                <a href="#lets-talk">{{ $t('component.contribution.letsTalk') }}</a>
+                <nuxt-link to="#lets-talk">{{ $t('component.contribution.letsTalk') }}</nuxt-link>
               </li>
               <li>
-                <a href="#versus">{{ $t('component.contribution.versus') }}</a>
+                <nuxt-link to="#versus">{{ $t('component.contribution.versus') }}</nuxt-link>
               </li>
             </ul>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>{{ $tc('component.contribution.moreInfoBriefOrLong', 1) }}</strong>
+              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
           </li>
           <li>

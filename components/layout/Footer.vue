@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="container">
       <div class="content has-text-centered">
-        <p v-html="$t('humanConnectionMadewithHeart')"></p>
+        <p v-html="$t('humanConnectionMadeWithHeart')"></p>
         <p>
           <nuxt-link :to="{ name: 'legal' }">{{ $t('legal.imprint') }}</nuxt-link>
         </p>

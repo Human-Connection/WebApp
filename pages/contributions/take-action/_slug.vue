@@ -207,7 +207,7 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>{{ $tc('component.contribution.moreInfoBriefOrLong', 1) }}</strong>
+              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
           </li>
           <li>

@@ -1,17 +1,37 @@
 import Vue from 'vue'
-import VueI18n from 'vue-i18n'
+import Vuex from 'vuex'
+/**
+ * TODO fetchLanguage, changeLanguage similar to examples in vuex-i18n/test
+ * TODO translation keys at more info
+ */
+// load and register the vuex i18n module
+// import vuexI18n from 'vuex-i18n'
+import vuexI18n from 'vuex-i18n/dist/vuex-i18n.umd.js'
 
-Vue.use(VueI18n)
+import english from '~/locales/en.json'
+import german from '~/locales/de.json'
 
-export default ({ app, isClient, store }) => {
-  // Set i18n instance on app
-  // This way we can use it in middleware and pages asyncData/fetch
-  app.i18n = new VueI18n({
-    locale: store.state.locale,
-    fallbackLocale: 'en',
-    messages: {
-      'en': require('~/locales/en.json'),
-      'de': require('~/locales/de.json')
+const doDebug = process.env.NODE_ENV !== 'production'
+
+const store = new Vuex.Store({
+  strict: doDebug
+})
+
+Vue.use(
+  vuexI18n.plugin,
+  store,
+  {
+    onTranslationNotFound: function (locale, key) {
+      console.warn(`vuex-i18n :: Key '${key}' not found for locale '${locale}'`)
     }
   })
-}
+
+// register the locales
+Vue.i18n.add('en', english)
+Vue.i18n.add('de', german)
+
+// Set the start locale to use
+Vue.i18n.set('de')
+Vue.i18n.fallback('de')
+
+export default store

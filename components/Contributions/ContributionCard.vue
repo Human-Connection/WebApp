@@ -20,8 +20,8 @@
           <div class="infos columns is-mobile">
             <div class="column has-text-left">
               <div class="tags " v-if="categories.length">
-                <b-tooltip :label="category.title"
-                           v-for="category in categories"
+                <b-tooltip v-for="category in categories"
+                           :label="category.title"
                            :key="category._id"
                            style="margin-right: 5px;"
                            type="is-dark">
@@ -32,18 +32,18 @@
               </div>
             </div>
             <div class="column has-text-right">
-              <span v-bind:title="$tc('component.contribution.shoutsCountedDescription', 214, {count: 214})">
+              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: 214}, 214)" class="nowrap">
                 <i class="fa fa-bullhorn"></i><small>214</small>
               </span>
-              <span v-bind:title="$tc('component.contribution.commentsCountedDescription', commentCount, {count: commentCount})">
+              <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
               </span>
               <b-dropdown position="is-top-left" class="is-hidden">
                 <a slot="trigger">
                     <hc-icon icon="angle-up"></hc-icon>
                 </a>
-                <b-dropdown-item>Melden</b-dropdown-item>
-                <b-dropdown-item>als gelesen markieren</b-dropdown-item>
+                <b-dropdown-item>{{ $t('component.contribution.actionReport') }}</b-dropdown-item>
+                <b-dropdown-item>{{ $t('component.contribution.actionMarkAsRead') }}</b-dropdown-item>
               </b-dropdown>
             </div>
           </div>

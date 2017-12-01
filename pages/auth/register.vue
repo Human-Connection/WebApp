@@ -37,10 +37,12 @@
             </hc-button>
           </p>
         </form>
-				<i18n path="auth.account.confirmTermsOfUsage" tag="p" class="small-info">
-					<nuxt-link place="termsOfService" :to="{ name: 'legal' }">{{ $t('legal.termsOfService') }}</nuxt-link>
-					<nuxt-link place="dataPrivacyStatement" :to="{ name: 'legal' }">{{ $t('legal.dataPrivacyStatement') }}</nuxt-link>
-				</i18n>
+        <!-- TODO links by named route not hard coded -->
+        <p class="small-info" v-html="$t('auth.account.confirmTermsOfUsage', {
+            'termsOfService': $t('legal.termsOfService'),
+            'dataPrivacyStatement': $t('legal.termsOfService'),
+            'url': '/legal'
+          })"></p>
       </div>
       <footer class="card-footer">
         <nuxt-link :to="{ name: 'auth-login', params: { path: this.$route.params.path } }" class="card-footer-item">

@@ -65,18 +65,52 @@
           </button>
       </span>
     </div>
-    <div class="field">
-      <label class="label">{{ $tc('component.category.labelNoneOnePlural', 2) }}</label>
-      <categories-select v-model="form.categoryIds"></categories-select>
-    </div>
     <no-ssr>
       <div class="field">
         <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
         <div class="control">
+          <div id="toolbar-editor">
+            <span class="ql-formats">
+              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
+                <button class="ql-italic"></button>
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
+                <button class="ql-bold"></button>
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
+                <button class="ql-strike"></button>
+              </b-tooltip>
+            </span>
+            <span class="ql-formats">
+              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
+                <button class="ql-blockquote"></button>
+              </b-tooltip>
+            </span>
+            <span class="ql-formats">
+              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
+                <button class="ql-list" value="bullet" ></button>
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
+                <button class="ql-list" value="ordered" ></button>
+              </b-tooltip>
+            </span>
+            <span class="ql-formats">
+              <b-tooltip :label="$t('component.editor.link')" type="is-black">
+              <button class="ql-link"></button>
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.video')" type="is-black">
+              <button class="ql-video"></button>
+              </b-tooltip>
+            </span>
+          </div>
           <div class="quill-editor story" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
+    <div class="field">
+      <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
+      <categories-select v-model="form.categoryIds"></categories-select>
+    </div>
     <!-- language -->
     <!-- visibility -->
     <!-- topics -->
@@ -86,13 +120,13 @@
       <div class="field is-grouped is-grouped-right">
         <div class="control">
           <button class="button is-medium is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i> &nbsp;{{ $t('buttons.cancel') }}
+            <i class="fa fa-times"></i> &nbsp;{{ $t('button.cancel') }}
           </button>
         </div>
         <div class="control">
           <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
                   @click.prevent="onSubmit">
-            <i class="fa fa-check"></i> &nbsp;{{ $t('component.contribution.action-' + buttonLabelKey) }}
+            <i class="fa fa-check"></i> &nbsp;{{ buttonPublishLabel }}
           </button>
         </div>
       </div>
@@ -122,6 +156,9 @@
       }
     },
     data () {
+      let i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
+      let i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
+      let i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
         loading: false,
         dropFiles: null,
@@ -150,14 +187,25 @@
           ]
         },
         editorOption: {
-          placeholder: this.$t('component.contribution.editorPlaceholder'),
+          placeholder: i18nEditorPlaceholder,
           modules: {
             toolbar: {
-              container: [
-                ['bold', 'strike'],
-                ['blockquote'],
-                ['link', 'video']
-              ]
+              container: '#toolbar-editor',
+              handlers: {
+                //  handlers object will be merged with default handlers object
+                'link': function (value) {
+                  if (value) {
+                    let href = prompt(i18nEditorLinkEnterUrl)
+                    this.quill.format('link', href)
+                  } else {
+                    this.quill.format('link', false)
+                  }
+                },
+                'video': function () {
+                  let embedUrl = prompt(i18nEditorVideoEnterUrl)
+                  this.quill.format('video', embedUrl)
+                }
+              }
             }
           }
         }
@@ -167,8 +215,8 @@
       ...mapGetters({
         user: 'auth/user'
       }),
-      buttonLabel () {
-        return this.form._id ? this.$t('buttons.update') : this.$t('buttons.publish')
+      buttonPublishLabel () {
+        return this.form._id ? this.$t('button.update') : this.$t('button.publish')
       }
     },
     methods: {

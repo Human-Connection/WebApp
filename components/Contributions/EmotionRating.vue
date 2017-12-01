@@ -4,7 +4,7 @@
     <nav class="level is-mobile">
       <div class="level-item has-text-centered" v-for="(emotion, key) in contribution.emotions"
            @click="onClick(key)">
-        <div>
+        <div :title="$t('component.emotionRating.tooltip')">
           <p class="smiley heading">
             <hc-emoji :type="getEmoticon(key)" width="50" height="50"></hc-emoji><br/>
             {{ $t('component.emotionRating.' + key) }}

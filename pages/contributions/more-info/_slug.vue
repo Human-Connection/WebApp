@@ -6,7 +6,7 @@
           <div class="notification is-danger is-hidden-tablet">
             <strong>The sidebar is currently hidden on mobile!</strong>
           </div>
-          <h1>{{ $tc('component.contribution.moreInfoBriefOrLong', 2) }}</h1>
+          <h1>{{ $t('component.contribution.moreInfoBriefOrLong', null, 2) }}</h1>
           <div class="notification is-hidden">
             <strong>This is currenty dummy content</strong>
           </div>
@@ -18,7 +18,7 @@
             </span>
           </div>
 
-          <h3>{{ $tc('component.contribution.tagNoneOnePlural', 2) }}</h3>
+          <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
           <div class="tags">
             <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
             <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
@@ -28,7 +28,7 @@
             </a>
           </div>
 
-          <h3 id="relatedPosts">{{ $tc('component.contribution.postRelatedLabelPluralised', 2) }}</h3>
+          <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -45,13 +45,13 @@
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <h3 id="proAndContras">{{ $tc('component.contribution.proAndContraPluralised', 2) }}</h3>
+          <h3 id="proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -64,7 +64,7 @@
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
@@ -83,13 +83,13 @@
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <h3 id="votes">{{ $tc('component.contribution.voteNoneOnePlural', 2) }}</h3>
+          <h3 id="votes">{{ $t('component.contribution.voteOnePluralNone', null, 0) }}</h3>
           <table class="table is-striped">
             <tbody>
             <tr>
@@ -98,21 +98,20 @@
             </tr>
             <tr>
               <td colspan="2" class="is-white">
-                <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
               </td>
             </tr>
             </tbody>
           </table>
 
-          <h3 id="chatrooms">{{ $tc('component.contribution.chatroomBriefOrLong', 2) }}</h3>
+          <h3 id="chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 2) }}</h3>
           <table class="table is-striped">
             <tbody>
             <tr>
-              </td>
               <td style="width: 130px;">
                 <div class="has-text-centered">
                   <span class="title is-5">Heute</span><br/>
-                  <span class="heading is-inline">16:00 - 20:00 Uhr</span>
+                  <span class="heading is-inline">16 – 20 Uhr</span>
                 </div>
               </td>
               <td>Eventchat mit immer Gene Brandi</td>
@@ -129,7 +128,7 @@
             </tr>
             <tr>
               <td colspan="3" class="is-white">
-                <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
               </td>
             </tr>
             </tbody>
@@ -147,14 +146,14 @@
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
-              2. <strong>{{ $tc('component.contribution.moreInfoBriefOrLong', 1) }}</strong>
+              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#relatedPosts">{{ $tc('component.contribution.postRelatedLabelPluralised', 2) }}</a></li>
-              <li><a href="#proAndContras">{{ $tc('component.contribution.proAndContraPluralised', 2) }}</a></li>
-              <li><a href="#bestlists">{{ $tc('component.contribution.bestList') }}</a></li>
-              <li><a href="#votes">{{ $tc('component.contribution.voteNoneOnePlural', 2) }}</a></li>
-              <li><a href="#chatrooms">{{ $tc('component.contribution.chatroomBriefOrLong', 1) }}</a></li>
+              <li><a href="#relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
+              <li><a href="#proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
+              <li><a href="#bestlists">{{ $t('component.contribution.bestList') }}</a></li>
+              <li><a href="#votes">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
+              <li><a href="#chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
             </ul>
           </li>
           <li>
@@ -176,11 +175,13 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
   import _ from 'lodash'
 
   export default {
     scrollToTop: false,
     components: {
+      HcRelativeDateTime,
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
