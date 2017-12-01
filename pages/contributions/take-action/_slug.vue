@@ -190,7 +190,7 @@
             </table>
 
             <h3 id="maps">Karte</h3>
-            <hc-map :places="places" :zoom="zoom" :center="center" />
+            <hc-map :places="places" :zoom="zoom" :center="center" height="400px" />
           </div>
         </section>
       </div>

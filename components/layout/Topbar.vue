@@ -25,16 +25,10 @@
                 <div class="column">
                   <br/>
                   <h3 class="title is-6">Categories</h3>
-                  <categories-select @change="filterForCategories" v-model="categoryIds"></categories-select>
+                  <filter-list @change="filterForCategories" :items="categories" :selected="selectedCategoryIds" />
                   <hr/>
                   <h3 class="title is-6">Emotions</h3>
-                  <div>
-                    <hc-emoji class="emotion" type="funny"></hc-emoji>
-                    <hc-emoji class="emotion" type="happy"></hc-emoji>
-                    <hc-emoji class="emotion" type="surprised"></hc-emoji>
-                    <hc-emoji class="emotion" type="cry"></hc-emoji>
-                    <hc-emoji class="emotion" type="angry"></hc-emoji>
-                  </div>
+                  <filter-list :items="emotions" :selected="selectedEmotionIds" iconSet="hc-emoji" />
                   <br/>
                 </div>
               </div>
@@ -116,6 +110,9 @@
   import HcButton from '../Global/Elements/Button/Button.vue'
   import SearchInput from '../Search/SearchInput.vue'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
+  import FilterList from '~/components/Filters/FilterList.vue'
+
+  import _ from 'lodash'
 
   export default {
     name: 'hc-topbar',
@@ -124,7 +121,8 @@
       HcButton,
       Avatar,
       Notifications,
-      CategoriesSelect
+      CategoriesSelect,
+      FilterList
     },
     data () {
       return {
@@ -135,22 +133,58 @@
         loading: false,
         stayLoggedIn: false,
         errors: null,
-        categoryIds: []
+        selectedCategoryIds: [],
+        selectedEmotionIds: [],
+        emotions: [
+          {
+            _id: 'funny',
+            title: 'funny',
+            icon: 'funny'
+          },
+          {
+            _id: 'happy',
+            title: 'happy',
+            icon: 'happy'
+          },
+          {
+            _id: 'surprised',
+            title: 'surprised',
+            icon: 'surprised'
+          },
+          {
+            _id: 'cry',
+            title: 'cry',
+            icon: 'cry'
+          },
+          {
+            _id: 'angry',
+            title: 'angry',
+            icon: 'angry'
+          }
+        ]
       }
     },
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
         isAdmin: 'auth/isAdmin',
-        user: 'auth/user'
+        user: 'auth/user',
+        categories: 'categories/all'
       })
     },
+    watch: {
+      categories (categories) {
+        this.filterForCategories(_.map(categories, '_id'))
+      }
+    },
     mounted () {
-      console.log(this.$route.path)
+      this.filterForCategories(_.map(this.categories, '_id'))
+      console.log(this.selectedCategoryIds)
     },
     methods: {
-      filterForCategories () {
-        this.$store.commit('search/categoryIds', this.categoryIds)
+      filterForCategories (selectedCategoryIds) {
+        this.selectedCategoryIds = selectedCategoryIds
+        this.$store.commit('search/categoryIds', selectedCategoryIds)
       },
       logout () {
         this.$store.dispatch('auth/logout')
@@ -202,7 +236,6 @@
 
   .navbar-item.is-mega {
     position: static;
-    cursor: pointer;
 
     @include mobile() {
       display: none;
