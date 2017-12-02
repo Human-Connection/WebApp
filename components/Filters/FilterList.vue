@@ -74,7 +74,7 @@
         return this.selectedIds.length === this.items.length
       },
       toggleAllDisabled () {
-        return !!(this.allActive && (this.selectedIdsBeforeToggled.length === this.items.length))
+        return !!(this.allActive && (this.selectedIdsBeforeToggled.length === this.items.length || !this.selectedIdsBeforeToggled.length))
       }
     },
     methods: {
@@ -94,6 +94,10 @@
         }
       },
       toggleAll () {
+        if (this.toggleAllDisabled) {
+          return
+        }
+
         if (this.allActive) {
           this.selectedIds = this.selectedIdsBeforeToggled
           // this.selectedIdsBeforeToggled = []
