@@ -50,6 +50,14 @@
       </div>
 
       <div class="nav-right nav-end">
+        <!-- TODO add locale switch -->
+        <a @click.prevent="changeLanguage('de')" style="display: flex; height: 100%; vertical-align: middle; align-items: center;" :style="{ opacity: $i18n.locale() === 'de' ? 1 : .4 }">
+          <flag iso="de" :squared="false" title="DE" />
+        </a>&nbsp;
+        <a @click.prevent="changeLanguage('en')" style="display: flex; height: 100%; vertical-align: middle; align-items: center;" :style="{ opacity: $i18n.locale() === 'en' ? 1 : .4 }">
+          <flag iso="gb" :squared="false" title="EN" />
+        </a>
+        &nbsp;&nbsp;
         <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled is-hidden-mobile" style="cursor: not-allowed;">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
@@ -62,7 +70,6 @@
             </hc-button>
           </div>
         </div>
-        <!-- TODO add locale switch -->
         <template v-else>
           <no-ssr>
             <b-dropdown class="user-menunavigation-dropdown" position="is-bottom-left" style="text-align: left;">
@@ -120,6 +127,7 @@
   import HcButton from '../Global/Elements/Button/Button.vue'
   import SearchInput from '../Search/SearchInput.vue'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
+  import Flags from '~/plugins/flags.js'
 
   export default {
     name: 'hc-topbar',
@@ -128,7 +136,8 @@
       HcButton,
       Avatar,
       Notifications,
-      CategoriesSelect
+      CategoriesSelect,
+      Flags
     },
     data () {
       return {
@@ -161,6 +170,9 @@
           .catch(err => {
             console.error(err)
           })
+      },
+      changeLanguage (locale) {
+        this.$i18n.set(locale)
       }
     }
   }

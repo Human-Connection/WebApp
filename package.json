@@ -72,6 +72,7 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "source-map-support": "^0.4.18",
+    "vue-flag-icon": "^1.0.6",
     "vue-style-loader": "^3.0.2"
   }
 }
