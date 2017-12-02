@@ -62,6 +62,7 @@
   .filter-item {
     display: inline-block;
     width: 6rem;
+    height: 5rem;
     vertical-align: bottom;
     cursor: pointer;
     margin-bottom: 1.5rem;
@@ -82,6 +83,7 @@
       height: 3em;
       width: 100%;
       color: $grey;
+      vertical-align: top;
     }
   }
 </style>
