@@ -1,18 +1,18 @@
 <template>
-  <section class="container">
-    <br/><br/><br/>
-    <div class="columns is-vcentered">
-      <div class=" column is-6 is-offset-3 has-text-centered">
+  <section class="container content">
+    <div class="card">
+      <div class="card-content has-text-centered">
+        <br/><br/><br/>
         <hc-emoji type="surprised" width="150px"></hc-emoji>
-        <h1 class="title is-1">
+        <h1 class="title">
           <strong>{{ error.statusCode }}</strong>
         </h1>
         <p class="info">
           {{ error.message }}
         </p>
+        <hc-button type="button" @click="refresh"><i class="fa fa-arrow-left"></i>&nbsp;&nbsp;Back to normal</hc-button>
       </div>
     </div>
-    <br/>
   </section>
 </template>
 <script>
@@ -27,13 +27,24 @@
       return {
         title: this.error.statusCode
       }
+    },
+    methods: {
+      refresh () {
+        if (this.$route.name === 'index') {
+          location.reload()
+        } else {
+          this.$router.back()
+        }
+      }
     }
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  @import "assets/styles/_utilities";
+
   .title {
-    margin-top: 15px;
+    margin-top: 8px !important;
     font-size: 5em;
     margin-bottom: 5px;
   }
@@ -44,7 +55,16 @@
     margin: 0;
   }
 
+  .card {
+    margin: 0 auto;
+    max-width: 460px;
+    text-align: center;
+    border: none;
+    box-shadow: $card-shadow;
+  }
+
   .button {
-    margin-top: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
   }
 </style>

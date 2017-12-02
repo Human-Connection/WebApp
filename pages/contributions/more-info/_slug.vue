@@ -30,22 +30,22 @@
 
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
           <table class="table is-striped">
-            <tbody>
-              <tr>
-                <td>Strategienn für Honigbienen</td>
+            <tbody v-if="relatedPosts.length">
+              <tr style="cursor: pointer" v-for="contribution in relatedPosts" @click="$router.push('/contributions/' + contribution.slug)">
+                <td>{{ contribution.title }}</td>
                 <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
-              </tr>
-              <tr>
-                <td>Warum brauchen Bienen unsere hilfe?</td>
-                <td class="has-text-right"><strong>502</strong> Aktivitäten</td>
-              </tr>
-              <tr>
-                <td>Stadtbienen</td>
-                <td class="has-text-right"><strong>123</strong> Aktivitäten</td>
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
                   <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
+                </td>
+              </tr>
+            </tbody>
+            <tbody v-else>
+              <tr>
+                <td class="has-text-centered">
+                  <h6 class="is-size-6">Sorry there ar no Contributions that fit that one right now. Do you want to add one?</h6>
+                  <hc-button class="button is-primary" type="nuxt" to="/contributions/write">Add Contribution</hc-button>
                 </td>
               </tr>
             </tbody>
@@ -195,14 +195,24 @@
     },
     async asyncData ({params, error}) {
       try {
-        let res = await feathers.service('contributions').find({
+        let contributions = await feathers.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
+        const relatedPosts = await feathers.service('contributions').find({
+          query: {
+            categoryIds: {
+              $in: contributions.data[0].categoryIds
+            },
+            type: 'post',
+            $limit: 3
+          }
+        })
         return {
-          contribution: res.data[0],
-          title: res.data[0].title
+          relatedPosts: relatedPosts.data || [],
+          contribution: contributions.data[0],
+          title: contributions.data[0].title
         }
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
@@ -229,7 +239,7 @@
         const userId = this.user ? this.user._id : null
         return this.isVerified && this.contribution.user._id === userId
       },
-      refrashOrNot () {
+      refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
       }

@@ -1,6 +1,6 @@
 <template>
   <section class="container content">
-    <div class="card">
+    <div class="card" :class="classes">
       <div class="card-content">
         <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
@@ -55,10 +55,12 @@
 
 <script>
   import Vue from 'vue'
+  import animatable from '~/components/mixins/animatable'
 
   export default {
     middleware: 'anonymous',
     layout: 'blank',
+    mixins: [animatable],
     data () {
       return {
         data: {
@@ -92,6 +94,7 @@
               type: 'is-danger'
             })
             this.errors = true
+            this.animate('shake')
             this.loading = false
           })
       }
@@ -106,6 +109,7 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/_utilities";
+  @import "assets/styles/_animations";
 
   .card {
     margin: 0 auto;

@@ -8,6 +8,7 @@ module.exports = {
     API_HOST: process.env.API_HOST || 'localhost',
     API_PORT: process.env.API_PORT || 3030,
     SENTRY_DNS_PUBLIC: process.env.SENTRY_DNS_PUBLIC || 'https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871',
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN || 'pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ',
     RELEASE: 'BUILD_RELEASE'
   },
   /*

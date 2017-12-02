@@ -21,7 +21,10 @@
       center: {
         type: [Object, Array],
         default () {
-          return { lng: -60.0073, lat: 40.7124 }
+          return {
+            lat: 49.890860,
+            lng: 10.327148
+          }
         }
       },
       /**
@@ -42,7 +45,7 @@
     methods: {
       createMap () {
         const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
-        mapboxgl.accessToken = 'pk.eyJ1Ijoic29ubmVuZmVsZDI2OSIsImEiOiJjajQwMmlvaTEwOXFzMnF0MTM3MjZuY2U0In0.T1X3PSCiYOI87qNi6AYBYw'
+        mapboxgl.accessToken = process.env.MAPBOX_TOKEN
         // init the map
         let map = new mapboxgl.Map({
           container: 'map',
@@ -51,13 +54,18 @@
           center: this.center
         })
         this.places.forEach(function (marker) {
+          // create the popup
+          let popup = new mapboxgl.Popup()
+            .setText(marker.properties.title)
+
           // create a HTML element for each feature
           let el = document.createElement('div')
           el.className = 'marker'
 
           // make a marker for each feature and add to the map
-          new mapboxgl.Marker(el, { offset: [-50 / 2, -50 / 2] })
+          new mapboxgl.Marker(el)
             .setLngLat(marker.geometry.coordinates)
+            .setPopup(popup) // sets a popup on this marker
             .addTo(map)
         })
       }
@@ -69,15 +77,19 @@
   // @import "mapbox-gl/dist/mapbox-gl.css";
 
   #map {
-    height: 200px;
+      height: 200px;
   }
-  
+
   .marker {
-    background-image: url('https://cdn.frontify.com/api/screen/thumbnail/rkPsXqXyMgx05oB1uS5gF9gqTcSy1dwJ9Rmj3WPPE2y9LQh1B3YR7INqFjey_JaqpFaX6HUg-dLeUxq2aKcfxw/1194');
-    background-size: cover;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    cursor: pointer;
+      background:      url('https://company-16131.frontify.com/api/screen/download/yANNQjWD8CBlyq7i5p12wcMfB_W6GYbKREV4kvZIk9On6uxfu2lwIk_H62lvpe-GOkVlmiiZ8Cpx2OZADp4spQ') no-repeat center;
+      background-size: contain;
+      width:           30px;
+      height:          30px;
+      border-radius:   50%;
+      cursor:          pointer;
+  }
+
+  .mapboxgl-popup {
+      max-width: 200px;
   }
 </style>

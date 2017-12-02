@@ -1,14 +1,32 @@
 <template>
   <div class="textCount">
-    <span>{{ count }}</span>
+    <span>{{ countNumber }}</span>
     {{ text }}
   </div>
 </template>
 
 <script>
+  import _ from 'lodash'
+
   export default {
     name: 'hc-textcount',
-    props: ['count', 'text']
+    props: ['count', 'text'],
+    data () {
+      return {
+        countNumber: 0
+      }
+    },
+    watch: {
+      count (val) {
+        if (_.isArray(val)) {
+          this.countNumber = val.length
+        } else if (_.isInteger(this.count)) {
+          this.countNumber = parseInt(val)
+        } else {
+          this.countNumber = 0
+        }
+      }
+    }
   }
 </script>
 

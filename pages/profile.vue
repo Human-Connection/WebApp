@@ -54,15 +54,14 @@
         <hc-box bottom="true">
           <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="16" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, 16)"/>
-            <hc-textcount class="textcountitem" count="44" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, 44)"/>
-            <hc-textcount class="textcountitem" count="20" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, 20)"/>
+            <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
+            <hc-textcount class="textcountitem" :count="following.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.length)"/>
+            <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
           </div>
-          <hc-dropdown :showLabels="[$t('auth.account.myFollowingShowAll'), $t('auth.account.myFollowingShowMine')]"
-                       :sortLabels="[$t('auth.account.myFollowingSortBy'), $t('auth.account.myFollowingSortByDate'), $t('auth.account.myFollowingSortByCategory')]"/>
+          <!--<hc-dropdown :showLabels="[$t('auth.account.myFollowingShowAll'), $t('auth.account.myFollowingShowMine')]"
+                       :sortLabels="[$t('auth.account.myFollowingSortBy'), $t('auth.account.myFollowingSortByDate'), $t('auth.account.myFollowingSortByCategory')]"/>-->
           <div class="hc-follower-list">
-            <hc-follower-item title="item 1" timestamp="2017-11-25T20:00:55.661Z"/>
-            <hc-follower-item title="item 2" timestamp="2017-11-27T20:00:55.661Z"/>
+            <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
@@ -112,6 +111,7 @@
   import UploadAvatar from '~/components/User/UploadAvatar'
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
+  import feathers from '~/plugins/feathers'
 
   export default {
     components: {
@@ -149,6 +149,11 @@
         center: {
           lng: -102.0073,
           lat: 40.7124
+        },
+        following: {
+          users: [],
+          organizations: [],
+          projects: []
         }
       }
     },
@@ -161,6 +166,15 @@
       coverImg () {
         return this.user.coverImg ? this.user.coverImg : 'https://source.unsplash.com/random/1250x280'
       }
+    },
+    async mounted () {
+      const user = await feathers.service('follows').get(this.user._id)
+      this.following = {
+        users: user.users || [],
+        organizations: user.organizations || [],
+        projects: user.projects || []
+      }
+      return true
     },
     head () {
       return {
