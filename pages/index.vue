@@ -15,7 +15,7 @@
             <small>Try to adjust your search and filters on the top to find what you are searching for.</small>
           </p>
           <br/>
-          <div v-if="searchQuery !== ''" class="control has-text-centered">
+          <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
             <hc-button @click="$store.commit('search/query', '')">
               Remove "<strong>{{ searchQuery }}</strong>" from Search
             </hc-button>
