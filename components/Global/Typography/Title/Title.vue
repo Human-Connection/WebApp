@@ -11,22 +11,25 @@
 </script>
 
 <style lang="scss" scoped>
-  @import "assets/styles/utilities";
+  @import "assets/styles/variables";
 
   .hc-title {
     color: $primary;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 13px;
+    font-size: $size-5;
     text-align: center;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    font-weight: bold;
 
-    &:after {
+    /*&:after {
       content: '';
       position: relative;
       width: 40px;
       border-bottom: 1px solid $primary;
       display: block;
       margin: 7px auto 0;
-    }
+    }*/
   }
 </style>

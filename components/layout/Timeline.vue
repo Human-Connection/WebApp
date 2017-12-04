@@ -1,8 +1,6 @@
 <template>
-  <div class="column is-6 timeline content">
-    <hc-box top="true" bottom="true">
-      <hc-title>{{ $t('component.timeline.title') }}</hc-title>
-    </hc-box>
+  <div class="column timeline content">
+    <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
       <p>{{ $t('component.timeline.introQuestion', { 'username': user.name }) }}</p>
       <p v-if="contributions.length == 0 && loadingFinished">
