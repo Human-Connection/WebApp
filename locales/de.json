@@ -82,7 +82,7 @@
       "writePostSection": "Überschrift",
       "writePostSectionPlaceholder": "Welchen Titel soll Dein Beitrag bekommen?",
       "writePostContentPlaceholder": "schreib etwas inspirierendes... ",
-			"voteOnePluralNone": "Votum ::: Vota ::: Kein Votum"
+			"voteOnePluralNone": "Abstimmung ::: Abstimmungen ::: Keine Abstimmungen"
     },
     "notification": {
       "label": "Benachrichtigungen",
