@@ -11,7 +11,7 @@
       <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t('component.category.slug2label-' + category.slug )  }}
     </span>
     <p class="small-info">
-      {{ $t('component.category.infoSelectedNofMaxCategories', {n:selectedCount, max:selectedMax} ) }}
+      {{ $t('component.category.infoSelectedNoOfMaxCategories', {n:selectedCount, max:selectedMax} ) }}
     </p>
   </div>
 </template>

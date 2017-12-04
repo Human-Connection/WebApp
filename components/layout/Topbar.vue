@@ -127,7 +127,6 @@
   import HcButton from '../Global/Elements/Button/Button.vue'
   import SearchInput from '../Search/SearchInput.vue'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
-  import Flags from '~/plugins/flags.js'
 
   export default {
     name: 'hc-topbar',
@@ -136,8 +135,7 @@
       HcButton,
       Avatar,
       Notifications,
-      CategoriesSelect,
-      Flags
+      CategoriesSelect
     },
     data () {
       return {
@@ -172,7 +170,17 @@
           })
       },
       changeLanguage (locale) {
-        this.$i18n.set(locale)
+        // check if the locale has already been loaded
+        if (this.$i18n.localeExists(locale)) {
+          this.$i18n.set(locale)
+          return
+        }
+        import(`~/locales/${locale}.json`)
+          .then(res => {
+            console.log('LOCALE', res)
+            this.$i18n.add(locale, res)
+            this.$i18n.set(locale)
+          })
       }
     }
   }

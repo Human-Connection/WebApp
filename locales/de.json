@@ -11,7 +11,7 @@
 			"label": "Kalender"
 		},
 		"category": {
-			"infoSelectedNofMaxCategories": "{n} von {max} Kategorien ausgewählt",
+			"infoSelectedNoOfMaxCategories": "{n} von {max} Kategorien ausgewählt",
 			"labelOnePluralNone": "Kategorie ::: Kategorien ::: Keine Kategorie",
 			"labelLongOnePluralNone": "Themenkategorie ::: Themenkategorien ::: Keine Themenkategorie",
       "slug2label-bildung-and-wissenschaft": "Bildung & Wissenschaft",

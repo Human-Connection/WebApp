@@ -8,7 +8,7 @@
       "users": "Users"
 		},
 		"category": {
-			"infoSelectedNofMaxCategories": "{n} of {max} categories selected",
+			"infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
 			"labelOnePluralNone": "Category ::: Categories ::: No Category",
       "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
       "slug2label-bildung-and-wissenschaft": "Education & Sciences",
