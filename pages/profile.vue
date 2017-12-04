@@ -87,6 +87,7 @@
             <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
             <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
           </div>
+          <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
         </hc-box>
         <hc-box>
           <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
@@ -102,8 +103,7 @@
             <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.myCanDosAltogether', 'Can Do’s')"/>
             <hc-textcount class="textcountitem" count="3" :text="$t('auth.account.myCanDosDone', 'geschafft')"/>
           </div>
-          <hc-map style="margin: 0 -15px -15px -15px;" :places="places" :zoom="zoom" :center="center" />
-          </hc-box>
+        </hc-box>
       </div>
       <hc-timeline />
     </div>
