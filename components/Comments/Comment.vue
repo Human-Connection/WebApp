@@ -8,7 +8,7 @@
         <b-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
           <a @click="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
             <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
-            <i class="fa fa-chevron-circle-up"></i>&nbsp;
+            <i class="fa fa-angle-double-up"></i>&nbsp;
           </a>
         </b-tooltip>
       </div>
