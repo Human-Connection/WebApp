@@ -15,17 +15,29 @@
     data () {
       return {
         relativeDateTime: null,
-        interval: 15000
+        interval: 15000,
+        timeout: null
+      }
+    },
+    computed: {
+      locale () {
+        return this.$i18n.locale() || 'en'
+      }
+    },
+    watch: {
+      locale () {
+        this.calcRelativeDateTime()
       }
     },
     methods: {
       calcRelativeDateTime () {
-        let t = moment(this.dateTime).locale(this.$i18n.locale() || 'en')
+        clearTimeout(this.timeout)
+        let t = moment(this.dateTime).locale(this.locale)
         this.relativeDateTime = t.utc().fromNow()
         if (this.relativeDateTime === t.add(this.interval, 'milliseconds').utc().fromNow()) {
           this.interval += 15000
         }
-        setTimeout(() => {
+        this.timeout = setTimeout(() => {
           this.calcRelativeDateTime()
         }, this.interval)
       }
