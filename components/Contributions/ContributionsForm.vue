@@ -121,12 +121,12 @@
     <no-ssr>
       <div class="field is-grouped is-grouped-right">
         <div class="control">
-          <button class="button is-medium is-white" @click.prevent="$router.back()">
+          <button class="button has-text-grey is-white" @click.prevent="$router.back()">
             <i class="fa fa-times"></i> &nbsp;{{ $t('button.cancel') }}
           </button>
         </div>
         <div class="control">
-          <button class="button is-medium is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
+          <button class="button is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
                   @click.prevent="onSubmit">
             <i class="fa fa-check"></i> &nbsp;{{ buttonPublishLabel }}
           </button>
