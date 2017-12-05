@@ -52,7 +52,7 @@
       "jobs": "Jobs",
       "letsTalk": "Let’s talk",
       "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
-      "organisations": "Organisations",
+      "organizations": "Organisations",
       "map": "Map",
       "messages": "Messages",
       "messageSaveSuccess": "Thanks for your contribution. You are awesome.",
@@ -138,6 +138,13 @@
   "page": {
     "index": {
       "title": "Welcome"
+    },
+    "moreInfo": {
+      "noContributions": "Sorry there are no contributions that fit that topic right now. <br/><br/>Do you want to add one?"
+    },
+    "takeAction": {
+      "noOrganizations": "Sorry there are no organizations that fit that contribution right now. <br/><br/>Do you want to add one?",
+      "noProjects": "Sorry there are no projects that fit that contribution right now. <br/><br/>Do you want to add one?"
     }
   },
   "button": {
@@ -155,7 +162,10 @@
     "submitComment": "Submit comment",
     "showLess": "hide",
     "showMore": "show more",
-    "update": "Update"
+    "update": "Update",
+    "addContribution": "Add contribution",
+    "addOrganization": "Add organization",
+    "addProject": "Add project"
   },
   "legal": {
     "copyrights": "Copyrights:",

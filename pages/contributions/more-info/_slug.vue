@@ -11,25 +11,25 @@
             <strong>This is currenty dummy content</strong>
           </div>
 
-          <h3 v-if= "categories.length">Themen</h3>
+          <h3 v-if= "categories.length">{{ $t('component.category.labelLongOnePluralNone', null, categories.length) }}</h3>
           <div class="tags" v-if= "categories.length">
-            <span class="tag is-primary" v-for="category in categories">
-              <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
+            <span class="tag" v-for="category in categories">
+              <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
             </span>
           </div>
 
           <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
           <div class="tags">
-            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
-            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
-            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Imkern</span>
+            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
+            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
+            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Imkern</span>
             <a>
               <span class="tag"><hc-icon icon="plus"></hc-icon></span>
             </a>
           </div>
 
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
-          <table class="table is-striped">
+          <table class="table is-striped" :class="{ 'is-empty': !relatedPosts.length }">
             <tbody v-if="relatedPosts.length">
               <tr style="cursor: pointer" v-for="contribution in relatedPosts" @click="$router.push('/contributions/' + contribution.slug)">
                 <td>{{ contribution.title }}</td>
@@ -44,8 +44,10 @@
             <tbody v-else>
               <tr>
                 <td class="has-text-centered">
-                  <h6 class="is-size-6">Sorry there ar no Contributions that fit that one right now. Do you want to add one?</h6>
-                  <hc-button class="button is-primary" type="nuxt" to="/contributions/write">Add Contribution</hc-button>
+                  <h6 class="is-size-6 has-text-grey" v-html="$t('page.moreInfo.noContributions')"></h6>
+                  <hc-button color="primary" type="nuxt" to="/contributions/write">
+                    <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addContribution', 'Add Contribution') }}
+                  </hc-button>
                 </td>
               </tr>
             </tbody>
@@ -257,6 +259,12 @@
   @import 'assets/styles/utilities';
 
   .table {
+    &.is-empty {
+      tr:hover {
+        background-color: transparent;
+      }
+    }
+
     td {
       border-color: $grey-lighter;
     }

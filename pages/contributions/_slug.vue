@@ -19,13 +19,13 @@
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
             <h1>{{ contribution.title }}</h1>
+            <p class="content" v-html="content"></p>
+            <br/>
             <div class="tags" v-if= "categories.length">
-              <span class="tag is-primary" v-for="category in categories">
+              <span class="tag" v-for="category in categories">
                 <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
               </span>
             </div>
-            <p class="content" v-html="content"></p>
-            <br/>
             <div class="columns">
               <div class="column is-9 is-mobile">
                   <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>

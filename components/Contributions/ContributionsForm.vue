@@ -107,6 +107,7 @@
         </div>
       </div>
     </no-ssr>
+    <br/><hr/>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select v-model="form.categoryIds"></categories-select>
@@ -116,6 +117,7 @@
     <!-- topics -->
     <!-- tags -->
     <!-- uploads -->
+    <hr/>
     <no-ssr>
       <div class="field is-grouped is-grouped-right">
         <div class="control">

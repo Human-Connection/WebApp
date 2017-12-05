@@ -52,7 +52,7 @@
       "jobs": "Tätigkeiten",
       "letsTalk": "Miteinander reden",
       "letsTalkDescription": "Mit {user} ins Gespräch kommen und in Kontakt treten, um z.B. Inhalte des Beitrags zu diskutieren, Rückmeldungen oder Anregungen zu geben. Du kannst einstellen, ob das Zwiegespräch öffentlich oder privat sein soll.",
-      "organisations": "Organisationen",
+      "organizations": "Organisationen",
       "map": "Karte",
       "messages": "Beiträge",
       "messageSaveSuccess": "Danke für Deinen Beitrag. Du bist grandios.",
@@ -138,6 +138,13 @@
   "page": {
     "index": {
       "title": "Willkommen"
+    },
+    "moreInfo": {
+      "noContributions": "Es gibt leider noch keine Beiträge die zu diesem Thema passen. <br/><br/>Willst du einen erstellen?"
+    },
+    "takeAction": {
+      "noOrganizations": "Es gibt leider noch keine Organisationen die zu diesem Beitrag passen. <br/><br/>Willst du eine erstellen?",
+      "noProjects": "Es gibt leider noch keine Projekte die zu diesem Beitrag passen. <br/><br/>Willst du eins erstellen?"
     }
   },
   "button": {
@@ -155,7 +162,10 @@
     "skip": "Überspringen",
     "submit": "Übermitteln",
     "submitComment": "Kommentar veröffentlichen",
-    "update": "Aktualisieren"
+    "update": "Aktualisieren",
+    "addContribution": "Beitrag erstellen",
+    "addOrganization": "Organization erstellen",
+    "addProject": "Project erstellen"
   },
   "legal": {
     "copyrights": "Urheberrecht:",
