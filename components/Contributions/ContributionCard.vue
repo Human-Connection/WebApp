@@ -21,7 +21,7 @@
             <div class="column has-text-left">
               <div class="tags " v-if="categories.length">
                 <b-tooltip v-for="category in categories"
-                           :label="category.title"
+                           :label="$t(`component.category.slug2label-${category.slug}`)"
                            :key="category._id"
                            style="margin-right: 5px;"
                            type="is-dark">

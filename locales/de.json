@@ -2,35 +2,35 @@
   "humanConnection": "Human Connection",
   "humanConnectionMadeWithHeart": "Mit <span style=\"color: #f00\">♥</span> gemacht von <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
   "component": {
-		"admin": {
-			"label": "Administration",
-			"settings": "Einstellungen",
+    "admin": {
+      "label": "Administration",
+      "settings": "Einstellungen",
       "users": "Benutzer"
     },
-		"calendar": {
-			"label": "Kalender"
-		},
-		"category": {
-			"infoSelectedNoOfMaxCategories": "{n} von {max} Kategorien ausgewählt",
-			"labelOnePluralNone": "Kategorie ::: Kategorien ::: Keine Kategorie",
-			"labelLongOnePluralNone": "Themenkategorie ::: Themenkategorien ::: Keine Themenkategorie",
-      "slug2label-bildung-and-wissenschaft": "Bildung & Wissenschaft",
-      "slug2label-demokratie-and-politik": "Demokratie & Politik",
-      "slug2label-energie-and-technologie": "Energie & Technologie",
-      "slug2label-gesundheit-and-wohlbefinden": "Gesundheit & Wohlbefinden",
-      "slug2label-globaler-frieden-and-gewaltlosigkeit": "Globaler Frieden & Gewaltlosigkeit",
-      "slug2label-gluck-and-werte": "Glück & Werte",
-      "slug2label-it-internet-and-datenschutz": "IT, Internet & Datenschutz",
-      "slug2label-just-for-fun": "Vergnügliches & Just For Fun",
-      "slug2label-konsum-and-nachhaltigkeit": "Konsum & Nachhaltigkeit",
-      "slug2label-kooperation-and-entwicklung": "Kooperation & Entwicklung",
-      "slug2label-kunst-kultur-and-sport": "Kunst, Kultur & Sport",
-      "slug2label-menschenrechte-and-gerechtigkeit": "Menschenrechte & Gerechtigkeit",
-      "slug2label-presse-and-meinungsfreiheit": "Presse- & Meinungsfreiheit",
-      "slug2label-tierschutz": "Tierschutz",
-      "slug2label-umwelt-and-natur": "Umwelt & Natur",
-      "slug2label-wirtschaft-and-finanzen": "Wirtschaft & Finanzen"
-		},
+    "calendar": {
+      "label": "Kalender"
+    },
+    "category": {
+      "infoSelectedNoOfMaxCategories": "{n} von {max} Kategorien ausgewählt",
+      "labelOnePluralNone": "Kategorie ::: Kategorien ::: Keine Kategorie",
+      "labelLongOnePluralNone": "Themenkategorie ::: Themenkategorien ::: Keine Themenkategorie",
+      "slug2label-education-sciences": "Bildung & Wissenschaft",
+      "slug2label-democracy-politics": "Demokratie & Politik",
+      "slug2label-energy-technology": "Energie & Technologie",
+      "slug2label-health-wellbeing": "Gesundheit & Wohlbefinden",
+      "slug2label-globalpeace-nonviolence": "Globaler Frieden & Gewaltlosigkeit",
+      "slug2label-happyness-values": "Glück & Werte",
+      "slug2label-it-internet-dataprivacy": "IT, Internet & Datenschutz",
+      "slug2label-justforfun": "Vergnügliches & Just For Fun",
+      "slug2label-consumption-sustainability": "Konsum & Nachhaltigkeit",
+      "slug2label-cooperation-development": "Kooperation & Entwicklung",
+      "slug2label-art-culture-sport": "Kunst, Kultur & Sport",
+      "slug2label-humanrights-justice": "Menschenrechte & Gerechtigkeit",
+      "slug2label-freedomofspeech": "Presse- & Meinungsfreiheit",
+      "slug2label-animalprotection": "Tierschutz",
+      "slug2label-environment-nature": "Umwelt & Natur",
+      "slug2label-economy-finances": "Wirtschaft & Finanzen"
+    },
     "contribution": {
       "actionMarkAsRead": "als gelesen markieren",
       "actionReport": "Melden",
@@ -82,7 +82,7 @@
       "writePostSection": "Überschrift",
       "writePostSectionPlaceholder": "Welchen Titel soll Dein Beitrag bekommen?",
       "writePostContentPlaceholder": "schreib etwas inspirierendes... ",
-			"voteOnePluralNone": "Abstimmung ::: Abstimmungen ::: Keine Abstimmungen"
+      "voteOnePluralNone": "Abstimmung ::: Abstimmungen ::: Keine Abstimmungen"
     },
     "notification": {
       "label": "Benachrichtigungen",
@@ -161,13 +161,13 @@
     "copyrights": "Urheberrecht:",
     "copyrightsDescription": "Die Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der SCHRIFTLICHEN Zustimmung des jeweiligen Autors oder Urhebers.",
     "dataPrivacyStatement": "Datenschutzerklärung",
-    "dataPrivacyStatementGooglePlus":"Datenschutzerklärung für die Nutzung von Google +1:",
-    "dataPrivacyStatementGooglePlusInformationGatheringAndTransfer":"Erfassung und Weitergabe von Informationen:",
+    "dataPrivacyStatementGooglePlus": "Datenschutzerklärung für die Nutzung von Google +1:",
+    "dataPrivacyStatementGooglePlusInformationGatheringAndTransfer": "Erfassung und Weitergabe von Informationen:",
     "dataPrivacyStatementGooglePlusInformationGatheringAndTransferDescription": "Mithilfe der Google +1-Schaltfläche können Sie Informationen weltweit veröffentlichen. über die Google +1-Schaltfläche erhalten Sie und andere Nutzer personalisierte Inhalte von Google und unseren Partnern. Google speichert sowohl die Information, dass Sie für einen Inhalt +1 gegeben haben, als auch Informationen über die Seite, die Sie beim Klicken auf +1 angesehen haben. Ihre +1 können als Hinweise zusammen mit Ihrem Profilnamen und Ihrem Foto in Google-Diensten, wie etwa in Suchergebnissen oder in Ihrem Google-Profil, oder an anderen Stellen auf Websites und Anzeigen im Internet eingeblendet werden. Google zeichnet Informationen über Ihre +1-Aktivitäten auf, um die Google-Dienste für Sie und andere zu verbessern. Um die Google +1-Schaltfläche verwenden zu können, benötigen Sie ein weltweit sichtbares, öffentliches Google-Profil, das zumindest den für das Profil gewählten Namen enthalten muss. Dieser Name wird in allen Google-Diensten verwendet. In manchen Fällen kann dieser Name auch einen anderen Namen ersetzen, den Sie beim Teilen von Inhalten über Ihr Google-Konto verwendet haben. Die Identität Ihres Google-Profils kann Nutzern angezeigt werden, die Ihre E-Mail-Adresse kennen oder über andere identifizierende Informationen von Ihnen verfügen.",
-    "dataPrivacyStatementGooglePlusInformationUsage":"Verwendung der erfassten Informationen:",
-    "dataPrivacyStatementGooglePlusInformationUsageDescription":"Neben den oben erläuterten Verwendungszwecken werden die von Ihnen bereitgestellten Informationen gemäß den geltenden Google-Datenschutzbestimmungen genutzt. Google veröffentlicht möglicherweise zusammengefasste Statistiken über die +1-Aktivitäten der Nutzer bzw. gibt diese an Nutzer und Partner weiter, wie etwa Publisher, Inserenten oder verbundene Websites.",
-    "dataPrivacyStatementTwitter":"Datenschutzerklärung für die Nutzung von Twitter:",
-    "dataPrivacyStatementTwitterDescription":"Auf unseren Seiten sind Funktionen des Dienstes Twitter eingebunden. Diese Funktionen werden angeboten durch die Twitter Inc., 795 Folsom St., Suite 600, San Francisco, CA 94107, USA. Durch das Benutzen von Twitter und der Funktion „Re-Tweet“ werden die von Ihnen besuchten Webseiten mit Ihrem Twitter-Account verknüpft und anderen Nutzern bekannt gegeben. Dabei werden auch Daten an Twitter übertragen.</p>     <p>Wir weisen darauf hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren Nutzung durch Twitter erhalten. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von Twitter unter <a href=\"http://twitter.com/privacy\">http://twitter.com/privacy</a>.</p>       <p>Ihre Datenschutzeinstellungen bei Twitter können Sie in den Konto-Einstellungen unter <a href=\"http://twitter.com/account/settings\">http://twitter.com/account/settings</a> ändern.",
+    "dataPrivacyStatementGooglePlusInformationUsage": "Verwendung der erfassten Informationen:",
+    "dataPrivacyStatementGooglePlusInformationUsageDescription": "Neben den oben erläuterten Verwendungszwecken werden die von Ihnen bereitgestellten Informationen gemäß den geltenden Google-Datenschutzbestimmungen genutzt. Google veröffentlicht möglicherweise zusammengefasste Statistiken über die +1-Aktivitäten der Nutzer bzw. gibt diese an Nutzer und Partner weiter, wie etwa Publisher, Inserenten oder verbundene Websites.",
+    "dataPrivacyStatementTwitter": "Datenschutzerklärung für die Nutzung von Twitter:",
+    "dataPrivacyStatementTwitterDescription": "Auf unseren Seiten sind Funktionen des Dienstes Twitter eingebunden. Diese Funktionen werden angeboten durch die Twitter Inc., 795 Folsom St., Suite 600, San Francisco, CA 94107, USA. Durch das Benutzen von Twitter und der Funktion „Re-Tweet“ werden die von Ihnen besuchten Webseiten mit Ihrem Twitter-Account verknüpft und anderen Nutzern bekannt gegeben. Dabei werden auch Daten an Twitter übertragen.</p>     <p>Wir weisen darauf hin, dass wir als Anbieter der Seiten keine Kenntnis vom Inhalt der übermittelten Daten sowie deren Nutzung durch Twitter erhalten. Weitere Informationen hierzu finden Sie in der Datenschutzerklärung von Twitter unter <a href=\"http://twitter.com/privacy\">http://twitter.com/privacy</a>.</p>       <p>Ihre Datenschutzeinstellungen bei Twitter können Sie in den Konto-Einstellungen unter <a href=\"http://twitter.com/account/settings\">http://twitter.com/account/settings</a> ändern.",
     "dataProtection": "Datenschutz:",
     "dataProtectionDescription": "Bitte beachte, dass es Sicherheitslücken bei der Übertragung von Daten, wie E-Mails, über das Internet gibt, weil dies nicht lückenlos vorm Zugriff durch Dritte geschützt werden kann. Dennoch werden wir Deine Daten schützen, die dieser dieser Einschränkung unterliegen.</p><p>Insbesondere werden die persönlichen Informationen über das Internet nur  übertragen, wenn dies nicht die Rechte Dritter verletzt, es sei denn, die jeweilige Partei hat ihre Zustimmung vorher gegeben im Hinblick auf solche Sicherheitsrisiken. Dementsprechend, als Webseiten-Anbieter, sind wir nicht für jegliche Schäden haftbar zu machen, die als Folge solcher Sicherheitsrisiken entstehen oder für alle diesbezüglichen unterlassenen Handlungen auf unserer Seite.</p><p>Wir widersprechen der Nutzung jeglich verfügbarer Kontaktinformationen durch einen Dritten zur Versendung von unerwünschten Anzeigen. Als Betreiber der Seiten, behalten wir uns das ausdrückliche Recht vor, rechtliche Schritte gegen die unerwünschte Post oder Spam-E-Mail und Werbeinformationen.",
     "disclaimer": "Haftungsausschluss",

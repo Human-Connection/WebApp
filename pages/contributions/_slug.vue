@@ -21,7 +21,7 @@
             <h1>{{ contribution.title }}</h1>
             <div class="tags" v-if= "categories.length">
               <span class="tag is-primary" v-for="category in categories">
-                <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
+                <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
               </span>
             </div>
             <p class="content" v-html="content"></p>

@@ -2,35 +2,35 @@
   "humanConnection": "Human Connection",
   "humanConnectionMadeWithHeart": "Made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
   "component": {
-		"admin": {
-			"label": "Admin",
-			"settings": "Settings",
+    "admin": {
+      "label": "Admin",
+      "settings": "Settings",
       "users": "Users"
-		},
-		"category": {
-			"infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
-			"labelOnePluralNone": "Category ::: Categories ::: No Category",
+    },
+    "category": {
+      "infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
+      "labelOnePluralNone": "Category ::: Categories ::: No Category",
       "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
-      "slug2label-bildung-and-wissenschaft": "Education & Sciences",
-      "slug2label-demokratie-and-politik": "Democracy & Politics",
-      "slug2label-energie-and-technologie": "Energy & Technology",
-      "slug2label-gesundheit-and-wohlbefinden": "Health & Wellbeing",
-      "slug2label-globaler-frieden-and-gewaltlosigkeit": "Global Peace & Non-Violence",
-      "slug2label-gluck-and-werte": "Happyness & Values",
-      "slug2label-it-internet-and-datenschutz": "IT, Internet & Data Protection",
-      "slug2label-just-for-fun": "Just For Fun",
-      "slug2label-konsum-and-nachhaltigkeit": "Consumption & Sustainability",
-      "slug2label-kooperation-and-entwicklung": "Cooperation & Development",
-      "slug2label-kunst-kultur-and-sport": "Art, Culture & Sports",
-      "slug2label-menschenrechte-and-gerechtigkeit": "Human Rights & Justice",
-      "slug2label-presse-and-meinungsfreiheit": "Freedom of Press & Opinion",
-      "slug2label-tierschutz": "Animal Welfare",
-      "slug2label-umwelt-and-natur": "Environment & Nature",
-      "slug2label-wirtschaft-and-finanzen": "Economy & Finances"
-		},
-		"calendar": {
-			"label": "Calender"
-		},
+      "slug2label-education-sciences": "Education & Sciences",
+      "slug2label-democracy-politics": "Democracy & Politics",
+      "slug2label-energy-technology": "Energy & Technology",
+      "slug2label-health-wellbeing": "Health & Wellbeing",
+      "slug2label-globalpeace-nonviolence": "Global Peace & Non-Violence",
+      "slug2label-happyness-values": "Happyness & Values",
+      "slug2label-it-internet-dataprivacy": "IT, Internet & Data Privacy",
+      "slug2label-justforfun": "Just For Fun",
+      "slug2label-consumption-sustainability": "Consumption & Sustainability",
+      "slug2label-cooperation-development": "Cooperation & Development",
+      "slug2label-art-culture-sport": "Art, Culture & Sports",
+      "slug2label-humanrights-justice": "Human Rights & Justice",
+      "slug2label-freedomofspeech": "Freedom of Press & Opinion",
+      "slug2label-animalprotection": "Animal Welfare",
+      "slug2label-environment-nature": "Environment & Nature",
+      "slug2label-economy-finances": "Economy & Finances"
+    },
+    "calendar": {
+      "label": "Calender"
+    },
     "contribution": {
       "actionMarkAsRead": "mark as read",
       "actionReport": "report",
@@ -75,11 +75,11 @@
       "type-vote": "Vote",
       "versus": "Versus",
       "versusDescription": "In Versus, one deals fairly and critically on the basis of factual counter-arguments on this subject. That means one must necessarily remain factual, if one wants to compare one another with knowledge and arguments. Because the lack of respect, unfairness with one another or even in a manner of hate-filled speech will lead to the exclusion.",
-			"voteOnePluralNone": "vote ::: votes ::: no vote",
+      "voteOnePluralNone": "vote ::: votes ::: no vote",
       "writePost": "Write a Post",
       "writePostContent": "Content",
       "writePostImageLabel": "Teaser Image",
-      "writePostImagePlaceholder": "internet image address (url)",
+      "writePostImagePlaceholder": "internet address of the image (URL)",
       "writePostSection": "Title",
       "writePostSectionPlaceholder": "How do you call that story?",
       "writePostContentPlaceholder": "write something amazing..."
