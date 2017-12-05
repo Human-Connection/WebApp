@@ -156,9 +156,9 @@
       }
     },
     data () {
-      let i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
-      let i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
-      let i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
+      const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
+      const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
+      const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
         loading: false,
         dropFiles: null,
