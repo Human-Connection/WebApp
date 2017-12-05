@@ -131,7 +131,7 @@
     "timeline": {
       "loadingContributions": "Beiträge werden geladen …",
       "noContributionsFound": "Keine Beiträge gefunden, schreibe doch etwas",
-      "introQuestion": "{username}, was sind deine Pläne für heute?",
+      "introQuestion": "{username}, was sind Deine Pläne für heute?",
       "title": "Chronik"
     }
   },
@@ -140,11 +140,11 @@
       "title": "Willkommen"
     },
     "moreInfo": {
-      "noContributions": "Es gibt leider noch keine Beiträge die zu diesem Thema passen. <br/><br/>Willst du einen erstellen?"
+      "noContributions": "Es gibt leider noch keine Beiträge die zu diesem Thema passen. <br/><br/>Willst Du einen erstellen?"
     },
     "takeAction": {
-      "noOrganizations": "Es gibt leider noch keine Organisationen die zu diesem Beitrag passen. <br/><br/>Willst du eine erstellen?",
-      "noProjects": "Es gibt leider noch keine Projekte die zu diesem Beitrag passen. <br/><br/>Willst du eins erstellen?"
+      "noOrganizations": "Es gibt leider noch keine Organisationen die zu diesem Beitrag passen. <br/><br/>Willst Du eine erstellen?",
+      "noProjects": "Es gibt leider noch keine Projekte die zu diesem Beitrag passen. <br/><br/>Willst Du eins erstellen?"
     }
   },
   "button": {
@@ -164,8 +164,8 @@
     "submitComment": "Kommentar veröffentlichen",
     "update": "Aktualisieren",
     "addContribution": "Beitrag erstellen",
-    "addOrganization": "Organization erstellen",
-    "addProject": "Project erstellen"
+    "addOrganization": "Organisation erstellen",
+    "addProject": "Projekt erstellen"
   },
   "legal": {
     "copyrights": "Urheberrecht:",
@@ -210,7 +210,7 @@
       "email": "E-Mail",
       "helloUser": "Hallo <strong>{username}</strong>",
       "loginOrRegister": "Anmelden / Beitreten",
-      "loginToAccount": "Melde dich in deinem Konto an",
+      "loginToAccount": "Melde Dich in deinem Konto an",
       "loginRequired4CommentOrVote": "Du musst angemeldet sein, um auf Human Connection kommentieren, werten oder stimmen zu können.",
       "myCanDos": "Einfach machen",
       "myCanDosAltogether": "insgesamt",
@@ -239,11 +239,11 @@
       "myProfile": "Mein Profil",
       "mySearch": "Suchen",
       "name": "Name",
-      "nameDescription": "Es ist nicht erforderlich deinen vollen Namen anzugeben, du erleichterst damit aber Freunden und Bekannten dich auf Human Connection zu finden.",
+      "nameDescription": "Es ist nicht erforderlich Deinen vollen Namen anzugeben, Du erleichterst damit aber Freunden und Bekannten Dich auf Human Connection zu finden.",
       "namePlaceholder": "Dein Name ...",
       "nameAddAction": "Namen erstellen",
       "nameSection": "Wie dürfen wir Dich nennen?",
-      "nameTitle": "Schön, dich kennenzulernen",
+      "nameTitle": "Schön, Dich kennenzulernen",
       "password": "Passwort",
       "profile": "Mein Profil",
       "settings": "Kontoeinstellungen",
@@ -251,12 +251,12 @@
       "verifyingErrorSection": "Hoppla ...",
       "verifyingInfo": "Überprüfen der E-Mail Adresse ...",
       "verifyingResendAction": "Bestätigung erneut verschicken",
-      "verifyingResendDescription": "Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können:",
+      "verifyingResendDescription": "Bitte bestätige Deine E-Mail Adresse um Beiträge erstellen zu können:",
       "verifyingResendSuccess": "Die Bestätigung wurde erfolgreich an {email} verschickt. Bitte prüfe Dein E-Mail Postfach.",
       "verifyingSection": "E-Mail Prüfung",
       "verifyingSuccessDescription": "Deine E-Mail Adresse wurde erfolgreich geprüft.",
       "verifyingTitle": "Verifizierung",
-      "welcomeGreeting1": "Schön dich an Bord zu haben{username}! Herzlich Willkommen bei Human Connection. Wir wünschen dir viel Spaß beim entdecken und aktiv werden.",
+      "welcomeGreeting1": "Schön Dich an Bord zu haben{username}! Herzlich Willkommen bei Human Connection. Wir wünschen Dir viel Spaß beim entdecken und aktiv werden.",
       "welcomeGreeting2": "Begeben wir uns auf die Reise in eine gemeinsame Zukunft!",
       "welcomeSection": "Die Reise beginnt",
       "welcomeTitle": "Willkommen"
