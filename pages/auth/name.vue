@@ -5,8 +5,8 @@
                 <div class="card-teaser">
                     <img src="/assets/images/registration/nicetomeetyou.svg" alt="Human Connection"/>
                 </div>
-                <h1 class="title is-3 is-spaced">Wie dürfen wir dich nennen?</h1>
-                <p class="subtitle is-6">Es ist nicht erforderlich deinen vollen Namen anzugeben, du erleichterst damit aber Freunden und Bekannten dich auf Human Connection zu finden.</p>
+                <h1 class="title is-3 is-spaced">{{ $t('auth.account.nameSection') }}</h1>
+                <p class="subtitle is-6">{{ $t('auth.account.nameDescription') }}</p>
 
                 <upload-avatar refresh="800"></upload-avatar>
 
@@ -14,7 +14,8 @@
                     <div class="field">
                         <p class="control has-icons-right">
                             <input ref="focus" autofocus class="input " v-bind:class="{ 'is-danger': errors }"
-                                   type="text" placeholder="Dein Name ..." v-model="data.name" autofocus>
+                                   type="text" v-bind:placeholder="$t('auth.account.namePlaceholder')"
+                                   v-model="data.name" autofocus>
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -22,14 +23,14 @@
           </div>
           <p>
             <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
-              Speichern
+              {{ $t('button.save') }}
             </hc-button>
           </p>
         </form>
       </div>
       <footer class="card-footer">
         <nuxt-link :to="{ name: 'auth-welcome' }" class="card-footer-item">
-          Überspringen
+          {{ $t('button.skip') }}
         </nuxt-link>
       </footer>
     </div>
@@ -82,7 +83,7 @@
     },
     head () {
       return {
-        title: 'Nice to meet you'
+        title: this.$t('auth.account.nameTitle')
       }
     }
   }

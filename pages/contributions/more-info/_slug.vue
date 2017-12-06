@@ -6,30 +6,30 @@
           <div class="notification is-danger is-hidden-tablet">
             <strong>The sidebar is currently hidden on mobile!</strong>
           </div>
-          <h1>Mehr Info</h1>
+          <h1>{{ $t('component.contribution.moreInfoBriefOrLong', null, 2) }}</h1>
           <div class="notification is-hidden">
             <strong>This is currenty dummy content</strong>
           </div>
 
-          <h3 v-if= "categories.length">Themen</h3>
+          <h3 v-if= "categories.length">{{ $t('component.category.labelLongOnePluralNone', null, categories.length) }}</h3>
           <div class="tags" v-if= "categories.length">
-            <span class="tag is-primary" v-for="category in categories">
-              <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
+            <span class="tag" v-for="category in categories">
+              <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
             </span>
           </div>
 
-          <h3>Tags</h3>
+          <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
           <div class="tags">
-            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
-            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
-            <span class="tag is-primary"><hc-icon icon="tag"></hc-icon> &nbsp;Imkern</span>
+            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
+            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
+            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Imkern</span>
             <a>
               <span class="tag"><hc-icon icon="plus"></hc-icon></span>
             </a>
           </div>
 
-          <h3>Verwandte Posts</h3>
-          <table class="table is-striped">
+          <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
+          <table class="table is-striped" :class="{ 'is-empty': !relatedPosts.length }">
             <tbody v-if="relatedPosts.length">
               <tr style="cursor: pointer" v-for="contribution in relatedPosts" @click="$router.push('/contributions/' + contribution.slug)">
                 <td>{{ contribution.title }}</td>
@@ -37,21 +37,23 @@
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
             <tbody v-else>
               <tr>
                 <td class="has-text-centered">
-                  <h6 class="is-size-6">Sorry there ar no Contributions that fit that one right now. Do you want to add one?</h6>
-                  <hc-button class="button is-primary" type="nuxt" to="/contributions/write">Add Contribution</hc-button>
+                  <h6 class="is-size-6 has-text-grey" v-html="$t('page.moreInfo.noContributions')"></h6>
+                  <hc-button color="primary" type="nuxt" to="/contributions/write">
+                    <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addContribution', 'Add Contribution') }}
+                  </hc-button>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <h3>Pro & Kontras</h3>
+          <h3 id="proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -59,18 +61,18 @@
                 <td class="has-text-right"><strong>3</strong> Pro | <strong>7</strong> Con</td>
               </tr>
               <tr>
-                <td>Glyphosat - eine Bedrohung für Bienen?</td>
+                <td>Gryphosat - eine Bedrohung für Bienen?</td>
                 <td class="has-text-right"><strong>11</strong> Pro | <strong>3</strong> Con</td>
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <h3>Bestlisten</h3>
+          <h3 id="bestlists">{{ $t('component.contribution.bestList') }}</h3>
           <table class="table is-striped">
             <tbody>
               <tr>
@@ -83,13 +85,13 @@
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <h3>Votes</h3>
+          <h3 id="votes">{{ $t('component.contribution.voteOnePluralNone', null, 0) }}</h3>
           <table class="table is-striped">
             <tbody>
             <tr>
@@ -98,21 +100,20 @@
             </tr>
             <tr>
               <td colspan="2" class="is-white">
-                <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
               </td>
             </tr>
             </tbody>
           </table>
 
-          <h3>Chatrooms</h3>
+          <h3 id="chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 2) }}</h3>
           <table class="table is-striped">
             <tbody>
             <tr>
-              </td>
               <td style="width: 130px;">
                 <div class="has-text-centered">
                   <span class="title is-5">Heute</span><br/>
-                  <span class="heading is-inline">16:00 - 20:00 Uhr</span>
+                  <span class="heading is-inline">16 – 20 Uhr</span>
                 </div>
               </td>
               <td>Eventchat mit immer Gene Brandi</td>
@@ -129,7 +130,7 @@
             </tr>
             <tr>
               <td colspan="3" class="is-white">
-                <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
               </td>
             </tr>
             </tbody>
@@ -142,24 +143,24 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. <strong>{{ contribution.type }}</strong>
+              1. <strong>{{ $t('component.contribution.post') }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
-              2. <strong>Mehr Info</strong>
+              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
             <ul>
-              <li><a>Verwandte Posts</a></li>
-              <li><a>Pro & Kontras</a></li>
-              <li><a>Bestlisten</a></li>
-              <li><a>Votes</a></li>
-              <li><a>Chatrooms</a></li>
+              <li><a href="#relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
+              <li><a href="#proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
+              <li><a href="#bestlists">{{ $t('component.contribution.bestList') }}</a></li>
+              <li><a href="#votes">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
+              <li><a href="#chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
             </ul>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>Aktiv werden</strong>
+              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
           </li>
         </ul>
@@ -176,11 +177,13 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
   import _ from 'lodash'
 
   export default {
     scrollToTop: false,
     components: {
+      HcRelativeDateTime,
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
@@ -256,6 +259,12 @@
   @import 'assets/styles/utilities';
 
   .table {
+    &.is-empty {
+      tr:hover {
+        background-color: transparent;
+      }
+    }
+
     td {
       border-color: $grey-lighter;
     }

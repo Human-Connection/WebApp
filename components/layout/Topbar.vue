@@ -7,7 +7,8 @@
           <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection">
         </nuxt-link>
         <nuxt-link class="nav-item is-tab is-hidden-mobile" :to="{ name: 'index' }">
-          Newsfeed
+          <!-- TODO $t('component.dashboard.label') ? -->
+          {{ $t('component.layout.topbarLabel') }}
         </nuxt-link>
       </div>
 
@@ -23,19 +24,24 @@
             <div class="container is-fluid has-text-left">
               <div class="columns">
                 <div class="column is-hidden">
+                  <p>{{ $t('component.layout.topbarFilterDescription') }}</p>
                   <br/>
-                  <h3 class="title is-6">Categories</h3>
+                  <h3 class="title is-6">{{ $t('component.layout.topbarSectionCategories', 'Categories') }}</h3>
                   <categories-select v-model="categoryIds"></categories-select>
                   <hr/>
-                  <h3 class="title is-6">Emotions</h3>
+                  <h3 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h3>
                   <div>
-                    <hc-emoji class="emotion" type="funny"></hc-emoji>
-                    <hc-emoji class="emotion" type="happy"></hc-emoji>
-                    <hc-emoji class="emotion" type="surprised"></hc-emoji>
-                    <hc-emoji class="emotion" type="cry"></hc-emoji>
-                    <hc-emoji class="emotion" type="angry"></hc-emoji>
+                    <nav class="level is-mobile">
+                    <div class="level-item has-text-centered" v-for="emotion in ['funny', 'happy', 'surprised', 'cry', 'angry']">
+                      <div>
+                        <p class="smiley heading">
+                          <hc-emoji :type='emotion' width="100" height="100"></hc-emoji>
+                          <br />{{ $t('component.emotionRating.' + emotion) }}
+                        </p>
+                      </div>
                   </div>
-                  <br/>
+                  </nav>
+                </div>
                 </div>
               </div>
             </div>
@@ -44,6 +50,14 @@
       </div>
 
       <div class="nav-right nav-end">
+        <!-- TODO add locale switch -->
+        <a @click.prevent="changeLanguage('de')" style="display: flex; height: 100%; vertical-align: middle; align-items: center;" :style="{ opacity: $i18n.locale() === 'de' ? 1 : .4 }">
+          <flag iso="de" :squared="false" title="DE" />
+        </a>&nbsp;
+        <a @click.prevent="changeLanguage('en')" style="display: flex; height: 100%; vertical-align: middle; align-items: center;" :style="{ opacity: $i18n.locale() === 'en' ? 1 : .4 }">
+          <flag iso="gb" :squared="false" title="EN" />
+        </a>
+        &nbsp;&nbsp;
         <a v-if="isAuthenticated" @click.prevent="null" class="nav-item is-disabled is-hidden-mobile" style="cursor: not-allowed;">
           <i class="fa fa-comments" aria-hidden="true"></i>
         </a>
@@ -52,52 +66,49 @@
           <div class="login-button">
             <hc-button type="nuxt" class="is-primary" style="font-weight: bold;"
                        :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-              <span class="is-hidden-mobile">Login / Sign-Up &nbsp; </span><hc-icon icon="sign-in"/>
+              <span class="is-hidden-mobile">{{ $t('auth.account.loginOrRegister') }} &nbsp; </span><hc-icon icon="sign-in"/>
             </hc-button>
           </div>
         </div>
         <template v-else>
           <no-ssr>
-            <b-dropdown class="user-menu navigation-dropdown" position="is-bottom-left" style="text-align: left;">
-              <a class="navbar-item" slot="trigger">
-                <span><avatar :url="user.avatar"></avatar></span>
-                <b-icon icon="arrow_drop_down"></b-icon>
-              </a>
-              <b-dropdown-item custom>
-                Hello <b>{{ user.name }}</b>
-              </b-dropdown-item>
-              <hr class="dropdown-divider">
-              <b-dropdown-item hasLink>
-                <nuxt-link :to="{ name: 'profile' }">
-                  <b-icon icon="person"></b-icon>
-                  Profile
-                </nuxt-link>
-              </b-dropdown-item>
-              <!--<b-dropdown-item value="settings" disabled>
-                <i class="fa fa-sliders" style="padding-right: 5px;"></i>
-                Settings
-              </b-dropdown-item>
-              <b-dropdown-item value="calendar" disabled>
-                <b-icon icon="date_range"></b-icon>
-                Calendar
-              </b-dropdown-item>-->
-              <b-dropdown-item v-if="isAdmin" hasLink value="admin">
-                <nuxt-link to="/admin" class="nav-item">
-                  <b-icon icon="settings"></b-icon>
-                  Admin
-                </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item value="help" disabled>
-                <b-icon icon="help"></b-icon>
-                Help
-              </b-dropdown-item>
-              <hr class="dropdown-divider">
-              <b-dropdown-item value="logout" @click="logout()">
-                <b-icon icon="exit_to_app"></b-icon>
-                Logout
-              </b-dropdown-item>
-            </b-dropdown>
-          </no-ssr>
+            <b-dropdown class="user-menunavigation-dropdown" position="is-bottom-left" style="text-align: left;">
+            <a class="navbar-item" slot="trigger">
+              <span><avatar :url="user.avatar"></avatar></span>
+              <b-icon icon="arrow_drop_down"></b-icon>
+            </a>
+            <b-dropdown-item custom v-html="$t('auth.account.helloUser', {username: user ? user.name : ''})"></b-dropdown-item>
+            <hr class="dropdown-divider">
+            <b-dropdown-item hasLink>
+              <nuxt-link :to="{ name: 'profile' }">
+                <b-icon icon="person"></b-icon>
+                {{ $t('auth.account.profile') }}
+              </nuxt-link>
+            </b-dropdown-item>
+            <!--<b-dropdown-item value="settings" disabled>
+              <i class="fa fa-sliders" style="padding-right: 5px;"></i>
+              {{ $t('auth.account.settings') }}
+            </b-dropdown-item>
+            <b-dropdown-item value="calendar" disabled>
+              <b-icon icon="date_range"></b-icon>
+              {{ $t('component.calendar.label') }}
+            </b-dropdown-item>-->
+            <b-dropdown-item v-if="isAdmin" hasLink value="admin">
+              <nuxt-link to="/admin" class="nav-item">
+                <b-icon icon="settings"></b-icon>
+                {{ $t('component.admin.label') }}
+              </nuxt-link>
+            </b-dropdown-item>
+            <b-dropdown-item value="help" disabled>
+              <b-icon icon="help"></b-icon>
+              {{ $t('component.help.label') }}
+            </b-dropdown-item>
+            <hr class="dropdown-divider">
+            <b-dropdown-item value="logout" @click="logout()">
+              <b-icon icon="exit_to_app"></b-icon>
+              {{ $t('auth.logout.label') }}
+            </b-dropdown-item>
+          </b-dropdown></no-ssr>
         </template>
       </div>
     </div>
@@ -156,6 +167,19 @@
           })
           .catch(err => {
             console.error(err)
+          })
+      },
+      changeLanguage (locale) {
+        // check if the locale has already been loaded
+        if (this.$i18n.localeExists(locale)) {
+          this.$i18n.set(locale)
+          return
+        }
+        import(`~/locales/${locale}.json`)
+          .then(res => {
+            console.log('LOCALE', res)
+            this.$i18n.add(locale, res)
+            this.$i18n.set(locale)
           })
       }
     }

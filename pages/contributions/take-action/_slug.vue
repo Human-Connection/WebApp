@@ -33,12 +33,12 @@
                 <p class="heading">Gesundheit & Wohlbefinden</p>
               </div>
             </div>
-            <h1 class="title is-1"> Aktiv werden</h1>
+            <h1 class="title is-1">{{ $t('component.contribution.takeAction') }}</h1>
             <div class="notification is-hidden">
               <strong>This is currenty dummy content</strong>
             </div>
 
-            <h3 class="title is-4" id="organizations">Organisationen</h3>
+            <h3 class="title is-4" id="organizations">{{ $t('component.contribution.organizations') }}</h3>
             <div class="is-hidden tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
@@ -46,7 +46,7 @@
                 <li><a>Andere</a></li>
               </ul>
             </div>
-            <table class="table is-striped">
+            <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
                 <tr v-for="organization in organizations" :key="organization._id">
                   <td>
@@ -60,21 +60,23 @@
                 </tr>
                 <tr>
                   <td colspan="3" class="is-white">
-                    <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                    <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                   </td>
                 </tr>
               </tbody>
               <tbody v-else>
                 <tr>
                   <td class="has-text-centered">
-                    <h6 class="is-size-6">Sorry there ar no Organizations that fit that post right now. Do you want to add one?</h6>
-                    <button class="button is-primary">Add Organization</button>
+                    <h6 class="is-size-6 has-text-grey" v-html="$t('page.takeAction.noOrganizations')"></h6>
+                    <button class="button is-primary">
+                      <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addOrganization', 'Add Organization') }}
+                    </button>
                   </td>
                 </tr>
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="can-dos">Can Do's</h3>
+            <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -94,14 +96,14 @@
               </tr>
               <tr>
                 <td colspan="3" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="projects">Projekte</h3>
-            <table class="table is-striped">
+            <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
+            <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="projects.length">
                 <tr v-for="project in projects" :key="project._id">
                   <td>
@@ -111,21 +113,23 @@
                 </tr>
                 <tr>
                   <td colspan="2" class="is-white">
-                    <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                    <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                   </td>
                 </tr>
               </tbody>
               <tbody v-else>
                 <tr>
                   <td class="has-text-centered">
-                    <h6 class="is-size-6">Sorry there ar no Projects that fit that post right now. Do you want to add one?</h6>
-                    <button class="button is-primary">Add Project</button>
+                    <h6 class="is-size-6 has-text-grey" v-html="$t('page.takeAction.noProjects')"></h6>
+                    <button class="button is-primary">
+                      <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addProject', 'Add Project') }}
+                    </button>
                   </td>
                 </tr>
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="jobs">Jobs</h3>
+            <h3 class="title is-4" id="jobs">{{ $t('component.contribution.jobs') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -140,13 +144,13 @@
               </tr>
               <tr>
                 <td colspan="3" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="events">Events</h3>
+            <h3 class="title is-4" id="events">{{ $t('component.contribution.events') }}</h3>
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -183,13 +187,13 @@
               </tr>
               <tr>
                 <td colspan="4" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">Mehr <hc-icon icon="angle-down"></hc-icon></a>
+                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
               </tbody>
             </table>
 
-            <h3 id="maps">Karte</h3>
+            <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
             <hc-map v-if="showMap" :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
             <div v-else class="has-text-centered">
               <h6 class="is-size-6">loading map...</h6>
@@ -203,25 +207,25 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. <strong>{{ contribution.type }}</strong>
+              1. <strong>{{ $t('component.contribution.post') }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>Mehr Info</strong>
+              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
-              3. <strong>Aktiv werden</strong>
+              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#organizations">Organisationen</a></li>
-              <li><a href="#can-dos">Can Do's</a></li>
-              <li><a href="#projects">Projekte</a></li>
-              <li><a href="#jobs">Jobs</a></li>
-              <li><a href="#events">Events</a></li>
-              <li><a href="#maps">Karte</a></li>
+              <li><a href="#organizations">{{ $t('component.contribution.organizations') }}</a></li>
+              <li><a href="#can-dos">{{ $t('component.contribution.canDos') }}</a></li>
+              <li><a href="#projects">{{ $t('component.contribution.projects') }}</a></li>
+              <li><a href="#jobs">{{ $t('component.contribution.jobs') }}</a></li>
+              <li><a href="#events">{{ $t('component.contribution.events') }}</a></li>
+              <li><a href="#maps">{{ $t('component.contribution.map') }}</a></li>
             </ul>
           </li>
         </ul>
@@ -375,6 +379,12 @@
     box-shadow: $card-shadow;
   }
   .table {
+    &.is-empty {
+      tr:hover {
+        background-color: transparent;
+      }
+    }
+
     td {
       border-color: $grey-lighter;
     }

@@ -16,5 +16,6 @@
     letter-spacing: 1px;
     font-size: 13px;
     text-align: center;
+    font-weight: bold;
   }
 </style>

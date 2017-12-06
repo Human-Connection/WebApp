@@ -4,23 +4,23 @@
       <div class="column is-6 is-offset-3 has-text-centered">
         <div class="card">
           <div class="card-content">
-            <p v-if="loading && !isVerified">Verfifying your email address ...</p>
+            <p v-if="loading && !isVerified">{{ $t('auth.account.verifyingInfo') }}</p>
             <template v-else-if="isVerified">
               <hc-emoji type="happy" width="150px"></hc-emoji>
-              <h1 class="title is-2">Email verification</h1>
-              <p>Your email address has been verified successfully.</p>
+              <h1 class="title is-2">{{ $t('auth.account.verifyingSection') }}</h1>
+              <p>{{ $t('auth.account.verifyingSuccessDescription') }}</p>
               <nuxt-link v-if="!user" :to="{ name: 'auth-login' }" class="button is-primary is-medium">
-                Login to your account
+                {{ $t('auth.account.loginToAccount') }}
               </nuxt-link>
               <nuxt-link v-else to="/" class="button is-primary is-medium">
-                Let's go!
+                {{ $t('button.letsGo') }}
               </nuxt-link>
             </template>
             <template v-else>
               <hc-emoji type="surprised" width="150px"></hc-emoji>
-              <h1 class="title is-2">Ooooops ...</h1>
-              <p>
-                We were not able to verify your email address. Maybe the link you clicked is outdated. Please request a new verification mail.</p>
+              <h1 class="title is-2">{{ $t('auth.account.verifyingErrorSection') }}</h1>
+              <p>{{ $t('auth.account.verifyingErrorDescription') }}</p>
+              <!-- TODO missing go to button -->
             </template>
           </div>
         </div>
@@ -72,7 +72,7 @@
     },
     head () {
       return {
-        title: 'Verification'
+        title: this.$t('auth.account.verifyingTitle')
       }
     }
   }

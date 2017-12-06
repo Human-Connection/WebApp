@@ -1,14 +1,14 @@
 <template>
   <div class="comments">
     <div v-if="isLoading" class="notification">
-      <strong>Loading Comments...</strong>
+      <strong>{{ $t('component.contribution.commentsLoading', 'Loading Comments...') }}</strong>
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment">
       <comment v-for="comment in comments" :key="comment._id" :comment="comment" :onUpvote="upvote"></comment>
     </transition-group>
     <div v-else class="notification">
       <br/>
-      <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; No comments yet, you sould write some!</strong>
+      <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
     </div>
     <comment-form :post="post"/>
   </div>

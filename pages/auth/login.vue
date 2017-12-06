@@ -8,12 +8,12 @@
             <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">Wenn du einen Account bei Human Connection besitzt, logge dich bitte hier ein.</p>
+        <p class="subtitle is-6">{{ $t('auth.login.description') }}</p>
         <form @submit.prevent="login">
           <div class="field">
             <p class="control has-icons-right">
               <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
-                     placeholder="Email" v-model="data.email">
+                     v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -21,7 +21,7 @@
           </div>
           <div class="field">
             <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password"
+              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" v-bind:placeholder="$t('auth.account.password')"
                      v-model="data.password">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
@@ -29,19 +29,19 @@
             </p>
           </div>
           <div class="field has-text-left">
-            <b-switch v-model="stayLoggedIn">Stay logged in</b-switch>
+            <b-switch v-model="stayLoggedIn">{{ $t('auth.login.stayLoggedIn') }}</b-switch>
           </div>
           <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
-            Login
+            {{ $t('auth.login.label') }}
           </hc-button>
         </form>
       </div>
       <footer class="card-footer">
         <nuxt-link :to="{ name: 'auth-register', params: { path: this.$route.params.path } }" class="card-footer-item">
-          Noch kein Konto?
+          {{ $t('auth.register.noAccountYet') }}
         </nuxt-link>
         <a href="#" style="cursor: not-allowed" class="card-footer-item is-disabled disabled">
-          Passwort vergessen?
+          {{ $t('auth.login.forgotPassword') }}
         </a>
       </footer>
     </div>
@@ -86,7 +86,7 @@
         this.$store.dispatch('auth/login', this.data)
           .then(() => {
             this.$snackbar.open({
-              message: 'congratulations, you are in!',
+              message: this.$t('auth.login.successInfo'),
               duration: 4000,
               type: 'is-success'
             })
@@ -108,7 +108,7 @@
     },
     head () {
       return {
-        title: 'Login'
+        title: this.$t('auth.login.label')
       }
     }
   }
