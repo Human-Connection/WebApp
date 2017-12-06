@@ -19,7 +19,7 @@
         <footer>
           <div class="infos columns is-mobile">
             <div class="column has-text-left">
-              <div class="tags " v-if="categories.length">
+              <div class="tags" v-if="categories.length">
                 <b-tooltip v-for="category in categories"
                            :label="$t(`component.category.slug2label-${category.slug}`)"
                            :key="category._id"

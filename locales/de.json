@@ -39,7 +39,7 @@
       "chatroomBriefOrLong": "Plausch & Meinungstausch ::: Plausch & Meinungstausch / Chat ",
       "comment": "Kommentar",
       "commentsCounted": "Kommentare (1) ::: Kommentare ({count}) ::: Kommentare",
-      "commentsCountedDescription": "{count} Mensch hat den Beitrag kommentiert ::: {count} Leute haben diesen Beitrag kommentiert ::: Der Beitrag hat keinen Kommentar",
+      "commentsCountedDescription": "{count} Mensch hat den Beitrag kommentiert ::: {count} Leute haben diesen Beitrag kommentiert ::: Der Beitrag hat noch keinen Kommentar",
       "commentsLoading": "Kommentare werden nachgeladen ...",
       "commentsNoneYet": "Noch keine Kommentare, Du kannst etwas schreiben!",
       "commentPlaceholder": "Was immer Dir in den Sinn kommt ...",
