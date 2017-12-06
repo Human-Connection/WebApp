@@ -5,7 +5,11 @@
                 <span class="icon is-small is-left">
                     <hc-icon icon="search"></hc-icon>
                 </span>
-                <input class="input" type="text" placeholder="Suchen ..." v-model="value" v-on:keyup="onInput">
+                <input class="input"
+                       type="text"
+                       v-bind:placeholder="$t('component.search.placeholder')"
+                       v-model="value"
+                       v-on:keyup="onInput">
             </p>
         </div>
     </div>

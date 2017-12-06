@@ -11,6 +11,11 @@ module.exports = {
     'html'
   ],
   // add your custom rules here
-  rules: {},
+  rules: {
+    "indent": ["error", 2],
+    "semi": ["error", "never"],
+    "eol-last": ["error", "always"],
+    "linebreak-style": ["error", "unix"]
+  },
   globals: {}
 }

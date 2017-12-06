@@ -19,9 +19,9 @@
         <footer>
           <div class="infos columns is-mobile">
             <div class="column has-text-left">
-              <div class="tags " v-if="categories.length">
-                <b-tooltip :label="category.title"
-                           v-for="category in categories"
+              <div class="tags" v-if="categories.length">
+                <b-tooltip v-for="category in categories"
+                           :label="$t(`component.category.slug2label-${category.slug}`)"
                            :key="category._id"
                            style="margin-right: 5px;"
                            type="is-dark">
@@ -32,12 +32,19 @@
               </div>
             </div>
             <div class="column has-text-right">
-              <span>
+              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: 214}, 214)" class="nowrap">
                 <i class="fa fa-bullhorn"></i><small>214</small>
               </span>
-              <span>
+              <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
               </span>
+              <!--<b-dropdown v-if="false" position="is-top-left" class="is-hidden">
+                <a slot="trigger">
+                    <hc-icon icon="angle-up"></hc-icon>
+                </a>
+                <b-dropdown-item>{{ $t('component.contribution.actionReport') }}</b-dropdown-item>
+                <b-dropdown-item>{{ $t('component.contribution.actionMarkAsRead') }}</b-dropdown-item>
+              </b-dropdown>-->
             </div>
           </div>
         </footer>

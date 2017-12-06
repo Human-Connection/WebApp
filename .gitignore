@@ -1,5 +1,7 @@
 # dependencies
 node_modules
+package-lock.json
+yarn.lock
 
 # logs
 npm-debug.log
@@ -17,8 +19,7 @@ npm-debug.log
 .idea/
 .vscode/
 
-# Do not commit the env.js file as it my contain sensitive data
+# Do not commit the env.js file as it may contain sensitive data
 env.js
-
-package-lock.json
-yarn.lock
+/nbproject/private/
+/nbproject/

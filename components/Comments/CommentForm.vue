@@ -2,7 +2,7 @@
   <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
     <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
     <button type="submit" class="submit-button button is-primary is-fullwidth"
-            :disabled="!this.hasContent" :class="{ 'is-loading': loading }">Submit comment
+            :disabled="!this.hasContent" :class="{ 'is-loading': loading }">{{ $t('button.submitComment','Submit comment') }}
     </button>
   </form>
 </template>
@@ -23,7 +23,7 @@
           language: 'de_DE'
         },
         editorOption: {
-          placeholder: 'Whatever comes to your mind...',
+          placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
           modules: {
             toolbar: null
           }
@@ -50,7 +50,7 @@
           .then((res) => {
             this.$store.dispatch('comments/fetchByContributionId', this.post._id)
             this.$snackbar.open({
-              message: 'Thanks for your comment. You are awesome.',
+              message: this.$t('component.contribution.commentSubmitSuccess', 'Thanks for your comment. You are awesome.'),
               duration: 4000,
               type: 'is-success'
             })

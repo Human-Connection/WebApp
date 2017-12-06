@@ -1,11 +1,11 @@
 <template>
-    <div class="upload">
-        <div class="upload-input" @click="choose">
-            <input type="file" class="file-input" @change="upload" ref="file" accept=".jpg,.jpeg,.gif,.png,.pneg">
-            <div class="preview" v-bind:style="{ 'background-image': 'url(' + getAvatar + ')' }">
-                <strong v-if="!getAvatar"><br/>Avatar auswählen</strong>
-            </div>
+    <div class="upload" :title="$t('auth.account.avatarUpload')">
+      <div class="upload-input" @click="choose" >
+          <input type="file" class="file-input" @change="upload" ref="file" accept=".jpg,.jpeg,.gif,.png,.pneg">
+        <div class="preview" v-bind:style="{ 'background-image': 'url(' + getAvatar + ')' }">
+          <strong v-if="!getAvatar"><br/>{{ $t('auth.account.avatarSelect') }}</strong>
         </div>
+      </div>
     </div>
 </template>
 

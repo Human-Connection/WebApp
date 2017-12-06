@@ -3,33 +3,23 @@
     <section class="cards" v-cloak="ready">
       <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
             @ready="updateGrid">
-        <small slot="category">{{ contribution.type }}</small>
+        <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
       </card>
     </section>
-    <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
-      <div slot="no-results">
-        <div v-if="!contributions.length" class="has-text-centered">
-          <hc-emoji type="cry" width="128"></hc-emoji>
-          <h4 class="is-size-4 loader-no-data">Sorry nothing there!</h4>
-          <p>
-            <small>Try to adjust your search and filters on the top to find what you are searching for.</small>
-          </p>
-          <br/>
-          <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
-            <hc-button @click="$store.commit('search/query', '')">
-              Remove "<strong>{{ searchQuery }}</strong>" from Search
-            </hc-button>
-          </div>
-        </div>
-      </div>
+    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
+      <span slot="no-results">
+        <strong class="loader-no-data">{{ $t('component.search.noResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
+      </span>
       <span slot="no-more">
-        <strong class="loader-no-more">There are no more &nbsp;<hc-emoji type="cry" width="26" /></strong>
+        <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
       </span>
     </infinite-loading>
     <div class="add-contribution">
+      <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
       <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
         <hc-icon icon="plus"/>
       </hc-button>
+      </b-tooltip>
     </div>
   </section>
 </template>
@@ -177,7 +167,7 @@
     },
     head () {
       return {
-        title: 'Welcome'
+        title: this.$t('page.index.title')
       }
     }
   }

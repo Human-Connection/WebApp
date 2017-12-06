@@ -3,7 +3,7 @@
     <hc-avatar class="hc-follower-image" :url="image"></hc-avatar>
     <div class="hc-follower-details">
       <span class="details-title">{{ title }}</span>
-      <span class="details-timestamp">Letzter Post: {{ timestamp }}</span>
+      <span class="details-timestamp">{{ $t('auth.account.myFollowerItemLastContribution') }} <hc-relative-date-time :dateTime="timestamp"></hc-relative-date-time></span>
       <!--<hc-action-item>some action text</hc-action-item>-->
     </div>
   </div>

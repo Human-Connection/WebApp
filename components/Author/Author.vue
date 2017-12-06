@@ -5,7 +5,7 @@
         </div>
         <div class="media-content">
             <p class="title" v-if="!post.user">
-                Anonymus
+                {{ $t('component.contribution.creatorUnknown') }}
             </p>
             <p class="title" v-else>
                 {{ post.user.name }} </p>

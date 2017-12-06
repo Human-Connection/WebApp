@@ -59,6 +59,7 @@ module.exports = {
       'moment',
       'lodash',
       'bricks.js',
+      'vuex-i18n',
       // Feathers
       'feathers/client',
       'feathers-socketio/client',
@@ -86,19 +87,23 @@ module.exports = {
     }
   },
   plugins: [
-    {src: '~/plugins/buefy.js'},
     {src: '~/plugins/client-auth.js', ssr: false},
-    {src: '~/plugins/init-store-subscriptions.js', ssr: false},
-    {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
-    {src: '~/plugins/vue-clip.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/raven-server.js', ssr: true},
+    {src: '~/plugins/feathers.js'},
+    {src: '~/plugins/i18n.js'},
+    {src: '~/plugins/init-store-subscriptions.js', ssr: false},
+    {src: '~/plugins/buefy.js'},
+    {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
+    {src: '~/plugins/vue-clip.js', ssr: false},
     {src: '~/plugins/quill-editor.js'},
-    {src: '~/plugins/feathers.js'}
+    {src: '~/plugins/flags.js', ssr: false}
   ],
   modules: [],
   router: {
-    middleware: ['check-auth'],
+    middleware: [
+      'check-auth'
+    ],
     linkActiveClass: 'active-link'
   },
   manifest: {

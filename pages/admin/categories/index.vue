@@ -7,6 +7,7 @@
           <tr>
             <th>Titel</th>
             <th>Bezeichner</th>
+            <th>Icon (class)</th>
             <th>Icon</th>
             <th></th>
           </tr>
@@ -22,6 +23,11 @@
             <td>
               <input v-model="category.icon" class="input" placeholder="Icon (optional) ...">
             </td>
+            <td style="position: relative;">
+              <div style="display: flex; align-items: center; height: 39px;">
+                <hc-icon :icon="category.icon" set="hc"></hc-icon>
+              </div>
+            </td>
             <td>
               <span @click.prevent="deleteEntry(key)" class="button is-danger">
                 <hc-icon icon="trash" />
@@ -32,13 +38,13 @@
       </table>
       <div class="columns">
         <div class="column">
-          <hc-button @click.prevent="addEntry()">
-            Kategorie hinzufügen
+          <hc-button color="grey" @click.prevent="addEntry()">
+            <hc-icon icon="plus"></hc-icon>&nbsp; Kategorie hinzufügen
           </hc-button>
         </div>
         <div class="column has-text-right">
-          <hc-button size="medium">
-            Änderungen speichern
+          <hc-button>
+            <hc-icon icon="check"></hc-icon>&nbsp; Änderungen speichern
           </hc-button>
         </div>
       </div>

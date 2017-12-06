@@ -11,7 +11,7 @@
               </div>
               <div class="column is-one-third">
                 <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
-                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; Edit
+                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
                 </nuxt-link>
               </div>
             </div>
@@ -19,27 +19,30 @@
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <div class="tags" v-if= "categories.length">
-              <span class="tag is-primary" v-for="category in categories">
-                <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ category.title }}
-              </span>
-            </div>
             <p class="content" v-html="content"></p>
             <br/>
+            <div class="tags" v-if= "categories.length">
+              <span class="tag" v-for="category in categories">
+                <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
+              </span>
+            </div>
             <div class="columns">
               <div class="column is-9 is-mobile">
-                <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+                  <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
               </div>
               <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
                   <div class="level-item has-text-centered">
                     <div>
                       <p class="smiley heading">
+                        <b-tooltip :label="$t('component.contribution.shoutAddShout')" type="is-black" >
                         <hc-button circle size="large" color="success"
                                    style="font-size: 2em; margin-bottom: 0.8rem;">
                           <hc-icon set="fa" icon="bullhorn" />
-                        </hc-button><br/>
-                        Recommend
+                        </hc-button>
+                        </b-tooltip>
+                        <br/>
+                        {{ $t('component.contribution.shoutOf') }}
                       </p>
                       <p class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
                         1000k
@@ -52,28 +55,32 @@
             <no-ssr v-if="!user" >
               <div class="notification is-warning columns is-mobile is-vcentered" style="margin-top: 20px">
                 <div class="column is-9 is-paddingless">
-                  You need to be logged-in to be able to vote or comment on Human Connection.
+                  {{ $t('auth.account.loginRequired4CommentOrVote') }}
                 </div>
                 <div class="column is-3 is-paddingless">
                   <hc-button size="small" class="is-pulled-right" type="nuxt"
-                             :to="{ name: 'auth-login', params: { path: this.$route.path }}">Login / Sign-Up &nbsp; <hc-icon icon="sign-in"/></hc-button>
+                    :to="{ name: 'auth-login', params: { path: this.$route.path }}">{{ $t('auth.account.loginOrRegister') }} &nbsp;
+                    <hc-icon icon="sign-in"/>
+                  </hc-button>
                 </div>
               </div>
             </no-ssr>
           </div>
           <no-ssr>
             <b-tabs class="footer">
-              <b-tab-item :label="'Comments (' + commentCount + ')'">
+              <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
                 <comments :post="contribution"/>
               </b-tab-item>
-              <b-tab-item label="Let's Talk">
+              <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                 <div class="notification is-warning">
-                  <strong>Lets Talk</strong>, comming soon...
+                  {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                  <br/><br/>(<strong>Lets Talk</strong>, coming soon...)
                 </div>
               </b-tab-item>
-              <b-tab-item label="Versus">
+              <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
                 <div class="notification is-warning">
-                  <strong>Versus</strong>, comming soon...
+                  {{ $t('component.contribution.versusDescription') }}
+                  <br/><br/>(<strong>Versus</strong>, coming soon...)
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -86,28 +93,28 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. <strong>{{ contribution.type }}</strong>
+              1. <strong>{{ $t('component.contribution.post') }}</strong>
             </nuxt-link>
             <ul>
               <li>
-                <a>Kommentare ({{commentCount}})</a>
+                <nuxt-link to="#comments">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</nuxt-link>
               </li>
               <li>
-                <a>Let's Talk</a>
+                <nuxt-link to="#lets-talk">{{ $t('component.contribution.letsTalk') }}</nuxt-link>
               </li>
               <li>
-                <a>Versus</a>
+                <nuxt-link to="#versus">{{ $t('component.contribution.versus') }}</nuxt-link>
               </li>
             </ul>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>Mehr Info</strong>
+              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>Aktiv werden</strong>
+              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
           </li>
         </ul>

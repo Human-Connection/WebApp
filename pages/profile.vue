@@ -4,101 +4,108 @@
         <img :src="coverImg">
     </div>
     <div class="columns">
-      <div class="column user-sidebar">
+      <div class="column is-3 user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
             <upload-avatar class="avatar-upload"></upload-avatar>
           </div>
+
           <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
             <!--&nbsp;-->
           <!--</div>-->
           <div class="user-name">{{ user.name }}</div>
-          <hc-profile-badges title="Badges" :badges="user.badges" />
-        </hc-box>
-        <div class="hc-shortcuts">
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/gjtyyT-91-nld9zkg6pHvZScdj53BVk0JfE8Sw6FhH9BiqTXfzYSLzzDuu8QB_aqQYMeiYMpaSQBC6WHt8DteA/1524"
-              alt=""/>
-            <span>Message</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/1fqGheyFlTsQPstpdVg9SR8wfemIhyOStsyENZcKEKtMiLxld4pStcUBPSFBIKum4P5xe_ZyEY9BDGF4KyTFiA/1539"
-              alt=""/>
-            <span>Follower</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/Ed0RNoWMNm8YoAQp3GScFQMGi9BNPozGyBPL4Ov-fpjh6VnBCfS6bj2PBXlAUDtpUMxuydlCPfyy4_fFvcIewQ/1524"
-              alt=""/>
-            <span>Lesez.</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/j59T8yA8_NwQQdrtbqrgxYyKoKbZaVTT9zaEBOPOsRiHF4TbmlDuGrJcUYbp7OJ7z0HmFWl-rDEvGnjUJdEVDA/1524"
-              alt=""/>
-            <span>Gallerie</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524"
-              alt=""/>
-            <span>Mehr</span>
-          </hc-box>
-        </div>
-        <hc-box top="true" bottom="true">
-          <hc-title>Netzwerk</hc-title>
-        </hc-box>
-        <hc-box bottom="true">
-          <hc-subtitle>Following</hc-subtitle>
-          <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" :count="following.organizations" text="organization's"/>
-            <hc-textcount class="textcountitem" :count="following.users" text="personen"/>
-            <hc-textcount class="textcountitem" :count="following.projects" text="projekte"/>
+          <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
+          <hr>
+          <div class="hc-shortcuts level">
+            <!-- TODO: replace the cdn images with local hc icons -->
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/gjtyyT-91-nld9zkg6pHvZScdj53BVk0JfE8Sw6FhH9BiqTXfzYSLzzDuu8QB_aqQYMeiYMpaSQBC6WHt8DteA/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myMessagesOnePluralNone', null, 1) }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/1fqGheyFlTsQPstpdVg9SR8wfemIhyOStsyENZcKEKtMiLxld4pStcUBPSFBIKum4P5xe_ZyEY9BDGF4KyTFiA/1539"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myFollowersBrief') }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/Ed0RNoWMNm8YoAQp3GScFQMGi9BNPozGyBPL4Ov-fpjh6VnBCfS6bj2PBXlAUDtpUMxuydlCPfyy4_fFvcIewQ/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myBookmarksBriefOrLong', null, 1) }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/j59T8yA8_NwQQdrtbqrgxYyKoKbZaVTT9zaEBOPOsRiHF4TbmlDuGrJcUYbp7OJ7z0HmFWl-rDEvGnjUJdEVDA/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myGallery') }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myMore') }}</span>
+            </div>
           </div>
-          <!--<hc-dropdown :showLabels="['Alle anzeigen','Meine anzeigen']"
-                       :sortLabels="['Sortieren nach', 'Datum', 'Kategorie']"/>-->
+        </hc-box>
+        <hc-title>{{ $t('auth.account.myNetwork', 'Netzwerk') }}</hc-title>
+        <hc-box bottom="true">
+          <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
+            <hc-textcount class="textcountitem" :count="following.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.length)"/>
+            <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
+          </div>
+          <!--<hc-dropdown :showLabels="[$t('auth.account.myFollowingShowAll'), $t('auth.account.myFollowingShowMine')]"
+                       :sortLabels="[$t('auth.account.myFollowingSortBy'), $t('auth.account.myFollowingSortByDate'), $t('auth.account.myFollowingSortByCategory')]"/>-->
           <div class="hc-follower-list">
             <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
-          <hc-subtitle>Interessen</hc-subtitle>
+          <hc-subtitle>{{ $t('auth.account.myInterests', 'Interessen') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
-          <hc-subtitle>Meine Karte</hc-subtitle>
+          <hc-subtitle>{{ $t('auth.account.myMap', 'Karte') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
           </div>
+          <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
         </hc-box>
         <hc-box>
-          <hc-subtitle>My Friends</hc-subtitle>
+          <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
+          </div>
+        </hc-box>
+        <hc-title>{{ $t('auth.account.myDoings', 'Aktionen') }}</hc-title>
+        <hc-box>
+          <hc-subtitle>{{ $t('auth.account.myCanDos', 'Meine Can Do’s') }}</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.myCanDosAltogether', 'Can Do’s')"/>
+            <hc-textcount class="textcountitem" count="3" :text="$t('auth.account.myCanDosDone', 'geschafft')"/>
           </div>
         </hc-box>
       </div>
       <hc-timeline />
-      <div class="column actions-sidebar">
-        <hc-box top="true" bottom="true">
-          <hc-title>Aktionen</hc-title>
-        </hc-box>
-        <hc-box>
-          <hc-subtitle>Meine Can Do's</hc-subtitle>
-          <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="5" text="can do's"/>
-            <hc-textcount class="textcountitem" count="3" text="geschafft"/>
-          </div>
-          <hc-map :places="places" :zoom="zoom" :center="center" />
-        </hc-box>
-      </div>
     </div>
   </section>
 </template>
@@ -177,7 +184,7 @@
     },
     head () {
       return {
-        title: 'Profile'
+        title: this.$t('auth.account.myProfile', 'Profile')
       }
     }
   }
@@ -247,22 +254,26 @@
   .hc-shortcuts {
     display: flex;
     justify-content: space-between;
-    .shortcut-hc-box {
+      
+    .level-item {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 58px;
+      // width: 58px;
 
       img {
-        width: 20px;
+        min-width: 20px;
+        display: block;
       }
-
+  
       span {
+        display: block;
+        width: 100%;
         padding: 5px 0 0 0;
-        font-size: 8px;
+        font-size: 0.6em;
         text-transform: uppercase;
       }
-    }
+    } 
   }
 
   .hc-textcounters {

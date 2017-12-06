@@ -15,6 +15,10 @@ export const mutations = {
     } else {
       state.categories = categories
     }
+  },
+  // [vuex] unknown local mutation type: clear, global type: categories/clear
+  clear (state) {
+    state.categories = null
   }
 }
 
