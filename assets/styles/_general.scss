@@ -203,3 +203,16 @@ a, .is-link, button {
   text-align: left;
   padding: 1em;
 }
+
+.table {
+  &.is-empty {
+    tr:hover {
+      background-color: transparent;
+    }
+  }
+  &.is-striped {
+    td {
+      border-color: transparent;
+    }
+  }
+}

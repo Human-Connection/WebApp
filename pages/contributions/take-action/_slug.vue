@@ -194,7 +194,7 @@
             </table>
 
             <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
-            <hc-map :places="places" :zoom="zoom" :center="center" height="400px" />
+            <hc-map :places="places" :zoom="zoom" :center="center" height="350px" />
           </div>
         </section>
       </div>
@@ -368,17 +368,6 @@
   .card {
     border: none;
     box-shadow: $card-shadow;
-  }
-  .table {
-    &.is-empty {
-      tr:hover {
-        background-color: transparent;
-      }
-    }
-
-    td {
-      border-color: $grey-lighter;
-    }
   }
 
   .b-tabs.footer {
