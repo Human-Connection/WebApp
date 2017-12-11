@@ -4,6 +4,8 @@ $family-sans-serif: "Lato", "Roboto", "Droid Sans", "Helvetica Neue", "Helvetica
 $body-line-height: 1.5em;
 $body-size: 15px;
 
+$navbar-breakpoint: $tablet;
+
 //colors
 $black: hsl(0, 0%, 4%);
 $black-bis: hsl(0, 0%, 7%);
@@ -53,7 +55,7 @@ $padding-medium: 1.2em;
 $padding-large: 1.4em;
 
 // Topbar Settings
-$topbar-height: 60px;
+$navbar-height: 60px;
 
 // Configbar Settings
 $configbar-height: 50px;

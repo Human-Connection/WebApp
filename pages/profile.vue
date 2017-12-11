@@ -1,8 +1,7 @@
 <template>
   <section class="container" style="position: relative">
-    <div class="profile-header card">
-        <img :src="coverImg">
-    </div>
+    <div class="profile-header card"
+         :style="{ 'background-image': `url(${coverImg})` }"></div>
     <div class="columns">
       <div class="column is-3 user-sidebar">
         <hc-box top="true" class="user-hc-box">
@@ -199,22 +198,24 @@
 
   .profile-header {
     width: 100%;
-    height: 243px;
-    max-height: 243px;
+    height: 312px;
+    max-height: 312px;
     overflow: hidden;
     position: relative;
-    background: darkgrey;
+    background-color: darkgrey;
+    background-size: cover;
+    background-position: center;
 
     border: none;
     box-shadow: $card-shadow;
 
-    img {
+    /*img {
       width: 100%;
       position: absolute;
       left: 0;
       top: 50%;
       transform: translateY(-50%);
-    }
+    }*/
   }
 
 

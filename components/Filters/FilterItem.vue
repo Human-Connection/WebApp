@@ -12,7 +12,11 @@
         <hc-icon v-if="icon" :set="iconSet" :icon="icon" />
       </slot>
     </hc-button>
-    <small>{{ title }}</small>
+    <small>
+      <slot name="title">
+        {{ titleText }}
+      </slot>
+    </small>
   </div>
 </template>
 
@@ -27,6 +31,12 @@
       title: {
         type: String,
         required: true
+      },
+      translationPath: {
+        type: String
+      },
+      slug: {
+        type: String
       },
       icon: {
         type: String,
@@ -48,10 +58,15 @@
     computed: {
       itemState () {
         return this.active ? 'success' : 'disabled'
+      },
+      titleText () {
+        if (!this.translationPath) {
+          return this.title
+        }
+        if (this.slug) {
+          return this.$t(this.translationPath + this.slug, this.title)
+        }
       }
-    },
-    created () {
-      console.log(this.item)
     }
   }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="search">
+    <div class="search" :class="{ 'is-active': isActive }">
         <div class="field">
             <p class="control has-icons-right">
                 <span class="icon is-small is-left">
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   import _ from 'lodash'
 
   let app
@@ -31,7 +31,7 @@
     methods: {
       onInput: _.debounce(() => {
         app.$store.commit('search/query', app.value)
-      }, 300)
+      }, 600)
     },
     watch: {
       searchQuery (query) {
@@ -41,7 +41,10 @@
     computed: {
       ...mapGetters({
         searchQuery: 'search/query'
-      })
+      }),
+      isActive () {
+        return !_.isEmpty(this.value)
+      }
     }
   }
 </script>
@@ -51,6 +54,7 @@
 
     .search {
         display: flex;
+        height:  100%;
 
         .field {
             display:     flex;
@@ -60,15 +64,33 @@
         .control {
             input {
                 // border-radius: $radius-large;
-                border-radius: 2em;
+                border-radius: 2px;
                 height:        2.5em;
                 padding-left:  2em;
                 padding-right: 1em;
-            }
+                font-size:     1em;
 
-            .icon {
-                height: 2.5em;
+                &, &:hover {
+                    border-color: transparent;
+                }
             }
+        }
+
+        input:hover {
+            background-color: #f9f9f9;
+        }
+
+        input:focus, &.is-active input.input {
+            background-color: #f5f5f5;
+        }
+
+        .icon {
+            height: 2.5em;
+            font-size: 1em;
+        }
+
+        &.is-active .icon {
+            color: $grey-light;
         }
     }
 </style>

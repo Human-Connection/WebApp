@@ -103,7 +103,7 @@
             </table>
 
             <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
-            <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
+            <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
               <tbody v-if="projects.length">
                 <tr v-for="project in projects" :key="project._id">
                   <td>

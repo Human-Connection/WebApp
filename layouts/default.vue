@@ -24,6 +24,8 @@
   }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+  #main {
+    margin-bottom: 15em !important;
+  }
 </style>

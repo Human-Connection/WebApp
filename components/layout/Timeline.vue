@@ -74,7 +74,7 @@
         } catch (err) {
           // this just displays nothing
           // @todo implement some user feedback
-          console.log(err)
+          console.error(err)
           this.loading = false
         }
       })()

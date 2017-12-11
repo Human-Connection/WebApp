@@ -6,7 +6,7 @@
           :disabled="toggleAllDisabled"
           icon="check"
           iconSet="fa"
-          title="Alle"
+          :title="$t('component.filter.all')"
           @toggle="toggleAll" />
     </div>
     <div class="column is-11">
@@ -15,6 +15,8 @@
           :key="item._id"
           :active="isActive(item._id)"
           :icon="item.icon"
+          :translationPath="translationPath"
+          :slug="item.slug || item.title"
           :iconSet="iconSet"
           :title="item.title"
           @toggle="toggleItem(item._id)" />
@@ -46,6 +48,9 @@
         type: Array,
         default: () => []
       },
+      translationPath: {
+        type: String
+      },
       /**
        * specefy which icon set should be used, see hc-icon component for reference.
        */
@@ -62,7 +67,8 @@
     },
     watch: {
       selected (itemIds) {
-        this.selectedIds = itemIds
+        // we need to get rid of the reactivity here
+        this.selectedIds = _.extend([], itemIds)
       },
       selectedIds (itemIds) {
         this.$emit('input', itemIds)
@@ -128,6 +134,6 @@
 
   .filter-list {
     position: relative;
-    margin-bottom: -10px;
+    margin-bottom: -15px;
   }
 </style>

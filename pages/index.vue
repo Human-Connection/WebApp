@@ -1,14 +1,23 @@
 <template>
   <section class="container" style="position: relative">
     <section class="cards" v-cloak="ready">
-      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
+      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution._id"
             @ready="updateGrid">
         <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
       </card>
     </section>
-    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
+    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="spinner">
       <span slot="no-results">
-        <strong class="loader-no-data">{{ $t('component.search.noResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
+        <div v-if="!contributions.length" class="has-text-centered">
+          <hc-emoji type="cry" width="128"></hc-emoji>
+          <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
+          <p>{{ $t('component.search.noResultsText') }}</p>
+          <br/>
+          <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
+            <hc-button @click="$store.commit('search/query', '')" v-html="$t('component.search.noResultsResetQueryButton', { searchQuery: searchQuery })"></hc-button>
+          </div>
+        </div>
+        <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
       </span>
       <span slot="no-more">
         <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
@@ -93,7 +102,7 @@
         app.$nextTick(async () => {
           app.contributions = []
           app.skip = 0
-          app.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
+          this.$refs.infiniteLoading.stateChanger.reset()
           app.onInfinite()
         })
       },
@@ -125,10 +134,10 @@
             if (lastItemNum < res.total) {
               // do load more
               this.skip = res.skip + res.limit
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+              this.$refs.infiniteLoading.stateChanger.loaded()
             } else {
               // do NOT load more
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+              this.$refs.infiniteLoading.stateChanger.complete()
             }
           }, 100)
         }).catch(err => {
@@ -192,7 +201,9 @@
 
   .loader-no-data,
   .loader-no-more {
-    padding-top: 20px !important;
+    padding-top: 30px;
+    display: inline-block;
+
     color: lighten($grey, 10%);
 
     img {

@@ -46,7 +46,7 @@
 
   .sidebar {
     position: absolute;
-    top: $topbar-height;
+    top: $navbar-height;
     bottom: 0;
     left: 0;
     z-index: 120;
@@ -96,7 +96,7 @@
 
     @include tablet {
       width: $sidebar-closed-width;
-      top: $topbar-height;
+      top: $navbar-height;
     }
 
     @include from($sidebar-breakpoint) {

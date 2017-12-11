@@ -8,7 +8,7 @@
 //}
 
 #main {
-  padding-top: $topbar-height + 30px;
+  padding-top: $navbar-height + 30px;
   padding-bottom: 40px;
   min-height: 80vh;
 }
@@ -195,4 +195,11 @@ a, .is-link, button {
   &, &:link, &:visited, &:active {
     outline: none;
   }
+}
+
+.tooltip.is-multiline::after {
+  font-size: 1.0em;
+  line-height: 1.2em;
+  text-align: left;
+  padding: 1em;
 }

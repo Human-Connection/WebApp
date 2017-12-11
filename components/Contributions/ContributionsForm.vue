@@ -107,7 +107,7 @@
         </div>
       </div>
     </no-ssr>
-    <br/><hr/>
+    <hr/>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select v-model="form.categoryIds"></categories-select>
@@ -247,7 +247,7 @@
           })
           this.$router.push(`/contributions/${res.slug}?refresh=true`)
         } catch (err) {
-          console.log(err)
+          console.error(err)
           this.loading = false
           this.$toast.open({
             message: err.message,

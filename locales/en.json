@@ -52,7 +52,7 @@
       "jobs": "Jobs",
       "letsTalk": "Let’s talk",
       "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
-      "organizations": "Organisations",
+      "organizations": "Organizations",
       "map": "Map",
       "messages": "Messages",
       "messageSaveSuccess": "Thanks for your contribution. You are awesome.",
@@ -124,9 +124,14 @@
       "topbarSectionEmotions": "Emotions"
     },
     "search": {
-      "noMoreResults": "There are no more",
-      "noResults": "Sorry that's all what we found",
-      "placeholder": "Search ..."
+      "placeholder": "Search ...",
+      "noResults": "Sorry nothing there!",
+      "noResultsText": "Try to adjust your search and filters on the top to find what you are searching for.",
+      "noResultsResetQueryButton": "Remove \"<strong>{searchQuery}</strong>\" from Search",
+      "noMoreResults": "Sorry that's all what we found"
+    },
+    "filter": {
+      "all": "All"
     },
     "timeline": {
       "loadingContributions": "Loading content …",
