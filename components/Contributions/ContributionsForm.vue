@@ -71,36 +71,36 @@
         <div class="control">
           <div id="toolbar-editor">
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.italic')" type="is-black">
+              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
                 <button class="ql-italic"></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.bold')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
                 <button class="ql-bold"></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.strike')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
                 <button class="ql-strike"></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.blockquote')" type="is-black">
+              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
                 <button class="ql-blockquote"></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
+              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
                 <button class="ql-list" value="bullet" ></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
                 <button class="ql-list" value="ordered" ></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.link')" type="is-black">
-              <button class="ql-link"></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.video')" type="is-black">
-              <button class="ql-video"></button>
-              </hc-tooltip>
+              <b-tooltip :label="$t('component.editor.link')" type="is-black">
+                <button class="ql-link"></button>
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.video')" type="is-black">
+                <button class="ql-video"></button>
+              </b-tooltip>
             </div>
           </div>
           <div class="quill-editor story" v-model="form.content" :disabled="loading" v-quill:myQuillEditor="editorOption"></div>
@@ -158,8 +158,8 @@
       }
     },
     data () {
-      const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
-      const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
+      // const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
+      // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
         loading: false,
@@ -194,19 +194,20 @@
             toolbar: {
               container: '#toolbar-editor',
               handlers: {
+                // TODO: do not use the prompt but the native quill dialoges or at least a nice modal
                 //  handlers object will be merged with default handlers object
-                'link': function (value) {
-                  if (value) {
-                    let href = prompt(i18nEditorLinkEnterUrl)
-                    this.quill.format('link', href)
-                  } else {
-                    this.quill.format('link', false)
-                  }
-                },
-                'video': function () {
-                  let embedUrl = prompt(i18nEditorVideoEnterUrl)
-                  this.quill.format('video', embedUrl)
-                }
+                // 'link': function (value) {
+                //   if (value) {
+                //     let href = prompt(i18nEditorLinkEnterUrl)
+                //     this.quill.format('link', href)
+                //   } else {
+                //     this.quill.format('link', false)
+                //   }
+                // },
+                // 'video': function () {
+                //   let embedUrl = prompt(i18nEditorVideoEnterUrl)
+                //   this.quill.format('video', embedUrl)
+                // }
               }
             }
           }
