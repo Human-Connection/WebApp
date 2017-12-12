@@ -24,6 +24,7 @@
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
             <h1>{{ contribution.title }}</h1>
+            <div class="content" v-html="content"></div>
             <br/>
             <div class="tags" v-if= "categories.length">
               <span class="tag" v-for="category in categories">
