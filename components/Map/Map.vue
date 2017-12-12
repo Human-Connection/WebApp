@@ -49,48 +49,54 @@
     },
     data () {
       return {
-        isLoading: true
+        isLoading: true,
+        createMapTimeout: null
       }
     },
     name: 'hc-map',
     mounted () {
       if (window) {
-        setTimeout(this.createMap, 1000)
+        this.createMapTimeout = setTimeout(this.createMap, 1000)
       }
+    },
+    destroy () {
+      clearTimeout(this.createMapTimeout)
     },
     methods: {
       createMap () {
-        const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
-        mapboxgl.accessToken = process.env.MAPBOX_TOKEN || this.token
-        // init the map
-        let map = new mapboxgl.Map({
-          container: 'map',
-          style: 'mapbox://styles/mapbox/streets-v10',
-          zoom: this.zoom,
-          center: this.center
-        })
-        map.on('data', (e) => {
-          if (e.isSourceLoaded) {
-            this.isLoading = false
-            map.off('data')
-          }
-        })
+        try {
+          const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
+          mapboxgl.accessToken = process.env.MAPBOX_TOKEN || this.token
+          // init the map
+          let map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v10',
+            zoom: this.zoom,
+            center: this.center
+          })
+          map.on('data', (e) => {
+            if (e.isSourceLoaded) {
+              this.isLoading = false
+              map.off('data')
+            }
+          })
 
-        this.places.forEach(function (marker) {
-          // create the popup
-          let popup = new mapboxgl.Popup()
-            .setText(marker.properties.title)
+          this.places.forEach(function (marker) {
+            // create the popup
+            let popup = new mapboxgl.Popup()
+              .setText(marker.properties.title)
 
-          // create a HTML element for each feature
-          let el = document.createElement('div')
-          el.className = 'marker'
+            // create a HTML element for each feature
+            let el = document.createElement('div')
+            el.className = 'marker'
 
-          // make a marker for each feature and add to the map
-          new mapboxgl.Marker(el)
-            .setLngLat(marker.geometry.coordinates)
-            .setPopup(popup) // sets a popup on this marker
-            .addTo(map)
-        })
+            // make a marker for each feature and add to the map
+            new mapboxgl.Marker(el)
+              .setLngLat(marker.geometry.coordinates)
+              .setPopup(popup) // sets a popup on this marker
+              .addTo(map)
+          })
+        } catch (err) {}
       }
     }
   }
