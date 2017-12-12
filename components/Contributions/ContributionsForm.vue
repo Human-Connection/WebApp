@@ -103,7 +103,7 @@
               </hc-tooltip>
             </div>
           </div>
-          <div class="quill-editor story" v-model="form.content" :disabled="loading || success" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story" v-model="form.content" :disabled="loading" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
