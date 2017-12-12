@@ -25,6 +25,10 @@
       value: {
         type: Array,
         default: () => []
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -66,10 +70,7 @@
         return false
       },
       isDisabled (id) {
-        if (this.reachedMaximum && !this.isActive(id)) {
-          return true
-        }
-        return false
+        return !!((this.reachedMaximum && !this.isActive(id)) || this.disabled)
       }
     },
     created () {

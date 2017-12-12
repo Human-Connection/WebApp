@@ -90,7 +90,6 @@
               duration: 4000,
               type: 'is-success'
             })
-            this.loading = false
             this.data.password = null
             this.$router.replace(this.$route.params.path || this.$route.query.path || '/')
           })

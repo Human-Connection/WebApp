@@ -5,12 +5,12 @@
         <author :post="comment"></author>
       </div>
       <div class="column has-text-right">
-        <b-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
+        <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
           <a @click="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
             <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
             <i class="fa fa-angle-double-up"></i>&nbsp;
           </a>
-        </b-tooltip>
+        </hc-tooltip>
       </div>
     </div>
     <p v-html="getText"></p>
@@ -18,11 +18,11 @@
       <div class="column" style="padding-top: 1rem;">
         <nav class="level is-mobile">
           <div class="level-left">
-            <b-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
+            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
             <a class="level-item">
               <span class="icon is-small"><i class="fa fa-reply"></i></span>
             </a>
-            </b-tooltip>
+            </hc-tooltip>
           </div>
         </nav>
       </div>

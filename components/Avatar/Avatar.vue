@@ -4,6 +4,8 @@
 
 
 <script>
+  import _ from 'lodash'
+
   export default {
     name: 'hc-avatar',
     props: {
@@ -13,7 +15,7 @@
     },
     computed: {
       avatar () {
-        return this.url ? this.url : '/assets/images/avatar-default/male/avatar200x200.jpg'
+        return !_.isEmpty(this.url) ? this.url : '/assets/images/avatar-default/male/avatar200x200.jpg'
       }
     }
   }

@@ -19,7 +19,7 @@
             {{ $t('component.notification.messageEmpty') }}
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
-            <transition-group name="notification">
+            <transition-group name="notification" tag="div">
               <div class="notification option" v-for="notification in notifications" :key="notification._id"
                    @click="followNotification(notification)">
                 <author :post="notification.comment"></author>

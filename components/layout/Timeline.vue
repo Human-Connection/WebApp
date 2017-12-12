@@ -6,11 +6,11 @@
       <p v-if="contributions.length == 0 && loadingFinished">
         {{ $t('component.timeline.noContributionsFound') }}
       </p>
-      <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" position="is-right">
+      <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black" position="is-right">
         <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
           <hc-icon icon="plus"/>
         </hc-button>
-      </b-tooltip>
+      </hc-tooltip>
     </div>
     <div>
       <a class="button is-loading" v-if="loading">{{ $t('component.timeline.loadingContributions') }}</a>

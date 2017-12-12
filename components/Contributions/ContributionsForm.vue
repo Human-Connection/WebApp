@@ -55,7 +55,7 @@
       <!--<img v-bind:src="form.teaserImg" style="min-height: 320px;">-->
     <!--</figure>-->
     <div class="tags">
-      <span v-for="(file, index) in dropFiles"
+      <div v-for="(file, index) in dropFiles"
             :key="index"
             class="tag is-primary" >
           {{file.name}}
@@ -63,54 +63,54 @@
                   type="button"
                   @click="deleteDropFile(index)">
           </button>
-      </span>
+      </div>
     </div>
     <no-ssr>
       <div class="field">
         <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
         <div class="control">
           <div id="toolbar-editor">
-            <span class="ql-formats">
-              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
+            <div class="ql-formats">
+              <hc-tooltip :label="$t('component.editor.italic')" type="is-black">
                 <button class="ql-italic"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.bold')" type="is-black">
                 <button class="ql-bold"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.strike')" type="is-black">
                 <button class="ql-strike"></button>
-              </b-tooltip>
-            </span>
-            <span class="ql-formats">
-              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
+              </hc-tooltip>
+            </div>
+            <div class="ql-formats">
+              <hc-tooltip :label="$t('component.editor.blockquote')" type="is-black">
                 <button class="ql-blockquote"></button>
-              </b-tooltip>
-            </span>
-            <span class="ql-formats">
-              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
+              </hc-tooltip>
+            </div>
+            <div class="ql-formats">
+              <hc-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
                 <button class="ql-list" value="bullet" ></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
                 <button class="ql-list" value="ordered" ></button>
-              </b-tooltip>
-            </span>
-            <span class="ql-formats">
-              <b-tooltip :label="$t('component.editor.link')" type="is-black">
+              </hc-tooltip>
+            </div>
+            <div class="ql-formats">
+              <hc-tooltip :label="$t('component.editor.link')" type="is-black">
               <button class="ql-link"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.video')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.video')" type="is-black">
               <button class="ql-video"></button>
-              </b-tooltip>
-            </span>
+              </hc-tooltip>
+            </div>
           </div>
-          <div class="quill-editor story" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story" v-model="form.content" :disabled="loading || success" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
     <hr/>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-      <categories-select v-model="form.categoryIds"></categories-select>
+      <categories-select v-model="form.categoryIds" :disabled="loading || success"></categories-select>
     </div>
     <!-- language -->
     <!-- visibility -->
@@ -126,10 +126,10 @@
           </button>
         </div>
         <div class="control">
-          <button class="button is-success" v-bind:class="{ 'is-loading': loading }" v-bind:disabled="loading"
+          <hc-button :loading="loading"
                   @click.prevent="onSubmit">
-            <i class="fa fa-check"></i> &nbsp;{{ buttonPublishLabel }}
-          </button>
+            <i class="fa fa-check"></i> &nbsp;<span>{{ buttonPublishLabel }}</span>
+          </hc-button>
         </div>
       </div>
     </no-ssr>
@@ -239,7 +239,6 @@
           } else {
             res = await feathers.service('contributions').create(this.form)
           }
-          this.loading = false
           this.$snackbar.open({
             message: this.$t('component.contribution.messageSaveSuccess'),
             duration: 4000,
