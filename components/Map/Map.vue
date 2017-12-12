@@ -1,6 +1,6 @@
 <template>
   <div class="map-wrapper" :style="{width: width, height: height}">
-    <div v-if="isLoading" class="is-loading">&nbsp;</div>
+    <div v-if="isLoading" class="is-loading" :style="{height: height}">&nbsp;</div>
     <div id="map"></div>
   </div>
 </template>
@@ -102,11 +102,11 @@
   // @import "~mapbox-gl/dist/mapbox-gl.css";
 
   #map {
-      width: 100%;
-      height: 100%;
-  }
+    width:  100%;
+    height: 100%;
+    position: relative;
 
-  .marker {
+    .marker {
       // FIXME: use local graphics!
       background:      url('https://company-16131.frontify.com/api/screen/download/yANNQjWD8CBlyq7i5p12wcMfB_W6GYbKREV4kvZIk9On6uxfu2lwIk_H62lvpe-GOkVlmiiZ8Cpx2OZADp4spQ') no-repeat center;
       background-size: contain;
@@ -114,27 +114,11 @@
       height:          30px;
       border-radius:   50%;
       cursor:          pointer;
-  }
+    }
 
-  .mapboxgl-popup {
+    .mapboxgl-popup {
       max-width: 200px;
-  }
-
-  .map-wrapper {
-    position: relative;
-  }
-
-  .is-loading {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    &:after {
-      @include loader;
-      @include center(1em);
-      height: 2em;
-      width: 2em;
-      border-color: transparent transparent #2A2A2A #2A2A2A;
     }
   }
+
 </style>

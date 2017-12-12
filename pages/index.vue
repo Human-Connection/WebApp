@@ -7,7 +7,7 @@
       </card>
     </section>
     <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="spinner">
-      <span slot="no-results">
+      <div slot="no-results">
         <div v-if="!contributions.length" class="has-text-centered">
           <hc-emoji type="cry" width="128"></hc-emoji>
           <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
@@ -18,10 +18,13 @@
           </div>
         </div>
         <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </span>
-      <span slot="no-more">
+      </div>
+      <div slot="no-more">
         <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </span>
+      </div>
+      <div slot="spinner" class="loader-spinner">
+          <div class="is-loading"></div>
+      </div>
     </infinite-loading>
     <div class="add-contribution">
       <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
@@ -200,6 +203,7 @@
   }
 
   .loader-no-data,
+  .loader-spinner,
   .loader-no-more {
     padding-top: 30px;
     display: inline-block;
@@ -210,6 +214,13 @@
       display: inline-block;
       margin-bottom: -0.5rem;
     }
+  }
+
+  .loader-spinner {
+    width: 100%;
+    position: relative;
+    height: 80px;
+    display: flex;
   }
 
   .add-contribution {

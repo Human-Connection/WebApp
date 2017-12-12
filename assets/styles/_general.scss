@@ -216,3 +216,44 @@ a, .is-link, button {
     }
   }
 }
+
+div.loading-container {
+  position: relative;
+}
+div.is-loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  opacity: .5;
+
+  &:after {
+    @include loader;
+    @include center(1em);
+    height: 2em;
+    width: 2em;
+    border-color: transparent transparent #424242 #424242;
+  }
+}
+
+div.nuxt-progress {
+  $color1: #1da0d8;
+  $color2: #3973b6;
+  $color3: #804182;
+  $color4: #df0b17;
+  $color5: #eb7e03;
+  $color6: #f8b933;
+  $color7: #91b936;
+  background: -webkit-linear-gradient(left, $color1 , $color2, $color3, $color4, $color5, $color6, $color7); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, $color1, $color2, $color3, $color4, $color5, $color6, $color7); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, $color1, $color2, $color3, $color4, $color5, $color6, $color7); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, $color1 , $color2, $color3, $color4, $color5, $color6, $color7);
+
+  // background-size: 200%;
+  // animation: ProgressAnimation 100ms ease;
+}
+
+/*@keyframes ProgressAnimation {
+  0% {background-position: 0% 50%}
+  100% {background-position: 200% 50%}
+}*/

@@ -50,11 +50,7 @@
               <span>{{ $t('auth.account.myGallery') }}</span>
             </div>
             <div class="level-item has-text-centered">
-              <div>
-                <img
-                  src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524"
-                  alt=""/>
-              </div>
+              <hc-icon style="color: #BFBFBF; font-size: 20px;" icon="ellipsis-v"></hc-icon>
               <span>{{ $t('auth.account.myMore') }}</span>
             </div>
           </div>
@@ -255,7 +251,7 @@
   .hc-shortcuts {
     display: flex;
     justify-content: space-between;
-      
+
     .level-item {
       display: flex;
       flex-direction: column;
@@ -266,7 +262,7 @@
         min-width: 20px;
         display: block;
       }
-  
+
       span {
         display: block;
         width: 100%;
@@ -274,7 +270,7 @@
         font-size: 0.6em;
         text-transform: uppercase;
       }
-    } 
+    }
   }
 
   .hc-textcounters {
