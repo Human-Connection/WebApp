@@ -110,7 +110,7 @@
     <hr/>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-      <categories-select v-model="form.categoryIds" :disabled="loading || success"></categories-select>
+      <categories-select v-model="form.categoryIds" :disabled="loading"></categories-select>
     </div>
     <!-- language -->
     <!-- visibility -->
@@ -230,7 +230,6 @@
       },
       async onSubmit () {
         this.loading = true
-        console.log(this.form)
 
         try {
           let res = null
