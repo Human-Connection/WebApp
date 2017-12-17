@@ -124,9 +124,14 @@
       "topbarSectionEmotions": "Stimmungen"
     },
     "search": {
-      "noMoreResults": "Mehr war nicht zu finden",
-      "noResults": "Leider ist das alles, was wir gefunden haben",
-      "placeholder": "Suchen ..."
+      "placeholder": "Suchen ...",
+      "noResults": "Hier gibts nichts zu sehen!",
+      "noResultsText": "Passe deine Suche bzw. deine Filtereinstellung an um zu finden wonach du suchst.",
+      "noResultsResetQueryButton": "Entferne \"<strong>{searchQuery}</strong>\" aus dem Suchfeld",
+      "noMoreResults": "Leider ist das alles, was wir gefunden haben"
+    },
+    "filter": {
+      "all": "Alle"
     },
     "timeline": {
       "loadingContributions": "Beiträge werden geladen …",

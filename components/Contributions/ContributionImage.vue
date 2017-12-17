@@ -62,7 +62,7 @@
     mounted () {
       // this is fixin an issue with the default avatar
       // while picking the name after regestration
-      if (parseInt(this.refresh) > 0) {
+      if (parseInt(this.refresh) > 0 && this.url.cover) {
         setTimeout(() => {
           // retry to load image
           this.url.cover = ''

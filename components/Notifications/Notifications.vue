@@ -1,6 +1,6 @@
 <template>
-  <div class="notifications dropdown" @blur="active = false" tabindex="0">
-    <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active, animate: notify }">
+  <div class="navbar-item has-dropdown notifications" @blur="active = false" tabindex="0">
+    <a class="navbar-link dropdown-toggle" @click="active = !active" :class="{ active: active, animate: notify }">
       <span class="notification-icon">
         <i class="fa fa-bell" aria-hidden="true"></i>
         <hc-count-label :count="notifications.length" v-if="notifications"></hc-count-label>
@@ -19,7 +19,7 @@
             {{ $t('component.notification.messageEmpty') }}
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
-            <transition-group name="notification">
+            <transition-group name="notification" tag="div">
               <div class="notification option" v-for="notification in notifications" :key="notification._id"
                    @click="followNotification(notification)">
                 <author :post="notification.comment"></author>
@@ -101,11 +101,15 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
 
-  .nav-item {
+  .navbar-item {
     position: relative;
+
+    &, &:hover, &:hover > .navbar-link {
+      background-color: transparent !important;
+    }
   }
 
-  .notifications.dropdown {
+  .notifications.has-dropdown {
     outline: none !important;
     box-shadow: none !important;
     background-color: #fff;

@@ -22,7 +22,7 @@
   @import "assets/styles/utilities";
 
   .count {
-    $batchSize: 20px;
+    $batchSize: 18px;
 
     position: absolute;
     top: -$batchSize / 2;
@@ -35,8 +35,8 @@
     height: $batchSize;
     padding: 0 4px;
     text-align: center;
-    font-size: $size-7;
-    line-height: $batchSize;
+    font-size: .7rem;
+    line-height: $batchSize - 2;
     border-radius: $batchSize / 2;
     border: 1px solid $white;
     pointer-events: none;

@@ -24,7 +24,11 @@
     props: {
       value: {
         type: Array,
-        default: []
+        default: () => []
+      },
+      disabled: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -47,6 +51,7 @@
     watch: {
       selectedCategoryIds (categoryIds) {
         this.$emit('input', categoryIds)
+        this.$emit('change', categoryIds)
       }
     },
     methods: {
@@ -65,10 +70,7 @@
         return false
       },
       isDisabled (id) {
-        if (this.reachedMaximum && !this.isActive(id)) {
-          return true
-        }
-        return false
+        return !!((this.reachedMaximum && !this.isActive(id)) || this.disabled)
       }
     },
     created () {

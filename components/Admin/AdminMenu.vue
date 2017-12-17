@@ -22,7 +22,7 @@
       <span class="menu-icon">
         <hc-icon icon="user"></hc-icon>
       </span>
-      {{ $t('component.admin.user', 'Benutzer') }}
+      {{ $t('component.admin.users', 'Benutzer') }}
     </nuxt-link>
   </nav>
 </template>
@@ -40,7 +40,7 @@
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 
   .sidebar-menu {
-    background-color: $white-bis;
+    background-color: $white;
   }
 
   .menu-item {

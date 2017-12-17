@@ -49,7 +49,7 @@
     padding: 2rem 1.5rem;
   }
   .admin-content {
-    background-color: $white-ter;
+    background-color: $white;
     padding: 2rem 1.5rem;
   }
 </style>

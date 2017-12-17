@@ -13,7 +13,7 @@
           <div class="field">
             <p class="control has-icons-right">
               <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
-                     v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
+                     name="username" v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -22,7 +22,7 @@
           <div class="field">
             <p class="control has-icons-right">
               <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" v-bind:placeholder="$t('auth.account.password')"
-                     v-model="data.password">
+                     name="password" v-model="data.password">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -31,7 +31,12 @@
           <div class="field has-text-left">
             <b-switch v-model="stayLoggedIn">{{ $t('auth.login.stayLoggedIn') }}</b-switch>
           </div>
-          <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
+          <hc-button color="primary"
+                     name="submit"
+                     size="medium"
+                     type="button"
+                     class="is-fullwidth"
+                     :loading="loading">
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>
@@ -90,7 +95,6 @@
               duration: 4000,
               type: 'is-success'
             })
-            this.loading = false
             this.data.password = null
             this.$router.replace(this.$route.params.path || this.$route.query.path || '/')
           })

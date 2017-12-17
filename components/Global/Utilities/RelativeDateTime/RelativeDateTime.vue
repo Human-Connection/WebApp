@@ -34,6 +34,11 @@
         clearTimeout(this.timeout)
         let t = moment(this.dateTime).locale(this.locale)
         this.relativeDateTime = t.utc().fromNow()
+
+        if (!process.browser) {
+          return
+        }
+
         if (this.relativeDateTime === t.add(this.interval, 'milliseconds').utc().fromNow()) {
           this.interval += 15000
         }
@@ -41,6 +46,9 @@
           this.calcRelativeDateTime()
         }, this.interval)
       }
+    },
+    created () {
+      this.calcRelativeDateTime()
     },
     mounted () {
       this.calcRelativeDateTime()

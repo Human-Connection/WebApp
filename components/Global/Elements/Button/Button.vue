@@ -1,8 +1,8 @@
 <template>
-  <button v-if="type === 'button'" :class="classes" @click="click">
+  <button v-if="hasType === 'button'" :class="classes" @click="click">
     <slot></slot>
   </button>
-  <nuxt-link v-else-if="type === 'nuxt'" :class="classes" :to="to">
+  <nuxt-link v-else-if="hasType === 'nuxt'" :class="classes" :to="to" @click.native="click">
     <slot></slot>
   </nuxt-link>
   <a v-else :class="classes" @click="click">
@@ -76,6 +76,9 @@
           classes += ` is-${this.size}`
         }
         return classes
+      },
+      hasType () {
+        return this.to ? 'nuxt' : this.type
       }
     },
     methods: {

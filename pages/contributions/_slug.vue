@@ -10,16 +10,21 @@
                 <author :post="contribution"></author>
               </div>
               <div class="column is-one-third">
-                <nuxt-link v-if="canEdit" class="button pull-right" :to="{ path: `/contributions/edit/${contribution.slug}` }">
+                <hc-button v-if="canEdit"
+                           class="pull-right"
+                           color="light"
+                           :loading="loading"
+                           @click="loading = true"
+                           :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
-                </nuxt-link>
+                </hc-button>
               </div>
             </div>
             <div class="notification is-danger is-hidden-tablet">
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
             <h1>{{ contribution.title }}</h1>
-            <p class="content" v-html="content"></p>
+            <div class="content" v-html="content"></div>
             <br/>
             <div class="tags" v-if= "categories.length">
               <span class="tag" v-for="category in categories">
@@ -28,25 +33,25 @@
             </div>
             <div class="columns">
               <div class="column is-9 is-mobile">
-                  <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
+                <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
               </div>
               <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
                   <div class="level-item has-text-centered">
                     <div>
-                      <p class="smiley heading">
-                        <b-tooltip :label="$t('component.contribution.shoutAddShout')" type="is-black" >
-                        <hc-button circle size="large" color="success"
-                                   style="font-size: 2em; margin-bottom: 0.8rem;">
-                          <hc-icon set="fa" icon="bullhorn" />
-                        </hc-button>
-                        </b-tooltip>
+                      <div class="smiley heading">
+                        <hc-tooltip :label="$t('component.contribution.shoutAddShout')">
+                          <hc-button circle size="large" color="success"
+                                     style="font-size: 2em; margin-bottom: 0.8rem;">
+                            <hc-icon set="fa" icon="bullhorn" />
+                          </hc-button>
+                        </hc-tooltip>
                         <br/>
                         {{ $t('component.contribution.shoutOf') }}
-                      </p>
-                      <p class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
-                        1000k
-                      </p>
+                      </div>
+                      <div class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
+                        {{ shoutCount }}
+                      </div>
                     </div>
                   </div>
                 </nav>
@@ -130,8 +135,9 @@
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
-  import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import _ from 'lodash'
+
+  const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
 
   export default {
     scrollToTop: false,
@@ -144,7 +150,8 @@
     data () {
       return {
         contribution: null,
-        title: null
+        title: null,
+        loading: false
       }
     },
     async asyncData ({params, error}) {
@@ -175,6 +182,10 @@
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
         return _.isEmpty(this.contribution.comments) ? 0 : _.castArray(this.contribution.comments).length
+      },
+      shoutCount () {
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.contribution.shouts) ? 0 : _.castArray(this.contribution.shouts).length
       },
       categories () {
         return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)

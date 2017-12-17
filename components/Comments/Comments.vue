@@ -3,7 +3,7 @@
     <div v-if="isLoading" class="notification">
       <strong>{{ $t('component.contribution.commentsLoading', 'Loading Comments...') }}</strong>
     </div>
-    <transition-group v-else-if="comments.length >= 1" name="comment">
+    <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
       <comment v-for="comment in comments" :key="comment._id" :comment="comment" :onUpvote="upvote"></comment>
     </transition-group>
     <div v-else class="notification">
@@ -48,6 +48,7 @@
     },
     mounted () {
       this.$store.dispatch('comments/fetchByContributionId', this.post._id)
+      this.$store.dispatch('comments/subscribe', this.post._id)
     }
   }
 </script>

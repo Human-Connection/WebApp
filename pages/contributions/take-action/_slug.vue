@@ -103,7 +103,7 @@
             </table>
 
             <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
-            <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
+            <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
               <tbody v-if="projects.length">
                 <tr v-for="project in projects" :key="project._id">
                   <td>
@@ -194,10 +194,7 @@
             </table>
 
             <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
-            <hc-map v-if="showMap" :places="places" :zoom="zoom" :center="center" style="height: 300px;" />
-            <div v-else class="has-text-centered">
-              <h6 class="is-size-6">loading map...</h6>
-            </div>
+            <hc-map :places="places" :zoom="zoom" :center="center" height="350px" />
           </div>
         </section>
       </div>
@@ -242,8 +239,10 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
-  import Map from '~/components/Map/Map.vue'
   import _ from 'lodash'
+
+  // lazy loaded components
+  const Map = () => import('~/components/Map/Map.vue')
 
   const generatePlaces = (models) => {
     let places = []
@@ -290,8 +289,7 @@
         center: {
           lat: 49.890860,
           lng: 10.327148
-        },
-        showMap: false
+        }
       }
     },
     async asyncData ({params, error}) {
@@ -355,13 +353,6 @@
         return newVar
       }
     },
-    mounted () {
-      if (window) {
-        setTimeout(() => {
-          this.showMap = true
-        }, 1000)
-      }
-    },
     head () {
       return {
         title: this.title
@@ -377,17 +368,6 @@
   .card {
     border: none;
     box-shadow: $card-shadow;
-  }
-  .table {
-    &.is-empty {
-      tr:hover {
-        background-color: transparent;
-      }
-    }
-
-    td {
-      border-color: $grey-lighter;
-    }
   }
 
   .b-tabs.footer {

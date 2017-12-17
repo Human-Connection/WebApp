@@ -1,5 +1,5 @@
 <template>
-  <div class="user-badges columns is-gapless">
+  <div class="user-badges columns">
     <div class="column user-badges-icons">
       <ul v-if="badges">
         <li v-for="badge in getBadges">
@@ -40,7 +40,8 @@
 <style scoped lang="scss">
 .user-badges {
   width: 100%;
-  padding: 10px 0;
+  padding: 10px 0 0 ;
+  margin-top: 15px;
 
   li {
     list-style: none;

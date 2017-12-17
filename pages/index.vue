@@ -1,18 +1,30 @@
 <template>
   <section class="container" style="position: relative">
     <section class="cards" v-cloak="ready">
-      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution.slug"
+      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution._id"
             @ready="updateGrid">
         <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
       </card>
     </section>
-    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="waveDots">
-      <span slot="no-results">
-        <strong class="loader-no-data">{{ $t('component.search.noResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </span>
-      <span slot="no-more">
+    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="spinner">
+      <div slot="no-results">
+        <div v-if="!contributions.length" class="has-text-centered">
+          <hc-emoji type="cry" width="128"></hc-emoji>
+          <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
+          <p>{{ $t('component.search.noResultsText') }}</p>
+          <br/>
+          <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
+            <hc-button @click="$store.commit('search/query', '')" v-html="$t('component.search.noResultsResetQueryButton', { searchQuery: searchQuery })"></hc-button>
+          </div>
+        </div>
+        <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
+      </div>
+      <div slot="no-more">
         <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </span>
+      </div>
+      <div slot="spinner" class="loader-spinner">
+          <div class="is-loading"></div>
+      </div>
     </infinite-loading>
     <div class="add-contribution">
       <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
@@ -28,13 +40,15 @@
   import {mapGetters} from 'vuex'
   import feathers from '~/plugins/feathers'
   import Bricks from 'bricks.js'
-  import Card from '~/components/Contributions/ContributionCard.vue'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
   import _ from 'lodash'
 
+  const ContributionCard = () => import('~/components/Contributions/ContributionCard.vue')
+
+  let app
   export default {
     components: {
-      'card': Card,
+      'card': ContributionCard,
       'infinite-loading': InfiniteLoading
     },
     async asyncData () {
@@ -68,6 +82,7 @@
       ...mapGetters({
         changeLayout: 'layout/change',
         searchQuery: 'search/query',
+        searchCategories: 'search/categoryIds',
         isVerified: 'auth/isVerified'
       })
     },
@@ -79,20 +94,25 @@
         })
       },
       searchQuery () {
-        const app = this
-        app.$nextTick(async () => {
-          console.log(this.searchQuery)
-          app.contributions = []
-          app.skip = 0
-          app.$refs.infiniteLoading.$emit('$InfiniteLoading:reset')
-          app.onInfinite()
-        })
+        this.resetList(this)
+      },
+      searchCategories () {
+        this.resetList(this)
       }
     },
     methods: {
-      updateGrid () {
-        this.bricksInstance.resize(true).pack()
+      resetList (app) {
+        app.$nextTick(async () => {
+          app.contributions = []
+          app.skip = 0
+          this.$refs.infiniteLoading.stateChanger.reset()
+          app.onInfinite()
+        })
       },
+      updateGrid: _.throttle(() => {
+        // throttle the grid updates for better performance
+        app.bricksInstance.resize(true).pack()
+      }, 150),
       onInfinite () {
         let query = {
           $skip: this.skip,
@@ -100,6 +120,13 @@
         }
         if (!_.isEmpty(this.searchQuery)) {
           query.$search = this.searchQuery
+        }
+        if (!_.isEmpty(this.searchCategories)) {
+          query.categoryIds = {
+            $in: this.searchCategories
+          }
+        } else {
+          delete query.categoryIds
         }
         feathers.service('contributions').find({query: query}).then(res => {
           this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
@@ -110,10 +137,10 @@
             if (lastItemNum < res.total) {
               // do load more
               this.skip = res.skip + res.limit
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+              this.$refs.infiniteLoading.stateChanger.loaded()
             } else {
               // do NOT load more
-              this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+              this.$refs.infiniteLoading.stateChanger.complete()
             }
           }, 100)
         }).catch(err => {
@@ -122,6 +149,7 @@
       }
     },
     mounted () {
+      app = this
       this.bricksInstance = new Bricks({
         container: '.cards',
         packed: 'data-packed',
@@ -133,6 +161,9 @@
           {mq: '1300px', columns: 3, gutter: 20}
         ]
       })
+      // feed the search filters with the current settings
+      this.resetList(this)
+
       this.updateGrid()
 
       this.ready = true
@@ -140,11 +171,11 @@
       window.addEventListener('load', () => {
         this.updateGrid()
       })
-      window.addEventListener('resize', _.debounce((e) => {
+      window.addEventListener('resize', _.throttle((e) => {
         if (e.target.innerWidth < 769) {
           this.updateGrid()
         }
-      }, 200))
+      }, 100))
     },
     head () {
       return {
@@ -165,11 +196,18 @@
     @include mobile() {
       width: 100% !important;
     }
+
+    &:empty {
+      height: 20vh !important;
+    }
   }
 
   .loader-no-data,
+  .loader-spinner,
   .loader-no-more {
-    padding-top: 20px !important;
+    padding-top: 30px;
+    display: inline-block;
+
     color: lighten($grey, 10%);
 
     img {
@@ -178,10 +216,17 @@
     }
   }
 
+  .loader-spinner {
+    width: 100%;
+    position: relative;
+    height: 80px;
+    display: flex;
+  }
+
   .add-contribution {
-    z-index: 50;
+    z-index: 60;
     position: fixed;
-    bottom: 50px;
+    bottom: 70px;
     right: 50px;
 
     @include mobile() {

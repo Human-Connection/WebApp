@@ -6,7 +6,7 @@
           <div class="notification is-danger is-hidden-tablet">
             <strong>The sidebar is currently hidden on mobile!</strong>
           </div>
-          <h1>{{ $t('component.contribution.moreInfoBriefOrLong', null, 2) }}</h1>
+          <h1 class="title is-1">{{ $t('component.contribution.moreInfoBriefOrLong', null, 2) }}</h1>
           <div class="notification is-hidden">
             <strong>This is currenty dummy content</strong>
           </div>
@@ -258,17 +258,6 @@
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
 
-  .table {
-    &.is-empty {
-      tr:hover {
-        background-color: transparent;
-      }
-    }
-
-    td {
-      border-color: $grey-lighter;
-    }
-  }
   .card {
     border: none;
     box-shadow: $card-shadow;

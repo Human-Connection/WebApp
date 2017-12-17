@@ -17,7 +17,6 @@
     </div>
 </template>
 
-
 <script>
   import HcAvatar from '~/components/Avatar/Avatar.vue'
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'

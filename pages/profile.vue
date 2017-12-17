@@ -1,8 +1,7 @@
 <template>
   <section class="container" style="position: relative">
-    <div class="profile-header card">
-        <img :src="coverImg">
-    </div>
+    <div class="profile-header card"
+         :style="{ 'background-image': `url(${coverImg})` }"></div>
     <div class="columns">
       <div class="column is-3 user-sidebar">
         <hc-box top="true" class="user-hc-box">
@@ -51,11 +50,7 @@
               <span>{{ $t('auth.account.myGallery') }}</span>
             </div>
             <div class="level-item has-text-centered">
-              <div>
-                <img
-                  src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524"
-                  alt=""/>
-              </div>
+              <hc-icon style="color: #BFBFBF; font-size: 20px;" icon="ellipsis-v"></hc-icon>
               <span>{{ $t('auth.account.myMore') }}</span>
             </div>
           </div>
@@ -199,22 +194,24 @@
 
   .profile-header {
     width: 100%;
-    height: 243px;
-    max-height: 243px;
+    height: 312px;
+    max-height: 312px;
     overflow: hidden;
     position: relative;
-    background: darkgrey;
+    background-color: darkgrey;
+    background-size: cover;
+    background-position: center;
 
     border: none;
     box-shadow: $card-shadow;
 
-    img {
+    /*img {
       width: 100%;
       position: absolute;
       left: 0;
       top: 50%;
       transform: translateY(-50%);
-    }
+    }*/
   }
 
 
@@ -254,7 +251,7 @@
   .hc-shortcuts {
     display: flex;
     justify-content: space-between;
-      
+
     .level-item {
       display: flex;
       flex-direction: column;
@@ -265,7 +262,7 @@
         min-width: 20px;
         display: block;
       }
-  
+
       span {
         display: block;
         width: 100%;
@@ -273,7 +270,7 @@
         font-size: 0.6em;
         text-transform: uppercase;
       }
-    } 
+    }
   }
 
   .hc-textcounters {
