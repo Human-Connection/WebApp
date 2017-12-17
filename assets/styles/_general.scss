@@ -249,7 +249,7 @@ div.nuxt-progress {
   background: -moz-linear-gradient(right, $color1, $color2, $color3, $color4, $color5, $color6, $color7); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to right, $color1 , $color2, $color3, $color4, $color5, $color6, $color7);
 
-  // background-size: 200%;
+  background-size: 100vw;
   // animation: ProgressAnimation 100ms ease;
 }
 

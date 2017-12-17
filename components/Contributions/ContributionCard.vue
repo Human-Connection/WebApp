@@ -1,7 +1,13 @@
 <template>
-  <div class="card" v-bind:class="{ show: ready }">
+  <div class="card" :class="{ show: ready, init: created }">
     <div class="wrapper" @click="clicked">
-      <img class="image" v-if="post.teaserImg" :src="post.thumbnails.teaserImg.placeholder" :srcset="srcset" @load="imageLoaded"/>
+      <hc-progressive-image
+          v-if="post.teaserImg"
+          class="image"
+          :preview="post.thumbnails.teaserImg.placeholder"
+          :src="post.thumbnails.teaserImg.cardS"
+          :srcset="srcset"
+          @onPreview="imageLoaded" />
       <div class="content autowrap">
         <header>
           <div class="ribbon">
@@ -19,21 +25,21 @@
         <footer>
           <div class="infos columns is-mobile">
             <div class="column has-text-left">
-              <div class="tags" v-if="categories.length">
-                <hc-tooltip v-for="category in categories"
-                           :label="$t(`component.category.slug2label-${category.slug}`)"
+              <div class="tags " v-if="categories.length">
+                <b-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
+                           v-for="category in categories"
                            :key="category._id"
                            style="margin-right: 5px;"
                            type="is-dark">
                     <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
                       <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
                     </span>
-                </hc-tooltip>
+                </b-tooltip>
               </div>
             </div>
             <div class="column has-text-right">
               <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: 214}, 214)" class="nowrap">
-                <i class="fa fa-bullhorn"></i><small>214</small>
+                <i class="fa fa-bullhorn"></i><small>{{ shoutCount }}</small>
               </span>
               <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
@@ -53,7 +59,6 @@
   </div>
 </template>
 
-
 <script>
   import author from '~/components/Author/Author.vue'
   import _ from 'lodash'
@@ -66,6 +71,7 @@
     },
     data () {
       return {
+        created: false,
         ready: false
       }
     },
@@ -73,6 +79,10 @@
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
         return _.isEmpty(this.post.comments) ? 0 : _.castArray(this.post.comments).length
+      },
+      shoutCount () {
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.post.shouts) ? 0 : _.castArray(this.post.shouts).length
       },
       categories () {
         return _.isEmpty(this.post.categories) ? [] : _.castArray(this.post.categories)
@@ -91,16 +101,15 @@
       },
       imageLoaded () {
         // show card after the image has been loaded
-        this.$emit('ready')
-        setTimeout(() => {
-          this.$nextTick(() => {
-            this.ready = true
-          })
-        }, 50)
+        this.$nextTick(() => {
+          this.ready = true
+          this.$emit('ready')
+        })
       }
     },
     mounted () {
-      if (!this.post.image) {
+      this.created = true
+      if (!this.post.teaserImg) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
           this.$nextTick(() => {
@@ -118,6 +127,12 @@
   $gutter: 15px;
   $gutter-big: 20px;
   $padding: 25px;
+
+  .progressive {
+    img.preview {
+      filter: none !important;
+    }
+  }
 
   .card {
     display: block;
@@ -138,13 +153,23 @@
     box-shadow: $card-shadow;
 
     opacity: 0;
-    transition: opacity 250ms;
-    transition-delay: 20ms;
+
+    &.init {
+      opacity: .5;
+      transition: opacity 150ms;
+      transition-delay: 50ms
+    }
 
     &.show {
       opacity: 1;
+
+      .wrapper {
+        opacity: 1;
+      }
     }
+
     .wrapper {
+      opacity: 0;
       background-color: #fff;
       cursor: pointer;
       transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
@@ -189,7 +214,7 @@
     }
 
     .image {
-      display: block;
+      display: inline-block;
       width: 100%;
     }
 

@@ -60,8 +60,6 @@
     watch: {
       'inViewport.now' (visible) {
         if (visible) {
-          console.log('This component is ' + (visible ? 'in-viewport' : 'hidden'))
-          console.log(this.wasAtLeastOnceVisible)
           this.wasAtLeastOnceVisible = true
         }
       }
@@ -77,14 +75,7 @@
         this.loadingPreview = false
         this.$emit('onPreview')
         if (this.inViewport.now) {
-          console.log('YEAH!!!!')
           this.wasAtLeastOnceVisible = true
-        } else {
-          setTimeout(() => {
-            if (this.inViewport.now) {
-              this.wasAtLeastOnceVisible = true
-            }
-          }, 1000)
         }
       },
       /**

@@ -50,7 +50,7 @@
                         {{ $t('component.contribution.shoutOf') }}
                       </div>
                       <div class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
-                        1000k
+                        {{ shoutCount }}
                       </div>
                     </div>
                   </div>
@@ -182,6 +182,10 @@
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
         return _.isEmpty(this.contribution.comments) ? 0 : _.castArray(this.contribution.comments).length
+      },
+      shoutCount () {
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.contribution.shouts) ? 0 : _.castArray(this.contribution.shouts).length
       },
       categories () {
         return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)

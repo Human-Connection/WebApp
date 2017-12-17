@@ -224,9 +224,9 @@
   }
 
   .add-contribution {
-    z-index: 50;
+    z-index: 60;
     position: fixed;
-    bottom: 50px;
+    bottom: 70px;
     right: 50px;
 
     @include mobile() {

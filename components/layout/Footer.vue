@@ -23,6 +23,6 @@
     bottom: 0;
     width: 100%;
     padding: 0.8em 5em;
-    z-index: 5;
+    z-index: 50;
   }
 </style>

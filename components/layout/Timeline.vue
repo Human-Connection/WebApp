@@ -156,12 +156,15 @@ $green: hsl(78, 71%, 41%);
     }
   }
   .timeline-intro {
-    text-transform: uppercase;
     text-align: center;
     color: grey;
     padding: 10px 0;
     font-size: 14px;
     letter-spacing: 1px;
+
+    p {
+      text-transform: uppercase;
+    }
 
     .add-post {
       display: block;

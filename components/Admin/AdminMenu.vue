@@ -40,7 +40,7 @@
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 
   .sidebar-menu {
-    background-color: $white-bis;
+    background-color: $white;
   }
 
   .menu-item {

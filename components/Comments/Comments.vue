@@ -48,6 +48,7 @@
     },
     mounted () {
       this.$store.dispatch('comments/fetchByContributionId', this.post._id)
+      this.$store.dispatch('comments/subscribe', this.post._id)
     }
   }
 </script>

@@ -64,8 +64,6 @@
                           <hc-tooltip :label="$t('component.layout.topbarFilterDescription')"
                                      position="is-right"
                                      size="is-large"
-                                     type="is-dark"
-                                     :animated="true"
                                      multilined>
                             <h6 class="title is-6">{{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }} <hc-icon set="fa" icon="question-circle" /></h6>
                           </hc-tooltip>
