@@ -13,7 +13,7 @@
             <count-to v-if="wasAtLeastOnceVisible" :ref=key :startVal=values[key].startVal :endVal=values[key].endVal
                       suffix=' %' :duration=2000 :autoplay="true"></count-to>
             <template v-else>
-                0%
+                0 %
             </template>
           </p>
         </div>
