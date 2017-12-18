@@ -76,7 +76,7 @@
                                      :selected="selectedCategoryIds" />
                         <hr/>
                         <h6 class="title is-6">Emotions</h6>
-                        <filter-list @change="applyEmotionFilter"
+                        <filter-list @change="filterForEmotions"
                                      :items="emotions"
                                      :selected="selectedEmotions"
                                      iconSet="hc-emoji" />
@@ -169,7 +169,8 @@
         errors: null,
         selectedCategoryIds: [],
         selectedEmotions: [],
-        filterThrottle: null
+        filterThrottle: null,
+        filterEmotionThrottle: null
       }
     },
     computed: {
@@ -251,7 +252,16 @@
           this.$store.commit('search/categoryIds', ids)
         }
       },
+      filterForEmotions (emotions) {
+        clearTimeout(this.filterEmotionThrottle)
+        if (!_.isEqual(emotions, this.selectedEmotions)) {
+          this.filterEmotionThrottle = setTimeout(() => {
+            this.applyEmotionFilter(emotions)
+          }, 1000)
+        }
+      },
       applyEmotionFilter (emotions) {
+        clearTimeout(this.filterEmotionThrottle)
         if (!_.isEqual(emotions, this.selectedEmotions)) {
           // get deselected emotions
           this.selectedEmotions = emotions
