@@ -6,7 +6,7 @@
         <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
       </card>
     </section>
-    <infinite-loading @infinite="onInfinite" ref="infiniteLoading" spinner="spinner">
+    <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
       <div slot="no-results">
         <div v-if="!contributions.length" class="has-text-centered">
           <hc-emoji type="cry" width="128"></hc-emoji>
