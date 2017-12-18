@@ -145,7 +145,6 @@
           if (_.isEmpty(query.$and)) {
             delete query.$and
           }
-          console.log(query)
         } else {
           delete query.$and
         }

@@ -276,7 +276,6 @@
         }
         import(`~/locales/${locale}.json`)
           .then(res => {
-            console.log('LOCALE', res)
             this.$i18n.add(locale, res)
             this.$i18n.set(locale)
           })
