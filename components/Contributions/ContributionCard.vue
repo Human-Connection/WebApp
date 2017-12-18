@@ -26,7 +26,7 @@
           <div class="infos columns is-mobile">
             <div class="column has-text-left">
               <div class="tags " v-if="categories.length">
-                <b-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
+                <hc-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
                            v-for="category in categories"
                            :key="category._id"
                            style="margin-right: 5px;"
@@ -34,7 +34,7 @@
                     <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
                       <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
                     </span>
-                </b-tooltip>
+                </hc-tooltip>
               </div>
             </div>
             <div class="column has-text-right">

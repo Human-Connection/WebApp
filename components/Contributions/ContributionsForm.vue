@@ -71,36 +71,36 @@
         <div class="control">
           <div id="toolbar-editor">
             <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
+              <hc-tooltip :label="$t('component.editor.italic')" type="is-black">
                 <button class="ql-italic"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.bold')" type="is-black">
                 <button class="ql-bold"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.strike')" type="is-black">
                 <button class="ql-strike"></button>
-              </b-tooltip>
+              </hc-tooltip>
             </div>
             <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
+              <hc-tooltip :label="$t('component.editor.blockquote')" type="is-black">
                 <button class="ql-blockquote"></button>
-              </b-tooltip>
+              </hc-tooltip>
             </div>
             <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
+              <hc-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
                 <button class="ql-list" value="bullet" ></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
                 <button class="ql-list" value="ordered" ></button>
-              </b-tooltip>
+              </hc-tooltip>
             </div>
             <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.link')" type="is-black">
+              <hc-tooltip :label="$t('component.editor.link')" type="is-black">
                 <button class="ql-link"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.video')" type="is-black">
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.editor.video')" type="is-black">
                 <button class="ql-video"></button>
-              </b-tooltip>
+              </hc-tooltip>
             </div>
           </div>
           <div class="quill-editor story" v-model="form.content" :disabled="loading" v-quill:myQuillEditor="editorOption"></div>

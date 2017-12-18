@@ -27,11 +27,11 @@
       </div>
     </infinite-loading>
     <div class="add-contribution">
-      <b-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
-      <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
-        <hc-icon icon="plus"/>
-      </hc-button>
-      </b-tooltip>
+      <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
+        <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+          <hc-icon icon="plus"/>
+        </hc-button>
+      </hc-tooltip>
     </div>
   </section>
 </template>
