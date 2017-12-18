@@ -20,6 +20,13 @@
       HcFooter,
       HcFrame,
       HcVerificationBanner
+    },
+    head () {
+      return {
+        htmlAttrs: {
+          lang: this.$i18n.locale()
+        }
+      }
     }
   }
 </script>
