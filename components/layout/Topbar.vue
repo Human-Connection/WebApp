@@ -65,7 +65,9 @@
                                      position="is-right"
                                      size="is-large"
                                      multilined>
-                            <h6 class="title is-6">{{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }} <hc-icon set="fa" icon="question-circle" /></h6>
+                            <h6 class="title is-6">
+                              {{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }} <hc-icon set="fa" icon="question-circle" />
+                            </h6>
                           </hc-tooltip>
                         </no-ssr>
                         <filter-list @change="filterForCategories"
@@ -74,8 +76,9 @@
                                      :selected="selectedCategoryIds" />
                         <hr/>
                         <h6 class="title is-6">Emotions</h6>
-                        <filter-list :items="emotions"
-                                     :selected="selectedEmotionIds"
+                        <filter-list @change="applyEmotionFilter"
+                                     :items="emotions"
+                                     :selected="selectedEmotions"
                                      iconSet="hc-emoji" />
                         <br/>
                       </div>
@@ -165,7 +168,7 @@
         stayLoggedIn: false,
         errors: null,
         selectedCategoryIds: [],
-        selectedEmotionIds: [],
+        selectedEmotions: [],
         filterThrottle: null
       }
     },
@@ -223,7 +226,9 @@
       }
     },
     mounted () {
+      // TODO: aplly filters from user config or local storage, but keep them between sessions
       this.applyCategoryFilter(_.map(this.categories, '_id'))
+      this.applyEmotionFilter(_.map(this.emotions, '_id'))
 
       window.addEventListener('resize', this.closeMenu)
     },
@@ -244,6 +249,13 @@
         if (!_.isEqual(ids, this.selectedCategoryIds)) {
           this.selectedCategoryIds = ids
           this.$store.commit('search/categoryIds', ids)
+        }
+      },
+      applyEmotionFilter (emotions) {
+        if (!_.isEqual(emotions, this.selectedEmotions)) {
+          // get deselected emotions
+          this.selectedEmotions = emotions
+          this.$store.commit('search/emotions', this.selectedEmotions)
         }
       },
       logout () {

@@ -5,9 +5,7 @@ export const state = () => {
     query: '',
     filter: {
       categoryIds: [],
-      emotions: {
-        angry: false
-      }
+      emotions: []
     }
   }
 }
@@ -26,6 +24,13 @@ export const mutations = {
     } else {
       state.filter.categoryIds = _.clone(categoryIds)
     }
+  },
+  emotions (state, emotions) {
+    if (!emotions || emotions === undefined) {
+      state.filter.emotions = []
+    } else {
+      state.filter.emotions = _.clone(emotions)
+    }
   }
 }
 
@@ -35,6 +40,9 @@ export const getters = {
   },
   categoryIds (state) {
     return _.clone(state.filter.categoryIds)
+  },
+  emotions (state) {
+    return _.clone(state.filter.emotions)
   },
   all (state) {
     return state

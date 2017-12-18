@@ -83,6 +83,7 @@
         changeLayout: 'layout/change',
         searchQuery: 'search/query',
         searchCategories: 'search/categoryIds',
+        searchEmotions: 'search/emotions',
         isVerified: 'auth/isVerified'
       })
     },
@@ -97,6 +98,9 @@
         this.resetList(this)
       },
       searchCategories () {
+        this.resetList(this)
+      },
+      searchEmotions () {
         this.resetList(this)
       }
     },
@@ -118,15 +122,32 @@
           $skip: this.skip,
           $sort: this.sort
         }
+        // generate the search query with the token entered inside the search field
         if (!_.isEmpty(this.searchQuery)) {
           query.$search = this.searchQuery
         }
+        // generate the category filter quiery by using the selected category ids
         if (!_.isEmpty(this.searchCategories)) {
           query.categoryIds = {
             $in: this.searchCategories
           }
         } else {
           delete query.categoryIds
+        }
+        // generate the emotons filter query by using the selected emotions
+        if (!_.isEmpty(this.searchEmotions)) {
+          query.$and = []
+          _.xor(this.searchEmotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {
+            let obj = {}
+            obj[`emotions.${emotion}.percent`] = {$lt: 20}
+            query.$and.push(obj)
+          })
+          if (_.isEmpty(query.$and)) {
+            delete query.$and
+          }
+          console.log(query)
+        } else {
+          delete query.$and
         }
         feathers.service('contributions').find({query: query}).then(res => {
           this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
