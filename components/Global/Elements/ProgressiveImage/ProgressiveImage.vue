@@ -65,11 +65,13 @@
       'inViewport.now' (visible) {
         if (visible) {
           this.wasAtLeastOnceVisible = true
+          this.removeInViewportHandlers()
         }
       },
       'inViewport.fully' (visible) {
         if (visible) {
           this.wasAtLeastOnceVisible = true
+          this.removeInViewportHandlers()
         }
       }
     },
