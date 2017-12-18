@@ -71,36 +71,36 @@
         <div class="control">
           <div id="toolbar-editor">
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.italic')" type="is-black">
+              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
                 <button class="ql-italic"></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.bold')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
                 <button class="ql-bold"></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.strike')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
                 <button class="ql-strike"></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.blockquote')" type="is-black">
+              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
                 <button class="ql-blockquote"></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
+              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
                 <button class="ql-list" value="bullet" ></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
                 <button class="ql-list" value="ordered" ></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
             <div class="ql-formats">
-              <hc-tooltip :label="$t('component.editor.link')" type="is-black">
+              <b-tooltip :label="$t('component.editor.link')" type="is-black">
                 <button class="ql-link"></button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.editor.video')" type="is-black">
+              </b-tooltip>
+              <b-tooltip :label="$t('component.editor.video')" type="is-black">
                 <button class="ql-video"></button>
-              </hc-tooltip>
+              </b-tooltip>
             </div>
           </div>
           <div class="quill-editor story" v-model="form.content" :disabled="loading" v-quill:myQuillEditor="editorOption"></div>
@@ -112,9 +112,34 @@
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select v-model="form.categoryIds" :disabled="loading"></categories-select>
     </div>
+    <hr/>
+    <div class="field">
+      <div class="control">
+        <div class="level">
+          <div class="level-item">
+            <h6 class="title is-6">Language</h6>&nbsp;&nbsp;
+            <div class="select">
+              <select v-model="form.language">
+                <option value="de" selected>DE</option>
+                <option value="en">EN</option>
+              </select>
+            </div>
+          </div>
+          <div class="level-item">
+            <h6 class="title is-6">Visibility</h6>&nbsp;&nbsp;
+            <div class="select">
+              <select v-model="form.visibility">
+                <option value="public" selected>Public</option>
+                <option value="friends">Friends only</option>
+                <option value="private">Private</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- language -->
     <!-- visibility -->
-    <!-- topics -->
     <!-- tags -->
     <!-- uploads -->
     <hr/>
@@ -170,7 +195,7 @@
           teaserImg: null,
           title: '',
           content: '',
-          language: 'de_DE',
+          language: this.$i18n.locale(),
           visibility: 'public',
           categoryIds: [],
           tags: [],
