@@ -45,6 +45,10 @@
        */
       srcset: {
         type: String
+      },
+      inViewportOffset: {
+        type: Number,
+        default: -150
       }
     },
     data () {
@@ -62,10 +66,19 @@
         if (visible) {
           this.wasAtLeastOnceVisible = true
         }
+      },
+      'inViewport.fully' (visible) {
+        if (visible) {
+          this.wasAtLeastOnceVisible = true
+        }
       }
     },
     mounted () {
-      this.wasAtLeastOnceVisible = !!this.inViewport.now
+      if (this.inViewport.now) {
+        this.wasAtLeastOnceVisible = true
+      } else {
+        this.inViewport.listening = true
+      }
     },
     methods: {
       /**
@@ -74,6 +87,13 @@
       onPreview (e) {
         this.loadingPreview = false
         this.$emit('onPreview')
+
+        if (!this.wasAtLeastOnceVisible) {
+          this.inViewport.listening = true
+          this.removeInViewportHandlers()
+          this.inViewportInit()
+        }
+
         if (this.inViewport.now) {
           this.wasAtLeastOnceVisible = true
         }
@@ -88,6 +108,9 @@
         }, 1000)
         this.ready = true
         this.$emit('onLoad')
+
+        this.inViewport.listening = false
+        this.removeInViewportHandlers()
       }
     }
   }

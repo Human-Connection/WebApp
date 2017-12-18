@@ -187,18 +187,11 @@
       this.updateGrid()
 
       this.ready = true
-      let triggeredScrollOnce = false
 
       window.addEventListener('load', () => {
         this.updateGrid()
-        if (!triggeredScrollOnce) {
-          triggeredScrollOnce = true
-          // fix inViewport bug
-          setTimeout(() => {
-            window.dispatchEvent(new Event('scroll'))
-          }, 500)
-        }
       })
+
       window.addEventListener('resize', _.throttle((e) => {
         if (e.target.innerWidth < 769) {
           this.updateGrid()
