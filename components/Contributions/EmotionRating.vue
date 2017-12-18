@@ -10,8 +10,11 @@
             {{ $t('component.emotionRating.' + key) }}
           </p>
           <p class="title">
-            <count-to :ref=key :startVal=values[key].startVal :endVal=values[key].endVal
-                      suffix=' %' :duration=1000 :autoplay="true"></count-to>
+            <count-to v-if="wasAtLeastOnceVisible" :ref=key :startVal=values[key].startVal :endVal=values[key].endVal
+                      suffix=' %' :duration=2000 :autoplay="true"></count-to>
+            <template v-else>
+                0%
+            </template>
           </p>
         </div>
       </div>
@@ -23,11 +26,13 @@
   import feathers from '~/plugins/feathers'
   import countTo from 'vue-count-to'
   import _ from 'lodash'
+  import inViewport from 'vue-in-viewport-mixin'
 
   // TODO: move logic to store
 
   export default {
     name: 'hc-emotion-rating',
+    mixins: [ inViewport ],
     components: {
       'count-to': countTo
     },
@@ -43,11 +48,11 @@
     data () {
       return {
         values: {},
-        selected: null
+        selected: null,
+        wasAtLeastOnceVisible: false
       }
     },
     created () {
-      // calculate current value
       _.keys(this.contribution.emotions).forEach(key => {
         this.values[key] = {
           startVal: 0,
@@ -68,18 +73,6 @@
           this.contribution.emotions = res.emotions
         }
       })
-      if (this.user) {
-        feathers.service('emotions').find({
-          query: {
-            contributionId: this.contribution._id,
-            userId: this.user._id
-          }
-        }).then((res) => {
-          if (res && !_.isEmpty(res.data)) {
-            this.selected = res.data[0].rated
-          }
-        })
-      }
     },
     beforeDestroy () {
       feathers.service('contributions').off('patched')
@@ -114,6 +107,33 @@
             duration: 3000,
             type: 'is-danger'
           })
+        }
+      }
+    },
+    watch: {
+      'inViewport.fully' () {
+        if (this.inViewport.fully && process.browser) {
+          this.inViewport.listening = false
+          setTimeout(() => {
+            this.wasAtLeastOnceVisible = true
+          }, 500)
+        }
+      },
+      wasAtLeastOnceVisible (visible) {
+        if (visible) {
+          // calculate current value
+          if (this.user) {
+            feathers.service('emotions').find({
+              query: {
+                contributionId: this.contribution._id,
+                userId: this.user._id
+              }
+            }).then((res) => {
+              if (res && !_.isEmpty(res.data)) {
+                this.selected = res.data[0].rated
+              }
+            })
+          }
         }
       }
     }
