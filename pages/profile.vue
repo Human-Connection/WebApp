@@ -3,7 +3,7 @@
     <div class="profile-header card"
          :style="{ 'background-image': `url(${coverImg})` }"></div>
     <div class="columns">
-      <div class="column is-3 user-sidebar">
+      <div class="column is-4-tablet is-3-widescreen user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
             <upload-avatar class="avatar-upload"></upload-avatar>
@@ -13,7 +13,9 @@
             <!--&nbsp;-->
           <!--</div>-->
           <div class="user-name">{{ user.name }}</div>
-          <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
+          <template v-if="user.badges">
+            <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
+          </template>
           <hr>
           <div class="hc-shortcuts level">
             <!-- TODO: replace the cdn images with local hc icons -->
