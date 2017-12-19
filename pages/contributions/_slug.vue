@@ -31,6 +31,11 @@
                 <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
               </span>
             </div>
+            <div class="tags" v-if= "tags.length">
+              <span class="tag" v-for="tag in tags">
+                <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
+              </span>
+            </div>
             <div class="columns">
               <div class="column is-9 is-mobile">
                 <hc-emotion-rating :contribution="contribution" :user="user"></hc-emotion-rating>
@@ -189,6 +194,9 @@
       },
       categories () {
         return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)
+      },
+      tags () {
+        return _.isEmpty(this.contribution.tags) ? [] : _.castArray(this.contribution.tags)
       },
       canEdit () {
         const userId = this.user ? this.user._id : null

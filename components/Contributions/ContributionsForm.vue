@@ -113,6 +113,23 @@
       <categories-select v-model="form.categoryIds" :disabled="loading"></categories-select>
     </div>
     <hr/>
+    <no-ssr>
+      <div class="field">
+        <b-field label="Tags">
+          <b-taginput
+              maxtags="5"
+              size="is-small"
+              :value="form.tags"
+              icon=""
+              placeholder="Add a tag"
+              @keyup.delete.native="onTagDelete"
+              @keydown.tab.native="onTagTab">
+          </b-taginput>
+        </b-field>
+      </div>
+    </no-ssr>
+    <br/>
+    <hr/>
     <div class="field">
       <div class="control">
         <div class="level">
@@ -138,7 +155,6 @@
         </div>
       </div>
     </div>
-    <!-- language -->
     <!-- visibility -->
     <!-- tags -->
     <!-- uploads -->
@@ -168,6 +184,7 @@
   import {mapGetters} from 'vuex'
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import _ from 'lodash'
 
   export default {
     name: 'hc-contributions-form',
@@ -279,16 +296,34 @@
             type: 'is-danger'
           })
         }
+      },
+      onTagDelete (e) {
+        if (_.isEmpty(e.target.value)) {
+          this.form.tags.pop()
+        }
+      },
+      onTagTab (e) {
+        console.log(e.target.value)
+        if (!_.isEmpty(e.target.value)) {
+          setTimeout(() => {
+            e.target.focus()
+          }, 20)
+        }
       }
     }
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import "assets/styles/utilities";
 
   .textarea {
     margin-bottom: 10px;
     min-height: 80px;
+  }
+
+  .field .taginput .taginput-container.is-focusable {
+    border: 1px solid $grey-lighter !important;
+    box-shadow: none !important;
   }
 </style>

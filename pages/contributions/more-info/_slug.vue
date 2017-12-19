@@ -18,15 +18,14 @@
             </span>
           </div>
 
-          <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
-          <div class="tags">
-            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Bienen</span>
-            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Bienensterben</span>
-            <span class="tag"><hc-icon icon="tag"></hc-icon> &nbsp;Imkern</span>
-            <a>
-              <span class="tag"><hc-icon icon="plus"></hc-icon></span>
-            </a>
-          </div>
+          <template v-if="tags.length">
+            <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
+            <div class="tags">
+              <span class="tag" v-for="tag in tags">
+                <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
+              </span>
+            </div>
+          </template>
 
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
           <table class="table is-striped" :class="{ 'is-empty': !relatedPosts.length }">
@@ -236,6 +235,9 @@
       },
       categories () {
         return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)
+      },
+      tags () {
+        return _.isEmpty(this.contribution.tags) ? [] : _.castArray(this.contribution.tags)
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
