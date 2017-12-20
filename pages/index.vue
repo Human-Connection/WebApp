@@ -117,27 +117,29 @@
         // throttle the grid updates for better performance
         app.bricksInstance.resize(true).pack()
       }, 150),
-      onInfinite () {
+      onInfinite: _.debounce(() => {
         let query = {
-          $skip: this.skip,
-          $sort: this.sort
+          $skip: app.skip,
+          $sort: app.sort
         }
         // generate the search query with the token entered inside the search field
-        if (!_.isEmpty(this.searchQuery)) {
-          query.$search = this.searchQuery
+        if (!_.isEmpty(app.searchQuery)) {
+          // query.title = { $search: app.searchQuery }
+          query.$search = app.searchQuery
+          query.$language = app.$i18n.locale()
         }
         // generate the category filter quiery by using the selected category ids
-        if (!_.isEmpty(this.searchCategories)) {
+        if (!_.isEmpty(app.searchCategories)) {
           query.categoryIds = {
-            $in: this.searchCategories
+            $in: app.searchCategories
           }
         } else {
           delete query.categoryIds
         }
         // generate the emotons filter query by using the selected emotions
-        if (!_.isEmpty(this.searchEmotions)) {
+        if (!_.isEmpty(app.searchEmotions)) {
           query.$and = []
-          _.xor(this.searchEmotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {
+          _.xor(app.searchEmotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {
             let obj = {}
             obj[`emotions.${emotion}.percent`] = {$lt: 20}
             query.$and.push(obj)
@@ -148,25 +150,26 @@
         } else {
           delete query.$and
         }
+        console.log(query)
         feathers.service('contributions').find({query: query}).then(res => {
-          this.contributions = _.uniqBy(this.contributions.concat(res.data), '_id')
-          this.$nextTick(() => {
-            this.updateGrid()
+          app.contributions = _.uniqBy(app.contributions.concat(res.data), '_id')
+          app.$nextTick(() => {
+            app.updateGrid()
 
             let lastItemNum = res.data.length + res.skip
             if (lastItemNum < res.total) {
               // do load more
-              this.skip = res.skip + res.limit
-              this.$refs.infiniteLoading.stateChanger.loaded()
+              app.skip = res.skip + res.limit
+              app.$refs.infiniteLoading.stateChanger.loaded()
             } else {
               // do NOT load more
-              this.$refs.infiniteLoading.stateChanger.complete()
+              app.$refs.infiniteLoading.stateChanger.complete()
             }
           }, 100)
         }).catch(err => {
           throw new Error(500, err.message)
         })
-      }
+      }, 300)
     },
     mounted () {
       app = this
