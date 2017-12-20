@@ -169,7 +169,7 @@
         }).catch(err => {
           throw new Error(500, err.message)
         })
-      }, 300)
+      }, 350, { leading: false, trailing: true })
     },
     mounted () {
       app = this

@@ -1,7 +1,10 @@
 <template>
-    <div class="text-center hc__imagecontainer" :class="{ ready: ready }" v-if="src"
-         v-bind:style="{'background-image': `url(${getCover})`}" @onLoad="ready = true" @click="imageModal()">
-    </div>
+    <hc-progressive-image
+        v-if="src"
+        class="teaser-image"
+        :preview="getPlaceholder"
+        :src="getCover"
+        @click.native="imageModal"/>
 </template>
 
 <script>
@@ -24,30 +27,20 @@
           cover: '',
           placeholder: '',
           zoom: ''
-        },
-        ready: false
+        }
       }
     },
     created () {
       try {
         this.url.cover = this.src.cover || this.src || null
-        this.url.placeholder = this.src.placeholder || this.src || null
+        this.url.placeholder = this.src.coverPlaceholder || this.src || null
         this.url.zoom = this.src.zoom || this.src || null
-
-        // preload cover background image
-        if (this.url.cover) {
-          const img = new Image()
-          img.onload = () => {
-            this.ready = true
-          }
-          img.src = this.url.cover
-        }
       } catch (err) {}
     },
     watch: {
       src (src) {
         this.url.cover = src.cover || src || null
-        this.url.placeholder = src.placeholder || src || null
+        this.url.placeholder = src.coverPlaceholder || src || null
         this.url.zoom = src.zoom || src || null
       }
     },
@@ -70,7 +63,7 @@
           this.url.zoom = ''
           this.$nextTick(() => {
             this.url.cover = this.src.cover || this.src || null
-            this.url.placeholder = this.src.placeholder || this.src || null
+            this.url.placeholder = this.src.coverPlaceholder || this.src || null
             this.url.zoom = this.src.zoom || this.src || null
           }, 0)
         }, parseInt(this.refresh))
@@ -92,12 +85,19 @@
 <style scoped lang="scss">
     @import 'assets/styles/utilities';
 
+    .teaser-image {
+        margin: -3rem -1.5rem 1.5rem;
+        cursor: zoom-in;
+        height: 300px;
+        overflow: hidden;
+    }
+
     .hc__imagecontainer {
         height: 300px;
         background-size: cover;
         background-position: top;
         // overflow: hidden;
-        margin: -3rem -1.5rem 1.5rem;
+        margin: -3rem -1.5rem 2.5rem -1.5rem !important;
         cursor: zoom-in;
 
         opacity: 0;

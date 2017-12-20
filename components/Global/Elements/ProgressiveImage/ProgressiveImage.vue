@@ -123,6 +123,7 @@
   .progressive {
     display: block;
     position: relative;
+    overflow: hidden;
   }
 
   img.progressive-image {
@@ -130,6 +131,7 @@
     display: block;
     top: 0;
     opacity: 0;
+    width: 100%;
 
     transition: opacity 250ms ease-in-out;
 
@@ -142,6 +144,7 @@
     z-index: -1;
     display: inline-block;
     top: 0;
+    width: 100%;
 
     &.hide {
       transition: opacity 0ms ease-in-out;
