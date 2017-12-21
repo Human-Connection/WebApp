@@ -109,7 +109,9 @@
         app.$nextTick(async () => {
           app.contributions = []
           app.skip = 0
-          this.$refs.infiniteLoading.stateChanger.reset()
+          try {
+            this.$refs.infiniteLoading.stateChanger.reset()
+          } catch (err) {}
           app.onInfinite()
         })
       },
@@ -160,10 +162,14 @@
             if (lastItemNum < res.total) {
               // do load more
               app.skip = res.skip + res.limit
-              app.$refs.infiniteLoading.stateChanger.loaded()
+              try {
+                app.$refs.infiniteLoading.stateChanger.loaded()
+              } catch (err) {}
             } else {
               // do NOT load more
-              app.$refs.infiniteLoading.stateChanger.complete()
+              try {
+                app.$refs.infiniteLoading.stateChanger.complete()
+              } catch (err) {}
             }
           }, 100)
         }).catch(err => {

@@ -88,11 +88,11 @@
     .teaser-image {
         margin: -3rem -1.5rem 1.5rem;
         cursor: zoom-in;
-        height: 300px;
+        // height: 300px;
         overflow: hidden;
     }
 
-    .hc__imagecontainer {
+    /* .hc__imagecontainer {
         height: 300px;
         background-size: cover;
         background-position: top;
@@ -113,5 +113,5 @@
         @include tablet-only() {
             height: 40vw;
         }
-    }
+    } */
 </style>
