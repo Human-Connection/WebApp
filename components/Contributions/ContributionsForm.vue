@@ -1,7 +1,9 @@
 <template>
   <form v-bind:disabled="loading">
-    <contribution-image :src="form.teaserImg" v-if="isValidURL(form.teaserImg)"
-                        style="margin: -3.8rem -2.25rem 2.25rem;"></contribution-image>
+    <hc-upload :preview-image="form.teaserImg"
+      @update="value => { form.teaserImg = value }"
+      style="margin: -3.8rem -2.25rem 2.25rem;">
+    </hc-upload>
     <div class="columns">
       <div class="column">
         <author :post="{ user: user }"></author>
@@ -9,13 +11,6 @@
       <div class="column"></div>
     </div>
     <hr/>
-    <div class="field">
-      <label class="label">{{ $t('component.contribution.writePostImageLabel') }}</label>
-      <p class="control">
-        <input class="input" v-model="form.teaserImg" type="text" v-bind:placeholder="$t('component.contribution.writePostImagePlaceholder')"
-               v-bind:disabled="loading">
-      </p>
-    </div>
     <!--<div class="tabs is-toggle is-fullwidth">-->
       <!--<ul>-->
         <!--<li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">-->

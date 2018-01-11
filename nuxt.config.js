@@ -84,6 +84,8 @@ module.exports = {
         '~/helpers': path.resolve(__dirname, 'helpers')
       })
       config.resolve.alias = aliases // eslint-disable-line no-param-reassign
+      // Needed for some plugins that don't pre-compile templates
+      config.resolve.alias['vue'] = 'vue/dist/vue.common'
     }
   },
   plugins: [
