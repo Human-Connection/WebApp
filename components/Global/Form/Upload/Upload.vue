@@ -15,7 +15,9 @@
         @complete="complete"
         @added-file="addedFile"
         @drag-enter="startDragging"
+        @drag-end="stopDragging"
         @drag-leave="stopDragging"
+        @drop="stopDragging"
         @total-progress="updateProgress">
         <template slot="clip-uploader-action">
           <div>
@@ -37,6 +39,21 @@
 
 <script>
   import {mapGetters} from 'vuex'
+
+  /*
+  * We use a forked version of vue-clip here
+  * because the old one is not using the newest
+  * dropzone features
+  *
+  * URL: https://github.com/alexsasharegan/vue-clip
+  *
+  * This version just wraps dropzone in a component
+  * and exposes all its options and events to
+  * vue-clip component
+  *
+  * For options and events, see dropzone documentation
+  * URL: http://www.dropzonejs.com/#configuration-options
+   */
 
   export default {
     name: 'hc-upload',
@@ -246,6 +263,10 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+  }
+
+  .hc-attachments-upload-button {
+    pointer-events: none;
   }
 
   @keyframes pulse {
