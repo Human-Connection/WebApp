@@ -213,6 +213,10 @@
     position: relative;
     min-height: 160px;
     background-color: $white-ter;
+
+    &.sending {
+      pointer-events: none;
+    }
   }
 
   .hc-preview {
@@ -244,6 +248,24 @@
     cursor: pointer;
   }
 
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      border-size: 10px;
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      border-size: 40px;
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      border-size: 10px;
+      opacity: 1;
+    }
+  }
+
   .hc-drag-marker {
     position: relative;
     width: 140px;
@@ -256,10 +278,29 @@
     transition: all 0.2s ease-out;
     font-size: 60px;
 
-    background-color: rgba(255,255,255,0.5);
+    background-color: rgba(255,255,255,0.3);
     opacity: 0.3;
 
     &:before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      border-radius: 100%;
+      border: 20px solid rgba(255,255,255,0.4);
+      visibility: hidden;
+
+      .hc-upload.sending & {
+        visibility: visible;
+        animation-name: pulse;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
+      }
+    }
+
+    &:after {
       position: absolute;
       content: '';
       top: 10px;
