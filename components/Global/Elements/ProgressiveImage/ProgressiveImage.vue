@@ -142,7 +142,7 @@
   img.progressive-preview {
     opacity: 1;
     z-index: -1;
-    display: inline-block;
+    display: block;
     top: 0;
     width: 100%;
 

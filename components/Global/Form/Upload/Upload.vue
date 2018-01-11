@@ -1,18 +1,22 @@
 <template>
-  <div class="hc-upload"
-    :class="{ 'has-preview' : previewImage, 'dragging' : dragging }">
+  <div class="hc-upload" :class="classes">
     <div class="hc-preview">
       <hc-progressive-image
         :src="previewImage"
         :preview="previewImage"
         v-if="previewImage" />
     </div>
+    <div class="hc-upload-progress">
+      <hc-progress-bar :progress="progress" />
+    </div>
     <div class="hc-upload-area" v-if="ready && token">
       <vue-clip :options="options"
+        :on-sending="startSending"
         :on-complete="complete"
         :on-added-file="addedFile"
         :on-drag-enter="startDragging"
-        :on-drag-leave="stopDragging">
+        :on-drag-leave="stopDragging"
+        :on-total-progress="updateProgress">
         <template slot="clip-uploader-action">
           <div>
             <div class="dz-message">
@@ -43,21 +47,27 @@
       previewImage: {
         type: String,
         default: ''
+      },
+      testMode: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
         ready: false,
         image: null,
+        sending: false,
         dragging: false,
+        progress: 0,
         errorMessage: '',
         options: {
           url: 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/uploads',
           paramName: 'file',
           parallelUploads: 1,
           maxFilesize: {
-            limit: 5,
-            message: 'Die maximale erlaubte Dateigröße beträgt 5 MB.'
+            limit: 20,
+            message: 'Die maximale erlaubte Dateigröße beträgt 20 MB.'
           },
           uploadMultiple: false,
           acceptedFiles: {
@@ -71,7 +81,20 @@
     computed: {
       ...mapGetters({
         token: 'auth/token'
-      })
+      }),
+      classes () {
+        let classes = []
+        if (this.previewImage) {
+          classes.push('preview')
+        }
+        if (this.dragging) {
+          classes.push('dragging')
+        }
+        if (this.sending) {
+          classes.push('sending')
+        }
+        return classes.join(' ')
+      }
     },
     methods: {
       checkToken () {
@@ -86,9 +109,13 @@
       addedFile (file) {
         this.errorMessage = ''
       },
+      startSending () {
+        this.sending = true
+      },
       complete (file) {
         if (!file || !file.status || file.status !== 'success') {
           this.errorMessage = file.errorMessage
+          this.resetLoader()
           return
         }
 
@@ -96,7 +123,22 @@
         const url = JSON.parse(file.xhrResponse.responseText).id
 
         this.image = `${basepath}${url}`
-        this.$emit('update', this.image)
+
+        this.addProgress()
+        // this.$emit('update', this.image)
+        // this.resetLoader()
+      },
+      // Fake progress in development
+      addProgress () {
+        this.progress += 10
+        if (this.progress === 100) {
+          this.$emit('update', this.image)
+          this.resetLoader()
+          return
+        }
+        setTimeout(() => {
+          this.addProgress()
+        }, 50)
       },
       deleteItem (index) {
         this.image = null
@@ -107,6 +149,15 @@
       },
       stopDragging () {
         this.dragging = false
+      },
+      updateProgress (progress) {
+        // this.progress = progress
+      },
+      resetLoader () {
+        this.sending = false
+        setTimeout(() => {
+          this.progress = 0
+        }, 500)
       }
     },
     watch: {
@@ -132,9 +183,18 @@
   .hc-preview {
     transition: all 0.2s ease-out;
 
-    .hc-upload:hover &, .hc-upload.dragging & {
+    .hc-upload:hover &,
+    .hc-upload.dragging &,
+    .hc-upload.sending & {
       opacity: 0.65;
     }
+  }
+
+  .hc-upload-progress {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
   }
 
   .hc-attachments-upload-area {
@@ -175,11 +235,13 @@
       border: 1px dashed $grey-darker;
     }
 
-    .hc-upload.has-preview & {
+    .hc-upload.preview & {
       opacity: 0;
     }
 
-    .hc-attachments-upload-area:hover &, .hc-upload.dragging & {
+    .hc-attachments-upload-area:hover &,
+    .hc-upload.dragging &,
+    .hc-upload.sending & {
       opacity: 1;
     }
   }
