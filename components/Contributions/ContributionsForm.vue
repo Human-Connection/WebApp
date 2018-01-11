@@ -3,6 +3,8 @@
     <!-- ToDo remove :test="true" for production -->
     <hc-upload :preview-image="form.teaserImg" :test="true"
       @update="value => { form.teaserImg = value }"
+      @start-sending="uploading = true"
+      @stop-sending="uploading = false"
       style="margin: -3.8rem -2.25rem 2.25rem;">
     </hc-upload>
     <div class="columns">
@@ -31,25 +33,6 @@
                v-bind:disabled="loading">
       </p>
     </div>
-    <!--<label class="label">Titelbild Upload</label>-->
-    <!--<b-field>-->
-      <!--<b-upload v-model="dropFiles" drag-drop>-->
-        <!--<section class="section">-->
-          <!--<div class="content has-text-centered">-->
-            <!--<p>-->
-              <!--<b-icon-->
-                  <!--icon="file_upload"-->
-                  <!--size="is-large">-->
-              <!--</b-icon>-->
-            <!--</p>-->
-            <!--<p>Drop your files here or click to upload</p>-->
-          <!--</div>-->
-        <!--</section>-->
-      <!--</b-upload>-->
-    <!--</b-field>-->
-    <!--<figure class="image" style="background-image: url('http://bulma.io/images/placeholders/640x320.png')">-->
-      <!--<img v-bind:src="form.teaserImg" style="min-height: 320px;">-->
-    <!--</figure>-->
     <div class="tags">
       <div v-for="(file, index) in dropFiles"
             :key="index"
@@ -159,13 +142,15 @@
       <div class="field is-grouped is-grouped-right">
         <div class="control">
           <button class="button has-text-grey is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i> &nbsp;{{ $t('button.cancel') }}
+            <i class="fa fa-times"></i>
+            &nbsp;{{ $t('button.cancel') }}
           </button>
         </div>
         <div class="control">
-          <hc-button :loading="loading"
-                  @click.prevent="onSubmit">
-            <i class="fa fa-check"></i> &nbsp;<span>{{ buttonPublishLabel }}</span>
+          <hc-button :loading="loading" :disabled="disabled"
+            @click.prevent="onSubmit">
+            <i class="fa fa-check"></i>
+            &nbsp;<span>{{ buttonPublishLabel }}</span>
           </hc-button>
         </div>
       </div>
@@ -201,6 +186,7 @@
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
         loading: false,
+        uploading: false,
         dropFiles: null,
         form: {
           _id: null,
@@ -258,6 +244,9 @@
       }),
       buttonPublishLabel () {
         return this.form._id ? this.$t('button.update') : this.$t('button.publish')
+      },
+      disabled () {
+        return !!this.uploading
       }
     },
     methods: {

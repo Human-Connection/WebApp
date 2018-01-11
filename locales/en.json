@@ -152,6 +152,13 @@
       "noProjects": "Sorry there are no projects that fit that contribution right now. <br/><br/>Do you want to add one?"
     }
   },
+  "upload": {
+    "errors": {
+      "general": "Error during upload. Please try again.",
+      "maxFilesize": "Maximum allowed file size is {size}.",
+      "acceptedFiles": "You may only upload images here."
+    }
+  },
   "button": {
     "back": "Back",
     "cancel": "Cancel",

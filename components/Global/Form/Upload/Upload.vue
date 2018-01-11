@@ -11,12 +11,12 @@
     </div>
     <div class="hc-upload-area" v-if="ready && token">
       <vue-clip :options="options"
-        :on-sending="startSending"
-        :on-complete="complete"
-        :on-added-file="addedFile"
-        :on-drag-enter="startDragging"
-        :on-drag-leave="stopDragging"
-        :on-total-progress="updateProgress">
+        @sending="startSending"
+        @complete="complete"
+        @added-file="addedFile"
+        @drag-enter="startDragging"
+        @drag-leave="stopDragging"
+        @total-progress="updateProgress">
         <template slot="clip-uploader-action">
           <div>
             <div class="dz-message">
@@ -31,9 +31,6 @@
           </div>
         </template>
       </vue-clip>
-    </div>
-    <div class="hc-warning" v-if="errorMessage">
-      {{ errorMessage }}
     </div>
   </div>
 </template>
@@ -51,29 +48,47 @@
       test: {
         type: Boolean,
         default: false
+      },
+      maxWidth: {
+        type: Number,
+        default: 1000
+      },
+      maxHeight: {
+        type: Number,
+        default: 800
+      },
+      maxFileSize: {
+        type: Number,
+        default: 10
       }
     },
     data () {
       return {
+        vueClip: {},
         ready: false,
         image: null,
         sending: false,
         dragging: false,
         progress: 0,
         errorMessage: '',
+        generalError: this.$t('upload.errors.general'),
         options: {
           url: 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/uploads',
           paramName: 'file',
           parallelUploads: 1,
           maxFilesize: {
-            limit: 20,
-            message: 'Die maximale erlaubte Dateigröße beträgt 20 MB.'
+            limit: this.maxFileSize,
+            message: this.$t('upload.errors.maxFilesize', {
+              'size': `${this.maxFileSize} MB`
+            })
           },
           uploadMultiple: false,
           acceptedFiles: {
             extensions: ['image/*'],
-            message: 'Bitte wähle ein Bild aus.'
+            message: this.$t('upload.errors.acceptedFiles')
           },
+          resizeWidth: 1000,
+          resizeHeight: 800,
           headers: {}
         }
       }
@@ -94,6 +109,12 @@
           classes.push('sending')
         }
         return classes.join(' ')
+      },
+      maxDimensions () {
+        return {
+          width: this.maxWidth,
+          height: this.maxHeight
+        }
       }
     },
     methods: {
@@ -108,19 +129,27 @@
       },
       addedFile () {
         this.errorMessage = ''
+        this.sending = true
+        this.$emit('start-sending')
       },
       startSending () {
-        this.sending = true
+        //
       },
       complete (file) {
         if (!file || !file.status || file.status !== 'success') {
-          this.errorMessage = file.errorMessage
+          this.errorMessage = file && typeof file.errorMessage === 'string'
+            ? file.errorMessage
+            : this.generalError
+          this.$snackbar.open({
+            message: this.errorMessage,
+            duration: 4000,
+            type: 'is-error'
+          })
           this.resetLoader()
           return
         }
-
         const basepath = 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/uploads/'
-        const url = JSON.parse(file.xhrResponse.responseText).id
+        const url = JSON.parse(file.xhr.responseText).id
 
         this.image = `${basepath}${url}`
 
@@ -162,6 +191,7 @@
         this.sending = false
         setTimeout(() => {
           this.progress = 0
+          this.$emit('stop-sending')
         }, 500)
       }
     },
