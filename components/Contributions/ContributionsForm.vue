@@ -1,6 +1,7 @@
 <template>
   <form v-bind:disabled="loading">
-    <hc-upload :preview-image="form.teaserImg"
+    <!-- ToDo remove :test="true" for production -->
+    <hc-upload :preview-image="form.teaserImg" :test="true"
       @update="value => { form.teaserImg = value }"
       style="margin: -3.8rem -2.25rem 2.25rem;">
     </hc-upload>

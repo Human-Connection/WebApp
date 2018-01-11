@@ -48,7 +48,7 @@
         type: String,
         default: ''
       },
-      testMode: {
+      test: {
         type: Boolean,
         default: false
       }
@@ -106,7 +106,7 @@
         }
         this.ready = true
       },
-      addedFile (file) {
+      addedFile () {
         this.errorMessage = ''
       },
       startSending () {
@@ -124,20 +124,23 @@
 
         this.image = `${basepath}${url}`
 
-        this.addProgress()
-        // this.$emit('update', this.image)
-        // this.resetLoader()
+        if (this.test) {
+          this.fakeProgress()
+        } else {
+          this.$emit('update', this.image)
+          this.resetLoader()
+        }
       },
       // Fake progress in development
-      addProgress () {
-        this.progress += 10
+      fakeProgress () {
+        this.progress += 5
         if (this.progress === 100) {
           this.$emit('update', this.image)
           this.resetLoader()
           return
         }
         setTimeout(() => {
-          this.addProgress()
+          this.fakeProgress()
         }, 50)
       },
       deleteItem (index) {
@@ -151,7 +154,9 @@
         this.dragging = false
       },
       updateProgress (progress) {
-        // this.progress = progress
+        if (!this.test) {
+          this.progress = progress
+        }
       },
       resetLoader () {
         this.sending = false
