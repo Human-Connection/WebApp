@@ -2,7 +2,8 @@ import feathers from '~/plugins/feathers'
 
 export const state = () => {
   return {
-    user: null
+    user: null,
+    token: null
   }
 }
 
@@ -12,6 +13,13 @@ export const mutations = {
       state.user = null
     } else {
       state.user = user
+    }
+  },
+  SET_TOKEN (state, token) {
+    if (!token || token === undefined) {
+      state.token = null
+    } else {
+      state.token = token
     }
   }
 }
@@ -28,6 +36,9 @@ export const getters = {
   },
   user (state) {
     return state.user
+  },
+  token (state) {
+    return state.token
   }
 }
 
@@ -39,6 +50,7 @@ export const actions = {
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
       commit('SET_USER', user)
+      commit('SET_TOKEN', response.accessToken)
       dispatch('notifications/fetch', null, { root: true })
     } catch (err) {
       console.error(err.message)
@@ -55,9 +67,11 @@ export const actions = {
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
       commit('SET_USER', user)
+      commit('SET_TOKEN', response.accessToken)
     } catch (err) {
       console.error(err.message)
       commit('SET_USER', null)
+      commit('SET_TOKEN', null)
       throw new Error(err.message)
     }
   },
@@ -68,6 +82,7 @@ export const actions = {
       console.error(err.message)
     }
     commit('SET_USER', null)
+    commit('SET_TOKEN', null)
     commit('notifications/clear', null, { root: true })
     feathers.set('user', null)
   },
