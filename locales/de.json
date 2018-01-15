@@ -152,6 +152,13 @@
       "noProjects": "Es gibt leider noch keine Projekte die zu diesem Beitrag passen. <br/><br/>Willst Du eins erstellen?"
     }
   },
+  "upload": {
+    "errors": {
+      "general": "Beim Upload ist ein Fehler aufgetreten. Bitte versuche es erneut.",
+      "maxFilesize": "Die maximale erlaubte Dateigröße beträgt {size}.",
+      "acceptedFiles": "Du kannst hier nur Bilddateien hochladen."
+    }
+  },
   "button": {
     "back": "Zurück",
     "cancel": "Abbrechen",

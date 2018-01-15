@@ -1,7 +1,13 @@
 <template>
-  <form v-bind:disabled="isLoading">
-    <contribution-image :src="form.teaserImg" v-if="isValidURL(form.teaserImg)"
-                        style="margin: -3.8rem -2.25rem 2.25rem;"></contribution-image>
+  <form v-bind:disabled="loading">
+    <!-- ToDo remove :test="true" for production -->
+    <hc-upload :preview-image="form.teaserImg"
+               :test="true"
+               @update="value => { form.teaserImg = value }"
+               @start-sending="uploading = true"
+               @stop-sending="uploading = false"
+               style="margin: -3.8rem -2.25rem 2.25rem;">
+    </hc-upload>
     <div class="columns">
       <div class="column">
         <author :post="{ user: user }"></author>
@@ -9,13 +15,6 @@
       <div class="column"></div>
     </div>
     <hr/>
-    <div class="field">
-      <label class="label">{{ $t('component.contribution.writePostImageLabel') }}</label>
-      <p class="control">
-        <input class="input" v-model="form.teaserImg" type="text" v-bind:placeholder="$t('component.contribution.writePostImagePlaceholder')"
-               v-bind:disabled="isLoading">
-      </p>
-    </div>
     <!--<div class="tabs is-toggle is-fullwidth">-->
       <!--<ul>-->
         <!--<li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">-->
@@ -35,25 +34,6 @@
                v-bind:disabled="isLoading">
       </p>
     </div>
-    <!--<label class="label">Titelbild Upload</label>-->
-    <!--<b-field>-->
-      <!--<b-upload v-model="dropFiles" drag-drop>-->
-        <!--<section class="section">-->
-          <!--<div class="content has-text-centered">-->
-            <!--<p>-->
-              <!--<b-icon-->
-                  <!--icon="file_upload"-->
-                  <!--size="is-large">-->
-              <!--</b-icon>-->
-            <!--</p>-->
-            <!--<p>Drop your files here or click to upload</p>-->
-          <!--</div>-->
-        <!--</section>-->
-      <!--</b-upload>-->
-    <!--</b-field>-->
-    <!--<figure class="image" style="background-image: url('http://bulma.io/images/placeholders/640x320.png')">-->
-      <!--<img v-bind:src="form.teaserImg" style="min-height: 320px;">-->
-    <!--</figure>-->
     <div class="tags">
       <div v-for="(file, index) in dropFiles"
             :key="index"
@@ -103,7 +83,10 @@
               </b-tooltip>
             </div>
           </div>
-          <div class="quill-editor story" v-model="form.content" :disabled="isLoading" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story"
+               v-model="form.content"
+               :disabled="isLoading"
+               v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
@@ -163,13 +146,16 @@
       <div class="field is-grouped is-grouped-right">
         <div class="control">
           <button class="button has-text-grey is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i> &nbsp;{{ $t('button.cancel') }}
+            <i class="fa fa-times"></i>
+            &nbsp;{{ $t('button.cancel') }}
           </button>
         </div>
         <div class="control">
           <hc-button :isLoading="isLoading"
-                  @click.prevent="onSubmit">
-            <i class="fa fa-check"></i> &nbsp;<span>{{ buttonPublishLabel }}</span>
+                     :disabled="disabled"
+                     @click.prevent="onSubmit">
+            <i class="fa fa-check"></i>
+            &nbsp;<span>{{ buttonPublishLabel }}</span>
           </hc-button>
         </div>
       </div>
@@ -205,6 +191,7 @@
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
         isLoading: false,
+        uploading: false,
         dropFiles: null,
         form: {
           _id: null,
@@ -262,6 +249,9 @@
       }),
       buttonPublishLabel () {
         return this.form._id ? this.$t('button.update') : this.$t('button.publish')
+      },
+      disabled () {
+        return !!this.uploading
       }
     },
     methods: {

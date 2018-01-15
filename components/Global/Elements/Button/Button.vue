@@ -1,8 +1,10 @@
 <template>
-  <button v-if="hasType === 'button'" :class="classes" @click="click">
+  <button v-if="hasType === 'button'"
+    :class="classes" @click="click" :disabled="disabled">
     <slot></slot>
   </button>
-  <nuxt-link v-else-if="hasType === 'nuxt'" :class="classes" :to="to" @click.native="click">
+  <nuxt-link v-else-if="hasType === 'nuxt'"
+    :class="classes" :to="to" @click.native="click">
     <slot></slot>
   </nuxt-link>
   <a v-else :class="classes" @click="click">
@@ -39,6 +41,13 @@
         default: false
       },
       /**
+       * Set disabled state: true | false
+       */
+      disabled: {
+        type: Boolean,
+        default: false
+      },
+      /**
        * Set size: xsmall, small, medium, large
        */
       size: {
@@ -71,6 +80,9 @@
         }
         if (this.isLoading) {
           classes += ' is-loading'
+        }
+        if (this.disabled) {
+          classes += ' is-disabled'
         }
         if (this.size) {
           classes += ` is-${this.size}`
