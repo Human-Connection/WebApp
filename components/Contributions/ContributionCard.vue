@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{ show: ready, init: created }">
+  <div class="card" :class="{ show: ready }">
     <div class="wrapper" @click="clicked">
       <hc-progressive-image
           v-if="post.teaserImg"
@@ -65,7 +65,16 @@
 
   export default {
     name: 'hc-contribution-card',
-    props: ['post'],
+    props: {
+      post: {
+        type: Object,
+        required: true
+      },
+      inViewportOffset: {
+        type: Number,
+        default: 250
+      }
+    },
     components: {
       'author': author
     },
@@ -135,6 +144,21 @@
   }
 
   .card {
+
+    /*opacity: .5;
+    transition: opacity 150ms;
+
+    .wrapper {
+      visibility: hidden;
+    }
+    &[v-cloak] {
+      opacity: 1;
+
+      .wrapper {
+        visibility: visible;
+      }
+    }*/
+
     display: block;
     width: 100%;
     max-width: 100%;
@@ -151,13 +175,17 @@
       width: ($fullhd - 2 * $gutter-big - $container-gutter) / 3;
     }
     box-shadow: $card-shadow;
+    // box-shadow: none;
 
     opacity: 0;
 
-    &.init {
+    &, & wrapper {
+      transition: opacity 50ms;
+      transition-delay: 50ms;
+    }
+
+    &[data-packed] {
       opacity: .5;
-      transition: opacity 150ms;
-      transition-delay: 50ms
     }
 
     &.show {
@@ -172,7 +200,7 @@
       opacity: 0;
       background-color: #fff;
       cursor: pointer;
-      transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
+      transition: box-shadow 150ms ease-out, transform 150ms ease-out;
       position: relative;
 
       z-index: 1;
@@ -180,7 +208,7 @@
       @include tablet() {
         &:hover {
           box-shadow: $card-shadow-hover;
-          transform: scale(1.02);
+          // transform: scale(1.02);
           z-index: 2;
         }
       }
