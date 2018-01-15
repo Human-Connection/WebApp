@@ -48,7 +48,7 @@
     },
     data () {
       return {
-        loading: true,
+        isLoading: true,
         verified: false
       }
     },
@@ -59,10 +59,10 @@
         .then((res) => {
           console.log('RES:', res)
           this.verified = !!res
-          app.loading = false
+          app.isLoading = false
         })
         .catch((error) => {
-          app.loading = false
+          app.isLoading = false
           this.$toast.open({
             message: error.message,
             duration: 3000,

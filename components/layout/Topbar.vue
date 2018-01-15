@@ -164,7 +164,7 @@
       app = this
       return {
         menuIsActive: false,
-        loading: false,
+        isLoading: false,
         stayLoggedIn: false,
         errors: null,
         selectedCategoryIds: [],

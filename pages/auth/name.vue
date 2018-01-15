@@ -22,7 +22,11 @@
             </p>
           </div>
           <p>
-            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
+            <hc-button color="primary"
+                       size="medium"
+                       type="button"
+                       class="is-fullwidth"
+                       :isLoading="isLoading">
               {{ $t('button.save') }}
             </hc-button>
           </p>
@@ -52,7 +56,7 @@
         data: {
           name: ''
         },
-        loading: false,
+        isLoading: false,
         errors: null
       }
     },
@@ -64,10 +68,10 @@
     methods: {
       async save () {
         this.errors = false
-        this.loading = true
+        this.isLoading = true
         this.$store.dispatch('auth/patch', this.data)
           .then(() => {
-            this.loading = false
+            this.isLoading = false
             this.$router.push({name: 'auth-welcome'})
           })
           .catch(error => {
@@ -77,7 +81,7 @@
               type: 'is-danger'
             })
             this.errors = true
-            this.loading = false
+            this.isLoading = false
           })
       }
     },

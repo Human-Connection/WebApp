@@ -6,13 +6,13 @@ const commentsService = feathers.service('comments')
 export const state = () => {
   return {
     comments: [],
-    loading: true
+    isLoading: true
   }
 }
 
 export const mutations = {
-  loading (state, status) {
-    state.loading = status
+  isLoading (state, status) {
+    state.isLoading = status
   },
   set (state, comments) {
     state.comments = _.castArray(comments)
@@ -27,7 +27,7 @@ export const getters = {
     return state.comments
   },
   isLoading (state) {
-    return state.loading
+    return state.isLoading
   },
   count (state) {
     return state.comments.length
@@ -58,10 +58,10 @@ export const actions = {
     })
       .then((result) => {
         commit('set', result.data)
-        commit('loading', false)
+        commit('isLoading', false)
       })
       .catch((e) => {
-        commit('loading', false)
+        commit('isLoading', false)
       })
   },
   fetchById ({commit}, id) {

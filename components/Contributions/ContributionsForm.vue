@@ -1,5 +1,5 @@
 <template>
-  <form v-bind:disabled="loading">
+  <form v-bind:disabled="isLoading">
     <contribution-image :src="form.teaserImg" v-if="isValidURL(form.teaserImg)"
                         style="margin: -3.8rem -2.25rem 2.25rem;"></contribution-image>
     <div class="columns">
@@ -13,7 +13,7 @@
       <label class="label">{{ $t('component.contribution.writePostImageLabel') }}</label>
       <p class="control">
         <input class="input" v-model="form.teaserImg" type="text" v-bind:placeholder="$t('component.contribution.writePostImagePlaceholder')"
-               v-bind:disabled="loading">
+               v-bind:disabled="isLoading">
       </p>
     </div>
     <!--<div class="tabs is-toggle is-fullwidth">-->
@@ -32,7 +32,7 @@
       <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
         <input class="input" v-model="form.title" type="text" v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
-               v-bind:disabled="loading">
+               v-bind:disabled="isLoading">
       </p>
     </div>
     <!--<label class="label">Titelbild Upload</label>-->
@@ -103,14 +103,14 @@
               </b-tooltip>
             </div>
           </div>
-          <div class="quill-editor story" v-model="form.content" :disabled="loading" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story" v-model="form.content" :disabled="isLoading" v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
     <hr/>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-      <categories-select v-model="form.categoryIds" :disabled="loading"></categories-select>
+      <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
     </div>
     <hr/>
     <no-ssr>
@@ -167,7 +167,7 @@
           </button>
         </div>
         <div class="control">
-          <hc-button :loading="loading"
+          <hc-button :isLoading="isLoading"
                   @click.prevent="onSubmit">
             <i class="fa fa-check"></i> &nbsp;<span>{{ buttonPublishLabel }}</span>
           </hc-button>
@@ -204,7 +204,7 @@
       // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
-        loading: false,
+        isLoading: false,
         dropFiles: null,
         form: {
           _id: null,
@@ -272,7 +272,7 @@
         this.dropFiles.splice(index, 1)
       },
       async onSubmit () {
-        this.loading = true
+        this.isLoading = true
 
         try {
           let res = null
@@ -289,7 +289,7 @@
           this.$router.push(`/contributions/${res.slug}?refresh=true`)
         } catch (err) {
           console.error(err)
-          this.loading = false
+          this.isLoading = false
           this.$toast.open({
             message: err.message,
             duration: 3000,

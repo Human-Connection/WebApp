@@ -4,12 +4,18 @@
     <h3>Development</h3>
     <div class="field is-grouped">
       <div class="control">
-        <hc-button color="danger" @click="seedFakeData()" :loading="seedingFakeData" :disabled="seedingFakeData || seedingDemoData">
+        <hc-button color="danger"
+                   @click="seedFakeData()"
+                   :isLoading="seedingFakeData"
+                   :disabled="seedingFakeData || seedingDemoData">
           <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>Seed fake data</strong>
         </hc-button>
       </div>
       <div class="control">
-        <hc-button color="danger" @click="seedDemoData()" :loading="seedingDemoData" :disabled="seedingFakeData || seedingDemoData">
+        <hc-button color="danger"
+                   @click="seedDemoData()"
+                   :isLoading="seedingDemoData"
+                   :disabled="seedingFakeData || seedingDemoData">
           <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>Seed demo contributions</strong>
         </hc-button>
       </div>

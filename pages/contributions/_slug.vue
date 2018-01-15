@@ -13,7 +13,7 @@
                 <hc-button v-if="canEdit"
                            class="pull-right"
                            color="light"
-                           :loading="loading"
+                           :isLoading="isLoading"
                            @click="loading = true"
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
@@ -156,7 +156,7 @@
       return {
         contribution: null,
         title: null,
-        loading: false
+        isLoading: false
       }
     },
     async asyncData ({params, error}) {

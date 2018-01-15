@@ -34,7 +34,7 @@
       /**
        * Set loading state: true | false
        */
-      loading: {
+      isLoading: {
         type: Boolean,
         default: false
       },
@@ -69,7 +69,7 @@
         if (this.circle) {
           classes += ' is-circle'
         }
-        if (this.loading) {
+        if (this.isLoading) {
           classes += ' is-loading'
         }
         if (this.size) {
