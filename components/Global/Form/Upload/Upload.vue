@@ -100,10 +100,7 @@
             })
           },
           uploadMultiple: false,
-          acceptedFiles: {
-            extensions: ['image/*'],
-            message: this.$t('upload.errors.acceptedFiles')
-          },
+          acceptedFiles: 'image/*',
           resizeWidth: 1000,
           resizeHeight: 800,
           headers: {}

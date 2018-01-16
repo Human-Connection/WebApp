@@ -274,6 +274,7 @@
           } else {
             res = await feathers.service('contributions').create(this.form)
           }
+          this.$store.commit('newsfeed/clear')
           this.$snackbar.open({
             message: this.$t('component.contribution.messageSaveSuccess'),
             duration: 4000,
