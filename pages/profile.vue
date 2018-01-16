@@ -1,17 +1,23 @@
 <template>
-  <section class="container" style="position: relative">
-    <div class="profile-header card"
-         :style="{ 'background-image': `url(${coverImg})` }"></div>
+  <section class="container page-profile" style="position: relative">
+    <hc-upload class="profile-header card"
+               :preview-image="coverImg"
+               :test="true"
+               @update="onCoverUploadCompleted"
+               @start-sending="uploadingCover = true"
+               @stop-sending="uploadingCover = false" >
+    </hc-upload>
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
-            <upload-avatar class="avatar-upload"></upload-avatar>
+            <hc-upload class="avatar-upload"
+                       :preview-image="form.avatar || user.avatar"
+                       :test="true"
+                       @update="onAvatarUploadCompleted"
+                       @start-sending="uploadingAvatar = true"
+                       @stop-sending="uploadingAvatar = false" ></hc-upload>
           </div>
-
-          <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
-            <!--&nbsp;-->
-          <!--</div>-->
           <div class="user-name">{{ user.name }}</div>
           <template v-if="user.badges">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
@@ -111,18 +117,20 @@
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~/components/Map/Map.vue'
-  import UploadAvatar from '~/components/User/UploadAvatar'
   import Timeline from '~/components/layout/Timeline'
+  import Avatar from '~/components/Avatar/Avatar'
   import Badges from '~/components/Profile/Badges/Badges'
   import feathers from '~/plugins/feathers'
+
+  import { isEmpty } from 'lodash'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
-      'upload-avatar': UploadAvatar,
       'hc-profile-badges': Badges,
       'hc-map': Map,
-      'hc-timeline': Timeline
+      'hc-timeline': Timeline,
+      Avatar
     },
     data () {
       return {
@@ -157,7 +165,13 @@
           users: [],
           organizations: [],
           projects: []
-        }
+        },
+        form: {
+          coverImg: null,
+          avatar: null
+        },
+        uploadingCover: false,
+        uploadingAvatar: false
       }
     },
     middleware: ['authenticated'],
@@ -167,7 +181,29 @@
         user: 'auth/user'
       }),
       coverImg () {
-        return this.user.coverImg ? this.user.coverImg : 'https://source.unsplash.com/random/1250x280'
+        if (!isEmpty(this.form.coverImg)) {
+          return this.form.coverImg
+        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
+          return this.user.thumbnails.coverImg.cover
+        } else if (!isEmpty(this.user.coverImg)) {
+          return this.user.coverImg
+        } else {
+          return 'https://source.unsplash.com/random/1250x280'
+        }
+      }
+    },
+    methods: {
+      onCoverUploadCompleted (value) {
+        this.form.coverImg = value
+        this.$store.dispatch('auth/patch', {
+          coverImg: value
+        })
+      },
+      onAvatarUploadCompleted (value) {
+        this.form.avatar = value
+        this.$store.dispatch('auth/patch', {
+          avatar: value
+        })
       }
     },
     async mounted () {
@@ -187,115 +223,152 @@
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import "assets/styles/utilities";
 
-  #main {
-    margin-top: 0;
-  }
+  .page-profile {
 
-  .profile-header {
-    width: 100%;
-    height: 312px;
-    max-height: 312px;
-    overflow: hidden;
-    position: relative;
-    background-color: darkgrey;
-    background-size: cover;
-    background-position: center;
+    #main {
+      margin-top: 0;
+    }
 
-    border: none;
-    box-shadow: $card-shadow;
-
-    /*img {
+    .profile-header {
       width: 100%;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
-    }*/
-  }
-
-
-  .user-sidebar {
-    min-height: 200px;
-
-    .user-hc-box {
+      height: 312px;
+      max-height: 312px;
+      overflow: hidden;
       position: relative;
+      background-color: darkgrey;
+      background-size: cover;
+      background-position: center;
 
-      .user-avatar {
-        border-radius: 130px;
-        width:         130px;
-        height:        130px;
-        position:      absolute;
-        top:           0;
-        left:          50%;
-        transform:     translateX(-50%) translateY(-50%);
-        border:        5px solid white;
-        display:       inline-block;
+      border: none;
+      box-shadow: $card-shadow;
+    }
 
-        .avatar-upload {
-          border:     none;
-          width:      100%;
-          height:     100%;
+    .user-sidebar {
+      min-height: 200px;
+
+      .user-hc-box {
+        position: relative;
+        $borderRadius: 50%;
+
+        .user-avatar {
+          border-radius: $borderRadius;
+          width:         130px;
+          height:        130px;
+          position:      absolute;
+          top:           0;
+          left:          50%;
+          transform:     translateX(-50%) translateY(-50%);
+          border:        5px solid white;
+          display:       inline-block;
+          background-color: #fff;
+
+          .avatar-upload {
+            & {
+              border:        none;
+              border-radius: $borderRadius;
+              overflow:      hidden;
+              width:         100%;
+              height:        100%;
+              max-height:    100%;
+              min-height:    100%;
+              max-width:     100%;
+              min-width:     100%;
+            }
+          }
+        }
+
+        .user-name {
+          font-weight: bold;
+          font-size: 16px;
+          text-align: center;
+          padding-top: 60px;
         }
       }
-
-      .user-name {
-        font-weight: bold;
-        font-size: 16px;
-        text-align: center;
-        padding-top: 60px;
-      }
     }
-  }
 
-  .hc-shortcuts {
-    display: flex;
-    justify-content: space-between;
-
-    .level-item {
+    .hc-shortcuts {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      // width: 58px;
+      justify-content: space-between;
 
-      img {
-        min-width: 20px;
-        display: block;
+      .level-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // width: 58px;
+
+        img {
+          min-width: 20px;
+          display: block;
+        }
+
+        span {
+          display: block;
+          width: 100%;
+          padding: 5px 0 0 0;
+          font-size: 0.6em;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .hc-textcounters {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+
+      .textcountitem {
+        text-align: center;
+        border-right: 1px solid #dadada;
+        //border-left: 1px solid #dadada;
+        padding: 0 10px 0 10px;
+      }
+      .textcountitem:first-child {
+        text-align: right;
+      }
+      .textcountitem:last-child {
+        text-align: left;
+        border-right: 0;
+      }
+    }
+
+    .hc-follower-list {
+      margin: 15px 0;
+    }
+
+    .user-avatar {
+
+      .hc-preview {
+        position: relative;
       }
 
-      span {
-        display: block;
-        width: 100%;
-        padding: 5px 0 0 0;
-        font-size: 0.6em;
-        text-transform: uppercase;
+      &:before {
+        border-radius: 50%;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      }
+
+      .hc-upload.sending {
+        i.fa {
+          opacity: 0;
+        }
+
+        .hc-upload-progress {
+          bottom: 49% !important;
+          z-index: 10;
+        }
       }
     }
   }
 
-  .hc-textcounters {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
 
-    .textcountitem {
-      text-align: center;
-      border-right: 1px solid #dadada;
-      //border-left: 1px solid #dadada;
-      padding: 0 10px 0 10px;
-    }
-    .textcountitem:first-child {
-      text-align: right;
-    }
-    .textcountitem:last-child {
-      text-align: left;
-      border-right: 0;
-    }
-  }
-
-  .hc-follower-list {
-    margin: 15px 0;
-  }
 </style>

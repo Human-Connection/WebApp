@@ -1,11 +1,11 @@
 <template>
   <form v-bind:disabled="loading">
     <!-- ToDo remove :test="true" for production -->
-    <hc-upload :preview-image="form.teaserImg"
+    <hc-upload :previewImage="form.teaserImg"
                :test="true"
                @update="value => { form.teaserImg = value }"
-               @start-sending="uploading = true"
-               @stop-sending="uploading = false"
+               @start-sending="uploadingCover = true"
+               @stop-sending="uploadingCover = false"
                style="margin: -3.8rem -2.25rem 2.25rem;">
     </hc-upload>
     <div class="columns">
@@ -30,7 +30,10 @@
     <div class="field">
       <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
-        <input class="input" v-model="form.title" type="text" v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
+        <input class="input"
+               v-model="form.title"
+               type="text"
+               v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
                v-bind:disabled="isLoading">
       </p>
     </div>
@@ -191,7 +194,7 @@
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
         isLoading: false,
-        uploading: false,
+        uploadingCover: false,
         dropFiles: null,
         form: {
           _id: null,
@@ -251,7 +254,7 @@
         return this.form._id ? this.$t('button.update') : this.$t('button.publish')
       },
       disabled () {
-        return !!this.uploading
+        return !!this.uploadingCover
       }
     },
     methods: {

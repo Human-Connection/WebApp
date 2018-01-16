@@ -20,7 +20,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import _ from 'lodash'
+  import { isEmpty, debounce } from 'lodash'
 
   let app
   export default {
@@ -32,7 +32,7 @@
       }
     },
     methods: {
-      onInput: _.debounce(() => {
+      onInput: debounce(() => {
         app.$store.commit('search/query', app.value)
       }, 600),
       clear () {
@@ -49,7 +49,7 @@
         searchQuery: 'search/query'
       }),
       isActive () {
-        return !_.isEmpty(this.value)
+        return !isEmpty(this.value)
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-    <section class="container content">
+    <section class="container content page-auth-name">
         <div class="card">
             <div class="card-content">
                 <div class="card-teaser">
@@ -8,7 +8,14 @@
                 <h1 class="title is-3 is-spaced">{{ $t('auth.account.nameSection') }}</h1>
                 <p class="subtitle is-6">{{ $t('auth.account.nameDescription') }}</p>
 
-                <upload-avatar refresh="800"></upload-avatar>
+                <div class="user-avatar">
+                    <hc-upload class="avatar-upload"
+                               :preview-image="form.avatar || user.avatar"
+                               :test="true"
+                               @update="onAvatarUploadCompleted"
+                               @start-sending="uploadingAvatar = true"
+                               @stop-sending="uploadingAvatar = false" ></hc-upload>
+                </div>
 
                 <form @submit.prevent="save">
                     <div class="field">
@@ -42,23 +49,29 @@
 </template>
 
 <script>
-  import UploadAvatar from '~/components/User/UploadAvatar'
   import Vue from 'vue'
+  import {mapGetters} from 'vuex'
 
   export default {
     middleware: 'authenticated',
     layout: 'blank',
-    components: {
-      'upload-avatar': UploadAvatar
-    },
     data () {
       return {
         data: {
           name: ''
         },
+        form: {
+          avatar: null
+        },
+        errors: null,
         isLoading: false,
-        errors: null
+        uploadingAvatar: false
       }
+    },
+    computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      })
     },
     mounted () {
       Vue.nextTick(() => {
@@ -83,6 +96,12 @@
             this.errors = true
             this.isLoading = false
           })
+      },
+      onAvatarUploadCompleted (value) {
+        this.form.avatar = value
+        this.$store.dispatch('auth/patch', {
+          avatar: value
+        })
       }
     },
     head () {
@@ -93,32 +112,85 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import "assets/styles/_utilities";
 
-  .card {
-      margin: 0 auto;
-      max-width: 460px;
-      text-align: center;
-      border: none;
-      box-shadow: $card-shadow;
-  }
+  .page-auth-name {
 
-  .card-teaser {
-    img {
-      display: inline-block;
-      max-width: 200px;
-      height: auto;
-
-      @include tablet {
-        max-width: 260px;
+      .card {
+          margin: 0 auto;
+          max-width: 460px;
+          text-align: center;
+          border: none;
+          box-shadow: $card-shadow;
       }
-    }
+
+      .card-teaser {
+        img {
+          display: inline-block;
+          max-width: 200px;
+          height: auto;
+
+          @include tablet {
+            max-width: 260px;
+          }
+        }
+      }
+
+      form {
+        margin: 1em auto;
+        padding: 1em;
+        text-align: left;
+      }
+
+      .user-avatar {
+          $borderRadius: 50%;
+
+          border-radius: $borderRadius;
+          width:         120px;
+          height:        120px;
+          position:      relative;
+          display:       inline-block;
+          background-color: #fff;
+
+          .avatar-upload {
+              & {
+                  border:        none;
+                  border-radius: $borderRadius;
+                  overflow:      hidden;
+                  width:         100%;
+                  height:        100%;
+                  max-height:    100%;
+                  min-height:    100%;
+                  max-width:     100%;
+                  min-width:     100%;
+              }
+          }
+
+          .hc-upload.sending {
+              i.fa {
+                  opacity: 0;
+              }
+
+              .hc-upload-progress {
+                  bottom: 49% !important;
+                  z-index: 10;
+              }
+          }
+
+          &:before {
+              border-radius: 50%;
+              content: '';
+              position: absolute;
+              top: 0;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              z-index: 10;
+              pointer-events: none;
+              box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+          }
+      }
   }
 
-  form {
-    margin: 1em auto;
-    padding: 1em;
-    text-align: left;
-  }
 </style>
