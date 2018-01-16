@@ -16,14 +16,14 @@ There are also several methods available on the property `this.$i18n` or `Vue.i1
 #### Pluralisation & Counting
 
 In case of pluralisation and counting separate the values for translation via `:::` like so:
-```javascript
+```json
 "translationKey": "one ::: many"
 "translationKeyOnePluralNone": "one ::: many ::: none"
 "translationKeyCounted": "{count} thing ::: {count} things ::: {count} things"
 "translationKeyCounted": "{count} thing ::: {count} things ::: nothing"
 ```
 Code example:
-```javascript
+```json
 // message key in locale/en.json
 "tagCountedOnePluralNone": "{count} tag ::: {count} tags ::: no tags"
 // Context in *.vue/HTML files use {{ $t(…) }}
@@ -40,7 +40,7 @@ $t('tagCountedOnePluralNone') // tag ::: tags ::: no tags
 #### Embedding HTML via v-html
 
 Suggest the following file `en.json` with the message key:
-```javascript
+```json
 {
   "auth": {
     "account": {
