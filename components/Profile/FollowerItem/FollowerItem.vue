@@ -27,7 +27,7 @@
     padding-bottom: 8px;
 
     .hc-follower-image {
-      padding-right: 5px;
+      // padding-right: 5px;
       width:         42px;
       height:        42px;
     }

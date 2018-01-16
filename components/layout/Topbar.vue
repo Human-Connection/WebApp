@@ -98,7 +98,7 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                   <nuxt-link class="navbar-link hide-in-menu"
                              :to="{ name: 'profile' }">
-                    <avatar :url="user.avatar"></avatar>
+                    <avatar :user="user"></avatar>
                   </nuxt-link>
                   <div class="navbar-dropdown user-menu is-boxed is-right">
                     <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: user ? user.name : ''})"></div>
@@ -152,7 +152,7 @@
   let app = this
 
   export default {
-    name: 'hc-topbar2',
+    name: 'hc-topbar',
     components: {
       SearchInput,
       HcButton,

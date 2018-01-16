@@ -239,6 +239,21 @@
   .hc-preview {
     transition: all 0.2s ease-out;
 
+    width: 100%;
+    height: 100%;
+
+    > .progressive {
+      width: 100%;
+      height: 100%;
+
+      > img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        overflow: hidden;
+      }
+    }
+
     .hc-upload:hover &,
     .hc-upload.dragging &,
     .hc-upload.sending & {
@@ -250,7 +265,11 @@
     position: absolute;
     left: 0;
     right: 0;
-    top: 100%;
+    bottom: 0;
+  }
+
+  .sending .hc-upload-progress {
+    background: rgba(255, 255, 255, .5);
   }
 
   .hc-attachments-upload-area {
