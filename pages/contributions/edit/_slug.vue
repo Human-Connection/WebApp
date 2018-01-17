@@ -37,7 +37,7 @@
     },
     data () {
       return {
-        loading: false,
+        isLoading: false,
         form: {}
       }
     },

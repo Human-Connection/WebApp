@@ -30,8 +30,11 @@
     <div class="field">
       <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
-        <input class="input" v-model="form.title" type="text" v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
-               v-bind:disabled="loading">
+        <input class="input"
+               v-model="form.title"
+               type="text"
+               v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
+               v-bind:disabled="isLoading">
       </p>
     </div>
     <div class="tags">
@@ -83,14 +86,17 @@
               </b-tooltip>
             </div>
           </div>
-          <div class="quill-editor story" v-model="form.content" :disabled="loading" v-quill:myQuillEditor="editorOption"></div>
+          <div class="quill-editor story"
+               v-model="form.content"
+               :disabled="isLoading"
+               v-quill:myQuillEditor="editorOption"></div>
         </div>
       </div>
     </no-ssr>
     <hr/>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-      <categories-select v-model="form.categoryIds" :disabled="loading"></categories-select>
+      <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
     </div>
     <hr/>
     <no-ssr>
@@ -148,8 +154,9 @@
           </button>
         </div>
         <div class="control">
-          <hc-button :loading="loading" :disabled="disabled"
-            @click.prevent="onSubmit">
+          <hc-button :isLoading="isLoading"
+                     :disabled="disabled"
+                     @click.prevent="onSubmit">
             <i class="fa fa-check"></i>
             &nbsp;<span>{{ buttonPublishLabel }}</span>
           </hc-button>
@@ -186,7 +193,7 @@
       // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
-        loading: false,
+        isLoading: false,
         uploadingCover: false,
         dropFiles: null,
         form: {
@@ -258,7 +265,7 @@
         this.dropFiles.splice(index, 1)
       },
       async onSubmit () {
-        this.loading = true
+        this.isLoading = true
 
         try {
           let res = null
@@ -267,6 +274,7 @@
           } else {
             res = await feathers.service('contributions').create(this.form)
           }
+          this.$store.commit('newsfeed/clear')
           this.$snackbar.open({
             message: this.$t('component.contribution.messageSaveSuccess'),
             duration: 4000,
@@ -275,7 +283,7 @@
           this.$router.push(`/contributions/${res.slug}?refresh=true`)
         } catch (err) {
           console.error(err)
-          this.loading = false
+          this.isLoading = false
           this.$toast.open({
             message: err.message,
             duration: 3000,

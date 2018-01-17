@@ -13,7 +13,7 @@
       </hc-tooltip>
     </div>
     <div class="timeline-content">
-      <div v-if="loading" class="timeline-loader">
+      <div v-if="isLoading" class="timeline-loader">
         <div class="is-loading"></div>
       </div>
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
@@ -38,7 +38,7 @@
   export default {
     data () {
       return {
-        loading: true,
+        isLoading: true,
         loadingFinished: false,
         contributions: []
       }
@@ -53,7 +53,7 @@
       ContributionCard
     },
     mounted () {
-      this.loading = true
+      this.isLoading = true
       this.loadingFinished = false;
 
       // get the contributions by the userId and sort it
@@ -69,7 +69,7 @@
               }
             }
           })
-          this.loading = false
+          this.isLoading = false
           this.loadingFinished = true
           let contributions = Array.isArray(res.data) ? res.data : []
           this.contributions = contributions
@@ -77,7 +77,7 @@
           // this just displays nothing
           // @todo implement some user feedback
           console.error(err)
-          this.loading = false
+          this.isLoading = false
         }
       })()
     }

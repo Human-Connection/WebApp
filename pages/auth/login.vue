@@ -36,7 +36,7 @@
                      size="medium"
                      type="button"
                      class="is-fullwidth"
-                     :loading="loading">
+                     :isLoading="isLoading">
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>
@@ -68,7 +68,7 @@
           email: '',
           password: ''
         },
-        loading: false,
+        isLoading: false,
         stayLoggedIn: false,
         errors: null
       }
@@ -87,7 +87,7 @@
       async login (e) {
         e.preventDefault()
         this.errors = false
-        this.loading = true
+        this.isLoading = true
         this.$store.dispatch('auth/login', this.data)
           .then(() => {
             this.$snackbar.open({
@@ -106,7 +106,7 @@
             })
             this.errors = true
             this.animate('shake')
-            this.loading = false
+            this.isLoading = false
           })
       }
     },

@@ -1,44 +1,48 @@
 <template>
-  <section class="container" style="position: relative">
-    <section class="cards" v-cloak="ready">
-      <card class="card" v-for="contribution in contributions" :post="contribution" :key="contribution._id"
-            @ready="updateGrid">
-        <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
-      </card>
-    </section>
-    <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
-      <div slot="no-results">
-        <div v-if="!contributions.length" class="has-text-centered">
-          <hc-emoji type="cry" width="128"></hc-emoji>
-          <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
-          <p>{{ $t('component.search.noResultsText') }}</p>
-          <br/>
-          <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
-            <hc-button @click="$store.commit('search/query', '')" v-html="$t('component.search.noResultsResetQueryButton', { searchQuery: searchQuery })"></hc-button>
-          </div>
+    <section class="container" style="position: relative">
+        <section class="cards" v-cloak="ready">
+            <card v-for="contribution in contributions"
+                  :post="contribution"
+                  :key="contribution._id"
+                  class="card"
+                  @click.native="saveScrollPos"
+                  @ready="updateGrid">
+                <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
+            </card>
+        </section>
+        <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
+            <div slot="no-results">
+                <div v-if="!contributions.length" class="has-text-centered">
+                    <hc-emoji type="cry" width="128"></hc-emoji>
+                    <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
+                    <p>{{ $t('component.search.noResultsText') }}</p><br/>
+                    <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
+                        <hc-button @click="$store.commit('search/query', '')" v-html="$t('component.search.noResultsResetQueryButton', { searchQuery: searchQuery })"></hc-button>
+                    </div>
+                </div>
+                <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26"/>
+                </strong>
+            </div>
+            <div slot="no-more">
+                <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26"/>
+                </strong>
+            </div>
+            <div slot="spinner" class="loader-spinner">
+                <div class="is-loading"></div>
+            </div>
+        </infinite-loading>
+        <div class="add-contribution">
+            <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black">
+                <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+                    <hc-icon icon="plus"/>
+                </hc-button>
+            </hc-tooltip>
         </div>
-        <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </div>
-      <div slot="no-more">
-        <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26" /></strong>
-      </div>
-      <div slot="spinner" class="loader-spinner">
-          <div class="is-loading"></div>
-      </div>
-    </infinite-loading>
-    <div class="add-contribution">
-      <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black" >
-        <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
-          <hc-icon icon="plus"/>
-        </hc-button>
-      </hc-tooltip>
-    </div>
-  </section>
+    </section>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-  import feathers from '~/plugins/feathers'
+  import { mapGetters } from 'vuex'
   import Bricks from 'bricks.js'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
   import _ from 'lodash'
@@ -51,31 +55,14 @@
       'card': ContributionCard,
       'infinite-loading': InfiniteLoading
     },
-    async asyncData () {
-      let sort = {
-        createdAt: -1
-      }
-      let res = await feathers.service('contributions').find({
-        query: {
-          $sort: sort
-        }
-      })
-      return {
-        contributions: res.data,
-        limit: res.limit,
-        skip: res.limit,
-        sort: sort
-      }
+    async asyncData ({store}) {
+      await store.dispatch('newsfeed/fetch')
     },
     data () {
       return {
         bricksInstance: null,
-        contributions: null,
         errors: null,
-        ready: false,
-        limit: null,
-        skip: 0,
-        sort: {}
+        ready: false
       }
     },
     computed: {
@@ -84,100 +71,93 @@
         searchQuery: 'search/query',
         searchCategories: 'search/categoryIds',
         searchEmotions: 'search/emotions',
-        isVerified: 'auth/isVerified'
+        isVerified: 'auth/isVerified',
+        contributions: 'newsfeed/all',
+        hasNext: 'newsfeed/hasNext',
+        isLoading: 'newsfeed/isLoading'
       })
     },
     watch: {
+      contributions (items) {
+        if (items.length) {
+          this.ready = true
+          app.bricksInstance.update()
+        }
+      },
+      hasNext (hasNext) {
+        if (hasNext) {
+          try {
+            app.$refs.infiniteLoading.stateChanger.reset()
+          } catch (err) {}
+        }
+      },
+      isLoading (isLoading) {
+        if (isLoading || !app.$refs.infiniteLoading) {
+          return
+        }
+        if (this.hasNext) {
+          try {
+            app.$refs.infiniteLoading.stateChanger.loaded()
+          } catch (err) {}
+        } else {
+          try {
+            app.$refs.infiniteLoading.stateChanger.complete()
+          } catch (err) {}
+        }
+      },
       changeLayout () {
         const app = this
         app.$nextTick(() => {
           app.updateGrid()
         })
       },
-      searchQuery () {
+      searchQuery (value) {
+        console.log('##searchQuery')
+        this.$store.commit('newsfeed/setSearch', value)
         this.resetList(this)
       },
       searchCategories () {
-        this.resetList(this)
+        console.log('##searchCategories')
+        // this.resetList(this)
       },
       searchEmotions () {
-        this.resetList(this)
+        console.log('##searchEmotions')
+        // this.resetList(this)
       }
     },
     methods: {
+      saveScrollPos () {
+        this.$store.commit('newsfeed/setLastScrollPos', window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop)
+      },
       resetList (app) {
-        app.$nextTick(async () => {
-          app.contributions = []
-          app.skip = 0
-          try {
-            this.$refs.infiniteLoading.stateChanger.reset()
-          } catch (err) {}
+        app.$nextTick(() => {
+          app.$store.commit('newsfeed/clear')
+          window.scrollTo(0, 0)
           app.onInfinite()
+          try {
+            app.$refs.infiniteLoading.stateChanger.reset()
+          } catch (err) {}
         })
       },
-      updateGrid: _.throttle(() => {
+      updateGrid: _.throttle((resize = false, update = false) => {
         // throttle the grid updates for better performance
-        app.bricksInstance.resize(true).pack()
+        if (resize) {
+          app.bricksInstance.resize(false).pack()
+        } else if (update) {
+          try {
+            app.bricksInstance.update()
+          } catch (err) {
+            app.bricksInstance.pack()
+          }
+        } else {
+          app.bricksInstance.pack()
+        }
       }, 150),
-      onInfinite: _.debounce(() => {
-        let query = {
-          $skip: app.skip,
-          $sort: app.sort
-        }
-        // generate the search query with the token entered inside the search field
-        if (!_.isEmpty(app.searchQuery)) {
-          // query.title = { $search: app.searchQuery }
-          query.$search = app.searchQuery
-          query.$language = app.$i18n.locale()
-        }
-        // generate the category filter quiery by using the selected category ids
-        if (!_.isEmpty(app.searchCategories)) {
-          query.categoryIds = {
-            $in: app.searchCategories
-          }
-        } else {
-          delete query.categoryIds
-        }
-        // generate the emotons filter query by using the selected emotions
-        if (!_.isEmpty(app.searchEmotions)) {
-          query.$and = []
-          _.xor(app.searchEmotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {
-            let obj = {}
-            obj[`emotions.${emotion}.percent`] = {$lt: 20}
-            query.$and.push(obj)
-          })
-          if (_.isEmpty(query.$and)) {
-            delete query.$and
-          }
-        } else {
-          delete query.$and
-        }
-        console.log(query)
-        feathers.service('contributions').find({query: query}).then(res => {
-          app.contributions = _.uniqBy(app.contributions.concat(res.data), '_id')
-          app.$nextTick(() => {
-            app.updateGrid()
-
-            let lastItemNum = res.data.length + res.skip
-            if (lastItemNum < res.total) {
-              // do load more
-              app.skip = res.skip + res.limit
-              try {
-                app.$refs.infiniteLoading.stateChanger.loaded()
-              } catch (err) {}
-            } else {
-              // do NOT load more
-              try {
-                app.$refs.infiniteLoading.stateChanger.complete()
-              } catch (err) {}
-            }
-          }, 100)
-        }).catch(err => {
-          throw new Error(500, err.message)
-        })
-      }, 350, { leading: false, trailing: true })
+      onInfinite: _.throttle(($state) => {
+        app.$store.dispatch('newsfeed/fetchMore')
+      }, 150)
     },
-    mounted () {
+    mounted: function () {
       app = this
       this.bricksInstance = new Bricks({
         container: '.cards',
@@ -191,21 +171,29 @@
         ]
       })
       // feed the search filters with the current settings
-      this.resetList(this)
+      console.log('#length', this.contributions.length)
 
-      this.updateGrid()
-
-      this.ready = true
+      if (this.contributions.length) {
+        this.$store.commit('newsfeed/setLoading', true)
+        const lastScrollPos = this.$store.getters['newsfeed/lastScrollPos']
+        window.scrollTo(0, lastScrollPos)
+        setTimeout(() => {
+          this.$store.commit('newsfeed/setLoading', false)
+          this.$store.commit('newsfeed/setHasNext', true)
+        }, 1000)
+        this.updateGrid(false, true)
+      } else {
+        this.resetList(this)
+        this.$store.dispatch('newsfeed/fetch')
+      }
+      this.ready = !!this.contributions.length
 
       window.addEventListener('load', () => {
-        this.updateGrid()
+        this.updateGrid(false, true)
       })
-
       window.addEventListener('resize', _.throttle((e) => {
-        if (e.target.innerWidth < 769) {
-          this.updateGrid()
-        }
-      }, 100))
+        this.updateGrid(true, false)
+      }, 200))
     },
     head () {
       return {
@@ -216,64 +204,63 @@
 </script>
 
 <style lang="scss" scoped>
-  @import 'assets/styles/utilities';
+    @import 'assets/styles/utilities';
 
-  .cards {
-    padding: 0;
-    margin-left: auto;
-    margin-right: auto;
+    .cards {
+        padding:      0;
+        margin-left:  auto;
+        margin-right: auto;
 
-    @include mobile() {
-      width: 100% !important;
+        @include mobile() {
+            width: 100% !important;
+        }
+
+        &:empty {
+            height: 20vh !important;
+        }
     }
 
-    &:empty {
-      height: 20vh !important;
-    }
-  }
+    .loader-no-data,
+    .loader-spinner,
+    .loader-no-more {
+        padding-top: 30px;
+        display:     inline-block;
+        color:       lighten($grey, 10%);
 
-  .loader-no-data,
-  .loader-spinner,
-  .loader-no-more {
-    padding-top: 30px;
-    display: inline-block;
-
-    color: lighten($grey, 10%);
-
-    img {
-      display: inline-block;
-      margin-bottom: -0.5rem;
-    }
-  }
-
-  .loader-spinner {
-    width: 100%;
-    position: relative;
-    height: 80px;
-    display: flex;
-  }
-
-  .add-contribution {
-    z-index: 60;
-    position: fixed;
-    bottom: 70px;
-    right: 50px;
-
-    @include mobile() {
-      bottom: 25px;
-      right: 25px;
+        img {
+            display:       inline-block;
+            margin-bottom: -0.5rem;
+        }
     }
 
-    .button {
-      box-shadow: 0 20px 60px 0 rgba(0, 0, 0, .35) !important;
-      transition: box-shadow, transform;
-      transition-duration: 100ms;
-      transition-timing-function: ease-in-out;
-
-      &:hover {
-        transform: scale(1.1);
-        box-shadow: 0 20px 60px 0 rgba(0, 0, 0, .35);
-      }
+    .loader-spinner {
+        width:    100%;
+        position: relative;
+        height:   80px;
+        display:  flex;
     }
-  }
+
+    .add-contribution {
+        z-index:  60;
+        position: fixed;
+        bottom:   70px;
+        right:    50px;
+
+        @include mobile() {
+            bottom: 25px;
+            right:  25px;
+        }
+
+        .button {
+            box-shadow:                 0 20px 60px 0 rgba(0, 0, 0, .35) !important;
+            transition:                 box-shadow, transform;
+            transition-duration:        100ms;
+            transition-timing-function: ease-in-out;
+
+            &:hover {
+                transform:  scale(1.1);
+                box-shadow: 0 20px 60px 0 rgba(0, 0, 0, .35);
+            }
+        }
+    }
 </style>

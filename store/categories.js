@@ -1,24 +1,21 @@
 import feathers from '~/plugins/feathers'
+import _ from 'lodash'
 
 const categoriesService = feathers.service('categories')
 
 export const state = () => {
   return {
-    categories: false
+    categories: []
   }
 }
 
 export const mutations = {
   set (state, categories) {
-    if (!categories || categories === undefined) {
-      state.categories = null
-    } else {
-      state.categories = categories
-    }
+    state.categories = _.castArray(categories)
   },
   // [vuex] unknown local mutation type: clear, global type: categories/clear
   clear (state) {
-    state.categories = null
+    state.categories = []
   }
 }
 

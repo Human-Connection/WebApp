@@ -32,7 +32,7 @@
             <b-checkbox>{{ $t('auth.account.confirmOlderThan18') }}</b-checkbox>
           </div>
           <p>
-            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
+            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :isLoading="isLoading">
               {{ $t('auth.register.label') }}
             </hc-button>
           </p>
@@ -67,7 +67,7 @@
           email: '',
           password: ''
         },
-        loading: false,
+        isLoading: false,
         errors: null
       }
     },
@@ -80,10 +80,10 @@
       async register (e) {
         e.preventDefault()
         this.errors = false
-        this.loading = true
+        this.isLoading = true
         this.$store.dispatch('auth/register', this.data)
           .then(() => {
-            this.loading = false
+            this.isLoading = false
             this.data.password = null
             this.$router.replace({name: 'auth-name'})
           })
@@ -95,7 +95,7 @@
             })
             this.errors = true
             this.animate('shake')
-            this.loading = false
+            this.isLoading = false
           })
       }
     },

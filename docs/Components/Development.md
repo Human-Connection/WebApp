@@ -34,7 +34,7 @@ Example:
       /**
        * Set loading state: true | false
        */
-      loading: {
+      isLoading: {
         type: Boolean,
         default: false
       }

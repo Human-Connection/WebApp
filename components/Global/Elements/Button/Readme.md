@@ -47,7 +47,7 @@ A button can be circular
 A button can appear in loading state
 
 ```
-<hc-button :loading="true">Loading Button</hc-button>
+<hc-button :isLoading="true">Loading Button</hc-button>
 ```
 
 ### Types

@@ -1,8 +1,11 @@
 <template>
   <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
     <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
-    <button type="submit" class="submit-button button is-primary is-fullwidth"
-            :disabled="!this.hasContent" :class="{ 'is-loading': loading }">{{ $t('button.submitComment','Submit comment') }}
+    <button type="submit"
+            class="submit-button button is-primary is-fullwidth"
+            :disabled="!this.hasContent"
+            :class="{ 'is-loading': isLoading }">
+      {{ $t('button.submitComment','Submit comment') }}
     </button>
   </form>
 </template>
@@ -16,7 +19,7 @@
     props: ['post'],
     data () {
       return {
-        loading: false,
+        isLoading: false,
         form: {
           content: '',
           contributionId: null,
@@ -44,7 +47,7 @@
           this.form.content = ''
           return
         }
-        this.loading = true
+        this.isLoading = true
         this.form.contributionId = this.post._id
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
@@ -64,7 +67,7 @@
               type: 'is-danger'
             })
           })
-        this.loading = false
+        this.isLoading = false
       }
     }
   }
