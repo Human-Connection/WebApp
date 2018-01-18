@@ -1,6 +1,7 @@
 <template>
   <div class="card" :class="{ show: ready }">
-    <div class="wrapper" @click="clicked">
+    <div class="wrapper">
+      <div class="contribution-link" @click="clicked" />
       <hc-progressive-image
           v-if="post.teaserImg"
           class="image"
@@ -14,6 +15,11 @@
             <slot name="category"></slot>
           </div>
           <author :post="post"/>
+          <div class="message is-danger is-small" v-if="!post.isEnabled">
+            <div class="message-body">
+              {{ $t('component.contribution.postDisabled') }}
+            </div>
+          </div>
           <h3 class="title is-4">
             <hc-truncate :text="post.title" length=70></hc-truncate>
             <slot name="header"></slot>
@@ -44,13 +50,7 @@
               <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
               </span>
-              <!--<b-dropdown v-if="false" position="is-top-left" class="is-hidden">
-                <a slot="trigger">
-                    <hc-icon icon="angle-up"></hc-icon>
-                </a>
-                <b-dropdown-item>{{ $t('component.contribution.actionReport') }}</b-dropdown-item>
-                <b-dropdown-item>{{ $t('component.contribution.actionMarkAsRead') }}</b-dropdown-item>
-              </b-dropdown>-->
+              <contribution-menu :post="post" />
             </div>
           </div>
         </footer>
@@ -60,7 +60,8 @@
 </template>
 
 <script>
-  import author from '~/components/Author/Author.vue'
+  import Author from '~/components/Author/Author.vue'
+  import ContributionMenu from '~/components/Contributions/ContributionMenu'
   import _ from 'lodash'
 
   export default {
@@ -76,7 +77,8 @@
       }
     },
     components: {
-      'author': author
+      Author,
+      ContributionMenu
     },
     data () {
       return {
@@ -213,6 +215,15 @@
         }
       }
     }
+
+    .contribution-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
     &.timeline {
       width: 95%;
     }
@@ -223,6 +234,7 @@
       header {
         margin-bottom: 10px;
         margin-top: 0;
+        pointer-events: none;
       }
     }
 

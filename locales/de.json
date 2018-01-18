@@ -34,6 +34,8 @@
     "contribution": {
       "actionMarkAsRead": "als gelesen markieren",
       "actionReport": "Melden",
+      "actionDisable": "deaktivieren",
+      "actionEnable": "aktivieren",
       "bestList": "Bestenliste",
       "canDos": "Einfach machen",
       "chatroomBriefOrLong": "Plausch & Meinungstausch ::: Plausch & Meinungstausch / Chat ",
@@ -59,6 +61,7 @@
       "moreInfoBriefOrLong": "Mehr Info ::: Mehr Informationen",
       "post": "Beitrag",
       "postsCounted": "Beiträge ({count}) ::: Beiträge (1) ::: Beiträge",
+      "postDisabled": "Beitrag deaktiviert",
       "postRelatedLabelPluralised": "Verwandter Beitrag ::: Verwandte Beiträge ::: Kein verwandter Beitrag",
       "proAndContraPluralised": "Pro & Kontra ::: Pro & Kontra",
       "projects": "Projekte",
