@@ -145,6 +145,8 @@ export const actions = {
     commit('setLastQueryHash', queryHash)
 
     try {
+      const payload = await feathers.passport.getJWT()
+      console.log(payload)
       const res = await feathers.service('contributions').find({query: query})
       commit('addContributions', res.data)
 
