@@ -6,8 +6,6 @@ LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Hum
 # update unix packages
 #RUN apk update && apk upgrade
 #RUN rm -rf /var/cache/apk/*
-RUN apk update
-RUN apk install yarn
 
 # copy the project
 RUN mkdir -p /var/www/
