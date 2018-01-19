@@ -4,37 +4,37 @@
       <span class="menu-icon">
         <hc-icon icon="th"></hc-icon>
       </span>
-      Dashboard
+      {{ $t('component.dashboard.label', 'Dashbord') }}
     </nuxt-link>
     <nuxt-link to="profile" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="cog"></hc-icon>
       </span>
-      Einstellungen
+      {{ $t('auth.account.settings', 'Kontoeinstellungen') }}
     </nuxt-link>
     <nuxt-link to="messages" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="comments"></hc-icon>
       </span>
-      Nachrichten
+      {{ $t('component.contribution.messages', 'Nachrichten') }}
     </nuxt-link>
     <nuxt-link to="map" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="globe"></hc-icon>
       </span>
-      Karte
+      {{ $t('component.contribution.map', 'Karte') }}
     </nuxt-link>
     <nuxt-link to="calender" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="calendar-o"></hc-icon>
       </span>
-      Kalender
+      {{ $t('component.calendar.label', 'Kalender') }}
     </nuxt-link>
     <nuxt-link to="help" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="question"></hc-icon>
       </span>
-      Hilfe
+      {{ $t('component.help.label', 'Hilfe') }}
     </nuxt-link>
   </nav>
 </template>

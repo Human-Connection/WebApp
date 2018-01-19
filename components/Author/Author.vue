@@ -1,11 +1,11 @@
 <template>
     <div class="media hc__author" v-if="post">
         <div class="media-left">
-            <hc-avatar :url="getAvatar()"></hc-avatar>
+            <hc-avatar :user="user"></hc-avatar>
         </div>
         <div class="media-content">
             <p class="title" v-if="!post.user">
-                Anonymus
+                {{ $t('component.contribution.creatorUnknown') }}
             </p>
             <p class="title" v-else>
                 {{ post.user.name }} </p>
@@ -17,11 +17,9 @@
     </div>
 </template>
 
-
 <script>
   import HcAvatar from '~/components/Avatar/Avatar.vue'
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'
-  import _ from 'lodash'
 
   export default {
     components: {
@@ -34,9 +32,9 @@
         type: Object
       }
     },
-    methods: {
-      getAvatar () {
-        return _.isEmpty(this.post.user.avatar) ? '' : this.post.user.avatar
+    computed: {
+      user () {
+        return this.post.user || null
       }
     }
   }
@@ -81,10 +79,6 @@
             height:              36px;
             background-position: center;
             background-size:     cover;
-        }
-
-        .img-circle {
-            border-radius: 50%;
         }
     }
 

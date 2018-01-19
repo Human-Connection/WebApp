@@ -8,6 +8,7 @@ module.exports = {
     API_HOST: process.env.API_HOST || 'localhost',
     API_PORT: process.env.API_PORT || 3030,
     SENTRY_DNS_PUBLIC: process.env.SENTRY_DNS_PUBLIC || 'https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871',
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN || 'pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ',
     RELEASE: 'BUILD_RELEASE'
   },
   /*
@@ -58,6 +59,7 @@ module.exports = {
       'moment',
       'lodash',
       'bricks.js',
+      'vuex-i18n',
       // Feathers
       'feathers/client',
       'feathers-socketio/client',
@@ -82,22 +84,28 @@ module.exports = {
         '~/helpers': path.resolve(__dirname, 'helpers')
       })
       config.resolve.alias = aliases // eslint-disable-line no-param-reassign
+      // Needed for some plugins that don't pre-compile templates
+      config.resolve.alias['vue'] = 'vue/dist/vue.common'
     }
   },
   plugins: [
-    {src: '~/plugins/buefy.js'},
     {src: '~/plugins/client-auth.js', ssr: false},
-    {src: '~/plugins/init-store-subscriptions.js', ssr: false},
-    {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
-    {src: '~/plugins/vue-clip.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/raven-server.js', ssr: true},
+    {src: '~/plugins/feathers.js'},
+    {src: '~/plugins/i18n.js'},
+    {src: '~/plugins/init-store-subscriptions.js', ssr: false},
+    {src: '~/plugins/buefy.js'},
+    {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
+    {src: '~/plugins/vue-clip.js', ssr: false},
     {src: '~/plugins/quill-editor.js'},
-    {src: '~/plugins/feathers.js'}
+    {src: '~/plugins/flags.js', ssr: false}
   ],
   modules: [],
   router: {
-    middleware: ['check-auth'],
+    middleware: [
+      'check-auth'
+    ],
     linkActiveClass: 'active-link'
   },
   manifest: {

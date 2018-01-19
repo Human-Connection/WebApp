@@ -12,7 +12,7 @@
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
 
   export default {
-    middleware: 'verified',
+    middleware: ['authenticated', 'verified'],
     components: {
       ContributionsForm
     }

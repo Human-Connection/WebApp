@@ -1,6 +1,6 @@
 <template>
   <section class="container content">
-    <div class="card">
+    <div class="card" :class="classes">
       <div class="card-content">
         <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
@@ -8,13 +8,12 @@
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">
-          Tritt Human Connection bei und nimm an der Community teil. Dein Account ist kostenlos und wird es immer bleiben.</p>
+        <p class="subtitle is-6">{{ $t('auth.register.description') }}</p>
         <form @submit.prevent="register">
           <div class="field">
             <p class="control has-icons-right">
               <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
-                     placeholder="E-Mail" v-model="data.email">
+                     v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -22,7 +21,7 @@
           </div>
           <div class="field">
             <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" placeholder="Password"
+              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" v-bind:placeholder="$t('auth.account.password')"
                      v-model="data.password" autocomplete="new-password">
               <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
@@ -30,24 +29,24 @@
             </p>
           </div>
           <div class="field has-text-le">
-            <b-checkbox>Ich bestätige, dass ich über 18 Jahre alt bin.</b-checkbox>
+            <b-checkbox>{{ $t('auth.account.confirmOlderThan18') }}</b-checkbox>
           </div>
           <p>
-            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :loading="loading">
-              Registrieren
+            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :isLoading="isLoading">
+              {{ $t('auth.register.label') }}
             </hc-button>
           </p>
         </form>
-        <p class="small-info">Mit Klick auf „registrieren“ erkläre ich mich mit den
-          <nuxt-link :to="{ name: 'legal' }">Nutzerbedingungen</nuxt-link>
-          einverstanden und bestätige, dass ich die Human Connection
-          <nuxt-link :to="{ name: 'legal' }">Datenschutzerklärung</nuxt-link>
-          gelesen habe.
-        </p>
+        <!-- TODO links by named route not hard coded -->
+        <p class="small-info" v-html="$t('auth.account.confirmTermsOfUsage', {
+            'termsOfService': $t('legal.termsOfService'),
+            'dataPrivacyStatement': $t('legal.termsOfService'),
+            'url': '/legal'
+          })"></p>
       </div>
       <footer class="card-footer">
         <nuxt-link :to="{ name: 'auth-login', params: { path: this.$route.params.path } }" class="card-footer-item">
-          Du hast ein Konto?
+          {{ $t('auth.register.accountAlready') }}
         </nuxt-link>
       </footer>
     </div>
@@ -56,17 +55,19 @@
 
 <script>
   import Vue from 'vue'
+  import animatable from '~/components/mixins/animatable'
 
   export default {
     middleware: 'anonymous',
     layout: 'blank',
+    mixins: [animatable],
     data () {
       return {
         data: {
           email: '',
           password: ''
         },
-        loading: false,
+        isLoading: false,
         errors: null
       }
     },
@@ -79,10 +80,10 @@
       async register (e) {
         e.preventDefault()
         this.errors = false
-        this.loading = true
+        this.isLoading = true
         this.$store.dispatch('auth/register', this.data)
           .then(() => {
-            this.loading = false
+            this.isLoading = false
             this.data.password = null
             this.$router.replace({name: 'auth-name'})
           })
@@ -93,13 +94,14 @@
               type: 'is-danger'
             })
             this.errors = true
-            this.loading = false
+            this.animate('shake')
+            this.isLoading = false
           })
       }
     },
     head () {
       return {
-        title: 'Register'
+        title: this.$t('auth.register.label')
       }
     }
   }
@@ -107,6 +109,7 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/_utilities";
+  @import "assets/styles/_animations";
 
   .card {
     margin: 0 auto;

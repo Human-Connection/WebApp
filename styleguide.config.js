@@ -48,7 +48,7 @@ module.exports = {
     if (dir.includes('Global')) {
       return componentPath
     }
-    return `import ${name} from '${dir}/${name}.vue'`
+    return `import ${name} from '~/${dir}/${name}.vue'`
   },
   assetsDir: 'static',
   require: ['assets/styles/styleguide.scss'],
@@ -117,6 +117,7 @@ module.exports = {
         '~/docs': path.resolve(__dirname, 'docs/'),
         '~/helpers': path.resolve(__dirname, 'helpers/'),
         '~/plugins': path.resolve(__dirname, 'plugins/'),
+        '~/locales': path.resolve(__dirname, 'locales/')
       }
     }
   }

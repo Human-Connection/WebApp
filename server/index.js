@@ -2,6 +2,8 @@ import { Builder, Nuxt } from 'nuxt'
 import express from 'express'
 import bodyParser from 'body-parser'
 import expressHealthcheck from 'express-healthcheck'
+import Raven from 'raven'
+import createLocaleMiddleware from 'express-locale'
 
 const app = express()
 
@@ -9,7 +11,6 @@ const app = express()
 let config = require('../nuxt.config.js')
 config.dev = !(process.env.NODE_ENV === 'production')
 
-import Raven from 'raven'
 if (process.server) {
   // LOGGING IS ENABLED
   console.log('SENTRY LOGGING IS ENABLED')
@@ -31,6 +32,10 @@ if (process.server) {
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+
+app.use(createLocaleMiddleware({
+  default: 'de_DE'
+}))
 
 app.use('/healthcheck', expressHealthcheck())
 

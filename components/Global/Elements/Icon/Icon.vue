@@ -1,5 +1,6 @@
 <template>
-  <i aria-hidden="true" :class="classes"></i>
+  <hc-emoji class="emoji" v-if="set === 'hc-emoji'" :type="icon" />
+  <i v-else aria-hidden="true" :class="classes"></i>
 </template>
 
 <script>
@@ -13,7 +14,7 @@
         type: [String]
       },
       /**
-       * Choose the icon set: 'fa', 'hc'
+       * Choose the icon set: 'fa', 'hc', 'hc-emoji'
        */
       set: {
         type: [String],
@@ -32,8 +33,14 @@
   // @import "font-awesome/css/font-awesome.min.css";
   @import "~assets/styles/hc-icons.scss";
 
-  i {
+  i, emoji {
     font-size: inherit;
     vertical-align: middle;
+  }
+
+  emoji {
+    width: 1.2em; 
+    display: inline-block; 
+    margin-bottom: -0.2em;
   }
 </style>

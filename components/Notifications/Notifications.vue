@@ -1,6 +1,6 @@
 <template>
-  <div class="notifications dropdown" @blur="active = false" tabindex="0">
-    <a class="nav-item dropdown-toggle" @click="active = !active" :class="{ active: active, animate: notify }">
+  <div class="navbar-item has-dropdown notifications" @blur="active = false" tabindex="0">
+    <a class="navbar-link dropdown-toggle" @click="active = !active" :class="{ active: active, animate: notify }">
       <span class="notification-icon">
         <i class="fa fa-bell" aria-hidden="true"></i>
         <hc-count-label :count="notifications.length" v-if="notifications"></hc-count-label>
@@ -8,7 +8,7 @@
     </a>
     <transition name="box">
       <div class="box notification-box" v-if="active">
-        <p class="dropdown-title">Notifications</p>
+        <p class="dropdown-title">{{ $t('component.notification.label') }}</p>
         <p v-if="!isAuthenticated" class="dropdown-content empty">
           Please
           <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
@@ -16,10 +16,10 @@
         </p>
         <div v-if="notifications">
           <p v-if="notifications.length === 0" class="dropdown-content empty">
-            You don't have any notifications.
+            {{ $t('component.notification.messageEmpty') }}
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
-            <transition-group name="notification">
+            <transition-group name="notification" tag="div">
               <div class="notification option" v-for="notification in notifications" :key="notification._id"
                    @click="followNotification(notification)">
                 <author :post="notification.comment"></author>
@@ -101,11 +101,15 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
 
-  .nav-item {
+  .navbar-item {
     position: relative;
+
+    &, &:hover, &:hover > .navbar-link {
+      background-color: transparent !important;
+    }
   }
 
-  .notifications.dropdown {
+  .notifications.has-dropdown {
     outline: none !important;
     box-shadow: none !important;
     background-color: #fff;

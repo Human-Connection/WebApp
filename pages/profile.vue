@@ -1,105 +1,114 @@
 <template>
-  <section class="container" style="position: relative">
-    <div class="profile-header card">
-        <img :src="coverImg">
-    </div>
+  <section class="container page-profile" style="position: relative">
+    <hc-upload class="profile-header card"
+               :preview-image="coverImg"
+               :test="true"
+               @update="onCoverUploadCompleted"
+               @start-sending="uploadingCover = true"
+               @stop-sending="uploadingCover = false" >
+    </hc-upload>
     <div class="columns">
-      <div class="column user-sidebar">
+      <div class="column is-4-tablet is-3-widescreen user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
-            <upload-avatar class="avatar-upload"></upload-avatar>
+            <hc-upload class="avatar-upload"
+                       :preview-image="form.avatar || user.avatar"
+                       :test="true"
+                       @update="onAvatarUploadCompleted"
+                       @start-sending="uploadingAvatar = true"
+                       @stop-sending="uploadingAvatar = false" ></hc-upload>
           </div>
-          <!--<div class="user-avatar" v-bind:style="{'background-image': 'url(' + user.avatar + ')'}">-->
-            <!--&nbsp;-->
-          <!--</div>-->
           <div class="user-name">{{ user.name }}</div>
-          <hc-profile-badges title="Badges" :badges="user.badges" />
-        </hc-box>
-        <div class="hc-shortcuts">
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/gjtyyT-91-nld9zkg6pHvZScdj53BVk0JfE8Sw6FhH9BiqTXfzYSLzzDuu8QB_aqQYMeiYMpaSQBC6WHt8DteA/1524"
-              alt=""/>
-            <span>Message</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/1fqGheyFlTsQPstpdVg9SR8wfemIhyOStsyENZcKEKtMiLxld4pStcUBPSFBIKum4P5xe_ZyEY9BDGF4KyTFiA/1539"
-              alt=""/>
-            <span>Follower</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/Ed0RNoWMNm8YoAQp3GScFQMGi9BNPozGyBPL4Ov-fpjh6VnBCfS6bj2PBXlAUDtpUMxuydlCPfyy4_fFvcIewQ/1524"
-              alt=""/>
-            <span>Lesez.</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/j59T8yA8_NwQQdrtbqrgxYyKoKbZaVTT9zaEBOPOsRiHF4TbmlDuGrJcUYbp7OJ7z0HmFWl-rDEvGnjUJdEVDA/1524"
-              alt=""/>
-            <span>Gallerie</span>
-          </hc-box>
-          <hc-box class="shortcut-hc-box" top="true">
-            <img
-              src="https://cdn.frontify.com/api/screen/thumbnail/zXWlGFPuTJ3QEFCh0VyZUHWeAWkBNpOZU477LcCa96jl0zCr6GJDgLrVZ-ozVxp0oipIu2k61Vz9geCvM_F6GQ/1524"
-              alt=""/>
-            <span>Mehr</span>
-          </hc-box>
-        </div>
-        <hc-box top="true" bottom="true">
-          <hc-title>Netzwerk</hc-title>
-        </hc-box>
-        <hc-box bottom="true">
-          <hc-subtitle>Following</hc-subtitle>
-          <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="16" text="ngo's"/>
-            <hc-textcount class="textcountitem" count="44" text="personen"/>
-            <hc-textcount class="textcountitem" count="20" text="projekte"/>
+          <template v-if="user.badges">
+            <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
+          </template>
+          <hr>
+          <div class="hc-shortcuts level">
+            <!-- TODO: replace the cdn images with local hc icons -->
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/gjtyyT-91-nld9zkg6pHvZScdj53BVk0JfE8Sw6FhH9BiqTXfzYSLzzDuu8QB_aqQYMeiYMpaSQBC6WHt8DteA/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myMessagesOnePluralNone', null, 1) }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/1fqGheyFlTsQPstpdVg9SR8wfemIhyOStsyENZcKEKtMiLxld4pStcUBPSFBIKum4P5xe_ZyEY9BDGF4KyTFiA/1539"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myFollowersBrief') }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/Ed0RNoWMNm8YoAQp3GScFQMGi9BNPozGyBPL4Ov-fpjh6VnBCfS6bj2PBXlAUDtpUMxuydlCPfyy4_fFvcIewQ/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myBookmarksBriefOrLong', null, 1) }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <div>
+                <img
+                  src="https://cdn.frontify.com/api/screen/thumbnail/j59T8yA8_NwQQdrtbqrgxYyKoKbZaVTT9zaEBOPOsRiHF4TbmlDuGrJcUYbp7OJ7z0HmFWl-rDEvGnjUJdEVDA/1524"
+                  alt=""/>
+              </div>
+              <span>{{ $t('auth.account.myGallery') }}</span>
+            </div>
+            <div class="level-item has-text-centered">
+              <hc-icon style="color: #BFBFBF; font-size: 20px;" icon="ellipsis-v"></hc-icon>
+              <span>{{ $t('auth.account.myMore') }}</span>
+            </div>
           </div>
-          <hc-dropdown :showLabels="['Alle anzeigen','Meine anzeigen']"
-                       :sortLabels="['Sortieren nach', 'Datum', 'Kategorie']"/>
+        </hc-box>
+        <hc-title>{{ $t('auth.account.myNetwork', 'Netzwerk') }}</hc-title>
+        <hc-box bottom="true">
+          <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
+            <hc-textcount class="textcountitem" :count="following.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.length)"/>
+            <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
+          </div>
+          <!--<hc-dropdown :showLabels="[$t('auth.account.myFollowingShowAll'), $t('auth.account.myFollowingShowMine')]"
+                       :sortLabels="[$t('auth.account.myFollowingSortBy'), $t('auth.account.myFollowingSortByDate'), $t('auth.account.myFollowingSortByCategory')]"/>-->
           <div class="hc-follower-list">
-            <hc-follower-item title="item 1" timestamp="vor 3 Tagen"/>
-            <hc-follower-item title="item 2" timestamp="vor 2 Tagen"/>
+            <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
-          <hc-subtitle>Interessen</hc-subtitle>
+          <hc-subtitle>{{ $t('auth.account.myInterests', 'Interessen') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
-          <hc-subtitle>Meine Karte</hc-subtitle>
+          <hc-subtitle>{{ $t('auth.account.myMap', 'Karte') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
           </div>
+          <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
         </hc-box>
         <hc-box>
-          <hc-subtitle>My Friends</hc-subtitle>
+          <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" text="lesezeichen"/>
-            <hc-textcount class="textcountitem" count="5" text="suchen"/>
+            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
+          </div>
+        </hc-box>
+        <hc-title>{{ $t('auth.account.myDoings', 'Aktionen') }}</hc-title>
+        <hc-box>
+          <hc-subtitle>{{ $t('auth.account.myCanDos', 'Meine Can Do’s') }}</hc-subtitle>
+          <div class="hc-textcounters">
+            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.myCanDosAltogether', 'Can Do’s')"/>
+            <hc-textcount class="textcountitem" count="3" :text="$t('auth.account.myCanDosDone', 'geschafft')"/>
           </div>
         </hc-box>
       </div>
       <hc-timeline />
-      <div class="column actions-sidebar">
-        <hc-box top="true" bottom="true">
-          <hc-title>Aktionen</hc-title>
-        </hc-box>
-        <hc-box>
-          <hc-subtitle>Meine Can Do's</hc-subtitle>
-          <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="5" text="can do's"/>
-            <hc-textcount class="textcountitem" count="3" text="geschafft"/>
-          </div>
-          <hc-map :places="places" :zoom="zoom" :center="center" />
-        </hc-box>
-      </div>
     </div>
   </section>
 </template>
@@ -108,17 +117,20 @@
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~/components/Map/Map.vue'
-  import UploadAvatar from '~/components/User/UploadAvatar'
   import Timeline from '~/components/layout/Timeline'
+  import Avatar from '~/components/Avatar/Avatar'
   import Badges from '~/components/Profile/Badges/Badges'
+  import feathers from '~/plugins/feathers'
+
+  import { isEmpty } from 'lodash'
 
   export default {
     components: {
       'hc-follower-item': FollowerItem,
-      'upload-avatar': UploadAvatar,
       'hc-profile-badges': Badges,
       'hc-map': Map,
-      'hc-timeline': Timeline
+      'hc-timeline': Timeline,
+      Avatar
     },
     data () {
       return {
@@ -148,7 +160,18 @@
         center: {
           lng: -102.0073,
           lat: 40.7124
-        }
+        },
+        following: {
+          users: [],
+          organizations: [],
+          projects: []
+        },
+        form: {
+          coverImg: null,
+          avatar: null
+        },
+        uploadingCover: false,
+        uploadingAvatar: false
       }
     },
     middleware: ['authenticated'],
@@ -158,120 +181,194 @@
         user: 'auth/user'
       }),
       coverImg () {
-        return this.user.coverImg ? this.user.coverImg : 'https://source.unsplash.com/random/1250x280'
+        if (!isEmpty(this.form.coverImg)) {
+          return this.form.coverImg
+        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
+          return this.user.thumbnails.coverImg.cover
+        } else if (!isEmpty(this.user.coverImg)) {
+          return this.user.coverImg
+        } else {
+          return 'https://source.unsplash.com/random/1250x280'
+        }
       }
+    },
+    methods: {
+      onCoverUploadCompleted (value) {
+        this.form.coverImg = value
+        this.$store.dispatch('auth/patch', {
+          coverImg: value
+        })
+      },
+      onAvatarUploadCompleted (value) {
+        this.form.avatar = value
+        this.$store.dispatch('auth/patch', {
+          avatar: value
+        })
+      }
+    },
+    async mounted () {
+      const user = await feathers.service('follows').get(this.user._id)
+      this.following = {
+        users: user.users || [],
+        organizations: user.organizations || [],
+        projects: user.projects || []
+      }
+      return true
     },
     head () {
       return {
-        title: 'Profile'
+        title: this.$t('auth.account.myProfile', 'Profile')
       }
     }
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import "assets/styles/utilities";
 
-  #main {
-    margin-top: 0;
-  }
+  .page-profile {
 
-  .profile-header {
-    width: 100%;
-    height: 243px;
-    max-height: 243px;
-    overflow: hidden;
-    position: relative;
-    background: darkgrey;
-
-    border: none;
-    box-shadow: $card-shadow;
-
-    img {
-      width: 100%;
-      position: absolute;
-      left: 0;
-      top: 50%;
-      transform: translateY(-50%);
+    #main {
+      margin-top: 0;
     }
-  }
 
-
-  .user-sidebar {
-    min-height: 200px;
-
-    .user-hc-box {
+    .profile-header {
+      width: 100%;
+      height: 312px;
+      max-height: 312px;
+      overflow: hidden;
       position: relative;
+      background-color: darkgrey;
+      background-size: cover;
+      background-position: center;
 
-      .user-avatar {
-        border-radius: 130px;
-        width:         130px;
-        height:        130px;
-        position:      absolute;
-        top:           0;
-        left:          50%;
-        transform:     translateX(-50%) translateY(-50%);
-        border:        5px solid white;
-        display:       inline-block;
+      border: none;
+      box-shadow: $card-shadow;
+    }
 
-        .avatar-upload {
-          border:     none;
-          width:      100%;
-          height:     100%;
+    .user-sidebar {
+      min-height: 200px;
+
+      .user-hc-box {
+        position: relative;
+        $borderRadius: 50%;
+
+        .user-avatar {
+          border-radius: $borderRadius;
+          width:         130px;
+          height:        130px;
+          position:      absolute;
+          top:           0;
+          left:          50%;
+          transform:     translateX(-50%) translateY(-50%);
+          border:        5px solid white;
+          display:       inline-block;
+          background-color: #fff;
+
+          .avatar-upload {
+            & {
+              border:        none;
+              border-radius: $borderRadius;
+              overflow:      hidden;
+              width:         100%;
+              height:        100%;
+              max-height:    100%;
+              min-height:    100%;
+              max-width:     100%;
+              min-width:     100%;
+            }
+          }
+        }
+
+        .user-name {
+          font-weight: bold;
+          font-size: 16px;
+          text-align: center;
+          padding-top: 60px;
         }
       }
-
-      .user-name {
-        font-weight: bold;
-        font-size: 16px;
-        text-align: center;
-        padding-top: 60px;
-      }
     }
-  }
 
-  .hc-shortcuts {
-    display: flex;
-    justify-content: space-between;
-    .shortcut-hc-box {
+    .hc-shortcuts {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 58px;
+      justify-content: space-between;
 
-      img {
-        width: 20px;
+      .level-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // width: 58px;
+
+        img {
+          min-width: 20px;
+          display: block;
+        }
+
+        span {
+          display: block;
+          width: 100%;
+          padding: 5px 0 0 0;
+          font-size: 0.6em;
+          text-transform: uppercase;
+        }
+      }
+    }
+
+    .hc-textcounters {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+
+      .textcountitem {
+        text-align: center;
+        border-right: 1px solid #dadada;
+        //border-left: 1px solid #dadada;
+        padding: 0 10px 0 10px;
+      }
+      .textcountitem:first-child {
+        text-align: right;
+      }
+      .textcountitem:last-child {
+        text-align: left;
+        border-right: 0;
+      }
+    }
+
+    .hc-follower-list {
+      margin: 15px 0;
+    }
+
+    .user-avatar {
+
+      .hc-preview {
+        position: relative;
       }
 
-      span {
-        padding: 5px 0 0 0;
-        font-size: 8px;
-        text-transform: uppercase;
+      &:before {
+        border-radius: 50%;
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      }
+
+      .hc-upload.sending {
+        i.fa {
+          opacity: 0;
+        }
+
+        .hc-upload-progress {
+          bottom: 49% !important;
+          z-index: 10;
+        }
       }
     }
   }
 
-  .hc-textcounters {
-    display: flex;
-    justify-content: center;
-    margin: 15px 0;
 
-    .textcountitem {
-      text-align: center;
-      border-right: 1px solid #dadada;
-      //border-left: 1px solid #dadada;
-      padding: 0 10px 0 10px;
-    }
-    .textcountitem:first-child {
-      text-align: right;
-    }
-    .textcountitem:last-child {
-      text-align: left;
-      border-right: 0;
-    }
-  }
-
-  .hc-follower-list {
-    margin: 15px 0;
-  }
 </style>

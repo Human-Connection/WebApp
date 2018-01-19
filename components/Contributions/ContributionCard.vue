@@ -1,7 +1,13 @@
 <template>
-  <div class="card" v-bind:class="{ show: ready }">
+  <div class="card" :class="{ show: ready }">
     <div class="wrapper" @click="clicked">
-      <img class="image" v-if="post.teaserImg" :src="post.teaserImg" @load="imageLoaded"/>
+      <hc-progressive-image
+          v-if="post.teaserImg"
+          class="image"
+          :preview="post.thumbnails.teaserImg.placeholder"
+          :src="post.thumbnails.teaserImg.cardS"
+          :srcset="srcset"
+          @onPreview="imageLoaded" />
       <div class="content autowrap">
         <header>
           <div class="ribbon">
@@ -20,7 +26,7 @@
           <div class="infos columns is-mobile">
             <div class="column has-text-left">
               <div class="tags " v-if="categories.length">
-                <b-tooltip :label="category.title"
+                <hc-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
                            v-for="category in categories"
                            :key="category._id"
                            style="margin-right: 5px;"
@@ -28,23 +34,23 @@
                     <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
                       <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
                     </span>
-                </b-tooltip>
+                </hc-tooltip>
               </div>
             </div>
             <div class="column has-text-right">
-              <span>
-                <i class="fa fa-bullhorn"></i><small>214</small>
+              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: 214}, 214)" class="nowrap">
+                <i class="fa fa-bullhorn"></i><small>{{ shoutCount }}</small>
               </span>
-              <span>
+              <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
                 <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
               </span>
-              <b-dropdown position="is-top-left" class="is-hidden">
+              <!--<b-dropdown v-if="false" position="is-top-left" class="is-hidden">
                 <a slot="trigger">
                     <hc-icon icon="angle-up"></hc-icon>
                 </a>
-                <b-dropdown-item>Melden</b-dropdown-item>
-                <b-dropdown-item>als gelesen markieren</b-dropdown-item>
-              </b-dropdown>
+                <b-dropdown-item>{{ $t('component.contribution.actionReport') }}</b-dropdown-item>
+                <b-dropdown-item>{{ $t('component.contribution.actionMarkAsRead') }}</b-dropdown-item>
+              </b-dropdown>-->
             </div>
           </div>
         </footer>
@@ -53,19 +59,28 @@
   </div>
 </template>
 
-
 <script>
   import author from '~/components/Author/Author.vue'
   import _ from 'lodash'
 
   export default {
     name: 'hc-contribution-card',
-    props: ['post'],
+    props: {
+      post: {
+        type: Object,
+        required: true
+      },
+      inViewportOffset: {
+        type: Number,
+        default: 250
+      }
+    },
     components: {
       'author': author
     },
     data () {
       return {
+        created: false,
         ready: false
       }
     },
@@ -74,8 +89,15 @@
         // we need to cast the comments array as it might be an object when only one is present
         return _.isEmpty(this.post.comments) ? 0 : _.castArray(this.post.comments).length
       },
+      shoutCount () {
+        // we need to cast the comments array as it might be an object when only one is present
+        return _.isEmpty(this.post.shouts) ? 0 : _.castArray(this.post.shouts).length
+      },
       categories () {
         return _.isEmpty(this.post.categories) ? [] : _.castArray(this.post.categories)
+      },
+      srcset () {
+        return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
       }
     },
     methods: {
@@ -88,16 +110,15 @@
       },
       imageLoaded () {
         // show card after the image has been loaded
-        this.$emit('ready')
-        setTimeout(() => {
-          this.$nextTick(() => {
-            this.ready = true
-          })
-        }, 50)
+        this.$nextTick(() => {
+          this.ready = true
+          this.$emit('ready')
+        })
       }
     },
     mounted () {
-      if (!this.post.image) {
+      this.created = true
+      if (!this.post.teaserImg) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
           this.$nextTick(() => {
@@ -116,35 +137,70 @@
   $gutter-big: 20px;
   $padding: 25px;
 
+  .progressive {
+    img.preview {
+      filter: none !important;
+    }
+  }
+
   .card {
+
+    /*opacity: .5;
+    transition: opacity 150ms;
+
+    .wrapper {
+      visibility: hidden;
+    }
+    &[v-cloak] {
+      opacity: 1;
+
+      .wrapper {
+        visibility: visible;
+      }
+    }*/
+
     display: block;
     width: 100%;
     max-width: 100%;
     @include tablet() {
-      width: ($tablet - 1*$gutter - $container-gutter) / 2;
+      width: ($tablet - 1 * $gutter - $container-gutter) / 2;
     }
     @include desktop() {
-      width: ($desktop - 2*$gutter - $container-gutter) / 3;
+      width: ($desktop - 2 * $gutter - $container-gutter) / 3;
     }
     @include widescreen() {
-      width: ($widescreen - 2*$gutter-big - $container-gutter) / 3;
+      width: ($widescreen - 2 * $gutter-big - $container-gutter) / 3;
     }
     @include fullhd() {
-      width: ($fullhd - 2*$gutter-big - $container-gutter) / 3;
+      width: ($fullhd - 2 * $gutter-big - $container-gutter) / 3;
     }
     box-shadow: $card-shadow;
+    // box-shadow: none;
 
     opacity: 0;
-    transition: opacity 250ms;
-    transition-delay: 10ms;
+
+    &, & wrapper {
+      transition: opacity 50ms;
+      transition-delay: 50ms;
+    }
+
+    &[data-packed] {
+      opacity: .5;
+    }
 
     &.show {
       opacity: 1;
+
+      .wrapper {
+        opacity: 1;
+      }
     }
+
     .wrapper {
+      opacity: 0;
       background-color: #fff;
       cursor: pointer;
-      transition: box-shadow 250ms ease-in-out, transform 250ms ease-in-out;
+      transition: box-shadow 150ms ease-out, transform 150ms ease-out;
       position: relative;
 
       z-index: 1;
@@ -152,7 +208,7 @@
       @include tablet() {
         &:hover {
           box-shadow: $card-shadow-hover;
-          transform: scale(1.02);
+          // transform: scale(1.02);
           z-index: 2;
         }
       }
@@ -186,7 +242,7 @@
     }
 
     .image {
-      display: block;
+      display: inline-block;
       width: 100%;
     }
 

@@ -3,7 +3,8 @@
     <template v-if="active && isAuthenticated">
       <div class="notification is-primary" v-if="!user.isVerified">
         <button class="delete" @click="active = false"></button>
-        Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können: <a @click="resendVerification()">Bestätigung erneut verschicken</a>
+        {{ $t('auth.account.verifyingResendDescription') }}
+        <a @click="resendVerification()">{{ $t('auth.account.verifyingResendAction') }}</a>
       </div>
       <div class="notification is-primary" v-else-if="!user.name">
         <button class="delete" @click="active = false"></button>
@@ -39,7 +40,7 @@
         this.resendVerifySignup()
           .then(() => {
             this.$snackbar.open({
-              message: 'Die Bestätigung wurde erfolgreich verschickt.',
+              message: this.$t('auth.account.verifyingResendSuccess', {'email': this.state.user.email}),
               duration: 4000,
               type: 'is-success'
             })

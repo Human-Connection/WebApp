@@ -6,19 +6,19 @@
           <span class="config-icon">
             <hc-icon icon="sliders"></hc-icon>
           </span>
-          Filtern
+          {{ $t('configbarFilter', 'Filtern') }}
         </div>
         <div class="config-item">
           <span class="config-icon">
             <hc-icon icon="sort-amount-asc"></hc-icon>
           </span>
-          Sortieren
+          {{ $t('configbarSort', 'Sortieren') }}
         </div>
         <div class="config-item">
           <span class="config-icon">
             <hc-icon icon="tasks"></hc-icon>
           </span>
-          Ansicht
+          {{ $t('configbarSort', 'Ansicht') }}
         </div>
       </nav>
     </div>

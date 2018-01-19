@@ -4,25 +4,25 @@
       <span class="menu-icon">
         <hc-icon icon="th"></hc-icon>
       </span>
-      Dashboard
+      {{ $t('component.dashbord.label', 'Dashboard') }}
     </nuxt-link>
     <nuxt-link to="/admin/settings" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="cog"></hc-icon>
       </span>
-      Einstellungen
+      {{ $t('component.admin.settings', 'Einstellungen') }}
     </nuxt-link>
     <nuxt-link to="/admin/categories" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="comments"></hc-icon>
       </span>
-      Kategorien
+      {{ $t('component.category.labelOnePluralNone', null, 2) }}
     </nuxt-link>
     <nuxt-link to="/admin/users" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="user"></hc-icon>
       </span>
-      Benutzer
+      {{ $t('component.admin.users', 'Benutzer') }}
     </nuxt-link>
   </nav>
 </template>
@@ -40,7 +40,7 @@
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
 
   .sidebar-menu {
-    background-color: $white-bis;
+    background-color: $white;
   }
 
   .menu-item {

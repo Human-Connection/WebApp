@@ -1,0 +1,293 @@
+{
+  "humanConnection": "Human Connection",
+  "humanConnectionMadeWithHeart": "Made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
+  "component": {
+    "admin": {
+      "label": "Admin",
+      "settings": "Settings",
+      "users": "Users"
+    },
+    "category": {
+      "infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
+      "labelOnePluralNone": "Category ::: Categories ::: No Category",
+      "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
+      "slug2label-education-sciences": "Education & Sciences",
+      "slug2label-democracy-politics": "Democracy & Politics",
+      "slug2label-energy-technology": "Energy & Technology",
+      "slug2label-health-wellbeing": "Health & Wellbeing",
+      "slug2label-globalpeace-nonviolence": "Global Peace & Non-Violence",
+      "slug2label-happyness-values": "Happyness & Values",
+      "slug2label-it-internet-dataprivacy": "IT, Internet & Data Privacy",
+      "slug2label-justforfun": "Just For Fun",
+      "slug2label-consumption-sustainability": "Consumption & Sustainability",
+      "slug2label-cooperation-development": "Cooperation & Development",
+      "slug2label-art-culture-sport": "Art, Culture & Sports",
+      "slug2label-humanrights-justice": "Human Rights & Justice",
+      "slug2label-freedomofspeech": "Freedom of Press & Opinion",
+      "slug2label-animalprotection": "Animal Welfare",
+      "slug2label-environment-nature": "Environment & Nature",
+      "slug2label-economy-finances": "Economy & Finances"
+    },
+    "calendar": {
+      "label": "Calender"
+    },
+    "contribution": {
+      "actionMarkAsRead": "mark as read",
+      "actionReport": "report",
+      "bestList": "Bestlist",
+      "canDos": "Can Do’s",
+      "chatroomBriefOrLong": "Chatrooms",
+      "comment": "Comment",
+      "commentsCounted": "Comments (1) ::: Comments ({count}) ::: Comments",
+      "commentsCountedDescription": "{count} human has commented this post ::: {count} people have given comments to this post ::: This post has no coment",
+      "commentsLoading": "Loading Comments...",
+      "commentsNoneYet": "No comments yet, you can write some!",
+      "commentPlaceholder": "Whatever comes to your mind...",
+      "commentSubmitSuccess": "Thanks for your comment. You are awesome.",
+      "commentUpvote": "Vote: +1",
+      "commentReplyThis": "Reply to this comment",
+      "creator": "Creator ::: Creator",
+      "creatorUnknown": "anonymous",
+      "events": "Events",
+      "jobs": "Jobs",
+      "letsTalk": "Let’s talk",
+      "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
+      "organizations": "Organizations",
+      "map": "Map",
+      "messages": "Messages",
+      "messageSaveSuccess": "Thanks for your contribution. You are awesome.",
+      "moreInfoBriefOrLong": "More info ::: More information",
+      "post": "Post",
+      "postsCounted": "Posts (1) ::: Posts ({count}) ::: Posts",
+      "postRelatedLabelPluralised": "Related Post ::: Related Posts",
+      "proAndContraPluralised": "Pro & Con ::: Pros & Cons",
+      "projects": "Projects",
+      "shoutOf": "Shouts",
+      "shoutAddShout": "Shout this contribution further",
+      "shoutsCountedDescription": "{count} human want to shout this post ::: {count} people want to shout this post ::: This post has no shout yet",
+      "takeAction": "Take action",
+      "tagOnePluralNone": "Tag ::: Tags ::: No Tags",
+      "type-cando": "Can Do",
+      "type-event": "Event",
+      "type-procon": "Pro & Contra",
+      "type-post": "Post",
+      "type-versus": "Versus",
+      "type-vote": "Vote",
+      "versus": "Versus",
+      "versusDescription": "In Versus, one deals fairly and critically on the basis of factual counter-arguments on this subject. That means one must necessarily remain factual, if one wants to compare one another with knowledge and arguments. Because the lack of respect, unfairness with one another or even in a manner of hate-filled speech will lead to the exclusion.",
+      "voteOnePluralNone": "vote ::: votes ::: no vote",
+      "writePost": "Write a Post",
+      "writePostContent": "Content",
+      "writePostImageLabel": "Teaser Image",
+      "writePostImagePlaceholder": "internet address of the image (URL)",
+      "writePostSection": "Title",
+      "writePostSectionPlaceholder": "How do you call that story?",
+      "writePostContentPlaceholder": "write something amazing..."
+    },
+    "notification": {
+      "label": "Notifications",
+      "messageEmpty": "You don't have any notifications."
+    },
+    "dashbord": {
+      "label": "Dashboard"
+    },
+    "editor": {
+      "bold": "bold font",
+      "blockquote": "block quote",
+      "italic": "italic font",
+      "link": "insert a link (mark text in advance)",
+      "linkEnterUrl": "enter link (http:…, https:…, mailto:some@email.org or tel:0123456789)",
+      "listOrdered": "ordered list",
+      "listUnordered": "unordered list",
+      "video": "embed a video",
+      "videoEnterUrl": "insert embed URL",
+      "strike": "strike through"
+    },
+    "emotionRating": {
+      "angry": "angry",
+      "cry": "cry",
+      "funny": "funny",
+      "happy": "happy",
+      "surprised": "surprised",
+      "tooltip": "Vote this how you feel"
+    },
+    "help": {
+      "label": "Help"
+    },
+    "layout": {
+      "configbarDisplaymode": "Display mode",
+      "configbarFilter": "Filtern",
+      "configbarSort": "Sortieren",
+      "topbarFilterDescription": "Here you can filter contributions that will be displayed by resetting the properties. Click on the topic categories or emoticons to display only contributions that match your properties.",
+      "topbarLabel": "Newsfeed",
+      "topbarSectionCategories": "Category of Topics",
+      "topbarSectionEmotions": "Emotions"
+    },
+    "search": {
+      "placeholder": "Search ...",
+      "noResults": "Sorry nothing there!",
+      "noResultsText": "Try to adjust your search and filters on the top to find what you are searching for.",
+      "noResultsResetQueryButton": "Remove \"<strong>{searchQuery}</strong>\" from Search",
+      "noMoreResults": "Sorry that's all what we found"
+    },
+    "filter": {
+      "all": "All"
+    },
+    "timeline": {
+      "loadingContributions": "Loading content …",
+      "noContributionsFound": "No contributions found, write something.",
+      "introQuestion": "What are your plans, {username}, for today?",
+      "title": "Timeline"
+    }
+  },
+  "page": {
+    "index": {
+      "title": "Welcome"
+    },
+    "moreInfo": {
+      "noContributions": "Sorry there are no contributions that fit that topic right now. <br/><br/>Do you want to add one?"
+    },
+    "takeAction": {
+      "noOrganizations": "Sorry there are no organizations that fit that contribution right now. <br/><br/>Do you want to add one?",
+      "noProjects": "Sorry there are no projects that fit that contribution right now. <br/><br/>Do you want to add one?"
+    }
+  },
+  "upload": {
+    "errors": {
+      "general": "Error during upload. Please try again.",
+      "maxFilesize": "Maximum allowed file size is {size}.",
+      "acceptedFiles": "You may only upload images here."
+    }
+  },
+  "button": {
+    "back": "Back",
+    "cancel": "Cancel",
+    "create": "Create",
+    "delete": "Delete",
+    "edit": "Edit",
+    "getStarted": "Get started",
+    "letsGo": "Let's go!",
+    "publish": "Publish",
+    "save": "Save",
+    "skip": "Skip",
+    "submit": "Submit",
+    "submitComment": "Submit comment",
+    "showLess": "hide",
+    "showMore": "show more",
+    "update": "Update",
+    "addContribution": "Add contribution",
+    "addOrganization": "Add organization",
+    "addProject": "Add project"
+  },
+  "legal": {
+    "copyrights": "Copyrights:",
+    "copyrightsDescription": "The content and works provided on these Web pages are governed by the copyright laws of Germany. Duplication, processing, distribution, or any form of commercialization of such material beyond the scope of the copyright law shall require the prior written consent of its respective author or creator.",
+    "dataPrivacyStatement": "Data Privacy Statements",
+    "dataPrivacyStatementGooglePlus": "Privacy Policy for the use of Google +1:",
+    "dataPrivacyStatementGooglePlusInformationGatheringAndTransfer": "Collection and dissemination of information:",
+    "dataPrivacyStatementGooglePlusInformationGatheringAndTransferDescription": "Using the Google +1 button you can publish information worldwide. The Google +1 button will help you and other users to get personalized content from Google and our partners. Google stores both the information that you gave +1 for a content and the information about the page you viewed when you clicked +1. Your +1 may appear as hints along with your profile name and photo in Google services, such as in search results or in your Google profile, or elsewhere on websites and ads on the web. Google records information about your +1 activity to improve Google’s services for you and others. To use the Google +1 button, you need a globally visible, public Google profile that contains at least the chosen name for the profile. This name will be used in all Google services. In some cases, this name may also replace a different name you used when sharing content through your Google Account. The identity of your Google Profile may be displayed to users who know your email address or have other identifying information from you.",
+    "dataPrivacyStatementGooglePlusInformationUsage": "Use of the Collected Information:",
+    "dataPrivacyStatementGooglePlusInformationUsageDescription": "In addition to the uses outlined above, the information you provide will be used in accordance with applicable Google privacy policy. Google may publish summarized statistics about users’ +1 activity or share it with users and partners, such as publishers, advertisers, or affiliate websites.",
+    "dataPrivacyStatementTwitter": "Privacy Policy for the Use of Twitter:",
+    "dataPrivacyStatementTwitterDescription": "On our pages are  functions included of the Twitter service. These features are provided by Twitter Inc., 795 Folsom St., Suite 600, San Francisco, CA 94107, USA. By using Twitter and the “Re-Tweet” function, the websites you visit are linked to your Twitter account and shared with other users. We also transfer data to Twitter.</p>     <p>We point out that we, as the provider of the pages, do not receive knowledge of the content of the transmitted data and their use by Twitter. For more information, see the Twitter privacy policy at <a href=\"http://twitter.com/privacy\">http://twitter.com/privacy</a>. </p>      <p>You can change your privacy settings on Twitter in the account settings at <a href=\"http://twitter.com/account/settings\"> http://twitter.com/account/settings</a>.",
+    "dataProtection": "Data Protection:",
+    "dataProtectionDescription": "Please be aware that there are inherent security risks in transmitting data, such as e-mails, via the Internet, because it is impossible to safeguard completely against unauthorized access by third parties. Nevertheless, we shall safeguard your data, subject to this limitation.</p><p>In particular, personal information will be transmitted via the Internet only if it does not infringe upon third-party rights, unless the respective party has given its prior consent in view of such security risks. Accordingly, as the Web site provider, we shall not be held liable for any damages incurred as a consequence of such security risks or for any related acts of omission on our part.</p><p>We oppose the use of any available contact information by a third party for sending unsolicited advertisements. As the Web site provider, we reserve the express right to take legal action against unsolicited mailing or e-mailing of spam and other similar advertising materials.",
+    "disclaimer": "Disclaimer",
+    "disclaimerGoogleAnalytics": "Data Privacy Policy Google Analytics",
+    "disclaimerGooglePlus": "Data Privacy Policy Google +1",
+    "disclaimerTwitter": "Data Privacy Policy Twitter",
+    "disclaimerUsageFacebookPlugin": "Disclaimer for the use of Facebook social plugins:",
+    "disclaimerUsageFacebookPluginDescription": "Our website uses social plugins (“plugins”) provided by the social network facebook.com, operated by Facebook Inc., 1601 S. California Avenue, Palo Alto, CA 94304, USA (“Facebook”). The plugins are identifiable by a Facebook logo (white letter f on blue background, the word like or a thumb up icon) or the notice “Facebook Social Plugin”. For a full list of all social Plugins please see the <a href=\"https://developers.facebook.com/docs/plugins/\">developer’s documentation (developers.facebook.com)</a></p>   <p>When you visit a page of our website that contains a social plugin, your browser establishes a direct connection to Facebook servers. Facebook directly transfers the plugin content to your browser which embeds the latter into the website, enabling Facebook to receive information about your having accessed the respective page of our website. Thus we have no influence on the data gathered by the plugin and inform you according to our state of knowledge by the <a href=\"http://www.facebook.com/help/?faq=17512\">Facebook-Help-Page (facebook.com)</a>.</p>     <p>The embedded plugins provide Facebook with the information that you have accessed the corresponding page of our website. If you are logged into Facebook, your visit can be assigned to your Facebook account. If you interact with the plugins, for example by clicking “Like”, or entering a comment, the corresponding information is transmitted from your browser directly to Facebook and stored by it. Even if you are not logged into Facebook, there is possibility that the plugins transmits your internet IP-address to Facebook.</p>    <p>For the information on the purpose and scope of data collection and procession by Facebook, as well as your rights in this respect and settings options for protecting your privacy please visit <a href=\"http://www.facebook.com/policy\">Facebook's privacy policy (facebook.com)</a></p>    <p>If you are a Facebook member and do not want Facebook to connect the data concerning your visit to our website with your member data already stored by Facebook, please log off Facebook before entering our website and delete your cookies. Furthermore it is possible to block the data generation of Facebook Plug-ins by using browser add-ons such as ‘Facebook Blocker’.",
+    "imprint": "Imprint",
+    "informationAccordingTMG": "Information according to §5 of TMG (German Tele-Media Act):",
+    "informationAccordingTMGAddress": "<strong>Human Connection gGmbH</strong><br>Bahnhofstr. 11<br>73235 Weilheim / Teck<br>Germany",
+    "informationAccordingTMGBankAccount": "Bank account:",
+    "informationAccordingTMGCeoAndFounder": "CEO & founder:",
+    "informationAccordingTMGCeoDennisHack": "Dennis Hack",
+    "informationAccordingTMGContact": "Contact:",
+    "informationAccordingTMGUstId": "USt-ID. according to §27a of the German Sales Tax Law:",
+    "liabilityForContent": "Liability for Content:",
+    "liabilityForContentDescription": "We make every effort to keep the information on our Web site current, but accept no liability whatsoever for the content provided. Pursuant to §7 par. 1 of TMG (German Tele-Media Act), the law limits our responsibility as a service provider to our own content on these Web pages. According to §§8 to 10 of TMG, we are not obligated to monitor third party information provided or stored on our Web site. However, we shall promptly remove any content upon becoming aware that it violates the law. Our liability in such an instance shall commence at the time we become aware of the respective violation.",
+    "liabilityForLinks": "Liability for Links:",
+    "liabilityForLinksDescription": "Our site contains links to third-party Web sites. We have no influence whatsoever on the information on these Web sites and accept no guaranty for its correctness. The content of such third-party sites is the responsibility of the respective owners/providers. At the time third-party Web sites were linked to ours, we found NO GROUNDS WHATSOEVER of any likely contravention of the law. We shall promptly delete a link upon becoming aware that it violates the law.",
+    "references": "References:",
+    "termsOfService": "Terms of Service"
+  },
+  "auth": {
+    "account": {
+      "avatarUpload": "Upload image for avatar or user profile",
+      "avatarSelect": "select avatar image",
+      "confirmOlderThan18": "I confirm that I’m at least 18 years old.",
+      "confirmTermsOfUsage": "By clicking “register” I agree with the <a href=\"{url}\">{termsOfService}</a> and confirm, that I read the <a href=\"{url}\">{dataPrivacyStatement}</a> of Human Connection.",
+      "email": "Email",
+      "helloUser": "Hello <b>{username}</b>",
+      "loginOrRegister": "Login / Sign-Up",
+      "loginToAccount": "Login to your account",
+      "loginRequired4CommentOrVote": "You need to be logged-in to be able to comment, vote or rate on Human Connection.",
+      "myCanDos": "Can Dos",
+      "myCanDosAltogether": "altogether",
+      "myCanDosDone": "realized",
+      "myDoings": "Being active",
+      "myBadgeOnePluralNone": "Badge ::: Badges ::: No badges",
+      "myBookmarksBriefOrLong": "Bookm. ::: Bookmarks",
+      "myFollowersBrief": "Followers",
+      "myFollowerItemLastContribution": "Last contribution:",
+      "myFollowing": "Following activities",
+      "myFollowingNgoOnePluralNone": "NGO ::: NGOs ::: No NGO",
+      "myFollowingPeopleOnePluralNone": "Human ::: People ::: None",
+      "myFollowingProjectsOnePluralNone": "Project ::: Projects ::: No Project",
+      "myFollowingShowAll": "show all",
+      "myFollowingShowMine": "show mine",
+      "myFollowingSortBy": "sort by",
+      "myFollowingSortByDate": "date",
+      "myFollowingSortByCategory": "category",
+      "myGallery": "Gallery",
+      "myConnections": "Stay connected",
+      "myInterests": "Interests",
+      "myMap": "My Map",
+      "myMessagesOnePluralNone": "Message ::: Messages ::: No message",
+      "myMore": "More",
+      "myNetwork": "Network",
+      "myProfile": "My Profile",
+      "mySearch": "search",
+      "name": "Name",
+      "nameAddAction": "Add Name",
+      "nameDescription": "It is not essential that you provide your full name, but it’s easier for friends and contacts to be found on Human Connection.",
+      "namePlaceholder": "your name ...",
+      "nameSection": "How may we call you?",
+      "nameTitle": "Nice to meet you",
+      "password": "Password",
+      "profile": "My Profile",
+      "settings": "Settings",
+      "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the mail verification.",
+      "verifyingErrorSection": "Ooooops ...",
+      "verifyingInfo": "Verifying your email address ...",
+      "verifyingResendAction": "Send confirmation anew",
+      "verifyingResendDescription": "Please confirm your E-Mail Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können:",
+      "verifyingResendSuccess": "The confirmation was sent successfullyto {email}. Please check your mail account.",
+      "verifyingSection": "Email Verification",
+      "verifyingSuccessDescription": "Your email address has been verified successfully.",
+      "verifyingTitle": "Verification",
+      "welcomeGreeting1": "Good to have you on bord{username}! Welcome at Human Connection. We hope you enjoy discovering and becoming active.",
+      "welcomeGreeting2": "Let us embark on the journey into a future together!",
+      "welcomeSection": "The Journey Starts",
+      "welcomeTitle": "Welcome"
+    },
+    "login": {
+      "label": "Login",
+      "description": "If you have an account at Human Connection, please log-in here.",
+      "stayLoggedIn": "Stay logged in",
+      "forgotPassword": "Forgot password?",
+      "successInfo": "Congratulations, you are in!"
+    },
+    "logout": {
+      "label": "Logout"
+    },
+    "register": {
+      "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
+      "noAccountYet": "No account yet?",
+      "accountAlready": "You have an account?",
+      "label": "Register"
+    }
+  }
+}

@@ -7,8 +7,8 @@ function getTokenFromRequest (req) {
   return jwtCookie.split('=')[1]
 }
 
-export default function ({isServer, store, req}) {
-  const accessToken = (isServer) ? getTokenFromRequest(req) : window.localStorage.getItem(cookieName)
+export default function ({store, req}) {
+  const accessToken = (process.server) ? getTokenFromRequest(req) : window.localStorage.getItem(cookieName)
   if (!accessToken) return
 
   return store.dispatch('auth/jwt', {accessToken})

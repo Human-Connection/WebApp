@@ -1,26 +1,28 @@
 <template>
-  <div class="column is-6 timeline content">
-    <hc-box top="true" bottom="true">
-      <hc-title>Timeline</hc-title>
-    </hc-box>
+  <div class="column timeline content">
+    <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
-      <p>{{ user.name }}, was sind deine Pläne für heute?</p>
+      <p>{{ $t('component.timeline.introQuestion', { 'username': user.name }) }}</p>
       <p v-if="contributions.length == 0 && loadingFinished">
-        Keine Beträge, schreibe doch etwas.
+        {{ $t('component.timeline.noContributionsFound') }}
       </p>
-      <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
-        <hc-icon icon="plus"/>
-      </hc-button>
+      <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black" position="is-right">
+        <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
+          <hc-icon icon="plus"/>
+        </hc-button>
+      </hc-tooltip>
     </div>
-    <div>
-      <a class="button is-loading" v-if="loading">Loading ...</a>
+    <div class="timeline-content">
+      <div v-if="isLoading" class="timeline-loader">
+        <div class="is-loading"></div>
+      </div>
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
       <div class="timeline-post-wrapper is-clearfix">
         <div class="timeline-post-direction" v-if="contributions.length > 0"
                                              v-for="(contribution, index) in contributions">
           <contribution-card class="card timeline arrow"
             :post="contribution" :key="contribution.slug">
-            <small slot="category">{{ contribution.type }}</small>
+            <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
           </contribution-card>
         </div>
       </div>
@@ -36,7 +38,7 @@
   export default {
     data () {
       return {
-        loading: false,
+        isLoading: true,
         loadingFinished: false,
         contributions: []
       }
@@ -51,7 +53,7 @@
       ContributionCard
     },
     mounted () {
-      this.loading = true
+      this.isLoading = true
       this.loadingFinished = false;
 
       // get the contributions by the userId and sort it
@@ -67,15 +69,15 @@
               }
             }
           })
-          this.loading = false
+          this.isLoading = false
           this.loadingFinished = true
           let contributions = Array.isArray(res.data) ? res.data : []
           this.contributions = contributions
         } catch (err) {
           // this just displays nothing
           // @todo implement some user feedback
-          console.log(err)
-          this.loading = false
+          console.error(err)
+          this.isLoading = false
         }
       })()
     }
@@ -154,12 +156,15 @@ $green: hsl(78, 71%, 41%);
     }
   }
   .timeline-intro {
-    text-transform: uppercase;
     text-align: center;
     color: grey;
     padding: 10px 0;
     font-size: 14px;
     letter-spacing: 1px;
+
+    p {
+      text-transform: uppercase;
+    }
 
     .add-post {
       display: block;
@@ -175,5 +180,18 @@ $green: hsl(78, 71%, 41%);
       font-weight: lighter;
     }
   }
+
+  .timeline-content {
+    position: relative;
+    min-height: 200px;
+    
+    .timeline-loader {
+      .is-loading::after {
+        left: calc(50% - 1em);
+        top: calc(50% - 1em);
+      }
+    }
+  }
+
 }
 </style>

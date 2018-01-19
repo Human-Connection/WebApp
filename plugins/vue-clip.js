@@ -1,10 +1,5 @@
 import Vue from 'vue'
-
-let vueClip
-
-if (process.browser) {
-  vueClip = require('vue-clip')
-  Vue.use(vueClip)
-}
-
-export default vueClip
+// import VueClip from 'vue-clip/src/components/Clip'
+import VueClip from 'vue-clip/src/components/clip.vue'
+// Vue.use(VueClip)
+Vue.component('vue-clip', VueClip)

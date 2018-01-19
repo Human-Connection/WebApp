@@ -20,10 +20,19 @@
       HcFooter,
       HcFrame,
       HcVerificationBanner
+    },
+    head () {
+      return {
+        htmlAttrs: {
+          lang: this.$i18n.locale()
+        }
+      }
     }
   }
 </script>
 
-<style>
-
+<style scoped lang="scss">
+  #main {
+    margin-bottom: 15em !important;
+  }
 </style>

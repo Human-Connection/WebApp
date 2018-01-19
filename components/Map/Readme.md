@@ -33,7 +33,7 @@ new Vue({
       }
     }
   },
-  template: `<hc-map :places="places" :zoom="zoom" :center="center" style="height: 500px;" />`
+  template: `<hc-map :places="places" token="pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ" :zoom="zoom" :center="center" style="height: 500px;" />`
 })
 ```
 
