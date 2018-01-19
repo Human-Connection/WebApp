@@ -6,6 +6,8 @@ LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Hum
 # update unix packages
 #RUN apk update && apk upgrade
 #RUN rm -rf /var/cache/apk/*
+RUN apt-get update
+RUN apt-get install yarn
 
 # copy the project
 RUN mkdir -p /var/www/
@@ -24,7 +26,8 @@ RUN npm install pm2 -g
 #RUN pm2 startup
 
 # buld application
-RUN npm install
+#RUN npm install
+RUN yarn
 
 ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
