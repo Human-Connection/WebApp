@@ -1,7 +1,7 @@
 # FROM eggplanet/nuxt
 
 FROM node:latest
-LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human Connection" Version="1.0" Maintainer="Human Connection (developer@human-connection.org)"
+LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # update unix packages
 #RUN apk update && apk upgrade
