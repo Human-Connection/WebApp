@@ -101,8 +101,8 @@
           },
           uploadMultiple: false,
           acceptedFiles: 'image/*',
-          resizeWidth: 1000,
-          resizeHeight: 800,
+          resizeWidth: this.maxWidth,
+          resizeHeight: this.maxHeight,
           headers: {}
         }
       }
