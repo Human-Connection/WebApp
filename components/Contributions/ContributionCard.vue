@@ -38,7 +38,7 @@
               </div>
             </div>
             <div class="column has-text-right">
-              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: 214}, 214)" class="nowrap">
+              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: shoutCount}, shoutCount)" class="nowrap">
                 <i class="fa fa-bullhorn"></i><small>{{ shoutCount }}</small>
               </span>
               <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
