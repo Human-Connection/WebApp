@@ -39,6 +39,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import urlHelper from '~/helpers/urls'
 
   /*
   * We use a forked version of vue-clip here
@@ -90,7 +91,7 @@
         errorMessage: '',
         generalError: this.$t('upload.errors.general'),
         options: {
-          url: 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/uploads',
+          url: urlHelper(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads',
           paramName: 'file',
           parallelUploads: 1,
           maxFilesize: {
