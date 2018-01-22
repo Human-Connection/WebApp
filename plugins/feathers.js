@@ -12,6 +12,7 @@ if (endpoint.indexOf('http') !== 0) {
 if (process.env.API_PORT > 0 && (process.env.API_PORT !== 443 || process.env.API_PORT !== 80)) {
   endpoint += ':' + process.env.API_PORT
 }
+console.log('API SOCKET ENDPOINT: ' + endpoint)
 const api = feathers()
   .configure(socketio(io(endpoint)))
   .configure(hooks())
