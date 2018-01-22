@@ -5,6 +5,7 @@ LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Hum
 
 # update unix packages
 RUN apk update && apk upgrade
+RUN apk add git
 RUN rm -rf /var/cache/apk/*
 
 # copy the project
