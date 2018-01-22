@@ -4,8 +4,8 @@ FROM node:8.9-alpine
 LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # update unix packages
-#RUN apk update && apk upgrade
-#RUN rm -rf /var/cache/apk/*
+RUN apk update && apk upgrade
+RUN rm -rf /var/cache/apk/*
 
 # copy the project
 RUN mkdir -p /var/www/
@@ -26,7 +26,7 @@ RUN npm install pm2 -g
 # buld application
 #RUN npm install
 RUN yarn cache clean
-RUN yarn install
+RUN yarn install --production
 
 ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
