@@ -28,32 +28,7 @@
         <main class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
         </main>
-        <footer>
-          <div class="infos columns is-mobile">
-            <div class="column has-text-left">
-              <div class="tags " v-if="categories.length">
-                <hc-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
-                           v-for="category in categories"
-                           :key="category._id"
-                           style="margin-right: 5px;"
-                           type="is-dark">
-                    <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
-                      <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
-                    </span>
-                </hc-tooltip>
-              </div>
-            </div>
-            <div class="column has-text-right">
-              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: 214}, 214)" class="nowrap">
-                <i class="fa fa-bullhorn"></i><small>{{ shoutCount }}</small>
-              </span>
-              <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
-                <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
-              </span>
-              <contribution-menu :post="post" />
-            </div>
-          </div>
-        </footer>
+        <contribution-card-footer :post="post" />
       </div>
     </div>
   </div>
@@ -61,8 +36,7 @@
 
 <script>
   import Author from '~/components/Author/Author.vue'
-  import ContributionMenu from '~/components/Contributions/ContributionMenu'
-  import _ from 'lodash'
+  import ContributionCardFooter from '~/components/Contributions/ContributionCardFooter'
 
   export default {
     name: 'hc-contribution-card',
@@ -78,7 +52,7 @@
     },
     components: {
       Author,
-      ContributionMenu
+      ContributionCardFooter
     },
     data () {
       return {
@@ -87,17 +61,6 @@
       }
     },
     computed: {
-      commentCount () {
-        // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.post.comments) ? 0 : _.castArray(this.post.comments).length
-      },
-      shoutCount () {
-        // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.post.shouts) ? 0 : _.castArray(this.post.shouts).length
-      },
-      categories () {
-        return _.isEmpty(this.post.categories) ? [] : _.castArray(this.post.categories)
-      },
       srcset () {
         return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
       }
@@ -205,8 +168,6 @@
       transition: box-shadow 150ms ease-out, transform 150ms ease-out;
       position: relative;
 
-      z-index: 1;
-
       @include tablet() {
         &:hover {
           box-shadow: $card-shadow-hover;
@@ -263,23 +224,6 @@
       height: 36px;
       background-position: center;
       background-size: cover;
-    }
-
-    footer {
-      margin-top: 0;
-      margin-bottom: -20px;
-      padding-top: 0;
-      padding-left: 0;
-      padding-right: 0;
-      text-align: left;
-      border: none;
-
-      .infos {
-        color: #7f7f7f;
-        small {
-          padding-left: 3px;
-        }
-      }
     }
   }
 

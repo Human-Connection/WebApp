@@ -1,23 +1,25 @@
 <template>
   <div class="contribution-menu" v-if="isModerator">
-    <b-dropdown position="is-top-left">
+    <b-dropdown class="is-top-center">
       <a slot="trigger">
-          <hc-icon icon="flag-o"></hc-icon>
+        <hc-tooltip :label="$t('component.contribution.editSettings')" type="is-dark">
+          <hc-icon icon="cog"></hc-icon>
+        </hc-tooltip>
       </a>
-      <b-dropdown-item @click="toggleEnabled">
-        <span v-if="post.isEnabled">
-          {{ $t('component.contribution.actionDisable') }}
-        </span>
-        <span v-else>
-          {{ $t('component.contribution.actionEnable') }}
-        </span>
+      <b-dropdown-item @click="toggleEnabled" v-if="isModerator">
+        <template v-if="post.isEnabled">
+          <hc-icon icon="eye-slash"></hc-icon> {{ $t('component.contribution.actionDisable') }}
+        </template>
+        <template v-else>
+          <hc-icon icon="eye"></hc-icon> {{ $t('component.contribution.actionEnable') }}
+        </template>
       </b-dropdown-item>
       <!--
       <b-dropdown-item>
-        {{ $t('component.contribution.actionReport') }}
+        <hc-icon icon="flag"></hc-icon> {{ $t('component.contribution.actionReport') }}
       </b-dropdown-item>
       <b-dropdown-item>
-        {{ $t('component.contribution.actionMarkAsRead') }}
+        <hc-icon icon="check"></hc-icon> {{ $t('component.contribution.actionMarkAsRead') }}
       </b-dropdown-item>
       -->
     </b-dropdown>
@@ -26,7 +28,7 @@
 
 <script>
   import feathers from '~/plugins/feathers'
-  import {mapGetters} from 'Vuex'
+  import {mapGetters} from 'vuex'
   export default {
     name: 'hc-contribution-menu',
     props: {
@@ -64,5 +66,6 @@
   .contribution-menu {
     display: inline-block;
     text-align: left;
+    user-select: none;
   }
 </style>

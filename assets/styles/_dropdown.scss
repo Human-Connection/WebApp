@@ -1,0 +1,58 @@
+.dropdown .background {
+  background-color: $backdrop-color;
+}
+
+.dropdown-menu {
+  .dropdown.is-top-center & {
+    top: auto;
+    bottom: 100%;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .dropdown.is-bottom-center & {
+    top: 100%;
+    bottom: auto;
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .dropdown-content {
+    overflow: hidden;
+  }
+}
+
+.dropdown-trigger a {
+  color: $grey;
+
+  &:hover, .dropdown.is-active & {
+    color: $grey-darker;
+  }
+
+  // Don't show tooltip, while dropdown is open
+  .dropdown.is-active & {
+    .tooltip:after, .tooltip:before {
+      display: none;
+    }
+  }
+}
+
+.dropdown-item {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+
+  i.fa {
+    color: $grey;
+    flex: 0 0 20px;
+  }
+
+  &:hover {
+    i.fa {
+      color: $grey-darker;
+    }
+  }
+}

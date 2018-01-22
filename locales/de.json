@@ -32,10 +32,10 @@
       "slug2label-economy-finances": "Wirtschaft & Finanzen"
     },
     "contribution": {
-      "actionMarkAsRead": "als gelesen markieren",
-      "actionReport": "Melden",
-      "actionDisable": "deaktivieren",
-      "actionEnable": "aktivieren",
+      "actionMarkAsRead": "Als gelesen markieren",
+      "actionReport": "Beitrag melden",
+      "actionDisable": "Beitrag deaktivieren",
+      "actionEnable": "Beitrag aktivieren",
       "bestList": "Bestenliste",
       "canDos": "Einfach machen",
       "chatroomBriefOrLong": "Plausch & Meinungstausch ::: Plausch & Meinungstausch / Chat ",
@@ -49,6 +49,7 @@
       "commentUpvote": "Bewerten: +1",
       "commentReplyThis": "Diesen Kommentar beantworten",
       "events": "Ereignisse",
+      "editSettings": "Einstellungen anpassen",
       "creatorFemaleOrMale": "Autorin ::: Autor",
       "creatorUnknown": "Anonymus",
       "jobs": "Tätigkeiten",
