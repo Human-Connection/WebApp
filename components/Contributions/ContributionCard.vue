@@ -3,7 +3,7 @@
     <div class="wrapper">
       <div class="contribution-link" @click="clicked" />
       <hc-progressive-image
-          v-if="post.teaserImg"
+          v-if="post.teaserImg && post.thumbnails"
           class="image"
           :preview="post.thumbnails.teaserImg.placeholder"
           :src="post.thumbnails.teaserImg.cardS"
@@ -62,6 +62,9 @@
     },
     computed: {
       srcset () {
+        if (!this.post || !this.post.thumbnails) {
+          return ''
+        }
         return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
       }
     },
@@ -83,7 +86,7 @@
     },
     mounted () {
       this.created = true
-      if (!this.post.teaserImg) {
+      if (this.post && !this.post.teaserImg) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
           this.$nextTick(() => {
@@ -225,6 +228,10 @@
       background-position: center;
       background-size: cover;
     }
+  }
+
+  .message {
+    margin-top: 2em;
   }
 
   .ribbon {

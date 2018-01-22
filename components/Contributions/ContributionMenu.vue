@@ -49,12 +49,29 @@
       })
     },
     methods: {
-      async toggleEnabled () {
+      toggleEnabled () {
         let data = {
           isEnabled: !this.post.isEnabled
         }
-        await feathers.service('contributions')
+        feathers.service('contributions')
           .patch(this.post._id, data)
+          .then(data => {
+            this.$store.commit('newsfeed/updateContribution', data)
+            this.$snackbar.open({
+              message: this.$t('component.contribution.settingsSavedSuccess'),
+              duration: 4000,
+              type: 'is-success'
+            })
+          })
+          .catch((err) => {
+            console.error(err)
+            this.isLoading = false
+            this.$toast.open({
+              message: err.message,
+              duration: 3000,
+              type: 'is-danger'
+            })
+          })
       }
     }
   }

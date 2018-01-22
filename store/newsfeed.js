@@ -43,6 +43,14 @@ export const mutations = {
   addContributions (state, contributions) {
     state.contributions = _.uniqBy(state.contributions.concat(contributions), '_id')
   },
+  updateContribution (state, contribution) {
+    if (!state.contributions.length) return
+    let index = state.contributions.findIndex(item => {
+      return item._id === contribution._id
+    })
+    if (index < 0) return
+    state.contributions.splice(index, 1, contribution)
+  },
   setHasNext (state, hasNext) {
     state.hasNext = hasNext
   },

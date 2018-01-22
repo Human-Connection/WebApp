@@ -78,11 +78,16 @@
       })
     },
     watch: {
-      contributions (items) {
-        if (items.length) {
-          this.ready = true
-          app.bricksInstance.update()
-        }
+      contributions: {
+        handler (items) {
+          if (items.length) {
+            this.ready = true
+            this.$nextTick(() => {
+              this.updateGrid(true, true)
+            })
+          }
+        },
+        deep: true
       },
       hasNext (hasNext) {
         if (hasNext) {
