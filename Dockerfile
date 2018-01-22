@@ -25,7 +25,7 @@ RUN npm install pm2 -g
 
 # buld application
 #RUN npm install
-RUN yarn cache clean
+#RUN yarn cache clean
 RUN yarn install --production
 
 ENV NODE_ENV=production
