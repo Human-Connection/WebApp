@@ -101,7 +101,9 @@ module.exports = {
     {src: '~/plugins/quill-editor.js'},
     {src: '~/plugins/flags.js', ssr: false}
   ],
-  modules: [],
+  modules: [
+    // '@nuxtjs/pwa'
+  ],
   router: {
     middleware: [
       'check-auth'
@@ -109,8 +111,8 @@ module.exports = {
     linkActiveClass: 'active-link'
   },
   manifest: {
-    name: 'Human Connection',
-    description: 'Human Connection Portal',
+    name: 'Human-Connection.org',
+    description: 'Human-Connection.org',
     theme_color: '#ffffff',
     lang: 'de'
   }
