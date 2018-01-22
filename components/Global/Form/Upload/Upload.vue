@@ -91,7 +91,7 @@
         errorMessage: '',
         generalError: this.$t('upload.errors.general'),
         options: {
-          url: urlHelper(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads',
+          url: urlHelper.buildEndpointURL(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads',
           paramName: 'file',
           parallelUploads: 1,
           maxFilesize: {
@@ -163,7 +163,7 @@
           this.resetLoader()
           return
         }
-        const basepath = urlHelper(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads'
+        const basepath = urlHelper.buildEndpointURL(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads'
         const url = JSON.parse(file.xhr.responseText).id
 
         this.image = `${basepath}${url}`
