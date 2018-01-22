@@ -163,7 +163,7 @@
           this.resetLoader()
           return
         }
-        const basepath = 'http://' + process.env.API_HOST + ':' + process.env.API_PORT + '/uploads/'
+        const basepath = urlHelper(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads'
         const url = JSON.parse(file.xhr.responseText).id
 
         this.image = `${basepath}${url}`
