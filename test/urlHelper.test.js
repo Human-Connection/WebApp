@@ -16,4 +16,5 @@ test('URL Helper Test', t => {
   t.is(urlHelper.buildEndpointURL('localhost', { protocol: null }), 'localhost')
   t.is(urlHelper.buildEndpointURL('https://api.human-connection.org'), 'https://api.human-connection.org')
   t.is(urlHelper.buildEndpointURL('http://api.human-connection.org'), 'http://api.human-connection.org')
+  t.is(urlHelper.buildEndpointURL('http://api.human-connection.org', { port: 443 }), 'http://api.human-connection.org')
 })
