@@ -102,7 +102,7 @@ module.exports = {
     {src: '~/plugins/flags.js', ssr: false}
   ],
   modules: [
-    '@nuxtjs/pwa'
+    // '@nuxtjs/pwa'
   ],
   router: {
     middleware: [
