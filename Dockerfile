@@ -26,7 +26,7 @@ RUN npm install pm2 -g
 # buld application
 #RUN npm install
 RUN yarn cache clean
-RUN yarn
+RUN yarn install
 
 ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
