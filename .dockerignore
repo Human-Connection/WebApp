@@ -4,5 +4,5 @@ node_modules/
 build/
 npm-debug.log
 Dockerfile
-package-lock.json
-yarn.lock
+#package-lock.json
+#yarn.lock
