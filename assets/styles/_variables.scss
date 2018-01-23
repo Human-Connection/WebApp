@@ -83,8 +83,10 @@ $fullhd: 1300px;
 $card-shadow: 0px 12px 26px -4px rgba(0, 0, 0, .1);
 $card-shadow-hover: 0 20px 60px 0 rgba(0, 0, 0, .15);
 
-$dropdown-content-shadow: $card-shadow-hover;
+$dropdown-content-shadow: $card-shadow-hover, 0 0 0 1px rgba($black, 0.1);
 $dropdown-content-radius: 3px;
 $dropdown-content-offset: 1px;
+$dropdown-content-z: 1000;
+$dropdown-item-hover-background-color: transparent;
 
 $backdrop-color: rgba($black, 0.6);

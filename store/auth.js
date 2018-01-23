@@ -34,6 +34,9 @@ export const getters = {
   isAdmin (state) {
     return !!state.user && state.user.role === 'admin'
   },
+  isModerator (state) {
+    return !!state.user && (state.user.role === 'admin' || state.user.role === 'moderator')
+  },
   user (state) {
     return state.user
   },
