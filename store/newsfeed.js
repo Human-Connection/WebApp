@@ -41,7 +41,6 @@ export const mutations = {
     state.search = value
   },
   setFilter (state, value) {
-    console.debug('#setFilter')
     state.filter = value
   },
   addContributions (state, contributions) {
