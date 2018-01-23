@@ -1,7 +1,8 @@
 node_modules/
 .nuxt/
+.git/
 build/
 npm-debug.log
 Dockerfile
-package-lock.json
-yarn.lock
+#package-lock.json
+#yarn.lock

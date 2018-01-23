@@ -1,11 +1,12 @@
 # FROM eggplanet/nuxt
 
-FROM node:latest
-LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Grzegorz Leoniec" Version="1.0" Maintainer="Grzegorz Leoniec (greg@app-interactive.de)"
+FROM node:8.9-alpine
+LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # update unix packages
-#RUN apk update && apk upgrade
-#RUN rm -rf /var/cache/apk/*
+RUN apk update && apk upgrade
+RUN apk add git
+RUN rm -rf /var/cache/apk/*
 
 # copy the project
 RUN mkdir -p /var/www/
@@ -24,11 +25,13 @@ RUN npm install pm2 -g
 #RUN pm2 startup
 
 # buld application
-RUN npm install
+#RUN npm install
+#RUN yarn cache clean
+RUN yarn install
 
 ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 
 # start the application in a autohealing cluster
-CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && pm2 start build/main.js -n frontend -i 0 --attach
+CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && pm2 start build/main.js -n frontend -i 2 --attach
