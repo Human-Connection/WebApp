@@ -175,20 +175,38 @@
       }
     },
     middleware: ['authenticated'],
+    asyncData ({ params }) {
+      console.log('PARAMS: ', params)
+      return {
+        params: params
+      }
+    },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated',
-        user: 'auth/user'
+        isAuthenticated: 'auth/isAuthenticated'
       }),
       coverImg () {
         if (!isEmpty(this.form.coverImg)) {
           return this.form.coverImg
-        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
+        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg)) {
           return this.user.thumbnails.coverImg.cover
         } else if (!isEmpty(this.user.coverImg)) {
           return this.user.coverImg
         } else {
           return 'https://source.unsplash.com/random/1250x280'
+        }
+      },
+      user () {
+        if (!isEmpty(this.params) && !isEmpty(this.params.slug)) {
+          console.log('TRY TO LOAD FROM PARAMS', this.params.slug, this.params)
+          return feathers.service('users').find({
+            query: {
+              slug: this.params.slug
+            }
+          })
+        } else {
+          console.log('TRY TO LOAD FROM AUTH USER')
+          return this.$store.getters['auth/user']
         }
       }
     },

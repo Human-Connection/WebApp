@@ -1,5 +1,5 @@
 <template>
-    <div class="media hc__author" v-if="post">
+    <div class="media hc__author" v-if="post" @click="showProfile">
         <div class="media-left">
             <hc-avatar :user="user"></hc-avatar>
         </div>
@@ -30,6 +30,11 @@
     props: {
       post: {
         type: Object
+      }
+    },
+    methods: {
+      showProfile () {
+        this.$router.push(`/profile/${this.user.slug}`)
       }
     },
     computed: {

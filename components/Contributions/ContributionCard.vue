@@ -14,7 +14,7 @@
           <div class="ribbon">
             <slot name="category"></slot>
           </div>
-          <author :post="post"/>
+          <author :post="post" class="author"/>
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
               <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
@@ -190,6 +190,8 @@
       width: 100%;
       height: 100%;
       z-index: 1;
+      background-color: #ccc;
+      opacity: .5;
     }
 
     &.timeline {
@@ -262,5 +264,9 @@
       border-style: solid;
       border-color: #ccc transparent transparent #ccc;
     }
+  }
+
+  .author {
+    z-index: 5 !important;
   }
 </style>
