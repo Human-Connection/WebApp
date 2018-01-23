@@ -40,6 +40,10 @@ export const mutations = {
   setSearch (state, value) {
     state.search = value
   },
+  setFilter (state, value) {
+    console.debug('#setFilter')
+    state.filter = value
+  },
   addContributions (state, contributions) {
     state.contributions = _.uniqBy(state.contributions.concat(contributions), '_id')
   },

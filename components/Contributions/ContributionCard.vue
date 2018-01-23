@@ -17,7 +17,7 @@
           <author :post="post"/>
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
-              {{ $t('component.contribution.postDisabled') }}
+              <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
             </div>
           </div>
           <h3 class="title is-4">
@@ -62,7 +62,8 @@
     },
     computed: {
       srcset () {
-        if (!this.post || !this.post.thumbnails) {
+        if (!this.post || !this.post.thumbnails || !this.post.thumbnails.teaserImg) {
+          console.log('NO IMAGE!!!')
           return ''
         }
         return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`

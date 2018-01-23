@@ -121,13 +121,29 @@
         this.$store.commit('newsfeed/setSearch', value)
         this.resetList(this)
       },
-      searchCategories () {
+      searchCategories (value) {
         console.log('##searchCategories')
-        // this.resetList(this)
+        console.log({
+          categoryIds: this.searchCategories,
+          emotions: this.searchEmotions
+        })
+        this.$store.commit('newsfeed/setFilter', {
+          categoryIds: this.searchCategories,
+          emotions: this.searchEmotions
+        })
+        this.resetList(this)
       },
-      searchEmotions () {
+      searchEmotions (value) {
         console.log('##searchEmotions')
-        // this.resetList(this)
+        console.log({
+          categoryIds: this.searchCategories,
+          emotions: this.searchEmotions
+        })
+        this.$store.commit('newsfeed/setFilter', {
+          categoryIds: this.searchCategories,
+          emotions: this.searchEmotions
+        })
+        this.resetList(this)
       }
     },
     methods: {

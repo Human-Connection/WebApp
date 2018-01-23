@@ -20,6 +20,11 @@
                 </hc-button>
               </div>
             </div>
+            <div class="message is-danger is-small" v-if="!contribution.isEnabled">
+              <div class="message-body">
+                <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
+              </div>
+            </div>
             <div class="notification is-danger is-hidden-tablet">
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
