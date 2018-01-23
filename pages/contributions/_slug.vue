@@ -11,13 +11,23 @@
               </div>
               <div class="column is-one-third">
                 <hc-button v-if="canEdit"
-                           class="pull-right"
+                           class="action-btn"
                            color="light"
                            :isLoading="isLoading"
                            @click="loading = true"
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
                 </hc-button>
+                <div class="button is-light action-btn">
+                  <contribution-menu class="pull-right" 
+                                    :post="contribution" 
+                                    @update="onContribSettingsUpdate" />
+                </div>
+              </div>
+            </div>
+            <div class="message is-danger is-small" v-if="!contribution.isEnabled">
+              <div class="message-body">
+                <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
               </div>
             </div>
             <div class="notification is-danger is-hidden-tablet">
@@ -27,12 +37,12 @@
             <div class="content" v-html="content"></div>
             <br/>
             <div class="tags" v-if= "categories.length">
-              <span class="tag" v-for="category in categories">
+              <span class="tag" v-for="category in categories" :key="category._id">
                 <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
               </span>
             </div>
             <div class="tags" v-if= "tags.length">
-              <span class="tag" v-for="tag in tags">
+              <span class="tag" v-for="tag in tags" :key="tag._id">
                 <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
               </span>
             </div>
@@ -140,6 +150,7 @@
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
+  import ContributionMenu from '~/components/Contributions/ContributionMenu'
   import _ from 'lodash'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
@@ -150,7 +161,8 @@
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
-      ContributionImage
+      ContributionImage,
+      ContributionMenu
     },
     data () {
       return {
@@ -166,6 +178,10 @@
             slug: params.slug
           }
         })
+        if (_.isEmpty(res.data)) {
+          error({ statusCode: 404 })
+          return {}
+        }
         return {
           contribution: res.data[0],
           title: res.data[0].title
@@ -173,6 +189,11 @@
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
         return {}
+      }
+    },
+    methods: {
+      onContribSettingsUpdate (data) {
+        this.contribution = data
       }
     },
     computed: {
@@ -217,6 +238,7 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+  @import '~bulma/sass/base/helpers';
 
   .card {
     border: none;
@@ -226,5 +248,9 @@
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
+  }
+  .action-btn {
+    @extend .is-pulled-right;
+    margin-left: 0.5rem;
   }
 </style>
