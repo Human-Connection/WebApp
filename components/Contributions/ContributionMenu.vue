@@ -56,7 +56,7 @@
         feathers.service('contributions')
           .patch(this.post._id, data)
           .then(data => {
-            this.$store.commit('newsfeed/updateContribution', data)
+            this.$emit('update', data)
             this.$snackbar.open({
               message: this.$t('component.contribution.settingsSavedSuccess'),
               duration: 4000,
@@ -84,5 +84,6 @@
     display: inline-block;
     text-align: left;
     user-select: none;
+    z-index: 10;
   }
 </style>

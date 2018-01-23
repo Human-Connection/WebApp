@@ -26,7 +26,7 @@
           <small>{{ commentCount }}</small>
         </span>
       </hc-tooltip>
-      <contribution-menu :post="post" />
+      <contribution-menu :post="post" @update="onContribSettingsUpdate" />
     </div>
   </div>
 </template>
@@ -45,6 +45,11 @@
     },
     components: {
       ContributionMenu
+    },
+    methods: {
+      onContribSettingsUpdate (data) {
+        this.$store.commit('newsfeed/updateContribution', data)
+      }
     },
     computed: {
       commentCount () {
@@ -76,6 +81,13 @@
   .meta-container {
     display: flex;
     align-items: center;
+  }
+
+  .tags-container {
+    z-index: 3;
+  }
+  .meta-container {
+    z-index: 4;
   }
 
   .meta-button {
