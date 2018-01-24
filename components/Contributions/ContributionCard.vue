@@ -26,7 +26,8 @@
           </h3>
         </header>
         <main class="content">
-          <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
+          <contribution-can-do :post="post" v-if="isCanDo" />
+          <hc-truncate :text="post.contentExcerpt" length=200 v-else />
         </main>
         <contribution-card-footer :post="post" />
       </div>
@@ -36,6 +37,7 @@
 
 <script>
   import Author from '~/components/Author/Author.vue'
+  import ContributionCanDo from '~/components/Contributions/ContributionCanDo'
   import ContributionCardFooter from '~/components/Contributions/ContributionCardFooter'
 
   export default {
@@ -52,7 +54,8 @@
     },
     components: {
       Author,
-      ContributionCardFooter
+      ContributionCardFooter,
+      ContributionCanDo
     },
     data () {
       return {
@@ -67,6 +70,12 @@
           return ''
         }
         return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
+      },
+      isCanDo () {
+        if (this.post.type !== 'cando') {
+          return null
+        }
+        return !!this.post.cando
       }
     },
     methods: {

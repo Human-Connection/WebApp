@@ -38,6 +38,8 @@
       "actionEnable": "Beitrag aktivieren",
       "bestList": "Bestenliste",
       "canDos": "Einfach machen",
+      "canDoAdd": "Jetzt hinzufügen",
+      "canDoCountedDescription": "{count} Mensch hat es geschafft. ::: {count} Menschen haben es geschafft. ::: Sei der erste, der das macht!",
       "chatroomBriefOrLong": "Plausch & Meinungstausch ::: Plausch & Meinungstausch / Chat ",
       "comment": "Kommentar",
       "commentsCounted": "Kommentare (1) ::: Kommentare ({count}) ::: Kommentare",
@@ -48,6 +50,7 @@
       "commentSubmitSuccess": "Du bist Klasse! Danke für Deinen Kommentar.",
       "commentUpvote": "Bewerten: +1",
       "commentReplyThis": "Diesen Kommentar beantworten",
+      "difficultyDescription": "Schwierigkeitsgrad",
       "events": "Ereignisse",
       "editSettings": "Einstellungen anpassen",
       "creatorFemaleOrMale": "Autorin ::: Autor",
@@ -144,6 +147,11 @@
       "introQuestion": "{username}, was sind Deine Pläne für heute?",
       "title": "Chronik"
     }
+  },
+  "difficulty": {
+    "easy": "einfach",
+    "medium": "mittel",
+    "hard": "schwer"
   },
   "page": {
     "index": {
