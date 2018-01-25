@@ -1,4 +1,5 @@
 import feathers from '~/plugins/feathers'
+import cookie from '~/helpers/ssr-storage'
 
 export const state = () => {
   return {
@@ -49,6 +50,7 @@ export const actions = {
   async jwt ({commit, dispatch}, {accessToken}) {
     try {
       await feathers.logout()
+      cookie.removeItem('feathers-jwt')
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
@@ -62,6 +64,7 @@ export const actions = {
   async login ({commit}, {email, password}) {
     try {
       await feathers.logout()
+      cookie.removeItem('feathers-jwt')
       commit('SET_USER', null)
       feathers.set('user', null)
 
@@ -71,6 +74,7 @@ export const actions = {
       const user = await feathers.service('users').get(payload.userId)
       commit('SET_USER', user)
       commit('SET_TOKEN', response.accessToken)
+      commit('newsfeed/clear', null, { root: true })
     } catch (err) {
       console.error(err.message)
       commit('SET_USER', null)
@@ -86,8 +90,10 @@ export const actions = {
     }
     commit('SET_USER', null)
     commit('SET_TOKEN', null)
-    commit('notifications/clear', null, { root: true })
     feathers.set('user', null)
+    cookie.removeItem('feathers-jwt')
+    commit('newsfeed/clear', null, { root: true })
+    // dispatch('newsfeed/fetch', null, { root: true })
   },
   register ({dispatch}, {email, password}) {
     return feathers.service('users').create({email, password})
