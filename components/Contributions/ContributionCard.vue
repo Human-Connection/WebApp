@@ -25,9 +25,9 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <main class="content">
+        <article class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
-        </main>
+        </article>
         <contribution-card-footer :post="post" />
       </div>
     </div>
@@ -206,7 +206,7 @@
       }
     }
 
-    main.content {
+    article.content {
       padding: 0;
     }
 
