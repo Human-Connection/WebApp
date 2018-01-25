@@ -162,7 +162,7 @@
 
   .cando-info {
     position: relative;
-    z-index: 10;
+    z-index: 2;
   }
 
   .cando-difficulty {
