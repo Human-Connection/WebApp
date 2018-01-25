@@ -4,7 +4,7 @@
       <div class="column is-6 is-offset-3 has-text-centered">
         <div class="card">
           <div class="card-content">
-            <p v-if="loading && !isVerified">{{ $t('auth.account.verifyingInfo') }}</p>
+            <p v-if="isLoading && !isVerified">{{ $t('auth.account.verifyingInfo') }}</p>
             <template v-else-if="isVerified">
               <hc-emoji type="happy" width="150px"></hc-emoji>
               <h1 class="title is-2">{{ $t('auth.account.verifyingSection') }}</h1>

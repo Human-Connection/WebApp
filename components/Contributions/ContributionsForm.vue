@@ -1,5 +1,5 @@
 <template>
-  <form v-bind:disabled="loading">
+  <form v-bind:disabled="isLoading">
     <!-- ToDo remove :test="true" for production -->
     <hc-upload :previewImage="form.teaserImg"
                :test="true"
