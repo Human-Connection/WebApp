@@ -122,11 +122,6 @@
         this.resetList(this)
       },
       searchCategories (value) {
-        console.log('##searchCategories')
-        console.log({
-          categoryIds: this.searchCategories,
-          emotions: this.searchEmotions
-        })
         this.$store.commit('newsfeed/setFilter', {
           categoryIds: this.searchCategories,
           emotions: this.searchEmotions
@@ -134,11 +129,6 @@
         this.resetList(this)
       },
       searchEmotions (value) {
-        console.log('##searchEmotions')
-        console.log({
-          categoryIds: this.searchCategories,
-          emotions: this.searchEmotions
-        })
         this.$store.commit('newsfeed/setFilter', {
           categoryIds: this.searchCategories,
           emotions: this.searchEmotions
@@ -192,8 +182,6 @@
         ]
       })
       // feed the search filters with the current settings
-      console.log('#length', this.contributions.length)
-
       if (this.contributions.length) {
         this.$store.commit('newsfeed/setLoading', true)
         const lastScrollPos = this.$store.getters['newsfeed/lastScrollPos']
