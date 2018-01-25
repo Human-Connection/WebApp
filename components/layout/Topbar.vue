@@ -97,14 +97,14 @@
                 <notifications></notifications>
                 <div class="navbar-item has-dropdown is-hoverable">
                   <nuxt-link class="navbar-link hide-in-menu"
-                             :to="{ name: 'profile' }">
+                             to="/profile">
                     <avatar :user="user"></avatar>
                   </nuxt-link>
                   <div class="navbar-dropdown user-menu is-boxed is-right">
                     <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: user ? user.name : ''})"></div>
                     <hr class="navbar-divider">
 
-                    <nuxt-link class="navbar-item" :to="{ name: 'profile' }">
+                    <nuxt-link class="navbar-item" to="/profile">
                       {{ $t('auth.account.profile') }}
                     </nuxt-link>
                     <nuxt-link class="navbar-item" v-if="isAdmin" to="/admin">

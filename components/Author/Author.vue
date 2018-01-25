@@ -34,7 +34,13 @@
     },
     methods: {
       showProfile () {
-        this.$router.push(`/profile/${this.user.slug}`)
+        // foreign profile
+        if (this.user.slug !== undefined) {
+          this.$router.push(`/profile/${this.user.slug}`)
+        // own profile
+        } else {
+          this.$router.push(`/profile/`)
+        }
       }
     },
     computed: {
@@ -49,6 +55,7 @@
     @import "assets/styles/utilities";
 
     .hc__author {
+        cursor: pointer;
         .profile-image {
             border: none;
             box-shadow:inset 0 0 0 1px rgba(0, 0, 0, .1);

@@ -190,8 +190,6 @@
       width: 100%;
       height: 100%;
       z-index: 1;
-      background-color: #ccc;
-      opacity: .5;
     }
 
     &.timeline {
@@ -204,7 +202,6 @@
       header {
         margin-bottom: 10px;
         margin-top: 0;
-        pointer-events: none;
       }
     }
 
@@ -267,6 +264,7 @@
   }
 
   .author {
-    z-index: 5 !important;
+    z-index: 2;
+    position: relative;
   }
 </style>

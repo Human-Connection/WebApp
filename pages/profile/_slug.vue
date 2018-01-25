@@ -108,7 +108,7 @@
           </div>
         </hc-box>
       </div>
-      <hc-timeline />
+      <hc-timeline v-if="user" :user="user" />
     </div>
   </section>
 </template>
@@ -176,7 +176,6 @@
     },
     middleware: ['authenticated'],
     asyncData ({ params }) {
-      console.log('PARAMS: ', params)
       return {
         params: params
       }
@@ -197,15 +196,13 @@
         }
       },
       user () {
-        if (!isEmpty(this.params) && !isEmpty(this.params.slug)) {
-          console.log('TRY TO LOAD FROM PARAMS', this.params.slug, this.params)
+        if (!isEmpty(this.params) && !isEmpty(this.params.slug) && this.params.slug !== undefined) {
           return feathers.service('users').find({
             query: {
               slug: this.params.slug
             }
           })
         } else {
-          console.log('TRY TO LOAD FROM AUTH USER')
           return this.$store.getters['auth/user']
         }
       }
@@ -225,13 +222,21 @@
       }
     },
     async mounted () {
-      const user = await feathers.service('follows').get(this.user._id)
-      this.following = {
-        users: user.users || [],
-        organizations: user.organizations || [],
-        projects: user.projects || []
+      try {
+        let user = await feathers.service('follows').get(this.user._id)
+        if (user !== null) {
+          this.following = {
+            users: user.users || [],
+            organizations: user.organizations || [],
+            projects: user.projects || []
+          }
+        }
+        return true
+      } catch (err) {
+        // this just displays nothing
+        // @todo implement some user feedback
+        console.error(err)
       }
-      return true
     },
     head () {
       return {
