@@ -271,7 +271,9 @@
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
-            this.$router.push('/')
+            // this.$store.commit('newsfeed/clear')
+            // this.$router.push('/')
+            window.location = '/'
           })
           .catch(err => {
             console.error(err)

@@ -16,5 +16,7 @@ export default function ({store, req}) {
       // Ignore invalid JWT
       console.error(err.message)
       console.error('#INVALID JWT TOKEN! ' + accessToken)
+
+      store.dispatch('auth/logout', null, { root: true })
     })
 }
