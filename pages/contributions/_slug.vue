@@ -14,7 +14,7 @@
                            class="action-btn"
                            color="light"
                            :isLoading="isLoading"
-                           @click="loading = true"
+                           @click="isLoading = true"
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
                 </hc-button>
