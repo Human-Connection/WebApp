@@ -59,14 +59,12 @@
       // get the contributions by the userId and sort it
       // by createdAt DESC
       (async () => {
-        console.log('FETCHING INFO')
         let user = await this.user
-        console.log(user)
+        let userId = user._id !== undefined ? user._id : user.data[0]._id
         try {
-          console.log(user._id)
           let res = await feathers.service('contributions').find({
             query: {
-              userId: user._id,
+              userId: userId,
               $sort: {
                 createdAt: -1
               }
