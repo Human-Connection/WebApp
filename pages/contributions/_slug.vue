@@ -18,11 +18,9 @@
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
                 </hc-button>
-                <div class="button is-light action-btn">
-                  <contribution-menu class="pull-right" 
-                                    :post="contribution" 
-                                    @update="onContribSettingsUpdate" />
-                </div>
+                <contribution-menu class="button is-light action-btn" 
+                                  :post="contribution" 
+                                  @update="onContribSettingsUpdate" />
               </div>
             </div>
             <div class="message is-danger is-small" v-if="!contribution.isEnabled">
