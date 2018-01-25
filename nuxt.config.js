@@ -106,7 +106,8 @@ module.exports = {
   ],
   router: {
     middleware: [
-      'check-auth'
+      'check-auth',
+      'authenticated'
     ],
     linkActiveClass: 'active-link'
   },
