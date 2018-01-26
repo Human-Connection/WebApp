@@ -29,7 +29,8 @@
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
-        user: 'auth/user'
+        user: 'auth/user',
+        email: 'auth/email'
       })
     },
     methods: {
@@ -37,17 +38,17 @@
         resendVerifySignup: 'auth/resendVerifySignup'
       }),
       resendVerification () {
-        this.resendVerifySignup()
+        this.resendVerifySignup(this.email)
           .then(() => {
             this.$snackbar.open({
-              message: this.$t('auth.account.verifyingResendSuccess', {'email': this.state.user.email}),
+              message: this.$t('auth.account.verifyingResendSuccess', {'email': this.email}),
               duration: 4000,
               type: 'is-success'
             })
           })
-          .catch(error => {
+          .catch(err => {
             this.$toast.open({
-              message: error.message,
+              message: err.message,
               duration: 3000,
               type: 'is-danger'
             })

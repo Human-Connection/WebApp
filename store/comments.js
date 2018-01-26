@@ -1,5 +1,5 @@
 import feathers from '~/plugins/feathers'
-import _ from 'lodash'
+import { castArray, debounce } from 'lodash'
 
 const commentsService = feathers.service('comments')
 
@@ -15,7 +15,7 @@ export const mutations = {
     state.isLoading = status
   },
   set (state, comments) {
-    state.comments = _.castArray(comments)
+    state.comments = castArray(comments)
   },
   clear (state) {
     state.comments = []
@@ -38,10 +38,10 @@ export const actions = {
   // Called from plugins/init-store-subscriptions only once
   subscribe ({dispatch}) {
     return commentsService
-      .on('created', _.debounce((comment) => {
+      .on('created', debounce((comment) => {
         dispatch('fetchByContributionId', comment.contributionId)
       }, 500))
-      .on('patched', _.debounce((comment) => {
+      .on('patched', debounce((comment) => {
         dispatch('fetchByContributionId', comment.contributionId)
       }, 500))
   },

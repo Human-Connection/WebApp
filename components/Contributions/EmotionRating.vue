@@ -25,7 +25,7 @@
 <script>
   import feathers from '~/plugins/feathers'
   import countTo from 'vue-count-to'
-  import _ from 'lodash'
+  import { isEmpty, keys } from 'lodash'
   import inViewport from 'vue-in-viewport-mixin'
 
   // TODO: move logic to store
@@ -57,7 +57,7 @@
       }
     },
     created () {
-      _.keys(this.contribution.emotions).forEach(key => {
+      keys(this.contribution.emotions).forEach(key => {
         this.values[key] = {
           startVal: 0,
           endVal: this.contribution.emotions[key].percent
@@ -68,7 +68,7 @@
       feathers.service('contributions').on('patched', res => {
         // TODO: use the new channels feature for the feathers (buzzard) when its released
         if (res._id === this.contribution._id) {
-          _.keys(this.contribution.emotions).forEach((key) => {
+          keys(this.contribution.emotions).forEach((key) => {
             this.$refs[key][0].pause()
             this.values[key].startVal = this.values[key].endVal
             this.values[key].endVal = this.contribution.emotions[key].percent
@@ -133,7 +133,7 @@
                 userId: this.user._id
               }
             }).then((res) => {
-              if (res && !_.isEmpty(res.data)) {
+              if (res && !isEmpty(res.data)) {
                 this.selected = res.data[0].rated
               }
             })

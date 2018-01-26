@@ -4,6 +4,7 @@ import cookie from '~/helpers/ssr-storage'
 export const state = () => {
   return {
     user: null,
+    email: null,
     token: null
   }
 }
@@ -12,8 +13,16 @@ export const mutations = {
   SET_USER (state, user) {
     if (!user || user === undefined) {
       state.user = null
+      state.email = null
     } else {
       state.user = user
+    }
+  },
+  SET_EMAIL (state, email) {
+    if (!email || email === undefined) {
+      state.email = null
+    } else {
+      state.email = email
     }
   },
   SET_TOKEN (state, token) {
@@ -41,6 +50,9 @@ export const getters = {
   user (state) {
     return state.user
   },
+  email (state) {
+    return state.email
+  },
   token (state) {
     return state.token
   }
@@ -58,7 +70,7 @@ export const actions = {
       commit('SET_TOKEN', response.accessToken)
       dispatch('notifications/fetch', null, { root: true })
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message, err)
     }
   },
   async login ({commit}, {email, password}) {
@@ -69,10 +81,10 @@ export const actions = {
       feathers.set('user', null)
 
       const response = await feathers.authenticate({strategy: 'local', email, password})
-
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
       commit('SET_USER', user)
+      commit('SET_EMAIL', email)
       commit('SET_TOKEN', response.accessToken)
       commit('newsfeed/clear', null, { root: true })
     } catch (err) {
@@ -82,7 +94,7 @@ export const actions = {
       throw new Error(err.message)
     }
   },
-  async logout ({commit}) {
+  async logout ({commit, dispatch}) {
     try {
       await feathers.logout()
     } catch (err) {
@@ -95,9 +107,10 @@ export const actions = {
     commit('newsfeed/clear', null, { root: true })
     // dispatch('newsfeed/fetch', null, { root: true })
   },
-  register ({dispatch}, {email, password}) {
+  register ({dispatch, commit}, {email, password}) {
     return feathers.service('users').create({email, password})
       .then(response => {
+        commit('SET_EMAIL', email)
         return dispatch('login', {email, password})
       })
   },
@@ -120,21 +133,22 @@ export const actions = {
         return true
       })
       .catch(err => {
-        console.log(err.message)
+        console.error(err.message, err)
       })
   },
-  resendVerifySignup ({state}) {
+  resendVerifySignup ({dispatch}, email) {
+    if (!email) { return false }
     return feathers.service('authManagement').create({
       action: 'resendVerifySignup',
       value: {
-        email: state.user.email
+        email: email
       }
     })
       .then(() => {
         return true
       })
       .catch(err => {
-        console.log(err.message)
+        console.error(err.message, err)
       })
   }
 }

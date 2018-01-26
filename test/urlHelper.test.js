@@ -8,7 +8,6 @@ import urlHelper from '../helpers/urls'
  */
 
 test('URL Helper Test', t => {
-
   t.is(urlHelper.buildEndpointURL('localhost'), 'http://localhost')
   t.is(urlHelper.buildEndpointURL('localhost', { port: 3030 }), 'http://localhost:3030')
   t.is(urlHelper.buildEndpointURL('localhost', { protocol: 'https' }), 'https://localhost')
