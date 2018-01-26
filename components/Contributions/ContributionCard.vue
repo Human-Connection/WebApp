@@ -14,7 +14,7 @@
           <div class="ribbon">
             <slot name="category"></slot>
           </div>
-          <author :post="post"/>
+          <author :post="post" class="author"/>
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
               <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
@@ -202,7 +202,6 @@
       header {
         margin-bottom: 10px;
         margin-top: 0;
-        pointer-events: none;
       }
     }
 
@@ -262,5 +261,10 @@
       border-style: solid;
       border-color: #ccc transparent transparent #ccc;
     }
+  }
+
+  .author {
+    z-index: 2;
+    position: relative;
   }
 </style>
