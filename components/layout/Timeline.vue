@@ -31,7 +31,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import feathers from '~/plugins/feathers'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
 
@@ -44,10 +43,11 @@
       }
     },
     name: 'hc-timeline',
-    computed: {
-      ...mapGetters({
-        user: 'auth/user'
-      })
+    props: {
+      user: {
+        required: true,
+        type: [Object, Promise]
+      }
     },
     components: {
       ContributionCard
@@ -59,11 +59,12 @@
       // get the contributions by the userId and sort it
       // by createdAt DESC
       (async () => {
-        let user = this.user
+        let user = await this.user
+        let userId = user._id !== undefined ? user._id : user.data[0]._id
         try {
           let res = await feathers.service('contributions').find({
             query: {
-              userId: user._id,
+              userId: userId,
               $sort: {
                 createdAt: -1
               }
