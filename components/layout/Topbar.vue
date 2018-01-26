@@ -2,7 +2,10 @@
   <nav class="navbar" @mouseleave="menuIsActive = false">
     <div class="container">
       <div class="navbar-brand">
-        <nuxt-link class="navbar-item logo" :to="{ name: 'index' }" :title="$t('component.layout.topbarLabel')">
+        <nuxt-link class="navbar-item logo" 
+                   :to="{ name: 'index' }" 
+                   :title="$t('component.layout.topbarLabel')" 
+                   active-class="">
           <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection" />
           <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection" />
         </nuxt-link>
