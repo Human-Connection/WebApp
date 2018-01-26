@@ -173,7 +173,7 @@
   import {mapGetters} from 'vuex'
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
-  import _ from 'lodash'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'hc-contributions-form',
@@ -292,13 +292,13 @@
         }
       },
       onTagDelete (e) {
-        if (_.isEmpty(e.target.value)) {
+        if (isEmpty(e.target.value)) {
           this.form.tags.pop()
         }
       },
       onTagTab (e) {
         console.log(e.target.value)
-        if (!_.isEmpty(e.target.value)) {
+        if (!isEmpty(e.target.value)) {
           setTimeout(() => {
             e.target.focus()
           }, 20)

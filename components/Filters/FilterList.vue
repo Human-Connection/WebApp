@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import { extend, map } from 'lodash'
   import FilterItem from '~/components/Filters/FilterItem.vue'
 
   export default {
@@ -68,7 +68,7 @@
     watch: {
       selected (itemIds) {
         // we need to get rid of the reactivity here
-        this.selectedIds = _.extend([], itemIds)
+        this.selectedIds = extend([], itemIds)
       },
       selectedIds (itemIds) {
         this.$emit('input', itemIds)
@@ -109,7 +109,7 @@
           // this.selectedIdsBeforeToggled = []
         } else {
           this.selectedIdsBeforeToggled = this.selectedIds
-          this.selectedIds = _.map(this.items, '_id')
+          this.selectedIds = map(this.items, '_id')
         }
 
         if (this.selectedIdsBeforeToggled.length === 0) {

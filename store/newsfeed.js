@@ -65,6 +65,8 @@ export const mutations = {
     state.skip = 0
     state.isLoading = false
     state.hasNext = true
+    state.lastQueryHash = null
+    state.lastScrollPos = null
   }
 }
 
@@ -125,7 +127,6 @@ export const getters = {
     } else {
       delete query.$and
     }
-    console.log(query)
     return query
   }
 }
