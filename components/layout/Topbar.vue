@@ -101,7 +101,7 @@
                     <avatar :user="user"></avatar>
                   </nuxt-link>
                   <div class="navbar-dropdown user-menu is-boxed is-right">
-                    <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: user ? user.name : ''})"></div>
+                    <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymus'})"></div>
                     <hr class="navbar-divider">
 
                     <nuxt-link class="navbar-item" :to="{ name: 'profile' }">
