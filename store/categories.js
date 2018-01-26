@@ -1,5 +1,5 @@
 import feathers from '~/plugins/feathers'
-import _ from 'lodash'
+import { castArray } from 'lodash'
 
 const categoriesService = feathers.service('categories')
 
@@ -11,7 +11,7 @@ export const state = () => {
 
 export const mutations = {
   set (state, categories) {
-    state.categories = _.castArray(categories)
+    state.categories = castArray(categories)
   },
   // [vuex] unknown local mutation type: clear, global type: categories/clear
   clear (state) {
@@ -27,7 +27,11 @@ export const getters = {
 
 export const actions = {
   // Called from nuxtServerInit in index
-  init ({dispatch}) {
+  init ({state, dispatch}) {
+    if (state.categories.length) {
+      // do not fetch again
+      return
+    }
     return dispatch('fetch')
   },
   // Called from plugins/init-store-subscriptions only once

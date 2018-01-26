@@ -45,7 +45,7 @@
   import { mapGetters } from 'vuex'
   import Bricks from 'bricks.js'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
-  import _ from 'lodash'
+  import { throttle } from 'lodash'
 
   const ContributionCard = () => import('~/components/Contributions/ContributionCard.vue')
 
@@ -150,7 +150,7 @@
           } catch (err) {}
         })
       },
-      updateGrid: _.throttle((resize = false, update = false) => {
+      updateGrid: throttle((resize = false, update = false) => {
         // throttle the grid updates for better performance
         if (resize) {
           app.bricksInstance.resize(false).pack()
@@ -164,7 +164,7 @@
           app.bricksInstance.pack()
         }
       }, 150),
-      onInfinite: _.throttle(($state) => {
+      onInfinite: throttle(($state) => {
         app.$store.dispatch('newsfeed/fetchMore')
       }, 150)
     },
@@ -200,7 +200,7 @@
       window.addEventListener('load', () => {
         this.updateGrid(false, true)
       })
-      window.addEventListener('resize', _.throttle((e) => {
+      window.addEventListener('resize', throttle((e) => {
         this.updateGrid(true, false)
       }, 200))
     },

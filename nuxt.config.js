@@ -46,18 +46,12 @@ module.exports = {
     'mapbox-gl/dist/mapbox-gl.css',
     'assets/styles/main.scss',
     'quill/dist/quill.snow.css',
-    'quill/dist/quill.bubble.css',
     'quill/dist/quill.core.css'
   ],
-  /*
-   ** Add axios globally
-   */
   build: {
     presets: ['vue-app'],
     vendor: [
-      'axios',
       'moment',
-      'lodash',
       'bricks.js',
       'vuex-i18n',
       // Feathers
@@ -102,6 +96,7 @@ module.exports = {
     {src: '~/plugins/flags.js', ssr: false}
   ],
   modules: [
+    '@nuxtjs/webpackmonitor'
     // '@nuxtjs/pwa'
   ],
   router: {
