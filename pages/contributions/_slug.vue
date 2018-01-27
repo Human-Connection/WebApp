@@ -149,7 +149,7 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionMenu from '~/components/Contributions/ContributionMenu'
-  import _ from 'lodash'
+  import { isEmpty, castArray } from 'lodash'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
 
@@ -176,7 +176,7 @@
             slug: params.slug
           }
         })
-        if (_.isEmpty(res.data)) {
+        if (isEmpty(res.data)) {
           error({ statusCode: 404 })
           return {}
         }
@@ -205,17 +205,17 @@
       },
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.contribution.comments) ? 0 : _.castArray(this.contribution.comments).length
+        return isEmpty(this.contribution.comments) ? 0 : castArray(this.contribution.comments).length
       },
       shoutCount () {
         // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.contribution.shouts) ? 0 : _.castArray(this.contribution.shouts).length
+        return isEmpty(this.contribution.shouts) ? 0 : castArray(this.contribution.shouts).length
       },
       categories () {
-        return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)
+        return isEmpty(this.contribution.categories) ? [] : castArray(this.contribution.categories)
       },
       tags () {
-        return _.isEmpty(this.contribution.tags) ? [] : _.castArray(this.contribution.tags)
+        return isEmpty(this.contribution.tags) ? [] : castArray(this.contribution.tags)
       },
       canEdit () {
         const userId = this.user ? this.user._id : null

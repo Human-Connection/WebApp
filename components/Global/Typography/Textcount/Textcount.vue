@@ -6,7 +6,7 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import { isArray, isInteger } from 'lodash'
 
   export default {
     name: 'hc-textcount',
@@ -18,9 +18,9 @@
     },
     watch: {
       count (val) {
-        if (_.isArray(val)) {
+        if (isArray(val)) {
           this.countNumber = val.length
-        } else if (_.isInteger(this.count)) {
+        } else if (isInteger(this.count)) {
           this.countNumber = parseInt(val)
         } else {
           this.countNumber = 0

@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { clone } from 'lodash'
 
 export const state = () => {
   return {
@@ -22,14 +22,14 @@ export const mutations = {
     if (!categoryIds || categoryIds === undefined) {
       state.filter.categoryIds = []
     } else {
-      state.filter.categoryIds = _.clone(categoryIds)
+      state.filter.categoryIds = clone(categoryIds)
     }
   },
   emotions (state, emotions) {
     if (!emotions || emotions === undefined) {
       state.filter.emotions = []
     } else {
-      state.filter.emotions = _.clone(emotions)
+      state.filter.emotions = clone(emotions)
     }
   }
 }
@@ -39,10 +39,10 @@ export const getters = {
     return state.query
   },
   categoryIds (state) {
-    return _.clone(state.filter.categoryIds)
+    return clone(state.filter.categoryIds)
   },
   emotions (state) {
-    return _.clone(state.filter.emotions)
+    return clone(state.filter.emotions)
   },
   all (state) {
     return state

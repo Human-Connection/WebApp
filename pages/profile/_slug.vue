@@ -175,9 +175,27 @@
       }
     },
     middleware: ['authenticated'],
-    asyncData ({ params }) {
+    async asyncData ({ params, store }) {
+      let user
+      console.log(params)
+      if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
+        console.log('FIND')
+        const res = await feathers.service('users').find({
+          query: {
+            slug: params.slug
+          }
+        })
+        user = res.data[0]
+      } else {
+        console.log('STORE')
+        user = store.getters['auth/user']
+      }
+      if (!user) {
+        throw new Error(404)
+      }
       return {
-        params: params
+        params: params,
+        user: user
       }
     },
     computed: {
@@ -187,23 +205,12 @@
       coverImg () {
         if (!isEmpty(this.form.coverImg)) {
           return this.form.coverImg
-        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg)) {
+        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
           return this.user.thumbnails.coverImg.cover
         } else if (!isEmpty(this.user.coverImg)) {
           return this.user.coverImg
         } else {
           return 'https://source.unsplash.com/random/1250x280'
-        }
-      },
-      user () {
-        if (!isEmpty(this.params) && !isEmpty(this.params.slug) && this.params.slug !== undefined) {
-          return feathers.service('users').find({
-            query: {
-              slug: this.params.slug
-            }
-          })
-        } else {
-          return this.$store.getters['auth/user']
         }
       }
     },

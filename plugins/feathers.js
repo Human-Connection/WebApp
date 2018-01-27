@@ -7,7 +7,6 @@ import storage from '~/helpers/ssr-storage'
 import urlHelper from '~/helpers/urls'
 
 const endpoint = urlHelper.buildEndpointURL(process.env.API_HOST, { port: process.env.API_PORT })
-console.log('API SOCKET ENDPOINT: ' + endpoint)
 const api = feathers()
   .configure(socketio(io(endpoint)))
   .configure(hooks())
