@@ -277,8 +277,8 @@
         this.$store.dispatch('auth/logout')
           .then(() => {
             // this.$store.commit('newsfeed/clear')
-            // this.$router.push('/')
-            window.location = '/'
+            // window.location = '/'
+            this.$router.push('auth/login')
           })
           .catch(err => {
             console.error(err)
@@ -411,11 +411,11 @@
     font-size: 1.4rem;
   }
 
-  @include mobile() {
+  /* @include mobile() {
     .navbar-center {
       // width: 30vw;
     }
-  }
+  } */
 
   .locales .navbar-dropdown {
     .flag-icon {

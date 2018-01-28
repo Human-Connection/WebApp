@@ -12,7 +12,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
-    "test": "ava --serial --verbose"
+    "test": "ava --serial --verbose",
+    "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "engines": {
     "node": ">= 8.0.0"
@@ -38,7 +39,7 @@
     "feathers-socketio": "~2.0.1",
     "font-awesome": "~4.7.0",
     "helmet": "~3.10.0",
-    "js-base64": "~2.4.2",
+    "js-base64": "~2.4.3",
     "js-cookie": "~2.2.0",
     "lodash": "~4.17.4",
     "mapbox-gl": "~0.44.0",
@@ -59,14 +60,16 @@
     "vue-server-renderer": "~2.5.13",
     "vue-styleguidist": "~1.4.5",
     "vue-template-compiler": "~2.5.13",
+    "vuelidate": "^0.6.1",
     "vuex-i18n": "~1.10.5"
   },
   "devDependencies": {
     "@nuxtjs/webpackmonitor": "~0.1.0",
-    "@vue/test-utils": "~1.0.0-beta.10",
+    "@vue/test-utils": "~1.0.0-beta.11",
     "ava": "~0.25.0",
     "backpack-core": "~0.5.0",
     "browser-env": "~3.2.4",
+    "codecov": "~3.0.0",
     "eslint": "~4.16.0",
     "eslint-config-standard": "~11.0.0-beta.0",
     "eslint-loader": "~1.9.0",
@@ -75,10 +78,12 @@
     "eslint-plugin-node": "~5.2.1",
     "eslint-plugin-promise": "~3.6.0",
     "eslint-plugin-standard": "~3.0.1",
+    "istanbul": "~0.4.5",
     "jsdom": "~11.6.1",
     "less": "~2.7.3",
     "less-loader": "~4.0.5",
     "node-sass": "~4.7.2",
+    "nyc": "~11.4.1",
     "require-extension-hooks": "~0.3.2",
     "require-extension-hooks-babel": "~0.1.1",
     "require-extension-hooks-vue": "~0.4.1",

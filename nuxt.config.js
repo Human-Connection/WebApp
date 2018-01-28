@@ -54,6 +54,7 @@ module.exports = {
       'moment',
       'bricks.js',
       'vuex-i18n',
+      'mapbox-gl',
       // Feathers
       'feathers/client',
       'feathers-socketio/client',
