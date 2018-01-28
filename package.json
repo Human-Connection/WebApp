@@ -59,6 +59,7 @@
     "vue-server-renderer": "~2.5.13",
     "vue-styleguidist": "~1.4.5",
     "vue-template-compiler": "~2.5.13",
+    "vuelidate": "^0.6.1",
     "vuex-i18n": "~1.10.5"
   },
   "devDependencies": {

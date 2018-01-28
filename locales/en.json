@@ -262,6 +262,7 @@
       "nameSection": "How may we call you?",
       "nameTitle": "Nice to meet you",
       "password": "Password",
+      "inviteCode": "Invite-Code",
       "profile": "My Profile",
       "settings": "Settings",
       "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the mail verification.",
