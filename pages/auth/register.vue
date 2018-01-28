@@ -11,31 +11,58 @@
         <p class="subtitle is-6">{{ $t('auth.register.description') }}</p>
         <form @submit.prevent="register">
           <div class="field">
-            <p class="control has-icons-right">
-              <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
-                     v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
-              <span v-if="errors" class="icon is-small is-right">
-                              <i class="fa fa-warning"></i>
-                            </span>
-            </p>
+            <div class="control has-icons-right">
+              <input ref="focus" 
+                     autofocus 
+                     :class="{ 'input': true, 'is-danger': $v.form.email.$error }" 
+                     type="email"
+                     :placeholder="$t('auth.account.email')" 
+                     v-model.trim="form.email"
+                     @blur="$v.form.email.$touch">
+              <span v-if="$v.form.email.$error" class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+              </span>
+            </div>
           </div>
           <div class="field">
-            <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" v-bind:placeholder="$t('auth.account.password')"
-                     v-model="data.password" autocomplete="new-password">
-              <span v-if="errors" class="icon is-small is-right">
-                              <i class="fa fa-warning"></i>
-                            </span>
-            </p>
+            <div class="control has-icons-right">
+              <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }" 
+                     type="password" 
+                     :placeholder="$t('auth.account.password')"
+                     v-model.trim="form.password" 
+                     autocomplete="new-password"
+                     @blur="$v.form.password.$touch">
+              <span v-if="$v.form.password.$error" class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+              </span>
+            </div>
+          </div>
+          <div class="field" v-if="useInviteCode">
+            <div class="control has-icons-right">
+              <input :class="{ 'input': true, 'is-danger': $v.form.inviteCode.$error }" 
+                     type="text" 
+                     :placeholder="$t('auth.account.inviteCode')"
+                     v-model.trim="form.inviteCode"
+                     @blur="$v.form.inviteCode.$touch">
+              <span v-if="$v.form.inviteCode.$error" class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+              </span>
+            </div>
           </div>
           <div class="field has-text-le">
-            <b-checkbox>{{ $t('auth.account.confirmOlderThan18') }}</b-checkbox>
+            <b-checkbox v-model="form.isFullAge"
+                        :class="{'is-danger': $v.form.isFullAge.$error }">
+              {{ $t('auth.account.confirmOlderThan18') }}
+            </b-checkbox>
           </div>
-          <p>
-            <hc-button color="primary" size="medium" type="button" class="is-fullwidth" :isLoading="isLoading">
-              {{ $t('auth.register.label') }}
-            </hc-button>
-          </p>
+          <hc-button color="primary" 
+                     size="medium" 
+                     type="button" 
+                     class="is-fullwidth" 
+                     :isLoading="isLoading" 
+                     :disabled="$v.form.$invalid">
+            {{ $t('auth.register.label') }}
+          </hc-button>
         </form>
         <!-- TODO links by named route not hard coded -->
         <p class="small-info" v-html="$t('auth.account.confirmTermsOfUsage', {
@@ -56,20 +83,49 @@
 <script>
   import Vue from 'vue'
   import animatable from '~/components/mixins/animatable'
+  import { validationMixin } from 'vuelidate'
+  import { required, email, minLength } from 'vuelidate/lib/validators'
 
   export default {
     middleware: 'anonymous',
     layout: 'blank',
-    mixins: [animatable],
+    mixins: [animatable, validationMixin],
     data () {
       return {
-        data: {
+        form: {
           email: '',
-          password: ''
+          password: '',
+          inviteCode: '',
+          isFullAge: false
         },
         isLoading: false,
-        errors: null
+        useInviteCode: false
       }
+    },
+    validations () {
+      let rules = {
+        form: {
+          email: {
+            required,
+            email
+          },
+          password: {
+            required,
+            minLength: minLength(6)
+          },
+          isFullAge: {
+            required
+          }
+        }
+      }
+      if (this.useInviteCode) {
+        rules.form.inviteCode = {
+          required,
+          minLength: minLength(6)
+        }
+      }
+
+      return rules
     },
     mounted () {
       Vue.nextTick(() => {
@@ -78,13 +134,20 @@
     },
     methods: {
       async register (e) {
+        if (this.$v.form.$invalid) {
+          // this.errors = true
+          this.animate('shake')
+          this.isLoading = false
+          return
+        }
+
         e.preventDefault()
-        this.errors = false
+        // this.errors = false
         this.isLoading = true
-        this.$store.dispatch('auth/register', this.data)
+        this.$store.dispatch('auth/register', this.form)
           .then(() => {
             this.isLoading = false
-            this.data.password = null
+            this.form.password = null
             this.$router.replace({name: 'auth-name'})
           })
           .catch(error => {
@@ -93,7 +156,7 @@
               duration: 3000,
               type: 'is-danger'
             })
-            this.errors = true
+            // this.errors = true
             this.animate('shake')
             this.isLoading = false
           })
