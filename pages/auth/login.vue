@@ -2,10 +2,19 @@
   <section class="container content">
     <div class="card" :class="classes">
       <div class="card-content">
-        <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
+        <a v-if="$i18n.locale() === 'de'" @click="changeLanguage('en')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
+          <flag iso="de" :squared="false" title="" />
+        </a>
+        <a v-else @click="changeLanguage('de')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
+          <flag iso="gb" :squared="false" title="" />
+        </a>
+        <nuxt-link v-if="false"
+                   :to="$route.params.path || '/'"
+                   class="delete"
+                   style="display: block; position: absolute; right: 1.5rem; top: 1rem;"></nuxt-link>
         <div class="card-teaser">
-          <nuxt-link :to="this.$route.params.path || '/'">
-            <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
+          <nuxt-link :to="$route.params.path || '/'">
+            <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
         <h6 class="subtitle is-6">{{ $t('auth.login.description') }}</h6>
@@ -15,23 +24,25 @@
               <input ref="focus" 
                      name="username" 
                      type="email"
-                     autofocus 
-                     :class="{ 'input': true, 'is-danger': errors }"
-                     :placeholder="$t('auth.account.email')" 
-                     v-model="data.email">
-              <span v-if="errors" class="icon is-small is-right">
+                     autofocus
+                     :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
+                     :placeholder="$t('auth.account.email')"
+                     v-model.trim="form.email"
+                     @blur="$v.form.email.$touch">
+              <span v-if="$v.form.email.$error" class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
               </span>
             </div>
           </div>
           <div class="field">
             <div class="control has-icons-right">
-              <input :class="{ 'input': true, 'is-danger': errors }" 
+              <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
                      name="password" 
                      type="password" 
                      :placeholder="$t('auth.account.password')"
-                     v-model="data.password">
-              <span v-if="errors" class="icon is-small is-right">
+                     v-model.trim="form.password"
+                     @blur="$v.form.password.$touch">
+              <span v-if="$v.form.password.$error" class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
               </span>
             </div>
@@ -41,10 +52,12 @@
           </div>
           <hc-button color="primary"
                      name="submit"
+                     @click.prevent="login"
                      size="medium"
                      type="button"
                      class="is-fullwidth"
-                     :isLoading="isLoading">
+                     :isLoading="isLoading"
+                     :disabled="$v.form.$invalid">
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>
@@ -63,22 +76,35 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import Vue from 'vue'
   import animatable from '~/components/mixins/animatable'
+  import { validationMixin } from 'vuelidate'
+  import { required, email } from 'vuelidate/lib/validators'
 
   export default {
     middleware: 'anonymous',
     layout: 'blank',
-    mixins: [animatable],
+    mixins: [animatable, validationMixin],
     data () {
       return {
-        data: {
+        form: {
           email: '',
           password: ''
         },
         isLoading: false,
-        stayLoggedIn: false,
-        errors: null
+        stayLoggedIn: false
+      }
+    },
+    validations () {
+      return {
+        form: {
+          email: {
+            required,
+            email
+          },
+          password: {
+            required
+          }
+        }
       }
     },
     computed: {
@@ -87,34 +113,48 @@
       })
     },
     mounted () {
-      Vue.nextTick(() => {
-        this.$refs['focus'].focus()
+      this.$nextTick(() => {
+        // this.$refs['focus'].focus()
       })
     },
     methods: {
-      async login (e) {
-        e.preventDefault()
-        this.errors = false
+      changeLanguage (locale) {
+        // TODO: make it a component
+        // check if the locale has already been loaded
+        if (this.$i18n.localeExists(locale)) {
+          this.$i18n.set(locale)
+          return
+        }
+        import(`~/locales/${locale}.json`)
+          .then(res => {
+            this.$i18n.add(locale, res)
+            this.$i18n.set(locale)
+          })
+      },
+      login () {
+        if (this.$v.form.$invalid) {
+          this.animate('shake')
+          this.isLoading = false
+          return
+        }
         this.isLoading = true
-        this.$store.dispatch('auth/login', this.data)
+        this.$store.dispatch('auth/login', this.form)
           .then(() => {
             this.$snackbar.open({
               message: this.$t('auth.login.successInfo'),
               duration: 4000,
               type: 'is-success'
             })
-            this.data.password = null
             this.$router.replace(this.$route.params.path || this.$route.query.path || '/')
           })
-          .catch(error => {
+          .catch(err => {
+            this.isLoading = false
             this.$toast.open({
-              message: error.message,
+              message: err.message,
               duration: 3000,
               type: 'is-danger'
             })
-            this.errors = true
             this.animate('shake')
-            this.isLoading = false
           })
       }
     },
@@ -143,12 +183,14 @@
   }
 
   .card-teaser {
-    padding-top: 10px;
-
     img {
       display: inline-block;
       max-width: 200px;
       height: auto;
+
+      @include tablet {
+        max-width: 260px;
+      }
     }
   }
 
