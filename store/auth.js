@@ -108,7 +108,6 @@ export const actions = {
     // dispatch('newsfeed/fetch', null, { root: true })
   },
   register ({dispatch, commit}, {email, password, inviteCode}) {
-    console.log(email, password, inviteCode)
     return feathers.service('users').create({email, password, inviteCode})
       .then(response => {
         commit('SET_EMAIL', email)

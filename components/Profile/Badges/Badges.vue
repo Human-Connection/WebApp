@@ -2,10 +2,10 @@
   <div class="user-badges columns">
     <div class="column user-badges-icons">
       <ul v-if="badges">
-        <li v-for="badge in getBadges">
+        <li v-for="badge in getBadges" :key="badge._id">
           <!-- @todo maybe there will be some different styling depending in the type -->
           <span :class="badge.type">
-            <img :src="badge.image.path" :alt="badge.image.alt" :title="badge.text">
+            <img :src="badge.image.path" :alt="badge.image.alt" :title="badge.key">
           </span>
         </li>
       </ul>
@@ -43,16 +43,26 @@
   padding: 10px 0 0 ;
   margin-top: 15px;
 
-  li {
-    list-style: none;
-    float: left;
-  }
   li:first-child {
     margin-left: 0;
   }
   li img {
     width: 35px;
     height: 35px;
+  }
+  li {
+    list-style: none;
+    float: left;
+    margin-right: -7px;
+
+    &:nth-child(2),
+    &:nth-child(4),
+    &:nth-child(6) {
+      img {
+        margin-top: 16px;
+        display: block;
+      }
+    }
   }
   .user-badges-summary {
     border-left: 1px solid #9c3;
