@@ -6,16 +6,16 @@ cache:
   directories:
     - node_modules
 install:
-  - yarn
+#  - yarn
 script:
-  - yarn run test
+#  - yarn run test
 services:
   - docker
 before_install:
-  - docker build -t humanconnection/frontend-nuxt .
+  - docker build -t humanconnection/frontend-nuxt:alpha .
 after_success:
-- if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker push humanconnection/frontend-nuxt;
+    docker push humanconnection/frontend-nuxt:alpha;
     fi
-#- yarn run coverage
+#  - yarn run coverage

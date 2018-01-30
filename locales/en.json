@@ -293,7 +293,9 @@
       "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
       "noAccountYet": "No account yet?",
       "accountAlready": "You have an account?",
-      "label": "Register"
+      "label": "Register",
+      "next": "Next",
+      "back": "Back"
     }
   }
 }

@@ -293,7 +293,9 @@
       "description": "Tritt Human Connection bei und habe an der Gemeinschaft teil. Dein Konto ist kostenlos und wird es immer bleiben.",
       "noAccountYet": "Noch kein Konto?",
       "accountAlready": "Du hast ein Konto?",
-      "label": "Registrieren"
+      "label": "Registrieren",
+      "next": "Weiter",
+      "back": "Zurück"
     }
   }
 }
