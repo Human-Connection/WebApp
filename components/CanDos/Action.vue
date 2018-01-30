@@ -92,7 +92,7 @@
         feathers.service('users-candos')
           .create(data)
           .then(data => {
-            this.updateStore(this.$t('component.contribution.canDoAddedSuccess'))
+            this.updateContribution(this.$t('component.contribution.canDoAddedSuccess'))
           })
           .catch(this.handleError)
       },
@@ -103,7 +103,7 @@
         feathers.service('users-candos')
           .remove(this.currentUserCando._id)
           .then(data => {
-            this.updateStore(this.$t('component.contribution.canDoCanceledSuccess'))
+            this.updateContribution(this.$t('component.contribution.canDoCanceledSuccess'))
           })
           .catch(this.handleError)
       },
@@ -120,14 +120,15 @@
             let message = data.done
               ? this.$t('component.contribution.canDoDoneSuccess')
               : this.$t('component.contribution.canDoUndoneSuccess')
-            this.updateStore(message)
+            this.updateContribution(message)
           })
           .catch(this.handleError)
       },
-      updateStore (message) {
+      updateContribution (message) {
         feathers.service('contributions')
           .get(this.post._id)
           .then(data => {
+            this.$emit('update', data)
             this.$store.commit('newsfeed/updateContribution', data)
             this.$snackbar.open({
               message,

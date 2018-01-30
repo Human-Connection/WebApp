@@ -33,7 +33,8 @@
             </div>
             <div class="cando-header" v-if="isCanDo">
               <div class="cando-header-action">
-                <can-do-action :post="contribution" />
+                <can-do-action :post="contribution"
+                  @update="onContribSettingsUpdate" />
               </div>
               <div class="cando-header-count">
                 <can-do-count :post="contribution" />
