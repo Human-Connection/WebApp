@@ -168,7 +168,7 @@
   import CanDoCount from '~/components/CanDos/Count'
   import CanDoDifficulty from '~/components/CanDos/Difficulty'
   import CanDoReason from '~/components/CanDos/Reason'
-  import { isEmpty, castArray } from 'lodash'
+  import { isEmpty } from 'lodash'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
 
@@ -227,18 +227,16 @@
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
       },
       commentCount () {
-        // we need to cast the comments array as it might be an object when only one is present
-        return isEmpty(this.contribution.comments) ? 0 : castArray(this.contribution.comments).length
+        return isEmpty(this.contribution.comments) ? 0 : this.contribution.comments.length
       },
       shoutCount () {
-        // we need to cast the comments array as it might be an object when only one is present
-        return isEmpty(this.contribution.shouts) ? 0 : castArray(this.contribution.shouts).length
+        return isEmpty(this.contribution.shouts) ? 0 : this.contribution.shouts.length
       },
       categories () {
-        return isEmpty(this.contribution.categories) ? [] : castArray(this.contribution.categories)
+        return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
       },
       tags () {
-        return isEmpty(this.contribution.tags) ? [] : castArray(this.contribution.tags)
+        return isEmpty(this.contribution.tags) ? [] : this.contribution.tags
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
