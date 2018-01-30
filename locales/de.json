@@ -294,7 +294,8 @@
       "noAccountYet": "Noch kein Konto?",
       "accountAlready": "Du hast ein Konto?",
       "label": "Registrieren",
-      "next": "Weiter"
+      "next": "Weiter",
+      "back": "Zurück"
     }
   }
 }

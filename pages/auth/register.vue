@@ -2,6 +2,12 @@
   <section class="container content">
     <div class="card" :class="classes">
       <div class="card-content">
+        <a v-if="$i18n.locale() === 'de'" @click="changeLanguage('en')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
+          <flag iso="de" :squared="false" title="" />
+        </a>
+        <a v-if="$i18n.locale() === 'en'" @click="changeLanguage('de')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
+          <flag iso="gb" :squared="false" title="" />
+        </a>
         <nuxt-link v-if="!useInviteCode" :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
           <nuxt-link :to="this.$route.params.path || '/'">
@@ -92,7 +98,7 @@
                        :disabled="$v.form.$invalid">
               {{ $t('auth.register.label') }}
             </hc-button>
-            <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;zurück</a>
+            <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;{{ $t('auth.register.back') }}</a>
           </template>
         </form>
         <!-- TODO links by named route not hard coded -->
@@ -177,6 +183,19 @@
       })
     },
     methods: {
+      changeLanguage (locale) {
+        // TODO: make it a component
+        // check if the locale has already been loaded
+        if (this.$i18n.localeExists(locale)) {
+          this.$i18n.set(locale)
+          return
+        }
+        import(`~/locales/${locale}.json`)
+          .then(res => {
+            this.$i18n.add(locale, res)
+            this.$i18n.set(locale)
+          })
+      },
       toStep (s) {
         this.step = s
         this.$refs['focus'].focus()
@@ -239,6 +258,7 @@
   .card-teaser {
     img {
       display: inline-block;
+      margin-top: 2rem;
       //max-width: 200px;
       height: auto;
 
