@@ -5,7 +5,7 @@
         <nuxt-link :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
         <div class="card-teaser">
           <nuxt-link :to="this.$route.params.path || '/'">
-            <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
+            <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
         <h6 class="subtitle is-6">{{ $t('auth.login.description') }}</h6>
@@ -143,12 +143,14 @@
   }
 
   .card-teaser {
-    padding-top: 10px;
-
     img {
       display: inline-block;
       max-width: 200px;
       height: auto;
+
+      @include tablet {
+        max-width: 260px;
+      }
     }
   }
 
