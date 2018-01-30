@@ -1,10 +1,13 @@
 <template>
-  <nav class="navbar" @mouseleave="menuIsActive = false">
+  <nav class="navbar" @mouseleave="menuIsActive = false" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <nuxt-link class="navbar-item logo" :to="{ name: 'index' }" :title="$t('component.layout.topbarLabel')">
-          <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection">
-          <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection">
+        <nuxt-link class="navbar-item logo" 
+                   :to="{ name: 'index' }" 
+                   :title="$t('component.layout.topbarLabel')" 
+                   active-class="">
+          <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection" />
+          <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection" />
         </nuxt-link>
         <div class="navbar-burger burger"
              :class="{ 'is-active': menuIsActive }"
@@ -97,14 +100,14 @@
                 <notifications></notifications>
                 <div class="navbar-item has-dropdown is-hoverable">
                   <nuxt-link class="navbar-link hide-in-menu"
-                             :to="{ name: 'profile' }">
+                             to="/profile">
                     <avatar :user="user"></avatar>
                   </nuxt-link>
                   <div class="navbar-dropdown user-menu is-boxed is-right">
-                    <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: user ? user.name : ''})"></div>
+                    <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymus'})"></div>
                     <hr class="navbar-divider">
 
-                    <nuxt-link class="navbar-item" :to="{ name: 'profile' }">
+                    <nuxt-link class="navbar-item" to="/profile">
                       {{ $t('auth.account.profile') }}
                     </nuxt-link>
                     <nuxt-link class="navbar-item" v-if="isAdmin" to="/admin">
@@ -147,7 +150,7 @@
   import SearchInput from '../Search/SearchInput.vue'
   import FilterList from '~/components/Filters/FilterList.vue'
 
-  import _ from 'lodash'
+  import { isEqual, map, throttle } from 'lodash'
 
   let app = this
 
@@ -220,16 +223,18 @@
     },
     watch: {
       categories (categories) {
-        this.applyCategoryFilter(_.map(categories, '_id'))
+        this.applyCategoryFilter(map(categories, '_id'))
       },
       '$route' () {
         this.closeMenu()
       }
     },
     mounted () {
+      this.$store.dispatch('categories/init')
+
       // TODO: aplly filters from user config or local storage, but keep them between sessions
-      this.applyCategoryFilter(_.map(this.categories, '_id'))
-      this.applyEmotionFilter(_.map(this.emotions, '_id'))
+      this.applyCategoryFilter(map(this.categories, '_id'))
+      this.applyEmotionFilter(map(this.emotions, '_id'))
 
       window.addEventListener('resize', this.closeMenu)
     },
@@ -239,7 +244,7 @@
     methods: {
       filterForCategories (ids) {
         clearTimeout(this.filterThrottle)
-        if (!_.isEqual(ids, this.selectedCategoryIds)) {
+        if (!isEqual(ids, this.selectedCategoryIds)) {
           this.filterThrottle = setTimeout(() => {
             this.applyCategoryFilter(ids)
           }, 1000)
@@ -247,14 +252,14 @@
       },
       applyCategoryFilter (ids) {
         clearTimeout(this.filterThrottle)
-        if (!_.isEqual(ids, this.selectedCategoryIds)) {
+        if (!isEqual(ids, this.selectedCategoryIds)) {
           this.selectedCategoryIds = ids
           this.$store.commit('search/categoryIds', ids)
         }
       },
       filterForEmotions (emotions) {
         clearTimeout(this.filterEmotionThrottle)
-        if (!_.isEqual(emotions, this.selectedEmotions)) {
+        if (!isEqual(emotions, this.selectedEmotions)) {
           this.filterEmotionThrottle = setTimeout(() => {
             this.applyEmotionFilter(emotions)
           }, 1000)
@@ -262,7 +267,7 @@
       },
       applyEmotionFilter (emotions) {
         clearTimeout(this.filterEmotionThrottle)
-        if (!_.isEqual(emotions, this.selectedEmotions)) {
+        if (!isEqual(emotions, this.selectedEmotions)) {
           // get deselected emotions
           this.selectedEmotions = emotions
           this.$store.commit('search/emotions', this.selectedEmotions)
@@ -271,7 +276,9 @@
       logout () {
         this.$store.dispatch('auth/logout')
           .then(() => {
-            this.$router.push('/')
+            // this.$store.commit('newsfeed/clear')
+            // window.location = '/'
+            this.$router.push('auth/login')
           })
           .catch(err => {
             console.error(err)
@@ -290,7 +297,7 @@
             this.$i18n.set(locale)
           })
       },
-      closeMenu: _.throttle(() => {
+      closeMenu: throttle(() => {
         app.menuIsActive = false
       }, 1000)
     }
@@ -404,11 +411,11 @@
     font-size: 1.4rem;
   }
 
-  @include mobile() {
+  /* @include mobile() {
     .navbar-center {
       // width: 30vw;
     }
-  }
+  } */
 
   .locales .navbar-dropdown {
     .flag-icon {

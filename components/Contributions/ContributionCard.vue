@@ -14,7 +14,7 @@
           <div class="ribbon">
             <slot name="category"></slot>
           </div>
-          <author :post="post"/>
+          <author :post="post" class="author"/>
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
               <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
@@ -25,10 +25,10 @@
             <slot name="header"></slot>
           </h3>
         </header>
-        <main class="content">
+        <article class="content">
           <contribution-can-do :post="post" v-if="isCanDo" />
           <hc-truncate :text="post.contentExcerpt" length=200 v-else />
-        </main>
+        </article>
         <contribution-card-footer :post="post" />
       </div>
     </div>
@@ -211,11 +211,10 @@
       header {
         margin-bottom: 10px;
         margin-top: 0;
-        pointer-events: none;
       }
     }
 
-    main.content {
+    article.content {
       padding: 0;
     }
 
@@ -271,5 +270,10 @@
       border-style: solid;
       border-color: #ccc transparent transparent #ccc;
     }
+  }
+
+  .author {
+    z-index: 2;
+    position: relative;
   }
 </style>

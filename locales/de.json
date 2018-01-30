@@ -278,6 +278,7 @@
       "nameSection": "Wie dürfen wir Dich nennen?",
       "nameTitle": "Schön, Dich kennenzulernen",
       "password": "Passwort",
+      "inviteCode": "Einladungs-Code",
       "profile": "Mein Profil",
       "settings": "Kontoeinstellungen",
       "verifyingErrorDescription": "Wir konnten Deine E-Mail-Adresse nicht überprüfen. Vielleicht war der geklickte Link schon veraltet. Wiederhole bitte die E-Mail-Überprüfung.",
@@ -308,7 +309,9 @@
       "description": "Tritt Human Connection bei und habe an der Gemeinschaft teil. Dein Konto ist kostenlos und wird es immer bleiben.",
       "noAccountYet": "Noch kein Konto?",
       "accountAlready": "Du hast ein Konto?",
-      "label": "Registrieren"
+      "label": "Registrieren",
+      "next": "Weiter",
+      "back": "Zurück"
     }
   }
 }

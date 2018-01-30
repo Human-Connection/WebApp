@@ -3,9 +3,11 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import expressHealthcheck from 'express-healthcheck'
 import Raven from 'raven'
+import helmet from 'helmet'
 import createLocaleMiddleware from 'express-locale'
 
 const app = express()
+app.use(helmet())
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')

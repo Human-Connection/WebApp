@@ -1,5 +1,5 @@
 export default function ({ store, route, redirect }) {
-  if (!store.getters['auth/isAuthenticated']) {
+  if (route.path.indexOf('/auth') !== 0 && !store.getters['auth/isAuthenticated']) {
     return redirect('/auth/login', {
       path: route.path
     })

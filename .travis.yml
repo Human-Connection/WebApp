@@ -1,0 +1,21 @@
+language: node_js
+node_js:
+  - "8"
+cache:
+  yarn: true
+  directories:
+    - node_modules
+install:
+#  - yarn
+script:
+#  - yarn run test
+services:
+  - docker
+before_install:
+  - docker build -t humanconnection/frontend-nuxt:alpha .
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push humanconnection/frontend-nuxt:alpha;
+    fi
+#  - yarn run coverage

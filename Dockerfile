@@ -29,6 +29,9 @@ RUN npm install pm2 -g
 #RUN yarn cache clean
 RUN yarn install
 
+# run tests
+RUN yarn test
+
 ENV NODE_ENV=production
 RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build

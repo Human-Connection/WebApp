@@ -13,6 +13,9 @@ npm-debug.log
 # Backpack build
 /build
 
+# Ignore Webpack Build Statistics
+.monitor
+
 # Ignore ide settings
 .idea/
 .vscode/

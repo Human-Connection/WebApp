@@ -33,7 +33,7 @@
 
 <script>
   import ContributionMenu from '~/components/Contributions/ContributionMenu'
-  import _ from 'lodash'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'hc-contribution-card-footer',
@@ -53,15 +53,15 @@
     },
     computed: {
       commentCount () {
-        return _.isEmpty(this.post.comments) ? 0
+        return isEmpty(this.post.comments) ? 0
           : this.post.comments.length
       },
       shoutCount () {
-        return _.isEmpty(this.post.shouts) ? 0
+        return isEmpty(this.post.shouts) ? 0
           : this.post.shouts.length
       },
       categories () {
-        return _.isEmpty(this.post.categories) ? []
+        return isEmpty(this.post.categories) ? []
           : this.post.categories
       }
     }

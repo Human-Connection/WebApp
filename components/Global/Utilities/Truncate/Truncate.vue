@@ -4,7 +4,7 @@
 
 
 <script>
-  import lodash from 'lodash'
+  import { truncate } from 'lodash'
 
   export default {
     name: 'hc-truncate',
@@ -25,7 +25,7 @@
         if (!this.text) {
           return ''
         }
-        return lodash.truncate(this.text, {
+        return truncate(this.text, {
           length: this.length,
           separator: /,? +/
         })

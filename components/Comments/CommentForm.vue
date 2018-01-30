@@ -12,7 +12,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import _ from 'lodash'
+  import { trim } from 'lodash'
 
   export default {
     name: 'hc-comment-form',
@@ -38,7 +38,7 @@
         isVerified: 'auth/isVerified'
       }),
       hasContent () {
-        return !!_.trim(this.form.content.replace(/(<([^>]+)>)/ig, '')).length
+        return !!trim(this.form.content.replace(/(<([^>]+)>)/ig, '')).length
       }
     },
     methods: {
