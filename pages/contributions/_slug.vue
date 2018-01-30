@@ -295,4 +295,8 @@
       justify-content: space-between;
     }
   }
+
+  .cando-details-reason {
+    margin-top: 2.5rem;
+  }
 </style>
