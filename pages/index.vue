@@ -45,7 +45,7 @@
   import { mapGetters } from 'vuex'
   import Bricks from 'bricks.js'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
-  import _ from 'lodash'
+  import { throttle } from 'lodash'
 
   const ContributionCard = () => import('~/components/Contributions/ContributionCard.vue')
 
@@ -78,11 +78,16 @@
       })
     },
     watch: {
-      contributions (items) {
-        if (items.length) {
-          this.ready = true
-          app.bricksInstance.update()
-        }
+      contributions: {
+        handler (items) {
+          if (items.length) {
+            this.ready = true
+            this.$nextTick(() => {
+              this.updateGrid(true, true)
+            })
+          }
+        },
+        deep: true
       },
       hasNext (hasNext) {
         if (hasNext) {
@@ -116,13 +121,19 @@
         this.$store.commit('newsfeed/setSearch', value)
         this.resetList(this)
       },
-      searchCategories () {
-        console.log('##searchCategories')
-        // this.resetList(this)
+      searchCategories (value) {
+        this.$store.commit('newsfeed/setFilter', {
+          categoryIds: this.searchCategories,
+          emotions: this.searchEmotions
+        })
+        this.resetList(this)
       },
-      searchEmotions () {
-        console.log('##searchEmotions')
-        // this.resetList(this)
+      searchEmotions (value) {
+        this.$store.commit('newsfeed/setFilter', {
+          categoryIds: this.searchCategories,
+          emotions: this.searchEmotions
+        })
+        this.resetList(this)
       }
     },
     methods: {
@@ -139,7 +150,7 @@
           } catch (err) {}
         })
       },
-      updateGrid: _.throttle((resize = false, update = false) => {
+      updateGrid: throttle((resize = false, update = false) => {
         // throttle the grid updates for better performance
         if (resize) {
           app.bricksInstance.resize(false).pack()
@@ -153,7 +164,7 @@
           app.bricksInstance.pack()
         }
       }, 150),
-      onInfinite: _.throttle(($state) => {
+      onInfinite: throttle(($state) => {
         app.$store.dispatch('newsfeed/fetchMore')
       }, 150)
     },
@@ -171,8 +182,6 @@
         ]
       })
       // feed the search filters with the current settings
-      console.log('#length', this.contributions.length)
-
       if (this.contributions.length) {
         this.$store.commit('newsfeed/setLoading', true)
         const lastScrollPos = this.$store.getters['newsfeed/lastScrollPos']
@@ -191,7 +200,7 @@
       window.addEventListener('load', () => {
         this.updateGrid(false, true)
       })
-      window.addEventListener('resize', _.throttle((e) => {
+      window.addEventListener('resize', throttle((e) => {
         this.updateGrid(true, false)
       }, 200))
     },

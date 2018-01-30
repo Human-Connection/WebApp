@@ -1,5 +1,5 @@
 <template>
-    <div class="media hc__author" v-if="post">
+    <div class="media hc__author" v-if="post" @click="showProfile">
         <div class="media-left">
             <hc-avatar :user="user"></hc-avatar>
         </div>
@@ -32,6 +32,17 @@
         type: Object
       }
     },
+    methods: {
+      showProfile () {
+        // foreign profile
+        if (this.user.slug !== undefined) {
+          this.$router.push(`/profile/${this.user.slug}`)
+        // own profile
+        } else {
+          this.$router.push(`/profile/`)
+        }
+      }
+    },
     computed: {
       user () {
         return this.post.user || null
@@ -44,6 +55,7 @@
     @import "assets/styles/utilities";
 
     .hc__author {
+        cursor: pointer;
         .profile-image {
             border: none;
             box-shadow:inset 0 0 0 1px rgba(0, 0, 0, .1);

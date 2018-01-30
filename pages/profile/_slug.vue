@@ -108,7 +108,7 @@
           </div>
         </hc-box>
       </div>
-      <hc-timeline />
+      <hc-timeline v-if="user" :user="user" />
     </div>
   </section>
 </template>
@@ -175,15 +175,37 @@
       }
     },
     middleware: ['authenticated'],
+    async asyncData ({ params, store }) {
+      let user
+      console.log(params)
+      if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
+        console.log('FIND')
+        const res = await feathers.service('users').find({
+          query: {
+            slug: params.slug
+          }
+        })
+        user = res.data[0]
+      } else {
+        console.log('STORE')
+        user = store.getters['auth/user']
+      }
+      if (!user) {
+        throw new Error(404)
+      }
+      return {
+        params: params,
+        user: user
+      }
+    },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated',
-        user: 'auth/user'
+        isAuthenticated: 'auth/isAuthenticated'
       }),
       coverImg () {
         if (!isEmpty(this.form.coverImg)) {
           return this.form.coverImg
-        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
+        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
           return this.user.thumbnails.coverImg.cover
         } else if (!isEmpty(this.user.coverImg)) {
           return this.user.coverImg
@@ -207,13 +229,21 @@
       }
     },
     async mounted () {
-      const user = await feathers.service('follows').get(this.user._id)
-      this.following = {
-        users: user.users || [],
-        organizations: user.organizations || [],
-        projects: user.projects || []
+      try {
+        let user = await feathers.service('follows').get(this.user._id)
+        if (user !== null) {
+          this.following = {
+            users: user.users || [],
+            organizations: user.organizations || [],
+            projects: user.projects || []
+          }
+        }
+        return true
+      } catch (err) {
+        // this just displays nothing
+        // @todo implement some user feedback
+        console.error(err)
       }
-      return true
     },
     head () {
       return {

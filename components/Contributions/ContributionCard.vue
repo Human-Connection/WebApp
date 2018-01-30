@@ -1,8 +1,9 @@
 <template>
   <div class="card" :class="{ show: ready }">
-    <div class="wrapper" @click="clicked">
+    <div class="wrapper">
+      <div class="contribution-link" @click="clicked" />
       <hc-progressive-image
-          v-if="post.teaserImg"
+          v-if="post.teaserImg && post.thumbnails"
           class="image"
           :preview="post.thumbnails.teaserImg.placeholder"
           :src="post.thumbnails.teaserImg.cardS"
@@ -13,55 +14,29 @@
           <div class="ribbon">
             <slot name="category"></slot>
           </div>
-          <author :post="post"/>
+          <author :post="post" class="author"/>
+          <div class="message is-danger is-small" v-if="!post.isEnabled">
+            <div class="message-body">
+              <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
+            </div>
+          </div>
           <h3 class="title is-4">
             <hc-truncate :text="post.title" length=70></hc-truncate>
             <slot name="header"></slot>
           </h3>
         </header>
-        <main class="content">
+        <article class="content">
           <hc-truncate :text="post.contentExcerpt" length=200></hc-truncate>
-        </main>
-        <footer>
-          <div class="infos columns is-mobile">
-            <div class="column has-text-left">
-              <div class="tags " v-if="categories.length">
-                <hc-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
-                           v-for="category in categories"
-                           :key="category._id"
-                           style="margin-right: 5px;"
-                           type="is-dark">
-                    <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
-                      <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
-                    </span>
-                </hc-tooltip>
-              </div>
-            </div>
-            <div class="column has-text-right">
-              <span v-bind:title="$t('component.contribution.shoutsCountedDescription', {count: shoutCount}, shoutCount)" class="nowrap">
-                <i class="fa fa-bullhorn"></i><small>{{ shoutCount }}</small>
-              </span>
-              <span v-bind:title="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" class="nowrap">
-                <i class="fa fa-comments"></i><small>{{ commentCount }}</small>
-              </span>
-              <!--<b-dropdown v-if="false" position="is-top-left" class="is-hidden">
-                <a slot="trigger">
-                    <hc-icon icon="angle-up"></hc-icon>
-                </a>
-                <b-dropdown-item>{{ $t('component.contribution.actionReport') }}</b-dropdown-item>
-                <b-dropdown-item>{{ $t('component.contribution.actionMarkAsRead') }}</b-dropdown-item>
-              </b-dropdown>-->
-            </div>
-          </div>
-        </footer>
+        </article>
+        <contribution-card-footer :post="post" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import author from '~/components/Author/Author.vue'
-  import _ from 'lodash'
+  import Author from '~/components/Author/Author.vue'
+  import ContributionCardFooter from '~/components/Contributions/ContributionCardFooter'
 
   export default {
     name: 'hc-contribution-card',
@@ -76,7 +51,8 @@
       }
     },
     components: {
-      'author': author
+      Author,
+      ContributionCardFooter
     },
     data () {
       return {
@@ -85,18 +61,11 @@
       }
     },
     computed: {
-      commentCount () {
-        // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.post.comments) ? 0 : _.castArray(this.post.comments).length
-      },
-      shoutCount () {
-        // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.post.shouts) ? 0 : _.castArray(this.post.shouts).length
-      },
-      categories () {
-        return _.isEmpty(this.post.categories) ? [] : _.castArray(this.post.categories)
-      },
       srcset () {
+        if (!this.post || !this.post.thumbnails || !this.post.thumbnails.teaserImg) {
+          console.log('NO IMAGE!!!')
+          return ''
+        }
         return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
       }
     },
@@ -118,7 +87,7 @@
     },
     mounted () {
       this.created = true
-      if (!this.post.teaserImg) {
+      if (this.post && !this.post.teaserImg) {
         // show the card when you do not have to load an image before
         setTimeout(() => {
           this.$nextTick(() => {
@@ -203,8 +172,6 @@
       transition: box-shadow 150ms ease-out, transform 150ms ease-out;
       position: relative;
 
-      z-index: 1;
-
       @include tablet() {
         &:hover {
           box-shadow: $card-shadow-hover;
@@ -213,6 +180,18 @@
         }
       }
     }
+
+    .contribution-link {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
     &.timeline {
       width: 95%;
     }
@@ -226,7 +205,7 @@
       }
     }
 
-    main.content {
+    article.content {
       padding: 0;
     }
 
@@ -252,23 +231,10 @@
       background-position: center;
       background-size: cover;
     }
+  }
 
-    footer {
-      margin-top: 0;
-      margin-bottom: -20px;
-      padding-top: 0;
-      padding-left: 0;
-      padding-right: 0;
-      text-align: left;
-      border: none;
-
-      .infos {
-        color: #7f7f7f;
-        small {
-          padding-left: 3px;
-        }
-      }
-    }
+  .message {
+    margin-top: 2em;
   }
 
   .ribbon {
@@ -295,5 +261,10 @@
       border-style: solid;
       border-color: #ccc transparent transparent #ccc;
     }
+  }
+
+  .author {
+    z-index: 2;
+    position: relative;
   }
 </style>

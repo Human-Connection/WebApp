@@ -127,14 +127,6 @@ hr {
   }
 }
 
-.dropdown-menu {
-  .dropdown-content {
-    overflow: hidden;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-}
-
 .tags {
   > .tag {
     margin-bottom: 5px;
@@ -146,9 +138,6 @@ hr {
   }
 }
 
-.dropdown .background {
-  background-color: $backdrop-color;
-}
 dl dt {
   font-weight: bold;
 }
@@ -251,6 +240,10 @@ div.nuxt-progress {
 
   background-size: 100vw;
   // animation: ProgressAnimation 100ms ease;
+}
+
+.hc__author .media-content {
+  overflow: visible;
 }
 
 /*@keyframes ProgressAnimation {

@@ -8,25 +8,33 @@
             <img src="/logo-vertical.svg" alt="Human Connection" class="logo"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">{{ $t('auth.login.description') }}</p>
+        <h6 class="subtitle is-6">{{ $t('auth.login.description') }}</h6>
         <form @submit.prevent="login">
           <div class="field">
-            <p class="control has-icons-right">
-              <input ref="focus" class="input" autofocus v-bind:class="{ 'is-danger': errors }" type="email"
-                     name="username" v-bind:placeholder="$t('auth.account.email')" v-model="data.email">
+            <div class="control has-icons-right">
+              <input ref="focus" 
+                     name="username" 
+                     type="email"
+                     autofocus 
+                     :class="{ 'input': true, 'is-danger': errors }"
+                     :placeholder="$t('auth.account.email')" 
+                     v-model="data.email">
               <span v-if="errors" class="icon is-small is-right">
-                              <i class="fa fa-warning"></i>
-                            </span>
-            </p>
+                <i class="fa fa-warning"></i>
+              </span>
+            </div>
           </div>
           <div class="field">
-            <p class="control has-icons-right">
-              <input class="input" v-bind:class="{ 'is-danger': errors }" type="password" v-bind:placeholder="$t('auth.account.password')"
-                     name="password" v-model="data.password">
+            <div class="control has-icons-right">
+              <input :class="{ 'input': true, 'is-danger': errors }" 
+                     name="password" 
+                     type="password" 
+                     :placeholder="$t('auth.account.password')"
+                     v-model="data.password">
               <span v-if="errors" class="icon is-small is-right">
-                              <i class="fa fa-warning"></i>
-                            </span>
-            </p>
+                <i class="fa fa-warning"></i>
+              </span>
+            </div>
           </div>
           <div class="field has-text-left">
             <b-switch v-model="stayLoggedIn">{{ $t('auth.login.stayLoggedIn') }}</b-switch>

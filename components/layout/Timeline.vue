@@ -2,7 +2,7 @@
   <div class="column timeline content">
     <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
-      <p>{{ $t('component.timeline.introQuestion', { 'username': user.name }) }}</p>
+      <p>{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
       <p v-if="contributions.length == 0 && loadingFinished">
         {{ $t('component.timeline.noContributionsFound') }}
       </p>
@@ -19,7 +19,8 @@
       <div v-if="contributions.length > 0" class="timeline-missing-line"></div>
       <div class="timeline-post-wrapper is-clearfix">
         <div class="timeline-post-direction" v-if="contributions.length > 0"
-                                             v-for="(contribution, index) in contributions">
+                                             v-for="(contribution, index) in contributions"
+                                             :key="contribution._id">
           <contribution-card class="card timeline arrow"
             :post="contribution" :key="contribution.slug">
             <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
@@ -31,7 +32,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import feathers from '~/plugins/feathers'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
 
@@ -44,10 +44,11 @@
       }
     },
     name: 'hc-timeline',
-    computed: {
-      ...mapGetters({
-        user: 'auth/user'
-      })
+    props: {
+      user: {
+        required: true,
+        type: [Object, Promise]
+      }
     },
     components: {
       ContributionCard
@@ -59,11 +60,12 @@
       // get the contributions by the userId and sort it
       // by createdAt DESC
       (async () => {
-        let user = this.user
+        let user = await this.user
+        let userId = user._id !== undefined ? user._id : user.data[0]._id
         try {
           let res = await feathers.service('contributions').find({
             query: {
-              userId: user._id,
+              userId: userId,
               $sort: {
                 createdAt: -1
               }

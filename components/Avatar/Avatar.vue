@@ -33,7 +33,7 @@
         return this.thumbnails.raw
       },
       avatarSet () {
-        return !isEmpty(this.thumbnails.large) ? `${this.thumbnails.small} small, ${this.thumbnails.medium} medium, ${this.thumbnails.large} large` : null
+        return !isEmpty(this.thumbnails.large) ? `${this.thumbnails.small} 72w, ${this.thumbnails.medium} 120w, ${this.thumbnails.large} 240w` : null
       }
     },
     watch: {

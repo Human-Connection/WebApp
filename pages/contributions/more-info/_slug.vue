@@ -177,7 +177,7 @@
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
-  import _ from 'lodash'
+  import { isEmpty, castArray } from 'lodash'
 
   export default {
     scrollToTop: false,
@@ -231,13 +231,13 @@
       },
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
-        return _.isEmpty(this.contribution.comments) ? 0 : _.castArray(this.contribution.comments).length
+        return isEmpty(this.contribution.comments) ? 0 : castArray(this.contribution.comments).length
       },
       categories () {
-        return _.isEmpty(this.contribution.categories) ? [] : _.castArray(this.contribution.categories)
+        return isEmpty(this.contribution.categories) ? [] : castArray(this.contribution.categories)
       },
       tags () {
-        return _.isEmpty(this.contribution.tags) ? [] : _.castArray(this.contribution.tags)
+        return isEmpty(this.contribution.tags) ? [] : castArray(this.contribution.tags)
       },
       canEdit () {
         const userId = this.user ? this.user._id : null

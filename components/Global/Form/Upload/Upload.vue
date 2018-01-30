@@ -75,6 +75,10 @@
         type: Number,
         default: 800
       },
+      crop: {
+        type: Boolean,
+        default: false
+      },
       maxFileSize: {
         type: Number,
         default: 10
@@ -102,8 +106,9 @@
           },
           uploadMultiple: false,
           acceptedFiles: 'image/*',
-          resizeWidth: 1000,
-          resizeHeight: 800,
+          resizeWidth: this.maxWidth,
+          resizeHeight: this.maxHeight,
+          resizeMethod: this.crop ? 'crop' : 'contain',
           headers: {}
         }
       }
