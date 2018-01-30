@@ -31,8 +31,22 @@
             <div class="notification is-danger is-hidden-tablet">
               <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
+            <div class="cando-header" v-if="isCanDo">
+              <div class="cando-header-action">
+                <can-do-action :post="contribution" />
+              </div>
+              <div class="cando-header-count">
+                <can-do-count :post="contribution" />
+              </div>
+            </div>
             <h1>{{ contribution.title }}</h1>
+            <div class="cando-details-difficulty" v-if="isCanDo">
+              <can-do-difficulty :post="contribution" />
+            </div>
             <div class="content" v-html="content"></div>
+            <div class="cando-details-reason" v-if="isCanDo">
+              <can-do-reason :post="contribution" />
+            </div>
             <br/>
             <div class="tags" v-if= "categories.length">
               <span class="tag" v-for="category in categories" :key="category._id">
@@ -111,7 +125,7 @@
         <ul class="menu-list">
           <li>
             <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. <strong>{{ $t('component.contribution.post') }}</strong>
+              1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
             </nuxt-link>
             <ul>
               <li>
@@ -149,6 +163,10 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionMenu from '~/components/Contributions/ContributionMenu'
+  import CanDoAction from '~/components/CanDos/Action'
+  import CanDoCount from '~/components/CanDos/Count'
+  import CanDoDifficulty from '~/components/CanDos/Difficulty'
+  import CanDoReason from '~/components/CanDos/Reason'
   import { isEmpty, castArray } from 'lodash'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
@@ -160,7 +178,11 @@
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       ContributionImage,
-      ContributionMenu
+      ContributionMenu,
+      CanDoAction,
+      CanDoCount,
+      CanDoDifficulty,
+      CanDoReason
     },
     data () {
       return {
@@ -223,6 +245,12 @@
       },
       refreshOrNot () {
         return !!this.$route.query.refresh === true ? 800 : null
+      },
+      isCanDo () {
+        if (this.contribution.type !== 'cando') {
+          return null
+        }
+        return !!this.contribution.cando
       }
     },
     head () {
@@ -242,13 +270,28 @@
     border: none;
     box-shadow: $card-shadow;
   }
+
   .b-tabs.footer {
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
   }
+
   .action-btn {
     @extend .is-pulled-right;
     margin-left: 0.5rem;
+  }
+
+  .cando-header {
+    margin: 1.6rem 0 2rem;
+    & > div {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (min-width: $desktop) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
   }
 </style>

@@ -12,7 +12,7 @@
       <div class="content autowrap">
         <header>
           <div class="ribbon">
-            <slot name="category"></slot>
+            <small>{{ $t('component.contribution.type-' + post.type) }}</small>
           </div>
           <author :post="post" class="author"/>
           <div class="message is-danger is-small" v-if="!post.isEnabled">
@@ -26,7 +26,7 @@
           </h3>
         </header>
         <article class="content">
-          <contribution-can-do :post="post" v-if="isCanDo" />
+          <contribution-card-can-do :post="post" v-if="isCanDo" />
           <hc-truncate :text="post.contentExcerpt" length=200 v-else />
         </article>
         <contribution-card-footer :post="post" />
@@ -37,7 +37,7 @@
 
 <script>
   import Author from '~/components/Author/Author.vue'
-  import ContributionCanDo from '~/components/Contributions/ContributionCanDo'
+  import ContributionCardCanDo from '~/components/Contributions/ContributionCardCanDo'
   import ContributionCardFooter from '~/components/Contributions/ContributionCardFooter'
 
   export default {
@@ -55,7 +55,7 @@
     components: {
       Author,
       ContributionCardFooter,
-      ContributionCanDo
+      ContributionCardCanDo
     },
     data () {
       return {

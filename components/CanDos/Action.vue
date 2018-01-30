@@ -1,39 +1,31 @@
 <template>
-  <div class="cando-info">
-    <div class="cando-difficulty">
-      <strong>{{ $t('component.contribution.difficultyDescription') }}:</strong> {{ $t(`difficulty.${canDo.difficulty}`) }}
-    </div>
-    <div class="cando-action" v-if="isVerified">
-      <div v-if="isDone" :key="1">
-        <hc-tooltip type="is-dark"
-          :label="$t('component.contribution.canDoResetInfo')">
-          <hc-button @click="toggleDone">
-            <hc-icon icon="smile-o" />
-            {{ $t('component.contribution.canDoCompleted') }}
-          </hc-button>
-        </hc-tooltip>
-      </div>
-      <div v-else-if="onList" :key="2">
-        <hc-button @click="toggleDone" color="info">
-          <hc-icon icon="check" />
-          {{ $t('component.contribution.canDoSetDone') }}
+  <div class="cando-action" v-if="isVerified">
+    <div v-if="isDone" :key="1">
+      <hc-tooltip type="is-dark"
+        :label="$t('component.contribution.canDoResetInfo')">
+        <hc-button @click="toggleDone">
+          <hc-icon icon="smile-o" />
+          {{ $t('component.contribution.canDoCompleted') }}
         </hc-button>
-        <hc-tooltip type="is-dark"
-          :label="$t('component.contribution.canDoCancelInfo')">
-          <hc-button @click="removeFromList" color="default">
-            <hc-icon icon="ban" />
-          </hc-button>
-        </hc-tooltip>
-      </div>
-      <div v-else :key="3">
-        <hc-button @click="addToList">
-          <hc-icon icon="plus" />
-          {{ $t('component.contribution.canDoAdd') }}
-        </hc-button>
-      </div>
+      </hc-tooltip>
     </div>
-    <div class="cando-count">
-      {{ $t('component.contribution.canDoCountedDescription', {count: canDoDoneUsers}, canDoDoneUsers) }}
+    <div v-else-if="onList" :key="2">
+      <hc-button @click="toggleDone" color="info">
+        <hc-icon icon="check" />
+        {{ $t('component.contribution.canDoSetDone') }}
+      </hc-button>
+      <hc-tooltip type="is-dark"
+        :label="$t('component.contribution.canDoCancelInfo')">
+        <hc-button @click="removeFromList" color="default">
+          <hc-icon icon="ban" />
+        </hc-button>
+      </hc-tooltip>
+    </div>
+    <div v-else :key="3">
+      <hc-button @click="addToList">
+        <hc-icon icon="plus" />
+        {{ $t('component.contribution.canDoAdd') }}
+      </hc-button>
     </div>
   </div>
 </template>
@@ -43,7 +35,7 @@
   import {mapGetters} from 'vuex'
 
   export default {
-    name: 'hc-contribution-cando',
+    name: 'hc-cando-action',
     props: {
       post: {
         type: Object,
@@ -159,29 +151,4 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
-
-  .cando-info {
-    position: relative;
-    z-index: 2;
-  }
-
-  .cando-difficulty {
-    text-transform: uppercase;
-    font-size: $size-small;
-    margin-bottom: 1em;
-    font-weight: bold;
-
-    strong {
-      color: $grey;
-    }
-  }
-
-  .cando-action {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 80px;
-    background-color: $white-ter;
-    margin-bottom: 1em;
-  }
 </style>
