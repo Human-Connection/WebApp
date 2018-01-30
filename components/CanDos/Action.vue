@@ -152,4 +152,10 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+
+  i.fa {
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+  }
 </style>
