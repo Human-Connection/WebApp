@@ -268,7 +268,7 @@
       "avatarUpload": "Upload image for avatar or user profile",
       "avatarSelect": "select avatar image",
       "confirmOlderThan18": "I confirm that I’m at least 18 years old.",
-      "confirmTermsOfUsage": "By clicking “register” I agree with the <a href=\"{url}\">{termsOfService}</a> and confirm, that I read the <a href=\"{url}\">{dataPrivacyStatement}</a> of Human Connection.",
+      "confirmTermsOfUsage": "By clicking “register” I agree with the <a href=\"{url}\" target=\"_blank\">{termsOfService}</a> and confirm, that I read the <a href=\"{url}#dataprivacy\" target=\"_blank\">{dataPrivacyStatement}</a> of Human Connection.",
       "email": "Email",
       "helloUser": "Hello <b>{username}</b>",
       "loginOrRegister": "Login / Sign-Up",

@@ -137,7 +137,7 @@ export const actions = {
    */
   async fetch ({state, getters, commit}) {
     if (state.isLoading === true) {
-      console.log('FETCH CANCELED AS THERE IS SOMETHING LOADING...')
+      // console.log('FETCH CANCELED AS THERE IS SOMETHING LOADING...')
       return
     }
     commit('setLoading', true)
@@ -145,7 +145,7 @@ export const actions = {
     // return current data if query is the same like the last one
     const queryHash = getters.getCurrentQueryHash
     if (!_.isEmpty(queryHash) && queryHash === state.lastQueryHash && state.contributions.length) {
-      console.log('#LOAD FROM CACHE')
+      // console.log('#LOAD FROM CACHE')
       setTimeout(() => {
         commit('setLoading', false)
       }, 150)
@@ -177,7 +177,7 @@ export const actions = {
    */
   fetchMore ({state, dispatch, commit}) {
     if (state.isLoading === true) {
-      console.log('FETCHMORE CANCELED AS THERE IS SOMETHING LOADING...')
+      // console.log('FETCHMORE CANCELED AS THERE IS SOMETHING LOADING...')
       return
     }
     commit('movePaginationCursor')

@@ -119,9 +119,6 @@ export const actions = {
       .then(user => {
         commit('SET_USER', user)
       })
-      .catch(err => {
-        console.log(err.message)
-      })
   },
   verify ({dispatch}, verifyToken) {
     if (!verifyToken) { return false }

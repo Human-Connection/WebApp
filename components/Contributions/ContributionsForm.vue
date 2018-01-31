@@ -410,7 +410,6 @@
         }
       },
       onTagTab (e) {
-        console.log(e.target.value)
         if (!isEmpty(e.target.value)) {
           setTimeout(() => {
             e.target.focus()

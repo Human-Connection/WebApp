@@ -97,7 +97,6 @@
     mounted () {
       feathers.service('users').find({query: { $limit: 0 }})
         .then(res => {
-          console.log(res)
           this.userCount = res.total || 0
         })
       feathers.service('contributions').find({query: { $limit: 0 }})
