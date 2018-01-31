@@ -8,9 +8,12 @@
         <a v-if="$i18n.locale() === 'en'" @click="changeLanguage('de')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
           <flag iso="gb" :squared="false" title="" />
         </a>
-        <nuxt-link v-if="!useInviteCode" :to="this.$route.params.path || '/'" class="delete" style="display: block; position: absolute; right: 2.5rem; top: 2rem;"></nuxt-link>
+        <nuxt-link v-if="!useInviteCode"
+                   :to="$route.params.path || '/'"
+                   class="delete"
+                   style="display: block; position: absolute; right: 1.5rem; top: 1rem;"></nuxt-link>
         <div class="card-teaser">
-          <nuxt-link :to="this.$route.params.path || '/'">
+          <nuxt-link :to="$route.params.path || '/'">
             <img src="/assets/images/registration/alpha-invite.png" alt="Human Connection"/>
           </nuxt-link>
         </div>
@@ -57,7 +60,7 @@
                        type="button" 
                        class="is-fullwidth" 
                        :disabled="$v.form.$invalid || inviteCodeIsInvalid">
-              {{ $t('auth.register.next') }}
+              {{ $t('auth.register.next') }} &nbsp;<small><i class="fa fa-arrow-right"></i></small>
             </hc-button>
           </template>
           <template v-if="step === 2">
@@ -101,7 +104,6 @@
             <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;{{ $t('auth.register.back') }}</a>
           </template>
         </form>
-        <!-- TODO links by named route not hard coded -->
         <p class="small-info" v-html="$t('auth.account.confirmTermsOfUsage', {
             'termsOfService': $t('legal.termsOfService'),
             'dataPrivacyStatement': $t('legal.termsOfService'),
@@ -118,7 +120,6 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import animatable from '~/components/mixins/animatable'
   import { validationMixin } from 'vuelidate'
   import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
@@ -130,10 +131,10 @@
     data () {
       return {
         form: {
-          email: '',
+          email: this.$route.query.email || '',
           password: '',
           passwordRepeat: '',
-          inviteCode: '',
+          inviteCode: this.$route.query.code || '',
           isFullAge: false
         },
         step: 1,
@@ -178,7 +179,7 @@
       return rules
     },
     mounted () {
-      Vue.nextTick(() => {
+      this.$nextTick(() => {
         this.toStep(1)
       })
     },
@@ -200,22 +201,20 @@
         this.step = s
         this.$refs['focus'].focus()
       },
-      async register (e) {
+      register () {
         if (this.$v.form.$invalid) {
           this.animate('shake')
           this.isLoading = false
           return
         }
-
-        e.preventDefault()
         this.isLoading = true
         this.$store.dispatch('auth/register', this.form)
           .then(() => {
-            this.isLoading = false
             this.form.password = null
             this.$router.replace({name: 'auth-name'})
           })
           .catch(err => {
+            this.isLoading = false
             let msg = err.message
             if (msg === 'invite code is invalid') {
               this.toStep(1)

@@ -1,14 +1,14 @@
 <template>
   <section class="content">
-    <h1>Einstellungen</h1>
-    <h3>Development</h3>
+    <h1>{{ $t('component.admin.settings', 'Settings') }}</h1>
+    <h3>{{ $t('component.admin.development', 'Development') }}</h3>
     <div class="field is-grouped">
       <div class="control">
         <hc-button color="danger"
                    @click="seedFakeData()"
                    :isLoading="seedingFakeData"
                    :disabled="seedingFakeData || seedingDemoData">
-          <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>Seed fake data</strong>
+          <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>{{ $t('component.admin.seedFakeData', 'Seed fake data') }}</strong>
         </hc-button>
       </div>
       <div class="control">
@@ -16,7 +16,7 @@
                    @click="seedDemoData()"
                    :isLoading="seedingDemoData"
                    :disabled="seedingFakeData || seedingDemoData">
-          <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>Seed demo contributions</strong>
+          <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>{{ $t('component.admin.seedDemoContributions', 'Seed demo contributions') }}</strong>
         </hc-button>
       </div>
     </div>
@@ -32,7 +32,7 @@
     layout: 'admin',
     head () {
       return {
-        title: 'Einstellungen'
+        title: this.$t('component.admin.settings')
       }
     },
     data () {
@@ -47,7 +47,7 @@
         feathers.service('admin').create({ seedFakeData: true }).then(res => {
           this.seedingFakeData = false
           this.$snackbar.open({
-            message: 'Created a ton of new entries, have fun!',
+            message: this.$t('component.admin.seedFakeDataSuccessMessage', 'Created a ton of new entries, have fun!'),
             duration: 4000,
             type: 'is-success'
           })
@@ -66,7 +66,7 @@
         feathers.service('admin').create({ seedDemoData: true }).then(res => {
           this.seedingDemoData = false
           this.$snackbar.open({
-            message: 'Added the demo entries to the database!',
+            message: this.$t('component.admin.seedDemoContributionsSuccessMessage', 'Added the demo entries to the database!'),
             duration: 4000,
             type: 'is-success'
           })

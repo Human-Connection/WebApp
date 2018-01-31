@@ -1,5 +1,5 @@
 <p align="center">
-  <img align="center" src="https://human-connection.org/wp-content/uploads/2017/11/human-connection-logo.svg" alt="Human Connection" />
+  <a href="https://human-connection.org"><img align="center" src="https://human-connection.org/wp-content/uploads/2017/11/human-connection-logo.svg" alt="Human Connection" /></a>
 </p>
 
 
@@ -7,7 +7,7 @@
   <a href="https://travis-ci.org/HumanConnection/HC-Frontend"><img src="https://img.shields.io/travis/HumanConnection/HC-Frontend/master.svg" alt="Build Status"></a>
 </p>
 
-# hc-frontend-nuxt
+# HUMAN-CONNECTION Frontend
 > uses the Nuxt.js and Express.js projects
 
 This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.

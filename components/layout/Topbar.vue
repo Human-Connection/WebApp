@@ -2,9 +2,9 @@
   <nav class="navbar" @mouseleave="menuIsActive = false" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <nuxt-link class="navbar-item logo" 
-                   :to="{ name: 'index' }" 
-                   :title="$t('component.layout.topbarLabel')" 
+        <nuxt-link class="navbar-item logo"
+                   :to="{ name: 'index' }"
+                   :title="$t('component.layout.topbarLabel')"
                    active-class="">
           <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection" />
           <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection" />
@@ -78,7 +78,7 @@
                                      translationPath="component.category.slug2label-"
                                      :selected="selectedCategoryIds" />
                         <hr/>
-                        <h6 class="title is-6">Emotions</h6>
+                        <h6 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h6>
                         <filter-list @change="filterForEmotions"
                                      :items="emotions"
                                      :selected="selectedEmotions"
