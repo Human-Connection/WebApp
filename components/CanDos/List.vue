@@ -4,7 +4,7 @@
       <tbody>
       <tr v-for="canDo in canDos" :key="canDo._id">
         <td>
-          {{ canDo.title }}
+          <hc-truncate :text="canDo.title" :length="50" />
           <div class="cando-list-action">
             <can-do-action :post="canDo" size="small" />
           </div>
@@ -45,4 +45,8 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+
+  .cando-list-action {
+    margin-top: 0.2rem;
+  }
 </style>

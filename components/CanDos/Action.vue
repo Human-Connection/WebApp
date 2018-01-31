@@ -4,14 +4,14 @@
       <hc-tooltip type="is-dark"
         :label="$t('component.contribution.canDoResetInfo')">
         <hc-button @click="toggleDone" :size="size">
-          <hc-icon icon="smile-o" />
+          <hc-icon icon="smile-o" />&nbsp;
           {{ $t('component.contribution.canDoCompleted') }}
         </hc-button>
       </hc-tooltip>
     </div>
     <div v-else-if="onList" :key="2">
       <hc-button @click="toggleDone" color="info" :size="size">
-        <hc-icon icon="check" />
+        <hc-icon icon="check" />&nbsp;
         {{ $t('component.contribution.canDoSetDone') }}
       </hc-button>
       <hc-tooltip type="is-dark"
@@ -23,7 +23,7 @@
     </div>
     <div v-else :key="3">
       <hc-button @click="addToList" :size="size">
-        <hc-icon icon="plus" />
+        <hc-icon icon="plus" />&nbsp;
         {{ $t('component.contribution.canDoAdd') }}
       </hc-button>
     </div>
@@ -156,10 +156,4 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
-
-  i.fa {
-    position: relative;
-    top: 1px;
-    margin-right: 5px;
-  }
 </style>

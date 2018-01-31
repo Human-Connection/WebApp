@@ -76,32 +76,10 @@
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
-            <can-do-list :can-dos="canDos" v-if="canDos" />
-            <table class="table is-striped">
-              <tbody>
-              <tr>
-                <td>Einen bienenfreundlichen Garten anlegen</td>
-                <td>Schwer</td>
-                <td class="has-text-right"><strong>58</strong> haben das geschafft</td>
-              </tr>
-              <tr>
-                <td>Einen Bienenstock Bauen</td>
-                <td>Einfach</td>
-                <td class="has-text-right"><strong>1023</strong> haben das geschafft</td>
-              </tr>
-              <tr>
-                <td>Lokales Biogemüse kaufen</td>
-                <td>Einfach</td>
-                <td class="has-text-right"><strong>12.038</strong> haben das geschafft</td>
-              </tr>
-              <tr>
-                <td colspan="3" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+            <div v-if="canDos">
+              <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
+              <can-do-list :can-dos="canDos" />
+            </div>
 
             <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
             <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
