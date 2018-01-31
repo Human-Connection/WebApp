@@ -181,6 +181,9 @@
     mounted () {
       this.$nextTick(() => {
         this.toStep(1)
+
+        this.form.email = this.$route.query.email || ''
+        this.form.inviteCode = this.$route.query.code || ''
       })
     },
     methods: {
