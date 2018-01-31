@@ -60,6 +60,23 @@
       "actionEnable": "enable post",
       "bestList": "Bestlist",
       "canDos": "Can Do’s",
+      "canDoAdd": "Start Can Do",
+      "canDoSetDone": "Complete Can Do",
+      "canDoCompleted": "Can Do completed",
+      "canDoResetInfo": "Click here, to restart this Can Do.",
+      "canDoCancelInfo": "Cancel Can Do",
+      "canDoAddedSuccess": "Cool, you've just started this Can Do!",
+      "canDoCanceledSuccess": "You canceled a Can Do.",
+      "canDoDoneSuccess": "Gorgeous! You've completed this Can Do.",
+      "canDoUndoneSuccess": "You've restarted this Can Do!",
+      "canDoCountedNone": "Be the first to do this!",
+      "canDoCountedOne": "One person did this",
+      "canDoCountedMany": "people did this",
+      "canDoCountedDescription": "{count} human did this. ::: {count} people did this. ::: Be the first to do this!",
+      "canDoReasonTitle": "Title - Why?",
+      "canDoReasonTitlePlaceholder": "z.B. Why is it good to create your own toothpaste?",
+      "canDoReasonContent": "Why is this Can Do useful?",
+      "canDoReasonContentPlaceholder": "write a reason to start this Can Do...",
       "chatroomBriefOrLong": "Chatrooms",
       "comment": "Comment",
       "commentsCounted": "Comments (1) ::: Comments ({count}) ::: Comments",
@@ -72,6 +89,7 @@
       "commentReplyThis": "Reply to this comment",
       "creator": "Creator ::: Creator",
       "creatorUnknown": "anonymous",
+      "difficultyDescription": "Difficulty",
       "events": "Events",
       "editSettings": "Edit settings",
       "jobs": "Jobs",
@@ -166,6 +184,11 @@
       "introQuestion": "What are your plans, {username}, for today?",
       "title": "Timeline"
     }
+  },
+  "difficulty": {
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard"
   },
   "page": {
     "index": {
