@@ -155,6 +155,14 @@
     "takeAction": {
       "noOrganizations": "Sorry there are no organizations that fit that contribution right now. <br/><br/>Do you want to add one?",
       "noProjects": "Sorry there are no projects that fit that contribution right now. <br/><br/>Do you want to add one?"
+    },
+    "organization": {
+      "shouts": "Shouts",
+      "supporter": "Supporter",
+      "aboutUs": "About us",
+      "more": "Funding & more",
+      "welcome": "Welcome",
+      "faqTitle": "Questions & Answers"
     }
   },
   "upload": {

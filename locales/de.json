@@ -155,6 +155,14 @@
     "takeAction": {
       "noOrganizations": "Es gibt leider noch keine Organisationen die zu diesem Beitrag passen. <br/><br/>Willst Du eine erstellen?",
       "noProjects": "Es gibt leider noch keine Projekte die zu diesem Beitrag passen. <br/><br/>Willst Du eins erstellen?"
+    },
+    "organization": {
+      "shouts": "Zurufe",
+      "supporter": "Unterstützer",
+      "aboutUs": "Über uns",
+      "more": "Spenden & Mehr",
+      "welcome": "Willkommen",
+      "faqTitle": "Fragen & Antworten"
     }
   },
   "upload": {

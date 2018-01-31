@@ -40,6 +40,7 @@
       font-size: 19px;
       color: grey;
       display: block;
+      text-align: center;
     }
   }
 </style>
