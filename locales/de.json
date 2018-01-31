@@ -47,7 +47,10 @@
       "canDoCanceledSuccess": "Du hast die Herausforderung abgebrochen.",
       "canDoDoneSuccess": "Starkes Stück! Du hast die Herausforderung abgeschlossen.",
       "canDoUndoneSuccess": "Du hast die Herausforderung wieder angenommen!",
-      "canDoCountedDescription": "{count} Mensch hat es geschafft. ::: {count} Menschen haben es geschafft. ::: Sei der erste, der das macht!",
+      "canDoCountedNone": "Sei der erste, der das macht!",
+      "canDoCountedOne": "Eine Person hat das geschafft",
+      "canDoCountedMany": "haben das geschafft",
+      "canDoCountedDescription": "Einer hat das geschafft. ::: {count} haben das geschafft. ::: Sei der erste, der das macht!",
       "chatroomBriefOrLong": "Plausch & Meinungstausch ::: Plausch & Meinungstausch / Chat ",
       "comment": "Kommentar",
       "commentsCounted": "Kommentare (1) ::: Kommentare ({count}) ::: Kommentare",
@@ -157,9 +160,9 @@
     }
   },
   "difficulty": {
-    "easy": "einfach",
-    "medium": "mittel",
-    "hard": "schwer"
+    "easy": "Einfach",
+    "medium": "Mittel",
+    "hard": "Schwer"
   },
   "page": {
     "index": {

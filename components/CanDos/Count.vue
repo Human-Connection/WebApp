@@ -1,7 +1,16 @@
 <template>
   <div class="cando-info">
     <div class="cando-count">
-      {{ $t('component.contribution.canDoCountedDescription', {count: canDoDoneCount}, canDoDoneCount) }}
+      <span v-if="canDoDoneCount > 1">
+        <strong>{{ canDoDoneCount }}</strong>
+        {{ $t('component.contribution.canDoCountedMany') }}
+      </span>
+      <span v-else-if="canDoDoneCount === 1">
+        {{ $t('component.contribution.canDoCountedOne') }}
+      </span>
+      <span v-else>
+        {{ $t('component.contribution.canDoCountedNone') }}
+      </span>
     </div>
   </div>
 </template>

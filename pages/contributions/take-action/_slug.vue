@@ -77,6 +77,7 @@
             </table>
 
             <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
+            <can-do-list :can-dos="canDos" v-if="canDos" />
             <table class="table is-striped">
               <tbody>
               <tr>
@@ -239,7 +240,8 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
-  import { isEmpty, castArray } from 'lodash'
+  import CanDoList from '~/components/CanDos/List.vue'
+  import { isEmpty } from 'lodash'
 
   // lazy loaded components
   const Map = () => import('~/components/Map/Map.vue')
@@ -278,7 +280,8 @@
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       ContributionImage,
-      'hc-map': Map
+      'hc-map': Map,
+      CanDoList
     },
     data () {
       return {
@@ -296,7 +299,8 @@
       try {
         const contributions = await feathers.service('contributions').find({
           query: {
-            slug: params.slug
+            slug: params.slug,
+            $limit: 1
           }
         })
         const organizations = await feathers.service('organizations').find({
@@ -339,10 +343,10 @@
       },
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
-        return isEmpty(this.contribution.comments) ? 0 : castArray(this.contribution.comments).length
+        return isEmpty(this.contribution.comments) ? 0 : this.contribution.comments.length
       },
       categories () {
-        return isEmpty(this.contribution.categories) ? [] : castArray(this.contribution.categories)
+        return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
@@ -351,6 +355,12 @@
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
+      },
+      canDos () {
+        if (!this.contribution.associatedCanDos || !this.contribution.associatedCanDos.length) {
+          return false
+        }
+        return this.contribution.associatedCanDos
       }
     },
     head () {

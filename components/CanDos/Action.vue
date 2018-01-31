@@ -3,26 +3,26 @@
     <div v-if="isDone" :key="1">
       <hc-tooltip type="is-dark"
         :label="$t('component.contribution.canDoResetInfo')">
-        <hc-button @click="toggleDone">
+        <hc-button @click="toggleDone" :size="size">
           <hc-icon icon="smile-o" />
           {{ $t('component.contribution.canDoCompleted') }}
         </hc-button>
       </hc-tooltip>
     </div>
     <div v-else-if="onList" :key="2">
-      <hc-button @click="toggleDone" color="info">
+      <hc-button @click="toggleDone" color="info" :size="size">
         <hc-icon icon="check" />
         {{ $t('component.contribution.canDoSetDone') }}
       </hc-button>
       <hc-tooltip type="is-dark"
         :label="$t('component.contribution.canDoCancelInfo')">
-        <hc-button @click="removeFromList" color="default">
+        <hc-button @click="removeFromList" color="default" :size="size">
           <hc-icon icon="ban" />
         </hc-button>
       </hc-tooltip>
     </div>
     <div v-else :key="3">
-      <hc-button @click="addToList">
+      <hc-button @click="addToList" :size="size">
         <hc-icon icon="plus" />
         {{ $t('component.contribution.canDoAdd') }}
       </hc-button>
@@ -40,6 +40,10 @@
       post: {
         type: Object,
         required: true
+      },
+      size: {
+        type: String,
+        default: ''
       }
     },
     computed: {

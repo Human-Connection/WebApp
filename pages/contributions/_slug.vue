@@ -196,7 +196,8 @@
       try {
         let res = await feathers.service('contributions').find({
           query: {
-            slug: params.slug
+            slug: params.slug,
+            $limit: 1
           }
         })
         if (isEmpty(res.data)) {

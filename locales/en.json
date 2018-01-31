@@ -47,6 +47,9 @@
       "canDoCanceledSuccess": "You canceled a Can Do.",
       "canDoDoneSuccess": "Gorgeous! You've completed this Can Do.",
       "canDoUndoneSuccess": "You've restarted this Can Do!",
+      "canDoCountedNone": "Be the first to do this!",
+      "canDoCountedOne": "One person did this",
+      "canDoCountedMany": "people did this",
       "canDoCountedDescription": "{count} human did this. ::: {count} people did this. ::: Be the first to do this!",
       "chatroomBriefOrLong": "Chatrooms",
       "comment": "Comment",
@@ -157,9 +160,9 @@
     }
   },
   "difficulty": {
-    "easy": "easy",
-    "medium": "medium",
-    "hard": "hard"
+    "easy": "Easy",
+    "medium": "Medium",
+    "hard": "Hard"
   },
   "page": {
     "index": {
