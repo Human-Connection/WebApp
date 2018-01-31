@@ -1,6 +1,6 @@
 <template>
   <section class="content">
-    <h1>Benutzer verwalten</h1>
+    <h1>{{ $t('component.admin.manageUsers', 'Manage Users') }}</h1>
   </section>
 </template>
 

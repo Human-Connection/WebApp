@@ -4,7 +4,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Users</p>
+            <p class="heading">{{ $t('component.admin.users', 'Users') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="userCount" :duration="countDuration" :autoplay="true"></count-to>
             </p>
@@ -14,7 +14,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Contributions</p>
+            <p class="heading">{{ $t('component.admin.contributions', 'Contributions') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="contributionCount" :duration="countDuration" :autoplay="true"></count-to>
             </p>
@@ -24,7 +24,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Comments</p>
+            <p class="heading">{{ $t('component.admin.comments', 'Comments') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="commentsCount" :duration="countDuration" :autoplay="true"></count-to>
             </p>
@@ -36,7 +36,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Notifications</p>
+            <p class="heading">{{ $t('component.admin.notifications', 'Notifications') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="notificationCount" :duration="countDuration" :autoplay="true"></count-to>
             </p>
@@ -46,7 +46,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Organizations</p>
+            <p class="heading">{{ $t('component.admin.organisations', 'Organizations') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="organizationCount" :duration="countDuration" :autoplay="true"></count-to>
             </p>
@@ -56,7 +56,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">Projects</p>
+            <p class="heading">{{ $t('component.admin.projects', 'Projects') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="projectCount" :duration="countDuration" :autoplay="true"></count-to>
             </p>
@@ -79,7 +79,7 @@
     },
     head () {
       return {
-        title: 'Kategorien verwalten'
+        title: this.$t('component.admin.index_title')
       }
     },
     data () {
