@@ -5,6 +5,7 @@ import expressHealthcheck from 'express-healthcheck'
 import Raven from 'raven'
 // import helmet from 'helmet'
 import createLocaleMiddleware from 'express-locale'
+import enforceHTTPS from '../middleware/enforce-https'
 
 const app = express()
 // app.use(helmet())
@@ -30,6 +31,11 @@ if (process.server) {
   app.use(Raven.requestHandler())
   // The error handler must be before any other error middleware
   app.use(Raven.errorHandler())
+}
+
+// enforce ssl connection if the BASE_URL beginns with https://
+if (process.env.BASE_URL && process.env.BASE_URL.indexOf('https://') === 0) {
+  app.use(enforceHTTPS())
 }
 
 app.use(bodyParser.urlencoded({extended: false}))

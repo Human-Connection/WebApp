@@ -2,12 +2,7 @@
   <section class="container content">
     <div class="card" :class="classes">
       <div class="card-content">
-        <a v-if="$i18n.locale() === 'de'" @click="changeLanguage('en')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
-          <flag iso="de" :squared="false" title="" />
-        </a>
-        <a v-if="$i18n.locale() === 'en'" @click="changeLanguage('de')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
-          <flag iso="gb" :squared="false" title="" />
-        </a>
+        <hc-flag-switch />
         <nuxt-link v-if="!useInviteCode"
                    :to="$route.params.path || '/'"
                    class="delete"
@@ -106,7 +101,7 @@
         </form>
         <p class="small-info" v-html="$t('auth.account.confirmTermsOfUsage', {
             'termsOfService': $t('legal.termsOfService'),
-            'dataPrivacyStatement': $t('legal.termsOfService'),
+            'dataPrivacyStatement': $t('legal.dataPrivacyStatement'),
             'url': '/legal'
           })"></p>
       </div>
@@ -123,11 +118,15 @@
   import animatable from '~/components/mixins/animatable'
   import { validationMixin } from 'vuelidate'
   import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+  import FlagSwitch from '~/components/Auth/FlagSwitch'
 
   export default {
     middleware: 'anonymous',
     layout: 'blank',
     mixins: [animatable, validationMixin],
+    components: {
+      'hc-flag-switch': FlagSwitch
+    },
     data () {
       return {
         form: {
@@ -187,19 +186,6 @@
       })
     },
     methods: {
-      changeLanguage (locale) {
-        // TODO: make it a component
-        // check if the locale has already been loaded
-        if (this.$i18n.localeExists(locale)) {
-          this.$i18n.set(locale)
-          return
-        }
-        import(`~/locales/${locale}.json`)
-          .then(res => {
-            this.$i18n.add(locale, res)
-            this.$i18n.set(locale)
-          })
-      },
       toStep (s) {
         this.step = s
         this.$refs['focus'].focus()

@@ -2,6 +2,9 @@
   <div class="columns">
     <div class="column is-8 is-offset-2">
       <div class="card">
+        <a href="/" style="width: 100%; text-align: center; display: inline-block;">
+          <img src="/assets/images/registration/humanconnection.svg" style="width: 250px; margin: 50px auto 0;" alt="Human Connection"/>
+        </a>
         <section class="section">
           <div class="content">
             <h1>{{ $t('legal.imprint') }}</h1>
@@ -12,7 +15,7 @@
             <p>{{ $t('legal.liabilityForLinksDescription') }}</p>
             <h4>{{ $t('legal.copyrights') }}</h4>
             <p>{{ $t('legal.copyrightsDescription') }}</p>
-            <h4>{{ $t('legal.dataProtection') }}</h4>
+            <h4 id="dataprivacy">{{ $t('legal.dataProtection') }}</h4>
             <p v-html="$t('legal.dataProtectionDescription')"></p>
             <h4>{{ $t('legal.disclaimerUsageFacebookPlugin') }}</h4>
             <p v-html="$t('legal.disclaimerUsageFacebookPluginDescription')"></p>
@@ -59,7 +62,8 @@
       return {
         title: this.$t('legal.imprint')
       }
-    }
+    },
+    layout: 'blank'
   }
 </script>
 
