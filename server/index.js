@@ -34,7 +34,7 @@ if (process.server) {
 }
 
 // enforce ssl connection if the BASE_URL beginns with https://
-if (process.env.BASE_URL && process.env.BASE_URL.indexOf('https://') === 0) {
+if (process.server && process.env.BASE_URL && process.env.BASE_URL.indexOf('https://') === 0) {
   app.use(enforceHTTPS())
 }
 
