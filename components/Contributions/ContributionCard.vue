@@ -63,7 +63,6 @@
     computed: {
       srcset () {
         if (!this.post || !this.post.thumbnails || !this.post.thumbnails.teaserImg) {
-          console.log('NO IMAGE!!!')
           return ''
         }
         return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`

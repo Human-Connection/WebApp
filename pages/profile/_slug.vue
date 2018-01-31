@@ -177,9 +177,7 @@
     middleware: ['authenticated'],
     async asyncData ({ params, store }) {
       let user
-      console.log(params)
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
-        console.log('FIND')
         const res = await feathers.service('users').find({
           query: {
             slug: params.slug
@@ -187,7 +185,6 @@
         })
         user = res.data[0]
       } else {
-        console.log('STORE')
         user = store.getters['auth/user']
       }
       if (!user) {

@@ -117,7 +117,6 @@
         })
       },
       searchQuery (value) {
-        console.log('##searchQuery')
         this.$store.commit('newsfeed/setSearch', value)
         this.resetList(this)
       },

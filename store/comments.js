@@ -68,7 +68,6 @@ export const actions = {
     return commentsService.get(id)
   },
   upvote ({dispatch}, comment) {
-    console.log(comment)
     return commentsService.patch(comment._id, {
       $inc: {
         upvoteCount: 1
