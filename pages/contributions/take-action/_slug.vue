@@ -78,7 +78,7 @@
 
             <div v-if="canDos">
               <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
-              <can-do-list :can-dos="canDos" />
+              <can-do-list :can-dos="canDos" @update="updateContribution" />
             </div>
 
             <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
@@ -308,6 +308,12 @@
       } catch (err) {
         error({statusCode: err.code || 500, message: err.message})
         return {}
+      }
+    },
+    methods: {
+      async updateContribution () {
+        this.contribution = await feathers.service('contributions')
+          .get(this.contribution._id)
       }
     },
     computed: {
