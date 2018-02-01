@@ -38,7 +38,7 @@
       "slug2label-energy-technology": "Energy & Technology",
       "slug2label-health-wellbeing": "Health & Wellbeing",
       "slug2label-globalpeace-nonviolence": "Global Peace & Non-Violence",
-      "slug2label-happyness-values": "Happyness & Values",
+      "slug2label-happyness-values": "Happiness & Values",
       "slug2label-it-internet-dataprivacy": "IT, Internet & Data Privacy",
       "slug2label-justforfun": "Just For Fun",
       "slug2label-consumption-sustainability": "Consumption & Sustainability",
@@ -181,7 +181,7 @@
     "timeline": {
       "loadingContributions": "Loading content …",
       "noContributionsFound": "No contributions found, write something.",
-      "introQuestion": "What are your plans, {username}, for today?",
+      "introQuestion": "What are your plans for roday {username}?",
       "title": "Timeline"
     }
   },
