@@ -1,12 +1,15 @@
 <template>
   <div class="map-wrapper" :style="{width: width, height: height}">
     <div v-if="isLoading" class="is-loading" :style="{height: height}">&nbsp;</div>
-    <div id="map"></div>
+    <div v-if="wasAtLeastOnceVisible" id="map"></div>
   </div>
 </template>
 
 <script>
+  import inViewport from 'vue-in-viewport-mixin'
+
   export default {
+    mixins: [ inViewport ],
     props: {
       /**
        * Collection of points on the map
@@ -50,17 +53,33 @@
     data () {
       return {
         isLoading: true,
-        createMapTimeout: null
+        wasAtLeastOnceVisible: false
       }
     },
     name: 'hc-map',
     mounted () {
-      if (window) {
-        this.createMapTimeout = setTimeout(this.createMap, 1000)
+      if (this.inViewport.now) {
+        this.wasAtLeastOnceVisible = true
+      } else {
+        this.inViewport.listening = true
       }
     },
-    destroy () {
-      clearTimeout(this.createMapTimeout)
+    watch: {
+      'inViewport.now' (visible) {
+        if (visible) {
+          this.wasAtLeastOnceVisible = true
+          this.removeInViewportHandlers()
+          this.$nextTick(() => {
+            this.createMap()
+          })
+        }
+      },
+      'inViewport.fully' (visible) {
+        if (visible) {
+          this.wasAtLeastOnceVisible = true
+          this.removeInViewportHandlers()
+        }
+      }
     },
     methods: {
       createMap () {
