@@ -18,14 +18,7 @@
 </template>
 
 <script>
-  import HcAvatar from '~/components/Avatar/Avatar.vue'
-  import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'
-
   export default {
-    components: {
-      HcAvatar,
-      HcRelativeDateTime
-    },
     name: 'hc-author',
     props: {
       post: {

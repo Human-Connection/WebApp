@@ -1,0 +1,18 @@
+.ql-snow .ql-editor {
+  font-size: $size-normal;
+}
+
+a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
+  padding: 0 6px;
+  border-radius: 5px;
+  background-color: $primary;
+  user-select: none;
+  white-space: nowrap;
+  font-weight: bold;
+  color: $white;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

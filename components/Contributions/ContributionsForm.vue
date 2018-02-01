@@ -88,10 +88,17 @@
               </b-tooltip>
             </div>
           </div>
-          <div class="quill-editor story"
+          <div class="hc-editor-container">
+            <div class="quill-editor story"
                v-model="form.content"
                :disabled="isLoading"
+               @ready="editorReady = true"
                v-quill:myQuillEditor="editorOption"></div>
+             <div class="plugins" v-if="editorReady && myQuillEditor">
+               <editor-mentions :quill="myQuillEditor" />
+             </div>
+          </div>
+
         </div>
       </div>
     </no-ssr>
@@ -244,6 +251,7 @@
   import {mapGetters} from 'vuex'
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import EditorMentions from '~/components/Mentions/EditorMentions'
   import { isEmpty } from 'lodash'
 
   export default {
@@ -251,8 +259,9 @@
     props: ['data'],
     components: {
       Author,
+      CategoriesSelect,
       ContributionImage,
-      'categories-select': CategoriesSelect
+      EditorMentions
     },
     head () {
       return {
@@ -265,6 +274,7 @@
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       const i18nEditor2Placeholder = this.$t('component.contribution.canDoReasonContentPlaceholder')
       return {
+        editorReady: false,
         isLoading: false,
         uploadingCover: false,
         dropFiles: null,

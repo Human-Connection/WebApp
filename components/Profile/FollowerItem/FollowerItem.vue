@@ -10,13 +10,8 @@
 </template>
 
 <script>
-  import Avatar from '~/components/Avatar/Avatar'
-
   export default {
     name: 'hc-follower-item',
-    components: {
-      'hc-avatar': Avatar
-    },
     props: ['title', 'timestamp', 'image']
   }
 </script>
