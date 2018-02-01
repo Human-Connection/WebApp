@@ -15,18 +15,20 @@
       <div class="column"></div>
     </div>
     <hr/>
-    <!--<div class="tabs is-toggle is-fullwidth">-->
-      <!--<ul>-->
-        <!--<li v-for="postType in options.postTypes" v-bind:class="{ 'is-active': postType.active }">-->
-          <!--<a v-bind:disabled="postType.disabled" class="button is-medium">-->
-                        <!--<span class="icon">-->
-                            <!--<hc-icon :icon="'tools-'+postType.value" set="hc"></hc-icon>-->
-                        <!--</span>-->
-            <!--<span>{{ postType.label }}</span>-->
-          <!--</a>-->
-        <!--</li>-->
-      <!--</ul>-->
-    <!--</div>-->
+    <div class="tabs is-toggle is-fullwidth">
+      <ul>
+        <li v-for="(postType, index) in options.postTypes" v-bind:class="{ 'is-active': postType.active }" :key="index">
+          <a v-bind:disabled="postType.disabled"
+            @click="setPostType(index)"
+            class="button is-medium">
+            <span class="icon">
+              <hc-icon :icon="'tools-'+postType.value" set="hc" />
+            </span>
+            <span>{{ postType.label }}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
     <div class="field">
       <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
@@ -94,6 +96,75 @@
       </div>
     </no-ssr>
     <hr/>
+    <div v-if="form.type === 'cando'">
+      <div class="field">
+        <label class="label">{{ $t('component.contribution.difficultyDescription') }}</label>
+        <p class="control">
+          <b-radio v-for="difficulty in options.difficulties"
+            :key="difficulty" :native-value="difficulty"
+            v-model="form.cando.difficulty">
+              {{ $t(`difficulty.${difficulty}`) }}
+          </b-radio>
+        </p>
+      </div>
+      <hr/>
+      <div class="field">
+        <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
+        <p class="control has-margin-bottom-medium">
+          <input class="input"
+                 v-model="form.cando.reasonTitle"
+                 type="text"
+                 v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
+                 v-bind:disabled="isLoading">
+        </p>
+      </div>
+      <no-ssr>
+        <div class="field">
+          <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
+          <div class="control">
+            <div id="toolbar-editor2">
+              <div class="ql-formats">
+                <b-tooltip :label="$t('component.editor.italic')" type="is-black">
+                  <button class="ql-italic"></button>
+                </b-tooltip>
+                <b-tooltip :label="$t('component.editor.bold')" type="is-black">
+                  <button class="ql-bold"></button>
+                </b-tooltip>
+                <b-tooltip :label="$t('component.editor.strike')" type="is-black">
+                  <button class="ql-strike"></button>
+                </b-tooltip>
+              </div>
+              <div class="ql-formats">
+                <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
+                  <button class="ql-blockquote"></button>
+                </b-tooltip>
+              </div>
+              <div class="ql-formats">
+                <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
+                  <button class="ql-list" value="bullet" ></button>
+                </b-tooltip>
+                <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
+                  <button class="ql-list" value="ordered" ></button>
+                </b-tooltip>
+              </div>
+              <div class="ql-formats">
+                <b-tooltip :label="$t('component.editor.link')" type="is-black">
+                  <button class="ql-link"></button>
+                </b-tooltip>
+                <b-tooltip :label="$t('component.editor.video')" type="is-black">
+                  <button class="ql-video"></button>
+                </b-tooltip>
+              </div>
+            </div>
+            <div class="quill-editor story"
+                 v-model="form.cando.reason"
+                 :disabled="isLoading"
+                 v-quill:myQuillEditor2="editorOption2"></div>
+          </div>
+        </div>
+      </no-ssr>
+      <hr/>
+    </div>
     <div class="field">
       <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
@@ -192,6 +263,7 @@
       // const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
       // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
+      const i18nEditor2Placeholder = this.$t('component.contribution.canDoReasonContentPlaceholder')
       return {
         isLoading: false,
         uploadingCover: false,
@@ -207,6 +279,11 @@
           categoryIds: [],
           tags: [],
           attachments: [],
+          cando: {
+            difficulty: null,
+            reasonTitle: null,
+            reason: null
+          },
           ...this.data
         },
         options: {
@@ -215,10 +292,26 @@
           topics: [],
           tags: [],
           postTypes: [
-            {label: 'Post', value: 'post', active: true},
-            {label: 'Pro / Con', value: 'procon', disabled: false},
-            {label: 'Can Do', value: 'cando', disabled: false}
-          ]
+            {
+              label: 'Post',
+              value: 'post',
+              active: true,
+              disabled: false
+            },
+            {
+              label: 'Pro / Con',
+              value: 'procon',
+              active: false,
+              disabled: true
+            },
+            {
+              label: 'Can Do',
+              value: 'cando',
+              active: false,
+              disabled: false
+            }
+          ],
+          difficulties: ['easy', 'medium', 'hard']
         },
         editorOption: {
           placeholder: i18nEditorPlaceholder,
@@ -243,6 +336,16 @@
               }
             }
           }
+        },
+        editorOption2: {
+          placeholder: i18nEditor2Placeholder,
+          modules: {
+            toolbar: {
+              container: '#toolbar-editor2',
+              handlers: {
+              }
+            }
+          }
         }
       }
     },
@@ -258,6 +361,16 @@
       }
     },
     methods: {
+      setPostType (newIndex) {
+        this.options.postTypes.forEach((postType, index) => {
+          if (index === newIndex) {
+            postType.active = true
+            this.form.type = postType.value
+          } else {
+            postType.active = false
+          }
+        })
+      },
       isValidURL (url) {
         return !!validUrl.isWebUri(url)
       },
@@ -297,7 +410,6 @@
         }
       },
       onTagTab (e) {
-        console.log(e.target.value)
         if (!isEmpty(e.target.value)) {
           setTimeout(() => {
             e.target.focus()

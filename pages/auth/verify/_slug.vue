@@ -57,7 +57,6 @@
       const verfifyToken = app.$route.params.slug
       this.verify(verfifyToken)
         .then((res) => {
-          console.log('RES:', res)
           this.verified = !!res
           app.isLoading = false
         })
