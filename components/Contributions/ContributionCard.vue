@@ -39,6 +39,7 @@
   import Author from '~/components/Author/Author.vue'
   import ContributionCardCanDo from '~/components/Contributions/ContributionCardCanDo'
   import ContributionCardFooter from '~/components/Contributions/ContributionCardFooter'
+  import thumbnailHelper from '~/helpers/thumbnails'
 
   export default {
     name: 'hc-contribution-card',
@@ -65,10 +66,7 @@
     },
     computed: {
       srcset () {
-        if (!this.post || !this.post.thumbnails || !this.post.thumbnails.teaserImg) {
-          return ''
-        }
-        return `${this.post.thumbnails.teaserImg.cardS} 300w, ${this.post.thumbnails.teaserImg.cardM} 400w, ${this.post.thumbnails.teaserImg.cardL} 720w`
+        return thumbnailHelper.srcSetFromThumbnails(this.post, 'teaserImg', ['cardS', 'cardM', 'cardL'])
       },
       isCanDo () {
         if (this.post.type !== 'cando') {
