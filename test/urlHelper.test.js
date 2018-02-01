@@ -2,9 +2,7 @@ import test from 'ava'
 import urlHelper from '../helpers/urls'
 
 /**
- * This is the first try to test vue components
- *
- * @TODO: fix the test so its working
+ * Testing the url helper
  */
 
 test('URL Helper Test', t => {
