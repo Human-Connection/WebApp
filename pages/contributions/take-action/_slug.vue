@@ -76,31 +76,10 @@
               </tbody>
             </table>
 
-            <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
-            <table class="table is-striped">
-              <tbody>
-              <tr>
-                <td>Einen bienenfreundlichen Garten anlegen</td>
-                <td>Schwer</td>
-                <td class="has-text-right"><strong>58</strong> haben das geschafft</td>
-              </tr>
-              <tr>
-                <td>Einen Bienenstock Bauen</td>
-                <td>Einfach</td>
-                <td class="has-text-right"><strong>1023</strong> haben das geschafft</td>
-              </tr>
-              <tr>
-                <td>Lokales Biogemüse kaufen</td>
-                <td>Einfach</td>
-                <td class="has-text-right"><strong>12.038</strong> haben das geschafft</td>
-              </tr>
-              <tr>
-                <td colspan="3" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+            <div v-if="canDos">
+              <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
+              <can-do-list :can-dos="canDos" @update="updateContribution" />
+            </div>
 
             <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
             <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
@@ -239,7 +218,8 @@
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
-  import { isEmpty, castArray } from 'lodash'
+  import CanDoList from '~/components/CanDos/List.vue'
+  import { isEmpty } from 'lodash'
 
   // lazy loaded components
   const Map = () => import('~/components/Map/Map.vue')
@@ -278,7 +258,8 @@
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       ContributionImage,
-      'hc-map': Map
+      'hc-map': Map,
+      CanDoList
     },
     data () {
       return {
@@ -296,7 +277,8 @@
       try {
         const contributions = await feathers.service('contributions').find({
           query: {
-            slug: params.slug
+            slug: params.slug,
+            $limit: 1
           }
         })
         const organizations = await feathers.service('organizations').find({
@@ -328,6 +310,12 @@
         return {}
       }
     },
+    methods: {
+      async updateContribution () {
+        this.contribution = await feathers.service('contributions')
+          .get(this.contribution._id)
+      }
+    },
     computed: {
       ...mapGetters({
         user: 'auth/user',
@@ -339,10 +327,10 @@
       },
       commentCount () {
         // we need to cast the comments array as it might be an object when only one is present
-        return isEmpty(this.contribution.comments) ? 0 : castArray(this.contribution.comments).length
+        return isEmpty(this.contribution.comments) ? 0 : this.contribution.comments.length
       },
       categories () {
-        return isEmpty(this.contribution.categories) ? [] : castArray(this.contribution.categories)
+        return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
@@ -351,6 +339,12 @@
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
+      },
+      canDos () {
+        if (!this.contribution.associatedCanDos || !this.contribution.associatedCanDos.length) {
+          return false
+        }
+        return this.contribution.associatedCanDos
       }
     },
     head () {

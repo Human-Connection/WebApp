@@ -7,7 +7,6 @@
                   class="card"
                   @click.native="saveScrollPos"
                   @ready="updateGrid">
-                <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
             </card>
         </section>
         <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
