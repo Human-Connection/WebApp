@@ -41,7 +41,7 @@ const thumbnailHelper = {
       const w = thumbnailHelper.dimensionsFromURL(url).width
 
       if (w > 0) {
-        srcSet.push(`${url} w${w}`)
+        srcSet.push(`${url} ${w}w`)
       }
     })
 

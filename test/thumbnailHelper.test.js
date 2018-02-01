@@ -23,7 +23,7 @@ test('URL Helper Test', t => {
   t.deepEqual(thumbnailHelper.dimensionsFromURL('https://source.unsplash.com/random/321x0'), { width: 321, height: null })
 
   // test srcSetFromThumbnails
-  t.is(thumbnailHelper.srcSetFromThumbnails(entity1, 'cover'), `${entity1.thumbnails.cover.small} w300, ${entity1.thumbnails.cover.medium} w600, ${entity1.thumbnails.cover.large} w1024`)
+  t.is(thumbnailHelper.srcSetFromThumbnails(entity1, 'cover'), `${entity1.thumbnails.cover.small} 300w, ${entity1.thumbnails.cover.medium} 600w, ${entity1.thumbnails.cover.large} 1024w`)
   t.is(thumbnailHelper.srcSetFromThumbnails({}, 'cover'), null)
 
   const entity2 = {
@@ -42,7 +42,7 @@ test('URL Helper Test', t => {
     }
   }
   // process only the privided list of keys
-  t.is(thumbnailHelper.srcSetFromThumbnails(entity2, 'cover', ['cardS', 'cardM', 'cardL']), `${entity2.thumbnails.cover.cardS} w100, ${entity2.thumbnails.cover.cardM} w200, ${entity2.thumbnails.cover.cardL} w300`)
+  t.is(thumbnailHelper.srcSetFromThumbnails(entity2, 'cover', ['cardS', 'cardM', 'cardL']), `${entity2.thumbnails.cover.cardS} 100w, ${entity2.thumbnails.cover.cardM} 200w, ${entity2.thumbnails.cover.cardL} 300w`)
 
   // test getThumbnail
 

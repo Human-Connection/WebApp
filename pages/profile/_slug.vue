@@ -1,22 +1,37 @@
 <template>
   <section class="container page-profile" style="position: relative">
-    <hc-upload class="profile-header card"
-               :preview-image="coverImg"
-               :test="true"
-               @update="onCoverUploadCompleted"
-               @start-sending="uploadingCover = true"
-               @stop-sending="uploadingCover = false" >
-    </hc-upload>
+    <template>
+      <hc-upload class="profile-header card"
+                 v-if="isOwner"
+                 :preview-image="coverImg"
+                 :test="true"
+                 @update="onCoverUploadCompleted"
+                 @start-sending="uploadingCover = true"
+                 @stop-sending="uploadingCover = false" >
+      </hc-upload>
+      <hc-progressive-image
+          class="profile-header card"
+          v-else
+          :src="coverImg"
+          :preview="coverPreview" />
+    </template>
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
-            <hc-upload class="avatar-upload"
-                       :preview-image="form.avatar || user.avatar"
-                       :test="true"
-                       @update="onAvatarUploadCompleted"
-                       @start-sending="uploadingAvatar = true"
-                       @stop-sending="uploadingAvatar = false" ></hc-upload>
+            <template>
+              <hc-upload class="avatar-upload"
+                         v-if="isOwner"
+                         :preview-image="form.avatar || user.avatar"
+                         :test="true"
+                         @update="onAvatarUploadCompleted"
+                         @start-sending="uploadingAvatar = true"
+                         @stop-sending="uploadingAvatar = false" ></hc-upload>
+              <avatar
+                  class="avatar-upload"
+                  v-else
+                  :user="user"></avatar>
+            </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
           <template v-if="user.badges">
@@ -121,6 +136,7 @@
   import Avatar from '~/components/Avatar/Avatar'
   import Badges from '~/components/Profile/Badges/Badges'
   import feathers from '~/plugins/feathers'
+  import thumbnailHelper from '~/helpers/thumbnails'
 
   import { isEmpty } from 'lodash'
 
@@ -177,6 +193,7 @@
     middleware: ['authenticated'],
     async asyncData ({ params, store }) {
       let user
+      let isOwner = false
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         const res = await feathers.service('users').find({
           query: {
@@ -186,13 +203,16 @@
         user = res.data[0]
       } else {
         user = store.getters['auth/user']
+        isOwner = true
       }
       if (!user) {
         throw new Error(404)
       }
       return {
         params: params,
-        user: user
+        user: user,
+        isOwner: isOwner,
+        updatedUser: null
       }
     },
     computed: {
@@ -200,29 +220,30 @@
         isAuthenticated: 'auth/isAuthenticated'
       }),
       coverImg () {
-        if (!isEmpty(this.form.coverImg)) {
-          return this.form.coverImg
-        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
-          return this.user.thumbnails.coverImg.cover
-        } else if (!isEmpty(this.user.coverImg)) {
-          return this.user.coverImg
-        } else {
-          return 'https://source.unsplash.com/random/1250x280'
+        let thumbnail = thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
+        if (!thumbnail && this.user.wasSeeded && !this.isOwner) {
+          thumbnail = 'https://source.unsplash.com/random/1250x280'
         }
+        return thumbnail
+      },
+      coverPreview () {
+        return thumbnailHelper.getThumbnail(this.user, 'coverImg', 'coverPlaceholder', this.coverImg)
       }
     },
     methods: {
-      onCoverUploadCompleted (value) {
+      async onCoverUploadCompleted (value) {
         this.form.coverImg = value
-        this.$store.dispatch('auth/patch', {
+        const user = await this.$store.dispatch('auth/patch', {
           coverImg: value
         })
+        this.updatedUser = user
       },
-      onAvatarUploadCompleted (value) {
+      async onAvatarUploadCompleted (value) {
         this.form.avatar = value
-        this.$store.dispatch('auth/patch', {
+        const user = await this.$store.dispatch('auth/patch', {
           avatar: value
         })
+        this.updatedUser = user
       }
     },
     async mounted () {

@@ -1,12 +1,12 @@
 <template>
     <div class="img-circle profile-image">
-      <img v-if="thumbnails.raw" :src="avatar" :srcset="avatarSet" alt=""/>
+      <hc-progressive-image v-if="user" :src="avatar" :preview="preview" :srcset="srcset" />
     </div>
 </template>
 
 
 <script>
-  import { isEmpty } from 'lodash'
+  import thumbnailHelper from '~/helpers/thumbnails'
 
   export default {
     name: 'hc-avatar',
@@ -18,50 +18,15 @@
         type: Object
       }
     },
-    data () {
-      return {
-        thumbnails: {
-          small: null,
-          medium: null,
-          large: null,
-          raw: null
-        }
-      }
-    },
     computed: {
       avatar () {
-        return this.thumbnails.raw
+        return thumbnailHelper.getThumbnail(this.user, 'avatar', 'small', '/assets/images/avatar-default/male/avatar200x200.jpg')
       },
-      avatarSet () {
-        return !isEmpty(this.thumbnails.large) ? `${this.thumbnails.small} 72w, ${this.thumbnails.medium} 120w, ${this.thumbnails.large} 240w` : null
-      }
-    },
-    watch: {
-      user (data) {
-        this.setData(data)
-      }
-    },
-    mounted () {
-      this.setData(this.user)
-    },
-    methods: {
-      setData (data) {
-        if (isEmpty(data) || isEmpty(data) || isEmpty(data.avatar)) {
-          this.thumbnails.raw = '/assets/images/avatar-default/male/avatar200x200.jpg'
-          this.thumbnails.small = null
-          this.thumbnails.medium = null
-          this.thumbnails.large = null
-        } else if (!isEmpty(data.thumbnails)) {
-          this.thumbnails.small = data.thumbnails.avatar.small
-          this.thumbnails.medium = data.thumbnails.avatar.medium
-          this.thumbnails.large = data.thumbnails.avatar.large
-          this.thumbnails.raw = data.thumbnails.avatar.small
-        } else if (!isEmpty(this.user.avatar)) {
-          this.thumbnails.raw = this.user.avatar
-          this.thumbnails.small = null
-          this.thumbnails.medium = null
-          this.thumbnails.large = null
-        }
+      preview () {
+        return thumbnailHelper.getThumbnail(this.user, 'avatar', 'placeholder')
+      },
+      srcset () {
+        return thumbnailHelper.srcSetFromThumbnails(this.user, 'avatar', ['large', 'medium', 'small'])
       }
     }
   }
@@ -77,7 +42,6 @@
     width:           36px;
     height:          36px;
     background:      #fff no-repeat center;
-    background-size: cover;
     overflow:        hidden;
 
     img {
