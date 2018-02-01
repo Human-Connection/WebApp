@@ -55,8 +55,8 @@ const thumbnailHelper = {
    */
   dimensionsFromURL (url) {
     const dimensions = url.match(/(\d{1,4})x(\d{1,4})/)
-    const width = parseInt(dimensions[1]) || null
-    const height = parseInt(dimensions[2]) || null
+    const width = dimensions ? parseInt(dimensions[1]) || null : null
+    const height = dimensions ? parseInt(dimensions[2]) || null : null
 
     return { width, height }
   }
