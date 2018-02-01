@@ -381,11 +381,15 @@
         this.isLoading = true
 
         try {
+          let formData = Object.assign({}, this.form)
+          if (formData.type !== 'cando') {
+            delete formData.cando
+          }
           let res = null
           if (this.form._id) {
-            res = await feathers.service('contributions').patch(this.form._id, this.form)
+            res = await feathers.service('contributions').patch(formData._id, formData)
           } else {
-            res = await feathers.service('contributions').create(this.form)
+            res = await feathers.service('contributions').create(formData)
           }
           this.$store.commit('newsfeed/clear')
           this.$snackbar.open({
