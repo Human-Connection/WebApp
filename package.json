@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Human-Connection Frontend",
   "homepage": "https://human-connection.org",
+  "license": "CC BY-NC-SA 4.0",
   "repository": {
     "type" : "git",
     "url" : "https://github.com/HumanConnection/HC-Frontend.git"
