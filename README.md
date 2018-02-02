@@ -4,15 +4,20 @@
 
 
 <p align="center">
-  <a href="https://travis-ci.org/HumanConnection/HC-Frontend"><img src="https://img.shields.io/travis/HumanConnection/HC-Frontend/master.svg" alt="Build Status"></a>
+  <a href="https://travis-ci.org/HumanConnection/HC-Frontend"><img src="https://img.shields.io/travis/HumanConnection/HC-Frontend/master.svg" alt="Build Status" /></a>
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-green.svg" "Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)" /></a>
 </p>
 
-# HUMAN-CONNECTION Frontend
+# Human-Connection UI
 > uses the Nuxt.js and Express.js projects
+
+> **Note:** This is only the API part of Human-Connection, you have to also checkout the [API](https://github.com/HumanConnection/HC-API) which is used by this Frontend.
 
 This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.
 
 ## Build Setup
+
+> we recommand to install the project locally for the best development ease and performance
 
 ``` bash
 # install dependencies

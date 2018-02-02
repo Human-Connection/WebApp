@@ -1,9 +1,29 @@
 {
-  "name": "nuxt-express",
-  "version": "1.0.0",
-  "description": "Nuxt.js project",
-  "author": "Grzegorz Leoniec <greg@app-interactive.de>",
-  "private": true,
+  "name": "hc-frontend",
+  "version": "0.1.0",
+  "description": "Human-Connection Frontend",
+  "homepage": "https://human-connection.org",
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/HumanConnection/HC-Frontend.git"
+  },
+  "author": {
+    "name": "Human Connection gGmbH",
+    "email": "developer@human-connection.org"
+  },
+  "bugs": {
+    "url" : "https://github.com/HumanConnection/HC-Frontend/issues",
+    "email" : "bugfix@human-connection.org"
+  },
+  "keywords": [
+    "human-connection",
+    "social network",
+    "frontend",
+    "nuxtjs"
+  ],
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
@@ -14,9 +34,6 @@
     "styleguide:build": "vue-styleguidist build",
     "test": "ava",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
-  },
-  "engines": {
-    "node": ">= 8.0.0"
   },
   "dependencies": {
     "@nuxtjs/pwa": "~2.0.5",
