@@ -9,7 +9,9 @@
                    style="display: block; position: absolute; right: 1.5rem; top: 1rem;"></nuxt-link>
         <div class="card-teaser">
           <nuxt-link :to="$route.params.path || '/'">
-            <img src="/assets/images/registration/alpha-invite.png" alt="Human Connection"/>
+            <img src="/assets/images/registration/alpha-invite.png"
+                 srcset="/assets/images/registration/alpha-invite.png 1x, /assets/images/registration/alpha-invite2x.png 2x"
+                 alt="Human Connection"/>
           </nuxt-link>
         </div>
         <p class="subtitle is-6">{{ $t('auth.register.description') }}</p>
