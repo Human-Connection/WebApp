@@ -107,6 +107,7 @@
     background-color: $white;
     box-shadow: $card-shadow-hover;
     border: 1px solid $border;
+    border-radius: $radius-large;
     min-height: 40px;
   }
 

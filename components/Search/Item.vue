@@ -8,14 +8,6 @@
       <div class="hc-search-item-name">
         {{ item.name }}
       </div>
-      <div class="hc-search-item-details">
-        <template v-if="ressource === 'users'">
-          {{ item.email }}
-        </template>
-        <template v-else>
-          {{ $t('info.created') }}: <hc-date :date="item.createdAt" />
-        </template>
-      </div>
     </div>
   </div>
 </template>
@@ -44,7 +36,6 @@
   @import "assets/styles/utilities";
 
   .hc-search-item {
-    font-size: $size-small;
     min-height: 50px;
     padding: 5px $padding-small;
     display: flex;
@@ -53,8 +44,10 @@
     cursor: pointer;
 
     &:hover, &.selected {
-      color: $primary;
+      color: $grey-darker;
       text-decoration: none;
+      background-color: $white-ter;
+      font-weight: bold;
     }
   }
 
@@ -64,11 +57,5 @@
 
   .hc-search-item-details {
     flex-grow: 1;
-
-    p {
-      margin-bottom: 0;
-      margin-top: 0;
-      line-height: 1;
-    }
   }
 </style>
