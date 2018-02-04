@@ -20,7 +20,12 @@ export const buildUserUrl = (slug) => {
   return `${base}/profile/${slug}`
 }
 
+export const buildContributionUrl = (slug) => {
+  return `${base}/contributions/${slug}`
+}
+
 export default {
   buildEndpointURL,
-  buildUserUrl
+  buildUserUrl,
+  buildContributionUrl
 }
