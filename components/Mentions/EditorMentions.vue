@@ -127,19 +127,20 @@
           this.stopChangeListener()
         }
       },
-      itemSelected ({item, ressource}) {
-        this.insertMention(item, ressource)
+      itemSelected ({item}) {
+        this.insertMention(item)
       },
-      insertMention (item, ressource) {
+      insertMention (item) {
         let deleteLength = this.searchString.length + 1 // + @
         // Save index, because it is going to be reset
         let index = this.index
         let name = item.name
         let _id = item._id
+        let slug = item.slug
         const ops = new Delta()
           .retain(index)
           .delete(deleteLength)
-          .insert(name, {mention: { _id, ressource }})
+          .insert(name, {mention: { _id, slug }})
         this.stopChangeListener()
         this.quill.updateContents(ops)
         this.quill.setSelection(index + name.length)

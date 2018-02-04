@@ -5,12 +5,9 @@ let InlineBlot = Quill.import('blots/inline')
 const dataIdentifier = 'data-hc-mention'
 const mentionClass = 'hc-editor-mention-blot'
 class MentionBlot extends InlineBlot {
-  static create ({_id}) {
+  static create (item) {
     let node = super.create()
-    let item = {
-      _id
-    }
-    let url = buildUserUrl(_id)
+    let url = buildUserUrl(item.slug)
     node.setAttribute('href', url)
     node.setAttribute('class', mentionClass)
     node.setAttribute(dataIdentifier, JSON.stringify(item))

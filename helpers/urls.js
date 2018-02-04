@@ -1,5 +1,7 @@
 import { merge, parseInt } from 'lodash'
 
+const base = `${process.env.baseURL}:${process.env.PORT}`
+
 export const buildEndpointURL = (host, options = {}) => {
   options = merge({ protocol: 'http', port: null }, options || {})
   let endpoint = host
@@ -14,8 +16,8 @@ export const buildEndpointURL = (host, options = {}) => {
   return endpoint
 }
 
-export const buildUserUrl = (id) => {
-  return `${id}`
+export const buildUserUrl = (slug) => {
+  return `${base}/profile/${slug}`
 }
 
 export default {
