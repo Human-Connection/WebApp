@@ -1,6 +1,7 @@
 <template>
   <div class="notification option">
-    <author :post="notification.comment || notification.contribution"></author>
+    <author :user="notification.user"
+      :created-at="notification.createdAt" />
     <p class="notification-message">
       {{ $t(`component.notification.message.${notification.type}`, messageParams) }}
     </p>

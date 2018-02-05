@@ -2,7 +2,8 @@
   <div class="comment is-unselectable autowrap">
     <div class="columns is-mobile">
       <div class="column">
-        <author :post="comment"></author>
+        <author :user="comment.user"
+          :created-at="comment.createdAt" />
       </div>
       <div class="column has-text-right">
         <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">

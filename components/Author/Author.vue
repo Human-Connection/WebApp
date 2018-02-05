@@ -1,17 +1,17 @@
 <template>
-    <div class="media hc__author" v-if="post" @click="showProfile">
+    <div class="media hc__author" @click="showProfile">
         <div class="media-left">
             <hc-avatar :user="user"></hc-avatar>
         </div>
         <div class="media-content">
-            <p class="title" v-if="!post.user">
+            <p class="title" v-if="!user">
                 {{ $t('component.contribution.creatorUnknown') }}
             </p>
             <p class="title" v-else>
-                {{ post.user.name }} </p>
+                {{ user.name }} </p>
             <p class="subtitle">
                 <i class="fa fa-clock-o"></i>&nbsp;
-                <hc-relative-date-time :dateTime="post.createdAt"></hc-relative-date-time>
+                <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>
             </p>
         </div>
     </div>
@@ -21,8 +21,11 @@
   export default {
     name: 'hc-author',
     props: {
-      post: {
+      user: {
         type: Object
+      },
+      createdAt: {
+        type: [ String, Date ]
       }
     },
     methods: {
@@ -34,11 +37,6 @@
         } else {
           this.$router.push(`/profile/`)
         }
-      }
-    },
-    computed: {
-      user () {
-        return this.post.user || null
       }
     }
   }

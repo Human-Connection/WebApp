@@ -10,7 +10,7 @@
     </hc-upload>
     <div class="columns">
       <div class="column">
-        <author :post="{ user: user }"></author>
+        <author :user="user" />
       </div>
       <div class="column"></div>
     </div>
