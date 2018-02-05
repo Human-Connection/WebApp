@@ -20,11 +20,9 @@
           </p>
           <div class="dropdown-scroll" v-if="notifications.length">
             <transition-group name="notification" tag="div">
-              <div class="notification option" v-for="notification in notifications" :key="notification._id"
-                   @click="followNotification(notification)">
-                <author :post="notification.comment"></author>
-                <p class="notification-message" v-html="notification.message"></p>
-              </div>
+              <notification-item v-for="notification in notifications"
+                :notification="notification" :key="notification._id"
+                @click.native="followNotification(notification)" />
             </transition-group>
           </div>
         </div>
@@ -38,12 +36,12 @@
 
 <script>
   import {mapGetters, mapMutations} from 'vuex'
-  import author from '~/components/Author/Author.vue'
+  import NotificationItem from '~/components/Notifications/Item.vue'
 
   export default {
     name: 'hc-notifications',
     components: {
-      'author': author
+      NotificationItem
     },
     data () {
       return {
@@ -188,29 +186,6 @@
       }
     }
 
-    .option {
-      border-bottom: 1px solid lighten($grey-lighter, 6%);
-      transition: all .2s ease-out;
-      padding: 8px 8px;
-      margin-bottom: 0;
-      cursor: pointer;
-      background-color: $white;
-
-      &:hover {
-        // box-shadow: 0px 2px 7px rgba($black, 0.2);
-        background-color: lighten($grey-lighter, 10%);
-      }
-
-      &:last-of-type {
-        border-bottom: 0;
-      }
-    }
-
-    .notification-message {
-      // margin-top: 0.5em;
-      padding: 1rem 0 0.5rem;
-    }
-
     .dropdown-content {
       padding: 0.5rem 1rem 0.8rem;
       border: none;
@@ -253,12 +228,6 @@
     padding-bottom: 2rem !important;
     text-align: center;
     color: $grey-light;
-  }
-
-  .notification {
-    p {
-      font-size: $size-7;
-    }
   }
 
   @keyframes notify {

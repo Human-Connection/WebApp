@@ -131,7 +131,12 @@
     },
     "notification": {
       "label": "Notifications",
-      "messageEmpty": "You don't have any notifications."
+      "messageEmpty": "You don't have any notifications.",
+      "message": {
+        "comment": "{userName} has commented your contribution: {title}",
+        "comment-mention": "{userName} has mentioned you in a comment for {title}.",
+        "contribution-mention": "{userName} has mentioned you in a contribution: {title}"
+      }
     },
     "dashbord": {
       "label": "Dashboard"

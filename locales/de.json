@@ -131,7 +131,12 @@
     },
     "notification": {
       "label": "Benachrichtigungen",
-      "messageEmpty": "Du hast keine Benachrichtigungen."
+      "messageEmpty": "Du hast keine Benachrichtigungen.",
+      "message": {
+        "comment": "{userName} hat deinen Beitrag kommentiert: {title}",
+        "comment-mention": "{userName} hat dich in einem Kommentar zu {title} erwähnt.",
+        "contribution-mention": "{userName} hat dich in einem Beitrag erwähnt: {title}"
+      }
     },
     "dashbord": {
       "label": "Entdecken"
