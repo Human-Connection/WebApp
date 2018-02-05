@@ -34,7 +34,7 @@
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
-          <template v-if="user.badges">
+          <template v-if="user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
           <hr>
