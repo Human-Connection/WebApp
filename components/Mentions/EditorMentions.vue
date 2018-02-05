@@ -141,9 +141,10 @@
           .retain(index)
           .delete(deleteLength)
           .insert(name, {mention: { _id, slug }})
+          .insert(' ')
         this.stopChangeListener()
         this.quill.updateContents(ops)
-        this.quill.setSelection(index + name.length)
+        this.quill.setSelection(index + name.length + 1)
       }
     },
     beforeDestroy () {
