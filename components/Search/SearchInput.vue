@@ -4,6 +4,7 @@
             <div class="control has-icons-left has-icons-right">
                 <input class="input"
                        type="text"
+                       name="search"
                        v-bind:placeholder="$t('component.search.placeholder')"
                        v-model="value"
                        v-on:keyup="onInput">

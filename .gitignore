@@ -24,3 +24,5 @@ npm-debug.log
 env.js
 /nbproject/private/
 /nbproject/
+
+cypress/videos

@@ -1,5 +1,5 @@
 <template>
-  <section class="container content">
+  <section id="page-auth-login" class="container content">
     <div class="card" :class="classes">
       <div class="card-content">
         <hc-flag-switch />
@@ -17,7 +17,7 @@
           <div class="field">
             <div class="control has-icons-right">
               <input ref="focus" 
-                     name="username" 
+                     name="email" 
                      type="email"
                      autofocus
                      :class="{ 'input': true, 'is-danger': $v.form.email.$error }"

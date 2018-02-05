@@ -98,7 +98,7 @@
             <div class="field is-grouped">
               <template v-if="isAuthenticated">
                 <notifications></notifications>
-                <div class="navbar-item has-dropdown is-hoverable">
+                <div class="navbar-item has-dropdown is-hoverable" id="user-menu">
                   <nuxt-link class="navbar-link hide-in-menu"
                              to="/profile">
                     <avatar :user="user"></avatar>
