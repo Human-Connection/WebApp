@@ -19,9 +19,8 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'assets/styles/utilities';
-
   .hc__blank {
     min-height: 100vh;
     display: flex;
@@ -30,6 +29,7 @@
     transition: opacity 150ms;
     opacity: 1;
     padding: 1.2rem;
+    padding-bottom: 5rem;
   }
 
   .hidden {
