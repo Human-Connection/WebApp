@@ -4,15 +4,21 @@
 
 
 <p align="center">
-  <a href="https://travis-ci.org/HumanConnection/HC-Frontend"><img src="https://img.shields.io/travis/HumanConnection/HC-Frontend/master.svg" alt="Build Status"></a>
+  <a href="https://travis-ci.org/Human-Connection/WebApp"><img src="https://img.shields.io/travis/Human-Connection/WebApp/master.svg" alt="Build Status" /></a>
+  <a href="https://david-dm.org/human-Connection/webapp"><img src="https://img.shields.io/david/human-connection/webapp.svg" "Dependencies" /></a>
+  <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-green.svg" "Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)" /></a>
 </p>
 
-# HUMAN-CONNECTION Frontend
+# Human-Connection WebApp
 > uses the Nuxt.js and Express.js projects
 
-This is the nuxt + express version of our hc-frontend as nuxt.js seams to be more stable and we have better options for keeping it updated.
+> **Note:** This is only the API part of Human-Connection, you have to also checkout the [API](https://github.com/Human-Connection/API) which is used by this WebApp.
+
+This is the nuxt + express version of our WebApp as nuxt.js seams to be more stable and we have better options for keeping it updated.
 
 ## Build Setup
+
+> we recommand to install the project locally for the best development ease and performance
 
 ``` bash
 # install dependencies
@@ -45,8 +51,12 @@ When built you can open it at [http://localhost:6060](http://localhost:6060)
 
 We use [backpack](https://github.com/palmerhq/backpack) to watch and build the application, so you can use the latest ES6 features (module syntax, async/await, etc.).
 
+## Help
+
+The HC platform is documented in our [gitbook](https://www.gitbook.com/book/human-connection/documentation/) (work in progress).
+
 ## License 
 
-<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png"/></a>
+<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://mirrors.creativecommons.org/presskit/buttons/80x15/svg/by-nc-sa.svg"/></a>
 
 [Creative Commons (CC BY-NC-SA 4.0) License](https://creativecommons.org/licenses/by-nc-sa/4.0/) not for commercial use. 
