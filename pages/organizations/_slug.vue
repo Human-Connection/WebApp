@@ -1,22 +1,26 @@
 <template>
   <section class="container organization-profile" style="position: relative">
     <hc-upload class="profile-header card"
+               v-if="isOwner"
                :preview-image="coverImg"
                :test="true"
                @update="onCoverUploadCompleted"
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false" >
     </hc-upload>
+    <img :src="coverImg" v-if="!isOwner" alt="" class="profile-header card">
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
         <hc-box top="true" class="organization-hc-box">
           <div class="organization-avatar">
             <hc-upload class="avatar-upload"
+                       v-if="isOwner"
                        :preview-image="form.avatar || organization.logo"
                        :test="true"
                        @update="onAvatarUploadCompleted"
                        @start-sending="uploadingAvatar = true"
                        @stop-sending="uploadingAvatar = false" ></hc-upload>
+            <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
           <div class="organization-name">{{ organization.name }}</div>
           <div class="organization-follows">
@@ -42,7 +46,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <div class="organization-welcome">Pacific argentine gopher rockfish, jawfish plaice yellowfin cutthroat trout sixgill ray chimaera leopard danio. Damselfish yellowtail clownfish bristlenose catfish sea catfish blue whiting. Alaska blackfish slender mola hagfish, collared dogfish Kafue pike river loach Black pickerel rock beauty bluefin tuna northern sea robin. Luderick trumpeter whiting whiting common carp yellow-and-black triplefin silver carp, "whale catfish neon tetra." Bonytail chub gray mullet, "candlefish," Black sea bass brook trout freshwater hatchetfish North Pacific daggertooth. Goldspotted killifish, flabby whalefish ribbonfish Black scalyfin Indian mul righteye flounder tarwhine.</div>
+          <div class="organization-welcome">{{ organization.description }}</div>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <hc-box top="true">
@@ -86,8 +90,8 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({params}) {
-      let organization
+    async asyncData ({params, store}) {
+      let organization, owner, isOwner
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await feathers.service('organizations').find({
           query: {
@@ -97,10 +101,13 @@
       } else {
         throw new Error(404)
       }
-
+      // is owner?
+      owner = store.getters['auth/user']
+      isOwner = owner !== null && owner._id === organization.data[0].userId
       return {
         params: params,
-        organization: organization.data[0]
+        organization: organization.data[0],
+        isOwner: isOwner
       }
     },
     computed: {
@@ -132,6 +139,11 @@
           avatar: value
         })
       }
+    },
+    head () {
+      return {
+        title: this.organization.name
+      }
     }
   }
 </script>
@@ -156,6 +168,11 @@
 
       border: none;
       box-shadow: $card-shadow;
+    }
+
+    .avatar {
+      border: none;
+      border-radius: 50%;
     }
 
     .organization-follows {
