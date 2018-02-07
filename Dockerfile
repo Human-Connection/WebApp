@@ -18,7 +18,7 @@ EXPOSE 3000
 ENV HOST=0.0.0.0
 
 # buld application
-#RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile
 # use yarn & npm caching
 RUN ln -s /tmp/node_modules
 
