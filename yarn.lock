@@ -10761,6 +10761,10 @@ uws@~0.14.4:
   version "0.14.5"
   resolved "https://registry.yarnpkg.com/uws/-/uws-0.14.5.tgz#67aaf33c46b2a587a5f6666d00f7691328f149dc"
 
+v2-table@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.yarnpkg.com/v2-table/-/v2-table-0.3.5.tgz#8d4cab44ce0d9c7be4b24f3025112cae9569cdea"
+
 valid-url@~1.0.9:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/valid-url/-/valid-url-1.0.9.tgz#1c14479b40f1397a75782f115e4086447433a200"
