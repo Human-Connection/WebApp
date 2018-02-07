@@ -1,4 +1,5 @@
 <template>
+  <no-ssr>
   <div class="hc-editor-wrapper">
     <div :id="`toolbar-editor-${identifier}`">
       <div class="ql-formats">
@@ -47,6 +48,7 @@
        </div>
     </div>
   </div>
+  </no-ssr>
 </template>
 
 <script>

@@ -50,17 +50,15 @@
           </button>
       </div>
     </div>
-    <no-ssr>
-      <div class="field">
-        <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
-        <div class="control">
-          <hc-editor identifier="content"
-            v-model="form.content"
-            :loading="isLoading"
-            :editorOptions="editorOptions"/>
-        </div>
+    <div class="field">
+      <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
+      <div class="control">
+        <hc-editor identifier="content"
+          v-model="form.content"
+          :loading="isLoading"
+          :editorOptions="editorOptions"/>
       </div>
-    </no-ssr>
+    </div>
     <hr/>
     <div v-if="form.type === 'cando'">
       <div class="field">
@@ -84,17 +82,15 @@
                  v-bind:disabled="isLoading">
         </p>
       </div>
-      <no-ssr>
-        <div class="field">
-          <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
-          <div class="control">
-            <hc-editor identifier="cando-reason"
-              v-model="form.cando.reason"
-              :loading="isLoading"
-              :editorOptions="editorOptions2"/>
-          </div>
+      <div class="field">
+        <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
+        <div class="control">
+          <hc-editor identifier="cando-reason"
+            v-model="form.cando.reason"
+            :loading="isLoading"
+            :editorOptions="editorOptions2"/>
         </div>
-      </no-ssr>
+      </div>
       <hr/>
     </div>
     <div class="field">
