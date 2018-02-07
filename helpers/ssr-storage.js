@@ -1,7 +1,5 @@
 import cookie from 'js-cookie'
 
-const expires = 365
-
 export default {
   getItem (key) {
     let result = cookie.get(key)
@@ -10,8 +8,8 @@ export default {
     }
     return result
   },
-  setItem (key, value) {
-    cookie.set(key, value, {expires})
+  setItem (key, value, options = { expires: 365 }) {
+    cookie.set(key, value, options)
     if (process.browser) {
       window.localStorage.setItem(key, value)
     }
