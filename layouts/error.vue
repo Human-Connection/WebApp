@@ -1,16 +1,14 @@
 <template>
-  <div id="error">
-    <div class="error_container container">
-      <div class="error_content content has-text-centered">
-        <h1 v-html="header"></h1>
-        <h3 v-html="subHeader"></h3>
-        <img :src="errorImage" :alt="header" class="error_img" />
-        <p v-html="copy"></p>
-      </div>
-      <footer>
-        <img class="error_footer_logo" src="/Logo-Horizontal.svg" alt="Human Connection" style="max-width: 150px;" />
-      </footer>
+  <div>
+    <div id="error">
+      <h1 v-html="header"></h1>
+      <h3 v-html="subHeader"></h3>
+      <img :src="errorImage" :alt="header" class="error_img" />
+      <p v-html="copy"></p>
     </div>
+    <footer>
+      <img class="error_footer_logo" src="/Logo-Horizontal.svg" alt="Human Connection" style="max-width: 150px;" />
+    </footer>
   </div>
 </template>
 <script>
@@ -54,24 +52,12 @@
   @import "assets/styles/_utilities";
 
   #error {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 9998;
-    background-color: $backdrop-color;
-  }
-  .container.error_container {
+    margin-top: -50px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100vw;
-    height: 90vh;
-  }
-  .content.error_content {
+    flex-direction: column;
+    // background-color: $backdrop-color;
+    text-align: center;
+
     padding: 1.2rem;
 
     h1 {
@@ -86,6 +72,7 @@
       min-height: 150px;
       max-height: 260px;
       padding: 3rem 2rem;
+      object-fit: contain;
     }
   }
 
@@ -111,10 +98,10 @@
     h1 {
       font-size: 1.5em;
     }
-    .content.error_content {
+    #error {
       transform: scale(0.8);
     }
-    .content.error_content .error_img {
+    #error .error_img {
       max-height: 25vh;
       padding: 1rem;
     }
