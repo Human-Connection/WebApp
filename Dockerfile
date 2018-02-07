@@ -18,12 +18,12 @@ EXPOSE 3000
 ENV HOST=0.0.0.0
 
 # buld application
-RUN yarn install --frozen-lockfile
+#RUN yarn install --frozen-lockfile
 # use yarn & npm caching
 RUN ln -s /tmp/node_modules
 
 # run tests
-RUN yarn test
+#RUN yarn test
 
 # test if the build is running
 ENV NODE_ENV=production

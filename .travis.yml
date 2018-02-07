@@ -6,12 +6,12 @@ cache:
   directories:
     - node_modules
 install:
-#  - yarn
+  - yarn install --frozen-lockfile
 script:
-#  - yarn run test
+  - yarn run test
 services:
   - docker
-before_install:
+after_install:
   - docker build -t humanconnection/frontend-nuxt:alpha .
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then

@@ -1,7 +1,7 @@
-node_modules/
-.nuxt/
+#node_modules/
+#.nuxt/
 .monitor/
 .vscode/
-build/
+#build/
 npm-debug.log
 Dockerfile
