@@ -5,7 +5,7 @@ export default function ({ store, route, redirect }) {
       route.path.indexOf('/legal') !== 0 &&
       !store.getters['auth/isAuthenticated']) {
     return redirect('/auth/login', {
-      path: !isEmpty(route.path) ? route.path : null
+      path: !isEmpty(route.path) ? route.path : '/'
     })
   }
 }
