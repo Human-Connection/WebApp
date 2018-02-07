@@ -109,6 +109,7 @@
         }
       }
     },
+    // ToDo: Remove jquery, add vanilla event listener
     mounted () {
       $(document).on('keydown', this.handleKeys)
     },

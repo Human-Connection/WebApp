@@ -54,51 +54,10 @@
       <div class="field">
         <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
         <div class="control">
-          <div id="toolbar-editor">
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
-                <button class="ql-italic"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
-                <button class="ql-bold"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
-                <button class="ql-strike"></button>
-              </b-tooltip>
-            </div>
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
-                <button class="ql-blockquote"></button>
-              </b-tooltip>
-            </div>
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
-                <button class="ql-list" value="bullet" ></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
-                <button class="ql-list" value="ordered" ></button>
-              </b-tooltip>
-            </div>
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.link')" type="is-black">
-                <button class="ql-link"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.video')" type="is-black">
-                <button class="ql-video"></button>
-              </b-tooltip>
-            </div>
-          </div>
-          <div class="hc-editor-container">
-            <div class="quill-editor story"
-               v-model="form.content"
-               :disabled="isLoading"
-               @ready="editorReady = true"
-               v-quill:myQuillEditor="editorOption"></div>
-             <div class="plugins" v-if="editorReady && myQuillEditor">
-               <editor-mentions :quill="myQuillEditor" />
-             </div>
-          </div>
-
+          <hc-editor identifier="content"
+            v-model="form.content"
+            :loading="isLoading"
+            :editorOptions="editorOptions"/>
         </div>
       </div>
     </no-ssr>
@@ -129,44 +88,10 @@
         <div class="field">
           <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
           <div class="control">
-            <div id="toolbar-editor2">
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.italic')" type="is-black">
-                  <button class="ql-italic"></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.bold')" type="is-black">
-                  <button class="ql-bold"></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.strike')" type="is-black">
-                  <button class="ql-strike"></button>
-                </b-tooltip>
-              </div>
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
-                  <button class="ql-blockquote"></button>
-                </b-tooltip>
-              </div>
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
-                  <button class="ql-list" value="bullet" ></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
-                  <button class="ql-list" value="ordered" ></button>
-                </b-tooltip>
-              </div>
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.link')" type="is-black">
-                  <button class="ql-link"></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.video')" type="is-black">
-                  <button class="ql-video"></button>
-                </b-tooltip>
-              </div>
-            </div>
-            <div class="quill-editor story"
-                 v-model="form.cando.reason"
-                 :disabled="isLoading"
-                 v-quill:myQuillEditor2="editorOption2"></div>
+            <hc-editor identifier="cando-reason"
+              v-model="form.cando.reason"
+              :loading="isLoading"
+              :editorOptions="editorOptions2"/>
           </div>
         </div>
       </no-ssr>
@@ -323,39 +248,11 @@
           ],
           difficulties: ['easy', 'medium', 'hard']
         },
-        editorOption: {
-          placeholder: i18nEditorPlaceholder,
-          modules: {
-            toolbar: {
-              container: '#toolbar-editor',
-              handlers: {
-                // TODO: do not use the prompt but the native quill dialoges or at least a nice modal
-                //  handlers object will be merged with default handlers object
-                // 'link': function (value) {
-                //   if (value) {
-                //     let href = prompt(i18nEditorLinkEnterUrl)
-                //     this.quill.format('link', href)
-                //   } else {
-                //     this.quill.format('link', false)
-                //   }
-                // },
-                // 'video': function () {
-                //   let embedUrl = prompt(i18nEditorVideoEnterUrl)
-                //   this.quill.format('video', embedUrl)
-                // }
-              }
-            }
-          }
+        editorOptions: {
+          placeholder: i18nEditorPlaceholder
         },
-        editorOption2: {
-          placeholder: i18nEditor2Placeholder,
-          modules: {
-            toolbar: {
-              container: '#toolbar-editor2',
-              handlers: {
-              }
-            }
-          }
+        editorOptions2: {
+          placeholder: i18nEditor2Placeholder
         }
       }
     },
