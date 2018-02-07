@@ -1,9 +1,30 @@
 {
-  "name": "nuxt-express",
-  "version": "1.0.0",
-  "description": "Nuxt.js project",
-  "author": "Grzegorz Leoniec <greg@app-interactive.de>",
-  "private": true,
+  "name": "human-connection-webapp",
+  "version": "0.1.0",
+  "description": "Human-Connection WebApp",
+  "homepage": "https://human-connection.org",
+  "license": "CC-BY-NC-SA-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Human-Connection/WebApp.git"
+  },
+  "author": {
+    "name": "Human Connection gGmbH",
+    "email": "developer@human-connection.org"
+  },
+  "bugs": {
+    "url": "https://github.com/Human-Connection/WebApp/issues",
+    "email": "bugfix@human-connection.org"
+  },
+  "keywords": [
+    "human-connection",
+    "social network",
+    "frontend",
+    "nuxtjs"
+  ],
+  "engines": {
+    "node": ">= 8.0.0"
+  },
   "scripts": {
     "dev": "backpack dev",
     "build": "nuxt build && backpack build",
@@ -12,11 +33,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
-    "test": "ava --serial --verbose",
+    "test": "ava",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
-  },
-  "engines": {
-    "node": ">= 8.0.0"
   },
   "dependencies": {
     "@nuxtjs/pwa": "~2.0.5",
@@ -49,6 +67,7 @@
     "raven": "~2.4.0",
     "raven-js": "~3.22.1",
     "socket.io-client": "~2.0.4",
+    "v2-table": "^0.3.5",
     "valid-url": "~1.0.9",
     "vue": "~2.5.13",
     "vue-clip": "git+https://github.com/alexsasharegan/vue-clip.git#develop",

@@ -114,14 +114,11 @@ export const actions = {
         return dispatch('login', {email, password})
       })
   },
-  patch ({state, commit}, data) {
-    return feathers.service('users').patch(state.user._id, data)
-      .then(user => {
-        commit('SET_USER', user)
-      })
-      .catch(err => {
-        console.log(err.message)
-      })
+  async patch ({state, commit}, data) {
+    const user = await feathers.service('users').patch(state.user._id, data)
+    commit('SET_USER', user)
+    console.log(user)
+    return user
   },
   verify ({dispatch}, verifyToken) {
     if (!verifyToken) { return false }

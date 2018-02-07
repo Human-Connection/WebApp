@@ -1,25 +1,40 @@
 <template>
   <section class="container page-profile" style="position: relative">
-    <hc-upload class="profile-header card"
-               :preview-image="coverImg"
-               :test="true"
-               @update="onCoverUploadCompleted"
-               @start-sending="uploadingCover = true"
-               @stop-sending="uploadingCover = false" >
-    </hc-upload>
+    <template>
+      <hc-upload class="profile-header card"
+                 v-if="isOwner"
+                 :preview-image="coverImg"
+                 :test="true"
+                 @update="onCoverUploadCompleted"
+                 @start-sending="uploadingCover = true"
+                 @stop-sending="uploadingCover = false" >
+      </hc-upload>
+      <hc-progressive-image
+          class="profile-header card"
+          v-else
+          :src="coverImg"
+          :preview="coverPreview" />
+    </template>
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen user-sidebar">
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
-            <hc-upload class="avatar-upload"
-                       :preview-image="form.avatar || user.avatar"
-                       :test="true"
-                       @update="onAvatarUploadCompleted"
-                       @start-sending="uploadingAvatar = true"
-                       @stop-sending="uploadingAvatar = false" ></hc-upload>
+            <template>
+              <hc-upload class="avatar-upload"
+                         v-if="isOwner"
+                         :preview-image="form.avatar || user.avatar"
+                         :test="true"
+                         @update="onAvatarUploadCompleted"
+                         @start-sending="uploadingAvatar = true"
+                         @stop-sending="uploadingAvatar = false" ></hc-upload>
+              <avatar
+                  class="avatar-upload"
+                  v-else
+                  :user="user"></avatar>
+            </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
-          <template v-if="user.badges">
+          <template v-if="user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
           <hr>
@@ -80,31 +95,31 @@
         <hc-box bottom="true">
           <hc-subtitle>{{ $t('auth.account.myInterests', 'Interessen') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
-            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
+            <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" :count="5" :text="$t('auth.account.mySearch')"/>
           </div>
         </hc-box>
         <hc-box bottom="true">
           <hc-subtitle>{{ $t('auth.account.myMap', 'Karte') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
-            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
+            <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" :count="5" :text="$t('auth.account.mySearch')"/>
           </div>
           <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
         </hc-box>
         <hc-box>
           <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
-            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.mySearch')"/>
+            <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
+            <hc-textcount class="textcountitem" :count="5" :text="$t('auth.account.mySearch')"/>
           </div>
         </hc-box>
         <hc-title>{{ $t('auth.account.myDoings', 'Aktionen') }}</hc-title>
         <hc-box>
           <hc-subtitle>{{ $t('auth.account.myCanDos', 'Meine Can Do’s') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" count="5" :text="$t('auth.account.myCanDosAltogether', 'Can Do’s')"/>
-            <hc-textcount class="textcountitem" count="3" :text="$t('auth.account.myCanDosDone', 'geschafft')"/>
+            <hc-textcount class="textcountitem" :count="user.candos" :text="$t('auth.account.myCanDosAltogether', 'Can Do’s')"/>
+            <hc-textcount class="textcountitem" :count="user.candos.filter(({done}) => !!done)" :text="$t('auth.account.myCanDosDone', 'geschafft')"/>
           </div>
         </hc-box>
       </div>
@@ -121,6 +136,7 @@
   import Avatar from '~/components/Avatar/Avatar'
   import Badges from '~/components/Profile/Badges/Badges'
   import feathers from '~/plugins/feathers'
+  import thumbnailHelper from '~/helpers/thumbnails'
 
   import { isEmpty } from 'lodash'
 
@@ -177,9 +193,8 @@
     middleware: ['authenticated'],
     async asyncData ({ params, store }) {
       let user
-      console.log(params)
+      let isOwner = false
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
-        console.log('FIND')
         const res = await feathers.service('users').find({
           query: {
             slug: params.slug
@@ -187,15 +202,17 @@
         })
         user = res.data[0]
       } else {
-        console.log('STORE')
         user = store.getters['auth/user']
+        isOwner = true
       }
       if (!user) {
         throw new Error(404)
       }
       return {
         params: params,
-        user: user
+        user: user,
+        isOwner: isOwner,
+        updatedUser: null
       }
     },
     computed: {
@@ -203,29 +220,30 @@
         isAuthenticated: 'auth/isAuthenticated'
       }),
       coverImg () {
-        if (!isEmpty(this.form.coverImg)) {
-          return this.form.coverImg
-        } else if (!isEmpty(this.user.thumbnails) && !isEmpty(this.user.thumbnails.coverImg) && !isEmpty(this.user.thumbnails.coverImg.cover)) {
-          return this.user.thumbnails.coverImg.cover
-        } else if (!isEmpty(this.user.coverImg)) {
-          return this.user.coverImg
-        } else {
-          return 'https://source.unsplash.com/random/1250x280'
+        let thumbnail = thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
+        if (!thumbnail && this.user.wasSeeded && !this.isOwner) {
+          thumbnail = 'https://source.unsplash.com/random/1250x280'
         }
+        return thumbnail
+      },
+      coverPreview () {
+        return thumbnailHelper.getThumbnail(this.user, 'coverImg', 'coverPlaceholder', this.coverImg)
       }
     },
     methods: {
-      onCoverUploadCompleted (value) {
+      async onCoverUploadCompleted (value) {
         this.form.coverImg = value
-        this.$store.dispatch('auth/patch', {
+        const user = await this.$store.dispatch('auth/patch', {
           coverImg: value
         })
+        this.updatedUser = user
       },
-      onAvatarUploadCompleted (value) {
+      async onAvatarUploadCompleted (value) {
         this.form.avatar = value
-        this.$store.dispatch('auth/patch', {
+        const user = await this.$store.dispatch('auth/patch', {
           avatar: value
         })
+        this.updatedUser = user
       }
     },
     async mounted () {

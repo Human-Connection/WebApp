@@ -1,5 +1,3 @@
-# FROM eggplanet/nuxt
-
 FROM node:8.9-alpine
 LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
@@ -17,22 +15,19 @@ WORKDIR /var/www/
 EXPOSE 3000
 
 # set environment variables
-#ENV NPM_CONFIG_PRODUCTION=false
 ENV HOST=0.0.0.0
 
-# install PM2 process manager and configure it for autostart
-#RUN npm install pm2 -g
-#RUN pm2 startup
-
 # buld application
-#RUN npm install
-#RUN yarn cache clean
-RUN yarn install
+RUN yarn install --frozen-lockfile
+# use yarn & npm caching
+RUN ln -s /tmp/node_modules
 
 # run tests
-RUN yarn test
+#RUN yarn test
 
+# test if the build is running
 ENV NODE_ENV=production
+# RUN yarn install --no-cache --production
 RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 

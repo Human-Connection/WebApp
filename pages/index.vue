@@ -7,7 +7,6 @@
                   class="card"
                   @click.native="saveScrollPos"
                   @ready="updateGrid">
-                <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
             </card>
         </section>
         <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
@@ -117,7 +116,6 @@
         })
       },
       searchQuery (value) {
-        console.log('##searchQuery')
         this.$store.commit('newsfeed/setSearch', value)
         this.resetList(this)
       },

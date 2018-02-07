@@ -1,27 +1,27 @@
 <template>
   <section class="content">
-    <h1>Kategorien verwalten</h1>
+    <h1>{{ $t('component.admin.manageCategories', 'Manage Categories') }}</h1>
     <form @submit.prevent="saveEntries">
       <table class="table">
         <thead>
           <tr>
-            <th>Titel</th>
-            <th>Bezeichner</th>
-            <th>Icon (class)</th>
-            <th>Icon</th>
+            <th>{{ $t('component.admin.categoryTitle', 'Title') }}</th>
+            <th>{{ $t('component.admin.categoryIdentifier', 'Code') }}</th>
+            <th>{{ $t('component.admin.categoryIconCss', 'Icon (class)') }}</th>
+            <th>{{ $t('component.admin.categoryIcon', 'Icon') }}</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           <tr v-for="(category, key) in categoriesList" :key="key">
             <td>
-              <input v-model="category.title" class="input" placeholder="Titel der Kategorie ...">
+              <input v-model="category.title" class="input" v-bind:placeholder="$t('component.admin.categoryTitlePlaceholder', 'The category’s title')">
             </td>
             <td>
-              <input v-model="category.slug" class="input" placeholder="Bezeichner (optional) ...">
+              <input v-model="category.slug" class="input" v-bind:placeholder="$t('component.admin.categoryIdentifierPlaceholder', 'Code label (optional) ...')">
             </td>
             <td>
-              <input v-model="category.icon" class="input" placeholder="Icon (optional) ...">
+              <input v-model="category.icon" class="input" v-bind:placeholder="$t('component.admin.categoryIconCss', 'Icon CSS-Class (optional)')">
             </td>
             <td style="position: relative;">
               <div style="display: flex; align-items: center; height: 39px;">
@@ -29,9 +29,11 @@
               </div>
             </td>
             <td>
-              <span @click.prevent="deleteEntry(key)" class="button is-danger">
-                <hc-icon icon="trash" />
-              </span>
+              <hc-tooltip :label="$t('component.admin.deleteCategory')" type="is-black" position="is-left">
+                <span @click.prevent="deleteEntry(key)" class="button is-danger">
+                  <hc-icon icon="trash" />
+                </span>
+              </hc-tooltip>
             </td>
           </tr>
         </tbody>
@@ -39,7 +41,7 @@
       <div class="columns">
         <div class="column">
           <hc-button color="grey" @click.prevent="addEntry()">
-            <hc-icon icon="plus"></hc-icon>&nbsp; Kategorie hinzufügen
+            <hc-icon icon="plus"></hc-icon>&nbsp; {{ $t('component.admin.addCategory', 'Kategorie hinzufügen') }}
           </hc-button>
         </div>
         <div class="column has-text-right">

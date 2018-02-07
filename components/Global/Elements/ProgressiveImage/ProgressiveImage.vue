@@ -132,6 +132,9 @@
     top: 0;
     opacity: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
 
     transition: opacity 250ms ease-in-out;
 
@@ -145,6 +148,9 @@
     display: block;
     top: 0;
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
 
     &.hide {
       transition: opacity 0ms ease-in-out;

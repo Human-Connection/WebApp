@@ -99,6 +99,8 @@
       width: 100%;
       color: $grey;
       vertical-align: top;
+      padding-left: 2px;
+      padding-right: 2px;
     }
   }
 </style>

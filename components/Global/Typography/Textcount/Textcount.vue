@@ -17,7 +17,13 @@
       }
     },
     watch: {
-      count (val) {
+      count () {
+        this.checkCount()
+      }
+    },
+    methods: {
+      checkCount () {
+        let val = this.count
         if (isArray(val)) {
           this.countNumber = val.length
         } else if (isInteger(this.count)) {
@@ -26,6 +32,9 @@
           this.countNumber = 0
         }
       }
+    },
+    created () {
+      this.checkCount()
     }
   }
 </script>
