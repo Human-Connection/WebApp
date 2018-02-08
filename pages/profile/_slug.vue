@@ -79,7 +79,7 @@
           </div>
         </hc-box>
         <hc-title>{{ $t('auth.account.myNetwork', 'Netzwerk') }}</hc-title>
-        <hc-box bottom="true">
+        <hc-box class="disabled-box" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
@@ -90,14 +90,14 @@
             <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
           </div>
         </hc-box>
-        <hc-box bottom="true">
+        <hc-box class="disabled-box" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myInterests', 'Interessen') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
             <hc-textcount class="textcountitem" :count="5" :text="$t('auth.account.mySearch')"/>
           </div>
         </hc-box>
-        <hc-box bottom="true">
+        <hc-box class="disabled-box" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myMap', 'Karte') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
@@ -105,7 +105,7 @@
           </div>
           <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
         </hc-box>
-        <hc-box>
+        <hc-box class="disabled-box">
           <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>

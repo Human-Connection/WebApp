@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column is-8 is-offset-1-widescreen">
       <div class="card">
-        <section class="section">
+        <section class="section take-action">
           <div class="content">
             <div class="notification is-danger is-hidden-tablet">
               <strong>The sidebar is currently hidden on mobile!</strong>
@@ -81,99 +81,102 @@
               <can-do-list :can-dos="canDos" @update="updateContribution" />
             </div>
 
-            <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
-            <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
-              <tbody v-if="projects.length">
-                <tr v-for="project in projects" :key="project._id">
-                  <td>
-                    <strong>{{ project.name }}</strong><br/>
-                    <small>{{ project.description }}</small>
-                  </td>
+            <div class="disabled-box">
+              <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
+              <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
+                <tbody v-if="projects.length">
+                  <tr v-for="project in projects" :key="project._id">
+                    <td>
+                      <strong>{{ project.name }}</strong><br/>
+                      <small>{{ project.description }}</small>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="is-white">
+                      <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
+                    </td>
+                  </tr>
+                </tbody>
+                <tbody v-else>
+                  <tr>
+                    <td class="has-text-centered">
+                      <h6 class="is-size-6 has-text-grey" v-html="$t('page.takeAction.noProjects')"></h6>
+                      <button class="button is-primary">
+                        <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addProject', 'Add Project') }}
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <h3 class="title is-4" id="jobs">{{ $t('component.contribution.jobs') }}</h3>
+              <table class="table is-striped">
+                <tbody>
+                <tr>
+                  <td>Bienenstöcke bauen</td>
+                  <td>Anleitung erstellen</td>
+                  <td class="has-text-right">Unbegrenzt</td>
                 </tr>
                 <tr>
-                  <td colspan="2" class="is-white">
+                  <td>Bienenstockbauer</td>
+                  <td>Handwerker</td>
+                  <td class="has-text-right"><strong>10</strong> benötigt</td>
+                </tr>
+                <tr>
+                  <td colspan="3" class="is-white">
                     <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                   </td>
                 </tr>
-              </tbody>
-              <tbody v-else>
+                </tbody>
+              </table>
+
+              <h3 class="title is-4" id="events">{{ $t('component.contribution.events') }}</h3>
+              <table class="table is-striped">
+                <tbody>
                 <tr>
-                  <td class="has-text-centered">
-                    <h6 class="is-size-6 has-text-grey" v-html="$t('page.takeAction.noProjects')"></h6>
-                    <button class="button is-primary">
-                      <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addProject', 'Add Project') }}
-                    </button>
+                  <td style="width: 110px;">
+                    <div class="has-text-centered is-pulled-left">
+                      <div class="is-inline-block has-text-centered">
+                        <span class="title is-5">10</span><br/>
+                        <span class="heading is-inline">Aug</span>
+                      </div>
+                      <div class="is-inline-block has-text-centered">
+                        <span class="title is-5">&nbsp;-&nbsp;</span><br/>
+                        <span class="heading is-inline">&nbsp;</span>
+                      </div>
+                      <div class="is-inline-block has-text-centered">
+                        <span class="title is-5">12</span><br/>
+                        <span class="heading is-inline">Aug</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>Online-Workshop Bienen züchten</td>
+                  <td>Überall</td>
+                  <td class="has-text-right"><strong>158</strong> nehmen teil</td>
+                </tr>
+                <tr>
+                  <td style="width: 110px;">
+                    <div class="has-text-centered is-pulled-left">
+                      <span class="title is-5">03</span><br/>
+                      <span class="heading is-inline">Sep</span>
+                    </div>
+                  </td>
+                  <td>Weltweiter Honigbienentag</td>
+                  <td>Berlin</td>
+                  <td class="has-text-right"><strong>171.526</strong> nehmen teil</td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                   </td>
                 </tr>
-              </tbody>
-            </table>
+                </tbody>
+              </table>
 
-            <h3 class="title is-4" id="jobs">{{ $t('component.contribution.jobs') }}</h3>
-            <table class="table is-striped">
-              <tbody>
-              <tr>
-                <td>Bienenstöcke bauen</td>
-                <td>Anleitung erstellen</td>
-                <td class="has-text-right">Unbegrenzt</td>
-              </tr>
-              <tr>
-                <td>Bienenstockbauer</td>
-                <td>Handwerker</td>
-                <td class="has-text-right"><strong>10</strong> benötigt</td>
-              </tr>
-              <tr>
-                <td colspan="3" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
+              <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
+              <hc-map :places="places" :zoom="zoom" :center="center" height="350px" />
+            </div>
 
-            <h3 class="title is-4" id="events">{{ $t('component.contribution.events') }}</h3>
-            <table class="table is-striped">
-              <tbody>
-              <tr>
-                <td style="width: 110px;">
-                  <div class="has-text-centered is-pulled-left">
-                    <div class="is-inline-block has-text-centered">
-                      <span class="title is-5">10</span><br/>
-                      <span class="heading is-inline">Aug</span>
-                    </div>
-                    <div class="is-inline-block has-text-centered">
-                      <span class="title is-5">&nbsp;-&nbsp;</span><br/>
-                      <span class="heading is-inline">&nbsp;</span>
-                    </div>
-                    <div class="is-inline-block has-text-centered">
-                      <span class="title is-5">12</span><br/>
-                      <span class="heading is-inline">Aug</span>
-                    </div>
-                  </div>
-                </td>
-                <td>Online-Workshop Bienen züchten</td>
-                <td>Überall</td>
-                <td class="has-text-right"><strong>158</strong> nehmen teil</td>
-              </tr>
-              <tr>
-                <td style="width: 110px;">
-                  <div class="has-text-centered is-pulled-left">
-                    <span class="title is-5">03</span><br/>
-                    <span class="heading is-inline">Sep</span>
-                  </div>
-                </td>
-                <td>Weltweiter Honigbienentag</td>
-                <td>Berlin</td>
-                <td class="has-text-right"><strong>171.526</strong> nehmen teil</td>
-              </tr>
-              <tr>
-                <td colspan="4" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
-                </td>
-              </tr>
-              </tbody>
-            </table>
-
-            <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
-            <hc-map :places="places" :zoom="zoom" :center="center" height="350px" />
           </div>
         </section>
       </div>
