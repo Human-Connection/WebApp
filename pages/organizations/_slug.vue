@@ -17,9 +17,9 @@
                        v-if="isOwner"
                        :preview-image="form.avatar || organization.logo"
                        :test="true"
-                       @update="onAvatarUploadCompleted"
-                       @start-sending="uploadingAvatar = true"
-                       @stop-sending="uploadingAvatar = false" ></hc-upload>
+                       @update="onLogoUploadCompleted"
+                       @start-sending="uploadingLogo = true"
+                       @stop-sending="uploadingLogo = false" ></hc-upload>
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
           <div class="organization-name">{{ organization.name }}</div>
@@ -83,10 +83,10 @@
       return {
         form: {
           coverImg: null,
-          avatar: null
+          logo: null
         },
         uploadingCover: false,
-        uploadingAvatar: false
+        uploadingLogo: false
       }
     },
     middleware: ['authenticated'],
@@ -101,10 +101,11 @@
       }
       if (organization === undefined || isEmpty(organization.data)) {
         error({ statusCode: 404, message: 'Organization not found' })
+      } else {
+        // is owner?
+        owner = store.getters['auth/user']
+        isOwner = owner !== null && owner._id === organization.data[0].userId
       }
-      // is owner?
-      owner = store.getters['auth/user']
-      isOwner = owner !== null && owner._id === organization.data[0].userI
       return {
         params: params,
         organization: organization.data[0],
@@ -134,7 +135,7 @@
           coverImg: value
         })
       },
-      onAvatarUploadCompleted (value) {
+      onLogoUploadCompleted (value) {
         this.form.avatar = value
         this.$store.dispatch('auth/patch', {
           avatar: value
