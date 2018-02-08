@@ -90,7 +90,7 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({params, store}) {
+    async asyncData ({params, error, store}) {
       let organization, owner, isOwner
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await feathers.service('organizations').find({
@@ -98,12 +98,13 @@
             slug: params.slug
           }
         })
-      } else {
-        throw new Error(404)
+      }
+      if (organization === undefined || isEmpty(organization.data)) {
+        error({ statusCode: 404, message: 'Organization not found' })
       }
       // is owner?
       owner = store.getters['auth/user']
-      isOwner = owner !== null && owner._id === organization.data[0].userId
+      isOwner = owner !== null && owner._id === organization.data[0].userI
       return {
         params: params,
         organization: organization.data[0],
