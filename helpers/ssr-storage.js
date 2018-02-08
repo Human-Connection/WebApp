@@ -2,7 +2,7 @@ import cookie from 'js-cookie'
 
 export default {
   getItem (key) {
-    let result = cookie.get(key)
+    let result = cookie.getJSON(key)
     if (!result && process.browser) {
       window.localStorage.getItem(key)
     }

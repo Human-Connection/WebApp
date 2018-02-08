@@ -11,8 +11,8 @@ export default ({ req, cookie, store }) => {
   const user = store.getters['auth/user']
 
   const changeHandler = debounce((mutation, state) => {
-    // persist language
-    if (user && user._id && mutation.payload.locale) {
+    // persist language if it differs from last value
+    if (user && user._id && mutation.payload.locale && user.language !== mutation.payload.locale) {
       store.dispatch('auth/patch', {
         language: mutation.payload.locale
       }).catch()
@@ -41,7 +41,7 @@ export default ({ req, cookie, store }) => {
   // register the locales
   Vue.i18n.add('en', require('~/locales/en.json'))
 
-  let userLocale
+  let userLocale = 'en'
   const localeCookie = ssrStorage.getItem(key)
 
   if (user && user.language) {
@@ -53,11 +53,14 @@ export default ({ req, cookie, store }) => {
     // console.log('GET COOKIE LANGUAGE', userLocale)
   } else {
     userLocale = process.browser ? (navigator.language || navigator.userLanguage) : req.locale
+    if (!isEmpty(userLocale.language)) {
+      userLocale = userLocale.language
+    }
     // console.log('GET REQUEST LANGUAGE', userLocale)
   }
 
   const availableLocales = ['de', 'en']
-  const locale = (availableLocales.indexOf(userLocale) >= 0) ? userLocale : 'en'
+  const locale = (availableLocales.indexOf(userLocale.substr(0, 2)) >= 0) ? userLocale : 'en'
 
   if (locale !== 'en') {
     Vue.i18n.add(locale, require(`~/locales/${locale}.json`))

@@ -12,10 +12,8 @@ const app = express()
 // app.use(helmet())
 app.use(cookieParser())
 app.use(createLocaleMiddleware({
-  priority: ['cookie', 'accept-language', 'default'],
-  default: 'en_EN',
-  cookie: { name: 'locale' },
-  allowed: ['de', 'de_DE', 'en', 'en_EN', 'en_GB']
+  priority: ['cookie', 'accept-language'],
+  cookie: { name: 'locale' }
 }))
 
 // Import and Set Nuxt.js options

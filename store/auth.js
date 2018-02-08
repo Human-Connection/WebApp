@@ -64,6 +64,7 @@ export const actions = {
     try {
       await feathers.logout()
       cookie.removeItem('feathers-jwt')
+      cookie.removeItem('io')
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
@@ -78,6 +79,7 @@ export const actions = {
     try {
       await feathers.logout()
       cookie.removeItem('feathers-jwt')
+      cookie.removeItem('io')
       commit('SET_USER', null)
       feathers.set('user', null)
 
@@ -118,6 +120,7 @@ export const actions = {
     commit('SET_TOKEN', null)
     feathers.set('user', null)
     cookie.removeItem('feathers-jwt')
+    cookie.removeItem('io')
     commit('newsfeed/clear', null, { root: true })
     // dispatch('newsfeed/fetch', null, { root: true })
   },
@@ -134,7 +137,6 @@ export const actions = {
     }
     const user = await feathers.service('users').patch(state.user._id, data)
     commit('SET_USER', user)
-    console.log(user)
     return user
   },
   verify ({dispatch}, verifyToken) {
