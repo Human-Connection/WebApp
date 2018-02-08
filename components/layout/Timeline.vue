@@ -2,11 +2,14 @@
   <div class="column timeline content">
     <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
-      <p>{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
+      <p v-if="!user.slug">{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
       <p v-if="!contributions && loadingFinished">
         {{ $t('component.timeline.noContributionsFound') }}
       </p>
-      <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black" position="is-right">
+      <hc-tooltip v-if="!user.slug"
+                  :label="$t('component.contribution.writePost')"
+                  type="is-black"
+                  position="is-right">
         <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle>
           <hc-icon icon="plus"/>
         </hc-button>
@@ -97,6 +100,7 @@
             // @todo implement some user feedback
             console.error(err)
             this.isLoading = false
+            this.loadingFinished = true
           }
         })()
       }

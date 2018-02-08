@@ -42,16 +42,16 @@
         if (possibleErrors.indexOf(this.error.statusCode) >= 0) {
           code = this.error.statusCode
         }
-        return code
+        return parseInt(code)
       },
       header () {
-        return this.$t(`component.error.header${this.statusCode}`, 'Error')
+        return this.$t(`component.error.header${parseInt(this.statusCode)}`, 'Error')
       },
       subHeader () {
-        return this.$t(`component.error.subHeader${this.error.statusCode}`, this.error.message)
+        return this.$t(`component.error.subHeader${parseInt(this.error.statusCode)}`, this.error.message)
       },
       copy () {
-        return this.$t(`component.error.copy${this.statusCode}`)
+        return this.$t(`component.error.copy${parseInt(this.statusCode)}`)
       }
     }
   }

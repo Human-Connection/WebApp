@@ -34,7 +34,7 @@
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
-          <template v-if="user.badges.length">
+          <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
           <hr>
@@ -192,7 +192,7 @@
     async asyncData ({ params, store, error }) {
       let user
       let isOwner = false
-      if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
+      if (!isEmpty(params) && !isEmpty(params.slug)) {
         const res = await feathers.service('users').find({
           query: {
             slug: params.slug
@@ -204,7 +204,7 @@
         isOwner = true
       }
       if (!user) {
-        return error(404)
+        error({ statusCode: 404 })
       }
       return {
         params: params,

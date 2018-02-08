@@ -64,6 +64,8 @@ export const getters = {
 export const actions = {
   async jwt ({commit, dispatch}, {accessToken}) {
     try {
+      await feathers.logout()
+      cookie.removeItem('feathers-jwt')
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)

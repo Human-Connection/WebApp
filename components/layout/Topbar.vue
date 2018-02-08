@@ -25,14 +25,14 @@
               <no-ssr>
                 <div class="navbar-item locales has-dropdown is-hoverable">
                   <a class="navbar-link hide-in-menu">
-                    <flag :iso="getLocaleFlag" :squared="false" title="" />
+                    <img class="flag" :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`" />
                   </a>
                   <div class="navbar-dropdown is-boxed">
                     <a class="navbar-item" @click.prevent="changeLanguage('de')" :class="{ active: $i18n.locale() === 'de' }">
-                      <flag iso="de" :squared="false" title="" />&nbsp;&nbsp;Deutsch
+                      <img class="flag" :src="`/assets/svg/flags/de.svg`" />&nbsp;&nbsp;Deutsch
                     </a>
                     <a class="navbar-item" @click.prevent="changeLanguage('en')" :class="{ active: $i18n.locale() === 'en' }">
-                      <flag iso="gb" :squared="false" title="" />&nbsp;&nbsp;English
+                      <img class="flag" :src="`/assets/svg/flags/en.svg`" />&nbsp;&nbsp;English
                     </a>
                   </div>
                 </div>
@@ -183,14 +183,6 @@
         user: 'auth/user',
         categories: 'categories/all'
       }),
-      getLocaleFlag () {
-        const flags = {
-          en: 'gb',
-          us: 'gb',
-          de: 'de'
-        }
-        return flags[this.$i18n.locale()]
-      },
       emotions () {
         return [
           {
@@ -307,6 +299,11 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
   @import "~bulma/sass/components/navbar";
+
+  .flag {
+    width: 20px;
+    height: 15px;
+  }
 
   nav {
     box-shadow: $card-shadow-hover;
