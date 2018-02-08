@@ -32,6 +32,8 @@ export const mutations = {
     } else {
       state.token = token
     }
+    // renew token
+    // cookie.setItem('feathers-jwt', state.token)
   }
 }
 
@@ -62,9 +64,6 @@ export const getters = {
 export const actions = {
   async jwt ({commit, dispatch}, {accessToken}) {
     try {
-      await feathers.logout()
-      cookie.removeItem('feathers-jwt')
-      cookie.removeItem('io')
       const response = await feathers.authenticate({strategy: 'jwt', accessToken})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)

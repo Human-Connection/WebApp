@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <div id="error">
-      <h1 v-html="header"></h1>
-      <h3 v-html="subHeader"></h3>
-      <img :src="errorImage" :alt="header" class="error_img" />
-      <p v-html="copy"></p>
+  <div class="layout_blank">
+    <div class="content">
+      <div id="error">
+        <h1 v-html="header"></h1>
+        <h3 v-html="subHeader"></h3>
+        <img :src="errorImage" :alt="header" class="error_img" />
+        <p v-html="copy"></p>
+      </div>
     </div>
     <footer>
-      <img class="error_footer_logo" src="/Logo-Horizontal.svg" alt="Human Connection" style="max-width: 150px;" />
+      <a href="/">
+        <img class="error_footer_logo" src="/Logo-Horizontal.svg" alt="Human Connection" style="max-width: 150px;" />
+      </a>
     </footer>
   </div>
 </template>
@@ -20,7 +24,12 @@
     ],
     head () {
       return {
-        title: `${this.header} (${this.statusCode})`
+        title: `Error ${this.statusCode}: ${this.header}`
+      }
+    },
+    mounted () {
+      if (process.env.NODE_ENV === 'development') {
+        console.error(this.error.message)
       }
     },
     computed: {
@@ -36,10 +45,10 @@
         return code
       },
       header () {
-        return this.$t(`component.error.header${this.error.statusCode}`, `<strong>${this.error.message}</strong>`)
+        return this.$t(`component.error.header${this.statusCode}`, 'Error')
       },
       subHeader () {
-        return this.$t(`component.error.subHeader${this.error.statusCode}`, 'How could you?')
+        return this.$t(`component.error.subHeader${this.error.statusCode}`, this.error.message)
       },
       copy () {
         return this.$t(`component.error.copy${this.statusCode}`)
@@ -114,5 +123,34 @@
         height: 25px;
       }
     }
+  }
+
+  // FIX UNTIL NUXT FIXES ITS LAYOUT ISSUES
+  .layout_blank {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    overflow: scroll;
+    background-color: $backdrop-color;
+    margin: 0;
+
+    & > .content {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 150ms;
+      opacity: 1;
+      margin: 0;
+    }
+  }
+
+  .hidden {
+    opacity: 0;
   }
 </style>

@@ -86,8 +86,6 @@
             <hc-textcount class="textcountitem" :count="following.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.length)"/>
             <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
           </div>
-          <!--<hc-dropdown :showLabels="[$t('auth.account.myFollowingShowAll'), $t('auth.account.myFollowingShowMine')]"
-                       :sortLabels="[$t('auth.account.myFollowingSortBy'), $t('auth.account.myFollowingSortByDate'), $t('auth.account.myFollowingSortByCategory')]"/>-->
           <div class="hc-follower-list">
             <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
           </div>
@@ -191,7 +189,7 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({ params, store }) {
+    async asyncData ({ params, store, error }) {
       let user
       let isOwner = false
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
@@ -206,7 +204,7 @@
         isOwner = true
       }
       if (!user) {
-        throw new Error(404)
+        return error(404)
       }
       return {
         params: params,
@@ -247,20 +245,13 @@
       }
     },
     async mounted () {
-      try {
-        let user = await feathers.service('follows').get(this.user._id)
-        if (user !== null) {
-          this.following = {
-            users: user.users || [],
-            organizations: user.organizations || [],
-            projects: user.projects || []
-          }
+      let res = await feathers.service('follows').get(this.user._id)
+      if (res !== null) {
+        this.following = {
+          users: res.users || [],
+          organizations: res.organizations || [],
+          projects: res.projects || []
         }
-        return true
-      } catch (err) {
-        // this just displays nothing
-        // @todo implement some user feedback
-        console.error(err)
       }
     },
     head () {
