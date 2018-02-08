@@ -78,7 +78,6 @@ export const actions = {
     try {
       await feathers.logout()
       cookie.removeItem('feathers-jwt')
-      cookie.removeItem('io')
       commit('SET_USER', null)
       feathers.set('user', null)
 
@@ -119,7 +118,6 @@ export const actions = {
     commit('SET_TOKEN', null)
     feathers.set('user', null)
     cookie.removeItem('feathers-jwt')
-    cookie.removeItem('io')
     commit('newsfeed/clear', null, { root: true })
     // dispatch('newsfeed/fetch', null, { root: true })
   },
