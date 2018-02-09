@@ -15,7 +15,7 @@
           <div class="organization-avatar">
             <hc-upload class="avatar-upload"
                        v-if="isOwner"
-                       :preview-image="form.avatar || organization.logo"
+                       :preview-image="form.logo || organization.logo"
                        :test="true"
                        @update="onLogoUploadCompleted"
                        @start-sending="uploadingLogo = true"
@@ -131,14 +131,16 @@
     methods: {
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
-        this.$store.dispatch('auth/patch', {
-          coverImg: value
+        this.$store.dispatch('organizations/patch', {
+          coverImg: value,
+          organizationId: this.organization._id
         })
       },
       onLogoUploadCompleted (value) {
-        this.form.avatar = value
-        this.$store.dispatch('auth/patch', {
-          avatar: value
+        this.form.logo = value
+        this.$store.dispatch('organizations/patch', {
+          logo: value,
+          organizationId: this.organization._id
         })
       }
     },
