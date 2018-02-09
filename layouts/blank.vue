@@ -1,5 +1,5 @@
 <template>
-  <div class="layout_blank">
+  <div class="layout_blank" :class="{ hidden: hidden }">
     <div class="content">
       <nuxt/>
     </div>
@@ -8,16 +8,20 @@
 
 <script>
   export default {
-    transition: 'page',
     data () {
       return {
         hidden: true
       }
+    },
+    mounted () {
+      this.$nextTick(() => {
+        this.hidden = false
+      })
     }
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import 'assets/styles/utilities';
   .layout_blank {
     position: fixed;
@@ -41,5 +45,9 @@
       transition: opacity 150ms;
       opacity: 1;
     }
+  }
+
+  .hidden {
+    opacity: 0;
   }
 </style>
