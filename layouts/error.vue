@@ -60,6 +60,8 @@
 <style lang="scss" scoped>
   @import "assets/styles/_utilities";
 
+  $backgroundColor: #F5F5F5;
+
   #error {
     margin-top: -50px;
     display: flex;
@@ -87,7 +89,7 @@
 
   footer {
     padding: 1rem;
-    background-color: $backdrop-color;
+    background-color: darken($backgroundColor, 5%);
     position: fixed;
     bottom: 0px;
     left: 0;
@@ -136,7 +138,7 @@
     height: 100vh;
     z-index: 9998;
     overflow: scroll;
-    background-color: $backdrop-color;
+    background-color: $backgroundColor;
     margin: 0;
 
     & > .content {

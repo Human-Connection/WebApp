@@ -24,11 +24,11 @@ $white: hsl(0, 0%, 100%);
 
 $orange: hsl(14, 100%, 53%);
 $yellow: hsl(48, 100%, 67%);
-$green: hsl(78, 71%, 41%);
+$green: #4AA41E;
 $turquoise: $green;
 $blue: hsl(217, 71%, 53%);
 $purple: hsl(271, 100%, 71%);
-$red:          hsl(12, 51%, 55%);
+$red: hsl(12, 51%, 55%);
 $primary: $green;
 $link: $green;
 
@@ -89,4 +89,4 @@ $dropdown-content-offset: 1px;
 $dropdown-content-z: 1000;
 $dropdown-item-hover-background-color: transparent;
 
-$backdrop-color: #F5F5F5;
+$backdrop-color: rgba($black, 0.6);
