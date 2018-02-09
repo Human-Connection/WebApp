@@ -6,9 +6,15 @@ import Raven from 'raven'
 // import helmet from 'helmet'
 import createLocaleMiddleware from 'express-locale'
 import enforceHTTPS from '../middleware/enforce-https'
+import cookieParser from 'cookie-parser'
 
 const app = express()
 // app.use(helmet())
+app.use(cookieParser())
+app.use(createLocaleMiddleware({
+  priority: ['cookie', 'accept-language'],
+  cookie: { name: 'locale' }
+}))
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -40,10 +46,6 @@ if (process.server && process.env.BASE_URL && process.env.BASE_URL.indexOf('http
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
-
-app.use(createLocaleMiddleware({
-  default: 'de_DE'
-}))
 
 app.use('/healthcheck', expressHealthcheck())
 

@@ -5,16 +5,16 @@
   "homepage": "https://human-connection.org",
   "license": "CC-BY-NC-SA-4.0",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/Human-Connection/WebApp.git"
+    "type": "git",
+    "url": "https://github.com/Human-Connection/WebApp.git"
   },
   "author": {
     "name": "Human Connection gGmbH",
     "email": "developer@human-connection.org"
   },
   "bugs": {
-    "url" : "https://github.com/Human-Connection/WebApp/issues",
-    "email" : "bugfix@human-connection.org"
+    "url": "https://github.com/Human-Connection/WebApp/issues",
+    "email": "bugfix@human-connection.org"
   },
   "keywords": [
     "human-connection",
@@ -45,6 +45,7 @@
     "bricks.js": "~1.8.0",
     "buefy": "~0.6.2",
     "bulma": "~0.6.2",
+    "cookie-parser": "^1.4.3",
     "cross-env": "~5.1.3",
     "deepmerge": "~2.0.1",
     "express": "~4.16.2",
@@ -67,6 +68,7 @@
     "raven": "~2.4.0",
     "raven-js": "~3.22.1",
     "socket.io-client": "~2.0.4",
+    "v2-table": "^0.3.5",
     "valid-url": "~1.0.9",
     "vue": "~2.5.13",
     "vue-clip": "git+https://github.com/alexsasharegan/vue-clip.git#develop",
@@ -79,7 +81,8 @@
     "vue-styleguidist": "~1.4.5",
     "vue-template-compiler": "~2.5.13",
     "vuelidate": "^0.6.1",
-    "vuex-i18n": "~1.10.5"
+    "vuex-i18n": "~1.10.5",
+    "vuex-persistedstate": "^2.4.2"
   },
   "devDependencies": {
     "@nuxtjs/webpackmonitor": "~0.1.0",
