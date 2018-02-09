@@ -54,13 +54,13 @@ export default ({ req, cookie, store }) => {
   } else {
     userLocale = process.browser ? (navigator.language || navigator.userLanguage) : req.locale
     if (!isEmpty(userLocale.language)) {
-      userLocale = userLocale.language
+      userLocale = userLocale.language.substr(0, 2)
     }
     // console.log('GET REQUEST LANGUAGE', userLocale)
   }
 
   const availableLocales = ['de', 'en']
-  const locale = (availableLocales.indexOf(userLocale.substr(0, 2)) >= 0) ? userLocale : 'en'
+  const locale = (availableLocales.indexOf(userLocale) >= 0) ? userLocale : 'en'
 
   if (locale !== 'en') {
     Vue.i18n.add(locale, require(`~/locales/${locale}.json`))
