@@ -132,15 +132,13 @@
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
         this.$store.dispatch('organizations/patch', {
-          coverImg: value,
-          organizationId: this.organization._id
+          coverImg: value
         })
       },
       onLogoUploadCompleted (value) {
         this.form.logo = value
         this.$store.dispatch('organizations/patch', {
-          logo: value,
-          organizationId: this.organization._id
+          logo: value
         })
       }
     },

@@ -1,11 +1,10 @@
 import feathers from '~/plugins/feathers'
 
 export const actions = {
-  async patch ({state}, data) {
-    if (!data.organizationId) {
+  async patch ({dispatch}, organization) {
+    if (!organization) {
       return null
     }
-    const organization = await feathers.service('organizations').patch(data.organizationId, data)
-    return organization
+    return feathers.service('organizations').patch(organization._id, organization)
   }
 }
