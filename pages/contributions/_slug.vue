@@ -65,7 +65,7 @@
               </div>
               <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
-                  <div class="level-item has-text-centered">
+                  <div class="level-item has-text-centered under-construction">
                     <div>
                       <div class="heading shout">
                         <hc-tooltip :label="$t('component.contribution.shoutAddShout')">

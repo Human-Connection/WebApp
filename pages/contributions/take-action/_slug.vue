@@ -108,7 +108,9 @@
                   </tr>
                 </tbody>
               </table>
+            </div>
 
+            <div class="under-construction">
               <h3 class="title is-4" id="jobs">{{ $t('component.contribution.jobs') }}</h3>
               <table class="table is-striped">
                 <tbody>
@@ -129,7 +131,9 @@
                 </tr>
                 </tbody>
               </table>
+            </div>
 
+            <div class="under-construction">
               <h3 class="title is-4" id="events">{{ $t('component.contribution.events') }}</h3>
               <table class="table is-striped">
                 <tbody>
@@ -172,7 +176,9 @@
                 </tr>
                 </tbody>
               </table>
+            </div>
 
+            <div class="under-construction">
               <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
               <hc-map :places="places" :zoom="zoom" :center="center" height="350px" />
             </div>

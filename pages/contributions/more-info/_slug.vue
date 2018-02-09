@@ -71,7 +71,9 @@
                 </tr>
               </tbody>
             </table>
+          </div>
 
+          <div class="under-construction">
             <h3 id="bestlists">{{ $t('component.contribution.bestList') }}</h3>
             <table class="table is-striped">
               <tbody>
@@ -90,7 +92,9 @@
                 </tr>
               </tbody>
             </table>
+          </div>
 
+          <div class="under-construction">
             <h3 id="votes">{{ $t('component.contribution.voteOnePluralNone', null, 0) }}</h3>
             <table class="table is-striped">
               <tbody>
@@ -105,7 +109,9 @@
               </tr>
               </tbody>
             </table>
+          </div>
 
+          <div class="under-construction">
             <h3 id="chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 2) }}</h3>
             <table class="table is-striped">
               <tbody>
