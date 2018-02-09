@@ -1,5 +1,5 @@
 <template>
-  <div class="layout_blank" :class="{ hidden: hidden }">
+  <div class="layout_blank">
     <div class="content">
       <nuxt/>
     </div>
@@ -8,20 +8,16 @@
 
 <script>
   export default {
+    transition: 'page',
     data () {
       return {
         hidden: true
       }
-    },
-    mounted () {
-      this.$nextTick(() => {
-        this.hidden = false
-      })
     }
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   @import 'assets/styles/utilities';
   .layout_blank {
     position: fixed;
@@ -35,6 +31,8 @@
     overflow: scroll;
     // background-color: $backdrop-color;
 
+    transition: opacity 150ms ease-in-out;
+
     & > .content {
       min-height: 100vh;
       display: flex;
@@ -43,9 +41,5 @@
       transition: opacity 150ms;
       opacity: 1;
     }
-  }
-
-  .hidden {
-    opacity: 0;
   }
 </style>

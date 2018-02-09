@@ -52,7 +52,7 @@
             </tbody>
           </table>
 
-          <div class="disabled-box">
+          <div class="under-construction">
             <h3 id="proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</h3>
             <table class="table is-striped">
               <tbody>

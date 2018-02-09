@@ -109,13 +109,15 @@
               <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                 <div class="notification is-warning">
                   {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
-                  <br/><br/>(<strong>Lets Talk</strong>, coming soon...)
+                  <br/><br/>
+                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
                 </div>
               </b-tab-item>
               <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
                 <div class="notification is-warning">
                   {{ $t('component.contribution.versusDescription') }}
-                  <br/><br/>(<strong>Versus</strong>, coming soon...)
+                  <br/><br/>
+                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
                 </div>
               </b-tab-item>
             </b-tabs>

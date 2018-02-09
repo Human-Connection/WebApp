@@ -81,7 +81,7 @@
               <can-do-list :can-dos="canDos" @update="updateContribution" />
             </div>
 
-            <div class="disabled-box">
+            <div class="under-construction">
               <h3 class="title is-4" id="projects"> {{ $t('component.contribution.projects') }}</h3>
               <table class="table is-striped" :class="{ 'is-empty': !projects.length }">
                 <tbody v-if="projects.length">
