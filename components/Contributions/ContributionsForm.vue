@@ -14,11 +14,12 @@
       </div>
       <div class="column"></div>
     </div>
-    <hr/>
     <div class="tabs is-toggle is-fullwidth">
       <ul>
-        <li v-for="(postType, index) in options.postTypes" v-bind:class="{ 'is-active': postType.active }" :key="index">
-          <a v-bind:disabled="postType.disabled"
+        <li v-for="(postType, index) in options.postTypes"
+            :class="{ 'is-active': postType.active, 'under-construction': postType.disabled }"
+            :key="index">
+          <a :disabled="postType.disabled"
             @click="setPostType(index)"
             class="button is-medium">
             <span class="icon">
@@ -29,6 +30,7 @@
         </li>
       </ul>
     </div>
+    <hr/>
     <div class="field">
       <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
@@ -299,16 +301,16 @@
               disabled: false
             },
             {
-              label: 'Pro / Con',
-              value: 'procon',
-              active: false,
-              disabled: true
-            },
-            {
               label: 'Can Do',
               value: 'cando',
               active: false,
               disabled: false
+            },
+            {
+              label: 'Pro / Con',
+              value: 'procon',
+              active: false,
+              disabled: true
             }
           ],
           difficulties: ['easy', 'medium', 'hard']
@@ -435,5 +437,17 @@
   .field .taginput .taginput-container.is-focusable {
     border: 1px solid $grey-lighter !important;
     box-shadow: none !important;
+  }
+
+  a[disabled] {
+    pointer-events: none;
+  }
+
+  .tabs .under-construction {
+    &:before {
+      // top: -5px !important;
+      // bottom: 5px !important;
+      // height: 95%;
+    }
   }
 </style>

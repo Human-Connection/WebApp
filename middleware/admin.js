@@ -1,5 +1,7 @@
-export default function ({ store, redirect }) {
+// import errors from 'feathers-errors'
+
+export default function ({ store, redirect, error }) {
   if (!store.getters['auth/isAdmin']) {
-    return redirect('/')
+    return error({ statusCode: 403 })
   }
 }

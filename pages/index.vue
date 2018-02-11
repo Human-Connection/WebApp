@@ -54,6 +54,7 @@
       'card': ContributionCard,
       'infinite-loading': InfiniteLoading
     },
+    transition: null,
     async asyncData ({store}) {
       await store.dispatch('newsfeed/fetch')
     },

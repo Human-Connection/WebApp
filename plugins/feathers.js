@@ -8,7 +8,9 @@ import urlHelper from '~/helpers/urls'
 
 const endpoint = urlHelper.buildEndpointURL(process.env.API_HOST, { port: process.env.API_PORT })
 const api = feathers()
-  .configure(socketio(io(endpoint)))
+  .configure(socketio(io(endpoint, {
+    timeout: 8000
+  })))
   .configure(hooks())
   .configure(authentication({storage}))
 

@@ -1,5 +1,5 @@
 <template>
-  <div id="blank" :class="{ hidden: hidden }">
+  <div class="layout_blank" :class="{ hidden: hidden }">
     <div class="content">
       <nuxt/>
     </div>
@@ -23,7 +23,7 @@
 
 <style lang="scss">
   @import 'assets/styles/utilities';
-  #blank {
+  .layout_blank {
     position: fixed;
     top: 0;
     left: 0;
@@ -35,7 +35,9 @@
     overflow: scroll;
     // background-color: $backdrop-color;
 
-    .content {
+    transition: opacity 150ms ease-in-out;
+
+    & > .content {
       min-height: 100vh;
       display: flex;
       align-items: center;

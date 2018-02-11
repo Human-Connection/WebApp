@@ -94,7 +94,6 @@ module.exports = {
     {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
     {src: '~/plugins/vue-clip.js', ssr: false},
     {src: '~/plugins/quill-editor.js'},
-    {src: '~/plugins/flags.js', ssr: false},
     {src: '~/plugins/v2-table.js', ssr: false}
   ],
   modules: [

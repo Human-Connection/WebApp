@@ -19,9 +19,9 @@
         <nav class="level is-mobile">
           <div class="level-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
-            <a class="level-item">
-              <span class="icon is-small"><i class="fa fa-reply"></i></span>
-            </a>
+              <a class="level-item" style="cursor: not-allowed; pointer-events: visible;">
+                <span class="icon is-small"><i class="fa fa-reply"></i></span>
+              </a>
             </hc-tooltip>
           </div>
         </nav>
