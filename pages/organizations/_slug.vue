@@ -46,7 +46,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <div class="organization-welcome">{{ organization.description }}</div>
+          <hc-textedit :initialText="organization.description"></hc-textedit>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <hc-box top="true">
