@@ -110,6 +110,7 @@
       "letsTalk": "Miteinander reden",
       "letsTalkDescription": "Mit {user} ins Gespräch kommen und in Kontakt treten, um z.B. Inhalte des Beitrags zu diskutieren, Rückmeldungen oder Anregungen zu geben. Du kannst einstellen, ob das Zwiegespräch öffentlich oder privat sein soll.",
       "organizations": "Organisationen",
+      "organizationsCreate": "eine Organisation erstellen",
       "map": "Karte",
       "messages": "Beiträge",
       "messageSaveSuccess": "Danke für Deinen Beitrag. Du bist grandios.",

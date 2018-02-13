@@ -110,6 +110,7 @@
       "letsTalk": "Let’s talk",
       "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
       "organizations": "Organizations",
+      "organizationsCreate": "create an Organization",
       "map": "Map",
       "messages": "Messages",
       "messageSaveSuccess": "Thanks for your contribution. You are awesome.",
