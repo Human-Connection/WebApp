@@ -20,8 +20,10 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
-    name: 'author',
+    name: 'hc-author',
     props: {
       user: {
         type: Object
@@ -39,6 +41,17 @@
           // foreign profile
           this.$router.push(`/profile/${this.user.slug}`)
         }
+      }
+    },
+    computed: {
+      ...mapGetters({
+        currentUser: 'auth/user'
+      }),
+      isOwnProfile () {
+        return this.currentUser && this.currentUser._id === this.user._id
+      },
+      disableLink () {
+        return (!this.isOwnProfile && !this.user.slug)
       }
     }
   }
