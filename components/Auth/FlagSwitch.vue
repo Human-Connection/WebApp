@@ -1,10 +1,10 @@
 <template>
   <no-ssr>
     <a v-if="$i18n.locale() === 'de'" @click="changeLanguage('en')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
-      <flag iso="de" :squared="false" title="" />
+      <img class="flag" :src="`/assets/svg/flags/de.svg`" alt="switch to english" title="switch to english" />
     </a>
     <a v-else @click="changeLanguage('de')" style="display: block; position: absolute; left: 1.5rem; top: 1rem;">
-      <flag iso="gb" :squared="false" title="" />
+      <img class="flag" :src="`/assets/svg/flags/en.svg`" alt="zu deutsch wechseln" title="zu deutsch wechseln" />
     </a>
   </no-ssr>
 </template>
@@ -35,6 +35,11 @@
   @import "assets/styles/utilities";
 
   $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
+
+  .flag {
+    width: 20px;
+    height: 15px;
+  }
 
   .sidebar-menu {
     background-color: $white;

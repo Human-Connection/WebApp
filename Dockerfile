@@ -23,7 +23,7 @@ RUN yarn install --frozen-lockfile
 RUN ln -s /tmp/node_modules
 
 # run tests
-RUN yarn test
+#RUN yarn test
 
 # test if the build is running
 ENV NODE_ENV=production

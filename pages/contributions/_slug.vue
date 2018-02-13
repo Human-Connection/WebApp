@@ -3,7 +3,7 @@
     <div class="column is-8 is-offset-1-widescreen">
       <div class="card">
         <section class="section">
-          <div class="content autowrap">
+          <div class="">
             <contribution-image :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
@@ -19,8 +19,8 @@
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
                   <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
                 </hc-button>
-                <contribution-menu class="button is-light action-btn" 
-                                  :post="contribution" 
+                <contribution-menu class="button is-light action-btn"
+                                  :post="contribution"
                                   @update="onContribSettingsUpdate" />
               </div>
             </div>
@@ -28,9 +28,6 @@
               <div class="message-body">
                 <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
               </div>
-            </div>
-            <div class="notification is-danger is-hidden-tablet">
-              <strong>The sidebar is currently hidden on mobile!</strong>
             </div>
             <div class="cando-header" v-if="isCanDo">
               <div class="cando-header-action">
@@ -49,6 +46,11 @@
             <div class="cando-details-reason" v-if="isCanDo">
               <can-do-reason :post="contribution" />
             </div>
+            <div class="is-hidden-tablet">
+              <br />
+              <hc-contribution-bread-crumb :contribution="contribution" />
+              <br />
+            </div>
             <br/>
             <div class="tags" v-if= "categories.length">
               <span class="tag" v-for="category in categories" :key="category._id">
@@ -66,11 +68,13 @@
               </div>
               <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
-                  <div class="level-item has-text-centered">
+                  <div class="level-item has-text-centered under-construction">
                     <div>
-                      <div class="smiley heading">
+                      <div class="heading shout">
                         <hc-tooltip :label="$t('component.contribution.shoutAddShout')">
-                          <hc-button circle size="large" color="success"
+                          <hc-button circle size="large"
+                                     :disabled="true"
+                                     color="success"
                                      style="font-size: 2em; margin-bottom: 0.8rem;">
                             <hc-icon set="fa" icon="bullhorn" />
                           </hc-button>
@@ -108,13 +112,15 @@
               <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                 <div class="notification is-warning">
                   {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
-                  <br/><br/>(<strong>Lets Talk</strong>, coming soon...)
+                  <br/><br/>
+                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
                 </div>
               </b-tab-item>
               <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
                 <div class="notification is-warning">
                   {{ $t('component.contribution.versusDescription') }}
-                  <br/><br/>(<strong>Versus</strong>, coming soon...)
+                  <br/><br/>
+                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -172,6 +178,7 @@
   import { isEmpty } from 'lodash'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
+  const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
 
   export default {
     scrollToTop: false,
@@ -179,6 +186,7 @@
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
+      'hc-contribution-bread-crumb': ContributionBreadcrumb,
       ContributionImage,
       ContributionMenu,
       CanDoAction,

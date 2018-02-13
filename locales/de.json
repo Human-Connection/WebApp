@@ -2,6 +2,20 @@
   "humanConnection": "Human Connection",
   "humanConnectionMadeWithHeart": "Mit <span style=\"color: #f00\">♥</span> gemacht von <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
   "component": {
+    "error": {
+      "header403": "Zutritt verweigert",
+      "header404": "Seite nicht gefunden ",
+      "header500": "Unerwarterer Fehler ",
+      "header503": "Wartungsarbeiten",
+      "subHeader403": "Hast du die Schlüssel?",
+      "subHeader404": "Ups, ich wars nicht",
+      "subHeader500": "OMG, was hast du getan?",
+      "subHeader503": "nimm ne kurze Auszeit",
+      "copy403": "Tut uns leid, der Zugang zu dieser Seite bleibt dir verwehrt. <br />Überprüfe die Adresse, <a href=\"/auth/login\">melde dich an</a> oder <a href=\"/\">geh auf Anfang</a>.",
+      "copy404": "Tut uns leid, wir haben diese Seite nicht gefunden. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy500": "Oh nein, es ist irgend ein Fehler aufgetraten und wir mussten aufgeben. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy503": "Wir arbeiten gerade dran, <br />nimm dir nen Kaffee und versuchs danach gleich nochmal."
+    },
     "admin": {
       "addCategory": "Kategorie hinzufügen",
       "categoryIdentifier": "Bezeichner",
@@ -54,6 +68,8 @@
       "slug2label-economy-finances": "Wirtschaft & Finanzen"
     },
     "contribution": {
+      "language": "Sprache",
+      "visibility": "Sichtbarkeit",
       "actionMarkAsRead": "Als gelesen markieren",
       "actionReport": "Beitrag melden",
       "actionDisable": "Beitrag deaktivieren",
@@ -240,7 +256,7 @@
     "dataPrivacyStatement": "Datenschutzerklärung",
     "dataPrivacyStatementGooglePlus": "Datenschutzerklärung für die Nutzung von Google +1:",
     "dataPrivacyStatementGooglePlusInformationGatheringAndTransfer": "Erfassung und Weitergabe von Informationen:",
-    "dataPrivacyStatementGooglePlusInformationGatheringAndTransferDescription": "Mithilfe der Google +1–Schaltfläche können Sie Informationen weltweit veröffentlichen. Über die Google +1–Schaltfläche erhalten Sie und andere Nutzer personalisierte Inhalte von Google und unseren Partnern. Google speichert sowohl die Information, dass Sie für einen Inhalt +1 gegeben haben, als auch Informationen über die Seite, die Sie beim Klicken auf +1 angesehen haben. Ihre +1 können als Hinweise zusammen mit Ihrem Profilnamen und Ihrem Foto in Google-Diensten, wie etwa in Suchergebnissen oder in Ihrem Google-Profil, oder an anderen Stellen auf Webseiten und Anzeigen im Internet eingeblendet werden. Google zeichnet Informationen über Ihre +1–Aktivitäten auf, um die Google-Dienste für Sie und andere zu verbessern. Um die Google +1–Schaltfläche verwenden zu können, benötigen Sie ein weltweit sichtbares, öffentliches Google-Profil, das zumindest den für das Profil gewählten Namen enthalten muss. Dieser Name wird in allen Google-Diensten verwendet. In manchen Fällen kann dieser Name auch einen anderen Namen ersetzen, den Sie beim Teilen von Inhalten über Ihr Google-Konto verwendet haben. Die Identität Ihres Google-Profils kann Nutzern angezeigt werden, die Ihre E-Mail-Adresse kennen oder über andere identifizierende Informationen von Ihnen verfügen.",
+    "dataPrivacyStatementGooglePlusInformationGatheringAndTransferDescription": "Mithilfe der Google +1–Schaltfläche können Sie Informationen weltweit veröffentlichen. Über die Google +1–Schaltfläche erhalten Sie und andere Nutzer personalisierte Inhalte von Google und unseren Partnern. Google speichert sowohl die Information, dass Sie für einen Inhalt +1 gegeben haben, als auch Informationen über die Seite, die Sie beim Klicken auf +1 angesehen haben. Ihre +1 können als Hinweise zusammen mit Ihrem Profilnamen und Ihrem Foto in Google-Diensten, wie etwa in Suchergebnissen oder in Ihrem Google-Profil oder an anderen Stellen auf Webseiten und Anzeigen im Internet eingeblendet werden. Google zeichnet Informationen über Ihre +1–Aktivitäten auf, um die Google-Dienste für Sie und andere zu verbessern. Um die Google +1–Schaltfläche verwenden zu können, benötigen Sie ein weltweit sichtbares, öffentliches Google-Profil, das zumindest den für das Profil gewählten Namen enthalten muss. Dieser Name wird in allen Google-Diensten verwendet. In manchen Fällen kann dieser Name auch einen anderen Namen ersetzen, den Sie beim Teilen von Inhalten über Ihr Google-Konto verwendet haben. Die Identität Ihres Google-Profils kann Nutzern angezeigt werden, die Ihre E-Mail-Adresse kennen oder über andere identifizierende Informationen von Ihnen verfügen.",
     "dataPrivacyStatementGooglePlusInformationUsage": "Verwendung der erfassten Informationen:",
     "dataPrivacyStatementGooglePlusInformationUsageDescription": "Neben den oben erläuterten Verwendungszwecken werden die von Ihnen bereitgestellten Informationen gemäß den geltenden Google-Datenschutzbestimmungen genutzt. Google veröffentlicht möglicherweise zusammengefasste Statistiken über die +1–Aktivitäten der Nutzer bzw. gibt diese an Nutzer und Partner weiter, wie etwa Publisher, Inserenten oder verbundene Websites.",
     "dataPrivacyStatementTwitter": "Datenschutzerklärung für die Nutzung von Twitter:",

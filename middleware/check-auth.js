@@ -12,11 +12,4 @@ export default function ({store, req}) {
   if (!accessToken) return
 
   return store.dispatch('auth/jwt', {accessToken})
-    .catch((err) => {
-      // Ignore invalid JWT
-      console.error(err.message)
-      console.error('#INVALID JWT TOKEN! ' + accessToken)
-
-      store.dispatch('auth/logout', null, { root: true })
-    })
 }

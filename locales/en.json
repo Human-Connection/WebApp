@@ -2,6 +2,20 @@
   "humanConnection": "Human Connection",
   "humanConnectionMadeWithHeart": "Made with <span style=\"color: #f00\">♥</span> by <a href=\"http://human-connection.org\" target=\"_blank\">human-connection.org</a>",
   "component": {
+    "error": {
+      "header403": "Forbidden",
+      "header404": "Page not found",
+      "header500": "Unexpected Error",
+      "header503": "Maintenance Mode",
+      "subHeader403": "Do you have the keys?",
+      "subHeader404": "Ups, not my fault",
+      "subHeader500": "OMG, what have you done?",
+      "subHeader503": "take a break",
+      "copy403": "Sorry, access to this resource on the server is denied. <br />Either check the URL, <a href=\"/auth/login\">login</a> or <a href=\"/\">go home</a>.",
+      "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
+      "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
+      "copy503": "We are currently working on it, <br />so take a coffe brake and come back a bit later."
+    },
     "admin": {
       "addCategory": "add category",
       "categoryIdentifier": "Identifier",
@@ -54,6 +68,8 @@
       "label": "Calender"
     },
     "contribution": {
+      "language": "Language",
+      "visibility": "Visibility",
       "actionMarkAsRead": "mark as read",
       "actionReport": "report post",
       "actionDisable": "disable post",

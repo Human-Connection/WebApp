@@ -33,11 +33,11 @@
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
-          <template v-if="user.badges">
+          <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
           <hr>
-          <div class="hc-shortcuts level">
+          <div class="hc-shortcuts level under-construction">
             <!-- TODO: replace the cdn images with local hc icons -->
             <div class="level-item has-text-centered">
               <div>
@@ -78,27 +78,25 @@
           </div>
         </hc-box>
         <hc-title>{{ $t('auth.account.myNetwork', 'Netzwerk') }}</hc-title>
-        <hc-box bottom="true">
+        <hc-box class="" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
             <hc-textcount class="textcountitem" :count="following.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.length)"/>
             <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
           </div>
-          <!--<hc-dropdown :showLabels="[$t('auth.account.myFollowingShowAll'), $t('auth.account.myFollowingShowMine')]"
-                       :sortLabels="[$t('auth.account.myFollowingSortBy'), $t('auth.account.myFollowingSortByDate'), $t('auth.account.myFollowingSortByCategory')]"/>-->
           <div class="hc-follower-list">
-            <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
+            <hc-follower-item v-for="user in following.users" :key="user._id" :user="user" />
           </div>
         </hc-box>
-        <hc-box bottom="true">
+        <hc-box class="under-construction" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myInterests', 'Interessen') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
             <hc-textcount class="textcountitem" :count="5" :text="$t('auth.account.mySearch')"/>
           </div>
         </hc-box>
-        <hc-box bottom="true">
+        <hc-box class="under-construction" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myMap', 'Karte') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
@@ -106,7 +104,7 @@
           </div>
           <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
         </hc-box>
-        <hc-box>
+        <hc-box class="under-construction">
           <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
@@ -188,10 +186,10 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({ params, store }) {
+    async asyncData ({ params, store, error }) {
       let user
       let isOwner = false
-      if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
+      if (!isEmpty(params) && !isEmpty(params.slug)) {
         const res = await feathers.service('users').find({
           query: {
             slug: params.slug
@@ -203,7 +201,7 @@
         isOwner = true
       }
       if (!user) {
-        throw new Error(404)
+        error({ statusCode: 404 })
       }
       return {
         params: params,
@@ -244,20 +242,13 @@
       }
     },
     async mounted () {
-      try {
-        let user = await feathers.service('follows').get(this.user._id)
-        if (user !== null) {
-          this.following = {
-            users: user.users || [],
-            organizations: user.organizations || [],
-            projects: user.projects || []
-          }
+      let res = await feathers.service('follows').get(this.user._id)
+      if (res !== null) {
+        this.following = {
+          users: res.users || [],
+          organizations: res.organizations || [],
+          projects: res.projects || []
         }
-        return true
-      } catch (err) {
-        // this just displays nothing
-        // @todo implement some user feedback
-        console.error(err)
       }
     },
     head () {

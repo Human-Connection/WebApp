@@ -1,6 +1,8 @@
 <template>
-  <div class="hc__blank" :class="{ hidden: hidden }">
-    <nuxt/>
+  <div class="layout_blank" :class="{ hidden: hidden }">
+    <div class="container">
+      <nuxt/>
+    </div>
   </div>
 </template>
 
@@ -19,17 +21,30 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'assets/styles/utilities';
+  .layout_blank {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    overflow: scroll;
+    // background-color: $backdrop-color;
 
-  .hc__blank {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: opacity 150ms;
-    opacity: 1;
-    padding: 1.2rem;
+    transition: opacity 150ms ease-in-out;
+
+    & > .container {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 150ms;
+      opacity: 1;
+    }
   }
 
   .hidden {

@@ -2,14 +2,9 @@
   <div class="columns">
     <div class="column is-8 is-offset-1-widescreen">
       <div class="card">
-        <section class="section content">
-          <div class="notification is-danger is-hidden-tablet">
-            <strong>The sidebar is currently hidden on mobile!</strong>
-          </div>
+        <section class="section more-info content">
           <h1 class="title is-1">{{ $t('component.contribution.moreInfoBriefOrLong', null, 2) }}</h1>
-          <div class="notification is-hidden">
-            <strong>This is currenty dummy content</strong>
-          </div>
+          <hc-contribution-bread-crumb :contribution="contribution" />
 
           <h3 v-if= "categories.length">{{ $t('component.category.labelLongOnePluralNone', null, categories.length) }}</h3>
           <div class="tags" v-if= "categories.length">
@@ -52,88 +47,96 @@
             </tbody>
           </table>
 
-          <h3 id="proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</h3>
-          <table class="table is-striped">
-            <tbody>
+          <div class="under-construction">
+            <h3 id="proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</h3>
+            <table class="table is-striped">
+              <tbody>
+                <tr>
+                  <td>Kann die globale Erwärmung positive Effekte...</td>
+                  <td class="has-text-right"><strong>3</strong> Pro | <strong>7</strong> Con</td>
+                </tr>
+                <tr>
+                  <td>Gryphosat - eine Bedrohung für Bienen?</td>
+                  <td class="has-text-right"><strong>11</strong> Pro | <strong>3</strong> Con</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="under-construction">
+            <h3 id="bestlists">{{ $t('component.contribution.bestList') }}</h3>
+            <table class="table is-striped">
+              <tbody>
+                <tr>
+                  <td>Die größsten Bedrohungen für Bienen</td>
+                  <td class="has-text-right"><strong>4</strong> Optionen</td>
+                </tr>
+                <tr>
+                  <td>Bienenpollen und Gesundheit</td>
+                  <td class="has-text-right"><strong>7</strong> Optionen</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="is-white">
+                    <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="under-construction">
+            <h3 id="votes">{{ $t('component.contribution.voteOnePluralNone', null, 0) }}</h3>
+            <table class="table is-striped">
+              <tbody>
               <tr>
-                <td>Kann die globale Erwärmung positive Effekte...</td>
-                <td class="has-text-right"><strong>3</strong> Pro | <strong>7</strong> Con</td>
-              </tr>
-              <tr>
-                <td>Gryphosat - eine Bedrohung für Bienen?</td>
-                <td class="has-text-right"><strong>11</strong> Pro | <strong>3</strong> Con</td>
+                <td>Soll die EU Neonicotinoide Verbieten?</td>
+                <td class="has-text-right"><strong>204</strong> Votes</td>
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
                   <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
 
-          <h3 id="bestlists">{{ $t('component.contribution.bestList') }}</h3>
-          <table class="table is-striped">
-            <tbody>
+          <div class="under-construction">
+            <h3 id="chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 2) }}</h3>
+            <table class="table is-striped">
+              <tbody>
               <tr>
-                <td>Die größsten Bedrohungen für Bienen</td>
-                <td class="has-text-right"><strong>4</strong> Optionen</td>
+                <td style="width: 130px;">
+                  <div class="has-text-centered">
+                    <span class="title is-5">Heute</span><br/>
+                    <span class="heading is-inline">16 – 20 Uhr</span>
+                  </div>
+                </td>
+                <td>Eventchat mit immer Gene Brandi</td>
+                <td class="has-text-right"><strong>20</strong> Personen</td>
               </tr>
               <tr>
-                <td>Bienenpollen und Gesundheit</td>
-                <td class="has-text-right"><strong>7</strong> Optionen</td>
+                <td style="width: 130px;">
+                  <div class="has-text-centered">
+                    <span class="title is-5">∞</span><br/>
+                    <span class="heading is-inline">Permanent</span>
+                  </div>
+                <td>Biodiversität</td>
+                <td class="has-text-right"><strong>124</strong> Personen</td>
               </tr>
               <tr>
-                <td colspan="2" class="is-white">
+                <td colspan="3" class="is-white">
                   <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
-            </tbody>
-          </table>
-
-          <h3 id="votes">{{ $t('component.contribution.voteOnePluralNone', null, 0) }}</h3>
-          <table class="table is-striped">
-            <tbody>
-            <tr>
-              <td>Soll die EU Neonicotinoide Verbieten?</td>
-              <td class="has-text-right"><strong>204</strong> Votes</td>
-            </tr>
-            <tr>
-              <td colspan="2" class="is-white">
-                <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-
-          <h3 id="chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 2) }}</h3>
-          <table class="table is-striped">
-            <tbody>
-            <tr>
-              <td style="width: 130px;">
-                <div class="has-text-centered">
-                  <span class="title is-5">Heute</span><br/>
-                  <span class="heading is-inline">16 – 20 Uhr</span>
-                </div>
-              </td>
-              <td>Eventchat mit immer Gene Brandi</td>
-              <td class="has-text-right"><strong>20</strong> Personen</td>
-            </tr>
-            <tr>
-              <td style="width: 130px;">
-                <div class="has-text-centered">
-                  <span class="title is-5">∞</span><br/>
-                  <span class="heading is-inline">Permanent</span>
-                </div>
-              <td>Biodiversität</td>
-              <td class="has-text-right"><strong>124</strong> Personen</td>
-            </tr>
-            <tr>
-              <td colspan="3" class="is-white">
-                <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
-              </td>
-            </tr>
-            </tbody>
-          </table>
+              </tbody>
+            </table>
+          </div>
         </section>
       </div>
     </div>
@@ -168,7 +171,6 @@
   </div>
 </template>
 
-
 <script>
   import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
@@ -178,12 +180,15 @@
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
   import { isEmpty, castArray } from 'lodash'
 
+  const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
+
   export default {
     scrollToTop: false,
     components: {
       HcRelativeDateTime,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
+      'hc-contribution-bread-crumb': ContributionBreadcrumb,
       ContributionImage
     },
     data () {

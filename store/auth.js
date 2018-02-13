@@ -1,5 +1,6 @@
 import feathers from '~/plugins/feathers'
 import cookie from '~/helpers/ssr-storage'
+import { isEmpty } from 'lodash'
 
 export const state = () => {
   return {
@@ -31,6 +32,8 @@ export const mutations = {
     } else {
       state.token = token
     }
+    // renew token
+    // cookie.setItem('feathers-jwt', state.token)
   }
 }
 
@@ -73,7 +76,7 @@ export const actions = {
       console.error(err.message, err)
     }
   },
-  async login ({commit}, {email, password}) {
+  async login ({commit, dispatch}, {email, password}) {
     try {
       await feathers.logout()
       cookie.removeItem('feathers-jwt')
@@ -83,10 +86,23 @@ export const actions = {
       const response = await feathers.authenticate({strategy: 'local', email, password})
       const payload = await feathers.passport.verifyJWT(response.accessToken)
       const user = await feathers.service('users').get(payload.userId)
+      const locale = cookie.getItem('locale')
+      let saveLanguage = false
+      if (user.language !== locale && !isEmpty(locale)) {
+        user.language = locale
+        saveLanguage = true
+      }
+
       commit('SET_USER', user)
       commit('SET_EMAIL', email)
       commit('SET_TOKEN', response.accessToken)
       commit('newsfeed/clear', null, { root: true })
+
+      if (saveLanguage) {
+        dispatch('patch', {
+          language: user.language
+        })
+      }
     } catch (err) {
       console.error(err.message)
       commit('SET_USER', null)
@@ -115,9 +131,11 @@ export const actions = {
       })
   },
   async patch ({state, commit}, data) {
+    if (!state.user) {
+      return null
+    }
     const user = await feathers.service('users').patch(state.user._id, data)
     commit('SET_USER', user)
-    console.log(user)
     return user
   },
   verify ({dispatch}, verifyToken) {
