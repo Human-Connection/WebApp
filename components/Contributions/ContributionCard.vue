@@ -206,6 +206,7 @@
       padding: $padding;
 
       header {
+        position: relative;
         margin-bottom: 10px;
         margin-top: 0;
       }
@@ -248,10 +249,10 @@
     font-size:        0.9em;
     font-weight:      bold;
     padding:          6px 6px;
-    color:            #7e7e7e;
-    background-color: #f9f9f9;
-    right:            -7px;
-    top:              10px;
+    color:            #fff;
+    background-color: #95c11f;
+    right:            -32px;
+    top:              -5px;
     border-radius:    2px 0 0 2px;
     box-shadow:       $card-shadow;
     // border:           1px solid #ccc;
@@ -265,7 +266,7 @@
       bottom: -6px;
       border-width: 3px 4px 3px 3px;
       border-style: solid;
-      border-color: #ccc transparent transparent #ccc;
+      border-color: #7b9e1d transparent transparent #7b9e1d;
     }
   }
 
