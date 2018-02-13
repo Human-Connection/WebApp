@@ -93,7 +93,7 @@ module.exports = {
     {src: '~/plugins/buefy.js'},
     {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
     {src: '~/plugins/vue-clip.js', ssr: false},
-    {src: '~/plugins/quill/index.js'},
+    {src: '~/plugins/quill/index.js', ssr: false},
     {src: '~/plugins/v2-table.js', ssr: false}
   ],
   modules: [

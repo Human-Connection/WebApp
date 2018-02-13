@@ -1,28 +1,27 @@
 <template>
-    <div :class="{ disabled: disableLink }"
-         class="media hc__author"
-         @click="showProfile">
-        <div class="media-left">
-            <hc-avatar :user="user"></hc-avatar>
-        </div>
-        <div class="media-content">
-            <p class="title" v-if="!user">
-                {{ $t('component.contribution.creatorUnknown') }}
-            </p>
-            <p class="title" v-else>
-                {{ user.name }} </p>
-            <p class="subtitle">
-                <i class="fa fa-clock-o"></i>&nbsp;
-                <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>
-            </p>
-        </div>
+  <div :class="{ disabled: disableLink }"
+        class="media hc__author"
+        @click="showProfile">
+    <div class="media-left">
+      <hc-avatar :user="user"></hc-avatar>
     </div>
+    <div class="media-content">
+      <p class="title" v-if="!user">
+        {{ $t('component.contribution.creatorUnknown') }}
+      </p>
+      <p class="title" v-else>
+        {{ user.name }} </p>
+      <p class="subtitle">
+        <i class="fa fa-clock-o"></i>&nbsp;
+        <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
-
   export default {
-    name: 'hc-author',
+    name: 'author',
     props: {
       user: {
         type: Object
@@ -36,15 +35,10 @@
         if (this.isOwnProfile) {
           // own profile
           this.$router.push(`/profile/`)
-        } else if (this.slug) {
+        } else if (this.user.slug) {
           // foreign profile
-          this.$router.push(`/profile/${this.slug}`)
+          this.$router.push(`/profile/${this.user.slug}`)
         }
-      }
-    },
-    computed: {
-      user () {
-        return this.post.user || null
       }
     }
   }

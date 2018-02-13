@@ -15,6 +15,8 @@
 </template>
 
 <script>
+  import feathers from '~/plugins/feathers'
+
   export default {
     name: 'hc-follower-item',
     props: ['user'],
