@@ -19,6 +19,7 @@ class MentionBlot extends InlineBlot {
   }
 }
 MentionBlot.blotName = 'mention'
+MentionBlot.className = 'mention'
 MentionBlot.tagName = 'a'
 
 export default MentionBlot
