@@ -116,6 +116,7 @@
     },
     methods: {
       reset () {
+        console.log(this.value)
         this.editorText = this.value
         this.$emit('reset')
       },
@@ -130,9 +131,14 @@
       }
     },
     watch: {
-      editorText (newText) {
-        if (newText !== this.text) {
+      editorText (newText, oldText) {
+        if (newText !== oldText) {
           this.$emit('input', newText)
+        }
+      },
+      value (newValue, oldValue) {
+        if (newValue !== oldValue) {
+          this.editorText = newValue
         }
       }
     },

@@ -3,7 +3,7 @@
     <hc-editor identifier="comment"
       editorClass="autowrap"
       v-model="form.content"
-      :editorOptions="editorOptions"/>
+      :editorOptions="editorOptions" />
     <button type="submit"
       class="submit-button button is-primary is-fullwidth"
       :disabled="!this.hasContent"

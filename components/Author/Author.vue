@@ -101,6 +101,7 @@
           height:              36px;
           background-position: center;
           background-size:     cover;
+          transform: translate3d(0,0,0);
       }
   }
 </style>
