@@ -1,7 +1,7 @@
 <template>
   <no-ssr>
   <div class="hc-editor-wrapper">
-    <div :id="`toolbar-editor-${identifier}`">
+    <div :id="`toolbar-editor-${identifier}`" v-if="toolbar">
       <div class="ql-formats">
         <b-tooltip :label="$t('component.editor.italic')" type="is-black">
           <button class="ql-italic"></button>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="hc-editor-container">
-      <div class="quill-editor story"
+      <div class="quill-editor" :class="editorClass"
          v-model="editorText"
          :disabled="loading"
          @blur="editorBlur()"
@@ -72,6 +72,10 @@
         type: Object,
         default: () => {}
       },
+      editorClass: {
+        type: String,
+        default: 'story'
+      },
       identifier: {
         type: [String],
         default: 'editor'
@@ -102,6 +106,12 @@
       },
       changes () {
         return this.editorText !== this.value
+      },
+      toolbar () {
+        if (!this.computedEditorOptions.modules) {
+          return false
+        }
+        return this.computedEditorOptions.modules.toolbar
       }
     },
     methods: {

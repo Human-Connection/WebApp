@@ -1,10 +1,13 @@
 <template>
   <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
-    <div class="quill-editor autowrap" v-model="form.content" v-quill:myQuillEditor="editorOption"></div>
+    <hc-editor identifier="comment"
+      editorClass="autowrap"
+      v-model="form.content"
+      :editorOptions="editorOptions"/>
     <button type="submit"
-            class="submit-button button is-primary is-fullwidth"
-            :disabled="!this.hasContent"
-            :class="{ 'is-loading': isLoading }">
+      class="submit-button button is-primary is-fullwidth"
+      :disabled="!this.hasContent"
+      :class="{ 'is-loading': isLoading }">
       {{ $t('button.submitComment','Submit comment') }}
     </button>
   </form>
@@ -25,7 +28,7 @@
           contributionId: null,
           language: 'en'
         },
-        editorOption: {
+        editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
           modules: {
             toolbar: null

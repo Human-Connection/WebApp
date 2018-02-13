@@ -9,7 +9,7 @@
   import Delta from 'quill-delta'
   import EditorMentionsSearch from '~/components/Mentions/Search'
 
-  let toolbarHeight = 50
+  let offset = 10
   const lastLetterTyped = (delta, source) => {
     let ops = delta.ops
     let lastOp = ops[ops.length - 1]
@@ -54,7 +54,7 @@
       style () {
         if (!this.bounds) return ''
         let left = this.bounds.left
-        let top = this.bounds.top + this.bounds.height + toolbarHeight
+        let top = this.bounds.top + this.bounds.height + offset
         return `left: ${left}px; top: ${top}px`
       }
     },
