@@ -4,39 +4,8 @@
       <div class="card">
         <section class="section take-action">
           <div class="content">
-            <div class="notification is-danger is-hidden-tablet">
-              <strong>The sidebar is currently hidden on mobile!</strong>
-            </div>
-            <div class="is-inline-flex is-hidden">
-              <div class="has-text-centered" style="padding-right: 1rem;">
-                <p class="heading">
-                  <hc-button color="primary" size="medium" circle>
-                    <hc-icon set="hc" icon="categories-justforfun"></hc-icon>
-                  </hc-button>
-                </p>
-                <p class="heading">Just for Fun</p>
-              </div>
-              <div class="has-text-centered" style="padding-right: 1rem;">
-                <p class="heading">
-                  <hc-button color="" size="medium" circle>
-                    <hc-icon set="hc" icon="categories-luck"></hc-icon>
-                  </hc-button>
-                </p>
-                <p class="heading">Glück & Werte</p>
-              </div>
-              <div class="has-text-centered" style="padding-right: 1rem;">
-                <p class="heading">
-                  <hc-button color="primary" size="medium" circle>
-                    <hc-icon set="hc" icon="categories-health"></hc-icon>
-                  </hc-button>
-                </p>
-                <p class="heading">Gesundheit & Wohlbefinden</p>
-              </div>
-            </div>
             <h1 class="title is-1">{{ $t('component.contribution.takeAction') }}</h1>
-            <div class="notification is-hidden">
-              <strong>This is currenty dummy content</strong>
-            </div>
+            <hc-contribution-bread-crumb :contribution="contribution" />
 
             <h3 class="title is-4" id="organizations">{{ $t('component.contribution.organizations') }}</h3>
             <div class="is-hidden tabs is-small">
@@ -231,6 +200,7 @@
   import { isEmpty } from 'lodash'
 
   // lazy loaded components
+  const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
   const Map = () => import('~/components/Map/Map.vue')
 
   const generatePlaces = (models) => {
@@ -266,6 +236,7 @@
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
+      'hc-contribution-bread-crumb': ContributionBreadcrumb,
       ContributionImage,
       'hc-map': Map,
       CanDoList

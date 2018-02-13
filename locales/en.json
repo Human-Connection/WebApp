@@ -68,6 +68,8 @@
       "label": "Calender"
     },
     "contribution": {
+      "language": "Language",
+      "visibility": "Visibility",
       "actionMarkAsRead": "mark as read",
       "actionReport": "report post",
       "actionDisable": "disable post",

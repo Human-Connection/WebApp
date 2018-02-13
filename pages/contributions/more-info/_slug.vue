@@ -3,13 +3,8 @@
     <div class="column is-8 is-offset-1-widescreen">
       <div class="card">
         <section class="section more-info content">
-          <div class="notification is-danger is-hidden-tablet">
-            <strong>The sidebar is currently hidden on mobile!</strong>
-          </div>
           <h1 class="title is-1">{{ $t('component.contribution.moreInfoBriefOrLong', null, 2) }}</h1>
-          <div class="notification is-hidden">
-            <strong>This is currenty dummy content</strong>
-          </div>
+          <hc-contribution-bread-crumb :contribution="contribution" />
 
           <h3 v-if= "categories.length">{{ $t('component.category.labelLongOnePluralNone', null, categories.length) }}</h3>
           <div class="tags" v-if= "categories.length">
@@ -176,7 +171,6 @@
   </div>
 </template>
 
-
 <script>
   import author from '~/components/Author/Author.vue'
   import feathers from '~/plugins/feathers'
@@ -187,6 +181,8 @@
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
   import { isEmpty, castArray } from 'lodash'
 
+  const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
+
   export default {
     scrollToTop: false,
     components: {
@@ -194,6 +190,7 @@
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
+      'hc-contribution-bread-crumb': ContributionBreadcrumb,
       ContributionImage
     },
     data () {
