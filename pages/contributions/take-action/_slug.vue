@@ -17,13 +17,13 @@
             </div>
             <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
-                <tr v-for="organization in organizations" :key="organization._id">
+                <tr style="cursor: pointer" v-for="organization in organizations" :key="organization._id" @click="$router.push('/organizations/' + organization.slug)">
                   <td>
                     <img v-if="organization.logo" style="max-width: 100px;" :src="organization.logo" alt=""/>
                   </td>
                   <td>
                     <strong>{{ organization.name }}</strong><br/>
-                    <small>{{ organization.description }}</small>
+                    <small>{{ organization.descriptionExcerpt }}</small>
                   </td>
                   <td class="has-text-right"><strong>{{ organization.followerIds.length }}</strong>&nbsp;Follower</td>
                 </tr>
