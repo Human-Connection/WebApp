@@ -1,6 +1,6 @@
 <template>
   <div class="layout_blank" :class="{ hidden: hidden }">
-    <div class="content">
+    <div class="container">
       <nuxt/>
     </div>
   </div>
@@ -37,7 +37,7 @@
 
     transition: opacity 150ms ease-in-out;
 
-    & > .content {
+    & > .container {
       min-height: 100vh;
       display: flex;
       align-items: center;

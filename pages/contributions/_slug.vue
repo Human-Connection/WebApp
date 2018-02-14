@@ -3,7 +3,7 @@
     <div class="column is-8 is-offset-1-widescreen">
       <div class="card">
         <section class="section">
-          <div class="content autowrap">
+          <div class="">
             <contribution-image :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
@@ -28,9 +28,6 @@
                 <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
               </div>
             </div>
-            <div class="notification is-danger is-hidden-tablet">
-              <strong>The sidebar is currently hidden on mobile!</strong>
-            </div>
             <div class="cando-header" v-if="isCanDo">
               <div class="cando-header-action">
                 <can-do-action :post="contribution"
@@ -47,6 +44,11 @@
             <div class="content" v-html="content"></div>
             <div class="cando-details-reason" v-if="isCanDo">
               <can-do-reason :post="contribution" />
+            </div>
+            <div class="is-hidden-tablet">
+              <br />
+              <hc-contribution-bread-crumb :contribution="contribution" />
+              <br />
             </div>
             <br/>
             <div class="tags" v-if= "categories.length">
@@ -175,6 +177,7 @@
   import { isEmpty } from 'lodash'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
+  const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
 
   export default {
     scrollToTop: false,
@@ -182,6 +185,7 @@
       'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
+      'hc-contribution-bread-crumb': ContributionBreadcrumb,
       ContributionImage,
       ContributionMenu,
       CanDoAction,

@@ -79,7 +79,7 @@
           </div>
         </hc-box>
         <hc-title>{{ $t('auth.account.myNetwork', 'Netzwerk') }}</hc-title>
-        <hc-box class="under-construction" bottom="true">
+        <hc-box class="" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
@@ -87,7 +87,7 @@
             <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
           </div>
           <div class="hc-follower-list">
-            <hc-follower-item v-for="user in following.users" :key="user._id" :title="user.name" :image="user.avatar" timestamp="vor 3 Tagen"/>
+            <hc-follower-item v-for="user in following.users" :key="user._id" :user="user" />
           </div>
         </hc-box>
         <hc-box class="under-construction" bottom="true">
