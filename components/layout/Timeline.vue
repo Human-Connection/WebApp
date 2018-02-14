@@ -3,7 +3,7 @@
     <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
       <p v-if="!user.slug">{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
-      <p v-if="!contributions && loadingFinished">
+      <p v-if="!contributions.length && loadingFinished && !user.slug">
         {{ $t('component.timeline.noContributionsFound') }}
       </p>
       <hc-tooltip v-if="!user.slug"

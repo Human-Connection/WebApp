@@ -3,7 +3,6 @@
     <div class="column is-1">
       <filter-item
           :active="allActive"
-          :disabled="toggleAllDisabled"
           icon="check"
           iconSet="fa"
           :title="$t('component.filter.all')"
@@ -78,32 +77,35 @@
     computed: {
       allActive () {
         return this.selectedIds.length === this.items.length
-      },
-      toggleAllDisabled () {
-        return !!(this.allActive && (this.selectedIdsBeforeToggled.length === this.items.length || !this.selectedIdsBeforeToggled.length))
       }
     },
     methods: {
       toggleItem (id) {
+        // get index of current item to see if its active already
         const index = this.selectedIds.indexOf(id)
 
         if (index > -1) {
-          this.selectedIds.splice(index, 1)
+          // remove it as its active
+          if (this.allActive) {
+            // set this item as the only one in the active list
+            this.selectedIds = [id]
+          } else {
+            // remove this item from the active list
+            this.selectedIds.splice(index, 1)
+          }
         } else {
+          // add this item to the active list
           this.selectedIds.push(id)
         }
 
-        if (this.selectedIds.length === 0) {
-          this.toggleAll()
-        } else {
-          this.$emit('change', this.selectedIds)
-        }
-      },
-      toggleAll () {
-        if (this.toggleAllDisabled) {
-          return
+        if (!this.selectedIds.length) {
+          // enable all items as nothing is selected
+          this.selectedIds = map(this.items, '_id')
         }
 
+        this.$emit('change', this.selectedIds)
+      },
+      toggleAll () {
         if (this.allActive) {
           this.selectedIds = this.selectedIdsBeforeToggled
           // this.selectedIdsBeforeToggled = []
@@ -119,7 +121,8 @@
         this.$emit('change', this.selectedIds)
       },
       isActive (id) {
-        return this.selectedIds.indexOf(id) > -1
+        const index = this.selectedIds.indexOf(id)
+        return index > -1 && !this.allActive
       }
     },
     created () {

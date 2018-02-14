@@ -14,14 +14,14 @@
       </div>
       <div class="column"></div>
     </div>
-    <div class="tabs is-toggle is-fullwidth">
+    <hr/>
+    <div class="tabs is-toggle is-toggle-rounded is-centered" :class="{ disabled: form._id }">
       <ul>
         <li v-for="(postType, index) in options.postTypes"
             :class="{ 'is-active': postType.active, 'under-construction': postType.disabled }"
             :key="index">
           <a :disabled="postType.disabled"
-            @click="setPostType(index)"
-            class="button is-medium">
+            @click="setPostType(index)">
             <span class="icon">
               <hc-icon :icon="'tools-'+postType.value" set="hc" />
             </span>
@@ -30,7 +30,6 @@
         </li>
       </ul>
     </div>
-    <hr/>
     <div class="field">
       <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
       <p class="control">
@@ -189,34 +188,54 @@
     </no-ssr>
     <br/>
     <hr/>
-    <div class="field">
-      <div class="control">
-        <div class="level">
-          <div class="level-item">
-            <h6 class="title is-6">Language</h6>&nbsp;&nbsp;
-            <div class="select">
-              <select v-model="form.language">
-                <option value="de" selected>DE</option>
-                <option value="en">EN</option>
-              </select>
+
+    <div class="level">
+      <div class="level-item">
+        <div class="field">
+          <div class="is-normal">
+            <label class="label">{{ $t('component.contribution.language') }}</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control has-icons-left">
+                <div class="select">
+                  <select v-model="form.language">
+                    <option value="de" selected>Deutsch</option>
+                    <option value="en">English</option>
+                  </select>
+                  <div class="icon is-small is-left">
+                    <i class="fa fa-globe"></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="level-item">
-            <h6 class="title is-6">Visibility</h6>&nbsp;&nbsp;
-            <div class="select">
-              <select v-model="form.visibility">
-                <option value="public" selected>Public</option>
-                <option value="friends">Friends only</option>
-                <option value="private">Private</option>
-              </select>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="field">
+          <div class="is-normal">
+            <label class="label">{{ $t('component.contribution.visibility') }}</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control has-icons-left">
+                <div class="select">
+                  <select v-model="form.visibility">
+                    <option value="public" selected>Public</option>
+                    <option value="friends">Friends only</option>
+                    <option value="private">Private</option>
+                  </select>
+                  <div class="icon is-small is-left">
+                    <i class="fa fa-eye"></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- visibility -->
-    <!-- tags -->
-    <!-- uploads -->
     <hr/>
     <no-ssr>
       <div class="field is-grouped is-grouped-right">
@@ -305,13 +324,13 @@
               value: 'cando',
               active: false,
               disabled: false
-            },
+            }/* ,
             {
               label: 'Pro / Con',
               value: 'procon',
               active: false,
               disabled: true
-            }
+            } */
           ],
           difficulties: ['easy', 'medium', 'hard']
         },
@@ -443,11 +462,10 @@
     pointer-events: none;
   }
 
-  .tabs .under-construction {
-    &:before {
-      // top: -5px !important;
-      // bottom: 5px !important;
-      // height: 95%;
+  .tabs {
+    &.disabled {
+      pointer-events: none;
+      opacity: .5;
     }
   }
 </style>

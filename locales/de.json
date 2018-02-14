@@ -68,6 +68,8 @@
       "slug2label-economy-finances": "Wirtschaft & Finanzen"
     },
     "contribution": {
+      "language": "Sprache",
+      "visibility": "Sichtbarkeit",
       "actionMarkAsRead": "Als gelesen markieren",
       "actionReport": "Beitrag melden",
       "actionDisable": "Beitrag deaktivieren",

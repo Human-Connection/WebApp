@@ -272,7 +272,9 @@ div.nuxt-progress {
 
 section.take-action,
 section.more-info {
-  padding-top: 0.2rem;
+  .breadcrumb {
+    margin-top: -30px;
+  }
 }
 
 /*@keyframes ProgressAnimation {
