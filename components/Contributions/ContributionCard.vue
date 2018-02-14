@@ -255,10 +255,11 @@
     top:              -5px;
     border-radius:    2px 0 0 2px;
     box-shadow:       $card-shadow;
+    z-index:          11;
     // border:           1px solid #ccc;
 
     &:before {
-      content: ' ';
+      content: " ";
       position: absolute;
       width: 0;
       height: 0;
