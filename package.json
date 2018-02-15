@@ -38,6 +38,8 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.0.1",
+    "@nuxtjs/proxy": "^1.1.4",
     "@nuxtjs/pwa": "~2.0.5",
     "axios": "~0.17.1",
     "babel-eslint": "~8.2.1",

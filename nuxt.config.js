@@ -2,7 +2,7 @@ const path = require('path')
 
 module.exports = {
   env: {
-    baseURL: process.env.BASE_URL || 'http://localhost',
+    baseURL: process.env.BASE_URL || 'http://localhost:3000',
     HOST: process.env.HOST || 'localhost',
     PORT: process.env.PORT || 3000,
     API_HOST: process.env.API_HOST || 'localhost',
@@ -84,6 +84,7 @@ module.exports = {
     }
   },
   plugins: [
+    {src: '~/plugins/debug.js', ssr: false},
     {src: '~/plugins/client-auth.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/raven-server.js', ssr: true},
@@ -97,9 +98,17 @@ module.exports = {
     {src: '~/plugins/v2-table.js', ssr: false}
   ],
   modules: [
-    '@nuxtjs/webpackmonitor'
+    '@nuxtjs/webpackmonitor',
+    '@nuxtjs/axios'
     // '@nuxtjs/pwa'
   ],
+  axios: {
+    proxyHeaders: false,
+    proxy: true // Can be also an object with default options
+  },
+  proxy: {
+    '/avatar/': { target: 'https://avataaars.io/', pathRewrite: {'^/avatar/': ''} },
+  },
   router: {
     middleware: [
       'maintenance',

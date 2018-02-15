@@ -243,7 +243,8 @@
     "update": "Aktualisieren",
     "addContribution": "Beitrag erstellen",
     "addOrganization": "Organisation erstellen",
-    "addProject": "Projekt erstellen"
+    "addProject": "Projekt erstellen",
+    "random": "Zufallsgenerator"
   },
   "legal": {
     "copyrights": "Urheberrecht:",

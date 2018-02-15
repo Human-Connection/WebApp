@@ -243,7 +243,8 @@
     "update": "Update",
     "addContribution": "Add contribution",
     "addOrganization": "Add organization",
-    "addProject": "Add project"
+    "addProject": "Add project",
+    "random": "Randomize"
   },
   "legal": {
     "copyrights": "Copyrights:",
