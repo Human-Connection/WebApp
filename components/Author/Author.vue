@@ -11,7 +11,7 @@
                 {{ $t('component.contribution.creatorUnknown') }}
             </p>
             <p class="title" v-else>
-                {{ post.user.name }} </p>
+                {{ post.user.name || 'Anonymus' }} </p>
             <p class="subtitle">
                 <i class="fa fa-clock-o"></i>&nbsp;
                 <hc-relative-date-time :dateTime="post.createdAt"></hc-relative-date-time>

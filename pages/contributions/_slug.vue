@@ -37,7 +37,7 @@
                 <can-do-count :post="contribution" />
               </div>
             </div>
-            <h1>{{ contribution.title }}</h1>
+            <h1 class="title is-4">{{ contribution.title }}</h1>
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>
