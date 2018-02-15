@@ -146,6 +146,31 @@
       "writePostSectionPlaceholder": "How do you call that story?",
       "writePostContentPlaceholder": "write something amazing..."
     },
+    "organization": {
+      "createNew": "create new Organization",
+      "createSubmit": "create Organization",
+      "name": "Organization name",
+      "createOrgaSectionPlaceholder": "How is the organization called?",
+      "orgaDescription": "Description",
+      "orgaDescriptionPlaceholder": "describe the organization",
+      "type": "type of the Organization",
+      "types": {
+        "ngo": "Non-governmental organization",
+        "npo": "Non-profit organization",
+        "goodpurpose": "Good purpose",
+        "ev": "Association",
+        "eva": "charitable Organization"
+      },
+      "foundingYear": "Year of foundation",
+      "foundingYearSectionPlaceholder": "When has the organization be founded?",
+      "street": "Street & number",
+      "zipcode": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "phone": "Phone",
+      "email": "E-Mail address",
+      "website": "Website"
+    },
     "notification": {
       "label": "Notifications",
       "messageEmpty": "You don't have any notifications."

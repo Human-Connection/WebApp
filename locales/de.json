@@ -146,6 +146,31 @@
       "writePostContentPlaceholder": "schreib etwas inspirierendes... ",
       "voteOnePluralNone": "Abstimmung ::: Abstimmungen ::: Keine Abstimmungen"
     },
+    "organization": {
+      "createNew": "eine Organisation erstellen",
+      "createSubmit": "Organisation erstellen",
+      "name": "Name der Organisation",
+      "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",
+      "orgaDescription": "Beschreibung",
+      "orgaDescriptionPlaceholder": "Beschreibe die Organisation",
+      "type": "Organisationsform",
+      "types": {
+        "ngo": "Nicht Regierungsorganisation",
+        "npo": "Nicht Profitorientierte Organisation",
+        "goodpurpose": "Guter Zweck",
+        "ev": "Verein (e.V.)",
+        "eva": "Verein (e.V. gemeinnützig anerkannt)"
+      },
+      "foundingYear": "Gründungsjahr",
+      "foundingYearSectionPlaceholder": "Wann wurde die Organisation gegründet?",
+      "street": "Straße & Hausnummer",
+      "zipcode": "Postleitzahl",
+      "city": "Stadt",
+      "country": "Country",
+      "phone": "Telefon",
+      "email": "E-Mail adresse",
+      "website": "Webseite"
+    },
     "notification": {
       "label": "Benachrichtigungen",
       "messageEmpty": "Du hast keine Benachrichtigungen."
