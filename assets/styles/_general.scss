@@ -196,6 +196,10 @@ a, .is-link, button {
   padding: 1em;
 }
 
+.notices {
+  z-index: 9998;
+}
+
 .table {
   &.is-empty {
     tr:hover {
