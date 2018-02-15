@@ -103,11 +103,10 @@ module.exports = {
     // '@nuxtjs/pwa'
   ],
   axios: {
-    proxyHeaders: false,
     proxy: true // Can be also an object with default options
   },
   proxy: {
-    '/avatar/': { target: 'https://avataaars.io/', pathRewrite: {'^/avatar/': ''} },
+    '/avatar/': { target: 'https://avataaars.io/', pathRewrite: {'^/avatar/': ''}, proxyHeaders: false }
   },
   router: {
     middleware: [
