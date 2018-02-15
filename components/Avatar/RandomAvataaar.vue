@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="user-avatar row is-hidden">
-      <img v-if="isReady" :src="url" ref="avataaar" @load="handleImageLoad" />
+      <img v-if="isReady" :src="url" ref="avataaar" @load="handleImageLoad" @error="handleImageError" />
     </div>
     <canvas width="1056" height="1120" class="is-hidden" ref="avataaarCanvas"></canvas>
     <br />
@@ -180,7 +180,7 @@
           this.selected[key] = sample(this.styles[key])
         })
       },
-      handleImageLoad (e) {
+      handleImageLoad () {
         this.isLoading = false
 
         const myCanvas = this.$refs.avataaarCanvas
@@ -191,6 +191,14 @@
         ctx.drawImage(this.$refs.avataaar, 0, 0, myCanvas.width, myCanvas.height)
         myCanvas.toBlob(this.handleBlob, 'image/png', 0.95)
         ctx.restore()
+      },
+      handleImageError () {
+        this.isLoading = false
+        this.$toast.open({
+          message: `usp, can't create avatar`,
+          duration: 3000,
+          type: 'is-danger'
+        })
       },
       handleBlob (blob) {
         this.$emit('blob', blob)

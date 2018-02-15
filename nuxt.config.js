@@ -106,7 +106,7 @@ module.exports = {
     proxy: true // Can be also an object with default options
   },
   proxy: {
-    '/avatar/': { target: 'https://avataaars.io/', pathRewrite: {'^/avatar/': ''}, proxyHeaders: false }
+    '/avatar/': { target: 'https://avataaars.io/', pathRewrite: {'^/avatar/': ''}, proxyHeaders: false, toProxy: true, changeOrigin: true }
   },
   router: {
     middleware: [
