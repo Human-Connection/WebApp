@@ -131,15 +131,13 @@
     methods: {
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
-        this.$store.dispatch('organizations/patch', {
-          coverImg: value
-        })
+        this.organization.coverImg = value
+        this.$store.dispatch('organizations/patch', this.organization)
       },
       onLogoUploadCompleted (value) {
         this.form.logo = value
-        this.$store.dispatch('organizations/patch', {
-          logo: value
-        })
+        this.organization.logo = value
+        this.$store.dispatch('organizations/patch', this.organization)
       }
     },
     head () {
