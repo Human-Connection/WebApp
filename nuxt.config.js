@@ -98,16 +98,9 @@ module.exports = {
     {src: '~/plugins/v2-table.js', ssr: false}
   ],
   modules: [
-    '@nuxtjs/webpackmonitor',
-    '@nuxtjs/axios'
+    '@nuxtjs/webpackmonitor'
     // '@nuxtjs/pwa'
   ],
-  axios: {
-    proxy: true // Can be also an object with default options
-  },
-  proxy: {
-    '/avatar/': { target: 'https://avataaars.io/', pathRewrite: {'^/avatar/': ''}, proxyHeaders: false, toProxy: true, changeOrigin: true }
-  },
   router: {
     middleware: [
       'maintenance',
