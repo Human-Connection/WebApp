@@ -1,11 +1,6 @@
 <template>
   <form v-bind:disabled="isLoading">
     <div class="field">
-      <hc-upload class="avatar-upload"
-                 :preview-image="form.logo"
-                 :test="true"></hc-upload>
-    </div>
-    <div class="field">
       <label class="label">{{ $t('component.organization.name') }}</label>
       <p class="control">
         <input class="input"
@@ -14,6 +9,15 @@
                v-bind:placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
                v-bind:disabled="isLoading">
       </p>
+    </div>
+    <div class="field">
+      <label class="label">{{ $t('component.organization.logo') }}</label>
+      <hc-upload class="avatar-upload"
+                 :preview-image="form.logo"
+                 @update="value => { form.logo = value }"
+                 @start-sending="uploadingLogo = true"
+                 @stop-sending="uploadingLogo = false">
+      </hc-upload>
     </div>
     <no-ssr>
       <div class="field">
@@ -194,6 +198,7 @@
 </template>
 
 <script>
+  import feathers from '~/plugins/feathers'
   import {mapGetters} from 'vuex'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
 
@@ -211,7 +216,7 @@
     data () {
       return {
         isLoading: false,
-        uploadingCover: false,
+        uploadingLogo: false,
         dropFiles: null,
         form: {
           _id: null,
@@ -256,12 +261,43 @@
         }
       }
     },
+
     computed: {
       ...mapGetters({
         user: 'auth/user'
-      })
+      }),
+      disabled () {
+        return !!this.uploadingLogo
+      }
     },
     methods: {
+      async onSubmit () {
+        this.isLoading = true
+
+        try {
+          let formData = Object.assign({}, this.form)
+          let res = null
+          if (this.form._id) {
+            res = await feathers.service('organizations').patch(formData._id, formData)
+          } else {
+            res = await feathers.service('organizations').create(formData)
+          }
+          this.$snackbar.open({
+            message: this.$t('component.organization.organizationSaveSuccess'),
+            duration: 4000,
+            type: 'is-success'
+          })
+          this.$router.push(`/organizations/${res.slug}`)
+        } catch (err) {
+          console.error(err)
+          this.isLoading = false
+          this.$toast.open({
+            message: err.message,
+            duration: 3000,
+            type: 'is-danger'
+          })
+        }
+      }
     }
   }
 </script>

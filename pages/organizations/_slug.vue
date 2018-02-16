@@ -85,6 +85,7 @@
           coverImg: null,
           logo: null
         },
+        showOrganizationForm: false,
         uploadingCover: false,
         uploadingLogo: false
       }
@@ -100,7 +101,7 @@
         })
       }
       if (organization === undefined || isEmpty(organization.data)) {
-        error({ statusCode: 404, message: 'Organization not found' })
+        // TODO: show organization create form ask name first
       } else {
         // is owner?
         owner = store.getters['auth/user']

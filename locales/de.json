@@ -169,7 +169,9 @@
       "country": "Country",
       "phone": "Telefon",
       "email": "E-Mail adresse",
-      "website": "Webseite"
+      "website": "Webseite",
+      "logo": "Logo",
+      "organizationSaveSuccess": "Die Organisation wurde erstellt."
     },
     "notification": {
       "label": "Benachrichtigungen",

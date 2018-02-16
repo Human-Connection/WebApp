@@ -45,7 +45,7 @@
               </tbody>
             </table>
             <div class="create-organization-wrapper has-text-centered">
-              <hc-button @click.prevent="$router.push('/organizations/create')">
+              <hc-button @click.prevent="$router.push('/organizations/_slug')">
                 <i class="fa fa-check"></i>
                 &nbsp;<span>{{ $t('component.contribution.organizationsCreate') }}</span>
               </hc-button>
