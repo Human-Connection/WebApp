@@ -188,6 +188,11 @@ a, .is-link, button {
 
 .tooltip {
   text-transform: none;
+
+  &.is-animated:after,
+  &.is-animated:before {
+    transition-delay: 200ms !important;
+  }
 }
 .tooltip.is-multiline::after {
   font-size: 1.0em;
