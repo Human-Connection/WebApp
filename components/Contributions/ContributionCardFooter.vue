@@ -14,10 +14,10 @@
       </div>
     </div>
     <div class="meta-container">
-      <hc-tooltip :label="$t('component.contribution.shoutsCountedDescription', {count: shoutCount}, shoutCount)" type="is-dark">
+      <hc-tooltip :label="$t('component.shout.countedDescription', {count: post.shoutCount}, post.shoutCount)" type="is-dark">
         <span class="meta-button">
           <i class="fa fa-bullhorn"></i>
-          <small>{{ shoutCount }}</small>
+          <small>{{ post.shoutCount }}</small>
         </span>
       </hc-tooltip>
       <hc-tooltip :label="$t('component.contribution.commentsCountedDescription', {count: commentCount}, commentCount)" type="is-dark">
@@ -55,10 +55,6 @@
       commentCount () {
         return isEmpty(this.post.comments) ? 0
           : this.post.comments.length
-      },
-      shoutCount () {
-        return isEmpty(this.post.shouts) ? 0
-          : this.post.shouts.length
       },
       categories () {
         return isEmpty(this.post.categories) ? []

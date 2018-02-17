@@ -37,7 +37,7 @@
                 <can-do-count :post="contribution" />
               </div>
             </div>
-            <h1>{{ contribution.title }}</h1>
+            <h1 class="title is-4">{{ contribution.title }}</h1>
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>
@@ -67,24 +67,8 @@
               </div>
               <div class="column is-3 is-mobile">
                 <nav class="level is-mobile" style="margin-top: 0.5rem;">
-                  <div class="level-item has-text-centered under-construction">
-                    <div>
-                      <div class="heading shout">
-                        <hc-tooltip :label="$t('component.contribution.shoutAddShout')">
-                          <hc-button circle size="large"
-                                     :disabled="true"
-                                     color="success"
-                                     style="font-size: 2em; margin-bottom: 0.8rem;">
-                            <hc-icon set="fa" icon="bullhorn" />
-                          </hc-button>
-                        </hc-tooltip>
-                        <br/>
-                        {{ $t('component.contribution.shoutOf') }}
-                      </div>
-                      <div class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
-                        {{ shoutCount }}
-                      </div>
-                    </div>
+                  <div class="level-item has-text-centered">
+                    <shout-button :contribution="contribution" :user="user" />
                   </div>
                 </nav>
               </div>
@@ -169,6 +153,7 @@
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
+  import ShoutButton from '~/components/Contributions/ShoutButton.vue'
   import ContributionMenu from '~/components/Contributions/ContributionMenu'
   import CanDoAction from '~/components/CanDos/Action'
   import CanDoCount from '~/components/CanDos/Count'
@@ -186,6 +171,7 @@
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       'hc-contribution-bread-crumb': ContributionBreadcrumb,
+      ShoutButton,
       ContributionImage,
       ContributionMenu,
       CanDoAction,
@@ -221,6 +207,10 @@
         return {}
       }
     },
+    mounted () {
+      feathers.service('contributions')
+        .on('patched', this.onContribSettingsUpdate)
+    },
     methods: {
       onContribSettingsUpdate (data) {
         this.contribution = data
@@ -229,17 +219,12 @@
     computed: {
       ...mapGetters({
         user: 'auth/user',
+        commentCount: 'comments/count',
         isVerified: 'auth/isVerified'
       }),
       content () {
         const txt = this.contribution.content || this.contribution.contentExcerpt
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
-      },
-      commentCount () {
-        return isEmpty(this.contribution.comments) ? 0 : this.contribution.comments.length
-      },
-      shoutCount () {
-        return isEmpty(this.contribution.shouts) ? 0 : this.contribution.shouts.length
       },
       categories () {
         return isEmpty(this.contribution.categories) ? [] : this.contribution.categories

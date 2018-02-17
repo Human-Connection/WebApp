@@ -10,16 +10,18 @@
       </hc-tooltip>
     </div>
     <div v-else-if="onList" :key="2">
-      <hc-button @click="toggleDone" color="info" :size="size">
-        <hc-icon icon="check" />&nbsp;
-        {{ $t('component.contribution.canDoSetDone') }}
-      </hc-button>
-      <hc-tooltip type="is-dark"
-        :label="$t('component.contribution.canDoCancelInfo')">
-        <hc-button @click="removeFromList" color="default" :size="size">
-          <hc-icon icon="ban" />
+      <div class="buttons has-addons">
+        <hc-button class="button-first" @click="toggleDone" color="info" :size="size">
+          <hc-icon icon="check" />&nbsp;
+          {{ $t('component.contribution.canDoSetDone') }}
         </hc-button>
-      </hc-tooltip>
+        <hc-tooltip type="is-dark"
+          :label="$t('component.contribution.canDoCancelInfo')">
+          <hc-button class="button-last" @click="removeFromList" color="default" :size="size">
+            <hc-icon icon="ban" />
+          </hc-button>
+        </hc-tooltip>
+      </div>
     </div>
     <div v-else :key="3">
       <hc-button @click="addToList" :size="size">
@@ -156,4 +158,15 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+
+  .buttons.has-addons {
+    .button-first {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+    .button-last{
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+    }
+  }
 </style>

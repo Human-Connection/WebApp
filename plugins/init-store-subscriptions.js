@@ -10,6 +10,7 @@ if (process.browser) {
         // Dispatch store subscriptions exactly once
         if (!init) {
           this.$store.dispatch('categories/subscribe')
+          this.$store.dispatch('newsfeed/subscribe')
           this.$store.dispatch('notifications/subscribe')
         }
         init = true

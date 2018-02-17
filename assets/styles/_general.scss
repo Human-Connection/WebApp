@@ -188,12 +188,21 @@ a, .is-link, button {
 
 .tooltip {
   text-transform: none;
+
+  &.is-animated:after,
+  &.is-animated:before {
+    transition-delay: 200ms !important;
+  }
 }
 .tooltip.is-multiline::after {
   font-size: 1.0em;
   line-height: 1.2em;
   text-align: left;
   padding: 1em;
+}
+
+.notices {
+  z-index: 9998;
 }
 
 .table {
