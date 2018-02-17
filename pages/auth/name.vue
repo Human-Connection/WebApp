@@ -17,6 +17,8 @@
                                @stop-sending="uploadingAvatar = false" ></hc-upload>
                 </div>
 
+                <random-avataaar @blob="onRandomAvatar" />
+
                 <form @submit.prevent="save">
                     <div class="field">
                         <p class="control has-icons-right">
@@ -52,9 +54,14 @@
   import Vue from 'vue'
   import {mapGetters} from 'vuex'
 
+  import RandomAvataaar from '~/components/Avatar/RandomAvataaar'
+
   export default {
     middleware: 'authenticated',
     layout: 'blank',
+    components: {
+      RandomAvataaar
+    },
     data () {
       return {
         data: {
@@ -102,6 +109,17 @@
         this.$store.dispatch('auth/patch', {
           avatar: value
         })
+      },
+      onRandomAvatar (blob) {
+        this.form.avatar = this.url
+        this.$store.dispatch('auth/patch', {
+          avatar: blob
+        })
+      }
+    },
+    watch: {
+      user (user) {
+        this.data.name = user.name
       }
     },
     head () {
@@ -112,7 +130,7 @@
   }
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
   @import "assets/styles/_utilities";
 
   .page-auth-name {
@@ -152,6 +170,7 @@
           position:      relative;
           display:       inline-block;
           background-color: #fff;
+          overflow: hidden;
 
           .avatar-upload {
               & {

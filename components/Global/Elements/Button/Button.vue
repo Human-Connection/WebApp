@@ -105,6 +105,10 @@
   @import "assets/styles/utilities";
   @import "~bulma/sass/elements/button.sass";
 
+  button {
+    transition: 80ms background-color ease-in-out, 80ms color ease-in-out;
+  }
+
   .is-xsmall {
     font-size: $size-xsmall;
   }
