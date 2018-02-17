@@ -16,6 +16,12 @@
       "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
       "copy503": "We are currently working on it, <br />so take a coffe brake and come back a bit later."
     },
+    "shout": {
+      "buttonLabel": "Shout",
+      "addShout": "Shout it out loud",
+      "countedDescription": "{count} human want to shout this post ::: {count} people want to shout this post ::: This post has no shout yet",
+      "messageSuccess": "You shout it out loud"
+    },
     "admin": {
       "addCategory": "add category",
       "categoryIdentifier": "Identifier",
@@ -123,9 +129,6 @@
       "proAndContraPluralised": "Pro & Con ::: Pros & Cons",
       "projects": "Projects",
       "settingsSavedSuccess": "Settings saved successfully",
-      "shoutOf": "Shouts",
-      "shoutAddShout": "Shout this contribution further",
-      "shoutsCountedDescription": "{count} human want to shout this post ::: {count} people want to shout this post ::: This post has no shout yet",
       "takeAction": "Take action",
       "tagOnePluralNone": "Tag ::: Tags ::: No Tags",
       "type-cando": "Can Do",

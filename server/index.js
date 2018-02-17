@@ -53,7 +53,7 @@ app.use('/avatar', (req, res) => {
       if (err) {
         console.error(err)
         res.status(err.statusCode || 500).send(err.message)
-        reject()
+        reject(err)
       } else {
         console.log(result)
         res.status(200).header('Content-Type', 'image/svg+xml').send(body)
