@@ -1,5 +1,5 @@
 <template>
-  <div class="user-badges columns">
+  <div class="user-badges columns is-mobile">
     <div class="column user-badges-icons">
       <ul v-if="badges">
         <li v-for="badge in getBadges" :key="badge._id">
