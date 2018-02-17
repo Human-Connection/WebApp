@@ -154,6 +154,7 @@
       "createSubmit": "create Organization",
       "name": "Organization name",
       "createOrgaSectionPlaceholder": "How is the organization called?",
+      "nameHint": "This is the name users can use to search for your Organisation and find it.",
       "orgaDescription": "Description",
       "orgaDescriptionPlaceholder": "describe the organization",
       "type": "type of the Organization",
@@ -283,7 +284,8 @@
     "addContribution": "Add contribution",
     "addOrganization": "Add organization",
     "addProject": "Add project",
-    "random": "Randomize"
+    "random": "Randomize",
+    "next": "Next"
   },
   "legal": {
     "copyrights": "Copyrights:",

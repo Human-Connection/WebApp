@@ -154,6 +154,7 @@
       "createSubmit": "Organisation erstellen",
       "name": "Name der Organisation",
       "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",
+      "nameHint": "Unter diesem Namen werden Nutzer deine Organisation suchen und finden können.",
       "orgaDescription": "Beschreibung",
       "orgaDescriptionPlaceholder": "Beschreibe die Organisation",
       "type": "Organisationsform",
@@ -283,7 +284,8 @@
     "addContribution": "Beitrag erstellen",
     "addOrganization": "Organisation erstellen",
     "addProject": "Projekt erstellen",
-    "random": "Zufallsgenerator"
+    "random": "Zufallsgenerator",
+    "next": "Weiter"
   },
   "legal": {
     "copyrights": "Urheberrecht:",

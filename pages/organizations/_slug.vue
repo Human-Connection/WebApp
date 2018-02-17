@@ -1,72 +1,6 @@
 <template>
   <section class="container organization-profile" style="position: relative">
-    <hc-upload class="profile-header card"
-               v-if="isOwner"
-               :preview-image="coverImg"
-               :test="true"
-               @update="onCoverUploadCompleted"
-               @start-sending="uploadingCover = true"
-               @stop-sending="uploadingCover = false" >
-    </hc-upload>
-    <img :src="coverImg" v-if="!isOwner" alt="" class="profile-header card">
-    <div class="columns">
-      <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
-        <hc-box top="true" class="organization-hc-box">
-          <div class="organization-avatar">
-            <hc-upload class="avatar-upload"
-                       v-if="isOwner"
-                       :preview-image="form.logo || organization.logo"
-                       :test="true"
-                       @update="onLogoUploadCompleted"
-                       @start-sending="uploadingLogo = true"
-                       @stop-sending="uploadingLogo = false" ></hc-upload>
-            <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
-          </div>
-          <div class="organization-name">{{ organization.name }}</div>
-          <div class="organization-follows">
-            <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')"/>
-            <hc-textcount class="textcountitem" :count="369" :text="$t('page.organization.supporter', 'Helfer')"/>
-          </div>
-        </hc-box>
-        <div class="organization-actions">
-          <hc-box top="true" class="organization-action">
-            <i class="fa fa-envelope"></i>
-          </hc-box>
-          <hc-box top="true" class="organization-action">
-            <i class="fa fa-bookmark"></i>
-          </hc-box>
-          <hc-box top="true" class="organization-action">
-            <i class="fa fa-image"></i>
-          </hc-box>
-          <hc-box top="true" class="organization-action">
-            <i class="fa fa-ellipsis-h"></i>
-          </hc-box>
-        </div>
-        <div class="title-wrapper">
-          <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
-        </div>
-        <hc-box top="true">
-          <hc-textedit :initialText="organization.description"></hc-textedit>
-        </hc-box>
-        <hc-title>Aktiv werden</hc-title>
-        <hc-box top="true">
-          <div class="organization-call-to-action">Crowdplanting am 31.02.2018, Klicke auf diese Zeitmaschine um mehr zu erfahren!</div>
-        </hc-box>
-      </div>
-      <div class="column is-5-tablet is-6-widescreen organization-timeline">
-        <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
-        <!-- TODO: add timeline for organizations -->
-      </div>
-      <div class="column is-3-tablet is-3-widescreen organization-sidebar-right">
-        <hc-title>{{ $t('page.organization.more', 'Spenden & Mehr') }}</hc-title>
-        <hc-box top="true">
-          <div class="organization-welcome">Spende hier für mehr Bäume und Obst!</div>
-        </hc-box>
-        <hc-box top="true" class="organization-faq-box">
-          <h3>{{ $t('page.organization.faqTitle', 'Fragen & Antworten') }}</h3>
-        </hc-box>
-      </div>
-    </div>
+
   </section>
 </template>
 
@@ -91,7 +25,7 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({params, error, store}) {
+    async asyncData ({params, store, redirect}) {
       let organization, owner, isOwner
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await feathers.service('organizations').find({
@@ -102,6 +36,7 @@
       }
       if (organization === undefined || isEmpty(organization.data)) {
         // TODO: show organization create form ask name first
+        return redirect('/organizations/name')
       } else {
         // is owner?
         owner = store.getters['auth/user']
