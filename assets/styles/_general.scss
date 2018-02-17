@@ -186,11 +186,23 @@ a, .is-link, button {
   }
 }
 
+.tooltip {
+  text-transform: none;
+
+  &.is-animated:after,
+  &.is-animated:before {
+    transition-delay: 200ms !important;
+  }
+}
 .tooltip.is-multiline::after {
   font-size: 1.0em;
   line-height: 1.2em;
   text-align: left;
   padding: 1em;
+}
+
+.notices {
+  z-index: 9998;
 }
 
 .table {
@@ -244,6 +256,34 @@ div.nuxt-progress {
 
 .hc__author .media-content {
   overflow: visible;
+}
+
+/* styles for disabled demo content */
+.under-construction {
+  position: relative;
+
+  &:before {
+    z-index: 10;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: not-allowed;
+    // background-color: rgba(255, 255, 255, 0.5);
+    background-image: url('/under-construction.svg'), url('/under-construction-bg2.png');
+    background-repeat: no-repeat, repeat;
+    background-position: center, center;
+    background-size: 39px 31px, auto auto;
+    top: 0;
+    left: 0;
+  }
+}
+
+section.take-action,
+section.more-info {
+  .breadcrumb {
+    margin-top: -30px;
+  }
 }
 
 /*@keyframes ProgressAnimation {

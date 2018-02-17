@@ -11,20 +11,29 @@
                     :shown-pagination="true"
                     :pagination-info="paginationInfo"
                     @page-change="handlePageChange">
-            <v2-table-column label="Name"
-                             prop="name">
+            <v2-table-column label="Name" prop="name" align="left" width="250">
               <template slot-scope="row">
-                <a :href="`/profile/${row.slug}`" style="white-space: nowrap;">
-                  <hc-avatar :user="row" style="float: left; display: inline-block;" /> <div style="display: inline-block; float: left; padding: 5px 10px;">{{ row.name }}</div>
-                </a>
+                <div @click="openProfile(row)" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<div style="display: inline-block; padding: 5px 10px;">{{ row.name }}</div>
+                </div>
               </template>
             </v2-table-column>
-            <v2-table-column label="Confirmed" prop="confirmedAt">
+            <v2-table-column label="Verified" prop="isVerified" align="left">
               <template slot-scope="row">
-                <i v-show="row.confirmedAt" class="fa fa-check-circle"></i>
+                <i v-show="row.isVerified" class="fa fa-check-circle"></i>
               </template>
             </v2-table-column>
-            <v2-table-column label="Role" prop="role"></v2-table-column>
+            <v2-table-column label="Lang" prop="language" align="left">
+              <template slot-scope="row">
+                <template v-if="row.language">
+                  <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
+                </template>
+                <template v-else>
+                  -
+                </template>
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
           </v2-table>
         </no-ssr>
       </b-tab-item>
@@ -109,6 +118,11 @@
       }
     },
     methods: {
+      openProfile (user) {
+        if (user.slug) {
+          this.$router.push(`/profile/${user.slug}`)
+        }
+      },
       generateInviteCodes () {
         const emails = this.form.codes.replace(/\n|\r|^\s+|\s+$|\s+(?=\s)|,$/g, '').split(',')
 
@@ -157,4 +171,19 @@
 </script>
 
 <style scoped lang="scss">
+  @import 'assets/styles/utilities';
+
+  .cell-name {
+    font-weight: bold;
+  }
+
+  .link {
+    white-space: nowrap;
+    cursor: pointer;
+    color: $primary;
+  }
+
+  .fa-check-circle {
+    color: $primary;
+  }
 </style>

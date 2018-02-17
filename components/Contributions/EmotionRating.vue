@@ -1,8 +1,10 @@
 <template>
-  <div>
+  <div class="emotion-ration">
     <br/>
     <nav class="level is-mobile">
-      <div class="level-item has-text-centered" v-for="(emotion, key) in contribution.emotions"
+      <div class="level-item has-text-centered"
+           v-for="(emotion, key) in contribution.emotions"
+           :key="key"
            @click="onClick(key)">
         <div :title="$t('component.emotionRating.tooltip')">
           <p class="smiley heading">
@@ -145,6 +147,14 @@
 </script>
 
 <style scoped lang="scss">
+  .emotion-ration {
+    @media (max-width: 400px) {
+      transform: scale(0.7);
+      margin-left: -14%;
+      width: 130%;
+      // border: 1px dashed;
+    }
+  }
   .level {
     user-select: none;
     cursor: pointer;

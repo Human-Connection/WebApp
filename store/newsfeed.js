@@ -3,6 +3,8 @@ import Vue from 'vue'
 import _ from 'lodash'
 import { Base64 } from 'js-base64'
 
+const contributionService = feathers.service('contributions')
+
 export const state = () => {
   return {
     contributions: [],
@@ -18,6 +20,7 @@ export const state = () => {
     },
     isLoading: false,
     lastQueryHash: null,
+    lastQueryDate: null,
     hasNext: false,
     lastScrollPos: null
   }
@@ -35,6 +38,9 @@ export const mutations = {
     }
   },
   setLastQueryHash (state, queryHash) {
+    if (state.lastQueryHash !== queryHash) {
+      state.lastQueryDate = new Date()
+    }
     state.lastQueryHash = queryHash
   },
   setSearch (state, value) {
@@ -47,12 +53,10 @@ export const mutations = {
     state.contributions = _.uniqBy(state.contributions.concat(contributions), '_id')
   },
   updateContribution (state, contribution) {
-    if (!state.contributions.length) return
-    let index = state.contributions.findIndex(item => {
-      return item._id === contribution._id
-    })
-    if (index < 0) return
-    state.contributions.splice(index, 1, contribution)
+    const index = _.findIndex(state.contributions, { _id: contribution._id })
+    if (index >= 0) {
+      Vue.set(state.contributions, index, contribution)
+    }
   },
   setHasNext (state, hasNext) {
     state.hasNext = hasNext
@@ -132,6 +136,13 @@ export const getters = {
 }
 
 export const actions = {
+  // Called from plugins/init-store-subscriptions only once
+  subscribe ({state, commit}) {
+    return contributionService
+      .on('patched', (res) => {
+        commit('updateContribution', res)
+      })
+  },
   /**
    * fetch all contributions for the given query and filter settings
    */
@@ -157,7 +168,7 @@ export const actions = {
     commit('setLastQueryHash', queryHash)
 
     try {
-      const res = await feathers.service('contributions').find({query: query})
+      const res = await contributionService.find({query: query})
       commit('addContributions', res.data)
 
       setTimeout(() => {

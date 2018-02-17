@@ -11,10 +11,16 @@
       "subHeader404": "Ups, ich wars nicht",
       "subHeader500": "OMG, was hast du getan?",
       "subHeader503": "nimm ne kurze Auszeit",
-      "copy403": "Tut uns leid, der Zugang zu dieser Seite bleibt dir verwehrt. <br />Überprüfe die Adresse, <a href=\"/auth/login\">login</a> or <a href=\"/\">geh auf Anfang</a>.",
+      "copy403": "Tut uns leid, der Zugang zu dieser Seite bleibt dir verwehrt. <br />Überprüfe die Adresse, <a href=\"/auth/login\">melde dich an</a> oder <a href=\"/\">geh auf Anfang</a>.",
       "copy404": "Tut uns leid, wir haben diese Seite nicht gefunden. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
-      "copy500": "An error ocurred and your request couldn’t be completed. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy500": "Oh nein, es ist irgend ein Fehler aufgetraten und wir mussten aufgeben. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
       "copy503": "Wir arbeiten gerade dran, <br />nimm dir nen Kaffee und versuchs danach gleich nochmal."
+    },
+    "shout": {
+      "buttonLabel": "Empfehlen",
+      "addShout": "Diesen Beitrag weiter ausrufen",
+      "countedDescription": "{count} Mensch möchte den Beitrag ausrufen ::: {count} Leute möchten den Beitrag ausrufen ::: Der Beitrag hat noch keinen Ruf",
+      "messageSuccess": "Du hast es weiter gesagt"
     },
     "admin": {
       "addCategory": "Kategorie hinzufügen",
@@ -68,6 +74,8 @@
       "slug2label-economy-finances": "Wirtschaft & Finanzen"
     },
     "contribution": {
+      "language": "Sprache",
+      "visibility": "Sichtbarkeit",
       "actionMarkAsRead": "Als gelesen markieren",
       "actionReport": "Beitrag melden",
       "actionDisable": "Beitrag deaktivieren",
@@ -121,9 +129,6 @@
       "proAndContraPluralised": "Pro & Kontra ::: Pro & Kontra",
       "projects": "Projekte",
       "settingsSavedSuccess": "Einstellungen erfolgreich gespeichert",
-      "shoutOf": "Empfehlen",
-      "shoutAddShout": "Diesen Beitrag weiter ausrufen",
-      "shoutsCountedDescription": "{count} Mensch möchte den Beitrag ausrufen ::: {count} Leute möchten den Beitrag ausrufen ::: Der Beitrag hat noch keinen Ruf",
       "takeAction": "Aktiv werden",
       "tagOnePluralNone": "Schlagwort ::: Schlagwörter ::: Keine Schlagwörter",
       "type-cando": "Can Do",
@@ -241,7 +246,8 @@
     "update": "Aktualisieren",
     "addContribution": "Beitrag erstellen",
     "addOrganization": "Organisation erstellen",
-    "addProject": "Projekt erstellen"
+    "addProject": "Projekt erstellen",
+    "random": "Zufallsgenerator"
   },
   "legal": {
     "copyrights": "Urheberrecht:",

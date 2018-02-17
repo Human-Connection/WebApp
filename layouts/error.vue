@@ -1,13 +1,17 @@
 <template>
-  <div>
-    <div id="error">
-      <h1 v-html="header"></h1>
-      <h3 v-html="subHeader"></h3>
-      <img :src="errorImage" :alt="header" class="error_img" />
-      <p v-html="copy"></p>
+  <div class="layout_blank">
+    <div class="content">
+      <div id="error">
+        <h1 v-html="header"></h1>
+        <h3 v-html="subHeader"></h3>
+        <img :src="errorImage" :alt="header" class="error_img" />
+        <p v-html="copy"></p>
+      </div>
     </div>
     <footer>
-      <img class="error_footer_logo" src="/Logo-Horizontal.svg" alt="Human Connection" style="max-width: 150px;" />
+      <a href="/">
+        <img class="error_footer_logo" src="/Logo-Horizontal.svg" alt="Human Connection" style="max-width: 150px;" />
+      </a>
     </footer>
   </div>
 </template>
@@ -20,7 +24,12 @@
     ],
     head () {
       return {
-        title: `${this.header} (${this.statusCode})`
+        title: `Error ${this.statusCode}: ${this.header}`
+      }
+    },
+    mounted () {
+      if (process.env.NODE_ENV === 'development') {
+        console.error(this.error.message)
       }
     },
     computed: {
@@ -33,16 +42,16 @@
         if (possibleErrors.indexOf(this.error.statusCode) >= 0) {
           code = this.error.statusCode
         }
-        return code
+        return parseInt(code)
       },
       header () {
-        return this.$t(`component.error.header${this.error.statusCode}`, `<strong>${this.error.message}</strong>`)
+        return this.$t(`component.error.header${parseInt(this.statusCode)}`, 'Error')
       },
       subHeader () {
-        return this.$t(`component.error.subHeader${this.error.statusCode}`, 'How could you?')
+        return this.$t(`component.error.subHeader${parseInt(this.error.statusCode)}`, this.error.message)
       },
       copy () {
-        return this.$t(`component.error.copy${this.statusCode}`)
+        return this.$t(`component.error.copy${parseInt(this.statusCode)}`)
       }
     }
   }
@@ -50,6 +59,8 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/_utilities";
+
+  $backgroundColor: #F5F5F5;
 
   #error {
     margin-top: -50px;
@@ -78,7 +89,7 @@
 
   footer {
     padding: 1rem;
-    background-color: $backdrop-color;
+    background-color: darken($backgroundColor, 5%);
     position: fixed;
     bottom: 0px;
     left: 0;
@@ -114,5 +125,34 @@
         height: 25px;
       }
     }
+  }
+
+  // FIX UNTIL NUXT FIXES ITS LAYOUT ISSUES
+  .layout_blank {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    overflow: scroll;
+    background-color: $backgroundColor;
+    margin: 0;
+
+    & > .content {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 150ms;
+      opacity: 1;
+      margin: 0;
+    }
+  }
+
+  .hidden {
+    opacity: 0;
   }
 </style>

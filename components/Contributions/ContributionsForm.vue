@@ -15,12 +15,13 @@
       <div class="column"></div>
     </div>
     <hr/>
-    <div class="tabs is-toggle is-fullwidth">
+    <div class="tabs is-toggle is-toggle-rounded is-centered" :class="{ disabled: form._id }">
       <ul>
-        <li v-for="(postType, index) in options.postTypes" v-bind:class="{ 'is-active': postType.active }" :key="index">
-          <a v-bind:disabled="postType.disabled"
-            @click="setPostType(index)"
-            class="button is-medium">
+        <li v-for="(postType, index) in options.postTypes"
+            :class="{ 'is-active': postType.active, 'under-construction': postType.disabled }"
+            :key="index">
+          <a :disabled="postType.disabled"
+            @click="setPostType(index)">
             <span class="icon">
               <hc-icon :icon="'tools-'+postType.value" set="hc" />
             </span>
@@ -187,34 +188,54 @@
     </no-ssr>
     <br/>
     <hr/>
-    <div class="field">
-      <div class="control">
-        <div class="level">
-          <div class="level-item">
-            <h6 class="title is-6">Language</h6>&nbsp;&nbsp;
-            <div class="select">
-              <select v-model="form.language">
-                <option value="de" selected>DE</option>
-                <option value="en">EN</option>
-              </select>
+
+    <div class="level">
+      <div class="level-item">
+        <div class="field">
+          <div class="is-normal">
+            <label class="label">{{ $t('component.contribution.language') }}</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control has-icons-left">
+                <div class="select">
+                  <select v-model="form.language">
+                    <option value="de" selected>Deutsch</option>
+                    <option value="en">English</option>
+                  </select>
+                  <div class="icon is-small is-left">
+                    <i class="fa fa-globe"></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="level-item">
-            <h6 class="title is-6">Visibility</h6>&nbsp;&nbsp;
-            <div class="select">
-              <select v-model="form.visibility">
-                <option value="public" selected>Public</option>
-                <option value="friends">Friends only</option>
-                <option value="private">Private</option>
-              </select>
+        </div>
+      </div>
+      <div class="level-item">
+        <div class="field">
+          <div class="is-normal">
+            <label class="label">{{ $t('component.contribution.visibility') }}</label>
+          </div>
+          <div class="field-body">
+            <div class="field">
+              <div class="control has-icons-left">
+                <div class="select">
+                  <select v-model="form.visibility">
+                    <option value="public" selected>Public</option>
+                    <option value="friends">Friends only</option>
+                    <option value="private">Private</option>
+                  </select>
+                  <div class="icon is-small is-left">
+                    <i class="fa fa-eye"></i>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- visibility -->
-    <!-- tags -->
-    <!-- uploads -->
     <hr/>
     <no-ssr>
       <div class="field is-grouped is-grouped-right">
@@ -299,17 +320,17 @@
               disabled: false
             },
             {
-              label: 'Pro / Con',
-              value: 'procon',
-              active: false,
-              disabled: true
-            },
-            {
               label: 'Can Do',
               value: 'cando',
               active: false,
               disabled: false
-            }
+            }/* ,
+            {
+              label: 'Pro / Con',
+              value: 'procon',
+              active: false,
+              disabled: true
+            } */
           ],
           difficulties: ['easy', 'medium', 'hard']
         },
@@ -435,5 +456,16 @@
   .field .taginput .taginput-container.is-focusable {
     border: 1px solid $grey-lighter !important;
     box-shadow: none !important;
+  }
+
+  a[disabled] {
+    pointer-events: none;
+  }
+
+  .tabs {
+    &.disabled {
+      pointer-events: none;
+      opacity: .5;
+    }
   }
 </style>

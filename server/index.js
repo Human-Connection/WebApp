@@ -1,14 +1,24 @@
 import { Builder, Nuxt } from 'nuxt'
 import express from 'express'
+import request from 'request'
 import bodyParser from 'body-parser'
 import expressHealthcheck from 'express-healthcheck'
 import Raven from 'raven'
 // import helmet from 'helmet'
 import createLocaleMiddleware from 'express-locale'
-import enforceHTTPS from '../middleware/enforce-https'
+import cookieParser from 'cookie-parser'
+import redirectSSL from 'redirect-ssl'
 
 const app = express()
+
+// Add middleware
+app.use(redirectSSL)
 // app.use(helmet())
+app.use(cookieParser())
+app.use(createLocaleMiddleware({
+  priority: ['cookie', 'accept-language'],
+  cookie: { name: 'locale' }
+}))
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -33,19 +43,25 @@ if (process.server) {
   app.use(Raven.errorHandler())
 }
 
-// enforce ssl connection if the BASE_URL beginns with https://
-if (process.server && process.env.BASE_URL && process.env.BASE_URL.indexOf('https://') === 0) {
-  app.use(enforceHTTPS())
-}
-
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
-app.use(createLocaleMiddleware({
-  default: 'de_DE'
-}))
-
 app.use('/healthcheck', expressHealthcheck())
+app.use('/avatar', (req, res) => {
+  return new Promise((resolve, reject) => {
+    request(`https://avataaars.io${req.url}`, (err, result, body) => {
+      if (err) {
+        console.error(err)
+        res.status(err.statusCode || 500).send(err.message)
+        reject(err)
+      } else {
+        console.log(result)
+        res.status(200).header('Content-Type', 'image/svg+xml').send(body)
+        resolve()
+      }
+    })
+  })
+})
 
 // Init Nuxt.js
 const nuxt = new Nuxt(config)
