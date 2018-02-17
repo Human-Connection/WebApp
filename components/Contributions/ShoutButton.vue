@@ -7,7 +7,7 @@
                            @click="handleShout"
                            :color="buttonColor"
                            style="font-size: 2em; margin-bottom: 0.8rem;">
-                    <hc-icon set="fa" icon="bullhorn" />
+                    <hc-icon set="fa" :icon="icon" />
                 </hc-button>
             </hc-tooltip>
             <br/>
@@ -48,6 +48,9 @@
       computed: {
         buttonColor () {
           return this.shoutId ? 'success' : 'default'
+        },
+        icon () {
+          return this.shoutId ? 'check' : 'bullhorn'
         }
       },
       methods: {
