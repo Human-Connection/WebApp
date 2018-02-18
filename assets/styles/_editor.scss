@@ -3,14 +3,18 @@
 }
 
 a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
-  padding: 0 6px;
-  border-radius: 5px;
-  background-color: $primary;
-  user-select: none;
+  // padding: 0 6px;
+  // border-radius: 3px;
+  // background-color: $primary;
+  // user-select: none;
   white-space: nowrap;
   font-weight: bold;
-  color: $white;
+  color: $grey-dark;
   text-decoration: none;
+
+  &::before {
+    content: "@";
+  }
 
   &:hover {
     text-decoration: none;

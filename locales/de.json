@@ -152,9 +152,9 @@
       "label": "Benachrichtigungen",
       "messageEmpty": "Du hast keine Benachrichtigungen.",
       "message": {
-        "comment": "{userName} hat deinen Beitrag kommentiert: {title}",
-        "comment-mention": "{userName} hat dich in einem Kommentar zu {title} erwähnt.",
-        "contribution-mention": "{userName} hat dich in einem Beitrag erwähnt: {title}"
+        "comment": "<strong>{userName}</strong> hat deinen Beitrag kommentiert:<br /> <strong>{title}</strong>",
+        "comment-mention": "<strong>{userName}</strong> hat dich in einem Kommentar zu <strong>{title}</strong> erwähnt.",
+        "contribution-mention": "<strong>{userName}</strong> hat dich in einem Beitrag erwähnt:<br /> <strong>{title}</strong>"
       }
     },
     "dashbord": {
