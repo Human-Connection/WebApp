@@ -10,6 +10,8 @@
 </p>
 
 # Human-Connection WebApp
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/Human-Connection/WebApp.svg)](https://greenkeeper.io/)
 > uses the Nuxt.js and Express.js projects
 
 > **Note:** This is only the frontend part of Human-Connection, you have to also checkout the [API](https://github.com/Human-Connection/API) which is used by this WebApp.
