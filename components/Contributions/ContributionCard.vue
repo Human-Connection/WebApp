@@ -14,7 +14,8 @@
           <div class="ribbon">
             <small>{{ $t('component.contribution.type-' + post.type) }}</small>
           </div>
-          <author :post="post" class="author"/>
+          <author :user="post.user"
+            :created-at="post.createdAt" />
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
               <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>

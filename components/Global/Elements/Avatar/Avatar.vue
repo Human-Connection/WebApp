@@ -36,9 +36,7 @@
   @import "assets/styles/utilities";
 
   .profile-image {
-    // border:          1px solid rgba(0, 0, 0, 0.1) !important;
-    // box-shadow:      inset 0 0 1px -5px black !important;
-
+    box-shadow:      0 0 0 1px white;
     width:           36px;
     height:          36px;
     background:      #fff no-repeat center;

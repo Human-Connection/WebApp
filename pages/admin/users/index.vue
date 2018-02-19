@@ -64,16 +64,12 @@
 <script>
   import feathers from '~/plugins/feathers'
   import moment from 'moment'
-  import Avatar from '~/components/Avatar/Avatar'
 
   let userLimit = 10
 
   export default {
     middleware: 'admin',
     layout: 'admin',
-    components: {
-      'hc-avatar': Avatar
-    },
     data () {
       return {
         form: {

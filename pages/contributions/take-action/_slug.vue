@@ -190,7 +190,6 @@
 
 
 <script>
-  import author from '~/components/Author/Author.vue'
   import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
@@ -233,7 +232,6 @@
   export default {
     scrollToTop: false,
     components: {
-      'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       'hc-contribution-bread-crumb': ContributionBreadcrumb,

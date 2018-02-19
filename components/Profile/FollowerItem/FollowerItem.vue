@@ -1,23 +1,24 @@
 <template>
-  <div class="hc-follower-item" :class="{ 'is-active': user.slug }" @click="showProfile">
-    <hc-avatar class="hc-follower-image" :user="user"></hc-avatar>
+  <div class="hc-follower-item"
+       :class="{ 'is-active': user.slug }"
+       @click="showProfile">
+    <hc-avatar class="hc-follower-image"
+               :user="user"></hc-avatar>
     <div class="hc-follower-details">
       <span class="details-title">{{ user.name }}</span>
-      <span v-if="lastContributionDate" class="details-timestamp">{{ $t('auth.account.myFollowerItemLastContribution') }} <hc-relative-date-time :dateTime="lastContributionDate"></hc-relative-date-time></span>
-      <!--<hc-action-item>some action text</hc-action-item>-->
+      <span v-if="lastContributionDate"
+            class="details-timestamp">
+          {{ $t('auth.account.myFollowerItemLastContribution') }} <hc-relative-date-time :dateTime="lastContributionDate"></hc-relative-date-time>
+      </span>
     </div>
   </div>
 </template>
 
 <script>
-  import Avatar from '~/components/Avatar/Avatar'
   import feathers from '~/plugins/feathers'
 
   export default {
     name: 'hc-follower-item',
-    components: {
-      'hc-avatar': Avatar
-    },
     props: ['user'],
     data () {
       return {

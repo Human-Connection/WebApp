@@ -1,40 +1,35 @@
 <template>
-    <div :class="{ disabled: disableLink }"
-         class="media hc__author"
-         v-if="post"
-         @click="showProfile">
-        <div class="media-left">
-            <hc-avatar :user="user"></hc-avatar>
-        </div>
-        <div class="media-content">
-            <p class="title" v-if="!post.user">
-                {{ $t('component.contribution.creatorUnknown') }}
-            </p>
-            <p class="title" v-else>
-                {{ post.user.name || 'Anonymus' }} </p>
-            <p class="subtitle">
-                <i class="fa fa-clock-o"></i>&nbsp;
-                <hc-relative-date-time :dateTime="post.createdAt"></hc-relative-date-time>
-            </p>
-        </div>
+  <div :class="{ disabled: disableLink }"
+        class="media hc__author"
+        @click="showProfile">
+    <div class="media-left">
+      <hc-avatar :user="user"></hc-avatar>
     </div>
+    <div class="media-content">
+      <p class="title" v-if="!user">
+        {{ $t('component.contribution.creatorUnknown') }}
+      </p>
+      <p class="title" v-else>
+        {{ user.name || 'Anonymus' }} </p>
+      <p class="subtitle">
+        <i class="fa fa-clock-o"></i>&nbsp;
+        <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>
+      </p>
+    </div>
+  </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
-  import { isEmpty } from 'lodash'
-  import HcAvatar from '~/components/Avatar/Avatar.vue'
-  import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime.vue'
 
   export default {
-    components: {
-      HcAvatar,
-      HcRelativeDateTime
-    },
     name: 'hc-author',
     props: {
-      post: {
+      user: {
         type: Object
+      },
+      createdAt: {
+        type: [ String, Date ]
       }
     },
     methods: {
@@ -42,9 +37,9 @@
         if (this.isOwnProfile) {
           // own profile
           this.$router.push(`/profile/`)
-        } else if (this.slug) {
+        } else if (this.user.slug) {
           // foreign profile
-          this.$router.push(`/profile/${this.slug}`)
+          this.$router.push(`/profile/${this.user.slug}`)
         }
       }
     },
@@ -52,17 +47,11 @@
       ...mapGetters({
         currentUser: 'auth/user'
       }),
-      user () {
-        return this.post.user || null
-      },
       isOwnProfile () {
         return this.currentUser && this.currentUser._id === this.user._id
       },
-      slug () {
-        return (this.user && !isEmpty(this.user.slug)) ? this.user.slug : false
-      },
       disableLink () {
-        return (!this.isOwnProfile && !this.slug)
+        return (!this.isOwnProfile && !this.user.slug)
       }
     }
   }
@@ -112,6 +101,7 @@
           height:              36px;
           background-position: center;
           background-size:     cover;
+          transform: translate3d(0,0,0);
       }
   }
 </style>

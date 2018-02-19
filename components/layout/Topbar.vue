@@ -101,7 +101,7 @@
                 <div class="navbar-item has-dropdown is-hoverable">
                   <nuxt-link class="navbar-link hide-in-menu"
                              to="/profile">
-                    <avatar :user="user"></avatar>
+                    <hc-avatar :user="user" />
                   </nuxt-link>
                   <div class="navbar-dropdown user-menu is-boxed is-right">
                     <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymus'})"></div>
@@ -145,7 +145,6 @@
 
   import {mapGetters} from 'vuex'
   import Notifications from '~/components/Notifications/Notifications.vue'
-  import Avatar from '~/components/Avatar/Avatar.vue'
   import HcButton from '../Global/Elements/Button/Button.vue'
   import SearchInput from '../Search/SearchInput.vue'
   import FilterList from '~/components/Filters/FilterList.vue'
@@ -159,7 +158,6 @@
     components: {
       SearchInput,
       HcButton,
-      Avatar,
       Notifications,
       FilterList
     },

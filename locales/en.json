@@ -150,7 +150,12 @@
     },
     "notification": {
       "label": "Notifications",
-      "messageEmpty": "You don't have any notifications."
+      "messageEmpty": "You don't have any notifications.",
+      "message": {
+        "comment": "<strong>{userName}</strong> has commented your contribution:<br /> <strong>{title}</strong>",
+        "comment-mention": "<strong>{userName}</strong> has mentioned you in a comment for {title}.",
+        "contribution-mention": "<strong>{userName}</strong> has mentioned you in a contribution:<br /> <strong>{title</strong>}"
+      }
     },
     "dashbord": {
       "label": "Dashboard"
@@ -362,5 +367,14 @@
       "next": "Next",
       "back": "Back"
     }
+  },
+  "ressource": {
+    "name": {
+      "users": "People",
+      "contributions": "Contributions"
+    }
+  },
+  "info": {
+    "created": "Created"
   }
 }

@@ -10,7 +10,7 @@
     </hc-upload>
     <div class="columns">
       <div class="column">
-        <author :post="{ user: user }"></author>
+        <author :user="user" />
       </div>
       <div class="column"></div>
     </div>
@@ -51,51 +51,15 @@
           </button>
       </div>
     </div>
-    <no-ssr>
-      <div class="field">
-        <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
-        <div class="control">
-          <div id="toolbar-editor">
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.italic')" type="is-black">
-                <button class="ql-italic"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.bold')" type="is-black">
-                <button class="ql-bold"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.strike')" type="is-black">
-                <button class="ql-strike"></button>
-              </b-tooltip>
-            </div>
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
-                <button class="ql-blockquote"></button>
-              </b-tooltip>
-            </div>
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
-                <button class="ql-list" value="bullet" ></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
-                <button class="ql-list" value="ordered" ></button>
-              </b-tooltip>
-            </div>
-            <div class="ql-formats">
-              <b-tooltip :label="$t('component.editor.link')" type="is-black">
-                <button class="ql-link"></button>
-              </b-tooltip>
-              <b-tooltip :label="$t('component.editor.video')" type="is-black">
-                <button class="ql-video"></button>
-              </b-tooltip>
-            </div>
-          </div>
-          <div class="quill-editor story"
-               v-model="form.content"
-               :disabled="isLoading"
-               v-quill:myQuillEditor="editorOption"></div>
-        </div>
+    <div class="field">
+      <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
+      <div class="control">
+        <hc-editor identifier="content"
+          v-model="form.content"
+          :loading="isLoading"
+          :editorOptions="editorOptions"/>
       </div>
-    </no-ssr>
+    </div>
     <hr/>
     <div v-if="form.type === 'cando'">
       <div class="field">
@@ -119,51 +83,15 @@
                  v-bind:disabled="isLoading">
         </p>
       </div>
-      <no-ssr>
-        <div class="field">
-          <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
-          <div class="control">
-            <div id="toolbar-editor2">
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.italic')" type="is-black">
-                  <button class="ql-italic"></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.bold')" type="is-black">
-                  <button class="ql-bold"></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.strike')" type="is-black">
-                  <button class="ql-strike"></button>
-                </b-tooltip>
-              </div>
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.blockquote')" type="is-black">
-                  <button class="ql-blockquote"></button>
-                </b-tooltip>
-              </div>
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.listUnordered')" type="is-black">
-                  <button class="ql-list" value="bullet" ></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.listOrdered')" type="is-black">
-                  <button class="ql-list" value="ordered" ></button>
-                </b-tooltip>
-              </div>
-              <div class="ql-formats">
-                <b-tooltip :label="$t('component.editor.link')" type="is-black">
-                  <button class="ql-link"></button>
-                </b-tooltip>
-                <b-tooltip :label="$t('component.editor.video')" type="is-black">
-                  <button class="ql-video"></button>
-                </b-tooltip>
-              </div>
-            </div>
-            <div class="quill-editor story"
-                 v-model="form.cando.reason"
-                 :disabled="isLoading"
-                 v-quill:myQuillEditor2="editorOption2"></div>
-          </div>
+      <div class="field">
+        <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
+        <div class="control">
+          <hc-editor identifier="cando-reason"
+            v-model="form.cando.reason"
+            :loading="isLoading"
+            :editorOptions="editorOptions2"/>
         </div>
-      </no-ssr>
+      </div>
       <hr/>
     </div>
     <div class="field">
@@ -265,6 +193,7 @@
   import {mapGetters} from 'vuex'
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
+  import EditorMentions from '~/components/Mentions/EditorMentions'
   import { isEmpty } from 'lodash'
 
   export default {
@@ -272,8 +201,9 @@
     props: ['data'],
     components: {
       Author,
+      CategoriesSelect,
       ContributionImage,
-      'categories-select': CategoriesSelect
+      EditorMentions
     },
     head () {
       return {
@@ -286,6 +216,7 @@
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       const i18nEditor2Placeholder = this.$t('component.contribution.canDoReasonContentPlaceholder')
       return {
+        editorReady: false,
         isLoading: false,
         uploadingCover: false,
         dropFiles: null,
@@ -334,39 +265,11 @@
           ],
           difficulties: ['easy', 'medium', 'hard']
         },
-        editorOption: {
-          placeholder: i18nEditorPlaceholder,
-          modules: {
-            toolbar: {
-              container: '#toolbar-editor',
-              handlers: {
-                // TODO: do not use the prompt but the native quill dialoges or at least a nice modal
-                //  handlers object will be merged with default handlers object
-                // 'link': function (value) {
-                //   if (value) {
-                //     let href = prompt(i18nEditorLinkEnterUrl)
-                //     this.quill.format('link', href)
-                //   } else {
-                //     this.quill.format('link', false)
-                //   }
-                // },
-                // 'video': function () {
-                //   let embedUrl = prompt(i18nEditorVideoEnterUrl)
-                //   this.quill.format('video', embedUrl)
-                // }
-              }
-            }
-          }
+        editorOptions: {
+          placeholder: i18nEditorPlaceholder
         },
-        editorOption2: {
-          placeholder: i18nEditor2Placeholder,
-          modules: {
-            toolbar: {
-              container: '#toolbar-editor2',
-              handlers: {
-              }
-            }
-          }
+        editorOptions2: {
+          placeholder: i18nEditor2Placeholder
         }
       }
     },

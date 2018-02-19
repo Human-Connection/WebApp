@@ -20,17 +20,16 @@
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
             <template>
-              <hc-upload class="avatar-upload"
-                         v-if="isOwner"
+              <hc-upload v-if="isOwner"
+                         class="avatar-upload"
                          :preview-image="form.avatar || user.avatar"
                          :test="true"
                          @update="onAvatarUploadCompleted"
                          @start-sending="uploadingAvatar = true"
                          @stop-sending="uploadingAvatar = false" ></hc-upload>
-              <avatar
+              <hc-avatar  v-else
                   class="avatar-upload"
-                  v-else
-                  :user="user"></avatar>
+                  :user="user"></hc-avatar>
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
@@ -131,7 +130,6 @@
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~/components/Map/Map.vue'
   import Timeline from '~/components/layout/Timeline'
-  import Avatar from '~/components/Avatar/Avatar'
   import Badges from '~/components/Profile/Badges/Badges'
   import feathers from '~/plugins/feathers'
   import thumbnailHelper from '~/helpers/thumbnails'
@@ -143,8 +141,7 @@
       'hc-follower-item': FollowerItem,
       'hc-profile-badges': Badges,
       'hc-map': Map,
-      'hc-timeline': Timeline,
-      Avatar
+      'hc-timeline': Timeline
     },
     data () {
       return {
