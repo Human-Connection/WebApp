@@ -36,8 +36,7 @@
           required: true
         },
         user: {
-          type: Object,
-          required: true
+          type: Object
         }
       },
       watch: {
@@ -75,6 +74,7 @@
               })
             }
           } catch (err) {
+            // TODO: if the user is not logged in, redirecton on 401 to the login screen
             // as there is an error, refresh users status
             this.update()
           }
@@ -83,6 +83,9 @@
           this.shoutId = shoutId
         },
         update () {
+          if (!this.user) {
+            return
+          }
           // see if user has shouted this out
           feathers.service('shouts').find({
             query: {

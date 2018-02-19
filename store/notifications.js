@@ -64,12 +64,8 @@ export const actions = {
       })
   },
   markAsRead ({dispatch}, data) {
-    return notificationsService.patch(null, {
+    return notificationsService.patch(data.id, {
       unseen: false
-    }, {
-      query: {
-        relatedContributionId: data.id
-      }
     })
   }
 }

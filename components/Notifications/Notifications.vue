@@ -92,7 +92,7 @@
 
         // mark all notifications with the same contribution id as read
         this.$store.dispatch('notifications/markAsRead', {
-          id: notification.contribution._id
+          id: notification._id
         })
         this.active = false
       }

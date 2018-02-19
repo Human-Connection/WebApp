@@ -110,7 +110,7 @@ export const actions = {
       throw new Error(err.message)
     }
   },
-  async logout ({commit, dispatch}) {
+  async logout ({commit}) {
     try {
       await feathers.logout()
     } catch (err) {
