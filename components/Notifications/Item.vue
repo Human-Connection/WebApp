@@ -1,13 +1,15 @@
 <template>
   <div class="notification option">
     <template v-if="notification.user">
-      <author :user="notification.user"
-        :created-at="notification.createdAt" />
+      <author class="author"
+              :user="notification.user"
+              :created-at="notification.createdAt" />
     </template>
     <template v-else>
       <!-- this is needed for old messages to not break the interface, should be removed later -->
-      <author :user="notification.comment.user || notification.contribution.user"
-        :created-at="notification.comment.createdAt || notification.contribution.createdAt" />
+      <author class="author"
+              :user="notification.comment.user || notification.contribution.user"
+              :created-at="notification.comment.createdAt || notification.contribution.createdAt" />
     </template>
     <p class="notification-message" v-html="message"></p>
   </div>
@@ -46,6 +48,10 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
+
+  .author {
+    pointer-events: none;
+  }
 
   .option {
     border-bottom: 1px solid lighten($grey-lighter, 6%);

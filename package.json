@@ -84,6 +84,7 @@
     "vue-infinite-loading": "~2.2.3",
     "vue-loader": "~13.7.0",
     "vue-quill-editor": "~3.0.5",
+    "vue-scrollto": "^2.8.0",
     "vue-server-renderer": "~2.5.13",
     "vue-styleguidist": "~1.4.5",
     "vue-template-compiler": "~2.5.13",

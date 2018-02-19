@@ -1,5 +1,5 @@
 <template>
-  <div class="comment is-unselectable autowrap">
+  <div class="comment is-unselectable autowrap" :class="{ highlight: highlight }">
     <div class="columns is-mobile">
       <div class="column">
         <author :user="comment.user"
@@ -55,7 +55,8 @@
     },
     data () {
       return {
-        fullContentShown: false
+        fullContentShown: false,
+        highlight: false
       }
     },
     components: {
@@ -69,6 +70,9 @@
         return this.getText.slice(-3) === '...' || this.fullContentShown
       }
     },
+    mounted () {
+      this.scrollToCommentIfSelected()
+    },
     methods: {
       toggleText () {
         if (this.content) {
@@ -79,6 +83,18 @@
               this.content = res.content
               this.fullContentShown = !this.fullContentShown
             })
+        }
+      },
+      scrollToCommentIfSelected () {
+        // check if ?showComment is set and scroll to the selected comment item if the id mataches
+        if (this.$route.query && this.$route.query.showComment === this.comment._id) {
+          setTimeout(() => {
+            this.$scrollTo(this.$el, 500, {
+              onDone: () => {
+                this.highlight = true
+              }
+            })
+          }, 100)
         }
       }
     }
@@ -101,6 +117,12 @@
     &:first-child {
       border-top: none;
     }
+
+    &.highlight {
+      animation: highlight-animation;
+      animation-duration: 1500ms;
+      transition: background-color ease-out;
+    }
   }
 
   .comment-enter-active, .comment-leave-active {
@@ -110,5 +132,23 @@
   .comment-enter, .comment-leave-to {
     opacity: 0;
     transform: translateX(-10px);
+  }
+
+  @keyframes highlight-animation {
+    0% {
+      background-color: $yellow;
+    }
+    20% {
+      background-color: transparent;
+    }
+    40% {
+      background-color: $yellow;
+    }
+    60% {
+      background-color: $yellow;
+    }
+    100% {
+      background-color: transparent;
+    }
   }
 </style>

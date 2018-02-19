@@ -118,4 +118,9 @@
     right: 20px;
     color: $primary;
   }
+
+  .hc-mention-no-results {
+    padding: 8px 12px;
+    font-weight: bold;
+  }
 </style>
