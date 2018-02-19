@@ -134,7 +134,7 @@
         let deleteLength = this.searchString.length + 1 // + @
         // Save index, because it is going to be reset
         let index = this.index
-        let name = item.name
+        let name = `@${item.name}`
         let _id = item._id
         let slug = item.slug
         const ops = new Delta()

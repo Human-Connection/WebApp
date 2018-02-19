@@ -1,6 +1,6 @@
 import { merge, parseInt } from 'lodash'
 
-const base = `${process.env.baseURL}:${process.env.PORT}`
+const base = `${process.env.baseURL}`
 
 export const buildEndpointURL = (host, options = {}) => {
   options = merge({ protocol: 'http', port: null }, options || {})

@@ -12,10 +12,6 @@ a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
   color: $grey-dark;
   text-decoration: none;
 
-  &::before {
-    content: "@";
-  }
-
   &:hover {
     text-decoration: none;
   }

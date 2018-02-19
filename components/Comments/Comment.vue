@@ -67,7 +67,7 @@
         return (this.fullContentShown && this.content) ? this.content : this.comment.contentExcerpt
       },
       isTruncated () {
-        return this.getText.slice(-3) === '...' || this.fullContentShown
+        return this.getText.slice(-3) === '...' || this.getText.slice(-1) === '…' || this.fullContentShown
       }
     },
     mounted () {
