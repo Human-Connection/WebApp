@@ -151,7 +151,7 @@
     },
     "organization": {
       "createNew": "eine Organisation erstellen",
-      "createSubmit": "Organisation erstellen",
+      "createSave": "Organisation speichern",
       "name": "Name der Organisation",
       "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",
       "nameHint": "Unter diesem Namen werden Nutzer deine Organisation suchen und finden können.",
@@ -255,7 +255,8 @@
       "aboutUs": "Über uns",
       "more": "Spenden & Mehr",
       "welcome": "Willkommen",
-      "faqTitle": "Fragen & Antworten"
+      "faqTitle": "Fragen & Antworten",
+      "defaultDescription": "Beschreibe deine Organisation."
     }
   },
   "upload": {

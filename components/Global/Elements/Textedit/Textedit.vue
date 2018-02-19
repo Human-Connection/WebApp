@@ -1,7 +1,7 @@
 <template>
   <div class="hc-textedit">
     <span v-if="!isEditing" @click="toggleEdit" class="not-editing">
-      {{ currentText }}
+      {{ currentText || placeholder }}
     </span>
     <div v-if="isEditing" class="is-editing">
       <textarea v-model="modifiedText" name="currentText" cols="30" rows="10"></textarea>
@@ -16,12 +16,30 @@
 <script>
   export default {
     name: 'hc-textedit',
-    props: ['initialText'],
+    props: {
+      value: {
+        required: true,
+        type: String
+      },
+      placeholder: {
+        required: true,
+        type: String
+      },
+      type: {
+        required: false,
+        type: String
+      }
+    },
     data () {
       return {
         isEditing: false,
         modifiedText: '',
         currentText: ''
+      }
+    },
+    watch: {
+      value (val) {
+        this.currentText = val
       }
     },
     methods: {

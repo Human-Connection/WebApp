@@ -10,7 +10,7 @@
 
                 <div class="user-avatar">
                     <hc-upload class="avatar-upload"
-                               :preview-image="form.logo || user.logo"
+                               :preview-image="form.logo"
                                :test="true"
                                @update="onAvatarUploadCompleted"
                                @start-sending="uploadingLogo = true"
@@ -22,7 +22,7 @@
                         <p class="control has-icons-right">
                             <input ref="focus" autofocus class="input " v-bind:class="{ 'is-danger': errors }"
                                    type="text" v-bind:placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
-                                   v-model="data.name" autofocus>
+                                   v-model="form.name" autofocus>
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -52,13 +52,9 @@
     layout: 'blank',
     data () {
       return {
-        data: {
-          name: '',
-          slug: '',
-          userId: null
-        },
         form: {
-          logo: null
+          logo: null,
+          name: ''
         },
         errors: null,
         isLoading: false,
@@ -79,12 +75,10 @@
       async save () {
         this.errors = false
         this.isLoading = true
-        this.data.slug = this.data.name
-        console.log(this.data)
-        this.$store.dispatch('organizations/create', this.data)
-          .then(() => {
+        this.$store.dispatch('organizations/create', this.form)
+          .then((res) => {
             this.isLoading = false
-            this.$router.push({name: 'organizations/_slug/'})
+            this.$router.push(`/organizations/${res.slug}`)
           })
           .catch(error => {
             this.$toast.open({
@@ -98,9 +92,6 @@
       },
       onAvatarUploadCompleted (value) {
         this.form.logo = value
-        this.$store.dispatch('organizations/patch', {
-          logo: value
-        })
       }
     },
     head () {

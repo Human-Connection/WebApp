@@ -151,7 +151,7 @@
     },
     "organization": {
       "createNew": "create new Organization",
-      "createSubmit": "create Organization",
+      "createSave": "save Organization",
       "name": "Organization name",
       "createOrgaSectionPlaceholder": "How is the organization called?",
       "nameHint": "This is the name users can use to search for your Organisation and find it.",
@@ -255,7 +255,8 @@
       "aboutUs": "About us",
       "more": "Funding & more",
       "welcome": "Welcome",
-      "faqTitle": "Questions & Answers"
+      "faqTitle": "Questions & Answers",
+      "defaultDescription": "Describe your Organization."
     }
   },
   "upload": {
