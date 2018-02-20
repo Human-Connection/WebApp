@@ -64,11 +64,11 @@
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
         <!-- TODO: add timeline for organizations -->
         <div class="organization-form-wrapper" v-if="showOrganizationForm">
-          <organizations-form @change="hideForm" :id="organization._id"></organizations-form>
+          <organizations-form @saved="submitForm" @cancel="cancelForm" :id="organization._id"></organizations-form>
         </div>
       </div>
     </div>
-    <div class="editlayer" v-if="showOrganizationForm"></div>
+    <div class="editlayer" v-if="showOverlay"></div>
   </section>
 </template>
 
@@ -92,6 +92,7 @@
           logo: null
         },
         showOrganizationForm: false,
+        showOverlay: false,
         uploadingCover: false,
         uploadingLogo: false
       }
@@ -137,10 +138,15 @@
     },
     mounted () {
       this.showOrganizationForm = !this.organization.isEnabled
+      this.showOverlay = this.showOrganizationForm
     },
     methods: {
-      hideForm (value) {
-        console.log(value)
+      submitForm () {
+        this.showOrganizationForm = false
+        this.showOverlay = false
+      },
+      cancelForm () {
+        this.showOverlay = false
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value

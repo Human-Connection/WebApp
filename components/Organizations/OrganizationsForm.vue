@@ -1,5 +1,6 @@
 <template>
   <form v-bind:disabled="isLoading">
+    <p class="hint"><i class="fa fa-warning"></i> {{ $t('component.organization.requiredHint') }}</p>
     <div class="field">
       <div class="is-normal">
         <label class="label">{{ $t('component.organization.type') }}</label>
@@ -29,6 +30,14 @@
     </div>
     <no-ssr>
       <div class="field is-grouped is-grouped-right">
+        <div class="control">
+          <hc-button :isLoading="isLoading"
+                     :color="'light'"
+                     @click.prevent="onCancel">
+            <i class="fa fa-check"></i>
+            &nbsp;<span>{{ $t('component.organization.createLater') }}</span>
+          </hc-button>
+        </div>
         <div class="control">
           <hc-button :isLoading="isLoading"
                      :disabled="disabled"
@@ -96,11 +105,6 @@
         }
       }
     },
-    watch: {
-      isEnabled (isEnabled) {
-        this.$emit('change', isEnabled)
-      }
-    },
     computed: {
       ...mapGetters({
         user: 'auth/user'
@@ -118,19 +122,25 @@
 
         try {
           let formData = Object.assign({}, this.form)
-          let res = null
-          formData.isEnabled = true
           if (this.form._id) {
-            res = await feathers.service('organizations').patch(formData._id, formData)
+            formData.isEnabled = true
+
+            await feathers.service('organizations').patch(formData._id, formData)
+            this.isLoading = false
+            this.$snackbar.open({
+              message: this.$t('component.organization.organizationSaveSuccess'),
+              duration: 4000,
+              type: 'is-success'
+            })
+            this.$emit('saved')
           } else {
-            res = await feathers.service('organizations').create(formData)
+            this.isLoading = false
+            this.$toast.open({
+              message: 'please provide an ID.',
+              duration: 3000,
+              type: 'is-danger'
+            })
           }
-          this.$snackbar.open({
-            message: this.$t('component.organization.organizationSaveSuccess'),
-            duration: 4000,
-            type: 'is-success'
-          })
-          this.$router.push(`/organizations/${res.slug}`)
         } catch (err) {
           console.error(err)
           this.isLoading = false
@@ -140,6 +150,10 @@
             type: 'is-danger'
           })
         }
+      },
+      onCancel () {
+        this.isLoading = false
+        this.$emit('cancel')
       }
     }
   }
@@ -160,6 +174,13 @@
 
   a[disabled] {
     pointer-events: none;
+  }
+
+  .hint {
+    margin-bottom: 15px;
+    i {
+      color: red;
+    }
   }
 
   .tabs {

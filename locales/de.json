@@ -152,6 +152,8 @@
     "organization": {
       "createNew": "eine Organisation erstellen",
       "createSave": "Organisation speichern",
+      "createLater": "Später",
+      "requiredHint": "Diese Felder werden benötigt, damit deine Organisation veröffentlicht werden kann.",
       "name": "Name der Organisation",
       "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",
       "nameHint": "Unter diesem Namen werden Nutzer deine Organisation suchen und finden können.",

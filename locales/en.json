@@ -152,6 +152,8 @@
     "organization": {
       "createNew": "create new Organization",
       "createSave": "save Organization",
+      "createLater": "Later",
+      "requiredHint": "These fields are required for your Organization to become public.",
       "name": "Organization name",
       "createOrgaSectionPlaceholder": "How is the organization called?",
       "nameHint": "This is the name users can use to search for your Organisation and find it.",
