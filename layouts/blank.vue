@@ -17,6 +17,19 @@
       this.$nextTick(() => {
         this.hidden = false
       })
+    },
+    head () {
+      let head = {
+        htmlAttrs: {
+          lang: this.$i18n.locale()
+        }
+      }
+      if (process.env.NODE_ENV === 'development') {
+        head.script = [
+          { src: 'https://cdn.jsdelivr.net/npm/tota11y@0.1.6/build/tota11y.min.js' }
+        ]
+      }
+      return head
     }
   }
 </script>
