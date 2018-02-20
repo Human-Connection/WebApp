@@ -10,9 +10,10 @@ export default ({ req, cookie, store }) => {
   const key = 'locale'
   const user = store.getters['auth/user']
 
-  const changeHandler = debounce((mutation, state) => {
+  const changeHandler = debounce((mutation, state, store) => {
+    let user = store.getters['auth/user']
     // persist language if it differs from last value
-    if (user && user._id && mutation.payload.locale && user.language !== mutation.payload.locale) {
+    if (user && user._id && mutation.payload.locale) {
       store.dispatch('auth/patch', {
         language: mutation.payload.locale
       }).catch()
@@ -25,7 +26,7 @@ export default ({ req, cookie, store }) => {
   })
   i18nStore.subscribe((mutation, state) => {
     if (mutation.type === 'i18n/SET_LOCALE') {
-      changeHandler(mutation, state)
+      changeHandler(mutation, state, store)
     }
   })
 
