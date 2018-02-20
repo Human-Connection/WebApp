@@ -22,7 +22,9 @@
                        @stop-sending="uploadingLogo = false" ></hc-upload>
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
-          <div class="organization-name">{{ organization.name }}</div>
+          <div class="organization-name">
+            <hc-textedit @change="updateName" :type="'input'" :value="organization.name || ''"></hc-textedit>
+          </div>
           <div class="organization-follows">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')"></hc-textcount>
             <hc-textcount class="textcountitem" :count="369" :text="$t('page.organization.supporter', 'Helfer')"></hc-textcount>
@@ -144,6 +146,12 @@
       updateDescription (val) {
         if (val !== undefined) {
           this.organization.description = val
+          this.$store.dispatch('organizations/patch', this.organization)
+        }
+      },
+      updateName (val) {
+        if (val !== undefined) {
+          this.organization.name = val
           this.$store.dispatch('organizations/patch', this.organization)
         }
       },

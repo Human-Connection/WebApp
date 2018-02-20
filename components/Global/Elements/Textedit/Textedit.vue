@@ -4,7 +4,12 @@
       {{ value }}
     </span>
     <div v-if="isEditing" class="is-editing">
-      <textarea v-model="modifiedText" name="currentText" cols="30" rows="10">{{ modifiedText }}</textarea>
+      <div v-if="type === 'textarea'">
+        <textarea v-model="modifiedText" name="currentText" cols="30" rows="10">{{ modifiedText }}</textarea>
+      </div>
+      <div v-if="type === 'input'">
+        <input type="text" v-model="modifiedText" />
+      </div>
       <span class="actions">
         <i @click="toggleEdit" class="fa fa-close"></i>
         <i @click="saveEdit" class="fa fa-check"></i>
