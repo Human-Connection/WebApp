@@ -7,7 +7,8 @@
             <contribution-image :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
-                <author :post="contribution"></author>
+                <author :user="contribution.user"
+                  :created-at="contribution.createdAt" />
               </div>
               <div class="column is-one-third">
                 <hc-button v-if="canEdit"

@@ -179,7 +179,12 @@
     },
     "notification": {
       "label": "Benachrichtigungen",
-      "messageEmpty": "Du hast keine Benachrichtigungen."
+      "messageEmpty": "Du hast keine Benachrichtigungen.",
+      "message": {
+        "comment": "<strong>{userName}</strong> hat deinen Beitrag kommentiert:<br /> <strong>{title}</strong>",
+        "comment-mention": "<strong>{userName}</strong> hat dich in einem Kommentar zu <strong>{title}</strong> erwähnt.",
+        "contribution-mention": "<strong>{userName}</strong> hat dich in einem Beitrag erwähnt:<br /> <strong>{title}</strong>"
+      }
     },
     "dashbord": {
       "label": "Entdecken"
@@ -401,5 +406,14 @@
       "next": "Weiter",
       "back": "Zurück"
     }
+  },
+  "ressource": {
+    "name": {
+      "users": "Menschen",
+      "contributions": "Beiträge"
+    }
+  },
+  "info": {
+    "created": "Erstellt"
   }
 }

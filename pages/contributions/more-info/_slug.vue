@@ -172,7 +172,6 @@
 </template>
 
 <script>
-  import author from '~/components/Author/Author.vue'
   import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
@@ -187,7 +186,6 @@
     scrollToTop: false,
     components: {
       HcRelativeDateTime,
-      'author': author,
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       'hc-contribution-bread-crumb': ContributionBreadcrumb,

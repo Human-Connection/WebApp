@@ -1,0 +1,30 @@
+.b-tabs {
+    .tab-content {
+      overflow: visible;
+    }
+
+    // Slide
+    .slide-next-enter-active,
+    .slide-next-leave-active,
+    .slide-prev-enter-active,
+    .slide-prev-leave-active {
+        transition: transform 0.2s cubic-bezier(0.785, 0.135, 0.150, 0.860),
+          opacity 0.2s cubic-bezier(0.785, 0.135, 0.150, 0.860);
+    }
+    .slide-prev-leave-to, .slide-next-enter {
+        transform: translate3d(-2rem, 0, 0);
+        opacity: 0;
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+    .slide-prev-enter, .slide-next-leave-to {
+        transform: translate3d(2rem, 0, 0);
+        opacity: 0;
+        position: absolute;
+        left: 1rem;
+        right: 1rem;
+        width: auto;
+    }
+}
