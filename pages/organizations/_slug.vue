@@ -46,7 +46,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <hc-textedit :type="'textarea'" :value="organization.description || ''" :placeholder="this.$t('page.organization.defaultDescription', 'Describe your Organization.')"></hc-textedit>
+          <hc-textedit @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <hc-box top="true">
@@ -141,6 +141,12 @@
       this.showOverlay = this.showOrganizationForm
     },
     methods: {
+      updateDescription (val) {
+        if (val !== undefined) {
+          this.organization.description = val
+          this.$store.dispatch('organizations/patch', this.organization)
+        }
+      },
       submitForm () {
         this.showOrganizationForm = false
         this.showOverlay = false

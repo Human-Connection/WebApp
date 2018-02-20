@@ -1,10 +1,10 @@
 <template>
   <div class="hc-textedit">
     <span v-if="!isEditing" @click="toggleEdit" class="not-editing">
-      {{ currentText || placeholder }}
+      {{ value }}
     </span>
     <div v-if="isEditing" class="is-editing">
-      <textarea v-model="modifiedText" name="currentText" cols="30" rows="10"></textarea>
+      <textarea v-model="modifiedText" name="currentText" cols="30" rows="10">{{ modifiedText }}</textarea>
       <span class="actions">
         <i @click="toggleEdit" class="fa fa-close"></i>
         <i @click="saveEdit" class="fa fa-check"></i>
@@ -21,10 +21,6 @@
         required: true,
         type: String
       },
-      placeholder: {
-        required: true,
-        type: String
-      },
       type: {
         required: false,
         type: String
@@ -38,8 +34,9 @@
       }
     },
     watch: {
-      value (val) {
+      currentText (val) {
         this.currentText = val
+        this.$emit('change', val)
       }
     },
     methods: {
