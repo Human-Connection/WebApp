@@ -152,7 +152,11 @@
       updateName (val) {
         if (val !== undefined) {
           this.organization.name = val
-          this.$store.dispatch('organizations/patch', this.organization)
+          this.$store.dispatch('organizations/patch', this.organization).then((res) => {
+            if (res.slug !== '') {
+              this.$router.push(`/organizations/${res.slug}`)
+            }
+          })
         }
       },
       submitForm () {
