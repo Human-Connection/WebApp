@@ -1,36 +1,27 @@
 <template>
-  <div class="field is-grouped">
-    <no-ssr>
-      <div class="navbar-item locales has-dropdown is-hoverable">
-        <a class="navbar-link hide-in-menu">
-          <img class="flag"
-               :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+  <no-ssr>
+    <div class="navbar-item locales has-dropdown is-hoverable">
+      <a class="navbar-link hide-in-menu">
+        <img class="flag"
+             :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+      </a>
+      <div class="navbar-dropdown is-boxed">
+        <a class="navbar-item"
+           @click.prevent="changeLanguage('de')"
+           :class="{ active: $i18n.locale() === 'de' }">
+          <img class="flag" :src="`/assets/svg/flags/de.svg`"/>
+          &nbsp;&nbsp;Deutsch
         </a>
-        <div class="navbar-dropdown is-boxed">
-          <a class="navbar-item"
-             @click.prevent="changeLanguage('de')"
-             :class="{ active: $i18n.locale() === 'de' }">
-            <img class="flag" :src="`/assets/svg/flags/de.svg`"/>
-            &nbsp;&nbsp;Deutsch
-          </a>
-          <a class="navbar-item"
-            @click.prevent="changeLanguage('en')"
-            :class="{ active: $i18n.locale() === 'en' }">
-            <img class="flag" :src="`/assets/svg/flags/en.svg`"/>
-            &nbsp;&nbsp;English
-          </a>
-        </div>
+        <a class="navbar-item"
+          @click.prevent="changeLanguage('en')"
+          :class="{ active: $i18n.locale() === 'en' }">
+          <img class="flag" :src="`/assets/svg/flags/en.svg`"/>
+          &nbsp;&nbsp;English
+        </a>
       </div>
-    </no-ssr>
-    <div v-if="false" class="navbar-item is-hoverable">
-      <nuxt-link class="navbar-item" :to="{ name: 'index' }">
-        <!-- TODO $t('component.dashboard.label') ? -->
-        {{ $t('component.layout.topbarLabel') }}
-      </nuxt-link>
     </div>
-  </div>
+  </no-ssr>
 </template>
-
 
 <script>
   import {mapGetters} from 'vuex'
@@ -88,7 +79,6 @@
         }
       }
     }
-
   }
 
   .navbar-item .fa {
