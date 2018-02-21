@@ -2,12 +2,15 @@
   <nav class="navbar" @mouseleave="menuIsActive = false" role="navigation" aria-label="main navigation">
     <div class="container">
       <div class="navbar-brand">
-        <nuxt-link class="navbar-item logo"
-                   :to="{ name: 'index' }"
-                   :title="$t('component.layout.topbarLabel')"
-                   active-class="">
-          <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection" />
-          <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection" />
+        <nuxt-link
+          class="navbar-item logo"
+          :to="{ name: 'index' }"
+          :title="$t('component.layout.topbarLabel')"
+          active-class="">
+          <img class="is-hidden-mobile"
+               src="/logo-hc.svg" alt="Human Connection"/>
+          <img class="is-hidden-tablet"
+               src="/logo-hc-small.svg" alt="Human Connection"/>
         </nuxt-link>
         <div class="navbar-burger burger"
              :class="{ 'is-active': menuIsActive }"
@@ -21,29 +24,7 @@
       <div class="navbar-menu" :class="{ 'is-active': menuIsActive }">
         <div class="navbar-start">
           <div class="navbar-item">
-            <div class="field is-grouped">
-              <no-ssr>
-                <div class="navbar-item locales has-dropdown is-hoverable">
-                  <a class="navbar-link hide-in-menu">
-                    <img class="flag" :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`" />
-                  </a>
-                  <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" @click.prevent="changeLanguage('de')" :class="{ active: $i18n.locale() === 'de' }">
-                      <img class="flag" :src="`/assets/svg/flags/de.svg`" />&nbsp;&nbsp;Deutsch
-                    </a>
-                    <a class="navbar-item" @click.prevent="changeLanguage('en')" :class="{ active: $i18n.locale() === 'en' }">
-                      <img class="flag" :src="`/assets/svg/flags/en.svg`" />&nbsp;&nbsp;English
-                    </a>
-                  </div>
-                </div>
-              </no-ssr>
-              <div v-if="false" class="navbar-item is-hoverable">
-                <nuxt-link class="navbar-item" :to="{ name: 'index' }">
-                  <!-- TODO $t('component.dashboard.label') ? -->
-                  {{ $t('component.layout.topbarLabel') }}
-                </nuxt-link>
-              </div>
-            </div>
+            <language-select></language-select>
           </div>
         </div>
 
@@ -53,42 +34,7 @@
               <div class="navbar-item navbar-search">
                 <search-input></search-input>
               </div>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link hide-in-menu">
-                  <span class="icon">
-                    <i class="fa fa-filter"></i>
-                  </span>
-                </a>
-                <div class="navbar-dropdown navbar-filter is-boxed">
-                  <div class="container is-fluid has-text-left">
-                    <div class="columns">
-                      <div class="column">
-                        <no-ssr>
-                          <hc-tooltip :label="$t('component.layout.topbarFilterDescription')"
-                                     position="is-right"
-                                     size="is-large"
-                                     multilined>
-                            <h6 class="title is-6">
-                              {{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }} <hc-icon set="fa" icon="question-circle" />
-                            </h6>
-                          </hc-tooltip>
-                        </no-ssr>
-                        <filter-list @change="filterForCategories"
-                                     :items="categories"
-                                     translationPath="component.category.slug2label-"
-                                     :selected="selectedCategoryIds" />
-                        <hr/>
-                        <h6 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h6>
-                        <filter-list @change="filterForEmotions"
-                                     :items="emotions"
-                                     :selected="selectedEmotions"
-                                     iconSet="hc-emoji" />
-                        <br/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <filter-select></filter-select>
             </div>
           </div>
         </div>
@@ -98,35 +44,18 @@
             <div class="field is-grouped">
               <template v-if="isAuthenticated">
                 <notifications></notifications>
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <nuxt-link class="navbar-link hide-in-menu"
-                             to="/profile">
-                    <hc-avatar :user="user" />
-                  </nuxt-link>
-                  <div class="navbar-dropdown user-menu is-boxed is-right">
-                    <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymus'})"></div>
-                    <hr class="navbar-divider">
-
-                    <nuxt-link class="navbar-item" to="/profile">
-                      {{ $t('auth.account.profile') }}
-                    </nuxt-link>
-                    <nuxt-link class="navbar-item" v-if="isAdmin" to="/admin">
-                      {{ $t('component.admin.label') }}
-                    </nuxt-link>
-                    <hr class="navbar-divider">
-
-                    <a class="navbar-item" @click.prevent="logout()">
-                      {{ $t('auth.logout.label') }}
-                    </a>
-                  </div>
-                </div>
+                <user-menu></user-menu>
               </template>
               <template v-else>
-                <hc-button type="nuxt"
-                           class="is-primary login-button"
-                           style="font-weight: bold;"
-                           :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-                  <span class="is-hidden-mobile">{{ $t('auth.account.loginOrRegister') }} &nbsp; </span><hc-icon icon="sign-in"/>
+                <hc-button
+                  type="nuxt"
+                  class="is-primary login-button"
+                  style="font-weight: bold;"
+                  :to="{ name: 'auth-login', params: { path: this.$route.path } }">
+                  <span class="is-hidden-mobile">
+                    {{ $t('auth.account.loginOrRegister') }}
+                    &nbsp; </span>
+                  <hc-icon icon="sign-in"/>
                 </hc-button>
               </template>
             </div>
@@ -139,27 +68,25 @@
 
 
 <script>
-  // Todo: search in component,
-  // Todo: messages in component,
-  // Todo: profile button in component
-
   import {mapGetters} from 'vuex'
-  import Notifications from '~/components/Notifications/Notifications.vue'
-  import HcButton from '../Global/Elements/Button/Button.vue'
+  import LanguageSelect from '~/components/layout/LanguageSelect.vue'
   import SearchInput from '../Search/SearchInput.vue'
-  import FilterList from '~/components/Filters/FilterList.vue'
+  import FilterSelect from '~/components/layout/FilterSelect.vue'
+  import Notifications from '~/components/Notifications/Notifications.vue'
+  import UserMenu from '~/components/layout/UserMenu.vue'
 
-  import { isEqual, map, throttle } from 'lodash'
+  import {throttle} from 'lodash'
 
   let app = this
 
   export default {
     name: 'hc-topbar',
     components: {
+      LanguageSelect,
       SearchInput,
-      HcButton,
+      FilterSelect,
       Notifications,
-      FilterList
+      UserMenu
     },
     data () {
       app = this
@@ -167,124 +94,26 @@
         menuIsActive: false,
         isLoading: false,
         stayLoggedIn: false,
-        errors: null,
-        selectedCategoryIds: [],
-        selectedEmotions: [],
-        filterThrottle: null,
-        filterEmotionThrottle: null
+        errors: null
       }
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated',
-        isAdmin: 'auth/isAdmin',
-        user: 'auth/user',
-        categories: 'categories/all'
-      }),
-      emotions () {
-        return [
-          {
-            _id: 'funny',
-            title: this.$t('component.emotionRating.funny'),
-            icon: 'funny'
-          },
-          {
-            _id: 'happy',
-            title: this.$t('component.emotionRating.happy'),
-            icon: 'happy'
-          },
-          {
-            _id: 'surprised',
-            title: this.$t('component.emotionRating.surprised'),
-            icon: 'surprised'
-          },
-          {
-            _id: 'cry',
-            title: this.$t('component.emotionRating.cry'),
-            icon: 'cry'
-          },
-          {
-            _id: 'angry',
-            title: this.$t('component.emotionRating.angry'),
-            icon: 'angry'
-          }
-        ]
-      }
+        isAuthenticated: 'auth/isAuthenticated'
+      })
     },
     watch: {
-      categories (categories) {
-        this.applyCategoryFilter(map(categories, '_id'))
-      },
       '$route' () {
         this.closeMenu()
       }
     },
     mounted () {
-      this.$store.dispatch('categories/init')
-
-      // TODO: aplly filters from user config or local storage, but keep them between sessions
-      this.applyCategoryFilter(map(this.categories, '_id'))
-      this.applyEmotionFilter(map(this.emotions, '_id'))
-
       window.addEventListener('resize', this.closeMenu)
     },
     destroy () {
       window.removeEventListener('resize', this.closeMenu)
     },
     methods: {
-      filterForCategories (ids) {
-        clearTimeout(this.filterThrottle)
-        if (!isEqual(ids, this.selectedCategoryIds)) {
-          this.filterThrottle = setTimeout(() => {
-            this.applyCategoryFilter(ids)
-          }, 1000)
-        }
-      },
-      applyCategoryFilter (ids) {
-        clearTimeout(this.filterThrottle)
-        if (!isEqual(ids, this.selectedCategoryIds)) {
-          this.selectedCategoryIds = ids
-          this.$store.commit('search/categoryIds', ids)
-        }
-      },
-      filterForEmotions (emotions) {
-        clearTimeout(this.filterEmotionThrottle)
-        if (!isEqual(emotions, this.selectedEmotions)) {
-          this.filterEmotionThrottle = setTimeout(() => {
-            this.applyEmotionFilter(emotions)
-          }, 1000)
-        }
-      },
-      applyEmotionFilter (emotions) {
-        clearTimeout(this.filterEmotionThrottle)
-        if (!isEqual(emotions, this.selectedEmotions)) {
-          // get deselected emotions
-          this.selectedEmotions = emotions
-          this.$store.commit('search/emotions', this.selectedEmotions)
-        }
-      },
-      logout () {
-        this.$store.dispatch('auth/logout')
-          .then(() => {
-            this.$router.push('/auth/login')
-          })
-          .catch(err => {
-            console.error(err)
-          })
-      },
-      changeLanguage (locale) {
-        // TODO: make it a component
-        // check if the locale has already been loaded
-        if (this.$i18n.localeExists(locale)) {
-          this.$i18n.set(locale)
-          return
-        }
-        import(`~/locales/${locale}.json`)
-          .then(res => {
-            this.$i18n.add(locale, res)
-            this.$i18n.set(locale)
-          })
-      },
       closeMenu: throttle(() => {
         app.menuIsActive = false
       }, 1000)
@@ -295,11 +124,6 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
   @import "~bulma/sass/components/navbar";
-
-  .flag {
-    width: 20px;
-    height: 15px;
-  }
 
   nav {
     box-shadow: $card-shadow-hover;
@@ -348,29 +172,6 @@
 
   }
 
-  .user-menu {
-    min-width: 13rem;
-
-    & > .navbar-item {
-      display: block;
-    }
-  }
-
-  /*.user-menu {
-    margin-left: 0;
-    .navbar-item {
-      padding-left: .5rem;
-      padding-right: 0;
-    }
-  }*/
-
-  /*.navbar-end .login-button {
-    align-items: center !important;
-    display: flex;
-    height: 100%;
-  }*/
-
-
   .logo {
     display: inline-block;
     position: relative;
@@ -378,7 +179,7 @@
     width: 150px;
     text-align: left;
     padding: ($navbar-height - 40px)/2 0;
-    margin:     0 0 0 1rem;
+    margin: 0 0 0 1rem;
 
     &, &:hover {
       background-color: transparent !important;
@@ -403,39 +204,6 @@
   .navbar-item .fa {
     font-size: 1.4rem;
   }
-
-  /* @include mobile() {
-    .navbar-center {
-      // width: 30vw;
-    }
-  } */
-
-  .locales .navbar-dropdown {
-    .flag-icon {
-      opacity: 0.5;
-      transition: opacity 150ms ease-in-out;
-    }
-    .active {
-      font-weight: bold;
-
-      .flag-icon {
-        opacity: 1;
-      }
-    }
-
-    a:hover {
-      .flag-icon {
-        opacity: 1;
-      }
-    }
-  }
-
-  /* fix rendering issues */
-  /*.navigation-dropdown {
-    & > hr, & > b-dropdown-item {
-      visibility: hidden;
-    }
-  }*/
 
   .navbar-burger {
     height: $navbar-height;
@@ -491,16 +259,6 @@
     &, .navbar-item {
       position: initial;
     }
-  }
-
-  .navbar-filter {
-    @include unselectable();
-  }
-
-  .navbar-dropdown.navbar-filter {
-    padding-top: 2em;
-    max-height: 100vh;
-    overflow: auto;
   }
 
   .is-active {
