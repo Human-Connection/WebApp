@@ -91,7 +91,12 @@
       background-color: $white-ter;
     }
 
-    input:hover, input:focus, &.is-active input.input {
+    input:hover {
+      background-color: $white-bis;
+      border-color: $white-dar;
+    }
+
+    input:focus, &.is-active input.input {
       background-color: $white-bis;
       border-color: $white-dar;
     }

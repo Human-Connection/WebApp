@@ -1,11 +1,9 @@
 <template>
-  <div class="navbar-item has-dropdown is-hoverable">
-    <a class="navbar-link hide-in-menu">
-      <span class="icon">
-        <i class="fa fa-filter"></i>
-      </span>
-    </a>
-    <div class="navbar-dropdown navbar-filter is-boxed">
+  <hc-dropdown :persist="true">
+    <hc-navbar-button slot="toggle">
+      <hc-icon icon="filter"></hc-icon>
+    </hc-navbar-button>
+    <div>
       <div class="container is-fluid has-text-left">
         <div class="columns">
           <div class="column">
@@ -38,7 +36,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </hc-dropdown>
 </template>
 
 

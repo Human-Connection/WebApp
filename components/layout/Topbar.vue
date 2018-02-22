@@ -94,10 +94,10 @@
       }
     },
     mounted () {
-      window.addEventListener('resize', this.closeMenu)
+      // window.addEventListener('resize', this.closeMenu)
     },
     destroy () {
-      window.removeEventListener('resize', this.closeMenu)
+      // window.removeEventListener('resize', this.closeMenu)
     },
     methods: {
       closeMenu: throttle(() => {
