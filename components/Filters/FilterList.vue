@@ -1,6 +1,6 @@
 <template>
   <div class="filter-list columns">
-    <div class="column is-1">
+    <div class="column is-2">
       <filter-item
           :active="allActive"
           icon="check"
@@ -8,7 +8,7 @@
           :title="$t('component.filter.all')"
           @toggle="toggleAll" />
     </div>
-    <div class="column is-11">
+    <div class="column is-10">
       <filter-item
           v-for="item in items"
           :key="item._id"

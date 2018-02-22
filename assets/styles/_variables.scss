@@ -90,3 +90,6 @@ $dropdown-content-z: 1000;
 $dropdown-item-hover-background-color: transparent;
 
 $backdrop-color: rgba($black, 0.6);
+
+// Transition Easing
+$easeOut: cubic-bezier(0.19, 1, 0.22, 1);

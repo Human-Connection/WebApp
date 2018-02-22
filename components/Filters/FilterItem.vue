@@ -76,8 +76,8 @@
 
   .filter-item {
     display: inline-block;
-    width: 6rem;
-    height: 5rem;
+    width: 8rem;
+    height: 6rem;
     vertical-align: bottom;
     cursor: pointer;
     margin-bottom: 1.5rem;

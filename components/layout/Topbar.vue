@@ -2,7 +2,8 @@
   <nav class="hc-navbar" @mouseleave="menuIsActive = false"
     role="navigation" aria-label="main navigation">
     <div class="container">
-      <div class="hc-navbar-menu" :class="{ 'is-active': menuIsActive }">
+      <div class="hc-navbar-menu" ref="navbar-container"
+        :class="{ 'is-active': menuIsActive }">
         <div class="hc-navbar-item hc-navbar-brand">
           <nuxt-link class="hc-navbar-brand-logo"
             :to="{ name: 'index' }"
@@ -94,10 +95,10 @@
       }
     },
     mounted () {
-      // window.addEventListener('resize', this.closeMenu)
+      window.addEventListener('resize', this.closeMenu)
     },
     destroy () {
-      // window.removeEventListener('resize', this.closeMenu)
+      window.removeEventListener('resize', this.closeMenu)
     },
     methods: {
       closeMenu: throttle(() => {
@@ -121,6 +122,7 @@
   .hc-navbar-menu {
     display: flex;
     justify-content: space-between;
+    position: relative;
 
     & > div {
       display: flex;

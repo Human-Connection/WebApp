@@ -1,9 +1,12 @@
 <template>
-  <hc-dropdown :persist="true">
+  <hc-dropdown :persist="true"
+    position="bottom-justify"
+    :boundaryAlign="true"
+    :boundary="$parent.$refs['navbar-container']">
     <hc-navbar-button slot="toggle">
       <hc-icon icon="filter"></hc-icon>
     </hc-navbar-button>
-    <div>
+    <div class="hc-filter-select">
       <div class="container is-fluid has-text-left">
         <div class="columns">
           <div class="column">
@@ -147,96 +150,23 @@
   @import "assets/styles/utilities";
   @import "~bulma/sass/components/navbar";
 
-  .navbar-start, .navbar-center, .navbar-end {
-    .navbar-link:hover,
-    .navbar-item:hover {
-      &,
-      & .navbar-item,
-      & .navbar-link {
-        background-color: transparent !important;
-
-        a &.navbar-link {
-          color: $link;
-        }
-      }
-    }
-  }
-
-  .dropdown-item.is-disabled {
-    cursor: default !important;
-  }
-
-  .navbar-item .fa {
-    font-size: 1.4rem;
-  }
-
-  .navbar-center {
-    align-items: stretch;
-    display: flex;
-    padding-right: 5rem;
-
-    .title.is-5,
-    .title.is-6 {
-      padding-top: 1em;
-      padding-bottom: 2em;
-      padding-left: 1em;
-
-      margin-bottom: 0;
-
-      color: $grey-dark;
-
-      i {
-        font-size: 1em;
-      }
-    }
-
-    &, & > .navbar-item {
-      padding-top: 0;
-      padding-bottom: 0;
-      height: 100%;
-    }
-
-    &, .navbar-item {
-      position: initial;
-    }
-  }
-
-  .navbar-filter {
-    @include unselectable();
-  }
-
-  .navbar-dropdown.navbar-filter {
-    padding-top: 2em;
-    padding-bottom: 1em;
+  .hc-filter-select {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     max-height: 100vh;
     overflow: auto;
-  }
+    user-select: none;
 
-  .is-active {
-    .navbar-dropdown.navbar-filter {
-      overflow: visible;
-      width: 100%;
-      height: auto;
-      max-height: none;
+    h6 {
+      margin: 1rem 0;
     }
 
-    .navbar-center {
-      padding-right: 0;
+    .tooltip {
+      font-size: 0.8rem;
+    }
 
-      &, .navbar-item, .field.is-grouped {
-        display: block !important;
-        justify-content: normal !important;
-      }
-
-      .navbar-search {
-        overflow: visible;
-        width: 100%;
-        height: auto;
-
-        .field, .control, input {
-          width: 100%;
-        }
-      }
+    .uk-open & {
+      overflow: visible;
     }
   }
 </style>

@@ -36,19 +36,24 @@
         type: String,
         default: 'click'
       },
-      duration: {
-        type: Number,
-        default: 200
+      boundary: {
+        default: false
+      },
+      boundaryAlign: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
       options () {
         let options = {
-          'offset': this.offset,
-          'pos': this.position,
-          'mode': this.mode,
-          'delay-show': 0,
-          'delay-hide': 0
+          // 5 Pixel needed for transformation
+          offset: this.offset - 5,
+          pos: this.position,
+          mode: this.mode,
+          boundaryAlign: this.boundaryAlign,
+          delayShow: 0,
+          delayHide: 0
         }
         return options
       }
@@ -64,14 +69,33 @@
         if (!this.persist) {
           this.close()
         }
+      },
+      init () {
+        this.options.boundary = this.boundary
+        this.dropdown = require('uikit').dropdown(
+          this.$refs['dropdown'],
+          this.options
+        )
+      },
+      update () {
+        this.close()
+        setTimeout(() => {
+          this.dropdown.$destroy()
+          this.init()
+        })
       }
     },
     mounted () {
-      this.dropdown = require('uikit').dropdown(
-        this.$refs['dropdown'],
-        this.options
-      )
-      this.$on('close', this.close())
+      // boundary is an html element and therefore
+      // only available after initial render
+      this.$nextTick(() => {
+        this.init()
+        this.$on('close', this.close())
+      })
+      window.addEventListener('resize', this.update)
+    },
+    destroy () {
+      window.removeEventListener('resize', this.update)
     }
   }
 </script>
@@ -93,7 +117,8 @@
     opacity: 0;
     transform: translateY(-5px);
     transition-property: visibility, opacity, transform;
-    transition-duration: 86ms;
+    transition-duration: 400ms;
+    transition-timing-function: $easeOut;
   }
 
   .uk-open {
