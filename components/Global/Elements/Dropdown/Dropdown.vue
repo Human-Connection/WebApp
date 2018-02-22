@@ -36,6 +36,11 @@
         type: String,
         default: 'click'
       },
+      /**
+       * Needs to be an html element
+       * Normally you will provide a
+       * $ref['element']
+       */
       boundary: {
         default: false
       },
