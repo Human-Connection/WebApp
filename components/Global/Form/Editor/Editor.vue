@@ -44,8 +44,7 @@
          @ready="editorReady($event)"
          v-quill:myQuillEditor="computedEditorOptions"></div>
        <div class="plugins" v-if="ready && myQuillBus">
-         <editor-mentions
-          :quill="myQuillBus" />
+         <editor-mentions :quill="myQuillBus" />
        </div>
     </div>
   </div>
