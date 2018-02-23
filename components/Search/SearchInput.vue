@@ -93,12 +93,10 @@
 
     input:hover {
       background-color: $white-bis;
-      border-color: $white-dar;
     }
 
     input:focus, &.is-active input.input {
       background-color: $white-bis;
-      border-color: $white-dar;
     }
 
     .icon {
