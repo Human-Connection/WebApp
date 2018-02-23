@@ -1,25 +1,25 @@
 <template>
-  <div class="navbar-item has-dropdown is-hoverable">
-    <nuxt-link class="navbar-link hide-in-menu" to="/profile">
+  <hc-dropdown>
+    <hc-navbar-button slot="toggle">
       <hc-avatar :user="user"/>
-    </nuxt-link>
-    <div class="navbar-dropdown user-menu is-boxed is-right">
-      <div class="navbar-item"
-           v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymous'})">
-      </div>
+    </hc-navbar-button>
+    <div class="hc-user-menu">
+      <hc-navbar-item :static="true">
+        <span v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymous'})"></span>
+      </hc-navbar-item>
       <hr class="navbar-divider">
-      <nuxt-link class="navbar-item" to="/profile">
+      <hc-navbar-item to="/profile">
         {{ $t('auth.account.profile') }}
-      </nuxt-link>
-      <nuxt-link class="navbar-item" v-if="isAdmin" to="/admin">
+      </hc-navbar-item>
+      <hc-navbar-item v-if="isAdmin" to="/admin">
         {{ $t('component.admin.label') }}
-      </nuxt-link>
+      </hc-navbar-item>
       <hr class="navbar-divider">
-      <a class="navbar-item" @click.prevent="logout()">
+      <hc-navbar-item v-if="isAdmin" @click="logout()">
         {{ $t('auth.logout.label') }}
-      </a>
+      </hc-navbar-item>
     </div>
-  </div>
+  </hc-dropdown>
 </template>
 
 
@@ -53,43 +53,8 @@
   @import "assets/styles/utilities";
   @import "~bulma/sass/components/navbar";
 
-  .navbar-start, .navbar-center, .navbar-end {
-    overflow: visible;
-
-    @include tablet() {
-      align-items: center;
-      align-content: center;
-      justify-content: flex-start;
-    }
-
-    .navbar-link:hover,
-    .navbar-item:hover {
-      &,
-      & .navbar-item,
-      & .navbar-link {
-        background-color: transparent !important;
-
-        a &.navbar-link {
-          color: $link;
-        }
-      }
-    }
-
-  }
-
-  .user-menu {
-    min-width: 13rem;
-
-    & > .navbar-item {
-      display: block;
-    }
-  }
-
-  .dropdown-item.is-disabled {
-    cursor: default !important;
-  }
-
-  .navbar-item .fa {
-    font-size: 1.4rem;
+  .hc-user-menu {
+    min-width: 180px;
+    padding: 0.5rem 0 0.6rem;
   }
 </style>

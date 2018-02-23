@@ -1,25 +1,22 @@
 <template>
   <no-ssr>
-    <div class="navbar-item locales has-dropdown is-hoverable">
-      <a class="navbar-link hide-in-menu">
+    <hc-dropdown>
+      <hc-navbar-button slot="toggle">
         <img class="flag"
-             :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
-      </a>
-      <div class="navbar-dropdown is-boxed">
-        <a class="navbar-item"
-           @click.prevent="changeLanguage('de')"
-           :class="{ active: $i18n.locale() === 'de' }">
-          <img class="flag" :src="`/assets/svg/flags/de.svg`"/>
-          &nbsp;&nbsp;Deutsch
-        </a>
-        <a class="navbar-item"
-          @click.prevent="changeLanguage('en')"
-          :class="{ active: $i18n.locale() === 'en' }">
-          <img class="flag" :src="`/assets/svg/flags/en.svg`"/>
-          &nbsp;&nbsp;English
-        </a>
+          :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+      </hc-navbar-button>
+      <div class="hc-language-select">
+        <hc-navbar-item v-for="language in languages"
+          :key="language.locale"
+          @click="changeLanguage(language.locale)"
+          :active="$i18n.locale() === language.locale">
+          <img class="flag" :src="`/assets/svg/flags/${language.locale}.svg`"/>
+          <span class="hc-language-label">
+            {{ language.label }}
+          </span>
+        </hc-navbar-item>
       </div>
-    </div>
+    </hc-dropdown>
   </no-ssr>
 </template>
 
@@ -28,6 +25,20 @@
 
   export default {
     name: 'hc-language-select',
+    data () {
+      return {
+        languages: [
+          {
+            locale: 'de',
+            label: 'Deutsch'
+          },
+          {
+            locale: 'en',
+            label: 'English'
+          }
+        ]
+      }
+    },
     computed: {
       ...mapGetters({
         user: 'auth/user'
@@ -58,50 +69,12 @@
     height: 15px;
   }
 
-  .navbar-start {
-    overflow: visible;
-
-    @include tablet() {
-      align-items: center;
-      align-content: center;
-      justify-content: flex-start;
-    }
-
-    .navbar-link:hover,
-    .navbar-item:hover {
-      &,
-      & .navbar-item,
-      & .navbar-link {
-        background-color: transparent !important;
-
-        a &.navbar-link {
-          color: $link;
-        }
-      }
-    }
+  .hc-language-select {
+    padding: 0.5rem;
   }
 
-  .navbar-item .fa {
-    font-size: 1.4rem;
-  }
-
-  .locales .navbar-dropdown {
-    .flag-icon {
-      opacity: 0.5;
-      transition: opacity 150ms ease-in-out;
-    }
-    .active {
-      font-weight: bold;
-
-      .flag-icon {
-        opacity: 1;
-      }
-    }
-
-    a:hover {
-      .flag-icon {
-        opacity: 1;
-      }
-    }
+  .hc-language-label {
+    margin-left: 7px;
+    font-weight: bold;
   }
 </style>

@@ -1,12 +1,24 @@
 <template>
-  <a class="hc-navbar-button">
+  <a class="hc-navbar-button"
+    @click="$emit('click')"
+    :class="{ 'active' : active, 'static' : static }">
     <slot></slot>
   </a>
 </template>
 
 <script>
   export default {
-    name: 'hc-navbar-button'
+    name: 'hc-navbar-button',
+    props: {
+      active: {
+        type: Boolean,
+        default: false
+      },
+      static: {
+        type: Boolean,
+        default: false
+      }
+    }
   }
 </script>
 
@@ -20,12 +32,11 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    height: 60px;
     padding-left: 1rem;
     padding-right: 2.5rem;
     color: $grey;
 
-    :after {
+    &:after {
       border: 1px solid $primary;
       border-right: 0;
       border-top: 0;
@@ -44,8 +55,10 @@
       top: 50%;
     }
 
-    &:hover, &.uk-open {
-      color: $primary;
+    &:hover, &.uk-open, &.active {
+      &:not(.static) {
+        color: $primary;
+      }
     }
   }
 </style>

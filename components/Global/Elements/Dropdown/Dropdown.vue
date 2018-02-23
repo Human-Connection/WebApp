@@ -26,7 +26,7 @@
       // Options see: https://getuikit.com/docs/dropdown
       offset: {
         type: Number,
-        default: 5
+        default: 0
       },
       position: {
         type: String,
@@ -76,7 +76,9 @@
         }
       },
       init () {
-        this.options.boundary = this.boundary
+        if (this.boundary) {
+          this.options.boundary = this.boundary
+        }
         this.dropdown = require('uikit').dropdown(
           this.$refs['dropdown'],
           this.options
@@ -84,10 +86,8 @@
       },
       update () {
         this.close()
-        setTimeout(() => {
-          this.dropdown.$destroy()
-          this.init()
-        })
+        this.dropdown.$destroy()
+        this.init()
       }
     },
     mounted () {
@@ -112,10 +112,10 @@
     box-shadow: $card-shadow-hover;
     z-index: 130;
     pointer-events: all;
-    background-color: $white-bis;
+    background-color: $white;
     border: 1px solid $grey-lighter;
     border-radius: 5px;
-    min-width: 200px;
+    min-width: 100px;
     position: absolute;
 
     visibility: hidden;
