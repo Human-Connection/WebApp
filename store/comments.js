@@ -35,9 +35,6 @@ export const getters = {
   },
   count (state) {
     return state.comments.length
-  },
-  contributionId (state) {
-    return state.contributionId
   }
 }
 
@@ -52,8 +49,8 @@ export const actions = {
         dispatch('fetchByContributionId')
       }, 500))
   },
-  fetchByContributionId ({commit, getters}, contributionId) {
-    contributionId = contributionId || getters['contributionId']
+  fetchByContributionId ({commit, state}, contributionId) {
+    contributionId = contributionId || state.contributionId
     commit('setContributionId', contributionId)
     return commentsService.find({
       query: {
