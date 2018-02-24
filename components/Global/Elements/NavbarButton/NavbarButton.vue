@@ -3,6 +3,9 @@
     @click="$emit('click')"
     :class="{ 'active' : active, 'static' : static }">
     <slot></slot>
+    <div class="navbar-button-icon">
+      <hc-icon icon="angle-down"></hc-icon>
+    </div>
   </a>
 </template>
 
@@ -32,33 +35,21 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    padding-left: 1rem;
-    padding-right: 2.5rem;
+    padding: 0 1rem;
     color: $grey;
-
-    &:after {
-      border: 1px solid $primary;
-      border-right: 0;
-      border-top: 0;
-      content: " ";
-      display: block;
-      height: 0.5rem;
-      pointer-events: none;
-      position: absolute;
-      -webkit-transform: rotate(-45deg);
-      transform: rotate(-45deg);
-      -webkit-transform-origin: center;
-      transform-origin: center;
-      width: 0.5rem;
-      margin-top: -0.375rem;
-      right: 1.125rem;
-      top: 50%;
-    }
 
     &:hover, &.uk-open, &.active {
       &:not(.static) {
         color: $primary;
       }
     }
+  }
+
+  .navbar-button-icon {
+    font-size: 1rem;
+    line-height: 1;
+    margin-left: 0.4rem;
+    color: $primary;
+    opacity: 0.8;
   }
 </style>
