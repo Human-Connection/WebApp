@@ -6,7 +6,8 @@ const commentsService = feathers.service('comments')
 export const state = () => {
   return {
     comments: [],
-    isLoading: true
+    isLoading: true,
+    contributionId: null
   }
 }
 
@@ -19,6 +20,9 @@ export const mutations = {
   },
   clear (state) {
     state.comments = []
+  },
+  setContributionId (state, contributionId) {
+    state.contributionId = contributionId
   }
 }
 
@@ -31,6 +35,9 @@ export const getters = {
   },
   count (state) {
     return state.comments.length
+  },
+  contributionId (state) {
+    return state.contributionId
   }
 }
 
@@ -39,13 +46,15 @@ export const actions = {
   subscribe ({dispatch}) {
     return commentsService
       .on('created', debounce((comment) => {
-        dispatch('fetchByContributionId', comment.contributionId)
+        dispatch('fetchByContributionId')
       }, 500))
       .on('patched', debounce((comment) => {
-        dispatch('fetchByContributionId', comment.contributionId)
+        dispatch('fetchByContributionId')
       }, 500))
   },
-  fetchByContributionId ({commit}, contributionId) {
+  fetchByContributionId ({commit, getters}, contributionId) {
+    contributionId = contributionId || getters['contributionId']
+    commit('setContributionId', contributionId)
     return commentsService.find({
       query: {
         contributionId: contributionId,
