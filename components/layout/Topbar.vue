@@ -18,13 +18,13 @@
           </nuxt-link>
         </div>
         <div class="hc-navbar-item hc-navbar-search">
-          <search-input></search-input>
+          <top-search></top-search>
         </div>
         <div class="hc-navbar-item hc-navbar-filter">
           <filter-select></filter-select>
         </div>
         <div class="hc-navbar-right">
-          <div class="hc-navbar-item hc-navbar-language">
+          <div class="hc-navbar-item hc-navbar-language is-hidden-mobile">
             <language-select></language-select>
           </div>
           <div class="hc-navbar-item hc-navbar-notifications">
@@ -57,7 +57,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import LanguageSelect from '~/components/layout/LanguageSelect.vue'
-  import SearchInput from '../Search/SearchInput.vue'
+  import TopSearch from '~/components/layout/TopSearch.vue'
   import FilterSelect from '~/components/layout/FilterSelect.vue'
   import Notifications from '~/components/Notifications/Notifications.vue'
   import UserMenu from '~/components/layout/UserMenu.vue'
@@ -70,7 +70,7 @@
     name: 'hc-topbar',
     components: {
       LanguageSelect,
-      SearchInput,
+      TopSearch,
       FilterSelect,
       Notifications,
       UserMenu
@@ -127,15 +127,39 @@
     & > div {
       display: flex;
     }
+
+    @include until($tablet) {
+      justify-content: flex-start;
+    }
   }
 
   .hc-navbar-item {
     display: flex;
     height: $navbar-height;
+
+    @include until($tablet) {
+      flex: 0 0 20vw !important;
+      justify-content: center;
+      border-right: 1px solid $white-dar;
+
+      &.hc-navbar-user-menu {
+        border-right: 0;
+      }
+    }
   }
 
   .hc-navbar-brand {
     margin-right: 40px;
+
+    @include until($desktop) {
+      margin-left: 1rem;
+      margin-right: 2rem;
+    }
+
+    @include until($tablet) {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   .hc-navbar-brand-logo {
@@ -155,5 +179,13 @@
 
   .hc-navbar-right {
     margin-left: 15%;
+
+    @include until($desktop) {
+      margin-left: 2rem;
+    }
+
+    @include until($tablet) {
+      margin-left: 0;
+    }
   }
 </style>

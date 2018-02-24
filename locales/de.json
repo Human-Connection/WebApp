@@ -193,6 +193,7 @@
       "topbarSectionEmotions": "Stimmungen"
     },
     "search": {
+      "header": "Human Connection durchsuchen",
       "placeholder": "Suchen ...",
       "noResults": "Hier gibts nichts zu sehen!",
       "noResultsText": "Passe deine Suche bzw. deine Filtereinstellung an um zu finden wonach du suchst.",

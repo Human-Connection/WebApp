@@ -1,6 +1,7 @@
 <template>
   <hc-dropdown :persist="true"
     position="bottom-justify"
+    :mobileFull="true"
     :boundaryAlign="true"
     :boundary="$parent.$refs['navbar-container']">
     <hc-navbar-button slot="toggle">
@@ -148,12 +149,11 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
-  @import "~bulma/sass/components/navbar";
 
   .hc-filter-select {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    max-height: 100vh;
+    max-height: calc(100vh - #{$navbar-height});
     overflow: auto;
     user-select: none;
 

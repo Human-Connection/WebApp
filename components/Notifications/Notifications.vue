@@ -1,5 +1,5 @@
 <template>
-  <hc-dropdown>
+  <hc-dropdown :mobileFull="true">
     <hc-navbar-button slot="toggle">
       <span class="notification-icon">
         <hc-icon icon="bell"

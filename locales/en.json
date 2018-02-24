@@ -193,6 +193,7 @@
       "topbarSectionEmotions": "Emotions"
     },
     "search": {
+      "header": "Search Human Connection",
       "placeholder": "Search ...",
       "noResults": "Sorry nothing there!",
       "noResultsText": "Try to adjust your search and filters on the top to find what you are searching for.",

@@ -66,6 +66,7 @@
 
   .flag {
     width: 20px;
+    max-width: none;
     height: 15px;
   }
 

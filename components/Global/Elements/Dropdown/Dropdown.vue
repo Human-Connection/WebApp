@@ -1,5 +1,5 @@
 <template>
-  <div class="hc-dropdown-container">
+  <div class="hc-dropdown-container" :class="{ 'mobile-full' : mobileFull }">
     <slot name="toggle" :class="{ 'active' : active }">
       <hc-icon icon="list"></hc-icon>
     </slot>
@@ -35,6 +35,10 @@
       mode: {
         type: String,
         default: 'click'
+      },
+      mobileFull: {
+        type: Boolean,
+        default: false
       },
       /**
        * Needs to be an html element
@@ -108,6 +112,14 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
 
+  .hc-dropdown-container {
+    @include until($tablet) {
+      &.mobile-full {
+        width: 100%;
+      }
+    }
+  }
+
   .hc-dropdown {
     box-shadow: $card-shadow-hover;
     z-index: 130;
@@ -124,11 +136,28 @@
     transition-property: visibility, opacity, transform;
     transition-duration: 400ms;
     transition-timing-function: $easeOut;
-  }
 
-  .uk-open {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0);
+    &.uk-open {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @include until($tablet) {
+      .hc-dropdown-container.mobile-full & {
+        transform: translateX(-15px);
+        border-radius: 0;
+        position: fixed !important;
+        top: $navbar-height !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        overflow: auto;
+
+        &.uk-open {
+          transform: translateX(0);
+        }
+      }
+    }
   }
 </style>
