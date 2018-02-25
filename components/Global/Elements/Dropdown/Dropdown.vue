@@ -98,10 +98,17 @@
         })
       },
       onShow () {
-        disableBodyScroll(this.$refs['dropdown'])
+        if (this.needsFixedScroll) {
+          disableBodyScroll(this.$refs['dropdown'])
+        }
       },
       onHide () {
-        enableBodyScroll(this.$refs['dropdown'])
+        if (this.needsFixedScroll) {
+          enableBodyScroll(this.$refs['dropdown'])
+        }
+      },
+      needsFixedScroll () {
+        return this.mobileFuill && window.width < 767
       },
       update () {
         this.close()
