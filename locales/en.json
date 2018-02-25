@@ -50,6 +50,7 @@
       "users": "Users"
     },
     "category": {
+      "filterTitle": "Filter posts",
       "infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
       "labelOnePluralNone": "Category ::: Categories ::: No Category",
       "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",

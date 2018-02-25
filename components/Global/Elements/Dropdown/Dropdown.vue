@@ -170,6 +170,8 @@
       .hc-dropdown-container.mobile-full & {
         transform: translateX(-15px);
         border-radius: 0;
+        border: 0;
+        border-top: 1px solid $grey-lighter;
         position: fixed !important;
         top: $navbar-height !important;
         left: 0 !important;

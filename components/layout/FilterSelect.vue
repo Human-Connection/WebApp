@@ -8,7 +8,10 @@
       <hc-icon icon="filter"></hc-icon>
     </hc-navbar-button>
     <div class="hc-filter-select">
-      <div class="container is-fluid has-text-left">
+      <hc-dropdown-title class="is-hidden-tablet">
+        {{ $t('component.category.filterTitle', 'Filter posts') }}
+      </hc-dropdown-title>
+      <div class="hc-filter-select-inner">
         <div class="columns">
           <div class="column">
             <no-ssr>
@@ -151,10 +154,6 @@
   @import "assets/styles/utilities";
 
   .hc-filter-select {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    max-height: calc(100vh - #{$navbar-height});
-    overflow: auto;
     user-select: none;
 
     h6 {
@@ -168,5 +167,9 @@
     .uk-open & {
       overflow: visible;
     }
+  }
+
+  .hc-filter-select-inner {
+    padding: 1rem;
   }
 </style>

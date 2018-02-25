@@ -6,8 +6,10 @@
       <hc-navbar-button slot="toggle">
         <hc-icon icon="search"></hc-icon>
       </hc-navbar-button>
+      <hc-dropdown-title>
+        {{ $t('component.search.header') }}
+      </hc-dropdown-title>
       <div class="hc-top-search-mobile-inner">
-        <h3>{{ $t('component.search.header') }}</h3>
         <search-input></search-input>
       </div>
     </hc-dropdown>
@@ -34,6 +36,6 @@
   }
 
   .hc-top-search-mobile-inner {
-    padding: 2rem 1rem;
+    padding: 1rem 1rem 2rem 1rem;
   }
 </style>

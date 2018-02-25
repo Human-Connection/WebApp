@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'hc-scroll'
+    name: 'hc-dropdown-title'
   }
 </script>
 

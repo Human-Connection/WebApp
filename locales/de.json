@@ -53,6 +53,7 @@
       "label": "Kalender"
     },
     "category": {
+      "filterTitle": "Beiträge filtern",
       "infoSelectedNoOfMaxCategories": "{n} von {max} Kategorien ausgewählt",
       "labelOnePluralNone": "Kategorie ::: Kategorien ::: Keine Kategorie",
       "labelLongOnePluralNone": "Themenkategorie ::: Themenkategorien ::: Keine Themenkategorie",

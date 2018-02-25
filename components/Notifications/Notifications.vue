@@ -124,8 +124,8 @@
 
   .hc-notifications {
     min-width: 340px;
-    height: calc(100vh - #{$navbar-height});
-    @include desktop() {
+    @include tablet() {
+      overflow-y: auto;
       min-height: 100px;
       max-height: 400px;
     }
