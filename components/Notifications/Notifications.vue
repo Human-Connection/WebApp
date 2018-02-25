@@ -9,23 +9,23 @@
       </span>
     </hc-navbar-button>
     <div class="hc-notifications">
-      <p class="dropdown-title">{{ $t('component.notification.label') }}</p>
+      <hc-dropdown-title>
+        {{ $t('component.notification.label') }}
+      </hc-dropdown-title>
       <p v-if="!isAuthenticated" class="dropdown-content empty">
         Please
         <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
         to see your notifications.
       </p>
-      <div v-if="notifications">
-        <p v-if="notifications.length === 0" class="dropdown-content empty">
-          {{ $t('component.notification.messageEmpty') }}
-        </p>
-        <div class="dropdown-scroll" v-if="notifications.length">
-          <transition-group name="notification" tag="div">
-            <notification-item v-for="notification in notifications"
-              :notification="notification" :key="notification._id"
-              @click.native="followNotification(notification)" />
-          </transition-group>
-        </div>
+      <p v-else-if="notifications.length === 0" class="dropdown-content empty">
+        {{ $t('component.notification.messageEmpty') }}
+      </p>
+      <div v-else>
+        <transition-group name="notification" tag="div">
+          <notification-item v-for="notification in notifications"
+            :notification="notification" :key="notification._id"
+            @click.native="followNotification(notification)" />
+        </transition-group>
       </div>
     </div>
   </hc-dropdown>
@@ -123,20 +123,10 @@
   }
 
   .hc-notifications {
-    width: 340px;
-  }
-
-  .dropdown-title {
-    font-weight: $weight-bold;
-    padding: 0.8rem 1rem 0.8rem;
-    border-bottom: 1px solid $grey-lighter;
-    background-color: #fff;
-  }
-
-  .dropdown-scroll {
-    overflow: auto;
-    max-height: 70vh;
+    min-width: 340px;
+    height: calc(100vh - #{$navbar-height});
     @include desktop() {
+      min-height: 100px;
       max-height: 400px;
     }
   }

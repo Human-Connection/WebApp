@@ -1639,6 +1639,12 @@ body-parser@1.18.2, body-parser@~1.18.2:
     raw-body "2.3.2"
     type-is "~1.6.15"
 
+body-scroll-lock@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/body-scroll-lock/-/body-scroll-lock-2.2.0.tgz#5faa2bc227b97494bfe8cc99dd93822710bc859d"
+  dependencies:
+    ua-parser-js "^0.7.17"
+
 bonjour@^3.5.0:
   version "3.5.0"
   resolved "https://registry.yarnpkg.com/bonjour/-/bonjour-3.5.0.tgz#8e890a183d8ee9a2393b3844c691a42bcf7bc9f5"
@@ -3248,6 +3254,10 @@ dot-prop@^4.1.0:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:
     is-obj "^1.0.0"
+
+dotenv@4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-4.0.0.tgz#864ef1379aced55ce6f95debecdce179f7a0cd1d"
 
 dropzone@^5.0.1:
   version "5.2.0"
@@ -10422,7 +10432,7 @@ typical@^2.6.0, typical@^2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/typical/-/typical-2.6.1.tgz#5c080e5d661cbbe38259d2e70a3c7253e873881d"
 
-ua-parser-js@^0.7.9:
+ua-parser-js@^0.7.17, ua-parser-js@^0.7.9:
   version "0.7.17"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.17.tgz#e9ec5f9498b9ec910e7ae3ac626a805c4d09ecac"
 

@@ -10,6 +10,8 @@
 </template>
 
 <script>
+  import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+
   export default {
     name: 'hc-dropdown',
     data () {
@@ -80,13 +82,26 @@
         }
       },
       init () {
+        const UIkit = require('uikit')
         if (this.boundary) {
           this.options.boundary = this.boundary
         }
-        this.dropdown = require('uikit').dropdown(
+        this.dropdown = UIkit.dropdown(
           this.$refs['dropdown'],
           this.options
         )
+        UIkit.util.on(this.$refs['dropdown'], 'show', () => {
+          this.onShow()
+        })
+        UIkit.util.on(this.$refs['dropdown'], 'hide', () => {
+          this.onHide()
+        })
+      },
+      onShow () {
+        disableBodyScroll(this.$refs['dropdown'])
+      },
+      onHide () {
+        enableBodyScroll(this.$refs['dropdown'])
       },
       update () {
         this.close()
@@ -105,6 +120,7 @@
     },
     destroy () {
       window.removeEventListener('resize', this.update)
+      clearAllBodyScrollLocks()
     }
   }
 </script>
@@ -153,6 +169,7 @@
         right: 0 !important;
         bottom: 0 !important;
         overflow: auto;
+        -webkit-overflow-scrolling: touch;
 
         &.uk-open {
           transform: translateX(0);

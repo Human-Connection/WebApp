@@ -9,6 +9,9 @@ import createLocaleMiddleware from 'express-locale'
 import cookieParser from 'cookie-parser'
 import redirectSSL from 'redirect-ssl'
 
+// Get .env config
+require('dotenv').config()
+
 const app = express()
 
 // Add middleware
