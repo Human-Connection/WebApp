@@ -157,10 +157,6 @@
   .hc-filter-select {
     user-select: none;
 
-    @include until($tablet) {
-      overflow: hidden;
-    }
-
     h6 {
       margin: 1rem 0;
     }
@@ -171,6 +167,10 @@
 
     .uk-open & {
       overflow: visible;
+
+      @include until($tablet) {
+        overflow: hidden;
+      }
     }
   }
 
