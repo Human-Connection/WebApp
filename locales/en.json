@@ -54,6 +54,7 @@
       "infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
       "labelOnePluralNone": "Category ::: Categories ::: No Category",
       "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
+      "setFilter": "Set filter",
       "slug2label-education-sciences": "Education & Sciences",
       "slug2label-democracy-politics": "Democracy & Politics",
       "slug2label-energy-technology": "Energy & Technology",
