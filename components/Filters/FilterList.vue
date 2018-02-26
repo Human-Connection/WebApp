@@ -139,4 +139,14 @@
     position: relative;
     margin-bottom: -15px;
   }
+
+  .column {
+    @include until($tablet) {
+      padding-bottom: 0;
+
+      &.is-10 {
+        padding-top: 0;
+      }
+    }
+  }
 </style>

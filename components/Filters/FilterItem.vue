@@ -82,6 +82,11 @@
     cursor: pointer;
     margin-bottom: 1.5rem;
 
+    @include until($tablet) {
+      width: 33.333332%;
+      margin-bottom: 0.5rem;
+    }
+
     button.button {
       font-size: 1.3em;
       margin-bottom: 0.6rem;

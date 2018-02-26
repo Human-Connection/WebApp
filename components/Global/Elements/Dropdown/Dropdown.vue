@@ -90,25 +90,27 @@
           this.$refs['dropdown'],
           this.options
         )
-        UIkit.util.on(this.$refs['dropdown'], 'show', () => {
-          this.onShow()
-        })
-        UIkit.util.on(this.$refs['dropdown'], 'hide', () => {
-          this.onHide()
+        this.$nextTick(() => {
+          UIkit.util.on(this.$refs['dropdown'], 'show', () => {
+            this.onShow()
+          })
+          UIkit.util.on(this.$refs['dropdown'], 'hide', () => {
+            this.onHide()
+          })
         })
       },
       onShow () {
-        if (this.needsFixedScroll) {
+        if (this.needsFixedScroll()) {
           disableBodyScroll(this.$refs['dropdown'])
         }
       },
       onHide () {
-        if (this.needsFixedScroll) {
+        if (this.needsFixedScroll()) {
           enableBodyScroll(this.$refs['dropdown'])
         }
       },
       needsFixedScroll () {
-        return this.mobileFuill && window.width < 767
+        return this.mobileFull && window.width < 767
       },
       update () {
         this.close()

@@ -1,6 +1,7 @@
 <template>
   <hc-dropdown :persist="true"
     position="bottom-justify"
+    ref="dropdown"
     :mobileFull="true"
     :boundaryAlign="true"
     :boundary="$parent.$refs['navbar-container']">
@@ -41,6 +42,11 @@
             <br/>
           </div>
         </div>
+        <hc-button class="is-hidden-tablet"
+          @click="$refs['dropdown'].close()"
+          :fullWidth="true">
+          Filter anwenden
+        </hc-button>
       </div>
     </div>
   </hc-dropdown>
@@ -156,6 +162,10 @@
   .hc-filter-select {
     user-select: none;
 
+    @include until($tablet) {
+      overflow: hidden;
+    }
+
     h6 {
       margin: 1rem 0;
     }
@@ -171,5 +181,9 @@
 
   .hc-filter-select-inner {
     padding: 1rem;
+
+    @include until($tablet) {
+      padding-bottom: 2rem;
+    }
   }
 </style>
