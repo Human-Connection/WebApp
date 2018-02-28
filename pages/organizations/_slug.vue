@@ -27,7 +27,11 @@
           </div>
           <div class="organization-follows">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')"></hc-textcount>
-            <hc-textcount class="textcountitem" :count="369" :text="$t('page.organization.supporter', 'Helfer')"></hc-textcount>
+            <hc-textcount class="textcountitem" :count="followerCount" :text="$t('page.organization.supporter', 'Helfer')"></hc-textcount>
+          </div>
+          <div class="organization-follow-actions has-text-centered">
+            <i class="fa fa-bullhorn is-action-icon"></i>
+            <i @click="followOrganization" class="fa fa-bell-o is-action-icon"></i>
           </div>
         </hc-box>
         <div class="organization-actions">
@@ -51,16 +55,22 @@
           <hc-textedit @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
-        <hc-box top="true">
-          <div class="organization-call-to-action">Crowdplanting am 31.02.2018, Klicke auf diese Zeitmaschine um mehr zu erfahren!</div>
-        </hc-box>
+        <div class="under-construction">
+          <hc-box top="true">
+            <div class="organization-call-to-action">Crowdplanting am 31.02.2018, Klicke auf diese Zeitmaschine um mehr zu erfahren!</div>
+          </hc-box>
+        </div>
         <hc-title>{{ $t('page.organization.more', 'Spenden & Mehr') }}</hc-title>
-        <hc-box top="true">
-          <div class="organization-welcome">Spende hier für mehr Bäume und Obst!</div>
-        </hc-box>
-        <hc-box top="true" class="organization-faq-box">
-          <h3>{{ $t('page.organization.faqTitle', 'Fragen & Antworten') }}</h3>
-        </hc-box>
+        <div class="under-construction">
+          <hc-box top="true">
+            <div class="organization-welcome">Spende hier für mehr Bäume und Obst!</div>
+          </hc-box>
+        </div>
+        <div class="under-construction">
+          <hc-box top="true" class="organization-faq-box">
+            <h3>{{ $t('page.organization.faqTitle', 'Fragen & Antworten') }}</h3>
+          </hc-box>
+        </div>
       </div>
       <div class="column is-8-tablet is-8-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
@@ -78,7 +88,7 @@
   import {mapGetters} from 'vuex'
   import feathers from '~/plugins/feathers'
 
-  import { isEmpty } from 'lodash'
+  import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
   import OrganizationsForm from '../../components/Organizations/OrganizationsForm'
 
@@ -136,6 +146,9 @@
         } else {
           return 'https://source.unsplash.com/random/1250x280'
         }
+      },
+      followerCount () {
+        return this.organization.followerIds.length
       }
     },
     mounted () {
@@ -143,6 +156,13 @@
       this.showOverlay = this.showOrganizationForm
     },
     methods: {
+      followOrganization () {
+        let currentUser = this.$store.getters['auth/user']
+        if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
+          this.organization.followerIds.push(currentUser._id)
+          this.$store.dispatch('organizations/follow', currentUser._id, this.organization)
+        }
+      },
       updateDescription (val) {
         if (val !== undefined) {
           this.organization.description = val
@@ -191,6 +211,15 @@
   .organization-profile {
     #main {
       margin-top: 0;
+    }
+
+    .organization-follow-actions {
+      .is-action-icon {
+        color: $green;
+        font-size: 24px;
+        padding: 0px 25px;
+        cursor: pointer;
+      }
     }
 
     .editlayer {
