@@ -68,7 +68,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import countTo from 'vue-count-to'
 
   export default {
@@ -95,31 +94,31 @@
       }
     },
     mounted () {
-      feathers.service('users').find({query: { $limit: 0 }})
+      this.$api.service('users').find({query: { $limit: 0 }})
         .then(res => {
           this.userCount = res.total || 0
         })
-      feathers.service('contributions').find({query: { $limit: 0 }})
+      this.$api.service('contributions').find({query: { $limit: 0 }})
         .then(res => {
           this.contributionCount = res.total || 0
         })
-      feathers.service('comments').find({query: { $limit: 0 }})
+      this.$api.service('comments').find({query: { $limit: 0 }})
         .then(res => {
           this.commentsCount = res.total || 0
         })
-      feathers.service('organizations').find({query: { $limit: 0 }})
+      this.$api.service('organizations').find({query: { $limit: 0 }})
         .then(res => {
           this.organizationCount = res.total || 0
         })
-      feathers.service('projects').find({query: { $limit: 0 }})
+      this.$api.service('projects').find({query: { $limit: 0 }})
         .then(res => {
           this.projectCount = res.total || 0
         })
-      feathers.service('notifications').find({query: { $limit: 0 }})
+      this.$api.service('notifications').find({query: { $limit: 0 }})
         .then(res => {
           this.notificationCount = res.total || 0
         })
-      feathers.service('emotions').find({query: { $limit: 0 }})
+      this.$api.service('emotions').find({query: { $limit: 0 }})
         .then(res => {
           this.emotionCount = res.total || 0
         })

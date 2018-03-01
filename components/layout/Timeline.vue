@@ -35,7 +35,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import { mapGetters } from 'vuex'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
   import { castArray } from 'lodash'
@@ -84,7 +83,7 @@
           let user = await this.user
           let userId = user._id !== undefined ? user._id : user.data[0]._id
           try {
-            let res = await feathers.service('contributions').find({
+            let res = await this.$api.service('contributions').find({
               query: {
                 userId: userId,
                 $sort: {

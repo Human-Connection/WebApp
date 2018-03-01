@@ -286,6 +286,10 @@ section.more-info {
   }
 }
 
+body .sentry-error-embed-wrapper {
+  z-index: 99999 !important;
+}
+
 /*@keyframes ProgressAnimation {
   0% {background-position: 0% 50%}
   100% {background-position: 200% 50%}

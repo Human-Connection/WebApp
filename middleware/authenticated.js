@@ -1,20 +1,27 @@
 import { isEmpty } from 'lodash'
 
-export default function ({ store, route, redirect }) {
-  if (route.path.indexOf('/auth/login') !== 0 &&
-      route.path.indexOf('/auth/register') !== 0 &&
-      route.path.indexOf('/auth/signup') !== 0 &&
-      route.path.indexOf('/auth/passwort-reset') !== 0 &&
-      route.path.indexOf('/legal') !== 0 &&
-      !store.getters['auth/isAuthenticated']) {
-    // remove session cookies
-    store.dispatch('auth/logout', null, { root: true })
+export default async ({ store, route, redirect }) => {
+  console.log('route.name', route.name)
 
-    let params = {}
-    if (!isEmpty(route.path) && route.path !== '/') {
-      params.path = route.path
-    }
-
-    return redirect('/auth/login', params)
+  // only affect non public pages
+  if ((process.env.publicPages || []).indexOf(route.name) >= 0) {
+    return true
   }
+  await store.dispatch('auth/refreshJWT')
+  const isAuthenticated = await store.dispatch('auth/checkAuth')
+  if (isAuthenticated) {
+    return true
+  }
+
+  console.log('######REDIRECT TO THE LOGIN PAGE!!!', route.name)
+  // try to logout user
+  // await store.dispatch('auth/logout', null, { root: true })
+
+  // set the redirect path for after the login
+  let params = {}
+  if (!isEmpty(route.path) && route.path !== '/') {
+    params.path = route.path
+  }
+
+  return redirect('/auth/login', params)
 }

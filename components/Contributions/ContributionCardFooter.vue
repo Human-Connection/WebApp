@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="meta-container">
-      <hc-tooltip :label="$t('component.shout.countedDescription', {count: post.shoutCount}, post.shoutCount)" type="is-dark">
+      <hc-tooltip :label="$t('component.shout.countedDescription', {count: post.shoutCount || 0}, post.shoutCount || 0)" type="is-dark">
         <span class="meta-button">
           <i class="fa fa-bullhorn"></i>
           <small>{{ post.shoutCount }}</small>

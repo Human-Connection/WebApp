@@ -20,8 +20,6 @@
 </template>
 
 <script>
-    import feathers from '~/plugins/feathers'
-
     export default {
       name: 'hc-shout-button',
       data () {
@@ -56,10 +54,10 @@
         async handleShout () {
           try {
             if (this.shoutId) {
-              await feathers.service('shouts').remove(this.shoutId)
+              await this.$api.service('shouts').remove(this.shoutId)
               this.updateStatus(null)
             } else {
-              const shout = await feathers.service('shouts').create({
+              const shout = await this.$api.service('shouts').create({
                 userId: this.user._id,
                 foreignId: this.contribution._id,
                 foreignService: 'contributions'
@@ -87,7 +85,7 @@
             return
           }
           // see if user has shouted this out
-          feathers.service('shouts').find({
+          this.$api.service('shouts').find({
             query: {
               userId: this.user._id,
               foreignId: this.contribution._id

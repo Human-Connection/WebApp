@@ -187,7 +187,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
   import Author from '~/components/Author/Author.vue'
   import {mapGetters} from 'vuex'
@@ -311,9 +310,9 @@
           }
           let res = null
           if (this.form._id) {
-            res = await feathers.service('contributions').patch(formData._id, formData)
+            res = await this.$api.service('contributions').patch(formData._id, formData)
           } else {
-            res = await feathers.service('contributions').create(formData)
+            res = await this.$api.service('contributions').create(formData)
           }
           this.$store.commit('newsfeed/clear')
           this.$snackbar.open({

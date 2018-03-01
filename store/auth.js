@@ -1,45 +1,24 @@
-import feathers from '~/plugins/feathers'
-import cookie from '~/helpers/ssr-storage'
 import { isEmpty } from 'lodash'
 
 export const state = () => {
   return {
     user: null,
-    email: null,
     token: null
   }
 }
 
 export const mutations = {
   SET_USER (state, user) {
-    if (!user || user === undefined) {
-      state.user = null
-      state.email = null
-    } else {
-      state.user = user
-    }
-  },
-  SET_EMAIL (state, email) {
-    if (!email || email === undefined) {
-      state.email = null
-    } else {
-      state.email = email
-    }
+    state.user = user || null
   },
   SET_TOKEN (state, token) {
-    if (!token || token === undefined) {
-      state.token = null
-    } else {
-      state.token = token
-    }
-    // renew token
-    // cookie.setItem('feathers-jwt', state.token)
+    state.token = token || null
   }
 }
 
 export const getters = {
   isAuthenticated (state) {
-    return !!state.user
+    return state.user && state.token
   },
   isVerified (state) {
     return !!state.user && state.user.isVerified && !!state.user.name
@@ -53,94 +32,160 @@ export const getters = {
   user (state) {
     return state.user
   },
-  email (state) {
-    return state.email
-  },
   token (state) {
     return state.token
   }
 }
 
 export const actions = {
-  async jwt ({commit, dispatch}, {accessToken}) {
-    try {
-      await feathers.logout()
-      cookie.removeItem('feathers-jwt')
-      const response = await feathers.authenticate({strategy: 'jwt', accessToken})
-      const payload = await feathers.passport.verifyJWT(response.accessToken)
-      const user = await feathers.service('users').get(payload.userId)
+  async init ({commit, dispatch, state}) {
+    let user
+    // get fresh jwt token
+    await dispatch('refreshJWT')
+
+    // check if the token is autenticated
+    const isAuthenticated = await dispatch('checkAuth')
+    if (isAuthenticated) {
+      const payload = await this.app.$api.passport.verifyJWT(state.token)
+      user = await this.app.$api.service('users').get(payload.userId)
       commit('SET_USER', user)
-      commit('SET_TOKEN', response.accessToken)
-      dispatch('notifications/fetch', null, { root: true })
-    } catch (err) {
-      console.error(err.message, err)
     }
+    return user
+  },
+  async refreshJWT ({state, getters, commit}) {
+    const token = await this.app.$api.passport.getJWT()
+    commit('SET_TOKEN', token)
+
+    let user
+    if (token) {
+      user = await this.app.$api.auth({strategy: 'jwt', accessToken: token})
+    }
+    return user
+  },
+  async jwt ({commit, dispatch, state}, {accessToken}) {
+    // try {
+    //   // await this.app.$api.logout()
+    //   // this.app.$cookies.remove(this.app.$api.authKey)
+    //   // const response = await this.app.$api.authenticate({strategy: 'jwt', accessToken})
+    //   // const payload = await this.app.$api.passport.verifyJWT(response.accessToken)
+    //   // const user = await this.app.$api.service('users').get(payload.userId)
+
+    //   const user = await this.app.$api.auth({strategy: 'jwt', accessToken})
+
+    //   commit('SET_USER', user)
+    //   // commit('SET_TOKEN', response.accessToken)
+    //   dispatch('notifications/fetch', null, { root: true })
+    // } catch (err) {
+    //   console.error('#auth/jwt')
+    //   console.error(err.message, err)
+    // }
+  },
+  async checkAuth ({state, getters, commit}) {
+    const token = await this.app.$api.passport.getJWT()
+    commit('SET_TOKEN', token)
+
+    if (!token) {
+      console.log('# checkAuth - token == null')
+      return false
+    }
+    const payload = await this.app.$api.passport.verifyJWT(token)
+    const payloadValid = this.app.$api.passport.payloadIsValid(payload)
+    console.log('payloadValid', payloadValid)
+    if (payloadValid) {
+      console.log('# checkAuth - payloadValid == true')
+      commit('SET_TOKEN', token)
+    } else {
+      console.log('# checkAuth - payloadValid == false')
+      commit('SET_TOKEN', null)
+      commit('SET_USER', null)
+    }
+
+    return payloadValid === true
+    // console.log('this.app.$api.getJWT()', await this.app.$api.passport.getJWT())
+    // try {
+    //   console.log('this.app.$api.verifyJWT()', await this.app.$api.passport.verifyJWT(await this.app.$api.passport.getJWT()))
+    // } catch (err) {
+    //   console.error(err)
+    // }
+    // // commit('SET_TOKEN', this.$cookies.get(this.app.$api.authKey))
+    // return getters.isAuthenticated
   },
   async login ({commit, dispatch}, {email, password}) {
     try {
-      await feathers.logout()
-      cookie.removeItem('feathers-jwt')
-      commit('SET_USER', null)
-      feathers.set('user', null)
+      // await this.app.$api.logout()
+      // this.app.$api.set('user', null)
+      // commit('SET_USER', null)
 
-      const response = await feathers.authenticate({strategy: 'local', email, password})
-      const payload = await feathers.passport.verifyJWT(response.accessToken)
-      const user = await feathers.service('users').get(payload.userId)
-      const locale = cookie.getItem('locale')
-      let saveLanguage = false
-      if (user.language !== locale && !isEmpty(locale)) {
+      // const response = await this.app.$api.authenticate({strategy: 'local', email, password})
+      // const payload = await this.app.$api.passport.verifyJWT(response.accessToken)
+      // const user = await this.app.$api.service('users').get(payload.userId)
+
+      const user = await this.app.$api.auth({strategy: 'local', email, password})
+      const locale = this.app.$cookies.get('locale')
+      if (user && user.language !== locale && !isEmpty(locale)) {
         user.language = locale
-        saveLanguage = true
-      }
-
-      commit('SET_USER', user)
-      commit('SET_EMAIL', email)
-      commit('SET_TOKEN', response.accessToken)
-      commit('newsfeed/clear', null, { root: true })
-
-      if (saveLanguage) {
         dispatch('patch', {
           language: user.language
         })
       }
+
+      commit('SET_USER', user)
+      commit('newsfeed/clear', null, { root: true })
+
+      return user
     } catch (err) {
+      console.error('#auth/login')
       console.error(err.message)
       commit('SET_USER', null)
-      commit('SET_TOKEN', null)
+      // commit('SET_TOKEN', null)
       throw new Error(err.message)
     }
   },
   async logout ({commit}) {
-    try {
-      await feathers.logout()
-    } catch (err) {
-      console.error(err.message)
+    if (await this.app.$api.passport.getJWT()) {
+      await this.app.$api.logout()
     }
     commit('SET_USER', null)
-    commit('SET_TOKEN', null)
-    feathers.set('user', null)
-    cookie.removeItem('feathers-jwt')
     commit('newsfeed/clear', null, { root: true })
+
+    // try {
+    //   await this.app.$api.logout()
+    // } catch (err) {
+    //   console.error(err.message)
+    // }
+    // commit('SET_USER', null)
+    // commit('SET_TOKEN', null)
+    // this.app.$api.set('user', null)
+    // this.app.$cookies.remove(this.app.$api.authKey)
+    // commit('newsfeed/clear', null, { root: true })
     // dispatch('newsfeed/fetch', null, { root: true })
   },
   register ({dispatch, commit}, {email, password, inviteCode}) {
-    return feathers.service('users').create({email, password, inviteCode})
+    return this.app.$api.service('users').create({email, password, inviteCode})
       .then(response => {
-        commit('SET_EMAIL', email)
         return dispatch('login', {email, password})
       })
   },
-  async patch ({state, commit}, data) {
+  async patch ({state, commit, dispatch}, data) {
+    // console.log('####################')
+    // console.log('#AUTH/PATCH', data)
+    // console.log('#USER ID', state.user._id)
+    // console.log('#JWT TOKEN', this.$cookies.get(this.app.$api.authKey))
+    // console.log('####################')
+    // if (!state.user) {
+    //   await dispatch('jwt', this.$cookies.get(this.app.$api.authKey))
+    // }
     if (!state.user) {
-      return null
+      console.log('#EXIT - NO USER!')
+      return
     }
-    const user = await feathers.service('users').patch(state.user._id, data)
+    const user = await this.app.$api.service('users').patch(state.user._id, data)
     commit('SET_USER', user)
     return user
   },
   verify ({dispatch}, verifyToken) {
     if (!verifyToken) { return false }
-    return feathers.service('authManagement').create({
+    return this.app.$api.service('authManagement').create({
       action: 'verifySignupLong',
       value: verifyToken
     })
@@ -153,7 +198,7 @@ export const actions = {
   },
   resendVerifySignup ({dispatch}, email) {
     if (!email) { return false }
-    return feathers.service('authManagement').create({
+    return this.app.$api.service('authManagement').create({
       action: 'resendVerifySignup',
       value: {
         email: email

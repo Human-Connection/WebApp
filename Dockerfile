@@ -18,19 +18,22 @@ EXPOSE 3000
 ENV HOST=0.0.0.0
 
 # buld application
-RUN yarn install --frozen-lockfile
-# use yarn & npm caching
-RUN ln -s /tmp/node_modules
-
-# run tests
-#RUN yarn test
-
-# test if the build is running
 ENV NODE_ENV=production
-# RUN yarn install --no-cache --production
+RUN yarn install --frozen-lockfile
 RUN ./node_modules/.bin/nuxt build
 RUN ./node_modules/.bin/backpack build
 
+# install env substition
+RUN yarn add --global envsub
+
+RUN chmod +x entrypoint.sh
+RUN chmod +x on-build.sh
+RUN chmod +x on-deploy.sh
+
+RUN on.build.sh
+
+ENTRYPOINT ["./entrypoint.sh"]
+
 # start the application in a autohealing cluster
 #CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && pm2 start build/main.js -n frontend -i 2 --attach
-CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && node build/main.js
+#CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && node build/main.js

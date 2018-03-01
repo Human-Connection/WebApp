@@ -40,10 +40,10 @@
       <b-tab-item label="Invite Codes">
         <div class="field isGrouped columns">
           <div class="control column">
-            <textarea v-model.trim="form.codes" class="textarea" rows="8" placeholder="emails"></textarea>
+            <textarea v-model.trim="form.codes" class="textarea" rows="8" placeholder="name@domain.tld, de                                                       name2@domain.tld, en"></textarea>
           </div>
           <div class="control column">
-            <textarea class="textarea is-disabled" rows="8" readonly placeholder="results">{{ results }}</textarea>
+            <textarea class="textarea" rows="8" readonly placeholder="results">{{ results }}</textarea>
           </div>
         </div>
         <div class="field">
@@ -62,8 +62,8 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import moment from 'moment'
+  import parse from 'csv-parse/lib/sync'
 
   let userLimit = 10
 
@@ -87,9 +87,9 @@
         activeTab: null
       }
     },
-    async asyncData () {
+    async asyncData ({app}) {
       const limit = userLimit
-      const users = await feathers.service('users').find({
+      const users = await app.$api.service('users').find({
         query: {
           $limit: limit
         }
@@ -120,19 +120,28 @@
         }
       },
       generateInviteCodes () {
-        const emails = this.form.codes.replace(/\n|\r|^\s+|\s+$|\s+(?=\s)|,$/g, '').split(',')
+        let data = this.form.codes.replace(/mailto:/ig, '')
+        if (data.indexOf('email,') !== 0) {
+          data = 'email, language\n' + data
+        }
+        const invites = parse(data, {
+          columns: true,
+          ltrim: true,
+          rtrim: true,
+          trim: true
+        })
 
         this.isLoading = true
         this.results = ''
-        feathers.service('admin').create({ createInvites: emails }).then(res => {
+        this.$api.service('admin').create({ createInvites: invites }).then(res => {
           this.isLoading = false
           this.$snackbar.open({
-            message: this.$t('component.admin.-', 'Created new Invite-Codes'),
+            message: this.$t('component.admin.-', `Created ${res.length}/${invites.length} new Invite-Codes`),
             duration: 4000,
             type: 'is-success'
           })
           res.forEach(item => {
-            this.results += `${item.email}, ${item.code}\n`
+            this.results += `${item.email}, ${item.language}, ${item.code}, /auth/register?email=${item.email}&code=${item.code}\n`
           })
         }).catch(err => {
           console.error(err)
@@ -149,7 +158,7 @@
         this.usersLoading = true
         const start = (page - 1) * this.usersLimit + 1
 
-        this.users = await feathers.service('users').find({
+        this.users = await this.$api.service('users').find({
           query: {
             $limit: this.usersLimit,
             $skip: start

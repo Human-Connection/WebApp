@@ -1,7 +1,4 @@
-import feathers from '~/plugins/feathers'
 import _ from 'lodash'
-
-const notificationsService = feathers.service('notifications')
 
 export const state = () => {
   return {
@@ -38,7 +35,7 @@ export const actions = {
   },
   // Called from plugins/init-store-subscriptions only once
   subscribe ({dispatch}) {
-    return notificationsService
+    return this.app.$api.service('notifications')
       .on('created', _.debounce(() => {
         dispatch('fetch')
       }, 500))
@@ -47,7 +44,7 @@ export const actions = {
       }, 500))
   },
   fetch ({commit}) {
-    return notificationsService.find({
+    return this.app.$api.service('notifications').find({
       query: {
         $limit: 30,
         $sort: {
@@ -64,7 +61,7 @@ export const actions = {
       })
   },
   markAsRead ({dispatch}, data) {
-    return notificationsService.patch(data.id, {
+    return this.app.$api.service('notifications').patch(data.id, {
       unseen: false
     })
   }

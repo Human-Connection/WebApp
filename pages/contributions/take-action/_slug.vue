@@ -149,7 +149,7 @@
 
             <div class="under-construction">
               <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
-              <hc-map :places="places" :zoom="zoom" :center="center" height="350px" />
+              <hc-map :places="places" :zoom="zoom" :center="center" height="350px" :token="$env.MAPBOX_TOKEN" />
             </div>
 
           </div>
@@ -190,7 +190,6 @@
 
 
 <script>
-  import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
@@ -251,15 +250,15 @@
         }
       }
     },
-    async asyncData ({params, error}) {
+    async asyncData ({app, params, error}) {
       try {
-        const contributions = await feathers.service('contributions').find({
+        const contributions = await app.$api.service('contributions').find({
           query: {
             slug: params.slug,
             $limit: 1
           }
         })
-        const organizations = await feathers.service('organizations').find({
+        const organizations = await app.$api.service('organizations').find({
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds
@@ -267,7 +266,7 @@
             $limit: 3
           }
         })
-        const projects = await feathers.service('projects').find({
+        const projects = await app.$api.service('projects').find({
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds
@@ -290,7 +289,7 @@
     },
     methods: {
       async updateContribution () {
-        this.contribution = await feathers.service('contributions')
+        this.contribution = await this.$api.service('contributions')
           .get(this.contribution._id)
       }
     },

@@ -16,8 +16,8 @@
         <form @submit.prevent="login">
           <div class="field">
             <div class="control has-icons-right">
-              <input ref="focus" 
-                     name="username" 
+              <input ref="focus"
+                     name="username"
                      type="email"
                      autofocus
                      :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
@@ -32,8 +32,8 @@
           <div class="field">
             <div class="control has-icons-right">
               <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
-                     name="password" 
-                     type="password" 
+                     name="password"
+                     type="password"
                      :placeholder="$t('auth.account.password')"
                      v-model.trim="form.password"
                      @blur="$v.form.password.$touch">
@@ -113,7 +113,19 @@
     },
     mounted () {
       this.$nextTick(() => {
-        // this.$refs['focus'].focus()
+        try {
+          this.$refs['focus'].focus()
+        } catch (err) {}
+
+        console.log(this.$route.params.path || this.$route.query.path)
+
+        if (this.$route.params.path || this.$route.query.path) {
+          this.$snackbar.open({
+            message: `you have to login!`,
+            duration: 5000,
+            type: 'is-danger'
+          })
+        }
       })
     },
     methods: {

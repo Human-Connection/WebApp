@@ -1,7 +1,4 @@
-import feathers from '~/plugins/feathers'
 import { castArray, debounce } from 'lodash'
-
-const commentsService = feathers.service('comments')
 
 export const state = () => {
   return {
@@ -37,7 +34,7 @@ export const getters = {
 export const actions = {
   // Called from plugins/init-store-subscriptions only once
   subscribe ({dispatch}) {
-    return commentsService
+    return this.app.$api.service('comments')
       .on('created', debounce((comment) => {
         dispatch('fetchByContributionId', comment.contributionId)
       }, 500))
@@ -46,7 +43,7 @@ export const actions = {
       }, 500))
   },
   fetchByContributionId ({commit}, contributionId) {
-    return commentsService.find({
+    return this.app.$api.service('comments').find({
       query: {
         contributionId: contributionId,
         $sort: {
@@ -65,10 +62,10 @@ export const actions = {
       })
   },
   fetchById ({commit}, id) {
-    return commentsService.get(id)
+    return this.app.$api.service('comments').get(id)
   },
   upvote ({dispatch}, comment) {
-    return commentsService.patch(comment._id, {
+    return this.app.$api.service('comments').patch(comment._id, {
       $inc: {
         upvoteCount: 1
       }
@@ -77,6 +74,6 @@ export const actions = {
     })
   },
   async create ({dispatch}, data) {
-    return commentsService.create(data)
+    return this.app.$api.service('comments').create(data)
   }
 }

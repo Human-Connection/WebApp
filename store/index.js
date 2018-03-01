@@ -1,5 +1,6 @@
 export const actions = {
-  nuxtServerInit ({dispatch}) {
+  async nuxtServerInit ({dispatch}) {
     dispatch('categories/init')
+    await dispatch('auth/init')
   }
 }

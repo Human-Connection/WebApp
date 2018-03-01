@@ -15,8 +15,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
-
   export default {
     name: 'hc-follower-item',
     props: ['user'],
@@ -26,7 +24,7 @@
       }
     },
     mounted () {
-      feathers.service('contributions').find({
+      this.$api.service('contributions').find({
         query: {
           $limit: 1,
           $select: ['createdAt'],
