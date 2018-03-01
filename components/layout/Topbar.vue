@@ -110,6 +110,9 @@
                     <nuxt-link class="navbar-item" to="/profile">
                       {{ $t('auth.account.profile') }}
                     </nuxt-link>
+                    <nuxt-link class="navbar-item" to="/auth/settings">
+                      {{ $t('auth.account.settings') }}
+                    </nuxt-link>
                     <nuxt-link class="navbar-item" v-if="isAdmin" to="/admin">
                       {{ $t('component.admin.label') }}
                     </nuxt-link>

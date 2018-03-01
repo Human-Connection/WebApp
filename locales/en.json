@@ -407,6 +407,20 @@
       "label": "Register",
       "next": "Next",
       "back": "Back"
+    },
+    "settings": {
+      "general": "General",
+      "security": "Security",
+      "data": "Your data",
+      "access": "Access",
+      "organizations": "Organizations",
+      "myOrganizations": "My Organizations",
+      "yourName": "Your Name",
+      "yourEmail": "Your E-Mail address:",
+      "networkSettings": "Network settings",
+      "dashboard": "Dashboard",
+      "languages": "Languages",
+      "saveLabel": "Save"
     }
   },
   "ressource": {
