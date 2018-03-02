@@ -29,7 +29,7 @@
     "dev": "yarn dev:env && nuxt",
     "dev:debug": "yarn dev:env && nuxt --inspect-brk=9229",
     "dev:env": "sh on-dev.sh",
-    "build": "build:env && nuxt build && backpack build",
+    "build": "yarn build:env && nuxt build && backpack build",
     "build:env": "sh on-build.sh",
     "start": "yarn start:env && cross-env NODE_ENV=production node build/main.js",
     "start:env": "sh on-start.sh",
