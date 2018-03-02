@@ -88,14 +88,15 @@
     "vue-count-to": "~1.0.13",
     "vue-in-viewport-mixin": "~1.0.3",
     "vue-infinite-loading": "~2.2.3",
-    "vue-loader": "~14.1.1",
+    "vue-loader": "~13.7.0",
     "vue-quill-editor": "~3.0.5",
     "vue-scrollto": "~2.9.0",
     "vue-server-renderer": "~2.5.13",
     "vue-styleguidist": "~1.4.5",
     "vue-template-compiler": "~2.5.13",
     "vuelidate": "~0.6.1",
-    "vuex-i18n": "~1.10.5"
+    "vuex-i18n": "~1.10.5",
+    "webpack": "^3.0.0"
   },
   "devDependencies": {
     "@nuxtjs/webpackmonitor": "~0.1.0",
@@ -123,8 +124,7 @@
     "sass-loader": "~6.0.6",
     "source-map-support": "~0.5.3",
     "vue-docgen-api": "~2.2.3",
-    "vue-style-loader": "~3.1.1",
-    "webpack": "^3.0.0"
+    "vue-style-loader": "~3.1.1"
   },
   "ava": {
     "require": [
