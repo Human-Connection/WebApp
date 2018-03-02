@@ -10,8 +10,9 @@ cache:
 before_install:
   - docker build -t humanconnection/frontend-nuxt:alpha .
 install:
-  - yarn install --frozen-lockfile
-  - yarn run test
+  - yarn install --frozen-lockfile --non-interactive
+  - yarn test:env
+  - yarn test
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";

@@ -19,18 +19,17 @@ ENV HOST=0.0.0.0
 
 # buld application
 ENV NODE_ENV=production
-RUN yarn install --frozen-lockfile
-RUN ./node_modules/.bin/nuxt build
-RUN ./node_modules/.bin/backpack build
+RUN yarn install --frozen-lockfile --non-interactive && node-clean
+RUN yarn build
 
 # install env substition
 RUN yarn add --global envsub
 
+# set execution rights on scripts and run the build script
 RUN chmod +x entrypoint.sh
 RUN chmod +x on-build.sh
 RUN chmod +x on-deploy.sh
-
-RUN on.build.sh
+RUN on-build.sh
 
 ENTRYPOINT ["./entrypoint.sh"]
 
