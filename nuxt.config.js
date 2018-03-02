@@ -63,11 +63,11 @@ module.exports = {
       'feathers-hooks',
       'feathers-authentication-client'
     ],
-    extend (config, ctx) {
+    extend (config) {
       /*
        ** Run ESLINT on save
        */
-      if (ctx.isClient) {
+      if (process.client) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
