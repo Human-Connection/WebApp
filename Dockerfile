@@ -19,7 +19,7 @@ ENV HOST=0.0.0.0
 
 # buld application
 ENV NODE_ENV=production
-RUN yarn install --frozen-lockfile --non-interactive && node-clean
+RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn build
 
 # install env substition
