@@ -35,6 +35,10 @@
       HcFooter,
       HcFrame,
       HcAdminMenu
+    },
+    async mounted () {
+      // refresh token to fix refresh issues
+      await this.$store.dispatch('auth/refreshJWT')
     }
   }
 </script>
