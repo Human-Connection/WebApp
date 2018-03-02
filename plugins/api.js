@@ -50,33 +50,28 @@ export default ({app, store, redirect, router}) => {
     before: {
       all: [
         async (hook) => {
-          // workaround for setting the accessToken on every request
-          // this is due to an issue with the authentication
-          // const token = await store.getters['auth/token']
-          // hook.accessToken = token
-          // console.log('***** hook.accessToken', token, store.getters['auth/token'])
-          console.log('***** api before hook')
+          console.log('# API:', `${hook.method} ${hook.path}`)
           return hook
         }
       ]
     },
     async error (ctx) {
-      console.log('####################')
-      console.error(ctx.error)
-      console.info('JWT TOKEN: ', app.$cookies.get(authKey))
-      console.info('path', ctx.path)
-      console.info('service', ctx.service)
-      console.info('method', ctx.method)
-      console.info('params', ctx.params)
-      console.info('id', ctx.id)
-      console.info('data', ctx.data)
-      console.log('####################')
+      // console.log('####################')
+      // console.error(ctx.error)
+      // console.info('JWT TOKEN: ', app.$cookies.get(authKey))
+      // console.info('path', ctx.path)
+      // console.info('service', ctx.service)
+      // console.info('method', ctx.method)
+      // console.info('params', ctx.params)
+      // console.info('id', ctx.id)
+      // console.info('data', ctx.data)
+      // console.log('####################')
 
-      // if (process.client && ctx.error.code === 401) {
-      //   // use the vuex store to logout the user
-      //   await store.dispatch('auth/logout', null, { root: true })
-      //   redirect(`/auth/login?path=${window.location.pathname}`)
-      // }
+      // force re-login on 401 responses
+      if (process.client && ctx.error.code === 401) {
+        await store.dispatch('auth/logout', null, { root: true })
+        redirect(`/auth/login?path=${window.location.pathname}`)
+      }
     }
   })
 

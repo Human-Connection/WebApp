@@ -89,7 +89,6 @@ module.exports = {
     {src: '~/plugins/debug.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/api.js'},
-    // {src: '~/plugins/client-auth.js', ssr: false},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
     {src: '~/plugins/i18n.js'},
     {src: '~/plugins/buefy.js'},

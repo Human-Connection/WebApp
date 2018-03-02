@@ -59,67 +59,30 @@ export const actions = {
     let user
     if (token) {
       user = await this.app.$api.auth({strategy: 'jwt', accessToken: token})
+      commit('SET_USER', user)
     }
     return user
-  },
-  async jwt ({commit, dispatch, state}, {accessToken}) {
-    // try {
-    //   // await this.app.$api.logout()
-    //   // this.app.$cookies.remove(this.app.$api.authKey)
-    //   // const response = await this.app.$api.authenticate({strategy: 'jwt', accessToken})
-    //   // const payload = await this.app.$api.passport.verifyJWT(response.accessToken)
-    //   // const user = await this.app.$api.service('users').get(payload.userId)
-
-    //   const user = await this.app.$api.auth({strategy: 'jwt', accessToken})
-
-    //   commit('SET_USER', user)
-    //   // commit('SET_TOKEN', response.accessToken)
-    //   dispatch('notifications/fetch', null, { root: true })
-    // } catch (err) {
-    //   console.error('#auth/jwt')
-    //   console.error(err.message, err)
-    // }
   },
   async checkAuth ({state, getters, commit}) {
     const token = await this.app.$api.passport.getJWT()
     commit('SET_TOKEN', token)
 
     if (!token) {
-      console.log('# checkAuth - token == null')
       return false
     }
     const payload = await this.app.$api.passport.verifyJWT(token)
     const payloadValid = this.app.$api.passport.payloadIsValid(payload)
-    console.log('payloadValid', payloadValid)
     if (payloadValid) {
-      console.log('# checkAuth - payloadValid == true')
       commit('SET_TOKEN', token)
     } else {
-      console.log('# checkAuth - payloadValid == false')
-      commit('SET_TOKEN', null)
       commit('SET_USER', null)
+      commit('SET_TOKEN', null)
     }
 
     return payloadValid === true
-    // console.log('this.app.$api.getJWT()', await this.app.$api.passport.getJWT())
-    // try {
-    //   console.log('this.app.$api.verifyJWT()', await this.app.$api.passport.verifyJWT(await this.app.$api.passport.getJWT()))
-    // } catch (err) {
-    //   console.error(err)
-    // }
-    // // commit('SET_TOKEN', this.$cookies.get(this.app.$api.authKey))
-    // return getters.isAuthenticated
   },
   async login ({commit, dispatch}, {email, password}) {
     try {
-      // await this.app.$api.logout()
-      // this.app.$api.set('user', null)
-      // commit('SET_USER', null)
-
-      // const response = await this.app.$api.authenticate({strategy: 'local', email, password})
-      // const payload = await this.app.$api.passport.verifyJWT(response.accessToken)
-      // const user = await this.app.$api.service('users').get(payload.userId)
-
       const user = await this.app.$api.auth({strategy: 'local', email, password})
       const locale = this.app.$cookies.get('locale')
       if (user && user.language !== locale && !isEmpty(locale)) {
@@ -134,10 +97,8 @@ export const actions = {
 
       return user
     } catch (err) {
-      console.error('#auth/login')
-      console.error(err.message)
       commit('SET_USER', null)
-      // commit('SET_TOKEN', null)
+      commit('SET_TOKEN', null)
       throw new Error(err.message)
     }
   },
@@ -147,18 +108,6 @@ export const actions = {
     }
     commit('SET_USER', null)
     commit('newsfeed/clear', null, { root: true })
-
-    // try {
-    //   await this.app.$api.logout()
-    // } catch (err) {
-    //   console.error(err.message)
-    // }
-    // commit('SET_USER', null)
-    // commit('SET_TOKEN', null)
-    // this.app.$api.set('user', null)
-    // this.app.$cookies.remove(this.app.$api.authKey)
-    // commit('newsfeed/clear', null, { root: true })
-    // dispatch('newsfeed/fetch', null, { root: true })
   },
   register ({dispatch, commit}, {email, password, inviteCode}) {
     return this.app.$api.service('users').create({email, password, inviteCode})
@@ -172,11 +121,8 @@ export const actions = {
     // console.log('#USER ID', state.user._id)
     // console.log('#JWT TOKEN', this.$cookies.get(this.app.$api.authKey))
     // console.log('####################')
-    // if (!state.user) {
-    //   await dispatch('jwt', this.$cookies.get(this.app.$api.authKey))
-    // }
-    if (!state.user) {
-      console.log('#EXIT - NO USER!')
+    if (!state.isAuthenticated) {
+      // stop when the user is not authenticated
       return
     }
     const user = await this.app.$api.service('users').patch(state.user._id, data)
@@ -196,12 +142,12 @@ export const actions = {
         console.error(err.message, err)
       })
   },
-  resendVerifySignup ({dispatch}, email) {
-    if (!email) { return false }
+  resendVerifySignup ({state, dispatch}) {
+    if (!state.user.email) { return false }
     return this.app.$api.service('authManagement').create({
       action: 'resendVerifySignup',
       value: {
-        email: email
+        email: state.user.email
       }
     })
       .then(() => {
