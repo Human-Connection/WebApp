@@ -1,7 +1,8 @@
 <template>
   <div class="hc-top-search">
     <search-input class="is-hidden-mobile"></search-input>
-    <hc-dropdown :persist="true" :mobileFull="true"
+    <hc-dropdown :persist="true" :mobileFixed="true"
+      @open="$refs.searchInput.focus()"
       class="is-hidden-tablet">
       <hc-navbar-button slot="toggle">
         <hc-icon icon="search"></hc-icon>
@@ -10,7 +11,7 @@
         {{ $t('component.search.header') }}
       </hc-dropdown-title>
       <div class="hc-top-search-mobile-inner">
-        <search-input></search-input>
+        <search-input ref="searchInput"></search-input>
       </div>
     </hc-dropdown>
   </div>

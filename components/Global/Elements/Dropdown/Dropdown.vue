@@ -1,5 +1,6 @@
 <template>
-  <div class="hc-dropdown-container" :class="{ 'mobile-full' : mobileFull }">
+  <div class="hc-dropdown-container"
+    :class="{ 'mobile-fixed' : mobileFixed, 'mobile-full' : mobileFull }">
     <slot name="toggle" :class="{ 'active' : active }">
       <hc-icon icon="list"></hc-icon>
     </slot>
@@ -37,6 +38,10 @@
       mode: {
         type: String,
         default: 'click'
+      },
+      mobileFixed: {
+        type: Boolean,
+        default: false
       },
       mobileFull: {
         type: Boolean,
@@ -100,11 +105,13 @@
         })
       },
       onShow () {
+        this.$emit('open')
         if (this.needsFixedScroll()) {
           disableBodyScroll(this.$refs['dropdown'])
         }
       },
       onHide () {
+        this.$emit('hide')
         if (this.needsFixedScroll()) {
           enableBodyScroll(this.$refs['dropdown'])
         }
@@ -169,6 +176,7 @@
     }
 
     @include until($tablet) {
+      .hc-dropdown-container.mobile-fixed &,
       .hc-dropdown-container.mobile-full & {
         transform: translateX(-15px);
         border-radius: 0;
@@ -178,13 +186,16 @@
         top: $navbar-height !important;
         left: 0 !important;
         right: 0 !important;
-        bottom: 0 !important;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
 
         &.uk-open {
           transform: translateX(0);
         }
+      }
+
+      .hc-dropdown-container.mobile-full & {
+        bottom: 0 !important;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
       }
     }
   }

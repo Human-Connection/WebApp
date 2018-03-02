@@ -6,7 +6,8 @@
                type="text"
                v-bind:placeholder="$t('component.search.placeholder')"
                v-model="value"
-               v-on:keyup="onInput">
+               v-on:keyup="onInput"
+               ref="input">
         <span class="icon is-small is-left">
           <hc-icon icon="search"></hc-icon>
         </span>
@@ -32,6 +33,11 @@
       }
     },
     methods: {
+      focus () {
+        setTimeout(() => {
+          this.$refs.input.focus()
+        }, 200)
+      },
       onInput: debounce(() => {
         app.$store.commit('search/query', app.value)
       }, 600),
@@ -79,6 +85,9 @@
         padding-left: 2em;
         padding-right: 1em;
         font-size: 1em;
+        transition-duration: 0.15s;
+        transition-timing-function: ease-out;
+        transition-property: border, background-color;
 
         & {
           border-color: $white-ter;
@@ -102,6 +111,9 @@
     .icon {
       height: 2.5em;
       font-size: 1em;
+      transition-duration: 0.15s;
+      transition-timing-function: ease-out;
+      transition-property: color;
 
       &.btn-clear {
         position: absolute;
