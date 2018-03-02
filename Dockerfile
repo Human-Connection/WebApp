@@ -16,14 +16,12 @@ EXPOSE 3000
 
 # set environment variables
 ENV HOST=0.0.0.0
+ENV WEBAPP_HOST=0.0.0.0
 
 # buld application
 ENV NODE_ENV=production
 RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn build
-
-# install env substition
-RUN yarn add --global envsub
 
 # set execution rights on scripts and run the build script
 RUN chmod +x entrypoint.sh

@@ -6,7 +6,7 @@
 # with static vars at build time but we need them fresh at deploy time
 
 # setting deploy time environment vars and writing them to .env
-on-deploy.sh
+on-start.sh
 
-# starting the application
-node build/main.js
+# starting the application with the correct settings
+yarn start -p $WEBAPP_PORT -H $WEBAPP_HOST
