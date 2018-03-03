@@ -26,7 +26,7 @@ RUN yarn build
 # set execution rights on scripts and run the build script
 RUN chmod +x entrypoint.sh
 RUN chmod +x on-build.sh
-RUN chmod +x on-deploy.sh
+RUN chmod +x on-start.sh
 RUN on-build.sh
 
 ENV NODE_ENV=production
