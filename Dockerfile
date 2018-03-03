@@ -20,6 +20,7 @@ ENV WEBAPP_HOST=0.0.0.0
 
 # buld application
 # ENV NODE_ENV=production #we seam to have issues with the production flag on install && build
+RUN npm install -g envsub
 RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn build
 
