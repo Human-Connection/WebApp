@@ -121,10 +121,10 @@ export const actions = {
     // console.log('#USER ID', state.user._id)
     // console.log('#JWT TOKEN', this.$cookies.get(this.app.$api.authKey))
     // console.log('####################')
-    if (!state.isAuthenticated) {
-      // stop when the user is not authenticated
-      return
-    }
+    // if (!state.isAuthenticated) {
+    //   // stop when the user is not authenticated
+    //   return
+    // }
     const user = await this.app.$api.service('users').patch(state.user._id, data)
     commit('SET_USER', user)
     return user
