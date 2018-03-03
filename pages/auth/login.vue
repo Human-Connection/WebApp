@@ -122,7 +122,6 @@
         if (this.$route.params.path || this.$route.query.path) {
           this.$snackbar.open({
             message: `you have to login!`,
-            duration: 5000,
             type: 'is-danger'
           })
         }
@@ -149,7 +148,6 @@
             this.isLoading = false
             this.$toast.open({
               message: err.message,
-              duration: 3000,
               type: 'is-danger'
             })
             this.animate('shake')

@@ -13,7 +13,7 @@ const app = express()
 
 // Import and Set Nuxt.js options
 let nuxtConfig = require('../nuxt.config.js')
-nuxtConfig.dev = !(process.env.NODE_ENV === 'production')
+nuxtConfig.dev = (process.env.NODE_ENV !== 'production')
 nuxtConfig.debug = nuxtConfig.dev ? 'nuxt:*,app' : null
 
 // Add middleware

@@ -54,7 +54,6 @@
           this.seedingFakeData = false
           this.$toast.open({
             message: err.message,
-            duration: 3000,
             type: 'is-danger'
           })
         })
@@ -73,7 +72,6 @@
           this.seedingDemoData = false
           this.$toast.open({
             message: err.message,
-            duration: 3000,
             type: 'is-danger'
           })
         })

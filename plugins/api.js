@@ -12,27 +12,27 @@ export default ({app, store, redirect, router}) => {
   const storage = {
     getItem: (key) => {
       const res = app.$cookies.get(key)
-      console.log(`## STORAGE: getItem(${key})`, res)
+      // console.log(`## STORAGE: getItem(${key})`, res)
       return res
     },
     setItem: (key, value, options) => {
       const res = app.$cookies.set(key, value, options)
-      console.log(`## STORAGE: setItem(${key}, ${value}, ${options})`, res)
+      // console.log(`## STORAGE: setItem(${key}, ${value}, ${options})`, res)
       return res
     },
     removeItem: (key) => {
       const res = app.$cookies.remove(key)
-      console.log(`## STORAGE: removeItem(${key})`, res)
+      // console.log(`## STORAGE: removeItem(${key})`, res)
       return res
     },
     clear: () => {
       const res = app.$cookies.removeAll()
-      console.log(`## STORAGE: clear()`, res)
+      // console.log(`## STORAGE: clear()`, res)
       return res
     },
     length: () => {
       const res = app.$cookies.getAll().length
-      console.log(`## STORAGE: length()`, res)
+      // console.log(`## STORAGE: length()`, res)
       return res
     }
   }

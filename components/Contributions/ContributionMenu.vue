@@ -67,7 +67,6 @@
             this.isLoading = false
             this.$toast.open({
               message: err.message,
-              duration: 3000,
               type: 'is-danger'
             })
           })
