@@ -24,10 +24,10 @@ RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn build
 
 # set execution rights on scripts and run the build script
-RUN chmod +x ./entrypoint.sh
-RUN chmod +x ./on-build.sh
-RUN chmod +x ./on-start.sh
-RUN ./on-build.sh
+RUN chmod +x entrypoint.sh
+RUN chmod +x on-build.sh
+RUN chmod +x on-start.sh
+RUN sh on-build.sh
 
 ENV NODE_ENV=production
 ENTRYPOINT ["./entrypoint.sh"]
