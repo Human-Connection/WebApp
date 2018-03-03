@@ -19,7 +19,7 @@ ENV HOST=0.0.0.0
 ENV WEBAPP_HOST=0.0.0.0
 
 # buld application
-ENV NODE_ENV=production
+# ENV NODE_ENV=production #we seam to have issues with the production flag on install && build
 RUN yarn install --frozen-lockfile --non-interactive
 RUN yarn build
 
@@ -29,6 +29,7 @@ RUN chmod +x on-build.sh
 RUN chmod +x on-deploy.sh
 RUN on-build.sh
 
+ENV NODE_ENV=production
 ENTRYPOINT ["./entrypoint.sh"]
 
 # start the application in a autohealing cluster
