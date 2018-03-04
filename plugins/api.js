@@ -27,12 +27,9 @@ export default ({app, store, redirect, router}) => {
     },
     clear: () => {
       const res = app.$cookies.removeAll()
-      // console.log(`## STORAGE: clear()`, res)
-      return res
-    },
-    length: () => {
-      const res = app.$cookies.getAll().length
-      // console.log(`## STORAGE: length()`, res)
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`## STORAGE: clear()`, res)
+      }
       return res
     }
   }
@@ -50,26 +47,32 @@ export default ({app, store, redirect, router}) => {
     before: {
       all: [
         async (hook) => {
-          console.log('# API:', `${hook.method} ${hook.path}`)
+          // hook.accessToken = await api.passport.getJWT()
+          if (process.env.NODE_ENV === 'development') {
+            console.log('# API:', `${hook.method} ${hook.path}`)
+            // console.log('# ' + hook.accessToken)
+          }
           return hook
         }
       ]
     },
     async error (ctx) {
-      // console.log('####################')
-      // console.error(ctx.error)
-      // console.info('JWT TOKEN: ', app.$cookies.get(authKey))
-      // console.info('path', ctx.path)
-      // console.info('service', ctx.service)
-      // console.info('method', ctx.method)
-      // console.info('params', ctx.params)
-      // console.info('id', ctx.id)
-      // console.info('data', ctx.data)
-      // console.log('####################')
+      if (process.env.NODE_ENV === 'development') {
+        console.log('####################')
+        console.error(ctx.error)
+        console.info('JWT TOKEN: ', app.$cookies.get(authKey))
+        console.info('path', ctx.path)
+        console.info('service', ctx.service)
+        console.info('method', ctx.method)
+        console.info('params', ctx.params)
+        console.info('id', ctx.id)
+        console.info('data', ctx.data)
+        console.log('####################')
+      }
 
       // force re-login on 401 responses
       if (process.client && ctx.error.code === 401) {
-        await store.dispatch('auth/logout', null, { root: true })
+        await store.dispatch('auth/logout')
         redirect(`/auth/login?path=${window.location.pathname}`)
       }
     }
@@ -82,7 +85,7 @@ export default ({app, store, redirect, router}) => {
    * @param {Object} options
    */
   api.auth = async (options = {strategy: 'jwt'}) => {
-    console.log('~~~######### api.auth', options)
+    // console.log('~~~######### api.auth', options)
     let user = null
     const response = await api.authenticate(options)
     const payload = await api.passport.verifyJWT(response.accessToken)

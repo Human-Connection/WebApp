@@ -38,7 +38,7 @@
     },
     async mounted () {
       // refresh token to fix refresh issues
-      await this.$store.dispatch('auth/refreshJWT')
+      await this.$store.dispatch('auth/refreshJWT', 'layout admin')
     }
   }
 </script>

@@ -3,6 +3,6 @@
  */
 export default async ({store}) => {
   if (process.client) {
-    await store.dispatch('auth/refreshJWT')
+    await store.dispatch('auth/refreshJWT', 'check-auth middleware')
   }
 }

@@ -117,8 +117,6 @@
           this.$refs['focus'].focus()
         } catch (err) {}
 
-        console.log(this.$route.params.path || this.$route.query.path)
-
         if (this.$route.params.path || this.$route.query.path) {
           this.$snackbar.open({
             message: `you have to login!`,

@@ -99,14 +99,6 @@
         try {
           await this.$api.service('emotions').create(postData)
         } catch (err) {
-          if (err.code === 401) {
-            this.$router.push({
-              name: 'auth-login',
-              params: {
-                path: this.$route.path
-              }
-            })
-          }
           this.$toast.open({
             message: err.message,
             type: 'is-danger'
@@ -127,16 +119,18 @@
         if (visible) {
           // calculate current value
           if (this.user) {
-            this.$api.service('emotions').find({
-              query: {
-                contributionId: this.contribution._id,
-                userId: this.user._id
-              }
-            }).then((res) => {
-              if (res && !isEmpty(res.data)) {
-                this.selected = res.data[0].rated
-              }
-            })
+            setTimeout(() => {
+              this.$api.service('emotions').find({
+                query: {
+                  contributionId: this.contribution._id,
+                  userId: this.user._id
+                }
+              }).then(res => {
+                if (res && !isEmpty(res.data)) {
+                  this.selected = res.data[0].rated
+                }
+              })
+            }, 1000)
           }
         }
       }

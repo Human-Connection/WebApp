@@ -18,7 +18,7 @@
         this.hidden = false
       })
       // refresh token to fix refresh issues
-      await this.$store.dispatch('auth/refreshJWT')
+      await this.$store.dispatch('auth/refreshJWT', 'layout blank')
     },
     head () {
       let head = {

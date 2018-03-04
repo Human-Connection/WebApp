@@ -18,7 +18,7 @@ export const mutations = {
 
 export const getters = {
   isAuthenticated (state) {
-    return state.user && state.token
+    return !!(state.user && state.token)
   },
   isVerified (state) {
     return !!state.user && state.user.isVerified && !!state.user.name
@@ -41,7 +41,7 @@ export const actions = {
   async init ({commit, dispatch, state}) {
     let user
     // get fresh jwt token
-    await dispatch('refreshJWT')
+    await dispatch('refreshJWT', 'auth/init')
 
     // check if the token is autenticated
     const isAuthenticated = await dispatch('checkAuth')
@@ -52,9 +52,13 @@ export const actions = {
     }
     return user
   },
-  async refreshJWT ({state, getters, commit}) {
+  async refreshJWT ({state, getters, commit}, source = null) {
     const token = await this.app.$api.passport.getJWT()
     commit('SET_TOKEN', token)
+
+    if (process.env.NODE_ENV === 'development') {
+      console.log('### refreshJWT', source, !isEmpty(token), getters.isAuthenticated)
+    }
 
     let user
     if (token) {
@@ -98,15 +102,14 @@ export const actions = {
       return user
     } catch (err) {
       commit('SET_USER', null)
-      commit('SET_TOKEN', null)
+      // commit('SET_TOKEN', null)
       throw new Error(err.message)
     }
   },
   async logout ({commit}) {
-    if (await this.app.$api.passport.getJWT()) {
-      await this.app.$api.logout()
-    }
+    await this.app.$api.logout()
     commit('SET_USER', null)
+    commit('SET_TOKEN', null)
     commit('newsfeed/clear', null, { root: true })
   },
   register ({dispatch, commit}, {email, password, inviteCode}) {

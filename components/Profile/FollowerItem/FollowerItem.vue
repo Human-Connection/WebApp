@@ -35,7 +35,6 @@
           userId: this.user._id
         }
       }).then((res) => {
-        console.log(res)
         if (res.total && res.data) {
           this.lastContributionDate = res.data[0].createdAt
         }
