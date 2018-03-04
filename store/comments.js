@@ -3,7 +3,8 @@ import { castArray, debounce } from 'lodash'
 export const state = () => {
   return {
     comments: [],
-    isLoading: true
+    isLoading: true,
+    contributionId: null
   }
 }
 
@@ -16,6 +17,9 @@ export const mutations = {
   },
   clear (state) {
     state.comments = []
+  },
+  setContributionId (state, contributionId) {
+    state.contributionId = contributionId
   }
 }
 
@@ -36,13 +40,15 @@ export const actions = {
   subscribe ({dispatch}) {
     return this.app.$api.service('comments')
       .on('created', debounce((comment) => {
-        dispatch('fetchByContributionId', comment.contributionId)
+        dispatch('fetchByContributionId')
       }, 500))
       .on('patched', debounce((comment) => {
-        dispatch('fetchByContributionId', comment.contributionId)
+        dispatch('fetchByContributionId')
       }, 500))
   },
-  fetchByContributionId ({commit}, contributionId) {
+  fetchByContributionId ({commit, state}, contributionId) {
+    contributionId = contributionId || state.contributionId
+    commit('setContributionId', contributionId)
     return this.app.$api.service('comments').find({
       query: {
         contributionId: contributionId,
