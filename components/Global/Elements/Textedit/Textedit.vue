@@ -39,7 +39,7 @@
       }
     },
     watch: {
-      currentText (val) {
+      modifiedText (val) {
         this.currentText = val
         this.$emit('change', val)
       }
@@ -49,12 +49,12 @@
         // start edit
         if (this.isEditing === false) {
           this.isEditing = true
-          this.modifiedText = this.initialText !== this.currentText ? this.currentText : this.initialText
+          this.modifiedText = this.value !== this.currentText ? this.currentText : this.value
         } else {
           // clicked cancel
           if (save === false) {
-            this.currentText = this.initialText
-            this.modifiedText = this.initialText
+            this.currentText = this.value
+            this.modifiedText = this.value
           } else {
             // clicked save
             this.currentText = this.modifiedText
@@ -68,7 +68,7 @@
       }
     },
     mounted () {
-      this.currentText = this.initialText
+      this.currentText = this.value
     }
   }
 </script>
