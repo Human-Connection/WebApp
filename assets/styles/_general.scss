@@ -290,6 +290,16 @@ body .sentry-error-embed-wrapper {
   z-index: 99999 !important;
 }
 
+div[class^="v2-table__"][style],
+div[class*="v2-table__"][style],
+.v2-table__body-wrapper[style],
+.v2-table__footer-wrapper[style],
+.v2-table__header-wrapper[style],
+.v2-table__table-container[style],
+.v2-table__table-wrapper[style] {
+  width: 100% !important;
+}
+
 /*@keyframes ProgressAnimation {
   0% {background-position: 0% 50%}
   100% {background-position: 200% 50%}

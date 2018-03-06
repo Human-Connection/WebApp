@@ -12,17 +12,21 @@ export default ({ app, req, cookie, store }) => {
     if (process.server) return
 
     const currentLocale = app.$cookies.get(mutation.payload.locale)
+    const isDifferent = mutation.payload.locale !== currentLocale
+    if (isDifferent) {
+      app.$cookies.set(key, mutation.payload.locale)
+    }
+
     // console.log('store', store)
     const user = store.getters['auth/user']
     const token = store.getters['auth/token']
     // persist language if it differs from last value
-    if (user && user._id && token && mutation.payload.locale !== currentLocale) {
+    if (isDifferent && user && user._id && token) {
       // console.log(store)
       // console.log('TRY TO SET THE LANGAUGE')
       store.dispatch('auth/patch', {
         language: mutation.payload.locale
       }, { root: true })
-      app.$cookies.set(key, mutation.payload.locale)
     }
   }, 500)
 

@@ -118,6 +118,7 @@
 
 <script>
   import animatable from '~/components/mixins/animatable'
+  import { isEmpty } from 'lodash'
   import { validationMixin } from 'vuelidate'
   import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
   import FlagSwitch from '~/components/Auth/FlagSwitch'
@@ -185,6 +186,11 @@
 
         this.form.email = this.$route.query.email || ''
         this.form.inviteCode = this.$route.query.code || ''
+
+        if (this.$route.query.lang && isEmpty(this.$cookies.get('locale'))) {
+          console.log('LANG: ' + this.$route.query.lang)
+          this.$i18n.set(this.$route.query.lang)
+        }
       })
     },
     methods: {
