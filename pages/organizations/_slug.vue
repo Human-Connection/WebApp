@@ -23,7 +23,8 @@
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
           <div class="organization-name">
-            <hc-textedit @change="updateName" :type="'input'" :value="organization.name || ''"></hc-textedit>
+            <hc-textedit v-if="isOwner" @change="updateName" :type="'text'" :value="organization.name || ''"></hc-textedit>
+            <span v-if="!isOwner">{{ organization.name || '' }}</span>
           </div>
           <div class="organization-follows">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')"></hc-textcount>
@@ -52,7 +53,8 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <hc-textedit @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
+          <hc-textedit v-if="isOwner" @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
+          <span v-if="!isOwner">{{ organization.description }}</span>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <div class="under-construction">
@@ -76,7 +78,7 @@
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
         <!-- TODO: add timeline for organizations -->
         <div class="organization-form-wrapper" v-if="showOrganizationForm">
-          <organizations-form @saved="submitForm" @cancel="cancelForm" :id="organization._id"></organizations-form>
+          <organizations-form @saved="submitForm" @cancel="cancelForm" :canEdit="isOwner" :id="organization._id"></organizations-form>
         </div>
       </div>
     </div>
@@ -119,17 +121,17 @@
           }
         })
       }
-      if (organization === undefined || isEmpty(organization.data)) {
+      if (!organization || isEmpty(organization.data)) {
         return redirect('/organizations/name')
       } else {
         // is owner?
         owner = store.getters['auth/user']
-        isOwner = owner !== null && owner._id === organization.data[0].userId
+        isOwner = owner && owner._id === organization.data[0].userId
       }
       return {
-        params: params,
+        params,
         organization: organization.data[0],
-        isOwner: isOwner
+        isOwner
       }
     },
     computed: {
@@ -158,9 +160,20 @@
     methods: {
       followOrganization () {
         let currentUser = this.$store.getters['auth/user']
+        let organizationId = this.organization._id
         if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
-          this.organization.followerIds.push(currentUser._id)
-          this.$store.dispatch('organizations/follow', currentUser._id, this.organization)
+          this.$store.dispatch('organizations/follow', {
+            currentUserId: currentUser._id,
+            organizationId: organizationId
+          }).then((res) => {
+            if (res._id !== '') {
+              this.$snackbar.open({
+                message: this.$t('component.organization.follow'),
+                duration: 4000,
+                type: 'is-success'
+              })
+            }
+          })
         }
       },
       updateDescription (val) {
@@ -170,7 +183,7 @@
         }
       },
       updateName (val) {
-        if (val !== undefined) {
+        if (val !== undefined && this.organization.name !== val) {
           this.organization.name = val
           this.$store.dispatch('organizations/patch', this.organization).then((res) => {
             if (res.slug !== '') {
@@ -265,16 +278,11 @@
       margin: 25px 0;
 
       .textcountitem {
-        text-align: center;
         border-right: 1px solid #dadada;
         //border-left: 1px solid #dadada;
         padding: 0 10px 0 10px;
       }
-      .textcountitem:first-child {
-        text-align: right;
-      }
       .textcountitem:last-child {
-        text-align: left;
         border-right: 0;
       }
     }

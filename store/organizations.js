@@ -5,13 +5,12 @@ export const actions = {
     if (!organization) {
       return null
     }
-    console.log(organization)
     return feathers.service('organizations').patch(organization._id, organization)
   },
   create ({dispatch}, organization) {
     return feathers.service('organizations').create(organization)
   },
-  follow ({dispatch}, userId, organizationId) {
-    return feathers.service('follows').create({followingId: organizationId, type: 'organizations', userId: userId})
+  follow ({dispatch}, data) {
+    return feathers.service('follows').create({followingId: data.organizationId, type: 'organizations', userId: data.currentUserId})
   }
 }
