@@ -43,7 +43,7 @@
           </v2-table>
         </no-ssr>
       </b-tab-item>
-      <b-tab-item label="Invite Codes" icon="barcode">
+      <b-tab-item label="Invite Codes" icon="ticket">
         <article class="message is-small">
           <div class="message-body">
             <i class="fa fa-info-circle"></i> Here you can invite users by providing a a csv file with at least the email and the language (de/en) of the users to invite.
