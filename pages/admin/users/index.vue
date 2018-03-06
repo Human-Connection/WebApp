@@ -222,11 +222,13 @@
               const data = event.target.result
                 .replace(`"lang"`, `"language"`)
                 .replace(`"rCode"`, `"code"`)
+
+              const semicolonIndex = data.indexOf(';')
+              const delimiter = (semicolonIndex >= 0 && semicolonIndex <= 200) ? `;` : `,`
               const csv = parse(data, {
                 columns: true,
-                delimiter: `,`,
-                trim: true,
-                quote: `"`
+                delimiter: delimiter,
+                trim: true
               })
               if (isEmpty(csv[0].email) || isEmpty(csv[0].language)) {
                 throw new Error('You need a header with at least email and language in your csv!')
@@ -269,10 +271,10 @@
             type: 'is-success'
           })
           if (res && res.length) {
-            this.results = `email, role, language, code, link\n`
+            this.results = `email,role,language,code,link\n`
           }
           res.forEach(item => {
-            this.results += `${item.email}, ${item.role}, ${item.language}, ${item.code}, ${location.origin}/auth/register?email=${item.email}&code=${item.code}&lang=${item.language}\n`
+            this.results += `${item.email},${item.role},${item.language},${item.code},${location.origin}/auth/register?email=${item.email}&code=${item.code}&lang=${item.language}\n`
           })
 
           // updated items
