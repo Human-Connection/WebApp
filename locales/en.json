@@ -177,8 +177,7 @@
       "email": "E-Mail address",
       "website": "Website",
       "logo": "Logo",
-      "organizationSaveSuccess": "The Organization has been created.",
-      "follow": "Nice! Now you're showing your support for this Organization!"
+      "organizationSaveSuccess": "The Organization has been created."
     },
     "notification": {
       "label": "Notifications",
@@ -421,11 +420,7 @@
       "networkSettings": "Network settings",
       "dashboard": "Dashboard",
       "languages": "Languages",
-      "saveLabel": "Save",
-      "currentPassword": "current password",
-      "yourPassword": "your password",
-      "newPassword": "new password",
-      "newPasswordRepeat": "confirm new password"
+      "saveLabel": "Save"
     }
   },
   "ressource": {

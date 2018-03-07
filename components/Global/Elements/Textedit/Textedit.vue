@@ -7,8 +7,8 @@
       <div v-if="type === 'textarea'">
         <textarea v-model="modifiedText" name="currentText" cols="30" rows="10">{{ modifiedText }}</textarea>
       </div>
-      <div v-if="type === 'text' || type ==='password'">
-        <input :type="type" v-model="modifiedText" autofill="false" />
+      <div v-if="type === 'input'">
+        <input type="text" v-model="modifiedText" />
       </div>
       <span class="actions">
         <i @click="toggleEdit" class="fa fa-close"></i>
@@ -35,21 +35,17 @@
       return {
         isEditing: false,
         modifiedText: '',
-        currentText: '',
-        ready: false
+        currentText: ''
       }
     },
     watch: {
-      currentText (val) {
+      modifiedText (val) {
         this.currentText = val
-        if (this.ready) {
-          this.$emit('change', val)
-        }
+        this.$emit('change', val)
       }
     },
     methods: {
       toggleEdit (e, save = false) {
-        this.ready = true
         // start edit
         if (this.isEditing === false) {
           this.isEditing = true
@@ -73,7 +69,6 @@
     },
     mounted () {
       this.currentText = this.value
-      this.modifiedText = this.value
     }
   }
 </script>

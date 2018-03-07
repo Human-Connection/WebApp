@@ -47,7 +47,7 @@
                     <p>
                       <strong>{{ $t('auth.settings.yourName', 'Your Name:') }} </strong>
                       <span>
-                      <hc-textedit @change="updateUser" :type="'text'" :value="data.name || ''"></hc-textedit>
+                      <hc-textedit @change="updateUser" :type="'input'" :value="data.name || ''"></hc-textedit>
                     </span>
                     </p>
                   </div>
@@ -59,33 +59,12 @@
               <p class="under-construction"><strong><h3>UNDER CONSTRUCTION</h3></strong></p>
             </div>
             <div class="security fullwidth-box" v-if="currentMenu === 'access'">
-              <div class="info-text">
-                <h3 class="title is-4">
-                  <i class="fa fa-shield"></i> Sicherheitseinstellungen
-                </h3>
-                <p>Hier kannst Du dein Passwort ändern. </p>
-              </div>
-              <div class="editable-details">
-                <div class="columns">
-                  <div class="column is-four-fifths">
-                    <p>
-                      <strong>{{ $t('auth.settings.yourPassword', 'Your password:') }} </strong>
-                      <span>
-                        <hc-textedit @change="updateUserPassword" :type="'password'" :value="'************'"></hc-textedit>
-                    </span>
-                    </p>
-                  </div>
-                  <div class="column is-one-fifth">
-                    <i class="fa fa-pencil"></i>
-                  </div>
-                </div>
-              </div>
-              <p class="under-construction"><strong><h3>UNDER CONSTRUCTION</h3></strong></p>
+              asdf
             </div>
             <div class="languages fullwidth-box" v-if="currentMenu === 'languages'">
               <div class="info-text">
                 <h3 class="title is-4">
-                  <i class="fa fa-globe"></i> Spracheinstellungen
+                  Spracheinstellungen
                 </h3>
                 <p>Hier kannst Du wählen in welcher Sprache die Webseite und Beiträge angezeigt werden.</p>
               </div>
@@ -209,9 +188,6 @@
               this.isLoading = false
             })
         }
-      },
-      async updateUserPassword (val) {
-        console.log(val)
       }
     },
     watch: {
