@@ -14,7 +14,8 @@ install:
   - yarn test:env
   - yarn test
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  # only deoloy when pushing to master but not on pull-requests
+  - if [ "$TRAVIS_BRANCH" == "master" ] AND type IN (push); then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker push humanconnection/frontend-nuxt:alpha;
     fi
