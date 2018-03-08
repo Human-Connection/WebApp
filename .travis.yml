@@ -8,6 +8,9 @@ cache:
   directories:
     - node_modules
 
+install:
+  # nothing
+
 jobs:
   include:
     - stage: Test and Build
@@ -17,10 +20,9 @@ jobs:
       - yarn test
     - script:
       - docker build -t humanconnection/frontend-nuxt:alpha .
-    - stage: Deploy
-      if: branch = master AND type IN (push)
-      script:
-        # only deoloy when pushing to master but not on pull-requests
-        docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-        docker push humanconnection/frontend-nuxt:alpha;
-        fi
+
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ] AND type IN (push); then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push humanconnection/frontend-nuxt:alpha;
+    fi
