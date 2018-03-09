@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 
 # this script is triggered always when the image is started
 # it writes the environment variables to the config files
@@ -6,7 +6,7 @@
 # with static vars at build time but we need them fresh at deploy time
 
 # setting deploy time environment vars and writing them to .env
-on-start.sh
+./on-start.sh
 
 # starting the application with the correct settings
 yarn start -p $WEBAPP_PORT -H $WEBAPP_HOST

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ash
 
 # this script is triggered always when the image is started
 # it writes the environment variables to the config files
