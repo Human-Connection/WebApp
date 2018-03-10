@@ -25,7 +25,6 @@
             <i class="fa fa-cogs"></i> {{ $t('auth.settings.networkSettings', 'Network settings') }}
           </p>
           <ul class="menu-list">
-            <li @click.prevent="changeMenu('dashboard')" v-bind:class="{ 'is-active': currentMenu === 'dashboard'}"><a>{{ $t('auth.settings.dashboard', 'Dashboard') }}</a></li>
             <li @click.prevent="changeMenu('languages')" v-bind:class="{ 'is-active': currentMenu === 'languages'}"><a>{{ $t('auth.settings.languages', 'Languages') }}</a></li>
           </ul>
         </aside>
@@ -36,10 +35,9 @@
             <div class="user-data fullwidth-box" v-if="currentMenu === 'general'">
               <div class="info-text">
                 <h3 class="title is-4">
-                  Willkommen in deinem Profil
+                  {{ $t('auth.settings.profileWelcome') }}
                 </h3>
-                <p>Hier kannst Du deine Daten verwalten. Um etwas zu bearbeiten klicke einfach auf den Text oder das <i class="fa fa-pencil"></i> icon. <br />
-                  Bitte gib an niemanden dein Passwort weiter. Damit Du geschützt bist empfehlen wir Dir ein Passwort mit mindestens 16 Zeichen zu verwenden.</p>
+                <p>{{ $t('auth.settings.profileWelcomeText') }}</p>
               </div>
               <div class="editable-details">
                 <div class="columns">
@@ -47,7 +45,7 @@
                     <p>
                       <strong>{{ $t('auth.settings.yourName', 'Your Name:') }} </strong>
                       <span>
-                      <hc-textedit @change="updateUser" :type="'input'" :value="data.name || ''"></hc-textedit>
+                      <hc-textedit @change="updateUser" :type="'input'" :value="form.name || ''"></hc-textedit>
                     </span>
                     </p>
                   </div>
@@ -59,37 +57,83 @@
               <p class="under-construction"><strong><h3>UNDER CONSTRUCTION</h3></strong></p>
             </div>
             <div class="security fullwidth-box" v-if="currentMenu === 'access'">
-              asdf
+              <div class="info-text">
+                <h3 class="title is-4">
+                  {{ $t('auth.settings.securityWelcome') }}
+                </h3>
+                <p>{{ $t('auth.settings.securityWelcomeText') }}</p>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">
+                  <div class="field">
+                    <label class="label">{{ $t('auth.settings.currentPassword') }}</label>
+                    <p class="control">
+                      <input v-model="form.currentPassword" type="password" class="input">
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">
+                  <div class="field">
+                    <label class="label">{{ $t('auth.settings.newPassword') }}</label>
+                    <p class="control">
+                      <input v-model="form.newPassword" type="password" class="input">
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="columns">
+                <div class="column is-one-third">
+                  <div class="field">
+                    <label class="label">{{ $t('auth.settings.newPasswordConfirm') }}</label>
+                    <p class="control">
+                      <input v-model="form.newPasswordConfirm" type="password" class="input">
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="has-text-right">
+              <hc-button :isLoading="isLoading"
+                         :disabled="disabled"
+                         @click.prevent="savePassword">
+                <i class="fa fa-check"></i>
+                &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
+              </hc-button>
             </div>
             <div class="languages fullwidth-box" v-if="currentMenu === 'languages'">
               <div class="info-text">
                 <h3 class="title is-4">
-                  Spracheinstellungen
+                  {{ $t('auth.settings.languageSettings') }}
                 </h3>
-                <p>Hier kannst Du wählen in welcher Sprache die Webseite und Beiträge angezeigt werden.</p>
+                <p>{{ $t('auth.settings.languageSettingsText') }}</p>
               </div>
               <div class="language-wrapper">
-                <b-field label="Select your languages">
+                <b-field label="Select your contribution languages">
                   <b-taginput
-                          v-model="data.selectedLanguages"
-                          :data="data.languageOptions"
+                          v-model="usersettings.contributionLanguages"
+                          :data="form.languageOptions"
                           autocomplete
                           :allowNew="false"
                           icon="label"
                           placeholder="Select your languages">
                   </b-taginput>
                 </b-field>
-                <b-field label="Select your Interface language">
-                  <b-taginput
-                          v-model="data.selectedInterfaceLanguage"
-                          :data="data.languageOptions"
-                          autocomplete
-                          maxtags="1"
-                          :allowNew="false"
-                          icon="label"
-                          placeholder="Select your language">
-                  </b-taginput>
-                </b-field>
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <div class="select">
+                      <label><strong>{{ $t('auth.settings.interfaceLanguageLabel') }}</strong></label>
+                      <select v-model="usersettings.uiLanguage">
+                        <option value="de" selected>Deutsch</option>
+                        <option value="en">English</option>
+                      </select>
+                      <div class="icon is-small is-left">
+                        <i class="fa fa-globe"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div class="has-text-right">
                 <hc-button :isLoading="isLoading"
@@ -117,11 +161,12 @@
     data () {
       return {
         currentMenu: 'general',
-        data: {
+        form: {
           name: '',
-          selectedLanguages: [],
           languageOptions: ['German', 'English'],
-          selectedInterfaceLanguage: []
+          currentPassword: '',
+          newPassword: '',
+          newPasswordConfirm: ''
         },
         errors: null,
         isLoading: false,
@@ -141,6 +186,7 @@
           userId: user._id
         }
       })
+
       return {
         params: params,
         usersettings: usersettings.data[0]
@@ -151,12 +197,15 @@
       async saveSettings () {
         this.isLoading = true
         this.disabled = true
-        this.usersettings.contributionLanguage = this.data.selectedLanguages
-        this.usersettings.uiLanguage = this.data.selectedInterfaceLanguage[0]
         this.$store.dispatch('usersettings/patch', this.usersettings)
           .then(() => {
             this.isLoading = false
             this.disabled = false
+            this.$snackbar.open({
+              message: this.$t('auth.settings.saveSettings'),
+              duration: 4000,
+              type: 'is-success'
+            })
           })
           .catch(error => {
             this.$toast.open({
@@ -167,6 +216,14 @@
             this.errors = true
             this.isLoading = false
           })
+      },
+      async savePassword () {
+        this.isLoading = true
+        this.disabled = true
+        let user
+        user = this.$store.getters['auth/user']
+        console.log(this.form)
+        console.log(user)
       },
       changeMenu (newMenu) {
         this.currentMenu = newMenu
@@ -192,11 +249,11 @@
     },
     watch: {
       user (user) {
-        this.data.name = user.name
+        this.form.name = user.name
       }
     },
     mounted () {
-      this.data.name = this.user.name
+      this.form.name = this.user.name
     },
     head () {
       return {
@@ -208,7 +265,6 @@
 
 <style lang="scss">
   @import "assets/styles/utilities";
-
   .account-settings {
     .is-active {
       background: #fefefe;
@@ -224,6 +280,10 @@
         float: none;
       }
     }
+    .language-wrapper {
+      .icon {
+        margin-top: 21px;
+      }
+    }
   }
-
 </style>
