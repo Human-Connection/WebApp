@@ -5,7 +5,12 @@
       <hc-icon icon="list"></hc-icon>
     </slot>
     <div @click="click" class="hc-dropdown" ref="dropdown">
-      <slot></slot>
+      <div class="hc-dropdown-content">
+        <slot></slot>
+      </div>
+      <div class="hc-dropdown-footer" v-if="!!this.$slots.footer">
+        <slot name="footer"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -117,7 +122,7 @@
         }
       },
       needsFixedScroll () {
-        return this.mobileFull && window.width < 767
+        return this.mobileFull && window.innerWidth < 767
       },
       update () {
         this.close()
@@ -161,7 +166,6 @@
     border-radius: 5px;
     min-width: 100px;
     position: absolute;
-
     visibility: hidden;
     opacity: 0;
     transform: translateY(-5px);
@@ -186,6 +190,8 @@
         top: $navbar-height !important;
         left: 0 !important;
         right: 0 !important;
+        display: flex;
+        flex-direction: column;
 
         &.uk-open {
           transform: translateX(0);
@@ -194,9 +200,23 @@
 
       .hc-dropdown-container.mobile-full & {
         bottom: 0 !important;
+      }
+    }
+  }
+
+  .hc-dropdown-content {
+    @include until($tablet) {
+      .hc-dropdown-container.mobile-full & {
+        flex: 1 1 0;
         overflow: auto;
         -webkit-overflow-scrolling: touch;
       }
     }
+  }
+
+  .hc-dropdown-footer {
+    background: $white;
+    border-top: 1px solid $grey-lighter;
+    padding: $padding $padding-small;
   }
 </style>

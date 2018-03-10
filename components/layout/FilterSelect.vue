@@ -1,50 +1,84 @@
 <template>
-  <hc-dropdown :persist="true"
-    position="bottom-justify"
-    ref="dropdown"
-    :mobileFull="true"
-    :boundaryAlign="true"
-    :boundary="$parent.$refs['navbar-container']">
-    <hc-navbar-button slot="toggle">
-      <hc-icon icon="filter"></hc-icon>
-    </hc-navbar-button>
-    <div class="hc-filter-select">
-      <hc-dropdown-title class="is-hidden-tablet">
-        {{ $t('component.category.filterTitle', 'Filter posts') }}
-      </hc-dropdown-title>
-      <div class="hc-filter-select-inner">
-        <no-ssr>
-          <hc-tooltip
-            :label="$t('component.layout.topbarFilterDescription')"
-            position="is-right"
-            size="is-large"
-            multilined>
-            <h6 class="title is-6">
-              {{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }}
-              <hc-icon set="fa" icon="question-circle"/>
-            </h6>
-          </hc-tooltip>
-        </no-ssr>
-        <filter-list
-          @change="filterForCategories"
-          :items="categories"
-          translationPath="component.category.slug2label-"
-          :selected="selectedCategoryIds"/>
-        <hr/>
-        <h6 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h6>
-        <filter-list
-          @change="filterForEmotions"
-          :items="emotions"
-          :selected="selectedEmotions"
-          iconSet="hc-emoji"/>
-        <hc-button class="is-hidden-tablet filter-button"
-          @click="$refs['dropdown'].close()"
+  <div>
+    <hc-dropdown class="is-hidden-mobile"
+      :persist="true"
+      position="bottom-justify"
+      ref="dropdown"
+      :mobileFull="true"
+      :boundaryAlign="true"
+      :boundary="$parent.$refs['navbar-container']">
+      <hc-navbar-button slot="toggle">
+        <hc-icon icon="filter"></hc-icon>
+      </hc-navbar-button>
+      <div class="hc-filter-select">
+        <div class="hc-filter-select-inner">
+          <no-ssr>
+            <hc-tooltip
+              :label="$t('component.layout.topbarFilterDescription')"
+              position="is-right"
+              size="is-large"
+              multilined>
+              <h6 class="title is-6">
+                {{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }}
+                <hc-icon set="fa" icon="question-circle"/>
+              </h6>
+            </hc-tooltip>
+          </no-ssr>
+          <filter-list
+            @change="filterForCategories"
+            :items="categories"
+            translationPath="component.category.slug2label-"
+            :selected="selectedCategoryIds"/>
+          <hr/>
+          <h6 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h6>
+          <filter-list
+            @change="filterForEmotions"
+            :items="emotions"
+            :selected="selectedEmotions"
+            iconSet="hc-emoji"/>
+        </div>
+      </div>
+    </hc-dropdown>
+    <hc-dropdown class="is-hidden-tablet"
+      :persist="true"
+      position="bottom-justify"
+      ref="dropdown"
+      :mobileFull="true"
+      :boundaryAlign="true"
+      :boundary="$parent.$refs['navbar-container']">
+      <hc-navbar-button slot="toggle">
+        <hc-icon icon="filter"></hc-icon>
+      </hc-navbar-button>
+      <div class="hc-filter-select">
+        <div class="hc-filter-select-inner">
+          <no-ssr>
+            <b-tabs class="fullwidth">
+              <b-tab-item :label="$t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length)" id="categories">
+                <filter-list
+                  @change="filterForCategories"
+                  :items="categories"
+                  translationPath="component.category.slug2label-"
+                  :selected="selectedCategoryIds"/>
+              </b-tab-item>
+              <b-tab-item :label="$t('component.layout.topbarSectionEmotions', 'Emotions')" id="emotions">
+                <filter-list
+                  @change="filterForEmotions"
+                  :items="emotions"
+                  :selected="selectedEmotions"
+                  iconSet="hc-emoji"/>
+              </b-tab-item>
+            </b-tabs>
+          </no-ssr>
+        </div>
+      </div>
+      <div slot="footer">
+        <hc-button @click="$refs['dropdown'].close()"
           :fullWidth="true">
           {{ $t('component.category.setFilter', 'Set filter') }}
         </hc-button>
       </div>
-    </div>
-  </hc-dropdown>
+    </hc-dropdown>
+  </div>
 </template>
 
 
@@ -180,9 +214,5 @@
     @include until($tablet) {
       padding-bottom: 2rem;
     }
-  }
-
-  .filter-button {
-    margin-top: 1rem;
   }
 </style>

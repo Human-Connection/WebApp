@@ -1,6 +1,13 @@
 .b-tabs {
     .tab-content {
       overflow: visible;
+      padding: 1rem 0;
+    }
+
+    .is-disabled {
+      pointer-events: inherit;
+      cursor: inherit;
+      opacity: inherit;
     }
 
     // Slide
@@ -15,16 +22,51 @@
         transform: translate3d(-2rem, 0, 0);
         opacity: 0;
         position: absolute;
-        left: 1rem;
-        right: 1rem;
+        left: 0;
+        right: 0;
         width: auto;
     }
     .slide-prev-enter, .slide-next-leave-to {
         transform: translate3d(2rem, 0, 0);
         opacity: 0;
         position: absolute;
-        left: 1rem;
-        right: 1rem;
+        left: 0;
+        right: 0;
         width: auto;
+    }
+
+    .tabs {
+      ul {
+        border-bottom: 0;
+      }
+
+      li {
+        margin-left: 1rem;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      li a {
+        border-bottom-width: 4px;
+        font-weight: bold;
+      }
+    }
+
+    &.fullwidth {
+      .tabs {
+        ul {
+          display: flex;
+        }
+
+        li {
+          flex: 1 1 0;
+        }
+
+        a {
+          padding: 0.5em 0;
+        }
+      }
     }
 }
