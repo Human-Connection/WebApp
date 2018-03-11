@@ -1,10 +1,18 @@
 <template>
   <no-ssr>
-    <hc-dropdown>
-      <hc-navbar-button slot="toggle">
-        <img class="flag"
-          :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
-      </hc-navbar-button>
+    <hc-dropdown ref="dropdown"
+      :hideFooterTablet="true">
+      <div slot="toggle">
+        <hc-navbar-button class="is-hidden-mobile">
+          <img class="flag"
+            :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+        </hc-navbar-button>
+        <hc-navbar-item class="is-hidden-tablet">
+          <img class="flag mobile-flag"
+            :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+          {{ $t('auth.account.languageSettings') }}
+        </hc-navbar-item>
+      </div>
       <div class="hc-language-select">
         <hc-navbar-item v-for="language in languages"
           :key="language.locale"
@@ -15,6 +23,13 @@
             {{ language.label }}
           </span>
         </hc-navbar-item>
+      </div>
+      <div slot="footer">
+        <hc-button @click="$refs.dropdown.close()"
+          size="medium"
+          :fullWidth="true">
+          {{ $t('button.back', 'Back') }}
+        </hc-button>
       </div>
     </hc-dropdown>
   </no-ssr>
@@ -70,8 +85,12 @@
     height: 15px;
   }
 
+  .mobile-flag {
+    margin-right: 0.5rem;
+  }
+
   .hc-language-select {
-    padding: 0.5rem;
+    padding: 0.5rem 0;
   }
 
   .hc-language-label {

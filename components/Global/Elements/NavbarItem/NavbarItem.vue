@@ -5,6 +5,9 @@
     :to="to"
     :is="component">
     <slot></slot>
+    <div class="navbar-item-mobile-icon">
+      <hc-icon icon="angle-right"></hc-icon>
+    </div>
   </component>
 </template>
 
@@ -53,6 +56,22 @@
       &:not(.static) {
         color: $grey-darker;
       }
+    }
+
+    @include until($tablet) {
+      padding: 1rem 1.5rem 1rem 1rem;
+      border-bottom: 1px solid $grey-lighter;
+    }
+  }
+
+  .navbar-item-mobile-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    @include from($tablet) {
+      display: none;
     }
   }
 </style>

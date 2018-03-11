@@ -8,7 +8,8 @@
       <div class="hc-dropdown-content">
         <slot></slot>
       </div>
-      <div class="hc-dropdown-footer" v-if="!!this.$slots.footer">
+      <div class="hc-dropdown-footer" v-if="!!this.$slots.footer"
+        :class="{ 'is-hidden-tablet' : hideFooterTablet }">
         <slot name="footer"></slot>
       </div>
     </div>
@@ -49,6 +50,10 @@
         default: false
       },
       mobileFull: {
+        type: Boolean,
+        default: false
+      },
+      hideFooterTablet: {
         type: Boolean,
         default: false
       },

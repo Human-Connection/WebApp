@@ -1,5 +1,7 @@
 <template>
-  <hc-dropdown :mobileFull="true">
+  <hc-dropdown ref="dropdown"
+    :mobileFull="true"
+    :hideFooterTablet="true">
     <hc-navbar-button slot="toggle">
       <span class="notification-icon">
         <hc-icon icon="bell"
@@ -27,6 +29,13 @@
             @click.native="followNotification(notification)" />
         </transition-group>
       </div>
+    </div>
+    <div slot="footer">
+      <hc-button @click="$refs.dropdown.close()"
+        size="medium"
+        :fullWidth="true">
+        {{ $t('button.close', 'Close') }}
+      </hc-button>
     </div>
   </hc-dropdown>
 </template>

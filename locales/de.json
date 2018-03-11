@@ -239,6 +239,7 @@
   "button": {
     "back": "Zurück",
     "cancel": "Abbrechen",
+    "close": "Schliessen",
     "create": "Erstellen",
     "delete": "Löschen",
     "edit": "Bearbeiten",
@@ -299,6 +300,7 @@
       "confirmTermsOfUsage": "Mit Klick auf „registrieren“ erkläre ich mich mit den <a href=\"{url}\" target=\"_blank\">{termsOfService}</a> einverstanden und bestätige, dass ich die Human Connection <a href=\"{url}#dataprivacy\" target=\"_blank\">{dataPrivacyStatement}</a> gelesen habe.",
       "email": "E-Mail",
       "helloUser": "Hallo <strong>{username}</strong>",
+      "languageSettings": "Spracheinstellungen",
       "loginOrRegister": "Anmelden / Beitreten",
       "loginToAccount": "Melde Dich in deinem Konto an",
       "loginRequired4CommentOrVote": "Du musst angemeldet sein, um auf Human Connection kommentieren, werten oder stimmen zu können.",

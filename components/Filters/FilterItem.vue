@@ -106,7 +106,7 @@
     @include until($tablet) {
       width: 48%;
       height: auto;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       display: inline-flex;
       align-items: center;
       padding: 0.3em;

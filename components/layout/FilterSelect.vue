@@ -72,7 +72,8 @@
         </div>
       </div>
       <div slot="footer">
-        <hc-button @click="$refs['dropdown'].close()"
+        <hc-button @click="$refs.dropdown.close()"
+          size="medium"
           :fullWidth="true">
           {{ $t('component.category.setFilter', 'Set filter') }}
         </hc-button>
@@ -210,9 +211,5 @@
 
   .hc-filter-select-inner {
     padding: 1rem;
-
-    @include until($tablet) {
-      padding-bottom: 2rem;
-    }
   }
 </style>
