@@ -20,29 +20,39 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
-  import {isEmpty, debounce} from 'lodash'
+  import {mapGetters, mapMutations} from 'vuex'
+  import {isEmpty} from 'lodash'
 
-  let app
   export default {
     name: 'hc-search-input',
     data () {
-      app = this
       return {
-        value: ''
+        value: '',
+        searchProcess: null,
+        searching: false
       }
     },
     methods: {
+      ...mapMutations({
+        search: 'search/query'
+      }),
       focus () {
         setTimeout(() => {
           this.$refs.input.focus()
         }, 200)
       },
-      onInput: debounce(() => {
-        app.$store.commit('search/query', app.value)
-      }, 600),
+      onInput () {
+        if (this.searching) {
+          clearTimeout(this.searchProcess)
+        }
+        this.searching = true
+        this.searchProcess = setTimeout(() => {
+          this.searching = false
+          this.search(this.value)
+        }, 300)
+      },
       clear () {
-        app.$store.commit('search/query', '')
+        this.search('')
       }
     },
     watch: {

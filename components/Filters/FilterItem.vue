@@ -119,6 +119,8 @@
 
       button.button {
         flex: 0 0 2.25em;
+        min-width: 2.25em;
+        max-width: 2.25em;
         margin-bottom: 0;
         margin-right: 0.2rem;
       }
