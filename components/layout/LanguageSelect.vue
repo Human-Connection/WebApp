@@ -83,6 +83,8 @@
     width: 20px;
     max-width: none;
     height: 15px;
+    position: relative;
+    top: 0.05em;
   }
 
   .mobile-flag {

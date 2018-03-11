@@ -68,7 +68,10 @@
     position: absolute;
     right: 1rem;
     top: 50%;
-    transform: translateY(-50%);
+    margin-top: -0.5em;
+    display: flex;
+    align-items: center;
+    line-height: 1;
 
     @include from($tablet) {
       display: none;

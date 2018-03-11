@@ -8,10 +8,11 @@
       <hc-icon icon="bars" class="is-hidden-tablet" />
     </hc-navbar-button>
     <hc-dropdown-title class="is-hidden-tablet">
-      <div class="mobile-user-header">
+      <nuxt-link class="mobile-user-header"
+        to="/profile" @click.native="close()">
         <span v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymous'})"></span>
         <hc-avatar :user="user" />
-      </div>
+      </nuxt-link>
     </hc-dropdown-title>
     <div class="hc-user-menu">
       <hc-navbar-item :static="true" class="is-hidden-mobile">
@@ -95,6 +96,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    color: $grey-darker;
   }
 
   .logout-button {
