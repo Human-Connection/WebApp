@@ -134,9 +134,11 @@
         return this.mobileFull && window.innerWidth < 767
       },
       update () {
-        this.close()
-        this.dropdown.$destroy()
-        this.init()
+        try {
+          this.close()
+          this.dropdown.$destroy()
+          this.init()
+        } catch (err) {}
       }
     },
     mounted () {
