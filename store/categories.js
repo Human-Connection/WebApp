@@ -1,7 +1,4 @@
-import feathers from '~/plugins/feathers'
 import { castArray } from 'lodash'
-
-const categoriesService = feathers.service('categories')
 
 export const state = () => {
   return {
@@ -36,13 +33,13 @@ export const actions = {
   },
   // Called from plugins/init-store-subscriptions only once
   subscribe ({dispatch}) {
-    return categoriesService
+    return this.app.$api.service('categories')
       .on('created', () => {
         dispatch('fetch')
       })
   },
   fetch ({commit}) {
-    return categoriesService.find({
+    return this.app.$api.service('categories').find({
       query: {
         '$limit': 200,
         '$sort': {
@@ -58,12 +55,12 @@ export const actions = {
       })
   },
   create ({dispatch}, category) {
-    return categoriesService.create(category)
+    return this.app.$api.service('categories').create(category)
   },
   patch ({dispatch}, category) {
-    return categoriesService.patch(category._id, category)
+    return this.app.$api.service('categories').patch(category._id, category)
   },
   delete ({dispatch}, category) {
-    return categoriesService.remove(category._id)
+    return this.app.$api.service('categories').remove(category._id)
   }
 }

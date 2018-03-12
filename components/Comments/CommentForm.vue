@@ -66,7 +66,6 @@
             console.error(error)
             this.$toast.open({
               message: error.message,
-              duration: 3000,
               type: 'is-danger'
             })
           })

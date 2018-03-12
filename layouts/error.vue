@@ -16,6 +16,8 @@
   </div>
 </template>
 <script>
+  import Raven from 'raven-js'
+
   export default {
     props: ['error'],
     layout: 'blank',
@@ -30,6 +32,11 @@
     mounted () {
       if (process.env.NODE_ENV === 'development') {
         console.error(this.error.message)
+      }
+
+      // show sentry error dialog if something happened
+      if (Raven.lastEventId()) {
+        Raven.showReportDialog()
       }
     },
     computed: {

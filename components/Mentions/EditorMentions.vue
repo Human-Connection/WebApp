@@ -75,7 +75,7 @@
         this.mentionListener = this.quill.on('text-change', (delta, oldDelta, source) => {
           let letter = lastLetterTyped(delta, source)
           // Only go on if last operation includes @
-          if (!letter || !letter.match(/@/)) {
+          if (!letter || letter !== '@') {
             return
           }
           this.startChangeListener()

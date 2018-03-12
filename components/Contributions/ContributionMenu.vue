@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import {mapGetters} from 'vuex'
   export default {
     name: 'hc-contribution-menu',
@@ -53,7 +52,7 @@
         let data = {
           isEnabled: !this.post.isEnabled
         }
-        feathers.service('contributions')
+        this.$api.service('contributions')
           .patch(this.post._id, data)
           .then(data => {
             this.$emit('update', data)
@@ -68,7 +67,6 @@
             this.isLoading = false
             this.$toast.open({
               message: err.message,
-              duration: 3000,
               type: 'is-danger'
             })
           })
