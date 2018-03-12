@@ -46,13 +46,17 @@ export const actions = {
     // check if the token is autenticated
     const isAuthenticated = await dispatch('checkAuth')
     if (isAuthenticated) {
-      const payload = await this.app.$api.passport.verifyJWT(state.token)
-      user = await this.app.$api.service('users').get(payload.userId)
+      try {
+        const payload = await this.app.$api.passport.verifyJWT(state.token)
+        user = await this.app.$api.service('users').get(payload.userId)
+      } catch (err) {
+        user = null
+      }
       commit('SET_USER', user)
     }
     return user
   },
-  async refreshJWT ({state, getters, commit}, source = null) {
+  async refreshJWT ({state, getters, commit, dispatch}, source = null) {
     const token = await this.app.$api.passport.getJWT()
     commit('SET_TOKEN', token)
 
@@ -62,20 +66,29 @@ export const actions = {
 
     let user
     if (token) {
-      user = await this.app.$api.auth({strategy: 'jwt', accessToken: token})
+      try {
+        user = await this.app.$api.auth({strategy: 'jwt', accessToken: token})
+      } catch (err) {
+        user = null
+      }
       commit('SET_USER', user)
     }
     return user
   },
-  async checkAuth ({state, getters, commit}) {
+  async checkAuth ({state, getters, commit, dispatch}) {
     const token = await this.app.$api.passport.getJWT()
     commit('SET_TOKEN', token)
 
     if (!token) {
       return false
     }
-    const payload = await this.app.$api.passport.verifyJWT(token)
-    const payloadValid = this.app.$api.passport.payloadIsValid(payload)
+    let payloadValid = false
+    try {
+      const payload = await this.app.$api.passport.verifyJWT(token)
+      payloadValid = this.app.$api.passport.payloadIsValid(payload)
+    } catch (err) {
+      payloadValid = false
+    }
     if (payloadValid) {
       commit('SET_TOKEN', token)
     } else {
