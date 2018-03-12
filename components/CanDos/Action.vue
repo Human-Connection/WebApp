@@ -33,7 +33,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import {mapGetters} from 'vuex'
 
   export default {
@@ -95,7 +94,7 @@
           userId: !this.user._id,
           contributionId: this.post._id
         }
-        feathers.service('users-candos')
+        this.$api.service('users-candos')
           .create(data)
           .then(data => {
             this.updateContribution(this.$t('component.contribution.canDoAddedSuccess'))
@@ -106,7 +105,7 @@
         if (!this.currentUserCando) {
           return false
         }
-        feathers.service('users-candos')
+        this.$api.service('users-candos')
           .remove(this.currentUserCando._id)
           .then(data => {
             this.updateContribution(this.$t('component.contribution.canDoCanceledSuccess'))
@@ -120,7 +119,7 @@
         let data = {
           done: !this.currentUserCando.done
         }
-        feathers.service('users-candos')
+        this.$api.service('users-candos')
           .patch(this.currentUserCando._id, data)
           .then(data => {
             let message = data.done
@@ -131,7 +130,7 @@
           .catch(this.handleError)
       },
       updateContribution (message) {
-        feathers.service('contributions')
+        this.$api.service('contributions')
           .get(this.post._id)
           .then(data => {
             this.$emit('update', data)
@@ -148,7 +147,6 @@
         this.isLoading = false
         this.$toast.open({
           message: error.message,
-          duration: 3000,
           type: 'is-danger'
         })
       }

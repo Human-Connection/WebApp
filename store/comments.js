@@ -1,12 +1,10 @@
-import feathers from '~/plugins/feathers'
 import { castArray, debounce } from 'lodash'
-
-const commentsService = feathers.service('comments')
 
 export const state = () => {
   return {
     comments: [],
-    isLoading: true
+    isLoading: true,
+    contributionId: null
   }
 }
 
@@ -19,6 +17,9 @@ export const mutations = {
   },
   clear (state) {
     state.comments = []
+  },
+  setContributionId (state, contributionId) {
+    state.contributionId = contributionId
   }
 }
 
@@ -37,16 +38,18 @@ export const getters = {
 export const actions = {
   // Called from plugins/init-store-subscriptions only once
   subscribe ({dispatch}) {
-    return commentsService
+    return this.app.$api.service('comments')
       .on('created', debounce((comment) => {
-        dispatch('fetchByContributionId', comment.contributionId)
+        dispatch('fetchByContributionId')
       }, 500))
       .on('patched', debounce((comment) => {
-        dispatch('fetchByContributionId', comment.contributionId)
+        dispatch('fetchByContributionId')
       }, 500))
   },
-  fetchByContributionId ({commit}, contributionId) {
-    return commentsService.find({
+  fetchByContributionId ({commit, state}, contributionId) {
+    contributionId = contributionId || state.contributionId
+    commit('setContributionId', contributionId)
+    return this.app.$api.service('comments').find({
       query: {
         contributionId: contributionId,
         $sort: {
@@ -65,10 +68,10 @@ export const actions = {
       })
   },
   fetchById ({commit}, id) {
-    return commentsService.get(id)
+    return this.app.$api.service('comments').get(id)
   },
   upvote ({dispatch}, comment) {
-    return commentsService.patch(comment._id, {
+    return this.app.$api.service('comments').patch(comment._id, {
       $inc: {
         upvoteCount: 1
       }
@@ -77,6 +80,6 @@ export const actions = {
     })
   },
   async create ({dispatch}, data) {
-    return commentsService.create(data)
+    return this.app.$api.service('comments').create(data)
   }
 }

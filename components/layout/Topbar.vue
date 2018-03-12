@@ -101,6 +101,54 @@
       window.removeEventListener('resize', this.closeMenu)
     },
     methods: {
+      filterForCategories (ids) {
+        clearTimeout(this.filterThrottle)
+        if (!isEqual(ids, this.selectedCategoryIds)) {
+          this.filterThrottle = setTimeout(() => {
+            this.applyCategoryFilter(ids)
+          }, 1000)
+        }
+      },
+      applyCategoryFilter (ids) {
+        clearTimeout(this.filterThrottle)
+        if (!isEqual(ids, this.selectedCategoryIds)) {
+          this.selectedCategoryIds = ids
+          this.$store.commit('search/categoryIds', ids)
+        }
+      },
+      filterForEmotions (emotions) {
+        clearTimeout(this.filterEmotionThrottle)
+        if (!isEqual(emotions, this.selectedEmotions)) {
+          this.filterEmotionThrottle = setTimeout(() => {
+            this.applyEmotionFilter(emotions)
+          }, 1000)
+        }
+      },
+      applyEmotionFilter (emotions) {
+        clearTimeout(this.filterEmotionThrottle)
+        if (!isEqual(emotions, this.selectedEmotions)) {
+          // get deselected emotions
+          this.selectedEmotions = emotions
+          this.$store.commit('search/emotions', this.selectedEmotions)
+        }
+      },
+      async logout () {
+        await this.$store.dispatch('auth/logout')
+        this.$router.push('/auth/login')
+      },
+      changeLanguage (locale) {
+        // TODO: make it a component
+        // check if the locale has already been loaded
+        if (this.$i18n.localeExists(locale)) {
+          this.$i18n.set(locale)
+          return
+        }
+        import(`~/locales/${locale}.json`)
+          .then(res => {
+            this.$i18n.add(locale, res)
+            this.$i18n.set(locale)
+          })
+      },
       closeMenu: throttle(() => {
         app.menuIsActive = false
       }, 1000)

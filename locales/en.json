@@ -14,7 +14,7 @@
       "copy403": "Sorry, access to this resource on the server is denied. <br />Either check the URL, <a href=\"/auth/login\">login</a> or <a href=\"/\">go home</a>.",
       "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
       "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
-      "copy503": "We are currently working on it, <br />so take a coffe brake and come back a bit later."
+      "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later."
     },
     "shout": {
       "buttonLabel": "Shout",
@@ -340,12 +340,12 @@
       "inviteCode": "Invite-Code",
       "profile": "My Profile",
       "settings": "Settings",
-      "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the mail verification.",
+      "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the email verification.",
       "verifyingErrorSection": "Ooooops ...",
       "verifyingInfo": "Verifying your email address ...",
-      "verifyingResendAction": "Send confirmation anew",
-      "verifyingResendDescription": "Please confirm your E-Mail Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können:",
-      "verifyingResendSuccess": "The confirmation was sent successfullyto {email}. Please check your mail account.",
+      "verifyingResendAction": "Send confirmation email again",
+      "verifyingResendDescription": "Please confirm your email address to be able to create posts and comments:",
+      "verifyingResendSuccess": "The confirmation was sent successfully to {email}. Please check your email account.",
       "verifyingSection": "Email Verification",
       "verifyingSuccessDescription": "Your email address has been verified successfully.",
       "verifyingTitle": "Verification",

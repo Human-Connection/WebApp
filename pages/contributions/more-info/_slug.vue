@@ -172,7 +172,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
@@ -197,14 +196,14 @@
         title: null
       }
     },
-    async asyncData ({params, error}) {
+    async asyncData ({app, params, error}) {
       try {
-        let contributions = await feathers.service('contributions').find({
+        let contributions = await app.$api.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
-        const relatedPosts = await feathers.service('contributions').find({
+        const relatedPosts = await app.$api.service('contributions').find({
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds

@@ -3,10 +3,14 @@ version: '2'
 services:
   frontend:
     build: .
-    ports:
-      - "3000:3000"
     environment:
-      HOST: localhost
-      PORT: 3000
-      API_HOST: localhost
+      WEBAPP_HOST: localhost
+      WEBAPP_PORT: 3000
+      WEBAPP_BASE_URL: http://localhost:3000
+      API_HOST: http://localhost
       API_PORT: 3030
+      MAPBOX_TOKEN:
+    stdin_open: true
+    tty: true
+    ports:
+    - 3000:3000/tcp

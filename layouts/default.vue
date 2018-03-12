@@ -33,6 +33,11 @@
         ]
       }
       return head
+    },
+    async mounted () {
+      // refresh token to fix refresh issues
+      await this.$store.dispatch('auth/refreshJWT', 'layout default')
+      await this.$store.dispatch('notifications/fetch')
     }
   }
 </script>

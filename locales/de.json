@@ -344,7 +344,7 @@
       "verifyingErrorSection": "Hoppla ...",
       "verifyingInfo": "Überprüfen der E-Mail Adresse ...",
       "verifyingResendAction": "Bestätigung erneut verschicken",
-      "verifyingResendDescription": "Bitte bestätige Deine E-Mail Adresse um Beiträge erstellen zu können:",
+      "verifyingResendDescription": "Bitte bestätige Deine E-Mail-Adresse um Beiträge erstellen zu können:",
       "verifyingResendSuccess": "Die Bestätigung wurde erfolgreich an {email} verschickt. Bitte prüfe Dein E-Mail Postfach.",
       "verifyingSection": "E-Mail Prüfung",
       "verifyingSuccessDescription": "Deine E-Mail Adresse wurde erfolgreich geprüft.",

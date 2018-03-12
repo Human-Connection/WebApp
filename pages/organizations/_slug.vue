@@ -38,7 +38,6 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import feathers from '~/plugins/feathers'
 
   import { isEmpty } from 'lodash'
 
@@ -56,10 +55,10 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({params}) {
+    async asyncData ({app, params}) {
       let organization
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
-        organization = await feathers.service('organizations').find({
+        organization = await app.$api.service('organizations').find({
           query: {
             slug: params.slug
           }
