@@ -43,8 +43,8 @@
          @focus="editorFocus()"
          @ready="editorReady($event)"
          v-quill:myQuillEditor="computedEditorOptions"></div>
-       <div class="plugins" v-if="ready && myQuillEditor">
-         <editor-mentions :quill="myQuillEditor" />
+       <div class="plugins" v-if="ready && myQuillBus">
+         <editor-mentions :quill="myQuillBus" />
        </div>
     </div>
   </div>
@@ -53,6 +53,31 @@
 
 <script>
   import EditorMentions from '~/components/Mentions/EditorMentions'
+  import Emitter from 'emitter-js'
+
+  class QuillBus {
+    constructor (quillEditor) {
+      this.emitter = new Emitter()
+      let bus = this
+      this.getBounds = (index) => quillEditor.getBounds(index)
+      this.updateContents = (ops) => quillEditor.updateContents(ops)
+      this.setSelection = (index) => quillEditor.setSelection(index)
+      quillEditor.on('text-change', (...args) => bus.emit('text-change', ...args))
+      quillEditor.on('selection-change', (...args) => bus.emit('selection-change', ...args))
+    }
+
+    on (eventName, fn) {
+      this.emitter.on(eventName, fn)
+    }
+
+    off (eventName, fn) {
+      this.emitter.off(eventName, fn)
+    }
+
+    emit (eventName, ...args) {
+      this.emitter.emit(eventName, ...args)
+    }
+  }
 
   export default {
     name: 'hc-editor',
@@ -86,6 +111,7 @@
         ready: false,
         editorText: '',
         focus: true,
+        myQuillBus: false,
         defaultEditorOptions: {
           theme: 'snow',
           modules: {
@@ -116,7 +142,6 @@
     },
     methods: {
       reset () {
-        console.log(this.value)
         this.editorText = this.value
         this.$emit('reset')
       },
@@ -127,6 +152,7 @@
         this.focus = true
       },
       editorReady () {
+        this.myQuillBus = new QuillBus(this.myQuillEditor)
         this.ready = true
       }
     },
