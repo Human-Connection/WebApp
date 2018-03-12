@@ -5,3 +5,5 @@ node_modules/
 build/
 npm-debug.log
 Dockerfile
+.env
+.env-secrets

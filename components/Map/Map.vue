@@ -28,7 +28,8 @@
         default: '200px'
       },
       token: {
-        type: [String]
+        type: String,
+        required: true
       },
       /**
        * Center point of the map
@@ -85,7 +86,7 @@
       createMap () {
         try {
           const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
-          mapboxgl.accessToken = process.env.MAPBOX_TOKEN || this.token
+          mapboxgl.accessToken = this.token
           // init the map
           let map = new mapboxgl.Map({
             container: 'map',

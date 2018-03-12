@@ -150,7 +150,6 @@
 
 <script>
   import author from '~/components/Author/Author.vue'
-  import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
@@ -187,9 +186,9 @@
         isLoading: false
       }
     },
-    async asyncData ({params, error}) {
+    async asyncData ({app, params, error}) {
       try {
-        let res = await feathers.service('contributions').find({
+        let res = await app.$api.service('contributions').find({
           query: {
             slug: params.slug,
             $limit: 1
@@ -209,7 +208,7 @@
       }
     },
     mounted () {
-      feathers.service('contributions')
+      this.$api.service('contributions')
         .on('patched', this.onContribSettingsUpdate)
     },
     methods: {

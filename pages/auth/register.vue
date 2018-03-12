@@ -19,11 +19,11 @@
           <template v-if="step === 1">
             <div class="field">
               <div class="control has-icons-right">
-                <input ref="focus" 
-                      autofocus 
-                      :class="{ 'input': true, 'is-danger': $v.form.email.$error }" 
+                <input ref="focus"
+                      autofocus
+                      :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
                       type="email"
-                      :placeholder="$t('auth.account.email')" 
+                      :placeholder="$t('auth.account.email')"
                       v-model.trim="form.email"
                       @blur="$v.form.email.$touch">
                 <span v-if="$v.form.email.$error" class="icon is-small is-right">
@@ -33,8 +33,8 @@
             </div>
             <div class="field" v-if="useInviteCode">
               <div class="control has-icons-right">
-                <input :class="{ 'input': true, 'is-danger': $v.form.inviteCode.$error || inviteCodeIsInvalid }" 
-                      type="text" 
+                <input :class="{ 'input': true, 'is-danger': $v.form.inviteCode.$error || inviteCodeIsInvalid }"
+                      type="text"
                       maxlength="8"
                       :placeholder="$t('auth.account.inviteCode')"
                       v-model.trim="form.inviteCode"
@@ -53,9 +53,9 @@
             </div>
             <hc-button color="primary"
                        @click.prevent="toStep(2)"
-                       size="medium" 
-                       type="button" 
-                       class="is-fullwidth" 
+                       size="medium"
+                       type="button"
+                       class="is-fullwidth"
                        :disabled="$v.form.$invalid || inviteCodeIsInvalid">
               {{ $t('auth.register.next') }} &nbsp;<small><i class="fa fa-arrow-right"></i></small>
             </hc-button>
@@ -63,12 +63,12 @@
           <template v-if="step === 2">
             <div class="field">
               <div class="control has-icons-right">
-                <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }" 
-                      ref="focus" 
-                      autofocus 
-                      type="password" 
+                <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
+                      ref="focus"
+                      autofocus
+                      type="password"
                       :placeholder="$t('auth.account.password')"
-                      v-model.trim="form.password" 
+                      v-model.trim="form.password"
                       autocomplete="new-password"
                       @blur="$v.form.password.$touch">
                 <span v-if="$v.form.password.$error" class="icon is-small is-right">
@@ -78,10 +78,10 @@
             </div>
             <div class="field">
               <div class="control has-icons-right">
-                <input :class="{ 'input': true, 'is-danger': $v.form.passwordRepeat.$error }" 
-                      type="password" 
+                <input :class="{ 'input': true, 'is-danger': $v.form.passwordRepeat.$error }"
+                      type="password"
                       :placeholder="$t('auth.account.password')"
-                      v-model.trim="form.passwordRepeat" 
+                      v-model.trim="form.passwordRepeat"
                       autocomplete="new-password"
                       @blur="$v.form.passwordRepeat.$touch">
                 <span v-if="$v.form.passwordRepeat.$error" class="icon is-small is-right">
@@ -91,10 +91,10 @@
             </div>
             <hc-button @click.prevent="register"
                        color="primary"
-                       size="medium" 
-                       type="button" 
-                       class="is-fullwidth" 
-                       :isLoading="isLoading" 
+                       size="medium"
+                       type="button"
+                       class="is-fullwidth"
+                       :isLoading="isLoading"
                        :disabled="$v.form.$invalid">
               {{ $t('auth.register.label') }}
             </hc-button>
@@ -118,6 +118,7 @@
 
 <script>
   import animatable from '~/components/mixins/animatable'
+  import { isEmpty } from 'lodash'
   import { validationMixin } from 'vuelidate'
   import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
   import FlagSwitch from '~/components/Auth/FlagSwitch'
@@ -185,6 +186,11 @@
 
         this.form.email = this.$route.query.email || ''
         this.form.inviteCode = this.$route.query.code || ''
+
+        if (this.$route.query.lang && isEmpty(this.$cookies.get('locale'))) {
+          console.log('LANG: ' + this.$route.query.lang)
+          this.$i18n.set(this.$route.query.lang)
+        }
       })
     },
     methods: {
@@ -213,7 +219,6 @@
             }
             this.$toast.open({
               message: msg,
-              duration: 3000,
               type: 'is-danger'
             })
             this.animate('shake')

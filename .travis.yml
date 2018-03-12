@@ -7,14 +7,22 @@ cache:
   yarn: true
   directories:
     - node_modules
-before_install:
-  - docker build -t humanconnection/frontend-nuxt:alpha .
+
 install:
-  - yarn install --frozen-lockfile
-  - yarn run test
+  # nothing
+
+jobs:
+  include:
+    - stage: Test and Build
+      script:
+      - yarn install --frozen-lockfile --non-interactive
+      - yarn test:env
+      - yarn test
+    - script:
+      - docker build -t humanconnection/frontend-nuxt:alpha .
+
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+  - if [ "$TRAVIS_BRANCH" == "master" ] AND type IN (push); then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker push humanconnection/frontend-nuxt:alpha;
     fi
-#  - yarn run coverage

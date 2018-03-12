@@ -24,9 +24,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
-  feathers.service('admin').timeout = 60000
-
   export default {
     middleware: 'admin',
     layout: 'admin',
@@ -43,8 +40,9 @@
     },
     methods: {
       seedFakeData () {
+        this.$api.service('admin').timeout = 60000
         this.seedingFakeData = true
-        feathers.service('admin').create({ seedFakeData: true }).then(res => {
+        this.$api.service('admin').create({ seedFakeData: true }).then(res => {
           this.seedingFakeData = false
           this.$snackbar.open({
             message: this.$t('component.admin.seedFakeDataSuccessMessage', 'Created a ton of new entries, have fun!'),
@@ -56,14 +54,13 @@
           this.seedingFakeData = false
           this.$toast.open({
             message: err.message,
-            duration: 3000,
             type: 'is-danger'
           })
         })
       },
       seedDemoData () {
         this.seedingDemoData = true
-        feathers.service('admin').create({ seedDemoData: true }).then(res => {
+        this.$api.service('admin').create({ seedDemoData: true }).then(res => {
           this.seedingDemoData = false
           this.$snackbar.open({
             message: this.$t('component.admin.seedDemoContributionsSuccessMessage', 'Added the demo entries to the database!'),
@@ -75,7 +72,6 @@
           this.seedingDemoData = false
           this.$toast.open({
             message: err.message,
-            duration: 3000,
             type: 'is-danger'
           })
         })

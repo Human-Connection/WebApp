@@ -263,14 +263,9 @@
           this.$store.commit('search/emotions', this.selectedEmotions)
         }
       },
-      logout () {
-        this.$store.dispatch('auth/logout')
-          .then(() => {
-            this.$router.push('/auth/login')
-          })
-          .catch(err => {
-            console.error(err)
-          })
+      async logout () {
+        await this.$store.dispatch('auth/logout')
+        this.$router.push('/auth/login')
       },
       changeLanguage (locale) {
         // TODO: make it a component

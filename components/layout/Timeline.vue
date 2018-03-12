@@ -2,11 +2,11 @@
   <div class="column timeline content">
     <hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
-      <p v-if="!user.slug">{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
-      <p v-if="!contributions.length && loadingFinished && !user.slug">
+      <p v-if="isOwnProfile">{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
+      <p v-if="!contributions.length && loadingFinished && isOwnProfile">
         {{ $t('component.timeline.noContributionsFound') }}
       </p>
-      <hc-tooltip v-if="!user.slug"
+      <hc-tooltip v-if="isOwnProfile"
                   :label="$t('component.contribution.writePost')"
                   type="is-black"
                   position="is-right">
@@ -35,18 +35,13 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import { mapGetters } from 'vuex'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
   import { castArray } from 'lodash'
 
   export default {
-    data () {
-      return {
-        isLoading: true,
-        loadingFinished: false,
-        contributions: []
-      }
+    components: {
+      ContributionCard
     },
     name: 'hc-timeline',
     props: {
@@ -55,13 +50,17 @@
         type: Object
       }
     },
+    data () {
+      return {
+        isLoading: true,
+        loadingFinished: false,
+        contributions: []
+      }
+    },
     watch: {
       user (user) {
         this.getContributions(user)
       }
-    },
-    components: {
-      ContributionCard
     },
     mounted () {
       this.isLoading = true
@@ -73,8 +72,12 @@
     },
     computed: {
       ...mapGetters({
+        currentUser: 'auth/user',
         accessToken: 'auth/token'
-      })
+      }),
+      isOwnProfile () {
+        return !!(this.user && this.currentUser && this.user._id.toString() === this.currentUser._id.toString())
+      }
     },
     methods: {
       getContributions (user) {
@@ -84,7 +87,7 @@
           let user = await this.user
           let userId = user._id !== undefined ? user._id : user.data[0]._id
           try {
-            let res = await feathers.service('contributions').find({
+            let res = await this.$api.service('contributions').find({
               query: {
                 userId: userId,
                 $sort: {
