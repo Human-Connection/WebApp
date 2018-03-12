@@ -17,13 +17,10 @@ export default ({ app, req, cookie, store }) => {
       app.$cookies.set(key, mutation.payload.locale)
     }
 
-    // console.log('store', store)
     const user = store.getters['auth/user']
     const token = store.getters['auth/token']
     // persist language if it differs from last value
     if (isDifferent && user && user._id && token) {
-      // console.log(store)
-      // console.log('TRY TO SET THE LANGAUGE')
       store.dispatch('auth/patch', {
         language: mutation.payload.locale
       }, { root: true })
@@ -44,31 +41,23 @@ export default ({ app, req, cookie, store }) => {
     })
 
   // register the locales
-  Vue.i18n.add('en', require('~/locales/en.json'))
+  // Vue.i18n.add('en', require('~/locales/en.json'))
+  console.log(app.$cookies)
 
   let userLocale = 'en'
   const localeCookie = app.$cookies.get(key)
   const user = store.getters['auth/user']
 
-  // console.log(user)
-  // console.log(user)
   if (user && user.language) {
-    // console.log('+++ if (user && user.language)')
-    // console.log('+++ if (user && user.language)')
     // try to get saved user preference
     userLocale = user.language
   } else if (!isEmpty(localeCookie)) {
-    // console.log('+++ } else if (!isEmpty(localeCookie))')
-    // console.log('+++ } else if (!isEmpty(localeCookie))')
     userLocale = localeCookie
   } else {
-    // console.log('+++')
-    // console.log('+++')
     userLocale = process.browser ? (navigator.language || navigator.userLanguage) : req.locale
     if (userLocale && !isEmpty(userLocale.language)) {
       userLocale = userLocale.language.substr(0, 2)
     }
-    // console.log('GET REQUEST LANGUAGE', userLocale)
   }
 
   const availableLocales = ['de', 'en']
@@ -77,11 +66,6 @@ export default ({ app, req, cookie, store }) => {
   if (locale !== 'en') {
     Vue.i18n.add(locale, require(`~/locales/${locale}.json`))
   }
-
-  // console.log('USER LOCALE: ', userLocale)
-  // console.log('USER LOCALE: ', userLocale)
-  // console.log('LOCALE: ', locale)
-  // console.log('LOCALE: ', locale)
 
   // Set the start locale to use
   Vue.i18n.set(locale)
