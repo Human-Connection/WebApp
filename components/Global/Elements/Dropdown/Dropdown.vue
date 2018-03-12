@@ -86,10 +86,14 @@
     },
     methods: {
       open () {
-        this.dropdown.show()
+        try {
+          this.dropdown.show()
+        } catch (err) {}
       },
       close () {
-        this.dropdown.hide()
+        try {
+          this.dropdown.hide()
+        } catch (err) {}
       },
       click () {
         if (!this.persist) {
