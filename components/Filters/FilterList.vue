@@ -60,8 +60,7 @@
     },
     data () {
       return {
-        selectedIds: [],
-        selectedIdsBeforeToggled: []
+        selectedIds: []
       }
     },
     watch: {
@@ -85,49 +84,30 @@
         const index = this.selectedIds.indexOf(id)
 
         if (index > -1) {
-          // remove it as its active
-          if (this.allActive) {
-            // set this item as the only one in the active list
-            this.selectedIds = [id]
-          } else {
-            // remove this item from the active list
-            this.selectedIds.splice(index, 1)
-          }
+          // remove this item from the active list
+          this.selectedIds.splice(index, 1)
         } else {
           // add this item to the active list
           this.selectedIds.push(id)
-        }
-
-        if (!this.selectedIds.length) {
-          // enable all items as nothing is selected
-          this.selectedIds = map(this.items, '_id')
         }
 
         this.$emit('change', this.selectedIds)
       },
       toggleAll () {
         if (this.allActive) {
-          this.selectedIds = this.selectedIdsBeforeToggled
-          // this.selectedIdsBeforeToggled = []
+          this.selectedIds = []
         } else {
-          this.selectedIdsBeforeToggled = this.selectedIds
           this.selectedIds = map(this.items, '_id')
-        }
-
-        if (this.selectedIdsBeforeToggled.length === 0) {
-          this.selectedIdsBeforeToggled = this.selectedIds
         }
 
         this.$emit('change', this.selectedIds)
       },
       isActive (id) {
-        const index = this.selectedIds.indexOf(id)
-        return index > -1 && !this.allActive
+        return this.selectedIds.indexOf(id) > -1
       }
     },
     created () {
       this.selectedIds = this.selected
-      this.selectedIdsBeforeToggled = this.selectedIds
     }
   }
 </script>
