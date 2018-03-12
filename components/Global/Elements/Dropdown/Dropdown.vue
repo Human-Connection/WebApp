@@ -150,7 +150,7 @@
       })
       window.addEventListener('resize', this.update)
     },
-    destroy () {
+    beforeDestroy () {
       window.removeEventListener('resize', this.update)
       clearAllBodyScrollLocks()
     }
