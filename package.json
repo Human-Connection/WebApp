@@ -32,7 +32,7 @@
     "dev:env": "sh on-dev.sh",
     "build": "yarn build:env && nuxt build && backpack build",
     "build:env": "sh on-build.sh",
-    "start": "yarn start:env && cross-env NODE_ENV=production node build/main.js",
+    "start": "yarn start:env && node build/main.js",
     "start:env": "sh on-start.sh",
     "precommit": "yarn eslint",
     "eslint": "eslint --ext .js,.vue --ignore-path .gitignore .",
