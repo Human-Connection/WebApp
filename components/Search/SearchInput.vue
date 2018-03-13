@@ -37,9 +37,7 @@
         search: 'search/query'
       }),
       focus () {
-        setTimeout(() => {
-          this.$refs.input.focus()
-        }, 200)
+        this.$refs.input.focus()
       },
       onInput () {
         if (this.searching) {
