@@ -41,8 +41,7 @@ export default ({ app, req, cookie, store }) => {
     })
 
   // register the locales
-  // Vue.i18n.add('en', require('~/locales/en.json'))
-  console.log(app.$cookies)
+  Vue.i18n.add('en', require('~/locales/en.json'))
 
   let userLocale = 'en'
   const localeCookie = app.$cookies.get(key)
