@@ -17,7 +17,8 @@
 </template>
 
 <script>
-  import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+  // ToDo: Find alternative working on mobile
+  // import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
   export default {
     name: 'hc-dropdown',
@@ -121,13 +122,13 @@
       onShow () {
         this.$emit('open')
         if (this.needsFixedScroll()) {
-          disableBodyScroll(this.$refs['dropdown'])
+          // disableBodyScroll(this.$refs['dropdown'])
         }
       },
       onHide () {
         this.$emit('hide')
         if (this.needsFixedScroll()) {
-          enableBodyScroll(this.$refs['dropdown'])
+          // enableBodyScroll(this.$refs['dropdown'])
         }
       },
       needsFixedScroll () {
@@ -152,7 +153,7 @@
     },
     beforeDestroy () {
       window.removeEventListener('resize', this.update)
-      clearAllBodyScrollLocks()
+      // clearAllBodyScrollLocks()
     }
   }
 </script>
