@@ -43,6 +43,7 @@
 <script>
   import {mapGetters, mapMutations} from 'vuex'
   import NotificationItem from '~/components/Notifications/Item.vue'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'hc-notifications',
@@ -90,7 +91,9 @@
         addNotification: 'notifications/add'
       }),
       followNotification (notification) {
-        if (notification.relatedCommentId) {
+        if (isEmpty(notification.contribution)) {
+          // DO NOTHING!
+        } else if (notification.relatedCommentId) {
           this.$router.push(`/contributions/${notification.contribution.slug}?showComment=${notification.relatedCommentId}`)
         } else {
           this.$router.push(`/contributions/${notification.contribution.slug}`)
@@ -98,7 +101,7 @@
 
         // mark all notifications with the same contribution id as read
         this.$store.dispatch('notifications/markAsRead', {
-          id: notification._id
+          notification
         })
         this.active = false
       }

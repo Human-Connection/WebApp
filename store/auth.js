@@ -76,6 +76,12 @@ export const actions = {
     return user
   },
   async checkAuth ({state, getters, commit, dispatch}) {
+    if (!getters.user) {
+      commit('SET_USER', null)
+      commit('SET_TOKEN', null)
+      return false
+    }
+
     const token = await this.app.$api.passport.getJWT()
     commit('SET_TOKEN', token)
 
@@ -100,6 +106,8 @@ export const actions = {
   },
   async login ({commit, dispatch}, {email, password}) {
     try {
+      commit('SET_USER', null)
+      commit('SET_TOKEN', null)
       const user = await this.app.$api.auth({strategy: 'local', email, password})
       const locale = this.app.$cookies.get('locale')
       if (user && user.language !== locale && !isEmpty(locale)) {

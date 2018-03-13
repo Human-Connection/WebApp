@@ -60,9 +60,23 @@ export const actions = {
         commit('clear')
       })
   },
-  markAsRead ({dispatch}, data) {
-    return this.app.$api.service('notifications').patch(data.id, {
+  markAsRead ({dispatch}, {notification}) {
+    let query = [{
+      id: notification._id
+    }]
+
+    if (!_.isEmpty(notification.relatedContributionId)) {
+      query.push({
+        relatedContributionId: notification.relatedContributionId
+      })
+    }
+
+    return this.app.$api.service('notifications').patch(null, {
       unseen: false
+    }, {
+      query: {
+        $or: query
+      }
     })
   }
 }

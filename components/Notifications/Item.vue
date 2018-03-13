@@ -1,22 +1,16 @@
 <template>
   <div class="notification option">
-    <template v-if="notification.user">
-      <author class="author"
-              :user="notification.user"
-              :created-at="notification.createdAt" />
-    </template>
-    <template v-else>
-      <!-- this is needed for old messages to not break the interface, should be removed later -->
-      <author class="author"
-              :user="notification.comment.user || notification.contribution.user"
-              :created-at="notification.comment.createdAt || notification.contribution.createdAt" />
-    </template>
+    <author class="author"
+            v-if="notificationMeta.user"
+            :user="notificationMeta.user"
+            :created-at="notificationMeta.createdAt" />
     <p class="notification-message" v-html="message"></p>
   </div>
 </template>
 
 <script>
   import author from '~/components/Author/Author.vue'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'hc-notification-item',
@@ -30,16 +24,28 @@
       }
     },
     computed: {
+      notificationMeta () {
+        const metaExists = !isEmpty(this.notification[this.type])
+        const meta = metaExists ? this.notification[this.type] : this.notification
+        return {
+          user: meta.user || false,
+          createdAt: meta.createdAt || '',
+          title: meta.title || ''
+        }
+      },
       userName () {
-        return this.notification.user ? this.notification.user.name : (this.notification.comment.user.name || this.notification.contribution.user.name)
+        return this.notificationMeta.user ? this.notificationMeta.user.name : 'Anonymus'
+      },
+      type () {
+        return this.notification.type || 'comment'
       },
       message () {
-        return this.$t(`component.notification.message.${this.notification.type || 'comment'}`, this.messageParams)
+        return this.notification.message || this.$t(`component.notification.message.${this.type}`, this.messageParams)
       },
       messageParams () {
         return {
           userName: this.userName,
-          title: this.notification.contribution.title
+          title: !isEmpty(this.notification.contribution) ? this.notification.contribution.title : ''
         }
       }
     }
@@ -74,6 +80,15 @@
   .notification-message {
     // margin-top: 0.5em;
     padding: 1rem 0 0.5rem;
+  }
+
+
+  .notification {
+    p {
+      font-size: $size-7;
+    }
+  }
+</style>ing: 1rem 0 0.5rem;
   }
 
 

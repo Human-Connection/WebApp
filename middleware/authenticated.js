@@ -7,7 +7,7 @@ export default async ({ store, route, redirect }) => {
   }
   // await store.dispatch('auth/refreshJWT', 'authendicated middleware')
   const isAuthenticated = await store.dispatch('auth/checkAuth')
-  if (isAuthenticated) {
+  if (isAuthenticated === true) {
     return true
   }
 
