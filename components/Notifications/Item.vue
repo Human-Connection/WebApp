@@ -56,7 +56,7 @@
   .option {
     border-bottom: 1px solid lighten($grey-lighter, 6%);
     transition: all .2s ease-out;
-    padding: 8px 8px;
+    padding: 0.5rem 1rem;
     margin-bottom: 0;
     cursor: pointer;
     background-color: $white;

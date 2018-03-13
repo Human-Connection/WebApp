@@ -22,7 +22,7 @@ jobs:
       - docker build -t humanconnection/frontend-nuxt:alpha .
 
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ] AND type IN (push); then
+  - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker push humanconnection/frontend-nuxt:alpha;
     fi

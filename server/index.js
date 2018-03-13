@@ -9,6 +9,10 @@ import redirectSSL from 'redirect-ssl'
 import avatar from './avatar'
 import raven from '../plugins/raven-server'
 import { readFileSync } from 'fs'
+
+// Get .env config
+require('dotenv').config()
+
 const app = express()
 
 // Import and Set Nuxt.js options

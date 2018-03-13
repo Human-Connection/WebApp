@@ -2,7 +2,7 @@
   <section class="">
     <h1 class="is-size-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h1>
     <br>
-    <b-tabs v-model="activeTab" type="is-boxed">
+    <b-tabs v-model="activeTab">
       <b-tab-item label="Users" icon="users">
         <article class="message is-small">
           <div class="message-body">

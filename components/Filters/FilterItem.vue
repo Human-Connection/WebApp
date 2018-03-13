@@ -76,14 +76,14 @@
 
   .filter-item {
     display: inline-block;
-    width: 6rem;
-    height: 5rem;
+    width: 8rem;
+    height: 6rem;
     vertical-align: bottom;
     cursor: pointer;
     margin-bottom: 1.5rem;
 
     button.button {
-      font-size: 1.3em;
+      font-size: 1.2em;
       margin-bottom: 0.6rem;
 
       img.emoji {
@@ -101,6 +101,35 @@
       vertical-align: top;
       padding-left: 2px;
       padding-right: 2px;
+    }
+
+    @include until($tablet) {
+      width: 48%;
+      height: auto;
+      margin-bottom: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      padding: 0.3em;
+      background-color: $white-ter;
+      border-radius: 10em;
+
+      &:nth-child(2n) {
+        margin-left: 2%;
+      }
+
+      button.button {
+        flex: 0 0 2.25em;
+        min-width: 2.25em;
+        max-width: 2.25em;
+        margin-bottom: 0;
+        margin-right: 0.2rem;
+      }
+
+      small {
+        height: auto;
+        text-align: left;
+        flex: 1 1 0;
+      }
     }
   }
 </style>

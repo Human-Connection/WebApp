@@ -50,9 +50,11 @@
       "users": "Users"
     },
     "category": {
+      "filterTitle": "Filter posts",
       "infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
       "labelOnePluralNone": "Category ::: Categories ::: No Category",
       "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
+      "setFilter": "Set filter",
       "slug2label-education-sciences": "Education & Sciences",
       "slug2label-democracy-politics": "Democracy & Politics",
       "slug2label-energy-technology": "Energy & Technology",
@@ -193,6 +195,7 @@
       "topbarSectionEmotions": "Emotions"
     },
     "search": {
+      "header": "Search Human Connection",
       "placeholder": "Search ...",
       "noResults": "Sorry nothing there!",
       "noResultsText": "Try to adjust your search and filters on the top to find what you are searching for.",
@@ -236,6 +239,7 @@
   "button": {
     "back": "Back",
     "cancel": "Cancel",
+    "close": "Close",
     "create": "Create",
     "delete": "Delete",
     "edit": "Edit",
@@ -296,6 +300,7 @@
       "confirmTermsOfUsage": "By clicking “register” I agree with the <a href=\"{url}\" target=\"_blank\">{termsOfService}</a> and confirm, that I read the <a href=\"{url}#dataprivacy\" target=\"_blank\">{dataPrivacyStatement}</a> of Human Connection.",
       "email": "Email",
       "helloUser": "Hello <b>{username}</b>",
+      "languageSettings": "Language settings",
       "loginOrRegister": "Login / Sign-Up",
       "loginToAccount": "Login to your account",
       "loginRequired4CommentOrVote": "You need to be logged-in to be able to comment, vote or rate on Human Connection.",
