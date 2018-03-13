@@ -93,10 +93,27 @@
 
   .hc-language-select {
     padding: 0.5rem 0;
+
+    .flag {
+      opacity: .7;
+    }
+    :hover {
+      .flag {
+        opacity: 1;
+      }
+    }
+    .hc-language-label {
+      margin-left: 7px;
+    }
+
+    .active {
+      .flag {
+        opacity: 1;
+      }
+      .hc-language-label {
+        font-weight: bold;
+      }
+    }
   }
 
-  .hc-language-label {
-    margin-left: 7px;
-    font-weight: bold;
-  }
 </style>

@@ -213,7 +213,9 @@
     },
     methods: {
       onContribSettingsUpdate (data) {
-        this.contribution = data
+        if (data._id === this.contribution._id) {
+          this.contribution = data
+        }
       }
     },
     computed: {

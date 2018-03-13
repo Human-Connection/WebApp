@@ -304,3 +304,8 @@ div[class*="v2-table__"][style],
   0% {background-position: 0% 50%}
   100% {background-position: 200% 50%}
 }*/
+
+.hc-navigation .hc-dropdown {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
