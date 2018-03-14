@@ -26,7 +26,7 @@
         {{ $t('component.admin.label') }}
       </hc-navbar-item>
       <hr class="navbar-divider">
-      <hc-navbar-item v-if="isAdmin" @click="logout()" class="is-hidden-mobile">
+      <hc-navbar-item @click="logout()" class="is-hidden-mobile">
         {{ $t('auth.logout.label') }}
       </hc-navbar-item>
       <div class="is-hidden-tablet">
