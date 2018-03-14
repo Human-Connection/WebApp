@@ -208,7 +208,7 @@
     "timeline": {
       "loadingContributions": "Loading content …",
       "noContributionsFound": "No contributions found, write something.",
-      "introQuestion": "What are your plans for roday {username}?",
+      "introQuestion": "What are your plans for today {username}?",
       "title": "Timeline"
     }
   },
