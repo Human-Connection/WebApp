@@ -15,11 +15,11 @@ export const buildEndpointURL = (host, options = {}) => {
 }
 
 export const buildUserUrl = (slug) => {
-  return `${process.env.WEBAPP_BASE_URL}/profile/${slug}`
+  return `/profile/${slug}`
 }
 
 export const buildContributionUrl = (slug) => {
-  return `${process.env.WEBAPP_BASE_URL}/contributions/${slug}`
+  return `/contributions/${slug}`
 }
 
 export default {
