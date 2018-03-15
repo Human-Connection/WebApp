@@ -13,6 +13,7 @@
            :src="preview"
            @load="onPreview" />
     </template>
+    <slot />
   </div>
 </template>
 

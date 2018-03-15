@@ -1,6 +1,7 @@
 
 export default ({ app, params, route, error }, callback) => {
   const serviceName = route.name.split('-')[0]
+
   // Call patch methods with empty data
   // If we get an error, we are not allowed to edit this
   return app.$api.service(serviceName).patch(null, {}, {

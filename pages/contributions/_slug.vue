@@ -4,7 +4,7 @@
       <div class="card">
         <section class="section">
           <div class="">
-            <contribution-image :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
+            <contribution-image v-if="!hasEmbeddedVideo" :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
                 <author :user="contribution.user"
@@ -224,6 +224,12 @@
         commentCount: 'comments/count',
         isVerified: 'auth/isVerified'
       }),
+      hasEmbeddedVideo () {
+        if (!this.contribution || !this.contribution.meta || !this.contribution.meta.hasVideo) {
+          return false
+        }
+        return this.contribution.content.indexOf('<iframe') >= 0
+      },
       content () {
         const txt = this.contribution.content || this.contribution.contentExcerpt
         return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')

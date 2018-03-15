@@ -8,7 +8,14 @@
           :preview="post.thumbnails.teaserImg.placeholder"
           :src="post.thumbnails.teaserImg.cardS"
           :srcset="srcset"
-          @onPreview="imageLoaded" />
+          @onPreview="imageLoaded">
+        <div v-if="post && post.meta && post.meta.hasVideo"
+             class="player-icon">
+          <img
+              src="/assets/images/media/play-light.png"
+              srcset="/assets/images/media/play-light.png 2x, /assets/images/media/play-light.png 1x" />
+        </div>
+      </hc-progressive-image>
       <div class="content autowrap">
         <header>
           <div class="ribbon">
@@ -112,6 +119,21 @@
   $gutter: 15px;
   $gutter-big: 20px;
   $padding: 25px;
+
+  .player-icon {
+    & > img {
+      width: 70px;
+      height: 70px;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 
   .progressive {
     img.preview {
