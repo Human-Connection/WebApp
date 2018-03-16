@@ -5,17 +5,17 @@
       <div class="hc-navbar-menu" ref="navbar-container"
         :class="{ 'is-active': menuIsActive }">
         <div class="hc-navbar-item hc-navbar-brand">
-          <nuxt-link class="hc-navbar-brand-logo"
-            :to="{ name: 'index' }"
-            :title="$t('component.layout.topbarLabel')"
-            active-class="">
+          <a class="hc-navbar-brand-logo"
+             @click="onLogoClick"
+             :title="$t('component.layout.topbarLabel')"
+             active-class="">
             <img class="is-hidden-mobile"
-                 src="/logo-hc.svg"
-                 alt="Human Connection"/>
+                 src="/Logo-Horizontal-Alpha.svg"
+                 alt="Human-Connection.org"/>
             <img class="is-hidden-tablet"
-                 src="/logo-hc-small.svg"
-                 alt="Human Connection"/>
-          </nuxt-link>
+                 src="/Logo-Globe-Alpha.svg"
+                 alt="Human-Connection.org"/>
+          </a>
         </div>
         <div class="hc-navbar-item hc-navbar-search">
           <top-search></top-search>
@@ -103,7 +103,21 @@
     methods: {
       closeMenu: throttle(() => {
         app.menuIsActive = false
-      }, 1000)
+      }, 1000),
+      onLogoClick () {
+        if (this.$route.path === '/') {
+          // refresh newsfeed
+          this.$store.commit('newsfeed/clear')
+          this.$store.dispatch('newsfeed/fetch')
+        } else if (this.$route.name.indexOf('contributions') === 0) {
+          // go back to previous scroll position while on contribution a page
+          this.$router.back()
+        } else {
+          // open refreshed newsfeed
+          this.$store.commit('newsfeed/clear')
+          this.$router.push({ name: 'index' })
+        }
+      }
     }
   }
 </script>
