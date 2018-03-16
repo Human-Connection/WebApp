@@ -105,18 +105,20 @@
         app.menuIsActive = false
       }, 1000),
       onLogoClick () {
+        // console.log(this.$route.)
         if (this.$route.path === '/') {
           // refresh newsfeed
           this.$store.commit('newsfeed/clear')
           this.$store.dispatch('newsfeed/fetch')
         } else if (this.$route.name.indexOf('contributions') === 0) {
           // go back to previous scroll position while on contribution a page
-          this.$router.back()
+          this.$store.commit('newsfeed/clear')
+          // this.$router.back()
         } else {
           // open refreshed newsfeed
           this.$store.commit('newsfeed/clear')
-          this.$router.push({ name: 'index' })
         }
+        this.$router.push({ name: 'index' })
       }
     }
   }
