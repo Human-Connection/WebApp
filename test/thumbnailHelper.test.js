@@ -71,4 +71,11 @@ test('URL Helper Test', t => {
 
   delete entity3.thumbnails
   t.is(thumbnailHelper.getThumbnail(entity3, 'cover', 'large', 'https://this.is/a/fallback.jpg'), 'https://this.is/a/fallback.jpg')
+
+  let entity4 = {
+    name: 'foo',
+    avatar: '',
+    thumbnails:	{}
+  }
+  t.is(thumbnailHelper.getThumbnail(entity4, 'avatar', 'large', 'https://this.is/a/fallback.jpg'), 'https://this.is/a/fallback.jpg')
 })
