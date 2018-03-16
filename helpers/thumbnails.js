@@ -3,7 +3,7 @@ import { isEmpty, keys as _keys } from 'lodash'
 const thumbnailHelper = {
 
   /**
-   * getting the corresponding thumbnail or returning the original image
+   * getting the coresponding thumbnail or returning the original image
    */
   getThumbnail (entity, fieldName, key, fallback = null) {
     if (isEmpty(entity) || isEmpty(fieldName) || isEmpty(fieldName)) {
