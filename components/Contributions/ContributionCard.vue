@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{ show: ready }">
+  <div class="card" :class="classes">
     <div class="wrapper">
       <div class="contribution-link" @click="clicked" />
       <hc-progressive-image
@@ -81,6 +81,14 @@
           return null
         }
         return !!this.post.cando
+      },
+      classes () {
+        let classes = []
+        if (this.ready) {
+          classes.push('show')
+        }
+        classes.push(this.post.type || 'post')
+        return classes
       }
     },
     methods: {
@@ -229,6 +237,7 @@
       padding: $padding;
 
       header {
+        position: relative;
         margin-bottom: 10px;
         margin-top: 0;
       }
@@ -267,20 +276,26 @@
   }
 
   .ribbon {
+    // $ribbonColor: lighten(desaturate($blue, 40%), 10%);
+    $ribbonColor: #f9f9f9;
+
     position:         absolute;
     font-size:        0.9em;
     font-weight:      bold;
     padding:          6px 6px;
-    color:            #7e7e7e;
-    background-color: #f9f9f9;
-    right:            -7px;
-    top:              10px;
+    // color:            #fff;
+    // color:            #7e7e7e;
+    color: invert($ribbonColor, 100%);
+    background-color: $ribbonColor;
+    right:            -32px;
+    top:              -5px;
     border-radius:    2px 0 0 2px;
     box-shadow:       $card-shadow;
+    z-index:          11;
     // border:           1px solid #ccc;
 
     &:before {
-      content: ' ';
+      content: " ";
       position: absolute;
       width: 0;
       height: 0;
@@ -288,7 +303,17 @@
       bottom: -6px;
       border-width: 3px 4px 3px 3px;
       border-style: solid;
-      border-color: #ccc transparent transparent #ccc;
+      border-color: darken($ribbonColor, 10%) transparent transparent darken($ribbonColor, 10%);
+    }
+  }
+
+  .cando .ribbon {
+    $ribbonColor: lighten(desaturate($green, 40%), 10%);
+
+    color: invert($ribbonColor, 100%);
+    background-color: $ribbonColor;
+    &:before {
+      border-color: darken($ribbonColor, 10%) transparent transparent darken($ribbonColor, 10%);
     }
   }
 
