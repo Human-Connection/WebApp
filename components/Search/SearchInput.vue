@@ -47,7 +47,7 @@
         this.searchProcess = setTimeout(() => {
           this.searching = false
           this.search(this.value)
-        }, 300)
+        }, 700)
       },
       clear () {
         this.search('')
