@@ -15,6 +15,10 @@
     middleware: ['authenticated', 'verified'],
     components: {
       ContributionsForm
+    },
+    deactivated () {
+      // We don't want this page to be kept alive
+      this.$destroy()
     }
   }
 </script>

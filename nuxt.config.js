@@ -90,6 +90,7 @@ module.exports = {
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/api.js'},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
+    {src: '~/plugins/keep-alive.js', ssr: false},
     {src: '~/plugins/i18n.js'},
     {src: '~/plugins/buefy.js'},
     {src: '~/plugins/vue-clip.js', ssr: false},
