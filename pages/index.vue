@@ -5,7 +5,6 @@
                   :post="contribution"
                   :key="contribution._id"
                   class="card"
-                  @click.native="saveScrollPos"
                   @ready="updateGrid">
             </card>
         </section>
@@ -62,7 +61,8 @@
       return {
         bricksInstance: null,
         errors: null,
-        ready: false
+        ready: false,
+        activated: false
       }
     },
     computed: {
@@ -83,6 +83,7 @@
           if (items.length) {
             this.ready = true
             this.$nextTick(() => {
+              console.log('update grid on contributions watch')
               this.updateGrid(true, true)
             })
           }
@@ -113,6 +114,7 @@
       changeLayout () {
         const app = this
         app.$nextTick(() => {
+          console.log('update grid on change layout')
           app.updateGrid()
         })
       },
@@ -150,16 +152,25 @@
         })
       },
       updateGrid: throttle((resize = false, update = false) => {
+        if (!app.activated) {
+          return
+        }
+        console.log('start update grid')
+        console.log(app.bricksInstance)
         // throttle the grid updates for better performance
         if (resize) {
+          console.log('resize brick')
           app.bricksInstance.resize(false).pack()
         } else if (update) {
+          console.log('update brick')
           try {
             app.bricksInstance.update()
           } catch (err) {
+            console.log('error updating brick', err)
             app.bricksInstance.pack()
           }
         } else {
+          console.log('pack brick')
           app.bricksInstance.pack()
         }
       }, 150),
@@ -168,8 +179,9 @@
       }, 150)
     },
     mounted: function () {
+      this.activated = true
       app = this
-      this.bricksInstance = new Bricks({
+      app.bricksInstance = new Bricks({
         container: '.cards',
         packed: 'data-packed',
         sizes: [
@@ -189,6 +201,7 @@
           this.$store.commit('newsfeed/setLoading', false)
           this.$store.commit('newsfeed/setHasNext', true)
         }, 1000)
+        console.log('update grid on mounted')
         this.updateGrid(false, true)
       } else {
         this.resetList(this)
@@ -197,11 +210,19 @@
       this.ready = !!this.contributions.length
 
       window.addEventListener('load', () => {
+        console.log('update grid on mounted load')
         this.updateGrid(false, true)
       })
       window.addEventListener('resize', throttle((e) => {
+        console.log('update grid on mounted resize')
         this.updateGrid(true, false)
       }, 200))
+    },
+    activated () {
+
+    },
+    deactivated () {
+      this.activated = false
     },
     head () {
       return {
