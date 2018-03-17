@@ -234,7 +234,7 @@
       content () {
         let txt = this.contribution.content || this.contribution.contentExcerpt
         txt = txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
-        return linkifyHtml(txt)
+        return linkifyHtml(txt || '')
       },
       categories () {
         return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
