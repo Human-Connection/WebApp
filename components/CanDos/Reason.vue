@@ -7,6 +7,8 @@
 </template>
 
 <script>
+  import linkifyHtml from 'linkifyjs/html'
+
   export default {
     name: 'hc-cando-reason',
     props: {
@@ -17,7 +19,7 @@
     },
     computed: {
       canDo () {
-        return this.post.cando
+        return linkifyHtml(this.post.cando)
       }
     }
   }

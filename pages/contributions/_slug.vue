@@ -160,6 +160,7 @@
   import CanDoDifficulty from '~/components/CanDos/Difficulty'
   import CanDoReason from '~/components/CanDos/Reason'
   import { isEmpty } from 'lodash'
+  import linkifyHtml from 'linkifyjs/html'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
@@ -231,8 +232,9 @@
         return this.contribution.content.indexOf('<iframe') >= 0
       },
       content () {
-        const txt = this.contribution.content || this.contribution.contentExcerpt
-        return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+        let txt = this.contribution.content || this.contribution.contentExcerpt
+        txt = txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+        return linkifyHtml(txt)
       },
       categories () {
         return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
