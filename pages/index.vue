@@ -219,7 +219,24 @@
       }, 200))
     },
     activated () {
-
+      console.log('activated')
+      this.activated = true
+      app = this
+      app.bricksInstance = new Bricks({
+        container: '.cards',
+        packed: 'data-packed',
+        sizes: [
+          {columns: 1, gutter: 15},
+          {mq: '768px', columns: 2, gutter: 15},
+          {mq: '1000px', columns: 3, gutter: 15},
+          {mq: '1192px', columns: 3, gutter: 20},
+          {mq: '1300px', columns: 3, gutter: 20}
+        ]
+      })
+      this.$nextTick(() => {
+        console.log('update grid on activated')
+        this.updateGrid(false, true)
+      })
     },
     deactivated () {
       this.activated = false
