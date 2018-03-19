@@ -40,8 +40,12 @@ export default ({app, store, redirect, router}) => {
 
   if (process.server) {
     setTimeout(() => {
-      // close server connection as content was delivered already
-      socket.close()
+      // close server connection as content was delivered already after 30 seconds at latest
+      try {
+        socket.close()
+      } catch (err) {
+        app.error(err)
+      }
     }, 30000)
   }
 
