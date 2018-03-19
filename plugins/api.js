@@ -6,6 +6,8 @@ import authentication from 'feathers-authentication-client'
 import urlHelper from '~/helpers/urls'
 import Vue from 'vue'
 
+let socket
+
 export default ({app, store, redirect, router}) => {
   const authKey = 'feathers-jwt'
   const endpoint = urlHelper.buildEndpointURL(app.$env.API_HOST, { port: app.$env.API_PORT })
@@ -33,10 +35,16 @@ export default ({app, store, redirect, router}) => {
       return res
     }
   }
-  let api = feathers()
-    .configure(socketio(io(endpoint, {
+
+  // re-use socket connection on server if possible
+  if (!socket || process.client) {
+    socket = io(endpoint, {
       timeout: 8000
-    })))
+    })
+  }
+
+  let api = feathers()
+    .configure(socketio(socket))
     .configure(hooks())
     .configure(authentication({
       storage: storage,
@@ -108,7 +116,7 @@ export default ({app, store, redirect, router}) => {
     }
   })
 
-  // make the api accessible thrugh app.$api
+  // make the api accessible through app.$api
   app.$api = api
 
   return api
