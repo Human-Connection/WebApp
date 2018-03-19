@@ -33,10 +33,24 @@ export default ({app, store, redirect, router}) => {
       return res
     }
   }
+
+  const socket = io(endpoint, {
+    timeout: 8000
+  })
+
+  if (process.server) {
+    setTimeout(() => {
+      // close server connection as content was delivered already after 30 seconds at latest
+      try {
+        socket.close()
+      } catch (err) {
+        app.error(err)
+      }
+    }, 30000)
+  }
+
   let api = feathers()
-    .configure(socketio(io(endpoint, {
-      timeout: 8000
-    })))
+    .configure(socketio(socket))
     .configure(hooks())
     .configure(authentication({
       storage: storage,
@@ -108,7 +122,7 @@ export default ({app, store, redirect, router}) => {
     }
   })
 
-  // make the api accessible thrugh app.$api
+  // make the api accessible through app.$api
   app.$api = api
 
   return api
