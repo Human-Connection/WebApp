@@ -1,15 +1,13 @@
 import Vue from 'vue'
 
-// Keep alive these pages
-// Examples:
-// pages/index -> index
-// pages/contributions/_slug -> contributions/Slug
-const keepAlivePages = [
-  'index'
-]
-
 const keepAliveHook = {}
 keepAliveHook.install = (Vue) => {
+  // Keep alive these pages
+  // Examples:
+  // pages/index -> index
+  // pages/contributions/_slug -> contributions/Slug
+  const keepAlivePages = process.env.keepAlivePages || []
+
   Vue.mixin({
     deactivated () {
       const pagesRegex = /^<Pages\/([\S\s]+?).vue/gm

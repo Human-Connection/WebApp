@@ -3,6 +3,7 @@ const path = require('path')
 
 module.exports = {
   env: {
+    // pages which do not require a login
     publicPages: [
       'auth-login',
       'auth-register',
@@ -10,6 +11,13 @@ module.exports = {
       'auth-passwort-reset',
       'legal',
       'test'
+    ],
+    // Keep alive these pages
+    // Examples:
+    // pages/index -> index
+    // pages/contributions/_slug -> contributions/Slug
+    keepAlivePages: [
+      'index'
     ]
   },
   /*
