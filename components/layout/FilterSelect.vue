@@ -8,6 +8,7 @@
       :boundaryAlign="true"
       :boundary="$parent.$refs['navbar-container']">
       <hc-navbar-button slot="toggle">
+        <span class="is-hidden">{{ $t('component.filter.label') }}</span>
         <hc-icon icon="filter"></hc-icon>
       </hc-navbar-button>
       <div class="hc-filter-select">
@@ -18,10 +19,10 @@
               position="is-right"
               size="is-large"
               multilined>
-              <h6 class="title is-6">
+              <strong class="title is-6">
                 {{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }}
                 <hc-icon set="fa" icon="question-circle"/>
-              </h6>
+              </strong>
             </hc-tooltip>
           </no-ssr>
           <filter-list
@@ -30,7 +31,7 @@
             translationPath="component.category.slug2label-"
             :selected="selectedCategoryIds"/>
           <hr/>
-          <h6 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h6>
+          <strong class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</strong>
           <filter-list
             @change="filterForEmotions"
             :items="emotions"
@@ -192,7 +193,7 @@
   .hc-filter-select {
     user-select: none;
 
-    h6 {
+    .is-6.title {
       margin: 1rem 0;
     }
 

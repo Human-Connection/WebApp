@@ -3,6 +3,7 @@
     <template v-if="!loadingPreview && wasAtLeastOnceVisible">
       <img class="progressive-image"
            :src="src"
+           :alt="alt"
            :srcset="srcset"
            :class="{ ready: ready }"
            @load="onImage" />
@@ -11,6 +12,7 @@
       <img class="progressive-preview"
            :class="{ hide: loaded, preloaded: alreadyPreloaded }"
            :src="preview"
+           :alt="alt"
            @load="onPreview" />
     </template>
     <slot />
@@ -29,17 +31,23 @@
     mixins: [ inViewport ],
     props: {
       /**
-       * Preview image url
+       * Preview image URL
        */
       preview: {
         type: String
       },
       /**
-       * Image url
+       * Image URL
        */
       src: {
         type: String,
         required: true
+      },
+      /**
+       * Image alt tag
+       */
+      alt: {
+        type: String
       },
       /**
        * Response image set

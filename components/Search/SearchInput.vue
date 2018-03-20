@@ -1,8 +1,10 @@
 <template>
-  <div class="search" :class="{ 'is-active': isActive }">
+  <div class="search" aria-label="search" role="search" :class="{ 'is-active': isActive }">
     <div class="field">
       <div class="control has-icons-left has-icons-right">
+        <label for="nav-search" class="is-hidden">{{ $t('component.search.placeholder') }}</label>
         <input class="input"
+               id="nav-search"
                type="text"
                v-bind:placeholder="$t('component.search.placeholder')"
                v-model="value"

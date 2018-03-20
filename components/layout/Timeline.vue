@@ -86,15 +86,21 @@
         (async () => {
           let user = await this.user
           let userId = user._id !== undefined ? user._id : user.data[0]._id
+          let query = {
+            userId: userId,
+            $sort: {
+              createdAt: -1
+            }
+          }
+
+          // show only public posts if its not your own profile
+          if (!this.isOwnProfile) {
+            query.visibility = 'public'
+            // query.categoryIds = { $exists: true, $not: {$size: 0} }
+          }
+
           try {
-            let res = await this.$api.service('contributions').find({
-              query: {
-                userId: userId,
-                $sort: {
-                  createdAt: -1
-                }
-              }
-            })
+            let res = await this.$api.service('contributions').find({query})
             this.contributions = castArray(res.data)
             this.isLoading = false
             this.loadingFinished = true

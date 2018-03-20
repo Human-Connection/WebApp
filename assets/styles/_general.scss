@@ -309,3 +309,23 @@ div[class*="v2-table__"][style],
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
+
+label.is-required,
+.is-required > label {
+  &::after {
+    content: " *";
+  }
+}
+
+.has-error {
+  span.check {
+    border-color: $red !important;
+  }
+  .control-label {
+    color: $red;
+  }
+}
+
+.control.has-icons-left .icon, .control.has-icons-right .icon {
+  height: 2.5em;
+}

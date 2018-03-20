@@ -8,38 +8,50 @@
                    class="delete"
                    style="display: block; position: absolute; right: 1.5rem; top: 1rem;"></nuxt-link>
         <div class="card-teaser">
-          <nuxt-link :to="$route.params.path || '/'">
-            <img src="/assets/images/registration/alpha-invite.png"
-                 srcset="/assets/images/registration/alpha-invite.png 1x, /assets/images/registration/alpha-invite2x.png 2x"
-                 alt="Human Connection"/>
-          </nuxt-link>
+          <!--<nuxt-link :to="$route.params.path || '/'">-->
+          <img src="/assets/images/registration/alpha-invite.png"
+                srcset="/assets/images/registration/alpha-invite.png 1x, /assets/images/registration/alpha-invite2x.png 2x"
+                alt="Human Connection"/>
+          <!--</nuxt-link>-->
         </div>
         <p class="subtitle is-6">{{ $t('auth.register.description') }}</p>
         <form @submit.prevent="register">
           <template v-if="step === 1">
             <div class="field">
-              <div class="control has-icons-right">
+              <div class="control has-icons-left has-icons-right"
+                  :class="{ 'has-error': $v.form.email.$error }">
+                  <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
                 <input ref="focus"
                       autofocus
+                      id="form-email"
                       :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
                       type="email"
                       :placeholder="$t('auth.account.email')"
                       v-model.trim="form.email"
-                      @blur="$v.form.email.$touch">
+                      @blur="$v.form.email.$touch()">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-envelope"></i>
+                </span>
                 <span v-if="$v.form.email.$error" class="icon is-small is-right">
                   <i class="fa fa-warning"></i>
                 </span>
               </div>
             </div>
             <div class="field" v-if="useInviteCode">
-              <div class="control has-icons-right">
+              <div class="control has-icons-left has-icons-right"
+                  :class="{ 'has-error': $v.form.inviteCode.$error || inviteCodeIsInvalid }">
+                  <label class="is-hidden" for="form-inviteCode">{{ $t('auth.account.inviteCode') }}</label>
                 <input :class="{ 'input': true, 'is-danger': $v.form.inviteCode.$error || inviteCodeIsInvalid }"
                       type="text"
+                      id="form-inviteCode"
                       maxlength="8"
                       :placeholder="$t('auth.account.inviteCode')"
                       v-model.trim="form.inviteCode"
                       @keyup="inviteCodeIsInvalid = false"
-                      @blur="$v.form.inviteCode.$touch">
+                      @blur="$v.form.inviteCode.$touch()">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-barcode"></i>
+                </span>
                 <span v-if="$v.form.inviteCode.$error || inviteCodeIsInvalid" class="icon is-small is-right">
                   <i class="fa fa-warning"></i>
                 </span>
@@ -62,31 +74,42 @@
           </template>
           <template v-if="step === 2">
             <div class="field">
-              <div class="control has-icons-right">
+              <div class="control has-icons-left has-icons-right">
+                <label class="is-hidden" for="form-password">{{ $t('auth.account.password') }}</label>
                 <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
                       ref="focus"
+                      id="form-password"
                       autofocus
                       type="password"
                       :placeholder="$t('auth.account.password')"
                       v-model.trim="form.password"
                       autocomplete="new-password"
-                      @blur="$v.form.password.$touch">
+                      @blur="$v.form.password.$touch()">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
                 <span v-if="$v.form.password.$error" class="icon is-small is-right">
                   <i class="fa fa-warning"></i>
                 </span>
               </div>
             </div>
             <div class="field">
-              <div class="control has-icons-right">
+              <div class="control has-icons-left has-icons-right">
+                <label class="is-hidden" for="form-passwordRepeat">{{ $t('auth.account.password') }}</label>
                 <input :class="{ 'input': true, 'is-danger': $v.form.passwordRepeat.$error }"
                       type="password"
+                      id="form-passwordRepeat"
                       :placeholder="$t('auth.account.password')"
                       v-model.trim="form.passwordRepeat"
                       autocomplete="new-password"
-                      @blur="$v.form.passwordRepeat.$touch">
+                      @input="$v.form.passwordRepeat.$touch()">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
                 <span v-if="$v.form.passwordRepeat.$error" class="icon is-small is-right">
                   <i class="fa fa-warning"></i>
                 </span>
+                <p v-if="$v.form.passwordRepeat.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
               </div>
             </div>
             <hc-button @click.prevent="register"
@@ -200,6 +223,7 @@
       },
       register () {
         if (this.$v.form.$invalid) {
+          this.$v.form.$touch()
           this.animate('shake')
           this.isLoading = false
           return
@@ -216,6 +240,7 @@
             if (msg === 'invite code is invalid') {
               this.toStep(1)
               this.inviteCodeIsInvalid = true
+              msg = this.$t('auth.register.errorInviteCodeInvalid')
             }
             this.$toast.open({
               message: msg,
@@ -247,18 +272,20 @@
   }
 
   .subtitle {
-    margin-top: 30px;
+    margin-top: 15px;
+
+    @include tablet {
+      margin-top: 30px;
+    }
   }
 
   .card-teaser {
     img {
       display: inline-block;
-      margin-top: 2rem;
-      //max-width: 200px;
-      height: auto;
 
       @include tablet {
-        // max-width: 260px;
+        height: auto;
+        margin-top: 2rem;
       }
     }
   }

@@ -1,6 +1,6 @@
 <template>
     <div class="img-circle profile-image">
-      <hc-progressive-image v-if="user" :src="avatar" :preview="preview" :srcset="srcset" />
+      <hc-progressive-image v-if="user" :alt="user.name" :src="avatar" :preview="preview" :srcset="srcset" />
     </div>
 </template>
 

@@ -4,6 +4,7 @@
     :hideFooterTablet="true">
     <hc-navbar-button slot="toggle">
       <span class="notification-icon">
+        <span class="is-hidden">{{ $t('component.notification.label') }}</span>
         <hc-icon icon="bell"
           class="notification-icon-bell"
           :class="{ animate: notify }"></hc-icon>

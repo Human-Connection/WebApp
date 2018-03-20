@@ -5,11 +5,13 @@
       <div slot="toggle">
         <hc-navbar-button class="is-hidden-mobile">
           <img class="flag"
-            :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+            :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"
+            :alt="this.$i18n.locale()" />
         </hc-navbar-button>
         <hc-navbar-item class="is-hidden-tablet">
           <img class="flag mobile-flag"
-            :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"/>
+            :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`"
+            :alt="this.$i18n.locale()" />
           {{ $t('auth.account.languageSettings') }}
         </hc-navbar-item>
       </div>

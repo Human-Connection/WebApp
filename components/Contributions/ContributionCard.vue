@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{ show: ready }">
+  <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
       <div class="contribution-link" @click="clicked" />
       <hc-progressive-image
@@ -8,10 +8,12 @@
           :preview="post.thumbnails.teaserImg.placeholder"
           :src="post.thumbnails.teaserImg.cardS"
           :srcset="srcset"
+          :alt="post.title"
           @onPreview="imageLoaded">
         <div v-if="post && post.meta && post.meta.hasVideo"
              class="player-icon">
           <img
+              alt="contribution contains video"
               src="/assets/images/media/play-light.png"
               srcset="/assets/images/media/play-light.png 2x, /assets/images/media/play-light.png 1x" />
         </div>
@@ -26,6 +28,11 @@
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
               <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
+            </div>
+          </div>
+          <div class="message is-warning is-small" v-if="!post.categoryIds.length">
+            <div class="message-body">
+              <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
             </div>
           </div>
           <h3 class="title is-4">

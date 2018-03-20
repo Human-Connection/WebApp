@@ -29,6 +29,11 @@
                 <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
               </div>
             </div>
+            <div class="message is-warning is-small" v-if="contribution.visibility === 'private' || !contribution.categoryIds.length">
+              <div class="message-body">
+                <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
+              </div>
+            </div>
             <div class="cando-header" v-if="isCanDo">
               <div class="cando-header-action">
                 <can-do-action :post="contribution"
@@ -38,7 +43,7 @@
                 <can-do-count :post="contribution" />
               </div>
             </div>
-            <h1 class="title is-4">{{ contribution.title }}</h1>
+            <h2 class="title is-4">{{ contribution.title }}</h2>
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>

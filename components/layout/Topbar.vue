@@ -5,6 +5,7 @@
       <div class="hc-navbar-menu" ref="navbar-container"
         :class="{ 'is-active': menuIsActive }">
         <div class="hc-navbar-item hc-navbar-brand">
+          <h1 class="is-hidden">Human-Connection</h1>
           <a class="hc-navbar-brand-logo"
              @click="onLogoClick"
              :title="$t('component.layout.topbarLabel')"

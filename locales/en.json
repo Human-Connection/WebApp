@@ -148,7 +148,15 @@
       "writePostImagePlaceholder": "internet address of the image (URL)",
       "writePostSection": "Title",
       "writePostSectionPlaceholder": "How do you call that story?",
-      "writePostContentPlaceholder": "write something amazing..."
+      "writePostContentPlaceholder": "write something amazing...",
+      "visibilityPublic": "Public",
+      "visibilityFriends": "Friends",
+      "visibilityPrivate": "Private",
+      "postPrivate": "This contribution is private and can only be seen by you!",
+      "validationError": "Fill out all marked fields.",
+      "validationErrorTitle": "Please give your contribution a title (min 3 chars)",
+      "validationErrorContent": "Please provide a text",
+      "validationErrorCategories": "Choose at least one category to be able to save this contribution"
     },
     "notification": {
       "label": "Notifications",
@@ -203,6 +211,7 @@
       "noMoreResults": "Sorry that's all what we found"
     },
     "filter": {
+      "label": "Filters",
       "all": "All"
     },
     "timeline": {
@@ -359,7 +368,11 @@
       "description": "If you have an account at Human Connection, please log-in here.",
       "stayLoggedIn": "Stay logged in",
       "forgotPassword": "Forgot password?",
-      "successInfo": "Congratulations, you are in!"
+      "errorInvalid": "Check your login data!",
+      "successInfo": "Congratulations, you are in!",
+      "validationError": "Please check your data",
+      "validationErrorEmail": "Check your email address",
+      "validationErrorPassword": "Enter your password"
     },
     "logout": {
       "label": "Logout"
@@ -367,10 +380,12 @@
     "register": {
       "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
       "noAccountYet": "No account yet?",
-      "accountAlready": "You have an account?",
+      "accountAlready": "You already have an account?",
       "label": "Register",
       "next": "Next",
-      "back": "Back"
+      "back": "Back",
+      "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
+      "validationErrorPasswordRepeat": "Both passwords must match"
     }
   },
   "ressource": {

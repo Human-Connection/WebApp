@@ -98,7 +98,8 @@ export const getters = {
     let query = {
       $skip: state.skip,
       $limit: state.limit,
-      $sort: state.sort
+      $sort: state.sort,
+      visibility: 'public'
     }
     // generate the search query with the token entered inside the search field
     if (!_.isEmpty(state.search)) {
@@ -106,7 +107,7 @@ export const getters = {
       query.$search = state.search
       query.$language = Vue.i18n.locale()
     }
-    // generate the category filter quiery by using the selected category ids
+    // generate the category filter query by using the selected category ids
     if (!_.isEmpty(state.filter.categoryIds)) {
       query.categoryIds = {
         $in: state.filter.categoryIds
