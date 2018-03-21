@@ -174,12 +174,12 @@
               3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#organizations">{{ $t('component.contribution.organizations') }}</a></li>
-              <li><a href="#can-dos">{{ $t('component.contribution.canDos') }}</a></li>
-              <li><a href="#projects">{{ $t('component.contribution.projects') }}</a></li>
-              <li><a href="#jobs">{{ $t('component.contribution.jobs') }}</a></li>
-              <li><a href="#events">{{ $t('component.contribution.events') }}</a></li>
-              <li><a href="#maps">{{ $t('component.contribution.map') }}</a></li>
+              <li><a v-scroll-to="{el: '#organizations'}">{{ $t('component.contribution.organizations') }}</a></li>
+              <li><a v-scroll-to="{el: '#can-dos'}">{{ $t('component.contribution.canDos') }}</a></li>
+              <li><a v-scroll-to="{el: '#projects'}">{{ $t('component.contribution.projects') }}</a></li>
+              <li><a v-scroll-to="{el: '#jobs'}">{{ $t('component.contribution.jobs') }}</a></li>
+              <li><a v-scroll-to="{el: '#events'}">{{ $t('component.contribution.events') }}</a></li>
+              <li><a v-scroll-to="{el: '#maps'}">{{ $t('component.contribution.map') }}</a></li>
             </ul>
           </li>
         </ul>

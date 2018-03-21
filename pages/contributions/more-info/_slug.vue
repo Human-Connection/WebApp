@@ -164,11 +164,11 @@
               2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
-              <li><a href="#proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
-              <li><a href="#bestlists">{{ $t('component.contribution.bestList') }}</a></li>
-              <li><a href="#votes">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
-              <li><a href="#chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
+              <li><a v-scroll-to="{el: '#relatedPosts'}">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
+              <li><a v-scroll-to="{el: '#proAndContras'}">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
+              <li><a v-scroll-to="{el: '#bestlists'}">{{ $t('component.contribution.bestList') }}</a></li>
+              <li><a v-scroll-to="{el: '#votes'}">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
+              <li><a v-scroll-to="{el: '#chatrooms'}">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
             </ul>
           </li>
           <li>

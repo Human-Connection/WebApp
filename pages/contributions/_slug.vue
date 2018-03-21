@@ -94,25 +94,27 @@
             </no-ssr>
           </div>
           <no-ssr>
-            <b-tabs class="footer">
-              <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
-                <comments :post="contribution"/>
-              </b-tab-item>
-              <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
-                <div class="notification is-warning">
-                  {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
-                  <br/><br/>
-                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
-                </div>
-              </b-tab-item>
-              <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
-                <div class="notification is-warning">
-                  {{ $t('component.contribution.versusDescription') }}
-                  <br/><br/>
-                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
-                </div>
-              </b-tab-item>
-            </b-tabs>
+            <div ref="tabs">
+              <b-tabs class="footer">
+                <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
+                  <comments :post="contribution"/>
+                </b-tab-item>
+                <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
+                  <div class="notification is-warning">
+                    {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                    <br/><br/>
+                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
+                  </div>
+                </b-tab-item>
+                <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
+                  <div class="notification is-warning">
+                    {{ $t('component.contribution.versusDescription') }}
+                    <br/><br/>
+                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
+                  </div>
+                </b-tab-item>
+              </b-tabs>
+            </div>
           </no-ssr>
         </section>
       </div>
@@ -126,13 +128,13 @@
             </nuxt-link>
             <ul>
               <li>
-                <nuxt-link to="#comments">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</nuxt-link>
+                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
               </li>
               <li>
-                <nuxt-link to="#lets-talk">{{ $t('component.contribution.letsTalk') }}</nuxt-link>
+                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
               </li>
               <li>
-                <nuxt-link to="#versus">{{ $t('component.contribution.versus') }}</nuxt-link>
+                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
               </li>
             </ul>
           </li>

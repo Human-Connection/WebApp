@@ -1,5 +1,5 @@
 <template>
-  <div class="layout_blank">
+  <div class="layout_blank" :id="id">
     <div class="content">
       <div id="error">
         <h1 v-html="header"></h1>
@@ -59,6 +59,9 @@
       },
       copy () {
         return this.$t(`component.error.copy${parseInt(this.statusCode)}`)
+      },
+      id () {
+        return `page-name-${this.$route.name}`
       }
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :id="id">
     <hc-frame>
       <div class="container" id="main">
         <section class="hero is-primary">
@@ -39,6 +39,11 @@
     async mounted () {
       // refresh token to fix refresh issues
       await this.$store.dispatch('auth/refreshJWT', 'layout admin')
+    },
+    computed: {
+      id () {
+        return `page-name-${this.$route.name}`
+      }
     }
   }
 </script>

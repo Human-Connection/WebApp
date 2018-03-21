@@ -1,6 +1,6 @@
 <template>
-  <div class="layout_blank" :class="{ hidden: hidden }">
-    <div class="container">
+  <div class="layout_blank" :class="{ hidden: hidden }" :id="id">
+    <div class="container" role="main">
       <nuxt/>
     </div>
   </div>
@@ -19,6 +19,11 @@
       })
       // refresh token to fix refresh issues
       await this.$store.dispatch('auth/refreshJWT', 'layout blank')
+    },
+    computed: {
+      id () {
+        return `page-name-${this.$route.name}`
+      }
     },
     head () {
       let head = {

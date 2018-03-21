@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div :id="id">
     <hc-frame>
-      <div class="container" id="main">
+      <div class="container" id="main" role="main">
         <hc-verification-banner/>
         <nuxt keep-alive />
       </div>
@@ -33,6 +33,11 @@
         ]
       }
       return head
+    },
+    computed: {
+      id () {
+        return `page-name-${this.$route.name}`
+      }
     },
     async mounted () {
       // refresh token to fix refresh issues
