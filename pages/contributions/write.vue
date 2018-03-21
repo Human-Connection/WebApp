@@ -15,6 +15,9 @@
     middleware: ['authenticated', 'verified'],
     components: {
       ContributionsForm
+    },
+    deactivated () {
+      this.$destroy()
     }
   }
 </script>
