@@ -1,5 +1,5 @@
 <template>
-  <div class="comments">
+  <div class="comments" :key="post._id">
     <div v-if="isLoading" class="notification">
       <strong>{{ $t('component.contribution.commentsLoading', 'Loading Comments...') }}</strong>
     </div>
