@@ -161,10 +161,10 @@
         .then(res => {
           this.inviteCount = res.total || 0
         })
-      this.$api.service('follows').find({query: { $limit: 0 }})
-        .then(res => {
-          this.followCount = res.total || 0
-        })
+      // this.$api.service('follows').find({query: { $limit: 0 }})
+      //   .then(res => {
+      //     this.followCount = res.total || 0
+      //   })
       this.$api.service('shouts').find({query: { $limit: 0 }})
         .then(res => {
           this.shoutCount = res.total || 0
