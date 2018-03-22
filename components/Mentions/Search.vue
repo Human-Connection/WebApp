@@ -66,7 +66,7 @@
           .then(result => {
             this.endSearch(result.data)
           })
-          .catch(error => {
+          .catch(() => {
             // console.log(error)
             this.endSearch([])
           })
