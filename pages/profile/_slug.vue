@@ -1,13 +1,14 @@
 <template>
   <section class="container page-profile" style="position: relative">
     <template>
-      <hc-upload class="profile-header card"
-                 v-if="isOwner"
-                 :preview-image="coverImg"
-                 :test="true"
-                 @update="onCoverUploadCompleted"
-                 @start-sending="uploadingCover = true"
-                 @stop-sending="uploadingCover = false" >
+      <hc-upload
+        class="profile-header card"
+        v-if="isOwner"
+        :preview-image="coverImg"
+        :test="true"
+        @update="onCoverUploadCompleted"
+        @start-sending="uploadingCover = true"
+        @stop-sending="uploadingCover = false">
       </hc-upload>
       <hc-progressive-image
           class="profile-header card"
@@ -20,13 +21,16 @@
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
             <template>
-              <hc-upload v-if="isOwner"
-                         class="avatar-upload"
-                         :preview-image="form.avatar || user.avatar"
-                         :test="true"
-                         @update="onAvatarUploadCompleted"
-                         @start-sending="uploadingAvatar = true"
-                         @stop-sending="uploadingAvatar = false" ></hc-upload>
+              <hc-upload
+                v-if="isOwner"
+                class="avatar-upload"
+                :preview-image="form.avatar || user.avatar"
+                :test="true"
+                @update="onAvatarUploadCompleted"
+                @start-sending="uploadingAvatar = true"
+                @stop-sending="uploadingAvatar = false" >
+                <hc-avatar :user="user" />
+              </hc-upload>
               <hc-avatar  v-else
                   class="avatar-upload"
                   :user="user"></hc-avatar>
@@ -181,7 +185,11 @@
           avatar: null
         },
         uploadingCover: false,
-        uploadingAvatar: false
+        uploadingAvatar: false,
+        user: null,
+        isOwner: false,
+        params: null,
+        updatedUser: null
       }
     },
     middleware: ['authenticated'],

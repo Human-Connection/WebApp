@@ -43,7 +43,7 @@
                      name="password"
                      type="password"
                      :placeholder="$t('auth.account.password')"
-                     v-model.trim="form.password"
+                     v-model="form.password"
                      @blur="$v.form.password.$touch()">
               <span class="icon is-left">
                 <i class="fa fa-lock"></i>

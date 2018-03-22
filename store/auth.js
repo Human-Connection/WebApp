@@ -140,16 +140,23 @@ export const actions = {
       })
   },
   async patch ({state, commit, dispatch}, data) {
+    let user = state.user
     // console.log('####################')
     // console.log('#AUTH/PATCH', data)
     // console.log('#USER ID', state.user._id)
     // console.log('#JWT TOKEN', this.$cookies.get(this.app.$api.authKey))
+    // console.log('#state.isAuthenticated', state.isAuthenticated)
+    // console.log('#state.use', state.use)
     // console.log('####################')
-    if (!state.isAuthenticated || !state.user) {
+    // if (!state.isAuthenticated || !user) {
+    //   user = await dispatch('refreshJWT')
+    // }
+    if (!user) {
       // stop when the user is not authenticated
-      return
+      console.error('stop when the user is not authenticated')
+      throw new Error('NO USER')
     }
-    const user = await this.app.$api.service('users').patch(state.user._id, data)
+    user = await this.app.$api.service('users').patch(user._id, data)
     commit('SET_USER', user)
     return user
   },

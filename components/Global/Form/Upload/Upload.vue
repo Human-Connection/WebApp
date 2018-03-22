@@ -1,6 +1,9 @@
 <template>
   <div class="hc-upload" :class="classes">
     <div class="hc-preview">
+      <div class="bg" v-show="!previewImage">
+        <slot></slot>
+      </div>
       <hc-progressive-image
         :src="previewImage"
         :preview="previewImage"
@@ -368,5 +371,18 @@
   .hc-warning {
     text-align: center;
     color: $red;
+  }
+
+  .bg {
+    width: 100%;
+    height: 100%;
+
+    & > div {
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 </style>

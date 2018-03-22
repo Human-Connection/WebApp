@@ -6,14 +6,16 @@
            :alt="alt"
            :srcset="srcset"
            :class="{ ready: ready }"
-           @load="onImage" />
+           @load="onImage"
+           @error="onErrorImage" />
     </template>
     <template>
       <img class="progressive-preview"
            :class="{ hide: loaded, preloaded: alreadyPreloaded }"
            :src="preview"
            :alt="alt"
-           @load="onPreview" />
+           @load="onPreview"
+           @error="onErrorPreview" />
     </template>
     <slot />
   </div>
@@ -113,6 +115,7 @@
        * Broadcast the "onLoad" Event when the main image is loaded and set the variables
        */
       onImage (e) {
+        console.log('IMAGE LOAD', e)
         this.loadingImage = false
         setTimeout(() => {
           this.loaded = true
@@ -120,6 +123,24 @@
         this.ready = true
         this.$emit('onLoad')
 
+        this.inViewport.listening = false
+        this.removeInViewportHandlers()
+      },
+      onErrorPreview (e) {
+        this.loadingImage = false
+        this.loaded = true
+        this.ready = true
+        this.$emit('error')
+        this.$emit('onPreview')
+        this.inViewport.listening = false
+        this.removeInViewportHandlers()
+      },
+      onErrorImage (e) {
+        this.loadingImage = false
+        this.loaded = true
+        this.ready = true
+        this.$emit('error')
+        this.$emit('onLoad')
         this.inViewport.listening = false
         this.removeInViewportHandlers()
       }
