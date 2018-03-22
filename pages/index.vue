@@ -238,6 +238,7 @@
     padding: 0;
     margin-left: auto;
     margin-right: auto;
+    overflow-x: hidden;
 
     @include mobile() {
       width: 100% !important;
