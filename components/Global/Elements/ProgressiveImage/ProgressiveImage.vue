@@ -154,6 +154,7 @@
     display: block;
     position: relative;
     overflow: hidden;
+    min-width: 100%;
   }
 
   img.progressive-image {
