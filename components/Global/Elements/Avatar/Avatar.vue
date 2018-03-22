@@ -45,9 +45,10 @@ export default {
       }
     },
     mounted () {
-      try {
-        this.size = this.$refs.avatar.getBoundingClientRect().width
-      } catch (err) {}
+      this.updateSize()
+    },
+    activated () {
+      this.updateSize()
     },
     computed: {
       username () {
@@ -130,10 +131,13 @@ export default {
         else if (g < 0) g = 0
         return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16)
       },
-      resizeHandler: throttle(() => {
+      updateSize () {
         try {
           this.size = this.$refs.avatar.getBoundingClientRect().width
         } catch (err) {}
+      },
+      resizeHandler: throttle(() => {
+        this.updateSize()
       }, 200)
     }
   }
