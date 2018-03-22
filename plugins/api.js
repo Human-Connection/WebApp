@@ -100,13 +100,19 @@ export default ({app, store, redirect, router}) => {
    */
   api.auth = async (options = {strategy: 'jwt'}) => {
     // console.log('~~~######### api.auth', options)
+    if (options.strategy === 'local') {
+      // fix issues where we could not log in
+      // when at development
+      await api.passport.logout()
+      storage.removeItem(authKey)
+    }
     let user = null
     const response = await api.authenticate(options)
     const payload = await api.passport.verifyJWT(response.accessToken)
+
     if (payload.userId) {
       user = await api.service('users').get(payload.userId)
     }
-    // api.set('user', user)
     return user
   }
 
