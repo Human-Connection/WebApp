@@ -115,7 +115,6 @@
        * Broadcast the "onLoad" Event when the main image is loaded and set the variables
        */
       onImage (e) {
-        console.log('IMAGE LOAD', e)
         this.loadingImage = false
         setTimeout(() => {
           this.loaded = true

@@ -178,7 +178,6 @@
         this.updateGrid(false, true)
       },
       resizeHandler: throttle(() => {
-        console.log('resize')
         app.updateGrid(true, false)
       }, 200),
       resetList (app) {

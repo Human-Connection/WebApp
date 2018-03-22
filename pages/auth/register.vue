@@ -211,7 +211,7 @@
         this.form.inviteCode = this.$route.query.code || ''
 
         if (this.$route.query.lang && isEmpty(this.$cookies.get('locale'))) {
-          console.log('LANG: ' + this.$route.query.lang)
+          // console.log('LANG: ' + this.$route.query.lang)
           this.$i18n.set(this.$route.query.lang)
         }
       })

@@ -95,7 +95,6 @@
     },
     methods: {
       async save () {
-        console.log('TRY TO SAVE', this.data.name)
         this.errors = false
         this.isLoading = true
         this.$store.dispatch('auth/patch', this.data)
@@ -120,7 +119,6 @@
       },
       onRandomAvatar (blob) {
         this.form.avatar = this.url
-        console.log(this.url)
 
         let data = {
           avatar: blob
