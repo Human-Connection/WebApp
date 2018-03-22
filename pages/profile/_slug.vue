@@ -270,6 +270,7 @@
   @import "assets/styles/utilities";
 
   .page-profile {
+    overflow-x: hidden;
 
     #main {
       margin-top: 0;
