@@ -158,7 +158,7 @@
             })
             this.$router.replace(this.$route.params.path || this.$route.query.path || '/')
           })
-          .catch(err => {
+          .catch(() => {
             this.isLoading = false
             this.$toast.open({
               message: this.$t('auth.login.errorInvalid'),

@@ -8,7 +8,6 @@
 
 <script>
   import linkifyHtml from 'linkifyjs/html'
-  import { isString } from 'lodash'
 
   export default {
     name: 'hc-cando-reason',

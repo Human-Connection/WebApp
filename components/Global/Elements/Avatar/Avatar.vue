@@ -16,7 +16,7 @@
 
 <script>
   import thumbnailHelper from '~/helpers/thumbnails'
-  import { isEmpty, throttle } from 'lodash'
+  import { throttle } from 'lodash'
 
 export default {
     name: 'hc-avatar',
