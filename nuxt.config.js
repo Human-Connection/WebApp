@@ -12,10 +12,7 @@ module.exports = {
       'legal',
       'test'
     ],
-    // Keep alive these pages
-    // Examples:
-    // pages/index -> index
-    // pages/contributions/_slug -> contributions/Slug
+    // pages to keep alive
     keepAlivePages: [
       'index'
     ]
