@@ -1,5 +1,5 @@
 <template>
-  <section class="container content">
+  <section id="page-auth-login" class="container content">
     <div class="card" :class="classes">
       <div class="card-content">
         <hc-flag-switch />
@@ -19,7 +19,7 @@
               <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
               <input ref="focus"
                      id="form-email"
-                     name="username"
+                     name="email"
                      type="email"
                      autofocus
                      :class="{ 'input': true, 'is-danger': $v.form.email.$error }"

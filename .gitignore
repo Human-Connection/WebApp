@@ -27,3 +27,6 @@ npm-debug.log
 # .env and .env-secrets
 .env
 .env-secrets
+
+# ignore cypress videos
+cypress/videos

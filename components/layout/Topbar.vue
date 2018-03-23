@@ -33,7 +33,7 @@
           </div>
           <div class="hc-navbar-item hc-navbar-user-menu">
             <template v-if="isAuthenticated">
-              <user-menu></user-menu>
+              <user-menu id="user-menu"></user-menu>
             </template>
             <template v-else>
               <hc-button

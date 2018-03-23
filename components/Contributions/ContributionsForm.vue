@@ -36,6 +36,7 @@
         <input
           class="input"
           id="form-title"
+          data-test="title"
           :class="{ 'is-danger': $v.form.title.$error }"
           maxlength="64"
           v-model.trim="form.title"
@@ -63,6 +64,7 @@
         <hc-editor
           identifier="content"
           id="form-content"
+          data-test="content"
           v-model.trim="form.content"
           :class="{ 'is-danger': $v.form.content.$error }"
           @blur="$v.form.content.$touch()"
@@ -208,6 +210,7 @@
         <div class="control">
           <hc-button :isLoading="isLoading"
                      :disabled="disabled"
+                     data-test="submit"
                      @click.prevent="onSubmit">
             <i class="fa fa-check"></i>
             &nbsp;<span>{{ buttonPublishLabel }}</span>

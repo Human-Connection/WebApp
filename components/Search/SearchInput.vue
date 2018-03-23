@@ -5,6 +5,7 @@
         <label for="nav-search" class="is-hidden">{{ $t('component.search.placeholder') }}</label>
         <input class="input"
                id="nav-search"
+               name="search"
                type="text"
                v-bind:placeholder="$t('component.search.placeholder')"
                v-model="value"

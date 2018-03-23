@@ -7,7 +7,9 @@
             <contribution-image v-if="!hasEmbeddedVideo" :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
-                <author :user="contribution.user"
+                <author
+                  class="author"
+                  :user="contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
               <div class="column is-one-third">
