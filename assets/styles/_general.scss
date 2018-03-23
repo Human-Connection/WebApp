@@ -16,6 +16,8 @@
 html, body {
   background-color: $white-dar;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: $family-sans-serif;
   font-variant-ligatures: no-common-ligatures;
 }
