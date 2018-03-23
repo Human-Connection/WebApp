@@ -1,5 +1,5 @@
 <template>
-  <div class="comment is-unselectable autowrap" :class="{ highlight: highlight }">
+  <div class="comment autowrap" :class="{ highlight: highlight }">
     <div class="columns is-mobile">
       <div class="column">
         <author :user="comment.user"
@@ -7,7 +7,7 @@
       </div>
       <div class="column has-text-right">
         <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
-          <a @click="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
+          <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
             <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
             <i class="fa fa-angle-double-up"></i>&nbsp;
           </a>
@@ -40,6 +40,7 @@
 
 <script>
   import author from '~/components/Author/Author.vue'
+  import linkifyHtml from 'linkifyjs/html'
 
   export default {
     name: 'hc-comment',
@@ -64,7 +65,7 @@
     },
     computed: {
       getText () {
-        return (this.fullContentShown && this.content) ? this.content : this.comment.contentExcerpt
+        return (this.fullContentShown && this.content) ? linkifyHtml(this.content) : linkifyHtml(this.comment.contentExcerpt)
       },
       isTruncated () {
         return this.getText.slice(-3) === '...' || this.getText.slice(-1) === '…' || this.fullContentShown

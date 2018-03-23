@@ -53,7 +53,7 @@ export const actions = {
       query: {
         contributionId: contributionId,
         $sort: {
-          upvoteCount: -1,
+          // upvoteCount: -1,
           createdAt: 1
         },
         $limit: 50
