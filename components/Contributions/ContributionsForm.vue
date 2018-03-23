@@ -126,10 +126,11 @@
     </div>
     <hr/>
     <no-ssr>
-      <div class="field">
+      <div class="field autowrap">
         <b-field label="Tags">
           <b-taginput
               maxtags="5"
+              maxlength="32"
               size="is-small"
               :value="form.tags"
               icon=""

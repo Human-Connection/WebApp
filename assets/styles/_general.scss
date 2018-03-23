@@ -133,6 +133,8 @@ hr {
   > .tag {
     margin-bottom: 5px;
     margin-right: 5px !important;
+    justify-content: left;
+    overflow-x: hidden;
 
     &:last-child {
       margin-right: 0;

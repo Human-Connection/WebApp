@@ -1,7 +1,7 @@
 <template>
   <div class="columns">
     <div class="column is-8 is-offset-1-widescreen">
-      <div class="card">
+      <div class="card autowrap">
         <section class="section">
           <div class="">
             <contribution-image v-if="!hasEmbeddedVideo" :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
