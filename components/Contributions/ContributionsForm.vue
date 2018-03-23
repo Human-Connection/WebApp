@@ -395,6 +395,7 @@
           if (formData.type !== 'cando') {
             delete formData.cando
           }
+          this.$api.service('contributions').timeout = 30000;
           let res = null
           if (this.form._id) {
             res = await this.$api.service('contributions').patch(formData._id, formData)

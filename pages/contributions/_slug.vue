@@ -168,7 +168,7 @@
   import CanDoCount from '~/components/CanDos/Count'
   import CanDoDifficulty from '~/components/CanDos/Difficulty'
   import CanDoReason from '~/components/CanDos/Reason'
-  import { isEmpty } from 'lodash'
+  import { isEmpty, truncate } from 'lodash'
   import linkifyHtml from 'linkifyjs/html'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
@@ -241,9 +241,48 @@
         return this.contribution.content.indexOf('<iframe') >= 0
       },
       content () {
-        let txt = this.contribution.content || this.contribution.contentExcerpt
-        txt = txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
-        return linkifyHtml(txt || '')
+        if (!this.contribution) {
+          return ''
+        }
+
+        let content = this.contribution.content || this.contribution.contentExcerpt
+        content = content.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+
+        if (process.server) {
+          return content
+        }
+
+        try {
+          const linkRegex = new RegExp(/<a\s[^>]*href=\"([^\"]*)\"[^>]*>([^<]*)<\/a>/, 'ig') // eslint-disable-line
+
+          content = content.replace(linkRegex, (link, url, label) => {
+            console.log('link', link)
+            console.log(url)
+            console.log(label)
+            // console.log(this.contribution.meta)
+            if (isEmpty(this.contribution.meta.embedds[url])) {
+              return link
+            }
+            const embedd = this.contribution.meta.embedds[url]
+            // ${(embedd.title && embedd.title !== embedd.description) ? '<strong>' + embedd.title + '</strong><br /><br />' : '' }
+            const embeddTemplate = `
+              <a href="${url}" target="_blank" class="embedd link">
+                <span class="embedd-description">
+                  ${truncate(embedd.description, { length: 120 })}<br />
+                  <img class="embedd-logo" src="${embedd.logo}" />
+                  <small class="embedd-publisher">${embedd.publisher || truncate(embedd.url, { length: 64 })}</small>
+                </span>
+                <img class="embedd-image" src="${embedd.image}" />
+              </a>`.trim()
+            // console.log(embeddTemplate)
+
+            return embeddTemplate
+          })
+        } catch (err) {
+          console.error(err)
+        }
+
+        return content
       },
       categories () {
         return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
@@ -274,7 +313,7 @@
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss">
   @import 'assets/styles/utilities';
   @import '~bulma/sass/base/helpers';
 
@@ -309,5 +348,57 @@
 
   .cando-details-reason {
     margin-top: 2.5rem;
+  }
+
+  .embedd {
+    display: flex;
+    position: relative;
+    background-color: #FBFAFA;
+    border: 1px solid #EEEDED;
+    font-size: 0.9em;
+
+    &,
+    &:link,
+    &:hover {
+      color: $grey-darker;
+    }
+
+    span {
+      display: inline-block;
+      padding: 5px 10px;
+    }
+
+    .embedd-description {
+      padding-right: 15px;
+    }
+
+    .embedd-content {
+      justify-self: left;
+    }
+
+    .embedd-footer {
+      display: block;
+      // align-self: baseline;
+    }
+
+    .embedd-image {
+      max-height: 100%;
+      max-width: 150px;
+      object-fit: contain;
+      justify-self: right;
+      background-color: #ccc;
+    }
+
+    .embedd-logo {
+      height: 16px;
+      width: 16px;
+      margin-bottom: -4px;
+      margin-right: 3px;
+    }
+
+    .embedd-publisher {
+      display: inline-block;
+      padding-bottom: 5px;
+    }
   }
 </style>
