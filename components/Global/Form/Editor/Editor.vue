@@ -119,6 +119,9 @@
               container: `#toolbar-editor-${this.identifier}`,
               handlers: {
               }
+            },
+            urlEmbeds: {
+              metaApi: 'http://localhost:3050'
             }
           },
           placeholder: 'Schreiben ...'
