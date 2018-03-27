@@ -49,7 +49,7 @@
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>
-            <div class="content" v-html="content"></div>
+            <div class="content" v-html="content" ref="content"></div>
             <div class="cando-details-reason" v-if="isCanDo">
               <can-do-reason :post="contribution" />
             </div>
@@ -252,36 +252,12 @@
           return content
         }
 
-        try {
-          const linkRegex = new RegExp(/<a\s[^>]*href=\"([^\"]*)\"[^>]*>([^<]*)<\/a>/, 'ig') // eslint-disable-line
-
-          content = content.replace(linkRegex, (link, url, label) => {
-            console.log('link', link)
-            console.log(url)
-            console.log(label)
-            // console.log(this.contribution.meta)
-            if (isEmpty(this.contribution.meta.embedds[url])) {
-              return link
-            }
-            const embedd = this.contribution.meta.embedds[url]
-            // ${(embedd.title && embedd.title !== embedd.description) ? '<strong>' + embedd.title + '</strong><br /><br />' : '' }
-            const embeddTemplate = `
-              <a href="${url}" target="_blank" class="embedd link">
-                <span class="embedd-description">
-                  ${truncate(embedd.description, { length: 120 })}<br />
-                  <img class="embedd-logo" src="${embedd.logo}" />
-                  <small class="embedd-publisher">${embedd.publisher || truncate(embedd.url, { length: 64 })}</small>
-                </span>
-                <img class="embedd-image" src="${embedd.image}" />
-              </a>`.trim()
-            // console.log(embeddTemplate)
-
-            return embeddTemplate
-          })
-        } catch (err) {
-          console.error(err)
-        }
-
+        const utils = require('quill-url-embeds').utils
+        const populator = new utils.populator('http://localhost:3050')
+        content = utils.anchorToEmbed(content)
+        this.$nextTick(() => {
+          populator.populate(this.$refs.content)
+        })
         return content
       },
       categories () {

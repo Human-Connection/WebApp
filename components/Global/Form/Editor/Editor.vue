@@ -42,6 +42,7 @@
           @blur="editorBlur()"
           @focus="editorFocus()"
           @ready="editorReady($event)"
+          ref="content"
           v-quill:myQuillEditor="computedEditorOptions"></div>
         <div class="plugins" v-if="ready && myQuillBus">
           <editor-mentions :quill="myQuillBus" />
@@ -157,6 +158,15 @@
       editorReady () {
         this.myQuillBus = new QuillBus(this.myQuillEditor)
         this.ready = true
+      },
+      populateEmbeds (value) {
+        const utils = require('quill-url-embeds').utils
+        const populator = new utils.populator('http://localhost:3050')
+        value = utils.anchorToEmbed(value)
+        this.$nextTick(() => {
+          populator.populate(this.$refs.content)
+        })
+        return value
       }
     },
     watch: {
@@ -167,12 +177,15 @@
       },
       value (newValue, oldValue) {
         if (newValue !== oldValue) {
-          this.editorText = newValue
+          this.editorText = this.populateEmbeds(newValue)
         }
       }
     },
     created () {
       this.editorText = this.value
+    },
+    mounted () {
+      this.editorText = this.populateEmbeds(this.value)
     }
   }
 </script>
