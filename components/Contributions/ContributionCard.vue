@@ -275,12 +275,16 @@
   }
 
   .ribbon {
+
+    $ribbonColor: lighten(desaturate(#005093, 50%), 25%);
+    $ribbonColorDark: darken($ribbonColor, 20%);
+
     position:         absolute;
     font-size:        0.9em;
     font-weight:      bold;
     padding:          6px 6px;
     color:            #fff;
-    background-color: #95c11f;
+    background-color: $ribbonColor;
     right:            -32px;
     top:              -5px;
     border-radius:    2px 0 0 2px;
@@ -297,7 +301,7 @@
       bottom: -6px;
       border-width: 3px 4px 3px 3px;
       border-style: solid;
-      border-color: #7b9e1d transparent transparent #7b9e1d;
+      border-color: $ribbonColorDark transparent transparent $ribbonColorDark;
     }
   }
 
