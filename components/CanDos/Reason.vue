@@ -1,5 +1,5 @@
 <template>
-  <div class="cando-reason">
+  <div class="cando-reason" v-show="reason">
     <h3>{{ canDo.reasonTitle }}</h3>
     <div v-html="canDo.reason">
     </div>
@@ -7,6 +7,8 @@
 </template>
 
 <script>
+  import linkifyHtml from 'linkifyjs/html'
+
   export default {
     name: 'hc-cando-reason',
     props: {
@@ -18,6 +20,9 @@
     computed: {
       canDo () {
         return this.post.cando
+      },
+      reason () {
+        return linkifyHtml(this.canDo.reason || '')
       }
     }
   }

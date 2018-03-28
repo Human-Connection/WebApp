@@ -1,5 +1,5 @@
 <template>
-  <div class="card" :class="{ show: ready }">
+  <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
       <div class="contribution-link" @click="clicked" />
       <hc-progressive-image
@@ -8,7 +8,16 @@
           :preview="post.thumbnails.teaserImg.placeholder"
           :src="post.thumbnails.teaserImg.cardS"
           :srcset="srcset"
-          @onPreview="imageLoaded" />
+          :alt="post.title"
+          @onPreview="imageLoaded">
+        <div v-if="post && post.meta && post.meta.hasVideo"
+             class="player-icon">
+          <img
+              alt="contribution contains video"
+              src="/assets/images/media/play-light.png"
+              srcset="/assets/images/media/play-light.png 2x, /assets/images/media/play-light.png 1x" />
+        </div>
+      </hc-progressive-image>
       <div class="content autowrap">
         <header>
           <div class="ribbon">
@@ -19,6 +28,11 @@
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
               <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
+            </div>
+          </div>
+          <div class="message is-warning is-small" v-if="!post.categoryIds.length">
+            <div class="message-body">
+              <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
             </div>
           </div>
           <h3 class="title is-4">
@@ -112,6 +126,21 @@
   $gutter: 15px;
   $gutter-big: 20px;
   $padding: 25px;
+
+  .player-icon {
+    & > img {
+      width: 70px;
+      height: 70px;
+    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
 
   .progressive {
     img.preview {

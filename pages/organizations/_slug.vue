@@ -88,7 +88,6 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import feathers from '~/plugins/feathers'
 
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
@@ -112,10 +111,10 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({params, store, redirect}) {
+    async asyncData ({app, params, store, redirect}) {
       let organization, owner, isOwner
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
-        organization = await feathers.service('organizations').find({
+        organization = await app.$api.service('organizations').find({
           query: {
             slug: params.slug
           }

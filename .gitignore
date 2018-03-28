@@ -21,6 +21,12 @@ npm-debug.log
 .vscode/
 
 # Do not commit the env.js file as it may contain sensitive data
-env.js
 /nbproject/private/
 /nbproject/
+
+# .env and .env-secrets
+.env
+.env-secrets
+
+# ignore cypress videos
+cypress/videos

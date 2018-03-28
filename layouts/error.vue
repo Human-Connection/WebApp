@@ -1,5 +1,5 @@
 <template>
-  <div class="layout_blank">
+  <div class="layout_blank" :id="id">
     <div class="content">
       <div id="error">
         <h1 v-html="header"></h1>
@@ -16,6 +16,8 @@
   </div>
 </template>
 <script>
+  import Raven from 'raven-js'
+
   export default {
     props: ['error'],
     layout: 'blank',
@@ -30,6 +32,11 @@
     mounted () {
       if (process.env.NODE_ENV === 'development') {
         console.error(this.error.message)
+      }
+
+      // show sentry error dialog if something happened
+      if (Raven.lastEventId()) {
+        Raven.showReportDialog()
       }
     },
     computed: {
@@ -52,6 +59,9 @@
       },
       copy () {
         return this.$t(`component.error.copy${parseInt(this.statusCode)}`)
+      },
+      id () {
+        return `page-name-${this.$route.name}`
       }
     }
   }

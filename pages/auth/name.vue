@@ -9,12 +9,15 @@
                 <p class="subtitle is-6">{{ $t('auth.account.nameDescription') }}</p>
 
                 <div class="user-avatar">
-                    <hc-upload class="avatar-upload"
-                               :preview-image="form.avatar || user.avatar"
-                               :test="true"
-                               @update="onAvatarUploadCompleted"
-                               @start-sending="uploadingAvatar = true"
-                               @stop-sending="uploadingAvatar = false" ></hc-upload>
+                  <hc-upload
+                    class="avatar-upload"
+                    :preview-image="form.avatar || user.avatar"
+                    :test="true"
+                    @update="onAvatarUploadCompleted"
+                    @start-sending="uploadingAvatar = true"
+                    @stop-sending="uploadingAvatar = false" >
+                    <hc-avatar :user="user" :name="data.name" />
+                  </hc-upload>
                 </div>
 
                 <random-avataaar @blob="onRandomAvatar" />
@@ -22,9 +25,14 @@
                 <form @submit.prevent="save">
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input ref="focus" autofocus class="input " v-bind:class="{ 'is-danger': errors }"
-                                   type="text" v-bind:placeholder="$t('auth.account.namePlaceholder')"
-                                   v-model="data.name" autofocus>
+                            <input
+                              ref="focus"
+                              type="text"
+                              class="input "
+                              :class="{ 'is-danger': errors }"
+                              :placeholder="$t('auth.account.namePlaceholder')"
+                              autofocus
+                              v-model.trim="data.name">
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -51,8 +59,8 @@
 </template>
 
 <script>
-  import Vue from 'vue'
   import {mapGetters} from 'vuex'
+  import {isEmpty} from 'lodash'
 
   import RandomAvataaar from '~/components/Avatar/RandomAvataaar'
 
@@ -81,7 +89,7 @@
       })
     },
     mounted () {
-      Vue.nextTick(() => {
+      this.$nextTick(() => {
         this.$refs['focus'].focus()
       })
     },
@@ -97,7 +105,6 @@
           .catch(error => {
             this.$toast.open({
               message: error.message,
-              duration: 3000,
               type: 'is-danger'
             })
             this.errors = true
@@ -112,9 +119,16 @@
       },
       onRandomAvatar (blob) {
         this.form.avatar = this.url
-        this.$store.dispatch('auth/patch', {
+
+        let data = {
           avatar: blob
-        })
+        }
+        // also save name
+        if (!isEmpty(this.data.name)) {
+          data.name = this.data.name
+        }
+
+        this.$store.dispatch('auth/patch', data)
       }
     },
     watch: {

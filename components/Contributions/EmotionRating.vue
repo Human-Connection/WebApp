@@ -25,7 +25,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import countTo from 'vue-count-to'
   import { isEmpty, keys } from 'lodash'
   import inViewport from 'vue-in-viewport-mixin'
@@ -67,7 +66,7 @@
       })
     },
     mounted () {
-      feathers.service('contributions').on('patched', res => {
+      this.$api.service('contributions').on('patched', res => {
         // TODO: use the new channels feature for the feathers (buzzard) when its released
         if (res._id === this.contribution._id) {
           keys(this.contribution.emotions).forEach((key) => {
@@ -81,7 +80,7 @@
       })
     },
     beforeDestroy () {
-      feathers.service('contributions').off('patched')
+      this.$api.service('contributions').off('patched')
     },
     methods: {
       getEmoticon (key) {
@@ -98,19 +97,10 @@
           rated: key
         }
         try {
-          await feathers.service('emotions').create(postData)
+          await this.$api.service('emotions').create(postData)
         } catch (err) {
-          if (err.code === 401) {
-            this.$router.push({
-              name: 'auth-login',
-              params: {
-                path: this.$route.path
-              }
-            })
-          }
           this.$toast.open({
             message: err.message,
-            duration: 3000,
             type: 'is-danger'
           })
         }
@@ -129,16 +119,18 @@
         if (visible) {
           // calculate current value
           if (this.user) {
-            feathers.service('emotions').find({
-              query: {
-                contributionId: this.contribution._id,
-                userId: this.user._id
-              }
-            }).then((res) => {
-              if (res && !isEmpty(res.data)) {
-                this.selected = res.data[0].rated
-              }
-            })
+            setTimeout(() => {
+              this.$api.service('emotions').find({
+                query: {
+                  contributionId: this.contribution._id,
+                  userId: this.user._id
+                }
+              }).then(res => {
+                if (res && !isEmpty(res.data)) {
+                  this.selected = res.data[0].rated
+                }
+              })
+            }, 1000)
           }
         }
       }

@@ -48,6 +48,13 @@
         default: false
       },
       /**
+       * Set fullwidth state: true | false
+       */
+      fullWidth: {
+        type: Boolean,
+        default: false
+      },
+      /**
        * Set size: xsmall, small, medium, large
        */
       size: {
@@ -83,6 +90,9 @@
         }
         if (this.disabled) {
           classes += ' is-disabled'
+        }
+        if (this.fullWidth) {
+          classes += ' is-fullwidth'
         }
         if (this.size) {
           classes += ` is-${this.size}`
@@ -127,5 +137,9 @@
       width: 3.2em;
       height: 3.2em;
     }
+  }
+
+  .is-fullwidth {
+    width: 100%;
   }
 </style>

@@ -11,16 +11,15 @@
 
 <script>
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
-  import feathers from '~/plugins/feathers'
 
   export default {
     middleware: ['verified', 'owner'],
     components: {
       ContributionsForm
     },
-    async asyncData ({params, error}) {
+    async asyncData ({app, params, error}) {
       try {
-        let res = await feathers.service('contributions').find({
+        let res = await app.$api.service('contributions').find({
           query: {
             slug: params.slug
           }

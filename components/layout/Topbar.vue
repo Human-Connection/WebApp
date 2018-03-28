@@ -1,138 +1,52 @@
 <template>
-  <nav class="navbar" @mouseleave="menuIsActive = false" role="navigation" aria-label="main navigation">
+  <nav class="hc-navbar" @mouseleave="menuIsActive = false"
+    role="navigation" aria-label="main navigation">
     <div class="container">
-      <div class="navbar-brand">
-        <nuxt-link class="navbar-item logo"
-                   :to="{ name: 'index' }"
-                   :title="$t('component.layout.topbarLabel')"
-                   active-class="">
-          <img class="is-hidden-mobile" src="/logo-hc.svg" alt="Human Connection" />
-          <img class="is-hidden-tablet" src="/logo-hc-small.svg" alt="Human Connection" />
-        </nuxt-link>
-        <div class="navbar-burger burger"
-             :class="{ 'is-active': menuIsActive }"
-             @click.prevent="menuIsActive = !menuIsActive">
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="hc-navbar-menu" ref="navbar-container"
+        :class="{ 'is-active': menuIsActive }">
+        <div class="hc-navbar-item hc-navbar-brand">
+          <h1 class="is-hidden">Human-Connection</h1>
+          <a class="hc-navbar-brand-logo"
+             @click="onLogoClick"
+             :title="$t('component.layout.topbarLabel')"
+             active-class="">
+            <img class="is-hidden-mobile"
+                 src="/Logo-Horizontal-Alpha.svg"
+                 alt="Human-Connection.org"/>
+            <img class="is-hidden-tablet"
+                 src="/Logo-Globe-Alpha.svg"
+                 alt="Human-Connection.org"/>
+          </a>
         </div>
-      </div>
-
-      <div class="navbar-menu" :class="{ 'is-active': menuIsActive }">
-        <div class="navbar-start">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <no-ssr>
-                <div class="navbar-item locales has-dropdown is-hoverable">
-                  <a class="navbar-link hide-in-menu">
-                    <img class="flag" :src="`/assets/svg/flags/${this.$i18n.locale()}.svg`" />
-                  </a>
-                  <div class="navbar-dropdown is-boxed">
-                    <a class="navbar-item" @click.prevent="changeLanguage('de')" :class="{ active: $i18n.locale() === 'de' }">
-                      <img class="flag" :src="`/assets/svg/flags/de.svg`" />&nbsp;&nbsp;Deutsch
-                    </a>
-                    <a class="navbar-item" @click.prevent="changeLanguage('en')" :class="{ active: $i18n.locale() === 'en' }">
-                      <img class="flag" :src="`/assets/svg/flags/en.svg`" />&nbsp;&nbsp;English
-                    </a>
-                  </div>
-                </div>
-              </no-ssr>
-              <div v-if="false" class="navbar-item is-hoverable">
-                <nuxt-link class="navbar-item" :to="{ name: 'index' }">
-                  <!-- TODO $t('component.dashboard.label') ? -->
-                  {{ $t('component.layout.topbarLabel') }}
-                </nuxt-link>
-              </div>
-            </div>
+        <div class="hc-navbar-item hc-navbar-search">
+          <top-search></top-search>
+        </div>
+        <div class="hc-navbar-item hc-navbar-filter">
+          <filter-select></filter-select>
+        </div>
+        <div class="hc-navbar-right">
+          <div class="hc-navbar-item hc-navbar-language is-hidden-mobile">
+            <language-select></language-select>
           </div>
-        </div>
-
-        <div class="navbar-center">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <div class="navbar-item navbar-search">
-                <search-input></search-input>
-              </div>
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link hide-in-menu">
-                  <span class="icon">
-                    <i class="fa fa-filter"></i>
-                  </span>
-                </a>
-                <div class="navbar-dropdown navbar-filter is-boxed">
-                  <div class="container is-fluid has-text-left">
-                    <div class="columns">
-                      <div class="column">
-                        <no-ssr>
-                          <hc-tooltip :label="$t('component.layout.topbarFilterDescription')"
-                                     position="is-right"
-                                     size="is-large"
-                                     multilined>
-                            <h6 class="title is-6">
-                              {{ $t('component.category.labelLongOnePluralNone', 'Categories', null, categories.length) }} <hc-icon set="fa" icon="question-circle" />
-                            </h6>
-                          </hc-tooltip>
-                        </no-ssr>
-                        <filter-list @change="filterForCategories"
-                                     :items="categories"
-                                     translationPath="component.category.slug2label-"
-                                     :selected="selectedCategoryIds" />
-                        <hr/>
-                        <h6 class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</h6>
-                        <filter-list @change="filterForEmotions"
-                                     :items="emotions"
-                                     :selected="selectedEmotions"
-                                     iconSet="hc-emoji" />
-                        <br/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div class="hc-navbar-item hc-navbar-notifications">
+            <notifications></notifications>
           </div>
-        </div>
-
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="field is-grouped">
-              <template v-if="isAuthenticated">
-                <notifications></notifications>
-                <div class="navbar-item has-dropdown is-hoverable">
-                  <nuxt-link class="navbar-link hide-in-menu"
-                             to="/profile">
-                    <hc-avatar :user="user" />
-                  </nuxt-link>
-                  <div class="navbar-dropdown user-menu is-boxed is-right">
-                    <div class="navbar-item" v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymus'})"></div>
-                    <hr class="navbar-divider">
-
-                    <nuxt-link class="navbar-item" to="/profile">
-                      {{ $t('auth.account.profile') }}
-                    </nuxt-link>
-                    <nuxt-link class="navbar-item" to="/auth/settings">
-                      {{ $t('auth.account.settings') }}
-                    </nuxt-link>
-                    <nuxt-link class="navbar-item" v-if="isAdmin" to="/admin">
-                      {{ $t('component.admin.label') }}
-                    </nuxt-link>
-                    <hr class="navbar-divider">
-
-                    <a class="navbar-item" @click.prevent="logout()">
-                      {{ $t('auth.logout.label') }}
-                    </a>
-                  </div>
-                </div>
-              </template>
-              <template v-else>
-                <hc-button type="nuxt"
-                           class="is-primary login-button"
-                           style="font-weight: bold;"
-                           :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-                  <span class="is-hidden-mobile">{{ $t('auth.account.loginOrRegister') }} &nbsp; </span><hc-icon icon="sign-in"/>
-                </hc-button>
-              </template>
-            </div>
+          <div class="hc-navbar-item hc-navbar-user-menu">
+            <template v-if="isAuthenticated">
+              <user-menu id="user-menu"></user-menu>
+            </template>
+            <template v-else>
+              <hc-button
+                type="nuxt"
+                class="is-primary login-button"
+                style="font-weight: bold;"
+                :to="{ name: 'auth-login', params: { path: this.$route.path } }">
+                  <span class="is-hidden-mobile">
+                    {{ $t('auth.account.loginOrRegister') }}
+                    &nbsp; </span>
+                <hc-icon icon="sign-in"/>
+              </hc-button>
+            </template>
           </div>
         </div>
       </div>
@@ -142,27 +56,25 @@
 
 
 <script>
-  // Todo: search in component,
-  // Todo: messages in component,
-  // Todo: profile button in component
-
   import {mapGetters} from 'vuex'
+  import LanguageSelect from '~/components/layout/LanguageSelect.vue'
+  import TopSearch from '~/components/layout/TopSearch.vue'
+  import FilterSelect from '~/components/layout/FilterSelect.vue'
   import Notifications from '~/components/Notifications/Notifications.vue'
-  import HcButton from '../Global/Elements/Button/Button.vue'
-  import SearchInput from '../Search/SearchInput.vue'
-  import FilterList from '~/components/Filters/FilterList.vue'
+  import UserMenu from '~/components/layout/UserMenu.vue'
 
-  import { isEqual, map, throttle } from 'lodash'
+  import {throttle} from 'lodash'
 
   let app = this
 
   export default {
     name: 'hc-topbar',
     components: {
-      SearchInput,
-      HcButton,
+      LanguageSelect,
+      TopSearch,
+      FilterSelect,
       Notifications,
-      FilterList
+      UserMenu
     },
     data () {
       app = this
@@ -170,367 +82,116 @@
         menuIsActive: false,
         isLoading: false,
         stayLoggedIn: false,
-        errors: null,
-        selectedCategoryIds: [],
-        selectedEmotions: [],
-        filterThrottle: null,
-        filterEmotionThrottle: null
+        errors: null
       }
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated',
-        isAdmin: 'auth/isAdmin',
-        user: 'auth/user',
-        categories: 'categories/all'
-      }),
-      emotions () {
-        return [
-          {
-            _id: 'funny',
-            title: this.$t('component.emotionRating.funny'),
-            icon: 'funny'
-          },
-          {
-            _id: 'happy',
-            title: this.$t('component.emotionRating.happy'),
-            icon: 'happy'
-          },
-          {
-            _id: 'surprised',
-            title: this.$t('component.emotionRating.surprised'),
-            icon: 'surprised'
-          },
-          {
-            _id: 'cry',
-            title: this.$t('component.emotionRating.cry'),
-            icon: 'cry'
-          },
-          {
-            _id: 'angry',
-            title: this.$t('component.emotionRating.angry'),
-            icon: 'angry'
-          }
-        ]
-      }
+        isAuthenticated: 'auth/isAuthenticated'
+      })
     },
     watch: {
-      categories (categories) {
-        this.applyCategoryFilter(map(categories, '_id'))
-      },
       '$route' () {
         this.closeMenu()
       }
     },
     mounted () {
-      this.$store.dispatch('categories/init')
-
-      // TODO: aplly filters from user config or local storage, but keep them between sessions
-      this.applyCategoryFilter(map(this.categories, '_id'))
-      this.applyEmotionFilter(map(this.emotions, '_id'))
-
       window.addEventListener('resize', this.closeMenu)
     },
     destroy () {
       window.removeEventListener('resize', this.closeMenu)
     },
     methods: {
-      filterForCategories (ids) {
-        clearTimeout(this.filterThrottle)
-        if (!isEqual(ids, this.selectedCategoryIds)) {
-          this.filterThrottle = setTimeout(() => {
-            this.applyCategoryFilter(ids)
-          }, 1000)
-        }
-      },
-      applyCategoryFilter (ids) {
-        clearTimeout(this.filterThrottle)
-        if (!isEqual(ids, this.selectedCategoryIds)) {
-          this.selectedCategoryIds = ids
-          this.$store.commit('search/categoryIds', ids)
-        }
-      },
-      filterForEmotions (emotions) {
-        clearTimeout(this.filterEmotionThrottle)
-        if (!isEqual(emotions, this.selectedEmotions)) {
-          this.filterEmotionThrottle = setTimeout(() => {
-            this.applyEmotionFilter(emotions)
-          }, 1000)
-        }
-      },
-      applyEmotionFilter (emotions) {
-        clearTimeout(this.filterEmotionThrottle)
-        if (!isEqual(emotions, this.selectedEmotions)) {
-          // get deselected emotions
-          this.selectedEmotions = emotions
-          this.$store.commit('search/emotions', this.selectedEmotions)
-        }
-      },
-      logout () {
-        this.$store.dispatch('auth/logout')
-          .then(() => {
-            this.$router.push('/auth/login')
-          })
-          .catch(err => {
-            console.error(err)
-          })
-      },
-      changeLanguage (locale) {
-        // TODO: make it a component
-        // check if the locale has already been loaded
-        if (this.$i18n.localeExists(locale)) {
-          this.$i18n.set(locale)
-          return
-        }
-        import(`~/locales/${locale}.json`)
-          .then(res => {
-            this.$i18n.add(locale, res)
-            this.$i18n.set(locale)
-          })
-      },
       closeMenu: throttle(() => {
         app.menuIsActive = false
-      }, 1000)
+      }, 1000),
+      onLogoClick () {
+        this.$store.commit('newsfeed/clear')
+        this.$store.dispatch('newsfeed/fetch')
+        this.$router.push({ name: 'index' })
+      }
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
-  @import "~bulma/sass/components/navbar";
 
-  .flag {
-    width: 20px;
-    height: 15px;
-  }
-
-  nav {
+  .hc-navbar {
     box-shadow: $card-shadow-hover;
     z-index: 130;
     pointer-events: all;
     height: $navbar-height;
-
-    .active-link {
-      @extend a.navbar-item.is-active;
-      font-weight: bold;
-    }
-
-    .dropdown-content {
-      border: none;
-      .dropdown-item, .has-link a {
-        padding: 0.7rem 1rem;
-      }
-
-      hr {
-        margin: 0;
-      }
-    }
+    background-color: $white;
   }
 
-  .navbar-start, .navbar-center, .navbar-end {
-    overflow: visible;
+  .hc-navbar-menu {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
 
-    @include tablet() {
-      align-items: center;
-      align-content: center;
+    & > div {
+      display: flex;
+    }
+
+    @include until($tablet) {
       justify-content: flex-start;
     }
+  }
 
-    .navbar-link:hover,
-    .navbar-item:hover {
-      &,
-      & .navbar-item,
-      & .navbar-link {
-        background-color: transparent !important;
+  .hc-navbar-item {
+    display: flex;
+    height: $navbar-height;
 
-        a &.navbar-link {
-          color: $link;
-        }
+    @include until($tablet) {
+      flex: 0 0 20vw !important;
+      justify-content: center;
+      border-right: 1px solid $white-dar;
+
+      &.hc-navbar-user-menu {
+        border-right: 0;
       }
     }
-
   }
 
-  .user-menu {
-    min-width: 13rem;
+  .hc-navbar-brand {
+    margin-right: 40px;
 
-    & > .navbar-item {
-      display: block;
+    @include until($desktop) {
+      margin-left: 1rem;
+      margin-right: 2rem;
+    }
+
+    @include until($tablet) {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 
-  /*.user-menu {
-    margin-left: 0;
-    .navbar-item {
-      padding-left: .5rem;
-      padding-right: 0;
-    }
-  }*/
-
-  /*.navbar-end .login-button {
-    align-items: center !important;
+  .hc-navbar-brand-logo {
     display: flex;
-    height: 100%;
-  }*/
-
-
-  .logo {
-    display: inline-block;
-    position: relative;
     height: $navbar-height;
-    width: 150px;
-    text-align: left;
-    padding: ($navbar-height - 40px)/2 0;
-    margin:     0 0 0 1rem;
-
-    &, &:hover {
-      background-color: transparent !important;
-    }
-
-    @include mobile() {
-      width: 50px;
-    }
+    align-items: center;
 
     img {
-      max-height: none;
-      height: 100%;
-      display: inline-block;
-      position: relative;
+      height: $navbar-height - 20px;
+      width: auto;
     }
   }
 
-  .dropdown-item.is-disabled {
-    cursor: default !important;
+  .hc-navbar-search {
+    flex: 1 1 0;
   }
 
-  .navbar-item .fa {
-    font-size: 1.4rem;
-  }
+  .hc-navbar-right {
+    margin-left: 15%;
 
-  /* @include mobile() {
-    .navbar-center {
-      // width: 30vw;
-    }
-  } */
-
-  .locales .navbar-dropdown {
-    .flag-icon {
-      opacity: 0.5;
-      transition: opacity 150ms ease-in-out;
-    }
-    .active {
-      font-weight: bold;
-
-      .flag-icon {
-        opacity: 1;
-      }
+    @include until($desktop) {
+      margin-left: 2rem;
     }
 
-    a:hover {
-      .flag-icon {
-        opacity: 1;
-      }
-    }
-  }
-
-  /* fix rendering issues */
-  /*.navigation-dropdown {
-    & > hr, & > b-dropdown-item {
-      visibility: hidden;
-    }
-  }*/
-
-  .navbar-burger {
-    height: $navbar-height;
-    padding-left: 2em;
-    padding-right: 2em;
-  }
-
-  .navbar-menu.is-active {
-    .hide-in-menu {
-      display: none;
-    }
-
-    max-height: 100vh;
-    overflow: auto;
-
-    .navbar-center {
-      .field.is-grouped {
-        justify-content: right;
-      }
-    }
-
-    .navbar-end {
-      padding-bottom: $navbar-height * 2 !important;
-    }
-  }
-
-  .navbar-center {
-    align-items: stretch;
-    display: flex;
-    padding-right: 5rem;
-
-    .title.is-5,
-    .title.is-6 {
-      padding-top: 1em;
-      padding-bottom: 2em;
-      padding-left: 1em;
-
-      margin-bottom: 0;
-
-      color: $grey-dark;
-
-      i {
-        font-size: 1em;
-      }
-    }
-
-    &, & > .navbar-item {
-      padding-top: 0;
-      padding-bottom: 0;
-      height: 100%;
-    }
-
-    &, .navbar-item {
-      position: initial;
-    }
-  }
-
-  .navbar-filter {
-    @include unselectable();
-  }
-
-  .navbar-dropdown.navbar-filter {
-    padding-top: 2em;
-    max-height: 100vh;
-    overflow: auto;
-  }
-
-  .is-active {
-    .navbar-dropdown.navbar-filter {
-      overflow: visible;
-      width: 100%;
-      height: auto;
-      max-height: none;
-    }
-
-    .navbar-center {
-      padding-right: 0;
-
-      &, .navbar-item, .field.is-grouped {
-        display: block !important;
-        justify-content: normal !important;
-      }
-
-      .navbar-search {
-        overflow: visible;
-        width: 100%;
-        height: auto;
-
-        .field, .control, input {
-          width: 100%;
-        }
-      }
+    @include until($tablet) {
+      margin-left: 0;
     }
   }
 </style>

@@ -6,31 +6,41 @@ RUN apk update && apk upgrade
 RUN apk add git
 RUN rm -rf /var/cache/apk/*
 
-# copy the project
-RUN mkdir -p /var/www/
-COPY . /var/www/
-WORKDIR /var/www/
-
 # expose the app port
 EXPOSE 3000
 
 # set environment variables
 ENV HOST=0.0.0.0
+ENV WEBAPP_HOST=0.0.0.0
+
+ENTRYPOINT ["./entrypoint.sh"]
+
+# install envsub
+RUN npm install -g envsub
+
+# create working directory
+RUN mkdir -p /var/www/
+WORKDIR /var/www/
+
+# install app dependencies
+COPY package.json /var/www/
+COPY yarn.lock /var/www/
+RUN yarn install --frozen-lockfile --non-interactive
+
+# copy the code to the docker image
+COPY . /var/www/
+
+# set execution rights on scripts and run the build script
+RUN chmod +x entrypoint.sh
+RUN chmod +x on-build.sh
+RUN chmod +x on-start.sh
+RUN sh on-build.sh
 
 # buld application
-RUN yarn install --frozen-lockfile
-# use yarn & npm caching
-RUN ln -s /tmp/node_modules
+# ENV NODE_ENV=production #we seam to have issues with the production flag on install && build
+RUN yarn build
 
-# run tests
-#RUN yarn test
-
-# test if the build is running
 ENV NODE_ENV=production
-# RUN yarn install --no-cache --production
-RUN ./node_modules/.bin/nuxt build
-RUN ./node_modules/.bin/backpack build
 
-# start the application in a autohealing cluster
-#CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && pm2 start build/main.js -n frontend -i 2 --attach
-CMD NODE_ENV=production ./node_modules/.bin/nuxt build && ./node_modules/.bin/backpack build && node build/main.js
+# only keep production dependencies
+# RUN yarn install --frozen-lockfile --non-interactive

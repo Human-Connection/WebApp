@@ -15,7 +15,6 @@
 
 <script>
   import SearchList from '~/components/Search/List.vue'
-  import feathers from '~/plugins/feathers'
 
   export default {
     name: 'hc-editor-mentions-search',
@@ -62,13 +61,13 @@
             'users'
           ]
         }
-        feathers.service('search')
+        this.$api.service('search')
           .find({query})
           .then(result => {
             this.endSearch(result.data)
           })
-          .catch(error => {
-            console.log(error)
+          .catch(() => {
+            // console.log(error)
             this.endSearch([])
           })
       },

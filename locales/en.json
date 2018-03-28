@@ -14,7 +14,7 @@
       "copy403": "Sorry, access to this resource on the server is denied. <br />Either check the URL, <a href=\"/auth/login\">login</a> or <a href=\"/\">go home</a>.",
       "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
       "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
-      "copy503": "We are currently working on it, <br />so take a coffe brake and come back a bit later."
+      "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later."
     },
     "shout": {
       "buttonLabel": "Shout",
@@ -50,9 +50,11 @@
       "users": "Users"
     },
     "category": {
+      "filterTitle": "Filter posts",
       "infoSelectedNoOfMaxCategories": "{n} of {max} categories selected",
       "labelOnePluralNone": "Category ::: Categories ::: No Category",
       "labelLongOnePluralNone": "Category of Content ::: Categories of Content ::: No Category of Content",
+      "setFilter": "Set filter",
       "slug2label-education-sciences": "Education & Sciences",
       "slug2label-democracy-politics": "Democracy & Politics",
       "slug2label-energy-technology": "Energy & Technology",
@@ -147,7 +149,15 @@
       "writePostImagePlaceholder": "internet address of the image (URL)",
       "writePostSection": "Title",
       "writePostSectionPlaceholder": "How do you call that story?",
-      "writePostContentPlaceholder": "write something amazing..."
+      "writePostContentPlaceholder": "write something amazing...",
+      "visibilityPublic": "Public",
+      "visibilityFriends": "Friends",
+      "visibilityPrivate": "Private",
+      "postPrivate": "This contribution is private and can only be seen by you!",
+      "validationError": "Fill out all marked fields.",
+      "validationErrorTitle": "Please give your contribution a title (min 3 chars)",
+      "validationErrorContent": "Please provide a text",
+      "validationErrorCategories": "Choose at least one category to be able to save this contribution"
     },
     "organization": {
       "createNew": "create new Organization",
@@ -224,6 +234,7 @@
       "topbarSectionEmotions": "Emotions"
     },
     "search": {
+      "header": "Search Human Connection",
       "placeholder": "Search ...",
       "noResults": "Sorry nothing there!",
       "noResultsText": "Try to adjust your search and filters on the top to find what you are searching for.",
@@ -231,12 +242,13 @@
       "noMoreResults": "Sorry that's all what we found"
     },
     "filter": {
+      "label": "Filters",
       "all": "All"
     },
     "timeline": {
       "loadingContributions": "Loading content …",
       "noContributionsFound": "No contributions found, write something.",
-      "introQuestion": "What are your plans for roday {username}?",
+      "introQuestion": "What are your plans for today {username}?",
       "title": "Timeline"
     }
   },
@@ -276,6 +288,7 @@
   "button": {
     "back": "Back",
     "cancel": "Cancel",
+    "close": "Close",
     "create": "Create",
     "delete": "Delete",
     "edit": "Edit",
@@ -337,6 +350,7 @@
       "confirmTermsOfUsage": "By clicking “register” I agree with the <a href=\"{url}\" target=\"_blank\">{termsOfService}</a> and confirm, that I read the <a href=\"{url}#dataprivacy\" target=\"_blank\">{dataPrivacyStatement}</a> of Human Connection.",
       "email": "Email",
       "helloUser": "Hello <b>{username}</b>",
+      "languageSettings": "Language settings",
       "loginOrRegister": "Login / Sign-Up",
       "loginToAccount": "Login to your account",
       "loginRequired4CommentOrVote": "You need to be logged-in to be able to comment, vote or rate on Human Connection.",
@@ -376,12 +390,12 @@
       "inviteCode": "Invite-Code",
       "profile": "My Profile",
       "settings": "Settings",
-      "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the mail verification.",
+      "verifyingErrorDescription": "We were not able to verify your email address. Maybe the link you clicked is outdated. Please repeat the email verification.",
       "verifyingErrorSection": "Ooooops ...",
       "verifyingInfo": "Verifying your email address ...",
-      "verifyingResendAction": "Send confirmation anew",
-      "verifyingResendDescription": "Please confirm your E-Mail Bitte bestätige deine E-Mail Adresse um Beiträge erstellen zu können:",
-      "verifyingResendSuccess": "The confirmation was sent successfullyto {email}. Please check your mail account.",
+      "verifyingResendAction": "Send confirmation email again",
+      "verifyingResendDescription": "Please confirm your email address to be able to create posts and comments:",
+      "verifyingResendSuccess": "The confirmation was sent successfully to {email}. Please check your email account.",
       "verifyingSection": "Email Verification",
       "verifyingSuccessDescription": "Your email address has been verified successfully.",
       "verifyingTitle": "Verification",
@@ -395,7 +409,11 @@
       "description": "If you have an account at Human Connection, please log-in here.",
       "stayLoggedIn": "Stay logged in",
       "forgotPassword": "Forgot password?",
-      "successInfo": "Congratulations, you are in!"
+      "errorInvalid": "Check your login data!",
+      "successInfo": "Congratulations, you are in!",
+      "validationError": "Please check your data",
+      "validationErrorEmail": "Check your email address",
+      "validationErrorPassword": "Enter your password"
     },
     "logout": {
       "label": "Logout"
@@ -403,10 +421,12 @@
     "register": {
       "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
       "noAccountYet": "No account yet?",
-      "accountAlready": "You have an account?",
+      "accountAlready": "You already have an account?",
       "label": "Register",
       "next": "Next",
-      "back": "Back"
+      "back": "Back",
+      "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
+      "validationErrorPasswordRepeat": "Both passwords must match"
     },
     "settings": {
       "general": "General",

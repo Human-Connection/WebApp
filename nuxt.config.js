@@ -1,15 +1,21 @@
+require('dotenv').config()
 const path = require('path')
 
 module.exports = {
   env: {
-    baseURL: process.env.BASE_URL || 'http://localhost:3000',
-    HOST: process.env.HOST || 'localhost',
-    PORT: process.env.PORT || 3000,
-    API_HOST: process.env.API_HOST || 'localhost',
-    API_PORT: process.env.API_PORT || 3030,
-    SENTRY_DNS_PUBLIC: process.env.SENTRY_DNS_PUBLIC || 'https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871',
-    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN || 'pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ',
-    RELEASE: 'BUILD_RELEASE'
+    // pages which do not require a login
+    publicPages: [
+      'auth-login',
+      'auth-register',
+      'auth-signup',
+      'auth-passwort-reset',
+      'legal',
+      'test'
+    ],
+    // pages to keep alive
+    keepAlivePages: [
+      'index'
+    ]
   },
   /*
    ** Headers of the page
@@ -62,11 +68,11 @@ module.exports = {
       'feathers-hooks',
       'feathers-authentication-client'
     ],
-    extend (config, ctx) {
+    extend (config) {
       /*
        ** Run ESLINT on save
        */
-      if (ctx.isClient) {
+      if (process.client) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
@@ -84,22 +90,23 @@ module.exports = {
     }
   },
   plugins: [
+    {src: '~/plugins/env.js'},
     {src: '~/plugins/debug.js', ssr: false},
-    {src: '~/plugins/client-auth.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
-    {src: '~/plugins/raven-server.js', ssr: true},
-    {src: '~/plugins/feathers.js'},
-    {src: '~/plugins/i18n.js'},
+    {src: '~/plugins/api.js'},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
+    {src: '~/plugins/keep-alive.js', ssr: false},
+    {src: '~/plugins/i18n.js'},
     {src: '~/plugins/buefy.js'},
-    {src: '~/plugins/global-components.js', injectAs: 'globalComponents'},
     {src: '~/plugins/vue-clip.js', ssr: false},
+    {src: '~/plugins/global-components.js'},
     {src: '~/plugins/quill/index.js', ssr: false},
     {src: '~/plugins/v2-table.js', ssr: false},
     {src: '~/plugins/scroll-to.js', ssr: false}
   ],
   modules: [
-    '@nuxtjs/webpackmonitor'
+    'cookie-universal-nuxt',
+    '@nuxtjs/dotenv'
     // '@nuxtjs/pwa'
   ],
   router: {

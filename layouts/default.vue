@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div :id="id">
     <hc-frame>
-      <div class="container" id="main">
+      <div class="container" id="main" role="main">
         <hc-verification-banner/>
-        <nuxt/>
+        <nuxt keep-alive />
       </div>
       <hc-footer/>
     </hc-frame>
@@ -33,6 +33,16 @@
         ]
       }
       return head
+    },
+    computed: {
+      id () {
+        return `page-name-${this.$route.name}`
+      }
+    },
+    async mounted () {
+      // refresh token to fix refresh issues
+      await this.$store.dispatch('auth/refreshJWT', 'layout default')
+      await this.$store.dispatch('notifications/fetch')
     }
   }
 </script>

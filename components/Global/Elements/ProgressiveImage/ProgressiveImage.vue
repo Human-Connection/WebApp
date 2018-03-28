@@ -3,16 +3,21 @@
     <template v-if="!loadingPreview && wasAtLeastOnceVisible">
       <img class="progressive-image"
            :src="src"
+           :alt="alt"
            :srcset="srcset"
            :class="{ ready: ready }"
-           @load="onImage" />
+           @load="onImage"
+           @error="onErrorImage" />
     </template>
     <template>
       <img class="progressive-preview"
            :class="{ hide: loaded, preloaded: alreadyPreloaded }"
            :src="preview"
-           @load="onPreview" />
+           :alt="alt"
+           @load="onPreview"
+           @error="onErrorPreview" />
     </template>
+    <slot />
   </div>
 </template>
 
@@ -28,17 +33,23 @@
     mixins: [ inViewport ],
     props: {
       /**
-       * Preview image url
+       * Preview image URL
        */
       preview: {
         type: String
       },
       /**
-       * Image url
+       * Image URL
        */
       src: {
         type: String,
         required: true
+      },
+      /**
+       * Image alt tag
+       */
+      alt: {
+        type: String
       },
       /**
        * Response image set
@@ -113,6 +124,24 @@
 
         this.inViewport.listening = false
         this.removeInViewportHandlers()
+      },
+      onErrorPreview (e) {
+        this.loadingImage = false
+        this.loaded = true
+        this.ready = true
+        this.$emit('error')
+        this.$emit('onPreview')
+        this.inViewport.listening = false
+        this.removeInViewportHandlers()
+      },
+      onErrorImage (e) {
+        this.loadingImage = false
+        this.loaded = true
+        this.ready = true
+        this.$emit('error')
+        this.$emit('onLoad')
+        this.inViewport.listening = false
+        this.removeInViewportHandlers()
       }
     }
   }
@@ -124,6 +153,7 @@
     display: block;
     position: relative;
     overflow: hidden;
+    min-width: 100%;
   }
 
   img.progressive-image {

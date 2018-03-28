@@ -1,13 +1,15 @@
 <template>
   <div class="columns">
     <div class="column is-8 is-offset-1-widescreen">
-      <div class="card">
+      <div class="card autowrap">
         <section class="section">
           <div class="">
-            <contribution-image :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
+            <contribution-image v-if="!hasEmbeddedVideo" :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
             <div class="columns is-mobile">
               <div class="column">
-                <author :user="contribution.user"
+                <author
+                  class="author"
+                  :user="contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
               <div class="column is-one-third">
@@ -29,6 +31,11 @@
                 <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postDisabled') }}</span>
               </div>
             </div>
+            <div class="message is-warning is-small" v-if="contribution.visibility === 'private' || !contribution.categoryIds.length">
+              <div class="message-body">
+                <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
+              </div>
+            </div>
             <div class="cando-header" v-if="isCanDo">
               <div class="cando-header-action">
                 <can-do-action :post="contribution"
@@ -38,7 +45,7 @@
                 <can-do-count :post="contribution" />
               </div>
             </div>
-            <h1 class="title is-4">{{ contribution.title }}</h1>
+            <h2 class="title is-4">{{ contribution.title }}</h2>
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>
@@ -89,25 +96,27 @@
             </no-ssr>
           </div>
           <no-ssr>
-            <b-tabs class="footer">
-              <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
-                <comments :post="contribution"/>
-              </b-tab-item>
-              <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
-                <div class="notification is-warning">
-                  {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
-                  <br/><br/>
-                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
-                </div>
-              </b-tab-item>
-              <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
-                <div class="notification is-warning">
-                  {{ $t('component.contribution.versusDescription') }}
-                  <br/><br/>
-                  <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
-                </div>
-              </b-tab-item>
-            </b-tabs>
+            <div ref="tabs">
+              <b-tabs class="footer">
+                <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
+                  <comments :post="contribution"/>
+                </b-tab-item>
+                <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
+                  <div class="notification is-warning">
+                    {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                    <br/><br/>
+                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
+                  </div>
+                </b-tab-item>
+                <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
+                  <div class="notification is-warning">
+                    {{ $t('component.contribution.versusDescription') }}
+                    <br/><br/>
+                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
+                  </div>
+                </b-tab-item>
+              </b-tabs>
+            </div>
           </no-ssr>
         </section>
       </div>
@@ -121,13 +130,13 @@
             </nuxt-link>
             <ul>
               <li>
-                <nuxt-link to="#comments">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</nuxt-link>
+                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
               </li>
               <li>
-                <nuxt-link to="#lets-talk">{{ $t('component.contribution.letsTalk') }}</nuxt-link>
+                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
               </li>
               <li>
-                <nuxt-link to="#versus">{{ $t('component.contribution.versus') }}</nuxt-link>
+                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
               </li>
             </ul>
           </li>
@@ -150,7 +159,6 @@
 
 <script>
   import author from '~/components/Author/Author.vue'
-  import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
@@ -161,6 +169,7 @@
   import CanDoDifficulty from '~/components/CanDos/Difficulty'
   import CanDoReason from '~/components/CanDos/Reason'
   import { isEmpty } from 'lodash'
+  import linkifyHtml from 'linkifyjs/html'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
@@ -187,9 +196,9 @@
         isLoading: false
       }
     },
-    async asyncData ({params, error}) {
+    async asyncData ({app, params, error}) {
       try {
-        let res = await feathers.service('contributions').find({
+        let res = await app.$api.service('contributions').find({
           query: {
             slug: params.slug,
             $limit: 1
@@ -209,12 +218,14 @@
       }
     },
     mounted () {
-      feathers.service('contributions')
+      this.$api.service('contributions')
         .on('patched', this.onContribSettingsUpdate)
     },
     methods: {
       onContribSettingsUpdate (data) {
-        this.contribution = data
+        if (data._id === this.contribution._id) {
+          this.contribution = data
+        }
       }
     },
     computed: {
@@ -223,9 +234,16 @@
         commentCount: 'comments/count',
         isVerified: 'auth/isVerified'
       }),
+      hasEmbeddedVideo () {
+        if (!this.contribution || !this.contribution.meta || !this.contribution.meta.hasVideo) {
+          return false
+        }
+        return this.contribution.content.indexOf('<iframe') >= 0
+      },
       content () {
-        const txt = this.contribution.content || this.contribution.contentExcerpt
-        return txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+        let txt = this.contribution.content || this.contribution.contentExcerpt
+        txt = txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+        return linkifyHtml(txt || '')
       },
       categories () {
         return isEmpty(this.contribution.categories) ? [] : this.contribution.categories

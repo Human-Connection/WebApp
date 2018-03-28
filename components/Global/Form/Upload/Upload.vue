@@ -1,6 +1,9 @@
 <template>
   <div class="hc-upload" :class="classes">
     <div class="hc-preview">
+      <div class="bg" v-show="!previewImage">
+        <slot></slot>
+      </div>
       <hc-progressive-image
         :src="previewImage"
         :preview="previewImage"
@@ -95,7 +98,7 @@
         errorMessage: '',
         generalError: this.$t('upload.errors.general'),
         options: {
-          url: urlHelper.buildEndpointURL(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads/',
+          url: urlHelper.buildEndpointURL(this.$env.API_HOST, { port: this.$env.API_PORT }) + '/uploads/',
           paramName: 'file',
           parallelUploads: 1,
           maxFilesize: {
@@ -168,7 +171,7 @@
           this.resetLoader()
           return
         }
-        const basepath = urlHelper.buildEndpointURL(process.env.API_HOST, { port: process.env.API_PORT }) + '/uploads/'
+        const basepath = urlHelper.buildEndpointURL(this.$env.API_HOST, { port: this.$env.API_PORT }) + '/uploads/'
         const url = JSON.parse(file.xhr.responseText).id
 
         this.image = `${basepath}${url}`
@@ -368,5 +371,18 @@
   .hc-warning {
     text-align: center;
     color: $red;
+  }
+
+  .bg {
+    width: 100%;
+    height: 100%;
+
+    & > div {
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
   }
 </style>

@@ -52,7 +52,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import {mapGetters} from 'vuex'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
 
@@ -125,7 +124,7 @@
           if (this.form._id) {
             formData.isEnabled = true
 
-            await feathers.service('organizations').patch(formData._id, formData)
+            await this.app.$api.service('organizations').patch(formData._id, formData)
             this.isLoading = false
             this.$snackbar.open({
               message: this.$t('component.organization.organizationSaveSuccess'),

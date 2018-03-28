@@ -16,6 +16,8 @@
 html, body {
   background-color: $white-dar;
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
   font-family: $family-sans-serif;
   font-variant-ligatures: no-common-ligatures;
 }
@@ -131,6 +133,8 @@ hr {
   > .tag {
     margin-bottom: 5px;
     margin-right: 5px !important;
+    justify-content: left;
+    overflow-x: hidden;
 
     &:last-child {
       margin-right: 0;
@@ -286,7 +290,46 @@ section.more-info {
   }
 }
 
+body .sentry-error-embed-wrapper {
+  z-index: 99999 !important;
+}
+
+div[class^="v2-table__"][style],
+div[class*="v2-table__"][style],
+.v2-table__body-wrapper[style],
+.v2-table__footer-wrapper[style],
+.v2-table__header-wrapper[style],
+.v2-table__table-container[style],
+.v2-table__table-wrapper[style] {
+  width: 100% !important;
+}
+
 /*@keyframes ProgressAnimation {
   0% {background-position: 0% 50%}
   100% {background-position: 200% 50%}
 }*/
+
+.hc-navigation .hc-dropdown {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+label.is-required,
+.is-required > label {
+  &::after {
+    content: " *";
+  }
+}
+
+.has-error {
+  span.check {
+    border-color: $red !important;
+  }
+  .control-label {
+    color: $red;
+  }
+}
+
+.control.has-icons-left .icon, .control.has-icons-right .icon {
+  height: 2.5em;
+}

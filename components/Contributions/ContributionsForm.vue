@@ -1,5 +1,5 @@
 <template>
-  <form v-bind:disabled="isLoading">
+  <form v-bind:disabled="isLoading" :class="classes">
     <!-- ToDo remove :test="true" for production -->
     <hc-upload :previewImage="form.teaserImg"
                :test="true"
@@ -30,15 +30,22 @@
         </li>
       </ul>
     </div>
-    <div class="field">
-      <label class="label">{{ $t('component.contribution.writePostSection') }}</label>
-      <p class="control">
-        <input class="input"
-               v-model="form.title"
-               type="text"
-               v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
-               v-bind:disabled="isLoading">
-      </p>
+    <div class="field is-required" ref="title">
+      <label class="label" for="form-title">{{ $t('component.contribution.writePostSection') }}</label>
+      <div class="control" :class="{ 'has-error': $v.form.title.$error }">
+        <input
+          class="input"
+          id="form-title"
+          data-test="title"
+          :class="{ 'is-danger': $v.form.title.$error }"
+          maxlength="64"
+          v-model.trim="form.title"
+          @blur="$v.form.title.$touch()"
+          type="text"
+          v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
+          v-bind:disabled="isLoading">
+      </div>
+      <p v-if="$v.form.title.$error" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
     </div>
     <div class="tags">
       <div v-for="(file, index) in dropFiles"
@@ -51,42 +58,52 @@
           </button>
       </div>
     </div>
-    <div class="field">
-      <label class="label">{{ $t('component.contribution.writePostContent') }}</label>
-      <div class="control">
-        <hc-editor identifier="content"
-          v-model="form.content"
+    <div class="field is-required">
+      <label class="label" for="form-content">{{ $t('component.contribution.writePostContent') }}</label>
+      <div class="control" :class="{ 'has-error': $v.form.content.$error }">
+        <hc-editor
+          identifier="content"
+          id="form-content"
+          data-test="content"
+          v-model.trim="form.content"
+          :class="{ 'is-danger': $v.form.content.$error }"
+          @blur="$v.form.content.$touch()"
           :loading="isLoading"
           :editorOptions="editorOptions"/>
       </div>
+      <p v-if="$v.form.content.$error" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
     </div>
     <hr/>
     <div v-if="form.type === 'cando'">
-      <div class="field">
+      <div class="field is-required">
         <label class="label">{{ $t('component.contribution.difficultyDescription') }}</label>
-        <p class="control">
-          <b-radio v-for="difficulty in options.difficulties"
+        <div class="control" :class="{ 'has-error': $v.form.cando.difficulty.$error }">
+          <b-radio
+            v-for="difficulty in options.difficulties"
             :key="difficulty" :native-value="difficulty"
+            @change="$v.form.cando.difficulty.$touch()"
             v-model="form.cando.difficulty">
               {{ $t(`difficulty.${difficulty}`) }}
           </b-radio>
-        </p>
+        </div>
       </div>
       <hr/>
       <div class="field">
         <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
         <p class="control has-margin-bottom-medium">
-          <input class="input"
-                 v-model="form.cando.reasonTitle"
-                 type="text"
-                 v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
-                 v-bind:disabled="isLoading">
+          <input
+            class="input"
+            v-model="form.cando.reasonTitle"
+            type="text"
+            v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
+            v-bind:disabled="isLoading">
         </p>
       </div>
       <div class="field">
         <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
         <div class="control">
-          <hc-editor identifier="cando-reason"
+          <hc-editor
+            identifier="cando-reason"
             v-model="form.cando.reason"
             :loading="isLoading"
             :editorOptions="editorOptions2"/>
@@ -94,16 +111,26 @@
       </div>
       <hr/>
     </div>
-    <div class="field">
-      <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-      <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
+    <div class="field is-required">
+      <label class="label" for="form-categoryIds">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
+      <categories-select
+        id="form-categoryIds"
+        v-model="form.categoryIds"
+        :disabled="isLoading">
+      </categories-select>
+    </div>
+    <div class="message is-danger is-small" v-if="!form.categoryIds.length">
+      <div class="message-body">
+        <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.validationErrorCategories') }}</span>
+      </div>
     </div>
     <hr/>
     <no-ssr>
-      <div class="field">
+      <div class="field autowrap">
         <b-field label="Tags">
           <b-taginput
               maxtags="5"
+              maxlength="32"
               size="is-small"
               :value="form.tags"
               icon=""
@@ -150,18 +177,26 @@
               <div class="control has-icons-left">
                 <div class="select">
                   <select v-model="form.visibility">
-                    <option value="public" selected>Public</option>
-                    <option value="friends">Friends only</option>
-                    <option value="private">Private</option>
+                    <option value="public">{{ $t('component.contribution.visibilityPublic') }}</option>
+                    <option value="friends" >{{ $t('component.contribution.visibilityFriends') }}</option>
+                    <option value="private">{{ $t('component.contribution.visibilityPrivate') }}</option>
                   </select>
                   <div class="icon is-small is-left">
-                    <i class="fa fa-eye"></i>
+                    <i class="fa fa-eye" :class="{
+                      'fa-eye-slash': (form.visibility === 'private'),
+                      'fa-address-book-o': (form.visibility === 'friends')
+                    }"></i>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="message is-warning is-small" v-if="form.visibility === 'private'">
+      <div class="message-body">
+        <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
       </div>
     </div>
     <hr/>
@@ -176,6 +211,7 @@
         <div class="control">
           <hc-button :isLoading="isLoading"
                      :disabled="disabled"
+                     data-test="submit"
                      @click.prevent="onSubmit">
             <i class="fa fa-check"></i>
             &nbsp;<span>{{ buttonPublishLabel }}</span>
@@ -187,18 +223,21 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
   import Author from '~/components/Author/Author.vue'
   import {mapGetters} from 'vuex'
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import EditorMentions from '~/components/Mentions/EditorMentions'
+  import animatable from '~/components/mixins/animatable'
   import { isEmpty } from 'lodash'
+  import { validationMixin } from 'vuelidate'
+  import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
+    mixins: [animatable, validationMixin],
     components: {
       Author,
       CategoriesSelect,
@@ -208,6 +247,40 @@
     head () {
       return {
         title: this.$t('component.contribution.writePost')
+      }
+    },
+    validations () {
+      let rules = {
+        title: {
+          required,
+          minLength: minLength(4),
+          maxLength: maxLength(64)
+        },
+        content: {
+          required
+        },
+        type: {
+          required
+        },
+        visibility: {
+          required
+        },
+        categoryIds: {
+          required
+        }
+      }
+
+      // add rules for can do's if selected
+      if (this.form.type === 'cando') {
+        rules.cando = {
+          difficulty: {
+            required
+          }
+        }
+      }
+
+      return {
+        form: rules
       }
     },
     data () {
@@ -302,6 +375,19 @@
         this.dropFiles.splice(index, 1)
       },
       async onSubmit () {
+        if (this.$v.form.$invalid) {
+          this.animate('shake')
+          this.$toast.open({
+            message: this.$t('component.contribution.validationError'),
+            type: 'is-danger'
+          })
+          setTimeout(() => {
+            this.$scrollTo(this.$refs.title, 500)
+            this.$v.form.$touch()
+          }, 500)
+          return
+        }
+
         this.isLoading = true
 
         try {
@@ -311,9 +397,9 @@
           }
           let res = null
           if (this.form._id) {
-            res = await feathers.service('contributions').patch(formData._id, formData)
+            res = await this.$api.service('contributions').patch(formData._id, formData)
           } else {
-            res = await feathers.service('contributions').create(formData)
+            res = await this.$api.service('contributions').create(formData)
           }
           this.$store.commit('newsfeed/clear')
           this.$snackbar.open({
@@ -327,7 +413,6 @@
           this.isLoading = false
           this.$toast.open({
             message: err.message,
-            duration: 3000,
             type: 'is-danger'
           })
         }
@@ -350,6 +435,7 @@
 
 <style lang="scss">
   @import "assets/styles/utilities";
+  @import "assets/styles/_animations";
 
   .textarea {
     margin-bottom: 10px;

@@ -16,7 +16,9 @@
           <template v-if="tags.length">
             <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
             <div class="tags">
-              <span class="tag" v-for="tag in tags">
+              <span class="tag"
+                    v-for="tag in tags"
+                    :key="tag">
                 <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
               </span>
             </div>
@@ -24,14 +26,23 @@
 
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
           <table class="table is-striped" :class="{ 'is-empty': !relatedPosts.length }">
-            <tbody v-if="relatedPosts.length">
-              <tr style="cursor: pointer" v-for="contribution in relatedPosts" @click="$router.push('/contributions/' + contribution.slug)">
+            <tbody v-if="relatedPostList.length">
+              <tr style="cursor: pointer"
+                  v-for="contribution in relatedPostList"
+                  :key="contribution._id"
+                  @click="$router.push('/contributions/' + contribution.slug)">
                 <td>{{ contribution.title }}</td>
-                <td class="has-text-right"><strong>1024</strong> Aktivitäten</td>
+                <td class="has-text-right nowrap">
+                  <small>
+                    <strong>{{ contribution.shoutCount || 0 }}</strong>&nbsp;<hc-icon set="fa" icon="bullhorn" />&nbsp;&nbsp;<strong>{{ contribution.comments.length || 0 }}</strong>&nbsp;<hc-icon set="fa" icon="comments" />
+                  </small>
+                </td>
               </tr>
               <tr>
                 <td colspan="2" class="is-white">
-                  <a href="" class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
+                  <a @click="showAllPosts = !showAllPosts"
+                     v-if="!showAllPosts"
+                     class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
             </tbody>
@@ -153,11 +164,11 @@
               2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
             </nuxt-link>
             <ul>
-              <li><a href="#relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
-              <li><a href="#proAndContras">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
-              <li><a href="#bestlists">{{ $t('component.contribution.bestList') }}</a></li>
-              <li><a href="#votes">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
-              <li><a href="#chatrooms">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
+              <li><a v-scroll-to="{el: '#relatedPosts'}">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
+              <li><a v-scroll-to="{el: '#proAndContras'}">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
+              <li><a v-scroll-to="{el: '#bestlists'}">{{ $t('component.contribution.bestList') }}</a></li>
+              <li><a v-scroll-to="{el: '#votes'}">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
+              <li><a v-scroll-to="{el: '#chatrooms'}">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
             </ul>
           </li>
           <li>
@@ -172,7 +183,6 @@
 </template>
 
 <script>
-  import feathers from '~/plugins/feathers'
   import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
@@ -194,23 +204,29 @@
     data () {
       return {
         contribution: null,
-        title: null
+        title: null,
+        showAllPosts: false,
+        defaultCount: 3
       }
     },
-    async asyncData ({params, error}) {
+    async asyncData ({app, params, error}) {
       try {
-        let contributions = await feathers.service('contributions').find({
+        let contributions = await app.$api.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
-        const relatedPosts = await feathers.service('contributions').find({
+        const relatedPosts = await app.$api.service('contributions').find({
           query: {
             categoryIds: {
               $in: contributions.data[0].categoryIds
             },
             type: 'post',
-            $limit: 3
+            $sort: {
+              shoutCount: -1,
+              createdAt: -1
+            },
+            $limit: 10
           }
         })
         return {
@@ -249,6 +265,11 @@
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
         return newVar
+      },
+      relatedPostList () {
+        return this.showAllPosts
+          ? this.relatedPosts
+          : this.relatedPosts.slice(0, this.defaultCount)
       }
     },
     head () {

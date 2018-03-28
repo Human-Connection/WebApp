@@ -1,13 +1,14 @@
 <template>
   <section class="container page-profile" style="position: relative">
     <template>
-      <hc-upload class="profile-header card"
-                 v-if="isOwner"
-                 :preview-image="coverImg"
-                 :test="true"
-                 @update="onCoverUploadCompleted"
-                 @start-sending="uploadingCover = true"
-                 @stop-sending="uploadingCover = false" >
+      <hc-upload
+        class="profile-header card"
+        v-if="isOwner"
+        :preview-image="coverImg"
+        :test="true"
+        @update="onCoverUploadCompleted"
+        @start-sending="uploadingCover = true"
+        @stop-sending="uploadingCover = false">
       </hc-upload>
       <hc-progressive-image
           class="profile-header card"
@@ -20,13 +21,16 @@
         <hc-box top="true" class="user-hc-box">
           <div class="user-avatar">
             <template>
-              <hc-upload v-if="isOwner"
-                         class="avatar-upload"
-                         :preview-image="form.avatar || user.avatar"
-                         :test="true"
-                         @update="onAvatarUploadCompleted"
-                         @start-sending="uploadingAvatar = true"
-                         @stop-sending="uploadingAvatar = false" ></hc-upload>
+              <hc-upload
+                v-if="isOwner"
+                class="avatar-upload"
+                :preview-image="form.avatar || user.avatar"
+                :test="true"
+                @update="onAvatarUploadCompleted"
+                @start-sending="uploadingAvatar = true"
+                @stop-sending="uploadingAvatar = false" >
+                <hc-avatar :user="user" />
+              </hc-upload>
               <hc-avatar  v-else
                   class="avatar-upload"
                   :user="user"></hc-avatar>
@@ -102,7 +106,7 @@
             <hc-textcount class="textcountitem" :count="14" :text="$t('auth.account.myBookmarksBriefOrLong', null, 2)"/>
             <hc-textcount class="textcountitem" :count="5" :text="$t('auth.account.mySearch')"/>
           </div>
-          <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" />
+          <hc-map style="margin: 0 -14px -14px -14px;" :places="places" :zoom="zoom" :center="center" :token="$env.MAPBOX_TOKEN" />
         </hc-box>
         <hc-box class="under-construction">
           <hc-subtitle>{{ $t('auth.account.myConnections', 'My Friends') }}</hc-subtitle>
@@ -131,7 +135,6 @@
   import Map from '~/components/Map/Map.vue'
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
-  import feathers from '~/plugins/feathers'
   import thumbnailHelper from '~/helpers/thumbnails'
 
   import { isEmpty } from 'lodash'
@@ -182,15 +185,19 @@
           avatar: null
         },
         uploadingCover: false,
-        uploadingAvatar: false
+        uploadingAvatar: false,
+        user: null,
+        isOwner: false,
+        params: null,
+        updatedUser: null
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({ params, store, error }) {
+    async asyncData ({ app, params, store, error }) {
       let user
       let isOwner = false
       if (!isEmpty(params) && !isEmpty(params.slug)) {
-        const res = await feathers.service('users').find({
+        const res = await app.$api.service('users').find({
           query: {
             slug: params.slug
           }
@@ -242,7 +249,7 @@
       }
     },
     async mounted () {
-      let res = await feathers.service('follows').get(this.user._id)
+      let res = await this.$api.service('follows').get(this.user._id)
       if (res !== null) {
         this.following = {
           users: res.users || [],

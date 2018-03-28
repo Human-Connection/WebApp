@@ -1,15 +1,24 @@
 import { Builder, Nuxt } from 'nuxt'
 import express from 'express'
-import request from 'request'
 import bodyParser from 'body-parser'
 import expressHealthcheck from 'express-healthcheck'
-import Raven from 'raven'
 // import helmet from 'helmet'
 import createLocaleMiddleware from 'express-locale'
 import cookieParser from 'cookie-parser'
 import redirectSSL from 'redirect-ssl'
+import avatar from './avatar'
+import raven from '../plugins/raven-server'
+import { readFileSync } from 'fs'
+
+// Get .env config
+require('dotenv').config()
 
 const app = express()
+
+// Import and Set Nuxt.js options
+let nuxtConfig = require('../nuxt.config.js')
+nuxtConfig.dev = (process.env.NODE_ENV !== 'production')
+nuxtConfig.debug = nuxtConfig.dev ? 'nuxt:*,app' : null
 
 // Add middleware
 app.use(redirectSSL)
@@ -20,56 +29,24 @@ app.use(createLocaleMiddleware({
   cookie: { name: 'locale' }
 }))
 
-// Import and Set Nuxt.js options
-let config = require('../nuxt.config.js')
-config.dev = !(process.env.NODE_ENV === 'production')
-
-if (process.server) {
-  // LOGGING IS ENABLED
-  console.log('SENTRY LOGGING IS ENABLED')
-
-  // Must configure Raven before doing anything else with it
-  Raven.config('https://b26378911a9f4d1fb0e83a418f6241e7@sentry.io/213871', {
-    release: process.env.RELEASE,
-    environment: process.env.NODE_ENV,
-    extra: {
-      ssr: true
-    }
-  }).install()
-
-  // The request handler must be the first middleware on the app
-  app.use(Raven.requestHandler())
-  // The error handler must be before any other error middleware
-  app.use(Raven.errorHandler())
-}
+// Must configure Raven before doing anything else with it
+raven(app)
 
 app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
 
 app.use('/healthcheck', expressHealthcheck())
-app.use('/avatar', (req, res) => {
-  return new Promise((resolve, reject) => {
-    request(`https://avataaars.io${req.url}`, (err, result, body) => {
-      if (err) {
-        console.error(err)
-        res.status(err.statusCode || 500).send(err.message)
-        reject(err)
-      } else {
-        console.log(result)
-        res.status(200).header('Content-Type', 'image/svg+xml').send(body)
-        resolve()
-      }
-    })
-  })
-})
+app.use('/avatar', avatar())
 
 // Init Nuxt.js
-const nuxt = new Nuxt(config)
+const nuxt = new Nuxt(nuxtConfig)
 
-app.set('port', config.env.PORT)
+const env = require('dotenv').parse(readFileSync('./.env'))
+
+app.set('port', env.WEBAPP_PORT)
 
 // Build only in dev mode
-if (config.dev) {
+if (nuxtConfig.dev) {
   const builder = new Builder(nuxt)
   builder.build()
 }
@@ -77,5 +54,10 @@ if (config.dev) {
 // Give nuxt middleware to express
 app.use(nuxt.render)
 // Listen the server
-app.listen(config.env.PORT, config.env.HOST)
-console.log('Server listening on ' + config.env.HOST + ':' + config.env.PORT) // eslint-disable-line no-console
+app.listen(env.WEBAPP_PORT, env.WEBAPP_HOST)
+console.log(`Server listening on ${env.WEBAPP_HOST}:${env.WEBAPP_PORT}`) // eslint-disable-line no-console
+console.log(`WEBAPP_PORT ${env.WEBAPP_PORT}`) // eslint-disable-line no-console
+console.log(`WEBAPP_HOST ${env.WEBAPP_HOST}`) // eslint-disable-line no-console
+console.log(`WEBAPP_BASE_URL ${env.WEBAPP_BASE_URL}`) // eslint-disable-line no-console
+console.log(`API_PORT ${env.API_PORT}`) // eslint-disable-line no-console
+console.log(`API_HOST ${env.API_HOST}`) // eslint-disable-line no-console

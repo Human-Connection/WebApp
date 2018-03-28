@@ -196,7 +196,6 @@
         this.isLoading = false
         this.$toast.open({
           message: `usp, can't create avatar`,
-          duration: 3000,
           type: 'is-danger'
         })
       },

@@ -1,7 +1,5 @@
 import { merge, parseInt } from 'lodash'
 
-const base = `${process.env.baseURL}`
-
 export const buildEndpointURL = (host, options = {}) => {
   options = merge({ protocol: 'http', port: null }, options || {})
   let endpoint = host
@@ -17,11 +15,11 @@ export const buildEndpointURL = (host, options = {}) => {
 }
 
 export const buildUserUrl = (slug) => {
-  return `${base}/profile/${slug}`
+  return `/profile/${slug}`
 }
 
 export const buildContributionUrl = (slug) => {
-  return `${base}/contributions/${slug}`
+  return `/contributions/${slug}`
 }
 
 export default {

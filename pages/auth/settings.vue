@@ -153,7 +153,6 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import feathers from '~/plugins/feathers'
 
   export default {
     components: {
@@ -178,10 +177,10 @@
         user: 'auth/user'
       })
     },
-    async asyncData ({params, store}) {
+    async asyncData ({app, params, store}) {
       let user, usersettings
       user = store.getters['auth/user']
-      usersettings = await feathers.service('usersettings').find({
+      usersettings = await app.$api.service('usersettings').find({
         query: {
           userId: user._id
         }
