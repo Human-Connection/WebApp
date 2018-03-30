@@ -82,19 +82,20 @@
         margin-top: 21px;
       }
     }
-  }
-  .card {
-    $padding: 1.5rem;
 
-    padding: $padding !important;
+    .card {
+      $padding: 1.5rem;
 
-    footer.card-footer {
-      margin: -$padding;
-      margin-top: 2rem;
-      background: lighten($grey-lighter, 10%);
-      padding: 1rem $padding;
-      display: flex;
-      justify-content: right;
+      padding: $padding !important;
+
+      footer.card-footer {
+        margin: -$padding;
+        margin-top: 2rem;
+        background: lighten($grey-lighter, 10%);
+        padding: 1rem $padding;
+        display: flex;
+        justify-content: right;
+      }
     }
   }
 </style>
