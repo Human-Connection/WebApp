@@ -278,7 +278,6 @@
 
       .textcountitem {
         border-right: 1px solid #dadada;
-        //border-left: 1px solid #dadada;
         padding: 0 10px 0 10px;
       }
       .textcountitem:last-child {

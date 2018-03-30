@@ -6,6 +6,8 @@
       </h2>
       <p>{{ $t('auth.settings.securityWelcomeText') }}</p>
     </div>
+    <hr>
+    <h3 class="title is-4">Passwort ändern</h3>
     <div class="columns">
       <div class="column">
         <div class="field">

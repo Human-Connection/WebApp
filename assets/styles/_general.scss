@@ -314,10 +314,19 @@ div[class*="v2-table__"][style],
   border-top-right-radius: 0 !important;
 }
 
-label.is-required,
-.is-required > label {
-  &::after {
-    content: " *";
+label,
+.label {
+  color: $grey-dark;
+
+  &:not(:last-child) {
+    margin-bottom: 0.2em;
+  }
+
+  &.is-required,
+  &.is-required > label {
+    &::after {
+      content: " *";
+    }
   }
 }
 

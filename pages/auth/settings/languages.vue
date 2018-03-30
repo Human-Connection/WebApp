@@ -6,6 +6,7 @@
       </h2>
       <p>{{ $t('auth.settings.languageSettingsText') }}</p>
     </div>
+    <hr>
     <div class="language-wrapper">
       <div class="columns">
         <div class="column">

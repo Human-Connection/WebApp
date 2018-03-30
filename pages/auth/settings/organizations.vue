@@ -1,8 +1,10 @@
 <template>
   <div>
-    <h2 class="title is-3">
-      {{ $t('auth.settings.myOrganizations', 'My Organizations') }}
-    </h2>
+    <div class="under-construction">
+      <h2 class="title is-3">
+        {{ $t('auth.settings.myOrganizations', 'My Organizations') }}
+      </h2>
+    </div>
     <footer class="card-footer">
       <hc-button :isLoading="isLoading"
                   :disabled="true"

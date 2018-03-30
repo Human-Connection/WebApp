@@ -365,14 +365,13 @@
       .textcountitem {
         text-align: center;
         border-right: 1px solid #dadada;
-        //border-left: 1px solid #dadada;
         padding: 0 10px 0 10px;
       }
       .textcountitem:first-child {
-        text-align: right;
+        text-align: right !important;
       }
       .textcountitem:last-child {
-        text-align: left;
+        text-align: left !important;
         border-right: 0;
       }
     }

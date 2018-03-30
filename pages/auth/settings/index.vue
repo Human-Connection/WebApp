@@ -6,6 +6,7 @@
       </h2>
       <p>{{ $t('auth.settings.profileWelcomeText') }}</p>
     </div>
+    <hr>
     <div class="columns">
       <div class="column">
         <div class="field">
