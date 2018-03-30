@@ -10,15 +10,15 @@
       <div class="columns">
         <div class="column">
           <div class="field">
-            <label class="label" for="form-contentLanauages">Select your contribution languages</label>
+            <label class="label" for="form-contentLanauages">{{ $t('auth.settings.contentLanguagesLabel') }}</label>
             <div class="control" id="form-contentLanauages">
               <b-checkbox
-                v-model="usersettings.contributionLanguages"
+                v-model="usersettings.contentLanguages"
                 native-value="de">
                 Deutsch
               </b-checkbox>
               <b-checkbox
-                v-model="usersettings.contributionLanguages"
+                v-model="usersettings.contentLanguages"
                 native-value="en">
                 English
               </b-checkbox>

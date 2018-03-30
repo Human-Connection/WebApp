@@ -10,7 +10,7 @@
     </hc-upload>
     <img :src="coverImg" v-if="!isOwner" alt="" class="profile-header card">
     <div class="columns">
-      <div class="column is-4-tablet is-4-widescreen organization-sidebar-left">
+      <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
         <hc-box top="true" class="organization-hc-box">
           <div class="organization-avatar">
             <hc-upload class="avatar-upload"
@@ -74,7 +74,7 @@
           </hc-box>
         </div>
       </div>
-      <div class="column is-8-tablet is-8-widescreen organization-timeline">
+      <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
         <!-- TODO: add timeline for organizations -->
         <div class="organization-form-wrapper" v-if="showOrganizationForm">
@@ -304,7 +304,7 @@
           width: 25%;
           float: left;
           text-align: center;
-          border-left: 1px solid $grey-lighter;
+          // border-left: 1px solid $grey-lighter;
           i {
             font-size: 18px;
             color: $grey-light;
