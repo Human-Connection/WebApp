@@ -71,14 +71,13 @@
         isLoading: false
       };
     },
+    watch: {
+      user (user) {
+        this.usersettings = Object.assign({}, user.usersettings)
+      }
+    },
     async mounted () {
-      const usersettings = await this.$api.service('usersettings').find({
-        query: {
-          userId: this.user._id
-        }
-      })
-      console.log(usersettings)
-      this.usersettings = usersettings.data[0]
+      this.usersettings = Object.assign({}, this.user.usersettings)
     },
     methods: {
       async save() {

@@ -1,10 +1,11 @@
 <template>
   <section class="container account-settings" style="position: relative">
+    <h2 class="title is-2">Einstellungen</h2>
     <div class="columns">
-      <div class="column is-one-third" style="max-width: 240px;">
+      <div class="column is-one-third menu">
         <aside class="menu">
           <p class="menu-label">
-            <i class="fa fa-info"></i> {{ $t('auth.settings.general', 'General') }}
+            {{ $t('auth.settings.general', 'General') }}
           </p>
           <ul class="menu-list">
             <li @click.prevent="$router.push({ name: 'auth-settings' })"
@@ -13,7 +14,7 @@
             </li>
           </ul>
           <p class="menu-label">
-            <i class="fa fa-shield"></i> {{ $t('auth.settings.security', 'Security') }}
+            {{ $t('auth.settings.security', 'Security') }}
           </p>
           <ul class="menu-list">
             <li @click.prevent="$router.push({ name: 'auth-settings-access' })"
@@ -22,7 +23,7 @@
             </li>
           </ul>
           <p class="menu-label">
-            <i class="fa fa-university"></i> {{ $t('auth.settings.organizations', 'Organizations') }}
+            {{ $t('auth.settings.organizations', 'Organizations') }}
           </p>
           <ul class="menu-list">
             <li @click.prevent="$router.push({ name: 'auth-settings-organizations' })"
@@ -31,7 +32,7 @@
             </li>
           </ul>
           <p class="menu-label">
-            <i class="fa fa-cogs"></i> {{ $t('auth.settings.networkSettings', 'Network settings') }}
+            {{ $t('auth.settings.networkSettings', 'Network settings') }}
           </p>
           <ul class="menu-list">
             <li @click.prevent="$router.push({ name: 'auth-settings-languages' })"
@@ -83,6 +84,12 @@
       }
     }
 
+    .menu {
+      @media (min-width: $tablet) {
+        max-width: 240px;
+      }
+    }
+
     .card {
       $padding: 1.5rem;
 
@@ -97,5 +104,9 @@
         justify-content: right;
       }
     }
+  }
+
+  .settings-content {
+    overflow-x: hidden;
   }
 </style>

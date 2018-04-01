@@ -1,5 +1,5 @@
 <template>
-  <div class="security fullwidth-box">
+  <div class="security fullwidth-box" :class="classes">
     <div class="info-text">
       <h2 class="title is-3">
         {{ $t('auth.settings.securityWelcome') }}
@@ -12,29 +12,50 @@
       <div class="column">
         <div class="field">
           <label class="label">{{ $t('auth.settings.currentPassword') }}</label>
-          <p class="control">
-            <input v-model="form.currentPassword" type="password" class="input">
-          </p>
+          <div class="control has-icons-right">
+            <input v-model="form.passwordOld"
+                   type="password"
+                   class="input"
+                   @input="$v.form.passwordOld.$touch()">
+            <span v-if="$v.form.passwordOld.$error" class="icon is-small is-right">
+              <i class="fa fa-warning"></i>
+            </span>
+          </div>
+          <p v-if="$v.form.passwordOld.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
         </div>
       </div>
       <div class="column">
         <div class="field">
           <label class="label">{{ $t('auth.settings.newPassword') }}</label>
-          <p class="control">
-            <input v-model="form.newPassword" type="password" class="input">
-          </p>
+          <div class="control has-icons-right">
+            <input v-model="form.passwordNew"
+                   type="password"
+                   class="input"
+                   @input="$v.form.passwordNew.$touch()">
+            <span v-if="$v.form.passwordNew.$error" class="icon is-small is-right">
+              <i class="fa fa-warning"></i>
+            </span>
+          </div>
+          <p v-if="$v.form.passwordNew.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
         </div>
         <div class="field">
           <label class="label">{{ $t('auth.settings.newPasswordConfirm') }}</label>
-          <p class="control">
-            <input v-model="form.newPasswordConfirm" type="password" class="input">
-          </p>
+          <div class="control has-icons-right">
+            <input v-model="form.passwordNewConfirm"
+                   type="password"
+                   class="input"
+                   @input="$v.form.passwordNewConfirm.$touch()">
+            <span v-if="$v.form.passwordNewConfirm.$error" class="icon is-small is-right">
+              <i class="fa fa-warning"></i>
+            </span>
+          </div>
+          <p v-if="$v.form.passwordNewConfirm.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
         </div>
       </div>
     </div>
     <footer class="card-footer">
       <hc-button :isLoading="isLoading"
-                  :disabled="true"
+                  :disabled="isLoading"
                   @click.prevent="save">
         <i class="fa fa-check"></i>
         &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
@@ -44,18 +65,89 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import animatable from '~/components/mixins/animatable'
+  import { validationMixin } from 'vuelidate'
+  import { required, sameAs, minLength } from 'vuelidate/lib/validators'
+
   export default {
     transition: 'NONE',
+    mixins: [animatable, validationMixin],
     data () {
       return {
-        form: {},
+        form: {
+          passwordOld: '',
+          passwordNew: '',
+          passwordNewConfirm: ''
+        },
         isLoading: false
       }
     },
+    computed: {
+      ...mapGetters({
+        user: "auth/user"
+      })
+    },
+    validations () {
+      return {
+        form: {
+          passwordOld: {
+            required
+          },
+          passwordNew: {
+            required
+          },
+          passwordNewConfirm: {
+            required,
+            sameAsPassword: sameAs('passwordNew')
+          }
+        }
+      }
+    },
     methods: {
-      save () {
+      async save () {
+        if (this.$v.form.$invalid) {
+          this.$v.form.$touch()
+          this.animate('shake')
+          this.isLoading = false
+          this.$toast.open({
+            message: this.$t('auth.settings.validationError'),
+            type: 'is-danger'
+          })
+          return false
+        }
 
+        this.isLoading = true
+        try {
+          const res = await this.$api.service('authManagement').create({
+            action: 'passwordChange',
+            value: {
+              user: {
+                email: this.user.email
+              },
+              oldPassword: this.form.passwordOld,
+              password: this.form.passwordNew
+            }
+          })
+          this.$snackbar.open({
+            message: this.$t('auth.settings.saveSettingsSuccess'),
+            class: "is-success"
+          });
+        } catch (err) {
+          this.animate('shake')
+          this.$toast.open({
+            message: err.message,
+            type: "is-danger"
+          });
+        }
+        this.isLoading = false
       }
     }
   }
 </script>
+
+<style lang="sass" scoped>
+  @import "assets/styles/_animations";
+
+
+</style>

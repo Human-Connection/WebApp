@@ -99,7 +99,10 @@ export const getters = {
       $skip: state.skip,
       $limit: state.limit,
       $sort: state.sort,
-      visibility: 'public'
+      visibility: 'public',
+      language: {
+        $in: ['en'] // TODO: get current language from user
+      }
     }
     // generate the search query with the token entered inside the search field
     if (!_.isEmpty(state.search)) {

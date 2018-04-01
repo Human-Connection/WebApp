@@ -368,10 +368,10 @@
         padding: 0 10px 0 10px;
       }
       .textcountitem:first-child {
-        text-align: right !important;
+        text-align: right;
       }
       .textcountitem:last-child {
-        text-align: left !important;
+        text-align: left;
         border-right: 0;
       }
     }
