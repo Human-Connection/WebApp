@@ -19,18 +19,26 @@
         <span v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymous'})"></span>
       </hc-navbar-item>
       <hr class="navbar-divider">
-      <hc-navbar-item to="/profile" @click.native="close()">
-        {{ $t('auth.account.profile') }}
+      <hc-navbar-item class="nav-item" to="/profile" @click.native="close()">
+        <span class="icon">
+          <hc-icon class="icon-left" icon="user"/>
+        </span> {{ $t('auth.account.profile') }}
       </hc-navbar-item>
-      <hc-navbar-item to="/auth/settings" @click.native="close()">
-        {{ $t('auth.account.settings') }}
+      <hc-navbar-item class="nav-item" to="/auth/settings" @click.native="close()">
+        <span class="icon">
+          <hc-icon class="icon-left" icon="sliders"/>
+        </span> {{ $t('auth.account.settings') }}
       </hc-navbar-item>
-      <hc-navbar-item v-if="isAdmin" to="/admin" @click.native="close()">
-        {{ $t('component.admin.label') }}
+      <hc-navbar-item class="nav-item" v-if="isAdmin" to="/admin" @click.native="close()">
+        <span class="icon">
+          <hc-icon class="icon-left" icon="wrench"/>
+        </span> {{ $t('component.admin.label') }}
       </hc-navbar-item>
       <hr class="navbar-divider">
-      <hc-navbar-item @click="logout()" class="is-hidden-mobile">
-        {{ $t('auth.logout.label') }}
+      <hc-navbar-item class="nav-item is-hidden-mobile" @click="logout()" >
+        <span class="icon">
+          <hc-icon class="icon-left" icon="sign-out"/>
+        </span> {{ $t('auth.logout.label') }}
       </hc-navbar-item>
       <div class="is-hidden-tablet">
         <language-select></language-select>
@@ -40,14 +48,19 @@
       <hc-button @click="logout()"
         color="light"
         size="medium"
-        class="logout-button"
+        class="nav-item logout-button"
         :fullWidth="true">
-        {{ $t('auth.logout.label') }}
+        <span class="icon">
+          <hc-icon class="icon-left" icon="sign-out"/>
+        </span> {{ $t('auth.logout.label') }}
       </hc-button>
       <hc-button @click="close()"
         size="medium"
-        :fullWidth="true">
-        {{ $t('button.close', 'Close') }}
+        :fullWidth="true"
+        class="nav-item">
+        <span class="icon">
+          <hc-icon class="icon-left" icon="times"/>
+        </span> {{ $t('button.close', 'Close') }}
       </hc-button>
     </div>
   </hc-dropdown>
@@ -93,6 +106,16 @@
   .hc-user-menu {
     min-width: 180px;
     padding: 0.5rem 0 0.6rem;
+  }
+
+  // .nav-item {
+  //   justify-content: space-between;
+  // }
+
+  .icon {
+    text-align: left;
+    padding-left: 0.5em;
+    width: 1.5em;
   }
 
   .mobile-user-header {
