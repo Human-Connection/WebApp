@@ -428,6 +428,12 @@
       "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der emails",
       "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen"
     },
+    "validation": {
+      "error": "Bitte überprüfe deine Eingabe",
+      "errorPassword": "Bitte gib dein Passwort ein",
+      "errorMinLength": "Mindestens {minLength} Zeichen",
+      "errorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen"
+    },
     "settings": {
       "general": "Allgemein",
       "security": "Sicherheit",

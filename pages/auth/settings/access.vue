@@ -21,7 +21,7 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordOld.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
+          <p v-if="$v.form.passwordOld.$error" class="help is-danger">{{ $t('auth.validation.error') }}</p>
         </div>
       </div>
       <div class="column">
@@ -36,7 +36,8 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordNew.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
+          <p v-if="$v.form.passwordNew.$error && !$v.form.passwordNew.required" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+          <p v-else-if="$v.form.passwordNew.$error && !$v.form.passwordNew.minLength" class="help is-danger">{{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}</p>
         </div>
         <div class="field">
           <label class="label">{{ $t('auth.settings.newPasswordConfirm') }}</label>
@@ -95,11 +96,12 @@
             required
           },
           passwordNew: {
-            required
+            required,
+            minLength: minLength(8)
           },
           passwordNewConfirm: {
             required,
-            sameAsPassword: sameAs('passwordNew')
+            sameAs: sameAs('passwordNew')
           }
         }
       }

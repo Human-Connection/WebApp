@@ -10,12 +10,10 @@
             :key="organization._id"
             :to="{ name: 'organizations-slug', params: { slug: organization.slug }}"
             class="column organization">
-          <div class="card" style="display: flex; align-items: bottom; flex-flow: column wrap;">
-            <div class="card-image">
+          <div class="card">
               <figure class="image">
                 <img :src="organization.logo" :alt="organization.name">
               </figure>
-            </div>
             <div class="card-content" style="align-self: bottom;">
               <h3 class="title is-6">{{ organization.name }}</h3>
             </div>
@@ -31,14 +29,15 @@
         </nuxt-link>
       </div>
     </div>
-    <footer class="card-footer">
+    <br>
+    <!--<footer class="card-footer">
       <hc-button :isLoading="isLoading"
                   :disabled="true"
                   @click.prevent="save">
         <i class="fa fa-check"></i>
         &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
-    </footer>
+    </footer>-->
   </div>
 </template>
 
@@ -87,6 +86,9 @@
     display: flex;
     padding-top: 1em;
     padding-bottom: 0;
+    // align-items: bottom;
+    justify-content: flex-start;
+    flex-flow: row;
 
     @media (min-width: $tablet) {
       flex: none;
@@ -107,21 +109,27 @@
       padding: $padding;
       align-self: stretch;
       width: 100%;
+      height: 100%;
+      text-align: center;
 
       &:hover {
         border-color: $grey;
       }
     }
 
-    .card-image {
-      margin: -0.5em;
-      margin-bottom: $padding;
-
-      min-height: 120px;
+    .image {
+      margin-bottom: 0.5em;
+      img {
+        height: 80px;
+        object-fit: contain;
+      }
     }
 
     .card-content {
       padding: 0;
+      float: left;
+      width: 100%;
+      text-align: center;
     }
   }
 </style>

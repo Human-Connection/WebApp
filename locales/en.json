@@ -428,6 +428,12 @@
       "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
       "validationErrorPasswordRepeat": "Both passwords must match"
     },
+    "validation": {
+      "error": "Please check your data",
+      "errorPassword": "Enter your password",
+      "errorMinLength": "Enter min length {minLength}",
+      "errorPasswordRepeat": "Both passwords must match"
+    },
     "settings": {
       "general": "General",
       "security": "Security",
