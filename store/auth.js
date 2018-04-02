@@ -34,6 +34,12 @@ export const getters = {
   },
   token (state) {
     return state.token
+  },
+  userSettings (state) {
+    return Object.assign({
+      uiLanguage: state.user.language,
+      contentLanguages: [state.user.language]
+    }, state.user.usersettings || {})
   }
 }
 

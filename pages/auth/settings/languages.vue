@@ -83,7 +83,9 @@
       async save() {
         this.isLoading = true;
         try {
-          await this.$store.dispatch("usersettings/patch", this.usersettings);
+          await this.$store.dispatch('usersettings/patch', this.usersettings);
+
+          this.$store.dispatch('newsfeed/clear')
 
           this.$snackbar.open({
             message: this.$t('auth.settings.saveSettingsSuccess'),

@@ -94,14 +94,17 @@ export const getters = {
   lastScrollPos (state) {
     return state.lastScrollPos
   },
-  getCurrentQuery (state) {
+  getCurrentQuery (state, getters, rootState, rootGetters) {
+    console.log('##rootState', rootGetters)
     let query = {
       $skip: state.skip,
       $limit: state.limit,
       $sort: state.sort,
-      visibility: 'public',
-      language: {
-        $in: ['en'] // TODO: get current language from user
+      visibility: 'public'
+    }
+    if (rootState.auth.user) {
+      query.language = {
+        $in: _.castArray(rootGetters['auth/userSettings'].contentLanguages)
       }
     }
     // generate the search query with the token entered inside the search field
