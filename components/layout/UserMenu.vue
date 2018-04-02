@@ -108,6 +108,12 @@
     padding: 0.5rem 0 0.6rem;
   }
 
+  @media (min-width: $tablet) {
+    .navbar-divider {
+      display: block !important;
+    }
+  }
+
   // .nav-item {
   //   justify-content: space-between;
   // }
