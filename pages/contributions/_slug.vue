@@ -253,7 +253,7 @@
         }
 
         const utils = require('quill-url-embeds').utils
-        const populator = new utils.populator('http://localhost:3050')
+        const populator = new utils.populator(this.$env.META_API_URL)
         this.$nextTick(() => {
           populator.populate(this.$refs.content)
         })

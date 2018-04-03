@@ -122,7 +122,7 @@
               }
             },
             urlEmbeds: {
-              metaApi: 'http://localhost:3050'
+              metaApi: this.$env.META_API_URL
             }
           },
           placeholder: 'Schreiben ...'
