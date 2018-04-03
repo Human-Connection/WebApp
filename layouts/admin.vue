@@ -1,16 +1,14 @@
 <template>
-  <div :id="id">
+  <div :id="id" class="admin-container">
     <hc-frame>
       <div class="container" id="main">
-        <section class="hero is-primary">
-          <div class="hero-body">
-            <h1 class="title">
-              Administration
-            </h1>
-          </div>
+        <section class="hero">
+          <h2 class="title is-2">
+            Administration
+          </h2>
         </section>
         <div class="columns">
-          <div class="column is-one-quarter-tablet">
+          <div class="column is-one-quarter-tablet ">
             <hc-admin-menu />
           </div>
           <div class="column">
@@ -52,13 +50,18 @@
   @import 'assets/styles/utilities';
 
   .hero {
-    margin-bottom:30px;
+    margin-bottom: 30px;
   }
   .hero-body {
     padding: 2rem 1.5rem;
   }
   .admin-content {
+    box-shadow: $card-shadow;
     background-color: $white;
     padding: 2rem 1.5rem;
+  }
+
+  .admin-container {
+    padding-bottom: 3rem;
   }
 </style>

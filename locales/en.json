@@ -35,6 +35,7 @@
       "contributions": "Contributions",
       "deleteCategory": "delete this category",
       "development": "Development Mode",
+      "developmentWarning": "Warning! I hope you know what you do!?",
       "index_title": "Monitor Contributions",
       "label": "Admin",
       "manageCategories": "Manage Categories of Topics",
@@ -42,12 +43,18 @@
       "notifications": "Notifications",
       "organisations": "Organisations",
       "projects": "Projects",
+      "openInvites": "Open Invites",
+      "follows": "Follows",
+      "shouts": "Shouts",
       "seedDemoContributions": "Seed demo contributions",
       "seedDemoContributionsSuccessMessage": "Added the demo entries to the database!",
       "seedFakeData": "Seed extensive fake data",
       "seedFakeDataSuccessMessage": "Created a ton of new entries, have fun!",
       "settings": "Settings",
-      "users": "Users"
+      "users": "Users",
+      "messageCSVInvalid": "You have to select a valid .csv",
+      "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
+      "buttonDownloadCSV": "Download CSV"
     },
     "category": {
       "filterTitle": "Filter posts",
@@ -285,6 +292,10 @@
       "acceptedFiles": "You may only upload images here."
     }
   },
+  "actions": {
+    "follow": "You now follow {name}",
+    "unfollow": "You unfollowed {name}"
+  },
   "button": {
     "back": "Back",
     "cancel": "Cancel",
@@ -454,8 +465,8 @@
       "profileWelcomeText": "Here is the place to edit your data. To edit simply click on the item. Please don't share your password with anyone and keep it in a safe place. For best protection we recommend a password with at least 16 characters length.",
       "languageSettings": "language settings",
       "languageSettingsText": "Here you can choose in which languages you see contributions and your interface.",
-      "contentLanguagesLabel": "Choose your languages for Content",
-      "interfaceLanguageLabel": "Choose your language for the Interface",
+      "contentLanguagesLabel": "Language(s) for Content",
+      "interfaceLanguageLabel": "Language for the Interface",
       "securityWelcome": "Security settings",
       "securityWelcomeText": "This is the area about your account security. You can update your password regularly to increase security.",
       "currentPassword": "current Password",

@@ -9,6 +9,10 @@ export const actions = {
     return this.app.$api.service('organizations').create(organization)
   },
   follow ({dispatch}, data) {
-    return this.app.$api.service('follows').create({followingId: data.organizationId, type: 'organizations', userId: data.currentUserId})
+    return this.app.$api.service('follows').create({
+      followingId: data.organizationId,
+      type: 'organizations',
+      userId: data.currentUserId
+    })
   }
 }

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="organization-container" :class="{ 'is-loading': isLoading }">
     <div>
-      <h2 class="title is-3">
+      <h3 class="title is-3">
         {{ $t('auth.settings.myOrganizations', 'My Organizations') }}
-      </h2>
+      </h3>
       <div class="organizations columns is-2 is-variable" style="flex-wrap: wrap;">
         <nuxt-link
             v-for="organization in organizations"
@@ -52,7 +52,7 @@
         form: {
         },
         organizations: {},
-        isLoading: false
+        isLoading: true
       };
     },
     async mounted () {
@@ -62,8 +62,8 @@
           userId: this.user._id
         }
       })
-      console.log(organizations)
       this.organizations = organizations.data
+      this.isLoading = false
     },
     methods: {
       async save() {
@@ -80,6 +80,14 @@
 
 <style lang="scss" scoped>
   @import 'assets/styles/utilities';
+
+  .organization-container {
+    min-height: 200px;
+
+    &.is-loading {
+      position: relative !important;
+    }
+  }
 
   .organization {
     $padding: 1em !important;

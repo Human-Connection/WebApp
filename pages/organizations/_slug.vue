@@ -164,23 +164,23 @@
       this.showOverlay = this.showOrganizationForm
     },
     methods: {
-      followOrganization () {
+      async followOrganization () {
         let currentUser = this.$store.getters['auth/user']
         let organizationId = this.organization._id
-        if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
-          this.$store.dispatch('organizations/follow', {
-            currentUserId: currentUser._id,
-            organizationId: organizationId
-          }).then((res) => {
-            if (res._id !== '') {
-              this.$snackbar.open({
-                message: this.$t('component.organization.follow'),
-                duration: 4000,
-                type: 'is-success'
-              })
-            }
+        // if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
+        const res = await this.$store.dispatch('organizations/follow', {
+          currentUserId: currentUser._id,
+          organizationId: organizationId
+        })
+        console.log('#res', res)
+
+        if (!isEmpty(res.id)) {
+          this.$snackbar.open({
+            message: this.$t('actions.follow', { name: this.organization.name }),
+            type: 'is-success'
           })
         }
+        // }
       },
       updateDescription (val) {
         if (val !== undefined) {

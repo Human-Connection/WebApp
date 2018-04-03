@@ -352,3 +352,24 @@ label,
 .icon-right {
   padding-left: 1em;
 }
+
+.v2-table__pagination {
+  user-select: none;
+
+  li.page {
+    // border-radius: 50%;
+
+    &:hover {
+      border-color: $grey;
+      color: darken($primary, 20%);
+    }
+
+    &.cur-page {
+      &, &:hover {
+        background-color: $primary;
+        border-color: $primary;
+        font-weight: bold;
+      }
+    }
+  }
+}

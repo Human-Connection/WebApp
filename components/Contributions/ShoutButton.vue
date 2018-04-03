@@ -1,22 +1,22 @@
 <template>
-    <div>
-        <div class="heading shout">
-            <hc-tooltip :label="$t('component.shout.addShout')">
-                <hc-button circle
-                           size="large"
-                           @click="handleShout"
-                           :color="buttonColor"
-                           style="font-size: 2em; margin-bottom: 0.8rem;">
-                    <hc-icon set="fa" :icon="icon" />
-                </hc-button>
-            </hc-tooltip>
-            <br/>
-            {{ $t('component.shout.buttonLabel') }}
-        </div>
-        <div class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
-            {{ shoutCount }}
-        </div>
+  <div>
+    <div class="heading shout">
+      <hc-tooltip :label="$t('component.shout.addShout')">
+        <hc-button circle
+                   size="large"
+                   @click="handleShout"
+                   :color="buttonColor"
+                   style="font-size: 2em; margin-bottom: 0.8rem;">
+          <hc-icon set="fa" :icon="icon" />
+        </hc-button>
+      </hc-tooltip>
+      <br/>
+      {{ $t('component.shout.buttonLabel') }}
     </div>
+    <div class="title" style="font-size: 1.5rem; margin-top: -0.5rem;">
+        {{ shoutCount }}
+    </div>
+  </div>
 </template>
 
 <script>

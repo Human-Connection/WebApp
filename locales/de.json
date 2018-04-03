@@ -35,6 +35,7 @@
       "contributions": "Beiträge",
       "deleteCategory": "Diese Kategorie löschen",
       "development": "Entwicklersersmodus",
+      "developmentWarning": "Vorsicht! Ich hoffe du weißt was du tust!?",
       "index_title": "Übersicht der Beiträge",
       "label": "Administration",
       "manageCategories": "Themen-Kategorien verwalten",
@@ -42,12 +43,18 @@
       "notifications": "Benachrichtigungen",
       "organisations": "Organisationen",
       "projects": "Projekte",
+      "openInvites": "offene Einladungen",
+      "follows": "Follows",
+      "shouts": "Empfehlungen",
       "seedDemoContributions": "Demo-Beiträge generieren",
       "seedDemoContributionsSuccessMessage": "Demo-Beiträge zur Datenbank hinzugefügt!",
       "seedFakeData": "Umfangreiche Pseudodaten generieren",
       "seedFakeDataSuccessMessage": "Massig neue Einträge wurden generiert, viel Spaß!",
       "settings": "Einstellungen",
-      "users": "Benutzer"
+      "users": "Benutzer",
+      "messageCSVInvalid": "Du musst eine valide .csv auswählen",
+      "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
+      "buttonDownloadCSV": "Download CSV"
     },
     "calendar": {
       "label": "Kalender"
@@ -199,7 +206,7 @@
       }
     },
     "dashbord": {
-      "label": "Entdecken"
+      "label": "Dashboard"
     },
     "editor": {
       "bold": "fette Schrift",
@@ -284,6 +291,10 @@
       "maxFilesize": "Die maximale erlaubte Dateigröße beträgt {size}.",
       "acceptedFiles": "Du kannst hier nur Bilddateien hochladen."
     }
+  },
+  "actions": {
+    "follow": "Du folgst nun \"{name}\"",
+    "unfollow": "Du folgst \"{name}\" nun nicht mehr"
   },
   "button": {
     "back": "Zurück",
@@ -454,8 +465,8 @@
       "profileWelcomeText": "Hier kannst Du deine Daten verwalten. Um etwas zu bearbeiten klicke einfach auf den Text. Bitte gib an niemanden dein Passwort weiter. Damit Du geschützt bist empfehlen wir Dir ein Passwort mit mindestens 16 Zeichen zu verwenden.",
       "languageSettings": "Spracheinstellungen",
       "languageSettingsText": "Hier kannst Du wählen in welcher Sprache die Webseite und Beiträge angezeigt werden.",
-      "contentLanguagesLabel": "Wähle deine Sprachen für Inhalte",
-      "interfaceLanguageLabel": "Wähle deine Sprache für die Benutzeroberfläche",
+      "contentLanguagesLabel": "Sprache(n) für Inhalte",
+      "interfaceLanguageLabel": "Sprache für Benutzeroberfläche",
       "securityWelcome": "Sicherheitseinstellungen",
       "securityWelcomeText": "In diesem Bereich geht es um deine Accountsicherheit. Du kannst Dein Passwort regelmäßig ändern um die Sicherheit weiter zu erhöhen.",
       "currentPassword": "aktuelles Passwort",
