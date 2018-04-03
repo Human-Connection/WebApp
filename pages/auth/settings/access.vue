@@ -112,7 +112,7 @@
     },
     methods: {
       async save () {
-        this.currentPasswortInvalid = true
+        this.currentPasswortInvalid = false
 
         if (this.$v.form.$invalid) {
           this.$v.form.$touch()
