@@ -127,7 +127,7 @@
       "letsTalk": "Miteinander reden",
       "letsTalkDescription": "Mit {user} ins Gespräch kommen und in Kontakt treten, um z.B. Inhalte des Beitrags zu diskutieren, Rückmeldungen oder Anregungen zu geben. Du kannst einstellen, ob das Zwiegespräch öffentlich oder privat sein soll.",
       "organizations": "Organisationen",
-      "organizationsCreate": "eine Organisation erstellen",
+      "organizationsCreate": "Neue Organisation erstellen",
       "map": "Karte",
       "messages": "Beiträge",
       "messageSaveSuccess": "Danke für Deinen Beitrag. Du bist grandios.",
@@ -167,7 +167,7 @@
       "validationErrorCategories": "Wähle mindestens eine Kategorie aus um den Beitrag zu speichern"
     },
     "organization": {
-      "createNew": "eine Organisation erstellen",
+      "createNew": "Neue Organisation erstellen",
       "createSave": "Organisation speichern",
       "createLater": "Später",
       "requiredHint": "Diese Felder werden benötigt, damit deine Organisation veröffentlicht werden kann.",
@@ -438,7 +438,13 @@
       "next": "Weiter",
       "back": "Zurück",
       "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der emails",
-      "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen"
+      "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen",
+      "passwordSecurity": "Passwortsicherheit",
+      "passwordStrength0": "Sehr unsicheres Passwort",
+      "passwordStrength1": "Unsicheres Passwort",
+      "passwordStrength2": "Mittelmäßiges Passwort",
+      "passwordStrength3": "Sicheres Passwort",
+      "passwordStrength4": "Sehr sicheres Passwort"
     },
     "validation": {
       "error": "Bitte überprüfe deine Eingabe",
@@ -469,10 +475,11 @@
       "interfaceLanguageLabel": "Sprache für Benutzeroberfläche",
       "securityWelcome": "Sicherheitseinstellungen",
       "securityWelcomeText": "In diesem Bereich geht es um deine Accountsicherheit. Du kannst Dein Passwort regelmäßig ändern um die Sicherheit weiter zu erhöhen.",
-      "currentPassword": "aktuelles Passwort",
-      "newPassword": "neues Passwort",
-      "newPasswordConfirm": "neues Passwort bestätigen",
-      "validationErrorContentLanguages": "wähle mindestens eine Sprache"
+      "changePassword": "Passwort ändern",
+      "currentPassword": "Aktuelles Passwort",
+      "newPassword": "Neues Passwort",
+      "newPasswordConfirm": "Neues Passwort bestätigen",
+      "validationErrorContentLanguages": "Wähle mindestens eine Sprache"
     }
   },
   "ressource": {

@@ -167,8 +167,8 @@
       "validationErrorCategories": "Choose at least one category to be able to save this contribution"
     },
     "organization": {
-      "createNew": "create new Organization",
-      "createSave": "save Organization",
+      "createNew": "Create new Organization",
+      "createSave": "Save Organization",
       "createLater": "Later",
       "requiredHint": "These fields are required for your Organization to become public.",
       "name": "Organization name",
@@ -438,7 +438,13 @@
       "next": "Next",
       "back": "Back",
       "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
-      "validationErrorPasswordRepeat": "Both passwords must match"
+      "validationErrorPasswordRepeat": "Both passwords must match",
+      "passwordSecurity": "Password security",
+      "passwordStrength0": "Very insecure password",
+      "passwordStrength1": "Insecure password",
+      "passwordStrength2": "Mediocre password",
+      "passwordStrength3": "Strong password",
+      "passwordStrength4": "Very strong password"
     },
     "validation": {
       "error": "Please check your data",
@@ -469,10 +475,11 @@
       "interfaceLanguageLabel": "Language for the Interface",
       "securityWelcome": "Security settings",
       "securityWelcomeText": "This is the area about your account security. You can update your password regularly to increase security.",
-      "currentPassword": "current Password",
-      "newPassword": "new Password",
-      "newPasswordConfirm": "confirm new Password",
-      "validationErrorContentLanguages": "choose at least one language"
+      "changePassword": "Change password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "newPasswordConfirm": "Confirm new password",
+      "validationErrorContentLanguages": "Choose at least one language"
     }
   },
   "ressource": {
