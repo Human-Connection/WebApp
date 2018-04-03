@@ -49,6 +49,6 @@
 
 <style scoped lang="scss">
   #main {
-    margin-bottom: 15em !important;
+    margin-bottom: 5rem !important;
   }
 </style>
