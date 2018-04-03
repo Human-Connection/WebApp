@@ -109,7 +109,7 @@
 
         this.isLoading = true;
         try {
-          const userSettings = await this.$store.dispatch('usersettings/patch', this.form)
+          const userSettings = await this.$store.dispatch('usersettings/patch', this.form, { root: true })
 
           if (this.$i18n.localeExists(this.form.uiLanguage)) {
             this.$i18n.set(this.form.uiLanguage)
@@ -122,12 +122,12 @@
 
           this.$snackbar.open({
             message: this.$t('auth.settings.saveSettingsSuccess'),
-            class: "is-success"
+            type: "is-success"
           });
         } catch (err) {
           this.$toast.open({
             message: err.message,
-            class: "is-danger"
+            type: "is-danger"
           });
         }
         this.isLoading = false;

@@ -23,7 +23,7 @@
           <div class="card has-text-centered" style="display: flex; justify-content: center; align-items: center;">
             <div class="card-content" style="padding: 1.5rem;">
               <i class="fa fa-plus fa-2x"></i>
-              <h3 class="title is-6">Erstellen</h3>
+              <h3 class="title is-6">{{ $t('component.organization.createNew') }}</h3>
             </div>
           </div>
         </nuxt-link>

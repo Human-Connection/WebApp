@@ -11,6 +11,11 @@ export const mutations = {
   SET_USER (state, user) {
     state.user = user || null
   },
+  SET_USER_SETTINGS (state, userSettings) {
+    state.user = Object.assign(state.user, {
+      userSettings: Object.assign(this.getters['auth/userSettings'], userSettings)
+    })
+  },
   SET_TOKEN (state, token) {
     state.token = token || null
   }
@@ -136,7 +141,7 @@ export const actions = {
           // update user locale setting with cookie setting (had changed in on login screen)
           dispatch('usersettings/patch', {
             uiLanguage: locale
-          })
+          }, { root: true })
         } else if (isEmpty(locale) && user && userSettings && userSettings.uiLanguage) {
           // console.log('set locale to user setting and persist in cookie')
           // set locale to user setting and persist in cookie
@@ -187,7 +192,7 @@ export const actions = {
   },
   async refreshUser ({state, commit}, userSettings) {
     if (state.user && userSettings) {
-      state.user.userSettings = Object.assign(state.user.userSettings, userSettings)
+      commit('SET_USER_SETTINGS', userSettings)
     } else if (state.user) {
       const user = await this.app.$api.service('users').get(state.user._id)
       commit('SET_USER', user)

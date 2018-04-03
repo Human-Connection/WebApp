@@ -130,7 +130,7 @@
 
         if (this.$route.params.path || this.$route.query.path) {
           this.$snackbar.open({
-            message: `you have to login!`,
+            message: this.$t('auth.login.forbidden'),
             type: 'is-danger'
           })
         }

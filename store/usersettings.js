@@ -1,3 +1,5 @@
+import { isArray } from 'lodash'
+
 export const actions = {
   async patch ({dispatch, rootGetters}, data) {
     const user = rootGetters['auth/user']
@@ -8,7 +10,11 @@ export const actions = {
     }
     data.userId = user._id.toString()
 
-    const res = await this.app.$api.service('usersettings').create(data)
+    let res = await this.app.$api.service('usersettings').create(data)
+    if (isArray(res)) {
+      res = res.pop()
+    }
+
     await dispatch('auth/refreshUser', res, { root: true })
 
     return res

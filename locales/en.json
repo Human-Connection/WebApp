@@ -405,6 +405,7 @@
       "welcomeTitle": "Welcome"
     },
     "login": {
+      "forbidden": "You have to be logged in to see the requested site",
       "label": "Login",
       "description": "If you have an account at Human Connection, please log-in here.",
       "stayLoggedIn": "Stay logged in",

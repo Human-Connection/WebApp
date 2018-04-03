@@ -139,7 +139,7 @@
           })
           this.$snackbar.open({
             message: this.$t('auth.settings.saveSettingsSuccess'),
-            class: "is-success"
+            type: "is-success"
           });
         } catch (err) {
           console.log('#ERR')

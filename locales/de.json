@@ -405,6 +405,7 @@
       "welcomeTitle": "Willkommen"
     },
     "login": {
+      "forbidden": "Um diese Seite anzeigen zu können musst du eingeloggt sein",
       "label": "Anmelden",
       "description": "Wenn Du ein Konto bei Human Connection hast, melde Dich bitte hier an.",
       "stayLoggedIn": "Angemeldet bleiben",
