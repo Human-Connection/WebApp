@@ -187,7 +187,7 @@
   .password-strength-meter {
     position: relative;
     height: 3px;
-    background: #DDD;
+    background: $grey-lighter;
     margin: 10px auto 20px;
     border-radius: 3px;
 
