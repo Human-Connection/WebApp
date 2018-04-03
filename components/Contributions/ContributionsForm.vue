@@ -199,25 +199,26 @@
         <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
       </div>
     </div>
-    <hr/>
     <no-ssr>
-      <div class="field is-grouped is-grouped-right">
-        <div class="control">
-          <button class="button has-text-grey is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i>
-            &nbsp;{{ $t('button.cancel') }}
-          </button>
+      <footer class="card-footer">
+        <div class="field is-grouped is-grouped-right">
+          <div class="control">
+            <button class="button has-text-grey is-light" @click.prevent="$router.back()">
+              <i class="fa fa-times"></i>
+              &nbsp;{{ $t('button.cancel') }}
+            </button>
+          </div>
+          <div class="control">
+            <hc-button :isLoading="isLoading"
+                      :disabled="disabled"
+                      data-test="submit"
+                      @click.prevent="onSubmit">
+              <i class="fa fa-check"></i>
+              &nbsp;<span>{{ buttonPublishLabel }}</span>
+            </hc-button>
+          </div>
         </div>
-        <div class="control">
-          <hc-button :isLoading="isLoading"
-                     :disabled="disabled"
-                     data-test="submit"
-                     @click.prevent="onSubmit">
-            <i class="fa fa-check"></i>
-            &nbsp;<span>{{ buttonPublishLabel }}</span>
-          </hc-button>
-        </div>
-      </div>
+      </footer>
     </no-ssr>
   </form>
 </template>
@@ -456,5 +457,16 @@
       pointer-events: none;
       opacity: .5;
     }
+  }
+
+  $padding: 1.5rem;
+  footer.card-footer {
+    margin: -2.25rem;
+    margin-top: 2rem;
+    margin-bottom: -4rem;
+    background: lighten($grey-lighter, 10%);
+    padding: 1rem $padding;
+    display: flex;
+    justify-content: right;
   }
 </style>
