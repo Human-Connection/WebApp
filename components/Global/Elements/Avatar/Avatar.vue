@@ -88,9 +88,11 @@ export default {
     watch: {
       'user.name' (name) {
         this.initial(name)
+        this.updateSize()
       },
       name (name) {
         this.initial(name)
+        this.updateSize()
       }
     },
     methods: {
@@ -132,6 +134,10 @@ export default {
         return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16)
       },
       updateSize () {
+        if (this.hasImage) {
+          return
+        }
+
         try {
           this.size = this.$refs.avatar.getBoundingClientRect().width
         } catch (err) {}
