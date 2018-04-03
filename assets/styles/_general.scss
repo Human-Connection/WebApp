@@ -373,3 +373,28 @@ label,
     }
   }
 }
+
+.hc-textcounters {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+
+  .textcountitem {
+    text-align: center;
+    border-right: 1px solid #dadada;
+    padding: 0 10px 0 10px;
+  }
+  .textcountitem:first-child {
+    text-align: right;
+    // & > div {
+    //   text-align: right !important;
+    // }
+  }
+  .textcountitem:last-child {
+    text-align: left;
+    // & > div {
+    //   text-align: left !important;
+    // }
+    border-right: 0;
+  }
+}

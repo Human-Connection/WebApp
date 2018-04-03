@@ -28,13 +28,17 @@
             <hc-textedit v-if="isOwner" @change="updateName" :type="'text'" :value="organization.name || ''"></hc-textedit>
             <span v-if="!isOwner">{{ organization.name || '' }}</span>
           </div>
-          <div class="organization-follows">
-            <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')"></hc-textcount>
-            <hc-textcount class="textcountitem" :count="followerCount" :text="$t('page.organization.supporter', 'Helfer')"></hc-textcount>
-          </div>
-          <div class="organization-follow-actions has-text-centered">
-            <i class="fa fa-bullhorn is-action-icon"></i>
-            <i @click="followOrganization" class="fa fa-bell-o is-action-icon"></i>
+          <div class="organization-follows hc-textcounters">
+            <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
+              <div class="action-button">
+                <i class="fa fa-bullhorn is-action-icon"></i>
+              </div>
+            </hc-textcount>
+            <hc-textcount class="textcountitem" :count="followerCount" :text="$t('page.organization.supporter', 'Helfer')">
+              <div class="action-button">
+                <i @click="followOrganization" class="fa fa-bell-o is-action-icon"></i>
+              </div>
+            </hc-textcount>
           </div>
         </hc-box>
         <div class="organization-actions">
@@ -167,20 +171,20 @@
       async followOrganization () {
         let currentUser = this.$store.getters['auth/user']
         let organizationId = this.organization._id
-        // if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
-        const res = await this.$store.dispatch('organizations/follow', {
-          currentUserId: currentUser._id,
-          organizationId: organizationId
-        })
-        console.log('#res', res)
-
-        if (!isEmpty(res.id)) {
-          this.$snackbar.open({
-            message: this.$t('actions.follow', { name: this.organization.name }),
-            type: 'is-success'
+        if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
+          const res = await this.$store.dispatch('organizations/follow', {
+            currentUserId: currentUser._id,
+            organizationId: organizationId
           })
+          console.log('#res', res)
+
+          if (!isEmpty(res.id)) {
+            this.$snackbar.open({
+              message: this.$t('actions.follow', { name: this.organization.name }),
+              type: 'is-success'
+            })
+          }
         }
-        // }
       },
       updateDescription (val) {
         if (val !== undefined) {
@@ -231,14 +235,18 @@
     #main {
       margin-top: 0;
     }
-
-    .organization-follow-actions {
-      .is-action-icon {
-        color: $green;
-        font-size: 24px;
-        padding: 0px 25px;
-        cursor: pointer;
-      }
+    .textcountitem,
+    .textcountitem span {
+      text-align: center !important;
+    }
+    .action-button {
+      margin-bottom: 1em;
+    }
+    .is-action-icon {
+      color: $green;
+      font-size: 24px;
+      padding: 0px 25px;
+      cursor: pointer;
     }
 
     .editlayer {
