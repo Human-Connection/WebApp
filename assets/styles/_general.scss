@@ -331,10 +331,13 @@ label,
 }
 
 .has-error {
-  span.check {
+  span.check,
+  input {
     border-color: $red !important;
   }
-  .control-label {
+  .control-label,
+  label,
+  label & {
     color: $red;
   }
 }
