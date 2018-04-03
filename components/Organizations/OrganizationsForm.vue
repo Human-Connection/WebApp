@@ -1,9 +1,13 @@
 <template>
-  <form v-bind:disabled="isLoading">
-    <p class="hint"><i class="fa fa-warning"></i> {{ $t('component.organization.requiredHint') }}</p>
+  <form :disabled="isLoading" :class="classes">
+    <article class="message is-small">
+      <div class="message-body">
+        <i class="fa fa-warning"></i> {{ $t('component.organization.requiredHint') }}
+      </div>
+    </article>
     <div class="field">
       <div class="is-normal">
-        <label class="label">{{ $t('component.organization.type') }}</label>
+        <label class="label is-required">{{ $t('component.organization.type') }}</label>
       </div>
       <div class="field-body">
         <div class="field">
@@ -24,40 +28,44 @@
         </div>
       </div>
     </div>
+    <br />
     <div class="field">
-      <label class="label">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
+      <label class="label is-required">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
     </div>
-    <no-ssr>
-      <div class="field is-grouped is-grouped-right">
+    <footer class="card-footer">
+      <div class="field is-grouped">
         <div class="control">
           <hc-button :isLoading="isLoading"
-                     :color="'light'"
+                     color="light"
                      @click.prevent="onCancel">
-            <i class="fa fa-check"></i>
-            &nbsp;<span>{{ $t('component.organization.createLater') }}</span>
+            <span>{{ $t('component.organization.createLater') }}</span>
           </hc-button>
         </div>
         <div class="control">
           <hc-button :isLoading="isLoading"
-                     :disabled="disabled"
-                     @click.prevent="onSubmit">
+                    :disabled="disabled"
+                    @click.prevent="onSubmit">
             <i class="fa fa-check"></i>
             &nbsp;<span>{{ $t('component.organization.createSave') }}</span>
           </hc-button>
         </div>
       </div>
-    </no-ssr>
+    </footer>
   </form>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
+  import animatable from '~/components/mixins/animatable'
+  import { validationMixin } from 'vuelidate'
+  import { required } from 'vuelidate/lib/validators'
 
   export default {
     name: 'hc-organizations-form',
     props: ['data', 'id'],
+    mixins: [animatable, validationMixin],
     components: {
       'categories-select': CategoriesSelect
     },
@@ -83,23 +91,20 @@
           modules: {
             toolbar: {
               container: '#toolbar-editor',
-              handlers: {
-                // TODO: do not use the prompt but the native quill dialoges or at least a nice modal
-                //  handlers object will be merged with default handlers object
-                // 'link': function (value) {
-                //   if (value) {
-                //     let href = prompt(i18nEditorLinkEnterUrl)
-                //     this.quill.format('link', href)
-                //   } else {
-                //     this.quill.format('link', false)
-                //   }
-                // },
-                // 'video': function () {
-                //   let embedUrl = prompt(i18nEditorVideoEnterUrl)
-                //   this.quill.format('video', embedUrl)
-                // }
-              }
+              handlers: {}
             }
+          }
+        }
+      }
+    },
+    validations () {
+      return {
+        form: {
+          type: {
+            required
+          },
+          categoryIds: {
+            required
           }
         }
       }
@@ -117,6 +122,17 @@
     },
     methods: {
       async onSubmit () {
+        if (this.$v.form.$invalid) {
+          this.$v.form.$touch()
+          this.animate('shake')
+          this.isLoading = false
+          this.$toast.open({
+            message: this.$t('auth.validation.error'),
+            type: 'is-danger'
+          })
+          return false
+        }
+
         this.isLoading = true
 
         try {
@@ -161,6 +177,7 @@
 
 <style lang="scss">
   @import "assets/styles/utilities";
+  @import "assets/styles/_animations";
 
   .textarea {
     margin-bottom: 10px;
@@ -187,6 +204,19 @@
     &.disabled {
       pointer-events: none;
       opacity: .5;
+    }
+  }
+
+  .card {
+    $padding: 1.5rem;
+
+    footer.card-footer {
+      margin: -$padding;
+      margin-top: 2rem;
+      background: lighten($grey-lighter, 10%);
+      padding: 1rem $padding;
+      display: flex;
+      justify-content: right;
     }
   }
 </style>

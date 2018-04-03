@@ -1,5 +1,7 @@
 <template>
-  <section class="container organization-profile" style="position: relative">
+  <section class="container organization-profile"
+           :class="{ blocked: showOverlay }"
+           style="position: relative">
     <hc-upload class="profile-header card"
                v-if="isOwner"
                :preview-image="coverImg"
@@ -77,8 +79,13 @@
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
         <!-- TODO: add timeline for organizations -->
-        <div class="organization-form-wrapper" v-if="showOrganizationForm">
-          <organizations-form @saved="submitForm" @cancel="cancelForm" :canEdit="isOwner" :id="organization._id"></organizations-form>
+        <div class="card is-box organization-form-wrapper" v-if="showOrganizationForm">
+          <div class="card-content" style="overflow-x: hidden">
+            <organizations-form @saved="submitForm"
+                                @cancel="cancelForm"
+                                :canEdit="isOwner"
+                                :id="organization._id" />
+          </div>
         </div>
       </div>
     </div>
@@ -246,10 +253,16 @@
     }
 
     .organization-form-wrapper {
-      position: relative;
-      z-index: 101;
-      background: #fff;
-      padding: 15px;
+      box-shadow: $card-shadow-hover;
+    }
+
+    &.blocked {
+      .organization-form-wrapper {
+        position: relative;
+        z-index: 101;
+        // background: #fff;
+        // padding: 15px;
+      }
     }
 
     .profile-header {
