@@ -10,28 +10,30 @@
     <h3 class="title is-4">Passwort ändern</h3>
     <div class="columns">
       <div class="column">
-        <div class="field">
-          <label class="label">{{ $t('auth.settings.currentPassword') }}</label>
+        <div class="field"
+             :class="{ 'has-error': $v.form.passwordOld.$error || currentPasswortInvalid }">
+          <label class="label is-required">{{ $t('auth.settings.currentPassword') }}</label>
           <div class="control has-icons-right">
             <input v-model="form.passwordOld"
                    type="password"
                    class="input"
-                   @input="$v.form.passwordOld.$touch()">
-            <span v-if="$v.form.passwordOld.$error" class="icon is-small is-right">
+                   @blur="$v.form.passwordOld.$touch(); currentPasswortInvalid = false">
+            <span v-if="$v.form.passwordOld.$error || currentPasswortInvalid" class="icon is-small is-right">
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordOld.$error" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+          <p v-if="$v.form.passwordOld.$error || currentPasswortInvalid" class="help is-danger">{{ $t('auth.validation.error') }}</p>
         </div>
       </div>
       <div class="column">
-        <div class="field">
-          <label class="label">{{ $t('auth.settings.newPassword') }}</label>
+        <div class="field"
+             :class="{ 'has-error': $v.form.passwordNew.$error }">
+          <label class="label is-required">{{ $t('auth.settings.newPassword') }}</label>
           <div class="control has-icons-right">
             <input v-model="form.passwordNew"
                    type="password"
                    class="input"
-                   @input="$v.form.passwordNew.$touch()">
+                   @blur="$v.form.passwordNew.$touch()">
             <span v-if="$v.form.passwordNew.$error" class="icon is-small is-right">
               <i class="fa fa-warning"></i>
             </span>
@@ -39,13 +41,14 @@
           <p v-if="$v.form.passwordNew.$error && !$v.form.passwordNew.required" class="help is-danger">{{ $t('auth.validation.error') }}</p>
           <p v-else-if="$v.form.passwordNew.$error && !$v.form.passwordNew.minLength" class="help is-danger">{{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}</p>
         </div>
-        <div class="field">
-          <label class="label">{{ $t('auth.settings.newPasswordConfirm') }}</label>
+        <div class="field"
+            :class="{ 'has-error': $v.form.passwordNewConfirm.$error }">
+          <label class="label is-required">{{ $t('auth.settings.newPasswordConfirm') }}</label>
           <div class="control has-icons-right">
             <input v-model="form.passwordNewConfirm"
                    type="password"
                    class="input"
-                   @input="$v.form.passwordNewConfirm.$touch()">
+                   @blur="$v.form.passwordNewConfirm.$touch()">
             <span v-if="$v.form.passwordNewConfirm.$error" class="icon is-small is-right">
               <i class="fa fa-warning"></i>
             </span>
@@ -81,6 +84,7 @@
           passwordNew: '',
           passwordNewConfirm: ''
         },
+        currentPasswortInvalid: false,
         isLoading: false
       }
     },
@@ -108,12 +112,14 @@
     },
     methods: {
       async save () {
+        this.currentPasswortInvalid = true
+
         if (this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.animate('shake')
           this.isLoading = false
           this.$toast.open({
-            message: this.$t('auth.settings.validationError'),
+            message: this.$t('auth.validation.error'),
             type: 'is-danger'
           })
           return false
@@ -136,6 +142,12 @@
             class: "is-success"
           });
         } catch (err) {
+          console.log('#ERR')
+          console.error(err)
+          if (err.errors.oldPassword) {
+            this.currentPasswortInvalid = true
+          }
+
           this.animate('shake')
           this.$toast.open({
             message: err.message,
@@ -150,6 +162,4 @@
 
 <style lang="sass" scoped>
   @import "assets/styles/_animations";
-
-
 </style>

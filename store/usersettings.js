@@ -1,8 +1,16 @@
 export const actions = {
-  async patch ({dispatch}, usersettings) {
-    if (!usersettings) {
+  async patch ({dispatch, rootGetters}, data) {
+    const user = rootGetters['auth/user']
+    const userSettings = rootGetters['auth/userSettings']
+
+    if (!user || !userSettings) {
       return null
     }
-    return this.app.$api.service('usersettings').patch(usersettings._id, usersettings)
+    data.userId = user._id.toString()
+
+    const res = await this.app.$api.service('usersettings').create(data)
+    await dispatch('auth/refreshUser', res, { root: true })
+
+    return res
   }
 }

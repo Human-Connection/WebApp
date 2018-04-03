@@ -454,12 +454,13 @@
       "languageSettings": "Spracheinstellungen",
       "languageSettingsText": "Hier kannst Du wählen in welcher Sprache die Webseite und Beiträge angezeigt werden.",
       "contentLanguagesLabel": "Wähle deine Sprachen für Inhalte",
-      "interfaceLanguageLabel": "Wähle deine Sprache für das Interface",
+      "interfaceLanguageLabel": "Wähle deine Sprache für die Benutzeroberfläche",
       "securityWelcome": "Sicherheitseinstellungen",
       "securityWelcomeText": "In diesem Bereich geht es um deine Accountsicherheit. Du kannst Dein Passwort regelmäßig ändern um die Sicherheit weiter zu erhöhen.",
       "currentPassword": "aktuelles Passwort",
       "newPassword": "neues Passwort",
-      "newPasswordConfirm": "neues Passwort bestätigen"
+      "newPasswordConfirm": "neues Passwort bestätigen",
+      "validationErrorContentLanguages": "wähle mindestens eine Sprache"
     }
   },
   "ressource": {

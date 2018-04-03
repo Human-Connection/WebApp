@@ -64,6 +64,7 @@ export default ({app, store, redirect, router}) => {
           // hook.accessToken = await api.passport.getJWT()
           if (process.env.NODE_ENV === 'development') {
             console.log('# API:', `${hook.method} ${hook.path}`)
+            console.info('data', hook.data)
             // console.log('# ' + hook.accessToken)
           }
           return hook

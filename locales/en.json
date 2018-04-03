@@ -459,7 +459,8 @@
       "securityWelcomeText": "This is the area about your account security. You can update your password regularly to increase security.",
       "currentPassword": "current Password",
       "newPassword": "new Password",
-      "newPasswordConfirm": "confirm new Password"
+      "newPasswordConfirm": "confirm new Password",
+      "validationErrorContentLanguages": "choose at least one language"
     }
   },
   "ressource": {

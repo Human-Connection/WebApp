@@ -93,7 +93,11 @@
       async save() {
         this.isLoading = true;
         try {
-          await this.$store.dispatch("auth/patch", this.form);
+          let data = Object.assign({}, this.form)
+          // do not overwrite the avatar which is saved on change
+          delete data.avatar
+
+          await this.$store.dispatch("auth/patch", data)
 
           this.$snackbar.open({
             message: this.$t('auth.settings.saveSettingsSuccess'),

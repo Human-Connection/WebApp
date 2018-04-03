@@ -75,14 +75,20 @@ export const getters = {
   all (state) {
     return state.contributions
   },
-  getCurrentQueryHash (state) {
-    const hash = JSON.stringify({
+  getCurrentQueryHash (state, getters, rootState, rootGetters) {
+    let queryData = {
       search: state.search,
       filter: state.filter,
       limit: state.limit,
       skip: state.skip,
       sort: state.sort
-    })
+    }
+    if (rootState.auth.user) {
+      queryData.language = {
+        $in: _.castArray(rootGetters['auth/userSettings'].contentLanguages)
+      }
+    }
+    const hash = JSON.stringify(queryData)
     return Base64.encode(hash)
   },
   isLoading (state) {
@@ -95,7 +101,6 @@ export const getters = {
     return state.lastScrollPos
   },
   getCurrentQuery (state, getters, rootState, rootGetters) {
-    console.log('##rootState', rootGetters)
     let query = {
       $skip: state.skip,
       $limit: state.limit,
@@ -121,7 +126,7 @@ export const getters = {
     } else {
       delete query.categoryIds
     }
-    // generate the emotons filter query by using the selected emotions
+    // generate the emotions filter query by using the selected emotions
     if (!_.isEmpty(state.filter.emotions)) {
       query.$and = []
       _.xor(state.filter.emotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {

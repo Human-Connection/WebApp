@@ -55,7 +55,7 @@
         return this.$t(`component.error.header${parseInt(this.statusCode)}`, 'Error')
       },
       subHeader () {
-        return this.$t(`component.error.subHeader${parseInt(this.error.statusCode)}`, this.error.message)
+        return this.$t(`component.error.subHeader${parseInt(this.error.statusCode || 500)}`, this.error.message)
       },
       copy () {
         return this.$t(`component.error.copy${parseInt(this.statusCode)}`)

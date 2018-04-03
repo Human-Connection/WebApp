@@ -85,13 +85,7 @@
     },
     methods: {
       logout () {
-        this.$store.dispatch('auth/logout')
-          .then(() => {
-            this.$router.push('/auth/login')
-          })
-          .catch(err => {
-            console.error(err)
-          })
+        this.$router.push({name: 'auth-logout'})
       },
       close () {
         this.$refs.dropdown.close()
