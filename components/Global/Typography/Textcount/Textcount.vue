@@ -1,5 +1,6 @@
 <template>
   <div class="textCount">
+    <slot></slot>
     <span>{{ countNumber }}</span>
     {{ text }}
   </div>
@@ -49,7 +50,7 @@
       font-size: 19px;
       color: grey;
       display: block;
-      text-align: center;
+      // text-align: center;
     }
   }
 </style>
