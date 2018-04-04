@@ -26,14 +26,6 @@
             <button class="ql-list" value="ordered" ></button>
           </b-tooltip>
         </div>
-        <div class="ql-formats">
-          <b-tooltip :label="$t('component.editor.link')" type="is-black">
-            <button class="ql-link"></button>
-          </b-tooltip>
-          <b-tooltip :label="$t('component.editor.video')" type="is-black">
-            <button class="ql-video"></button>
-          </b-tooltip>
-        </div>
       </div>
       <div class="hc-editor-container">
         <div class="quill-editor" :class="editorClass"
@@ -121,9 +113,7 @@
               handlers: {
               }
             },
-            urlEmbeds: {
-              metaApi: this.$env.META_API_URL
-            }
+            urlEmbeds: {}
           },
           placeholder: 'Schreiben ...'
         }

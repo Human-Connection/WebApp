@@ -253,7 +253,7 @@
         }
 
         const utils = require('quill-url-embeds').utils
-        const populator = new utils.populator(this.$env.META_API_URL)
+        const populator = new utils.populator('/embeds')
         this.$nextTick(() => {
           populator.populate(this.$refs.content)
         })

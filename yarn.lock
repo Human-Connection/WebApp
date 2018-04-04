@@ -8800,9 +8800,9 @@ quill-delta@^3.6.2:
     extend "^3.0.1"
     fast-diff "1.1.2"
 
-quill-url-embeds@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/quill-url-embeds/-/quill-url-embeds-1.0.7.tgz#f723765d10ce13195682ec5ad8a51ccc883f0229"
+quill-url-embeds@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/quill-url-embeds/-/quill-url-embeds-1.2.0.tgz#37903f25e91655f8eb0d763c88201dbdd31952f1"
   dependencies:
     axios "^0.18.0"
     babel-polyfill "^6.26.0"
@@ -11423,13 +11423,13 @@ vue-webpack-loaders@^1.0.5:
     vue-style-loader "^3.0.1"
     vue-template-compiler "^2.4.2"
 
-vue@^2.4.2, vue@^2.5.16, vue@^2.5.2:
-  version "2.5.16"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
-
-vue@^2.5.13, vue@~2.5.13:
+vue@^2.4.2, vue@^2.5.13, vue@^2.5.2, vue@~2.5.13:
   version "2.5.13"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
+
+vue@^2.5.16:
+  version "2.5.16"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
 vuelidate@~0.6.1:
   version "0.6.2"
