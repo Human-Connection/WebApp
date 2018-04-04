@@ -4,23 +4,26 @@
     <div class="columns">
       <div class="column level">
         <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">{{ $t('component.admin.users', 'Users') }}</p>
-            <p class="title">
-              <count-to :startVal="0" :endVal="userCount" :duration="countDuration" :autoplay="true" separator="." />/
-              <count-to :startVal="0" :endVal="userCountVerified" :duration="countDuration" :autoplay="true" separator="." />
-            </p>
-          </div>
+          <hc-tooltip type="is-dark" :label="`${userCount} Total | ${userCountVerified} Verified`">
+            <div>
+              <p class="heading">{{ $t('component.admin.users', 'Users') }}</p>
+              <p class="title">
+                <count-to :startVal="0" :endVal="userCount" :duration="countDuration" :autoplay="true" separator="." />
+              </p>
+            </div>
+          </hc-tooltip>
         </div>
       </div>
       <div class="column level">
         <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">{{ $t('component.admin.contributions', 'Contributions') }}</p>
-            <p class="title">
-              <count-to :startVal="0" :endVal="contributionCount" :duration="countDuration" :autoplay="true" separator="." />
-            </p>
-          </div>
+          <hc-tooltip type="is-dark" :label="`${contributionCountPost} Posts | ${contributionCountCanDo} CanDo's`">
+            <div>
+              <p class="heading">{{ $t('component.admin.contributions', 'Contributions') }}</p>
+              <p class="title">
+                <count-to :startVal="0" :endVal="contributionCount" :duration="countDuration" :autoplay="true" separator="." />
+              </p>
+            </div>
+          </hc-tooltip>
         </div>
       </div>
       <div class="column level">
@@ -37,13 +40,14 @@
     <div class="columns">
       <div class="column level">
         <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">{{ $t('component.admin.notifications', 'Notifications') }}</p>
-            <p class="title">
-              <count-to :startVal="0" :endVal="notificationCount" :duration="countDuration" :autoplay="true" separator="." />/
-              <count-to :startVal="0" :endVal="notificationCountUnread" :duration="countDuration" :autoplay="true" separator="." />
-            </p>
-          </div>
+          <hc-tooltip type="is-dark" :label="`${notificationCount} Total | ${notificationCountUnread} Unread`">
+            <div>
+              <p class="heading">{{ $t('component.admin.notifications', 'Notifications') }}</p>
+              <p class="title" title="total / unread">
+                <count-to :startVal="0" :endVal="notificationCount" :duration="countDuration" :autoplay="true" separator="." />
+              </p>
+            </div>
+          </hc-tooltip>
         </div>
       </div>
       <div class="column level">
@@ -122,6 +126,8 @@
         userCount: 0,
         userCountVerified: 0,
         contributionCount: 0,
+        contributionCountPost: 0,
+        contributionCountCanDo: 0,
         commentsCount: 0,
         organizationCount: 0,
         projectCount: 0,
@@ -142,10 +148,20 @@
         .then(res => {
           this.userCountVerified = res.total || 0
         })
+
       this.$api.service('contributions').find({query: { $limit: 0 }})
         .then(res => {
           this.contributionCount = res.total || 0
         })
+      this.$api.service('contributions').find({query: { $limit: 0, type: 'post' }})
+        .then(res => {
+          this.contributionCountPost = res.total || 0
+        })
+      this.$api.service('contributions').find({query: { $limit: 0, type: 'cando' }})
+        .then(res => {
+          this.contributionCountCanDo = res.total || 0
+        })
+
       this.$api.service('comments').find({query: { $limit: 0 }})
         .then(res => {
           this.commentsCount = res.total || 0
