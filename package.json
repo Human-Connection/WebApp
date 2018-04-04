@@ -52,7 +52,7 @@
     "body-parser": "~1.18.2",
     "body-scroll-lock": "^2.2.0",
     "bricks.js": "~1.8.0",
-    "buefy": "~0.6.3",
+    "buefy": "~0.6.5",
     "bulma": "~0.6.2",
     "bulma-steps-component": "~0.5.3",
     "cookie-parser": "~1.4.3",

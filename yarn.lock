@@ -1926,9 +1926,9 @@ bubleify@^0.7.0:
     buble "^0.15.1"
     object-assign "^4.0.1"
 
-buefy@~0.6.3:
-  version "0.6.3"
-  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.6.3.tgz#9e9e4f4fd0193aaba42aab2af6da29513ac80b70"
+buefy@~0.6.5:
+  version "0.6.5"
+  resolved "https://registry.yarnpkg.com/buefy/-/buefy-0.6.5.tgz#84e76e9101085dbbc84e66e755aff75030078553"
   dependencies:
     bulma "^0.6.2"
 

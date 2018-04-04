@@ -14,16 +14,16 @@
                :class="{ 'has-error': $v.form.contentLanguages.$error }">
             <label class="label is-required" for="form-contentLanguages">{{ $t('auth.settings.contentLanguagesLabel') }}</label>
             <div class="control" id="form-contentLanguages">
-              <b-checkbox
-                v-model="form.contentLanguages"
-                native-value="de">
+              <b-switch
+                v-model="selectedContentLanguages.de"
+                @click.native="toggleLanguage('de')">
                 Deutsch
-              </b-checkbox>
-              <b-checkbox
-                v-model="form.contentLanguages"
-                native-value="en">
+              </b-switch>
+              <b-switch
+                v-model="selectedContentLanguages.en"
+                @click.native="toggleLanguage('en')">
                 English
-              </b-checkbox>
+              </b-switch>
             </div>
             <p v-if="$v.form.contentLanguages.$error" class="help is-danger">{{ $t('auth.settings.validationErrorContentLanguages') }}</p>
           </div>
@@ -34,10 +34,12 @@
               <label class="label is-required" for="form-uiLanguages">{{ $t('auth.settings.interfaceLanguageLabel') }}</label>
               <div class="block" id="form-uiLanguages">
                 <b-radio v-model="form.uiLanguage"
+                    @input="$v.form.uiLanguage.$touch()"
                     native-value="de">
                     Deutsch
                 </b-radio>
                 <b-radio v-model="form.uiLanguage"
+                    @input="$v.form.uiLanguage.$touch()"
                     native-value="en">
                     English
                 </b-radio>
@@ -61,7 +63,7 @@
 
 <script>
   import { mapGetters } from "vuex";
-  import { isEmpty } from "lodash";
+  import { isEmpty, keys } from "lodash";
   import animatable from '~/components/mixins/animatable'
   import { validationMixin } from 'vuelidate'
   import { required } from 'vuelidate/lib/validators'
@@ -72,15 +74,23 @@
     data() {
       return {
         form: {
-          contentLanguages: null
+          contentLanguages: [],
+          uiLanguage: this.$i18n.locale()
         },
-        isLoading: false
+        isLoading: false,
+        selectedContentLanguages: {
+          de: false,
+          en: false
+        }
       };
     },
     validations () {
       return {
         form: {
           contentLanguages: {
+            required
+          },
+          uiLanguage: {
             required
           }
         }
@@ -89,12 +99,29 @@
     watch: {
       userSettings (userSettings) {
         this.form = Object.assign({}, userSettings)
+      },
+      'form.contentLanguages' (languages) {
+        // update selectedContentLanguage values with values from contentLanguages
+        this.selectedContentLanguages = {
+          de: Boolean(languages.indexOf('de') >= 0),
+          en: Boolean(languages.indexOf('en') >= 0)
+        }
       }
     },
     async mounted () {
       this.form = Object.assign({}, this.userSettings)
     },
     methods: {
+      toggleLanguage (lang) {
+        this.$v.form.contentLanguages.$touch()
+        // set the contentLanguages to the toggle values
+        this.$nextTick(() => {
+          const res = _.transform(this.selectedContentLanguages, (result, value, key) => {
+            (result[value] || (result[value] = [])).push(key);
+          }, {});
+          this.form.contentLanguages = res.true || []
+        })
+      },
       async save() {
         if (this.$v.form.$invalid) {
           this.$v.form.$touch()
