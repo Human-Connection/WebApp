@@ -325,55 +325,20 @@
     margin-top: 2.5rem;
   }
 
-  .embedd {
-    display: flex;
-    position: relative;
-    background-color: #FBFAFA;
-    border: 1px solid #EEEDED;
-    font-size: 0.9em;
-
-    &,
-    &:link,
-    &:hover {
-      color: $grey-darker;
+  .ql-embed-item .ql-link-embed {
+    .ql-embed-link {
+      background-color: $white-bis;
+      border-color: $white-dar;
     }
 
-    span {
-      display: inline-block;
-      padding: 5px 10px;
+    .ql-embed-link,
+    .ql-embed-link:link,
+    .ql-embed-link:hover {
+      color: $text;
     }
 
-    .embedd-description {
-      padding-right: 15px;
-    }
-
-    .embedd-content {
-      justify-self: left;
-    }
-
-    .embedd-footer {
-      display: block;
-      // align-self: baseline;
-    }
-
-    .embedd-image {
-      max-height: 100%;
-      max-width: 150px;
-      object-fit: contain;
-      justify-self: right;
-      background-color: #ccc;
-    }
-
-    .embedd-logo {
-      height: 16px;
-      width: 16px;
-      margin-bottom: -4px;
-      margin-right: 3px;
-    }
-
-    .embedd-publisher {
-      display: inline-block;
-      padding-bottom: 5px;
+    .ql-embed-image {
+      background-color: $white-ter;
     }
   }
 </style>
