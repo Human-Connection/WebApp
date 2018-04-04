@@ -122,7 +122,7 @@
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({app, params, store, redirect}) {
+    async asyncData ({app, params, store, error}) {
       let organization, owner, isOwner
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await app.$api.service('organizations').find({
@@ -132,7 +132,7 @@
         })
       }
       if (!organization || isEmpty(organization.data)) {
-        return redirect('/organizations/name')
+        error({ statusCode: 404 })
       } else {
         // is owner?
         owner = store.getters['auth/user']
