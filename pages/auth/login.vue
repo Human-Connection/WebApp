@@ -64,6 +64,7 @@
                      type="button"
                      class="is-fullwidth"
                      :isLoading="isLoading">
+            <i class="fa fa-sign-in"></i>&nbsp;
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>

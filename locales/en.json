@@ -398,6 +398,7 @@
       "nameSection": "How may we call you?",
       "nameTitle": "Nice to meet you",
       "password": "Password",
+      "passwordRepeat": "repeat password",
       "inviteCode": "Invite-Code",
       "profile": "My Profile",
       "settings": "Settings",
@@ -432,6 +433,8 @@
     },
     "register": {
       "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
+      "descriptionStep1": "Check or enter your email address and invitation code which you got with your invite email. Make sure that you use the same email.",
+      "descriptionStep2": "Create a secure password and repeat it in the second field. Use at least 8 chars, short sentences are easy to remember. We will show you how secure your password is.",
       "noAccountYet": "No account yet?",
       "accountAlready": "You already have an account?",
       "label": "Register",
