@@ -19,7 +19,7 @@
             </div>
           </div>
         </nuxt-link>
-        <nuxt-link :to="{ name: 'organizations-name' }" class="column organization">
+        <nuxt-link :to="{ name: 'organizations-create' }" class="column organization">
           <div class="card has-text-centered" style="display: flex; justify-content: center; align-items: center;">
             <div class="card-content" style="padding: 1.5rem;">
               <i class="fa fa-plus fa-2x"></i>

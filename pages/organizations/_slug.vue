@@ -1,6 +1,5 @@
 <template>
   <section class="container organization-profile"
-           :class="{ blocked: showOverlay }"
            style="position: relative">
     <hc-upload class="profile-header card"
                v-if="isOwner"
@@ -82,18 +81,8 @@
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
-        <!-- TODO: add timeline for organizations -->
-        <div class="card is-box organization-form-wrapper" v-if="showOrganizationForm">
-          <div class="card-content" style="overflow-x: hidden">
-            <organizations-form @saved="submitForm"
-                                @cancel="cancelForm"
-                                :canEdit="isOwner"
-                                :id="organization._id" />
-          </div>
-        </div>
       </div>
     </div>
-    <div class="editlayer" v-if="showOverlay"></div>
   </section>
 </template>
 
@@ -115,8 +104,6 @@
           coverImg: null,
           logo: null
         },
-        showOrganizationForm: false,
-        showOverlay: false,
         uploadingCover: false,
         uploadingLogo: false
       }
@@ -163,10 +150,6 @@
         return this.organization.followerIds.length
       }
     },
-    mounted () {
-      this.showOrganizationForm = !this.organization.isEnabled
-      this.showOverlay = this.showOrganizationForm
-    },
     methods: {
       async followOrganization () {
         let currentUser = this.$store.getters['auth/user']
@@ -201,13 +184,6 @@
             }
           })
         }
-      },
-      submitForm () {
-        this.showOrganizationForm = false
-        this.showOverlay = false
-      },
-      cancelForm () {
-        this.showOverlay = false
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
