@@ -248,15 +248,19 @@
         this.updatedUser = user
       }
     },
-    async mounted () {
-      let res = await this.$api.service('follows').get(this.user._id)
-      if (res !== null) {
-        this.following = {
-          users: res.users || [],
-          organizations: res.organizations || [],
-          projects: res.projects || []
-        }
-      }
+    mounted () {
+      this.$nextTick(async () => {
+        try {
+          let res = await this.$api.service('follows').get(this.user._id)
+          if (res !== null) {
+            this.following = {
+              users: res.users || [],
+              organizations: res.organizations || [],
+              projects: res.projects || []
+            }
+          }
+        } catch (err) {}
+      })
     },
     head () {
       return {
