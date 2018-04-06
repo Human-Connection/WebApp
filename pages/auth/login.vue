@@ -32,7 +32,7 @@
               <span v-if="$v.form.email.$error" class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
               </span>
-              <p v-if="$v.form.email.$error" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
+              <p :class="{ 'is-hidden': !$v.form.email.$error }" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
             </div>
           </div>
           <div class="field">
@@ -51,7 +51,7 @@
               <span v-if="$v.form.password.$error" class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
               </span>
-              <p v-if="$v.form.password.$error" class="help is-danger">{{ $t('auth.login.validationErrorPassword') }}</p>
+              <p :class="{ 'is-hidden': !$v.form.password.$error }" class="help is-danger">{{ $t('auth.login.validationErrorPassword') }}</p>
             </div>
           </div>
           <div class="field has-text-left is-hidden">

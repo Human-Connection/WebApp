@@ -43,9 +43,9 @@
         </aside>
       </div>
       <div class="column">
-        <hc-box class="settings-content settingswrapper">
-          <nuxt-child/>
-        </hc-box>
+        <transition name="slide-up" appear>
+          <nuxt class="settings-content settingswrapper"/>
+        </transition>
       </div>
     </div>
   </section>
@@ -108,5 +108,8 @@
 
   .settings-content {
     overflow-x: hidden;
+    @extend .card;
+    background-color: $white;
+    box-shadow: $card-shadow-hover;
   }
 </style>

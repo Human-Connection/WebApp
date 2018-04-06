@@ -22,7 +22,9 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordOld.$error || currentPasswortInvalid" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+          <p :class="{ 'is-hidden': !($v.form.passwordOld.$error || currentPasswortInvalid) }" class="help is-danger">
+            {{ $t('auth.validation.error') }}
+          </p>
         </div>
       </div>
       <div class="column">
@@ -38,8 +40,12 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordNew.$error && !$v.form.passwordNew.required" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-          <p v-else-if="$v.form.passwordNew.$error && !$v.form.passwordNew.minLength" class="help is-danger">{{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}</p>
+          <p :class="{ 'is-hidden': !($v.form.passwordNew.$error && !$v.form.passwordNew.required) }" class="help is-danger">
+            {{ $t('auth.validation.error') }}
+          </p>
+          <p :class="{ 'is-hidden': !($v.form.passwordNew.$error && !$v.form.passwordNew.minLength) }" class="help is-danger">
+            {{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}
+          </p>
         </div>
         <div class="field"
             :class="{ 'has-error': $v.form.passwordNewConfirm.$error }">
@@ -53,7 +59,7 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordNewConfirm.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
+          <p :class="{ 'is-hidden': !$v.form.passwordNewConfirm.$error }" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
         </div>
         <password-meter :password="form.passwordNew"
                         @change="e => passwordSecure = e.isSecure" />
@@ -63,8 +69,8 @@
       <hc-button :isLoading="isLoading"
                   :disabled="isLoading"
                   @click.prevent="save">
-        <i class="fa fa-check"></i>
-        &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
+        <hc-icon class="icon-left" icon="check" />
+        <span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
     </footer>
   </div>
@@ -78,7 +84,6 @@
   import PasswordMeter from '~/components/Auth/PasswordMeter'
 
   export default {
-    transition: 'NONE',
     mixins: [animatable, validationMixin],
     components: {
       PasswordMeter

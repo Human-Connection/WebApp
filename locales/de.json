@@ -283,6 +283,11 @@
       "welcome": "Willkommen",
       "faqTitle": "Fragen & Antworten",
       "defaultDescription": "Beschreibe deine Organisation."
+    },
+    "profile": {
+      "navContributed": "Beiträge",
+      "navCommented": "Kommentiert",
+      "navShouted": "Empfohlen"
     }
   },
   "upload": {
@@ -442,6 +447,7 @@
       "back": "Zurück",
       "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der email",
       "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen",
+      "validationErrorIsFullAge": "Bitte bestätige das du Volljährig bist",
       "passwordSecurity": "Passwortsicherheit",
       "passwordStrength0": "Sehr unsicheres Passwort",
       "passwordStrength1": "Unsicheres Passwort",

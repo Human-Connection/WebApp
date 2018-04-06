@@ -69,7 +69,6 @@
   import { required } from 'vuelidate/lib/validators'
 
   export default {
-    transition: 'NONE',
     mixins: [animatable, validationMixin],
     data() {
       return {

@@ -76,6 +76,7 @@
         <hc-button @click="$refs.dropdown.close()"
           size="medium"
           :fullWidth="true">
+          <hc-icon class="icon-left" icon="check" />
           {{ $t('component.category.setFilter', 'Set filter') }}
         </hc-button>
       </div>

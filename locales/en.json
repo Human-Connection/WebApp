@@ -283,6 +283,11 @@
       "welcome": "Welcome",
       "faqTitle": "Questions & Answers",
       "defaultDescription": "Describe your Organization."
+    },
+    "profile": {
+      "navContributed": "Contributions",
+      "navCommented": "Commented",
+      "navShouted": "Shouted"
     }
   },
   "upload": {
@@ -442,6 +447,7 @@
       "back": "Back",
       "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
       "validationErrorPasswordRepeat": "Both passwords must match",
+      "validationErrorIsFullAge": "Please confirm that you are of full legal age",
       "passwordSecurity": "Password security",
       "passwordStrength0": "Very insecure password",
       "passwordStrength1": "Insecure password",

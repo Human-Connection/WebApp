@@ -7,7 +7,7 @@
       <p>{{ $t('auth.settings.profileWelcomeText') }}</p>
     </div>
     <hr>
-    <div class="columns">
+    <div class="columns" style="position: relative;">
       <div class="column">
         <div class="field">
           <label class="label" for="form-username">{{ $t('auth.settings.yourName', 'Your Name:') }}</label>
@@ -54,6 +54,7 @@
 
         <random-avataaar @blob="onRandomAvatar" />
       </div>
+      <b-loading :is-full-page="false" :active.sync="isLoading"></b-loading>
     </div>
     <footer class="card-footer">
       <hc-button
@@ -73,7 +74,6 @@
   import { isEmpty } from "lodash";
 
   export default {
-    transition: 'NONE',
     components: {
       RandomAvataaar
     },

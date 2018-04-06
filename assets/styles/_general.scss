@@ -232,6 +232,8 @@ div.is-loading {
   z-index: 2;
   opacity: .5;
 
+  transition: 150ms ease;
+
   &:after {
     @include loader;
     @include center(1em);
@@ -346,11 +348,12 @@ label,
   height: 2.5em;
 }
 
+$iconPadding: .3em;
 .icon-left {
-  padding-right: 1em;
+  padding-right: $iconPadding;
 }
 .icon-right {
-  padding-left: 1em;
+  padding-left: $iconPadding;
 }
 
 .v2-table__pagination {
@@ -396,5 +399,70 @@ label,
     //   text-align: left !important;
     // }
     border-right: 0;
+  }
+}
+
+// slide up ease
+.slide-up-enter-active {
+  transition: all 500ms $easeOut;
+  transition-delay: 20ms;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.slide-up-enter, .slide-up-leave-active {
+  opacity: 0;
+  box-shadow: none;
+  transform: translate3d(0, 15px, 0);
+}
+
+// slide next / prev
+.slide-next-enter-active, .slide-prev-enter-active {
+  transition: transform 500ms $easeOut, opacity 500ms $easeOut;
+  transition-delay: 100ms;
+  opacity: 1;
+}
+.slide-next-enter, .slide-next-leave-active {
+  opacity: 0;
+  transform: translate3d(10px, 0, 0);
+}
+.slide-prev-enter, .slide-prev-leave-active {
+  opacity: 0;
+  transform: translate3d(-10px, 0, 0);
+}
+.slide-next-leave-active, .slide-prev-leave-active {
+  display: none;
+}
+.slide-next-leave-active, .slide-prev-leave-active {
+  opacity: 0;
+  transform: translate3d(-2px, 0, 0);
+  transition: transform 100ms $easeOut, opacity 100ms $easeOut;
+}
+
+.fade-delayed-leave-active {
+  transition: opacity 0ms;
+}
+.fade-delayed-enter-active {
+  transition: opacity 200ms;
+  transition-delay: 100ms;
+}
+.fade-delayed-enter, .fade-delayed-leave-active {
+  opacity: 0.1;
+}
+
+// used for animating the form helper text in when there is an issue
+.help, .message {
+  transition: all 150ms ease-in;
+
+  &, &.is-hidden {
+    display: block !important;
+    overflow: hidden;
+    height: auto;
+  }
+
+  &.is-hidden {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
   }
 }
