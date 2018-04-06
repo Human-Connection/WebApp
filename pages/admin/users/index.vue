@@ -157,7 +157,7 @@
         inviteResults: [],
         currentPage: 1,
         paginationInfo: {
-          text: this.paginationText,
+          text: '', // this.paginationText,
           nextPageText: '>',
           prevPageText: '<'
         },

@@ -87,7 +87,9 @@
       };
     },
     mounted() {
-      this.form.name = this.user.name;
+      this.$nextTick(() => {
+        this.form.name = this.user.name;
+      })
     },
     methods: {
       async save() {

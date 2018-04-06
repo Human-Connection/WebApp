@@ -108,7 +108,9 @@
       }
     },
     async mounted () {
-      this.form = Object.assign({}, this.userSettings)
+      this.$nextTick(() => {
+        this.form = Object.assign({}, this.userSettings)
+      })
     },
     methods: {
       toggleLanguage (lang) {

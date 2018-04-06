@@ -118,7 +118,9 @@
       }
     },
     created () {
-      this.categoriesList = JSON.parse(JSON.stringify(this.categories))
+      this.$nextTick(() => {
+        this.categoriesList = JSON.parse(JSON.stringify(this.categories))
+      })
     }
   }
 </script>
