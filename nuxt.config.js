@@ -102,7 +102,8 @@ module.exports = {
     {src: '~/plugins/global-components.js'},
     {src: '~/plugins/quill/index.js', ssr: false},
     {src: '~/plugins/v2-table.js', ssr: false},
-    {src: '~/plugins/scroll-to.js', ssr: false}
+    {src: '~/plugins/scroll-to.js', ssr: false},
+    {src: '~/plugins/affix.js', ssr: false}
   ],
   modules: [
     'cookie-universal-nuxt',

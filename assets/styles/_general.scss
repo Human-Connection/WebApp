@@ -439,11 +439,13 @@ $iconPadding: .3em;
 }
 
 .fade-delayed-leave-active {
-  transition: opacity 0ms;
+  transition: opacity 0;
+  transition-delay: 0;
 }
 .fade-delayed-enter-active {
-  transition: opacity 200ms;
+  transition: opacity 300ms ease-out;
   transition-delay: 100ms;
+  opacity: 1;
 }
 .fade-delayed-enter, .fade-delayed-leave-active {
   opacity: 0.1;
