@@ -84,7 +84,7 @@
     "nuxt": "~1.4.0",
     "parchment": "^1.1.4",
     "quill": "^1.3.6",
-    "quill-url-embeds": "^1.2.0",
+    "quill-url-embeds": "^1.2.1",
     "raven": "~2.4.2",
     "raven-js": "~3.23.1",
     "redirect-ssl": "~1.3.0",

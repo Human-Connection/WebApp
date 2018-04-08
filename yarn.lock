@@ -8800,9 +8800,9 @@ quill-delta@^3.6.2:
     extend "^3.0.1"
     fast-diff "1.1.2"
 
-quill-url-embeds@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/quill-url-embeds/-/quill-url-embeds-1.2.0.tgz#37903f25e91655f8eb0d763c88201dbdd31952f1"
+quill-url-embeds@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/quill-url-embeds/-/quill-url-embeds-1.2.1.tgz#a90b523bc8b36f7cdfe3f14d595d8bbb4b1811da"
   dependencies:
     axios "^0.18.0"
     babel-polyfill "^6.26.0"
