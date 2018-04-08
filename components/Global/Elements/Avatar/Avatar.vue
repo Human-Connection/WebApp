@@ -52,7 +52,8 @@ export default {
     },
     computed: {
       username () {
-        return this.name || this.user.name || 'anonymus'
+        let username = this.name || this.user.name || 'Anonymus'
+        return username || 'Anonymus'
       },
       hasImage () {
         return Boolean(this.avatar) && !this.error
@@ -100,7 +101,8 @@ export default {
         this.error = true
       },
       initial (username) {
-        let parts = username.split(/[ -]/)
+        let un = username || 'Anonymus'
+        let parts = un.split(/[ -]/)
         let initials = ''
         for (var i = 0; i < parts.length; i++) {
           initials += parts[i].charAt(0)

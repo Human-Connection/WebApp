@@ -34,7 +34,8 @@
         }
       },
       userName () {
-        return this.notificationMeta.user ? this.notificationMeta.user.name : 'Anonymus'
+        let username = this.notificationMeta.user ? this.notificationMeta.user.name : 'Anonymus'
+        return username || 'Anonymus'
       },
       type () {
         return this.notification.type || 'comment'

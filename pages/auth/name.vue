@@ -90,7 +90,9 @@
     },
     mounted () {
       this.$nextTick(() => {
-        this.$refs['focus'].focus()
+        try {
+          this.$refs['focus'].focus()
+        } catch (err) {}
       })
     },
     methods: {
@@ -133,7 +135,9 @@
     },
     watch: {
       user (user) {
-        this.data.name = user.name
+        this.$nextTick(() => {
+          this.data.name = user.name
+        })
       }
     },
     head () {

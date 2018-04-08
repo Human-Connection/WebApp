@@ -4,7 +4,7 @@
       <div id="error">
         <h1>
           <no-ssr>
-            <TextGlitch :text="header" steps="10" />
+            <TextGlitch :text="header" :steps=10 />
           </no-ssr>
         </h1>
         <h3 v-html="subHeader"></h3>
