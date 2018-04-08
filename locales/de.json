@@ -194,7 +194,11 @@
       "email": "E-Mail adresse",
       "website": "Webseite",
       "logo": "Logo",
-      "organizationSaveSuccess": "Die Organisation wurde erstellt."
+      "organizationSaveSuccess": "Die Organisation wurde erstellt.",
+      "settingsWelcome": "Hier kannst Du deine Organsation verwalten.",
+      "general": "Organisationseinstellungen",
+      "generalDetails": "Allgemeine Einstellungen",
+      "generalData": "Organisationsdaten"
     },
     "notification": {
       "label": "Benachrichtigungen",

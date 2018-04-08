@@ -17,6 +17,26 @@
             <div class="card-content" style="align-self: bottom;">
               <h3 class="title is-6">{{ organization.name }}</h3>
             </div>
+            <div class="card-footer" style="align-self: bottom;">
+                <hc-button @click.prevent="edit(organization.slug)"
+                           color="default"
+                           size="medium"
+                           type="button"
+                           class="is-fullwidth"
+                           :isLoading="isLoading">
+                  <i class="fa fa-wrench"></i>
+                </hc-button>
+                <div class="under-construction">
+                  <hc-button @click.prevent="trash(organization.slug)"
+                             color="danger"
+                             size="medium"
+                             type="button"
+                             class="is-fullwidth"
+                             :isLoading="isLoading">
+                    <i class="fa fa-trash"></i>
+                  </hc-button>
+                </div>
+            </div>
           </div>
         </nuxt-link>
         <nuxt-link :to="{ name: 'organizations-create' }" class="column organization">
@@ -68,6 +88,12 @@
     methods: {
       async save() {
 
+      },
+      edit(slug) {
+        this.$router.push(`/organizations/settings`)
+      },
+      trash(slug) {
+        console.log(slug)
       }
     },
     computed: {
@@ -133,11 +159,26 @@
       }
     }
 
-    .card-content {
+    .card-content, .card-footer {
       padding: 0;
       float: left;
       width: 100%;
       text-align: center;
+    }
+
+    .card-footer {
+      margin-top: 20px;
+      position: relative;
+      z-index: 17;
+
+      .under-construction {
+        min-width: 49%;
+      }
+
+      .button {
+        margin-top: 10px;
+        font-size: 16px;
+      }
     }
   }
 </style>

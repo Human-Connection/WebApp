@@ -194,7 +194,11 @@
       "email": "E-Mail address",
       "website": "Website",
       "logo": "Logo",
-      "organizationSaveSuccess": "The Organization has been created."
+      "organizationSaveSuccess": "The Organization has been created.",
+      "settingsWelcome": "Manage your Organization settings.",
+      "general": "Organizationsettings",
+      "generalDetails": "General Settings",
+      "generalData": "Organizationdata"
     },
     "notification": {
       "label": "Notifications",
