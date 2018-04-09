@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
-      <a :href="this.$router.resolve(`/contributions/${post.slug}`).href" class="contribution-link" />
+      <a :href="this.$router.resolve(`/contributions/${post.slug}`).href" class="contribution-link" >{{ post.title }}</a>
       <hc-progressive-image
           v-if="post.teaserImg && post.thumbnails"
           class="image"
@@ -218,6 +218,7 @@
       bottom: 0;
       width: 100%;
       height: 100%;
+      text-indent: -99999px;
       z-index: 1;
     }
 
