@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
-      <div class="contribution-link" @click="clicked" />
+      <a :href="this.$router.resolve(`/contributions/${post.slug}`).href" class="contribution-link" />
       <hc-progressive-image
           v-if="post.teaserImg && post.thumbnails"
           class="image"
@@ -91,13 +91,6 @@
       }
     },
     methods: {
-      clicked () {
-        this.$router.push(`/contributions/${this.post.slug}`)
-        // this.$store.commit('unselectPost', this.post)
-        // this.$store.commit('loadedPostWithSlug', this.post)
-        // // tell router to show the post component, pass the slug
-        // this.$router.push({name: 'contribution.contribution', params: {slug: this.post.slug}})
-      },
       imageLoaded () {
         // show card after the image has been loaded
         this.$nextTick(() => {
