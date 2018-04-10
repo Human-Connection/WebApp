@@ -90,7 +90,12 @@
       trash(id, index) {
         this.$api.service('organizations').remove(id).then((res) => {
           this.organizations.splice(index, 1)
-          console.log(res)
+          if (!isEmpty(res)) {
+            this.$snackbar.open({
+              message: this.$t('component.organization.deleted'),
+              type: 'is-success'
+            })
+          }
         })
       }
     },

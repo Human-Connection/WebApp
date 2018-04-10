@@ -198,7 +198,8 @@
       "settingsWelcome": "Hier kannst Du deine Organsation verwalten.",
       "general": "Organisationseinstellungen",
       "generalDetails": "Allgemeine Einstellungen",
-      "generalData": "Organisationsdaten"
+      "generalData": "Organisationsdaten",
+      "deleted": "Die Organisation wurde erfolgreich gelöscht."
     },
     "notification": {
       "label": "Benachrichtigungen",

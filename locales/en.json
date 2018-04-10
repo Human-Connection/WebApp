@@ -198,7 +198,8 @@
       "settingsWelcome": "Manage your Organization settings.",
       "general": "Organizationsettings",
       "generalDetails": "General Settings",
-      "generalData": "Organizationdata"
+      "generalData": "Organizationdata",
+      "deleted": "The Organization has been deleted successfully."
     },
     "notification": {
       "label": "Notifications",
