@@ -6,7 +6,7 @@
       </h3>
       <div class="organizations columns is-2 is-variable" style="flex-wrap: wrap;">
         <nuxt-link
-            v-for="organization in organizations"
+            v-for="(organization, index) in organizations"
             :key="organization._id"
             :to="{ name: 'organizations-slug', params: { slug: organization.slug }}"
             class="column organization">
@@ -26,16 +26,14 @@
                            :isLoading="isLoading">
                   <i class="fa fa-wrench"></i>
                 </hc-button>
-                <div class="under-construction">
-                  <hc-button @click.prevent="trash(organization.slug)"
-                             color="danger"
-                             size="medium"
-                             type="button"
-                             class="is-fullwidth"
-                             :isLoading="isLoading">
-                    <i class="fa fa-trash"></i>
-                  </hc-button>
-                </div>
+                <hc-button @click.prevent="trash(organization._id, index)"
+                           color="danger"
+                           size="medium"
+                           type="button"
+                           class="is-fullwidth"
+                           :isLoading="isLoading">
+                  <i class="fa fa-trash"></i>
+                </hc-button>
             </div>
           </div>
         </nuxt-link>
@@ -89,8 +87,11 @@
       edit(slug) {
         this.$router.push({name: 'organizations-settings', params: {slug: slug}})
       },
-      trash(slug) {
-        console.log(slug)
+      trash(id, index) {
+        this.$api.service('organizations').remove(id).then((res) => {
+          this.organizations.splice(index, 1)
+          console.log(res)
+        })
       }
     },
     computed: {
