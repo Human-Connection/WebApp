@@ -86,11 +86,8 @@
       this.isLoading = false
     },
     methods: {
-      async save() {
-
-      },
       edit(slug) {
-        this.$router.push(`/organizations/settings`)
+        this.$router.push({name: 'organizations-settings', params: {slug: slug}})
       },
       trash(slug) {
         console.log(slug)
