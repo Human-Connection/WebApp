@@ -27,7 +27,7 @@
           </b-tooltip>
         </div>
       </div>
-      <div class="hc-editor-container">
+      <div class="hc-editor-container content hc-editor-content">
         <div class="quill-editor" :class="editorClass"
           v-model="editorText"
           :disabled="loading"

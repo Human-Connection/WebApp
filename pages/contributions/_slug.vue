@@ -49,7 +49,7 @@
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>
-            <div class="content" v-html="content" ref="content"></div>
+            <div class="content hc-editor-content" v-html="content" ref="content"></div>
             <div class="cando-details-reason" v-if="isCanDo">
               <can-do-reason :post="contribution" />
             </div>
@@ -323,22 +323,5 @@
 
   .cando-details-reason {
     margin-top: 2.5rem;
-  }
-
-  .ql-embed-item .ql-link-embed {
-    .ql-embed-link {
-      background-color: $white-bis;
-      border-color: $white-dar;
-    }
-
-    .ql-embed-link,
-    .ql-embed-link:link,
-    .ql-embed-link:hover {
-      color: $text;
-    }
-
-    .ql-embed-image {
-      background-color: $white-ter;
-    }
   }
 </style>

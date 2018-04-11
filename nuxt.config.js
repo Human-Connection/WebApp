@@ -50,9 +50,7 @@ module.exports = {
   css: [
     'font-awesome/css/font-awesome.min.css',
     'mapbox-gl/dist/mapbox-gl.css',
-    'assets/styles/main.scss',
-    'quill/dist/quill.snow.css',
-    'quill/dist/quill.core.css'
+    'assets/styles/main.scss'
   ],
   build: {
     presets: ['vue-app'],
