@@ -199,7 +199,11 @@
       "general": "Organisationseinstellungen",
       "generalDetails": "Allgemeine Einstellungen",
       "generalData": "Organisationsdaten",
-      "deleted": "Die Organisation wurde erfolgreich gelöscht."
+      "deleted": "Die Organisation wurde erfolgreich gelöscht.",
+      "organizationLanguageSelection": "Hauptsprache der Organisation"
+    },
+    "projects": {
+      "projects": "Projekte"
     },
     "notification": {
       "label": "Benachrichtigungen",

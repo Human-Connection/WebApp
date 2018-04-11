@@ -13,6 +13,12 @@
               <a>{{ $t('component.organization.generalData', 'Organizationdata') }}</a>
             </li>
           </ul>
+          <ul class="menu-list">
+            <li @click.prevent="$router.push({ name: 'organizations-settings-projects' })"
+                :class="{ 'is-active': $route.name === 'organizations-settings-projects'}">
+              <a>{{ $t('component.organization.projects', 'Projects') }}</a>
+            </li>
+          </ul>
         </aside>
       </div>
       <div class="column">

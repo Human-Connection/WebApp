@@ -29,6 +29,24 @@
                                 </span>
                             </p>
                         </div>
+                        <div class="field">
+                            <div class="control">
+                                <label class="label is-required" for="form-orgaLanguages">{{ $t('component.organization.organizationLanguageSelection') }}</label>
+                                <div class="block" id="form-orgaLanguages">
+                                    <b-radio v-model="form.language"
+                                             @input="$v.form.language.$touch()"
+                                             native-value="de">
+                                        Deutsch
+                                    </b-radio>
+                                    <b-radio v-model="form.language"
+                                             @input="$v.form.language.$touch()"
+                                             native-value="en">
+                                        English
+                                    </b-radio>
+                                </div>
+                            </div>
+                        </div>
+
                         <hc-button color="primary"
                                    @click.prevent="toStep(2)"
                                    size="medium"
@@ -45,6 +63,17 @@
                                 <i class="fa fa-warning"></i> {{ $t('component.organization.requiredHint') }}
                             </div>
                         </article>
+                        <div class="field">
+                            <label class="label" for="form-description">{{ $t('component.organization.orgaDescriptionPlaceholder', 'describe the organization') }}</label>
+                            <hc-editor
+                                    identifier="description"
+                                    id="form-description"
+                                    data-test="description"
+                                    v-model.trim="form.description"
+                                    :class="{ 'is-danger': $v.form.description.$error }"
+                                    @blur="$v.form.description.$touch()"
+                                    :loading="isLoading"></hc-editor>
+                        </div>
                         <div class="field">
                             <div class="is-normal">
                                 <label class="label is-required">{{ $t('component.organization.type') }}</label>
@@ -111,7 +140,9 @@
           name: '',
           type: '',
           isEnabled: false,
-          categoryIds: []
+          description: '',
+          categoryIds: [],
+          language: 'de'
         },
         step: 1,
         errors: null,
@@ -129,6 +160,9 @@
               minLength: minLength(6),
               maxLength: maxLength(150)
             },
+            language: {
+              required
+            }
           }
         }
       } else {
@@ -139,6 +173,10 @@
             },
             categoryIds: {
               required
+            },
+            description: {
+              minLength: minLength(10),
+              maxLength: maxLength(300)
             }
           }
         }

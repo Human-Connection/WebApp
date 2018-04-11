@@ -8,79 +8,12 @@
     </div>
     <hr>
     <div class="columns">
-      <div class="column">
-        <div class="field">
-          <label class="label" for="form-username">{{ $t('component.organization.name', 'Name of the Organization:') }}</label>
-          <div class="control has-icons-left" id="form-username">
-            <input
-                    class="input"
-                    type="text"
-                    placeholder="Anonymus"
-                    v-model="form.name">
-            <span class="icon is-small is-left">
-              <i class="fa fa-home"></i>
-            </span>
-          </div>
-        </div>
-        <div class="field">
-          <label class="label" for="form-description">{{ $t('component.organization.orgaDescriptionPlaceholder', 'describe the organization') }}</label>
-          <hc-editor
-                  identifier="description"
-                  id="form-description"
-                  data-test="description"
-                  v-model.trim="form.description"
-                  :class="{ 'is-danger': $v.form.description.$error }"
-                  @blur="$v.form.description.$touch()"
-                  :loading="isLoading"></hc-editor>
-        </div>
-        <div class="field">
-          <div class="control">
-            <label class="label is-required" for="form-orgaLanguages">{{ $t('component.organization.organizationLanguageSelection') }}</label>
-            <div class="block" id="form-orgaLanguages">
-              <b-radio v-model="form.orgaLanguage"
-                       @input="$v.form.orgaLanguage.$touch()"
-                       native-value="de">
-                Deutsch
-              </b-radio>
-              <b-radio v-model="form.orgaLanguage"
-                       @input="$v.form.orgaLanguage.$touch()"
-                       native-value="en">
-                English
-              </b-radio>
-            </div>
-          </div>
-        </div>
-        <div class="field">
-          <div class="is-normal">
-            <label class="label is-required">{{ $t('component.organization.type') }}</label>
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control has-icons-left">
-                <div class="select">
-                  <select v-model="form.type">
-                    <option value="ngo" selected>{{ $t('component.organization.types.ngo') }}</option>
-                    <option value="npo">{{ $t('component.organization.types.npo') }}</option>
-                    <option value="goodpurpose">{{ $t('component.organization.types.goodpurpose') }}</option>
-                    <option value="ev">{{ $t('component.organization.types.ev') }}</option>
-                    <option value="eva">{{ $t('component.organization.types.eva') }}</option>
-                  </select>
-                  <div class="icon is-small is-left">
-                    <i class="fa fa-cogs"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <br />
-        <div class="field">
-          <label class="label is-required">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-          <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
-        </div>
+      <div class="under-construction">
+        <h2>Projekte</h2>
       </div>
     </div>
     <footer class="card-footer">
+      <!--
       <hc-button
         :isLoading="isLoading"
         :disabled="isLoading"
@@ -88,6 +21,7 @@
         <i class="fa fa-check"></i>
         &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
+      -->
     </footer>
   </div>
 </template>
@@ -108,11 +42,10 @@
     data() {
       return {
         form: {
-          name: '',
-          description: '',
+          name: "",
+          description: "",
           type: '',
-          categoryIds: [],
-          orgaLanguage: ''
+          categoryIds: []
         },
         isLoading: false
       };
@@ -123,9 +56,6 @@
           minLength: minLength(10),
           maxLength: maxLength(300)
         },
-        orgaLanguage: {
-          required
-        }
       }
 
       return {
@@ -133,11 +63,9 @@
       }
     },
     mounted() {
-      console.log(this.organization)
       this.form.name = this.organization.name
       this.form.description = this.organization.description
       this.form.type = this.organization.type
-      this.form.orgaLanguage = this.organization.language
       if (this.organization.categoryIds.length > 0) {
         this.organization.categoryIds.forEach((catId, index) => {
           this.form.categoryIds.push(catId)
