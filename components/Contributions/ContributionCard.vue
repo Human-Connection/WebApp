@@ -1,7 +1,9 @@
 <template>
   <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
-      <a :href="this.$router.resolve(`/contributions/${post.slug}`).href" class="contribution-link" >{{ post.title }}</a>
+      <a :href="this.$router.resolve(detailLink).href"
+         @click="onDetail"
+         class="contribution-link" >{{ post.title }}</a>
       <hc-progressive-image
           v-if="post.teaserImg && post.thumbnails"
           class="image"
@@ -88,9 +90,19 @@
           return null
         }
         return !!this.post.cando
+      },
+      detailLink () {
+        return `/contributions/${this.post.slug}`
       }
     },
     methods: {
+      onDetail (e) {
+        if (!e.metaKey && !e.ctrlKey) {
+          // do open detail page without reload if no extra keys are specefied
+          e.preventDefault()
+          this.$router.push(this.detailLink)
+        }
+      },
       imageLoaded () {
         // show card after the image has been loaded
         this.$nextTick(() => {
