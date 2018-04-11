@@ -1,7 +1,7 @@
 <template>
   <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
-      <a :href="this.$router.resolve(detailLink).href"
+      <a :href="$router.resolve(detailLink).href"
          @click="onDetail"
          class="contribution-link" >{{ post.title }}</a>
       <hc-progressive-image
