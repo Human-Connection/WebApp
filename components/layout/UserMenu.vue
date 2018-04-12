@@ -50,17 +50,13 @@
         size="medium"
         class="nav-item logout-button"
         :fullWidth="true">
-        <span class="icon">
-          <hc-icon class="icon-left" icon="sign-out"/>
-        </span> {{ $t('auth.logout.label') }}
+        <hc-icon class="icon-left" icon="sign-out"/> {{ $t('auth.logout.label') }}
       </hc-button>
       <hc-button @click="close()"
         size="medium"
         :fullWidth="true"
         class="nav-item">
-        <span class="icon">
-          <hc-icon class="icon-left" icon="times"/>
-        </span> {{ $t('button.close', 'Close') }}
+        <hc-icon class="icon-left" icon="times"/> {{ $t('button.close', 'Close') }}
       </hc-button>
     </div>
   </hc-dropdown>
