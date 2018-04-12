@@ -1,7 +1,7 @@
 <template>
-  <div class="comment-form-container">
+  <div class="comment-form-container" v-if="post && isVerified">
     <hc-avatar :user="user" />
-    <form class="comment-form" v-if="post && isVerified" @submit.prevent="submitComment">
+    <form class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
         editorClass="autowrap"
         v-model="form.content"
