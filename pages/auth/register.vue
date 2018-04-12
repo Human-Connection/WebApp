@@ -33,14 +33,14 @@
                 <div class="control has-icons-left has-icons-right"
                     :class="{ 'has-error': $v.form.email.$error }">
                     <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
-                  <input ref="focus"
-                        autofocus
-                        id="form-email"
-                        :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
-                        type="email"
-                        :placeholder="$t('auth.account.email')"
-                        v-model.trim="form.email"
-                        @blur="$v.form.email.$touch()">
+                  <input v-focus
+                         autofocus
+                         id="form-email"
+                         :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
+                         type="email"
+                         :placeholder="$t('auth.account.email')"
+                         v-model.trim="form.email"
+                         @blur="$v.form.email.$touch()">
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>
@@ -95,7 +95,7 @@
                 <div class="control has-icons-left has-icons-right">
                   <label class="is-hidden" for="form-password">{{ $t('auth.account.password') }}</label>
                   <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
-                        ref="focus"
+                        v-focus
                         id="form-password"
                         autofocus
                         type="password"
@@ -259,12 +259,6 @@
         }
 
         this.step = step
-
-        this.$nextTick(() => {
-          try {
-            this.$refs['focus'].focus()
-          } catch (err) {}
-        })
       },
       register () {
         if (this.$v.form.$invalid) {

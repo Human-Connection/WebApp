@@ -26,7 +26,7 @@
                     <div class="field">
                         <p class="control has-icons-right">
                             <input
-                              ref="focus"
+                              v-focus
                               type="text"
                               class="input "
                               :class="{ 'is-danger': errors }"
@@ -86,13 +86,6 @@
     computed: {
       ...mapGetters({
         user: 'auth/user'
-      })
-    },
-    mounted () {
-      this.$nextTick(() => {
-        try {
-          this.$refs['focus'].focus()
-        } catch (err) {}
       })
     },
     methods: {

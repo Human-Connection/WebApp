@@ -20,7 +20,7 @@
                 <form @submit.prevent="save">
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input ref="focus" autofocus class="input " v-bind:class="{ 'is-danger': errors }"
+                            <input v-focus autofocus class="input " v-bind:class="{ 'is-danger': errors }"
                                    type="text" v-bind:placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
                                    v-model="form.name" autofocus>
                             <span v-if="errors" class="icon is-small is-right">
@@ -64,11 +64,6 @@
     computed: {
       ...mapGetters({
         user: 'auth/user'
-      })
-    },
-    mounted () {
-      Vue.nextTick(() => {
-        this.$refs['focus'].focus()
       })
     },
     methods: {

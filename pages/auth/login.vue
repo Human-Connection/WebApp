@@ -17,7 +17,7 @@
           <div class="field">
             <div class="control has-icons-left has-icons-right" :class="{ 'has-error': $v.form.email.$error }">
               <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
-              <input ref="focus"
+              <input v-focus
                      id="form-email"
                      name="email"
                      type="email"
@@ -125,10 +125,6 @@
     },
     mounted () {
       this.$nextTick(() => {
-        try {
-          this.$refs['focus'].focus()
-        } catch (err) {}
-
         if (this.$route.params.path || this.$route.query.path) {
           this.$snackbar.open({
             message: this.$t('auth.login.forbidden'),
