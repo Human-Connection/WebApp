@@ -4,6 +4,7 @@
       <div class="control has-icons-left has-icons-right">
         <label for="nav-search" class="is-hidden">{{ $t('component.search.placeholder') }}</label>
         <input class="input"
+               v-focus="focus"
                id="nav-search"
                name="search"
                type="text"
@@ -28,6 +29,12 @@
 
   export default {
     name: 'hc-search-input',
+    props: {
+      focus: {
+        type: Boolean,
+        default: false
+      }
+    },
     data () {
       return {
         value: '',
@@ -39,9 +46,9 @@
       ...mapMutations({
         search: 'search/query'
       }),
-      focus () {
-        this.$refs.input.focus()
-      },
+      // focus () {
+        // this.$refs.input.focus()
+      // },
       onInput () {
         if (this.searching) {
           clearTimeout(this.searchProcess)
