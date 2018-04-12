@@ -40,8 +40,8 @@
           <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
-          <hr>
-          <div class="hc-shortcuts level under-construction">
+          <hc-follow-button v-if="user" :showButtons="!isOwner" :user="user" style="border-bottom: none; margin-bottom: -0.5rem;" />
+          <div v-if="false" class="hc-shortcuts level under-construction">
             <!-- TODO: replace the cdn images with local hc icons -->
             <div class="level-item has-text-centered">
               <div>
@@ -85,12 +85,12 @@
         <hc-box class="" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" :count="following.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.length)"/>
-            <hc-textcount class="textcountitem" :count="following.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.length)"/>
-            <hc-textcount class="textcountitem" :count="following.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.length)"/>
+            <hc-textcount class="textcountitem" :count="following.organizations.total" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.total)"/>
+            <hc-textcount class="textcountitem" :count="following.users.total" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.total)"/>
+            <hc-textcount class="textcountitem" :count="following.projects.total" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.total)"/>
           </div>
           <div class="hc-follower-list">
-            <hc-follower-item v-for="user in following.users" :key="user._id" :user="user" />
+            <hc-follower-item v-for="item in following.users.data" :key="item._id" :user="item.user" />
           </div>
         </hc-box>
         <hc-box class="under-construction" bottom="true">
@@ -132,6 +132,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
+  import FollowButton from '~/components/Global/Elements/Follow/FollowButton.vue'
   import Map from '~/components/Map/Map.vue'
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
@@ -142,6 +143,7 @@
   export default {
     components: {
       'hc-follower-item': FollowerItem,
+      'hc-follow-button': FollowButton,
       'hc-profile-badges': Badges,
       'hc-map': Map,
       'hc-timeline': Timeline
@@ -176,9 +178,9 @@
           lat: 40.7124
         },
         following: {
-          users: [],
-          organizations: [],
-          projects: []
+          users: { total: 0, data: [] },
+          organizations: { total: 0, data: [] },
+          projects: { total: 0, data: [] }
         },
         form: {
           coverImg: null,
@@ -219,7 +221,8 @@
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
+        isAuthenticated: 'auth/isAuthenticated',
+        loggedInUser: 'auth/user'
       }),
       coverImg () {
         let thumbnail = thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
@@ -251,14 +254,24 @@
     mounted () {
       this.$nextTick(async () => {
         try {
-          let res = await this.$api.service('follows').get(this.user._id)
-          if (res !== null) {
-            this.following = {
-              users: res.users || [],
-              organizations: res.organizations || [],
-              projects: res.projects || []
+          this.$api.service('follows').find({
+            query: {
+              userId: this.user._id,
+              foreignService: 'users',
+              $limit: 5
             }
-          }
+          }).then(res => {
+            console.log('RES', res)
+            this.$set(this.following, 'users', res)
+          })
+          // console.log(res)
+          // if (res !== null) {
+          //   this.following = {
+          //     users: res.users || { total: 0, data: [] },
+          //     organizations: res.organizations || { total: 0, data: [] },
+          //     projects: res.projects || { total: 0, data: [] }
+          //   }
+          // }
         } catch (err) {}
       })
     },
