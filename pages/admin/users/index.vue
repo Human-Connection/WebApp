@@ -18,8 +18,11 @@
                     @page-change="handleUserPageChange">
             <v2-table-column label="Name" prop="name" align="left" width="250">
               <template slot-scope="row">
-                <div @click="openProfile(row)" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<div style="display: inline-block; padding: 5px 10px;">{{ row.name }}</div>
+                <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
+                </a>
+                <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
                 </div>
               </template>
             </v2-table-column>
@@ -254,11 +257,12 @@
           reader.readAsText(file)
         })
       },
-      openProfile (user) {
-        if (user.slug) {
-          this.$router.push(`/profile/${user.slug}`)
-        }
-      },
+      // openProfile (user) {
+      //   if (user.slug) {
+      //     window.open(`/profile/${user.slug}`, '_blank')
+      //     // this.$router.push()
+      //   }
+      // },
       inviteUsers () {
         const sendInviteEmails = this.form.sendInviteEmails === true
 
