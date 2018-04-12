@@ -23,9 +23,11 @@
                        @stop-sending="uploadingLogo = false" ></hc-upload>
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
+          <div class="edit-wrapper has-text-right">
+            <i class="fa fa-wrench" @click.prevent="edit(organization.slug)"></i>
+          </div>
           <div class="organization-name">
-            <hc-textedit v-if="isOwner" @change="updateName" :type="'text'" :value="organization.name || ''"></hc-textedit>
-            <span v-if="!isOwner">{{ organization.name || '' }}</span>
+            <span>{{ organization.name || '' }}</span>
           </div>
           <div class="organization-follows hc-textcounters">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
@@ -58,8 +60,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <hc-textedit v-if="isOwner" @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
-          <span v-if="!isOwner">{{ organization.description }}</span>
+          <span>{{ organization.description }}</span>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <div class="under-construction">
@@ -169,21 +170,8 @@
           }
         }
       },
-      updateDescription (val) {
-        if (val !== undefined) {
-          this.organization.description = val
-          this.$store.dispatch('organizations/patch', this.organization)
-        }
-      },
-      updateName (val) {
-        if (val !== undefined && this.organization.name !== val) {
-          this.organization.name = val
-          this.$store.dispatch('organizations/patch', this.organization).then((res) => {
-            if (res.slug !== '') {
-              this.$router.push(`/organizations/${res.slug}`)
-            }
-          })
-        }
+      edit(slug) {
+        this.$router.push({name: 'organizations-settings', params: {slug: slug}})
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
@@ -285,6 +273,16 @@
     .organization-sidebar-right {
       h3 {
         text-align: center;
+      }
+    }
+
+    .edit-wrapper {
+      .fa-wrench {
+        color: $grey-light;
+        cursor: pointer;
+        &:hover {
+          color: $grey-dark;
+        }
       }
     }
 
