@@ -46,9 +46,6 @@
       ...mapMutations({
         search: 'search/query'
       }),
-      // focus () {
-        // this.$refs.input.focus()
-      // },
       onInput () {
         if (this.searching) {
           clearTimeout(this.searchProcess)

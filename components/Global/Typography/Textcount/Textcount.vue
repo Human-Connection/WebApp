@@ -41,14 +41,16 @@
 </script>
 
 <style lang="scss">
+  @import "assets/styles/utilities";
+
   .textCount {
     text-transform: uppercase;
     font-size: 10px;
-    color: #9c3;
+    color: $primary;
     line-height: 19px;
     span {
       font-size: 19px;
-      color: grey;
+      color: $grey;
       display: block;
       // text-align: center;
     }
