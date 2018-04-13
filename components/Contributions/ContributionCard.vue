@@ -1,7 +1,9 @@
 <template>
   <div class="card" :class="{ show: ready }" role="article">
     <div class="wrapper">
-      <div class="contribution-link" @click="clicked" />
+      <a :href="$router.resolve(detailLink).href"
+         @click="onDetail"
+         class="contribution-link" >{{ post.title }}</a>
       <hc-progressive-image
           v-if="post.teaserImg && post.thumbnails"
           class="image"
@@ -88,15 +90,18 @@
           return null
         }
         return !!this.post.cando
+      },
+      detailLink () {
+        return `/contributions/${this.post.slug}`
       }
     },
     methods: {
-      clicked () {
-        this.$router.push(`/contributions/${this.post.slug}`)
-        // this.$store.commit('unselectPost', this.post)
-        // this.$store.commit('loadedPostWithSlug', this.post)
-        // // tell router to show the post component, pass the slug
-        // this.$router.push({name: 'contribution.contribution', params: {slug: this.post.slug}})
+      onDetail (e) {
+        if (!e.metaKey && !e.ctrlKey) {
+          // do open detail page without reload if no extra keys are specefied
+          e.preventDefault()
+          this.$router.push(this.detailLink)
+        }
       },
       imageLoaded () {
         // show card after the image has been loaded
@@ -225,6 +230,7 @@
       bottom: 0;
       width: 100%;
       height: 100%;
+      text-indent: -99999px;
       z-index: 1;
     }
 

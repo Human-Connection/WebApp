@@ -22,7 +22,9 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordOld.$error || currentPasswortInvalid" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+          <p :class="{ 'is-hidden': !($v.form.passwordOld.$error || currentPasswortInvalid) }" class="help is-danger">
+            {{ $t('auth.validation.error') }}
+          </p>
         </div>
       </div>
       <div class="column">
@@ -34,12 +36,16 @@
                    type="password"
                    class="input"
                    @blur="$v.form.passwordNew.$touch()">
-            <span v-if="$v.form.passwordNew.$error" class="icon is-small is-right">
+            <span v-if="$v.form.passwordNew.$error || ($v.form.passwordNew.$dirty && !passwordSecure)" class="icon is-small is-right">
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordNew.$error && !$v.form.passwordNew.required" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-          <p v-else-if="$v.form.passwordNew.$error && !$v.form.passwordNew.minLength" class="help is-danger">{{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}</p>
+          <p :class="{ 'is-hidden': !($v.form.passwordNew.$error && !$v.form.passwordNew.required) }" class="help is-danger">
+            {{ $t('auth.validation.error') }}
+          </p>
+          <p :class="{ 'is-hidden': !($v.form.passwordNew.$error && !$v.form.passwordNew.minLength) }" class="help is-danger">
+            {{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}
+          </p>
         </div>
         <div class="field"
             :class="{ 'has-error': $v.form.passwordNewConfirm.$error }">
@@ -53,25 +59,18 @@
               <i class="fa fa-warning"></i>
             </span>
           </div>
-          <p v-if="$v.form.passwordNewConfirm.$error" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
+          <p :class="{ 'is-hidden': !$v.form.passwordNewConfirm.$error }" class="help is-danger">{{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
         </div>
-        <div class="field">
-          <div class="password-strength-meter">
-            <div class="password-strength-meter-inner"
-              :class="strengthClass"></div>
-          </div>
-          <p class="help" v-if="this.form.passwordNew">
-            {{ $t('auth.register.passwordSecurity') }}: <strong>{{ $t(`auth.register.passwordStrength${passwordStrength}`) }}</strong>
-          </p>
-        </div>
+        <password-meter :password="form.passwordNew"
+                        @change="e => passwordSecure = e.isSecure" />
       </div>
     </div>
     <footer class="card-footer">
       <hc-button :isLoading="isLoading"
                   :disabled="isLoading"
                   @click.prevent="save">
-        <i class="fa fa-check"></i>
-        &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
+        <hc-icon class="icon-left" icon="check" />
+        <span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
     </footer>
   </div>
@@ -82,11 +81,13 @@
   import animatable from '~/components/mixins/animatable'
   import { validationMixin } from 'vuelidate'
   import { required, sameAs, minLength } from 'vuelidate/lib/validators'
-  import zxcvbn from 'zxcvbn'
+  import PasswordMeter from '~/components/Auth/PasswordMeter'
 
   export default {
-    transition: 'NONE',
     mixins: [animatable, validationMixin],
+    components: {
+      PasswordMeter
+    },
     data () {
       return {
         form: {
@@ -95,23 +96,14 @@
           passwordNewConfirm: ''
         },
         currentPasswortInvalid: false,
+        passwordSecure: false,
         isLoading: false
       }
     },
     computed: {
       ...mapGetters({
         user: "auth/user"
-      }),
-      /**
-       * passwordStrength is the score calculated by zxcvbn
-       * @return {Number} Password Strength Score
-       */
-      passwordStrength () {
-        return this.form.passwordNew ? zxcvbn(this.form.passwordNew).score : 0
-      },
-      strengthClass () {
-        return `strength-${this.passwordStrength}`
-      }
+      })
     },
     validations () {
       return {
@@ -182,66 +174,4 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/_animations";
-  @import "assets/styles/_variables";
-
-  .password-strength-meter {
-    position: relative;
-    height: 3px;
-    background: $grey-lighter;
-    margin: 10px auto 20px;
-    border-radius: 3px;
-
-    &:before, &:after {
-      content: '';
-      height: inherit;
-      background: transparent;
-      display: block;
-      border-color: #FFF;
-      border-style: solid;
-      border-width: 0 6px 0 6px;
-      box-sizing: border-box;
-      position: absolute;
-      width: calc(20% + 6px);
-      z-index: 10;
-    }
-
-    &:before {
-      left: calc(20% - 6px);
-    }
-    &:after {
-      right: calc(20% - 6px);
-    }
-  }
-
-  .password-strength-meter-inner {
-    background: transparent;
-    height: inherit;
-    position: absolute;
-    width: 0;
-    border-radius: inherit;
-    transition: width 0.5s ease-in-out, background 0.25s;
-  }
-
-  .password-strength-meter-inner {
-    &.strength-0 {
-      background: darken($orange, 40%);
-      width: 20%;
-    }
-    &.strength-1 {
-      background: darken(mix($orange, $yellow, 50%), 30%);
-      width: 40%;
-    }
-    &.strength-2 {
-      background: darken($yellow, 20%);
-      width: 60%;
-    }
-    &.strength-3 {
-      background: darken($green, 10%);
-      width: 80%;
-    }
-    &.strength-4 {
-      background: $green;
-      width: 100%;
-    }
-  }
 </style>

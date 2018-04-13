@@ -5,34 +5,24 @@
                 <div class="card-teaser">
                     <img src="/assets/images/registration/nicetomeetyou.svg" alt="Human Connection"/>
                 </div>
-                <h1 class="title is-3 is-spaced">{{ $t('auth.account.nameSection') }}</h1>
-                <p class="subtitle is-6">{{ $t('auth.account.nameDescription') }}</p>
+                <h1 class="title is-3 is-spaced">{{ $t('component.organization.createNew') }}</h1>
+                <p class="subtitle is-6">{{ $t('component.organization.nameHint') }}</p>
 
                 <div class="user-avatar">
-                  <hc-upload
-                    class="avatar-upload"
-                    :preview-image="form.avatar || user.avatar"
-                    :test="true"
-                    @update="onAvatarUploadCompleted"
-                    @start-sending="uploadingAvatar = true"
-                    @stop-sending="uploadingAvatar = false" >
-                    <hc-avatar :user="user" :name="data.name" />
-                  </hc-upload>
+                    <hc-upload class="avatar-upload"
+                               :preview-image="form.logo"
+                               :test="true"
+                               @update="onAvatarUploadCompleted"
+                               @start-sending="uploadingLogo = true"
+                               @stop-sending="uploadingLogo = false" ></hc-upload>
                 </div>
-
-                <random-avataaar @blob="onRandomAvatar" />
 
                 <form @submit.prevent="save">
                     <div class="field">
                         <p class="control has-icons-right">
-                            <input
-                              v-focus
-                              type="text"
-                              class="input "
-                              :class="{ 'is-danger': errors }"
-                              :placeholder="$t('auth.account.namePlaceholder')"
-                              autofocus
-                              v-model.trim="data.name">
+                            <input v-focus autofocus class="input " v-bind:class="{ 'is-danger': errors }"
+                                   type="text" v-bind:placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
+                                   v-model="form.name" autofocus>
                             <span v-if="errors" class="icon is-small is-right">
                               <i class="fa fa-warning"></i>
                             </span>
@@ -44,43 +34,31 @@
                        type="button"
                        class="is-fullwidth"
                        :isLoading="isLoading">
-              {{ $t('button.save') }}
+              {{ $t('button.next') }}
             </hc-button>
           </p>
         </form>
       </div>
-      <footer class="card-footer">
-        <nuxt-link :to="{ name: 'auth-welcome' }" class="card-footer-item">
-          {{ $t('button.skip') }}
-        </nuxt-link>
-      </footer>
     </div>
   </section>
 </template>
 
 <script>
+  import Vue from 'vue'
   import {mapGetters} from 'vuex'
-  import {isEmpty} from 'lodash'
-
-  import RandomAvataaar from '~/components/Avatar/RandomAvataaar'
 
   export default {
     middleware: 'authenticated',
     layout: 'blank',
-    components: {
-      RandomAvataaar
-    },
     data () {
       return {
-        data: {
-          name: ''
-        },
         form: {
-          avatar: null
+          logo: null,
+          name: ''
         },
         errors: null,
         isLoading: false,
-        uploadingAvatar: false
+        uploadingLogo: false
       }
     },
     computed: {
@@ -92,14 +70,15 @@
       async save () {
         this.errors = false
         this.isLoading = true
-        this.$store.dispatch('auth/patch', this.data)
-          .then(() => {
+        this.$store.dispatch('organizations/create', this.form)
+          .then((res) => {
             this.isLoading = false
-            this.$router.push({name: 'auth-welcome'})
+            this.$router.push(`/organizations/${res.slug}`)
           })
           .catch(error => {
             this.$toast.open({
               message: error.message,
+              duration: 3000,
               type: 'is-danger'
             })
             this.errors = true
@@ -107,41 +86,18 @@
           })
       },
       onAvatarUploadCompleted (value) {
-        this.form.avatar = value
-        this.$store.dispatch('auth/patch', {
-          avatar: value
-        })
-      },
-      onRandomAvatar (blob) {
-        this.form.avatar = this.url
-
-        let data = {
-          avatar: blob
-        }
-        // also save name
-        if (!isEmpty(this.data.name)) {
-          data.name = this.data.name
-        }
-
-        this.$store.dispatch('auth/patch', data)
-      }
-    },
-    watch: {
-      user (user) {
-        this.$nextTick(() => {
-          this.data.name = user.name
-        })
+        this.form.logo = value
       }
     },
     head () {
       return {
-        title: this.$t('auth.account.nameTitle')
+        title: this.$t('component.organization.createNew')
       }
     }
   }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   @import "assets/styles/_utilities";
 
   .page-auth-name {
@@ -181,7 +137,6 @@
           position:      relative;
           display:       inline-block;
           background-color: #fff;
-          overflow: hidden;
 
           .avatar-upload {
               & {

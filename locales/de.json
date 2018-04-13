@@ -34,7 +34,7 @@
       "comments": "Kommentare",
       "contributions": "Beiträge",
       "deleteCategory": "Diese Kategorie löschen",
-      "development": "Entwicklersersmodus",
+      "development": "Entwickler Modus",
       "developmentWarning": "Vorsicht! Ich hoffe du weißt was du tust!?",
       "index_title": "Übersicht der Beiträge",
       "label": "Administration",
@@ -155,7 +155,7 @@
       "writePost": "Beitrag schreiben",
       "writePostSection": "Überschrift",
       "writePostSectionPlaceholder": "Welchen Titel soll Dein Beitrag bekommen?",
-      "writePostContentPlaceholder": "schreib etwas inspirierendes... ",
+      "writePostContentPlaceholder": "Schreib etwas inspirierendes ... ",
       "voteOnePluralNone": "Abstimmung ::: Abstimmungen ::: Keine Abstimmungen",
       "visibilityPublic": "Öffentlich",
       "visibilityFriends": "Nur Freunde",
@@ -292,6 +292,11 @@
       "welcome": "Willkommen",
       "faqTitle": "Fragen & Antworten",
       "defaultDescription": "Beschreibe deine Organisation."
+    },
+    "profile": {
+      "navContributed": "Beiträge",
+      "navCommented": "Kommentiert",
+      "navShouted": "Empfohlen"
     }
   },
   "upload": {
@@ -407,6 +412,7 @@
       "nameSection": "Wie dürfen wir Dich nennen?",
       "nameTitle": "Schön, Dich kennenzulernen",
       "password": "Passwort",
+      "passwordRepeat": "Passwort wiederholen",
       "inviteCode": "Einladungs-Code",
       "profile": "Mein Profil",
       "settings": "Einstellungen",
@@ -441,13 +447,16 @@
     },
     "register": {
       "description": "Tritt Human Connection bei und habe an der Gemeinschaft teil. Dein Konto ist kostenlos und wird es immer bleiben.",
+      "descriptionStep1": "Überprüfe bzw. gib deine E-Mail-Adresse und den Einladungs-Code ein den du per E-Mail bekommen hast. Du musst die E-Mail-Adresse verwenden auf die du deine Einladung bekommen hast.",
+      "descriptionStep2": "Erstelle ein sicheres Passwort und wiederhole es im zweiten Feld. Verwende mindestens 8 Zeichen, kurze Sätze kann man sich besonders gut merken. Wir zeigen dir an wie sicher dein Passwort ist.",
       "noAccountYet": "Noch kein Konto?",
       "accountAlready": "Du hast bereits ein Konto?",
       "label": "Registrieren",
       "next": "Weiter",
       "back": "Zurück",
-      "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der emails",
+      "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der email",
       "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen",
+      "validationErrorIsFullAge": "Bitte bestätige das du Volljährig bist",
       "passwordSecurity": "Passwortsicherheit",
       "passwordStrength0": "Sehr unsicheres Passwort",
       "passwordStrength1": "Unsicheres Passwort",

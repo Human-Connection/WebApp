@@ -12,9 +12,9 @@
             <hc-admin-menu />
           </div>
           <div class="column">
-            <div class="admin-content">
-              <nuxt/>
-            </div>
+            <transition name="slide-up" appear>
+              <nuxt class="admin-content"/>
+            </transition>
           </div>
         </div>
       </div>

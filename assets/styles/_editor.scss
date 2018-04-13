@@ -1,5 +1,110 @@
-.ql-snow .ql-editor {
+$editor-border-radius: 2px;
+
+.ql-container {
+  border: 1px solid $input-border-color;
+  border-bottom-left-radius: $editor-border-radius;
+  border-bottom-right-radius: $editor-border-radius;
+  box-sizing: border-box;
+}
+
+.ql-toolbar {
+  border: 1px solid $input-border-color;
+  border-top-left-radius: $editor-border-radius;
+  border-top-right-radius: $editor-border-radius;
+  border-bottom: 0;
+  padding: 8px;
+  box-sizing: border-box;
+
+  .ql-formats {
+    margin-right: 15px;
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: inline-block;
+      float: left;
+      height: 24px;
+      padding: 3px 5px;
+      width: 28px;
+      box-sizing: border-box;
+      color: $grey-dark;
+
+      &:hover {
+        color: $blue;
+      }
+
+      svg {
+        float: left;
+        height: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    .ql-stroke {
+      fill: none;
+      stroke: currentcolor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+    }
+
+    .ql-fill {
+      fill: currentcolor;
+    }
+
+    .ql-thin {
+      stroke-width: 1;
+    }
+  }
+}
+
+.ql-editor {
   font-size: $size-normal;
+  box-sizing: border-box;
+  height: 100%;
+  outline: none;
+  overflow-y: auto;
+  padding: 12px 10px;
+  text-align: left;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.ql-editor.ql-blank:before {
+    color: $grey-light;
+    content: attr(data-placeholder);
+    left: 10px;
+    pointer-events: none;
+    position: absolute;
+    right: 10px;
+}
+
+.ql-clipboard {
+    left: -100000px;
+    height: 1px;
+    overflow-y: hidden;
+    position: absolute;
+    top: 50%;
+}
+
+.ql-tooltip {
+    position: absolute;
+    transform: translateY(10px);
+    background-color: #fff;
+    border: 1px solid #ccc;
+    -webkit-box-shadow: 0 0 5px #ddd;
+    box-shadow: 0 0 5px #ddd;
+    color: #444;
+    padding: 5px 12px;
+    white-space: nowrap;
+}
+
+.ql-hidden {
+    display: none;
 }
 
 a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
@@ -14,5 +119,26 @@ a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
 
   &:hover {
     text-decoration: none;
+  }
+}
+
+.ql-embed-item {
+  margin: $margin-small 0;
+}
+
+.ql-embed-item .ql-link-embed {
+  .ql-embed-link {
+    background-color: $white-bis;
+    border-color: $white-dar;
+  }
+
+  .ql-embed-link,
+  .ql-embed-link:link,
+  .ql-embed-link:hover {
+    color: $text;
+  }
+
+  .ql-embed-image {
+    background-color: $white-ter;
   }
 }

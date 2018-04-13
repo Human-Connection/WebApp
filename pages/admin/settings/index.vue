@@ -2,29 +2,31 @@
   <section>
     <h3 class="title is-3">{{ $t('component.admin.settings', 'Settings') }}</h3>
     <h4 class="title is-5">{{ $t('component.admin.development', 'Development') }} <b-switch class="is-small" v-model="showDangerZone"></b-switch></h4>
-    <div class="message is-danger" v-if="showDangerZone">
-      <div class="message-body">
-        <i class="fa fa-warning"></i> &nbsp;<strong>{{ $t('component.admin.developmentWarning') }}</strong>
-        <div class="field is-grouped">
-          <div class="control">
-            <hc-button color="danger"
-                      @click="seedFakeData()"
-                      :isLoading="seedingFakeData"
-                      :disabled="seedingFakeData || seedingDemoData">
-              <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>{{ $t('component.admin.seedFakeData', 'Seed fake data') }}</strong>
-            </hc-button>
-          </div>
-          <div class="control">
-            <hc-button color="danger"
-                      @click="seedDemoData()"
-                      :isLoading="seedingDemoData"
-                      :disabled="seedingFakeData || seedingDemoData">
-              <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>{{ $t('component.admin.seedDemoContributions', 'Seed demo contributions') }}</strong>
-            </hc-button>
+    <transition name="fade">
+      <div class="message is-danger" v-if="showDangerZone">
+        <div class="message-body">
+          <i class="fa fa-warning"></i> &nbsp;<strong>{{ $t('component.admin.developmentWarning') }}</strong>
+          <div class="field is-grouped">
+            <div class="control">
+              <hc-button color="danger"
+                        @click="seedFakeData()"
+                        :isLoading="seedingFakeData"
+                        :disabled="seedingFakeData || seedingDemoData">
+                <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>{{ $t('component.admin.seedFakeData', 'Seed fake data') }}</strong>
+              </hc-button>
+            </div>
+            <div class="control">
+              <hc-button color="danger"
+                        @click="seedDemoData()"
+                        :isLoading="seedingDemoData"
+                        :disabled="seedingFakeData || seedingDemoData">
+                <hc-icon set="fa" icon="magic"></hc-icon> &nbsp;<strong>{{ $t('component.admin.seedDemoContributions', 'Seed demo contributions') }}</strong>
+              </hc-button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </transition>
   </section>
 </template>
 

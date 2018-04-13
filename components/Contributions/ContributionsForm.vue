@@ -45,7 +45,7 @@
           v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
           v-bind:disabled="isLoading">
       </div>
-      <p v-if="$v.form.title.$error" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
+      <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
     </div>
     <div class="tags">
       <div v-for="(file, index) in dropFiles"
@@ -71,7 +71,7 @@
           :loading="isLoading"
           :editorOptions="editorOptions"/>
       </div>
-      <p v-if="$v.form.content.$error" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
+      <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
     </div>
     <hr/>
     <div v-if="form.type === 'cando'">
@@ -119,7 +119,7 @@
         :disabled="isLoading">
       </categories-select>
     </div>
-    <div class="message is-danger is-small" v-if="!form.categoryIds.length">
+    <div class="message is-danger is-small" :class="{ 'is-hidden': form.categoryIds.length }">
       <div class="message-body">
         <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.validationErrorCategories') }}</span>
       </div>
@@ -359,6 +359,11 @@
       }
     },
     methods: {
+      // beforeRouteLeave () {
+      //   if (process.client) {
+      //     alert('BOOM')
+      //   }
+      // },
       setPostType (newIndex) {
         this.options.postTypes.forEach((postType, index) => {
           if (index === newIndex) {
@@ -396,6 +401,7 @@
           if (formData.type !== 'cando') {
             delete formData.cando
           }
+          this.$api.service('contributions').timeout = 30000;
           let res = null
           if (this.form._id) {
             res = await this.$api.service('contributions').patch(formData._id, formData)

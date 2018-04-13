@@ -1,10 +1,10 @@
 <template>
-  <div class="organization-container" :class="{ 'is-loading': isLoading }">
+  <div class="organization-container">
     <div>
       <h3 class="title is-3">
         {{ $t('auth.settings.myOrganizations', 'My Organizations') }}
       </h3>
-      <div class="organizations columns is-2 is-variable" style="flex-wrap: wrap;">
+      <div class="organizations columns is-2 is-variable">
         <nuxt-link
             v-for="(organization, index) in organizations"
             :key="organization._id"
@@ -45,6 +45,7 @@
             </div>
           </div>
         </nuxt-link>
+        <b-loading :is-full-page="false" :active.sync="isLoading"></b-loading>
       </div>
     </div>
     <br>
@@ -64,24 +65,26 @@
   import { isEmpty } from "lodash";
 
   export default {
-    transition: 'NONE',
     data() {
       return {
         form: {
         },
         organizations: {},
-        isLoading: true
+        isLoading: false
       };
     },
-    async mounted () {
-      const organizations = await this.$api.service('organizations').find({
-        query: {
-          $limit: 50,
-          userId: this.user._id
-        }
-      })
-      this.organizations = organizations.data
-      this.isLoading = false
+    mounted () {
+      setTimeout(async () => {
+        this.isLoading = true
+        const organizations = await this.$api.service('organizations').find({
+          query: {
+            $limit: 50,
+            userId: this.user._id
+          }
+        })
+        this.organizations = organizations.data
+        this.isLoading = false
+      }, 250)
     },
     methods: {
       edit(slug) {
@@ -116,6 +119,11 @@
     &.is-loading {
       position: relative !important;
     }
+  }
+
+  .organizations {
+    flex-wrap: wrap;
+    position: relative;
   }
 
   .organization {

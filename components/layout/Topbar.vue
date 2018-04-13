@@ -41,10 +41,8 @@
                 class="is-primary login-button"
                 style="font-weight: bold;"
                 :to="{ name: 'auth-login', params: { path: this.$route.path } }">
-                  <span class="is-hidden-mobile">
-                    {{ $t('auth.account.loginOrRegister') }}
-                    &nbsp; </span>
-                <hc-icon icon="sign-in"/>
+                  <span class="is-hidden-mobile">{{ $t('auth.account.loginOrRegister') }}</span>
+                  <hc-icon class="icon-left" icon="sign-in"/>
               </hc-button>
             </template>
           </div>
