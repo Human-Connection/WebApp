@@ -113,7 +113,9 @@
               handlers: {
               }
             },
-            urlEmbeds: {}
+            urlEmbeds: {
+              metaCallback: this.handleMeta
+            }
           },
           placeholder: 'Schreiben ...'
         }
@@ -148,6 +150,9 @@
       editorReady () {
         this.myQuillBus = new QuillBus(this.myQuillEditor)
         this.ready = true
+      },
+      handleMeta (data) {
+        this.$emit('fetchedMeta', data)
       }
     },
     watch: {
