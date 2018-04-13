@@ -26,7 +26,7 @@
                            :isLoading="isLoading">
                   <i class="fa fa-wrench"></i>
                 </hc-button>
-                <hc-button @click.prevent="trash(organization._id, index)"
+                <hc-button @click.prevent="trashModal(organization, index)"
                            color="light"
                            size="medium"
                            type="button"
@@ -57,6 +57,27 @@
         &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
     </footer>-->
+    <b-modal v-if="selectedOrganization" :active.sync="isDeleteModalActive" has-modal-card animation="zoom-in">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <section class="modal-card-body">
+          <h2 class="title is-3">{{ $t('button.delete' ) }}?</h2>
+          <p v-html="$t('auth.settings.organizationDeleteModel', { organization: selectedOrganization.name })"></p>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-light"
+                  @click="isDeleteModalActive = false">
+            <hc-icon class="icon-left" icon="times" /> {{ $t('button.cancel' ) }}
+          </button>
+          <hc-button color="danger"
+                     @click="trashFinal(selectedOrganization)"
+                     :isLoading="isDeleting"
+                     :disabled="isDeleting">
+            <hc-icon class="icon-left" icon="trash" /> {{ $t('button.delete' ) }}
+          </hc-button>
+        </footer>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -69,12 +90,32 @@
       return {
         form: {
         },
-        organizations: {},
-        isLoading: false
+        organizations: [],
+        isLoading: true,
+        isDeleting: false,
+        isDeleteModalActive: false,
+        selectedOrganization: null,
+        selectedOrganizationIndex: null
       };
     },
     mounted () {
-      setTimeout(async () => {
+      setTimeout(() => {
+        if (this.user) {
+          this.loadOrganizations()
+        }
+      }, 250)
+    },
+    watch: {
+      user (user) {
+        setTimeout(() => {
+          if (!this.isLoading && !this.organizations.length) {
+            this.loadOrganizations()
+          }
+        }, 150)
+      }
+    },
+    methods: {
+      async loadOrganizations () {
         this.isLoading = true
         const organizations = await this.$api.service('organizations').find({
           query: {
@@ -84,22 +125,33 @@
         })
         this.organizations = organizations.data
         this.isLoading = false
-      }, 250)
-    },
-    methods: {
-      edit(slug) {
-        this.$router.push({name: 'organizations-settings', params: {slug: slug}})
       },
-      trash(id, index) {
-        this.$api.service('organizations').remove(id).then((res) => {
-          this.organizations.splice(index, 1)
+      edit(slug) {
+        this.$router.push({name: 'organizations-settings', query: { slug }})
+      },
+      trashModal(organization, index) {
+        this.selectedOrganization = organization
+        this.selectedOrganizationIndex = index
+        this.isDeleteModalActive = true
+      },
+      async trashFinal(organization) {
+        try {
+          const res = await this.$api.service('organizations').remove(organization._id)
           if (!isEmpty(res)) {
+            this.organizations.splice(this.selectedOrganizationIndex, 1)
             this.$snackbar.open({
               message: this.$t('component.organization.deleted'),
               type: 'is-success'
             })
+            this.isDeleteModalActive = false
           }
-        })
+        } catch (err) {
+          this.$toast.open({
+            message: err.message,
+            type: 'is-danger'
+          })
+          this.isDeleteModalActive = false
+        }
       }
     },
     computed: {
@@ -220,6 +272,25 @@
       }
     }
 
+  }
 
+  .modal {
+
+
+    &.is-active {
+      .modal-background {
+        opacity: 0.3;
+      }
+    }
+    .modal-card {
+      border-top-left-radius: 3px;
+      border-top-right-radius: 3px;
+
+      max-width: 400px;
+    }
+     .modal-card-foot {
+      justify-content: flex-end;
+      padding: 0.8rem;
+    }
   }
 </style>

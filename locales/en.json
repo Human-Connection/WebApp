@@ -203,7 +203,7 @@
       "organizationLanguageSelection": "main language of the Organization"
     },
     "projects": {
-      "projects": "Projects"
+      "label": "Projects"
     },
     "notification": {
       "label": "Notifications",
@@ -497,7 +497,8 @@
       "currentPassword": "Current password",
       "newPassword": "New password",
       "newPasswordConfirm": "Confirm new password",
-      "validationErrorContentLanguages": "Choose at least one language"
+      "validationErrorContentLanguages": "Choose at least one language",
+      "organizationDeleteModel": "Are you sure you want to delete <b>{organization}</b>?"
     }
   },
   "ressource": {

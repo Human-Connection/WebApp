@@ -195,15 +195,15 @@
       "website": "Webseite",
       "logo": "Logo",
       "organizationSaveSuccess": "Die Organisation wurde erstellt.",
-      "settingsWelcome": "Hier kannst Du deine Organsation verwalten.",
-      "general": "Organisationseinstellungen",
+      "settingsWelcome": "Hier kannst Du deine Organisation verwalten.",
+      "general": "Organisations-Einstellungen",
       "generalDetails": "Allgemeine Einstellungen",
       "generalData": "Organisationsdaten",
       "deleted": "Die Organisation wurde erfolgreich gelöscht.",
       "organizationLanguageSelection": "Hauptsprache der Organisation"
     },
     "projects": {
-      "projects": "Projekte"
+      "label": "Projekte"
     },
     "notification": {
       "label": "Benachrichtigungen",
@@ -313,7 +313,7 @@
   "button": {
     "back": "Zurück",
     "cancel": "Abbrechen",
-    "close": "Schliessen",
+    "close": "Schließen",
     "create": "Erstellen",
     "delete": "Löschen",
     "edit": "Bearbeiten",
@@ -497,7 +497,8 @@
       "currentPassword": "Aktuelles Passwort",
       "newPassword": "Neues Passwort",
       "newPasswordConfirm": "Neues Passwort bestätigen",
-      "validationErrorContentLanguages": "Wähle mindestens eine Sprache"
+      "validationErrorContentLanguages": "Wähle mindestens eine Sprache",
+      "organizationDeleteModel": "Bist du sicher das du <b>{organization}</b> löschen möchtest?"
     }
   },
   "ressource": {

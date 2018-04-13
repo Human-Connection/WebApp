@@ -37,19 +37,14 @@
                 <tr>
                   <td class="has-text-centered">
                     <h6 class="is-size-6 has-text-grey" v-html="$t('page.takeAction.noOrganizations')"></h6>
-                    <button class="button is-primary">
-                      <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addOrganization', 'Add Organization') }}
-                    </button>
+                    <hc-button @click.prevent="$router.push('/organizations/create')">
+                      <i class="fa fa-plus"></i>
+                      &nbsp;<span>{{ $t('component.contribution.organizationsCreate') }}</span>
+                    </hc-button>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div class="create-organization-wrapper has-text-centered">
-              <hc-button @click.prevent="$router.push('/organizations/create')">
-                <i class="fa fa-check"></i>
-                &nbsp;<span>{{ $t('component.contribution.organizationsCreate') }}</span>
-              </hc-button>
-            </div>
             <div v-if="canDos">
               <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
               <can-do-list :can-dos="canDos" @update="updateContribution" />

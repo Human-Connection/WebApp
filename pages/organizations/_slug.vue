@@ -60,7 +60,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <span>{{ organization.description }}</span>
+          <div v-html="organization.description"></div>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <div class="under-construction">
@@ -171,7 +171,7 @@
         }
       },
       edit(slug) {
-        this.$router.push({name: 'organizations-settings', params: {slug: slug}})
+        this.$router.push({name: 'organizations-settings', query: {slug: slug}})
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value

@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div v-if="organization">
     <div class="info-text">
       <h2 class="title is-3">
-        {{ $t('component.organization.settingsWelcome') }}
+        {{ $t('component.organization.generalData', 'Organizationdata') }}
       </h2>
-      <p>{{ organization.name }}</p>
+      <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
     </div>
     <hr>
     <div class="columns">
@@ -100,7 +100,6 @@
   import CategoriesSelect from '~/components/Categories/CategoriesSelect.vue'
 
   export default {
-    transition: 'NONE',
     mixins: [validationMixin],
     components: {
       'categories-select': CategoriesSelect
@@ -114,6 +113,7 @@
           categoryIds: [],
           orgaLanguage: ''
         },
+        organization: null,
         isLoading: false
       };
     },
@@ -132,8 +132,15 @@
         form: rules
       }
     },
+    watch: {
+      'this.$parent.$attrs.organization': (organization) => {
+        this.organization = this.organization
+      }
+    },
     mounted() {
-      console.log(this.organization)
+      this.$nextTick(() => {
+        this.organization = this.$parent.$attrs.organization
+
       this.form.name = this.organization.name
       this.form.description = this.organization.description
       this.form.type = this.organization.type
@@ -143,21 +150,7 @@
           this.form.categoryIds.push(catId)
         })
       }
-    },
-    async asyncData ({app, params, error}) {
-      try {
-        const organization = await app.$api.service('organizations').find({
-          query: {
-            slug: params.slug
-          }
         })
-        return {
-          organization: organization.data[0] || []
-        }
-      } catch (err) {
-        error({statusCode: err.code || 500, message: err.message})
-        return {}
-      }
     },
     methods: {
       async save() {
