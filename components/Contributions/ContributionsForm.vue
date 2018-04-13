@@ -380,8 +380,10 @@
         this.dropFiles.splice(index, 1)
       },
       handleMeta (data) {
-        console.log(data)
         if (data.type && data.type === 'video') {
+          this.form.meta.hasVideo = true
+        }
+        if (data.embed && data.embed.type && data.embed.type === 'video') {
           this.form.meta.hasVideo = true
         }
         if (!this.form.teaserImg && data.image && data.image.url) {
