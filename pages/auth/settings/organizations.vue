@@ -19,7 +19,7 @@
             </div>
             <div class="card-footer" style="align-self: bottom;">
                 <hc-button @click.prevent="edit(organization.slug)"
-                           color="default"
+                           color="light"
                            size="medium"
                            type="button"
                            class="is-fullwidth"
@@ -27,10 +27,10 @@
                   <i class="fa fa-wrench"></i>
                 </hc-button>
                 <hc-button @click.prevent="trash(organization._id, index)"
-                           color="danger"
+                           color="light"
                            size="medium"
                            type="button"
-                           class="is-fullwidth"
+                           class="is-fullwidth danger"
                            :isLoading="isLoading">
                   <i class="fa fa-trash"></i>
                 </hc-button>
@@ -39,7 +39,7 @@
         </nuxt-link>
         <nuxt-link :to="{ name: 'organizations-create' }" class="column organization">
           <div class="card has-text-centered" style="display: flex; justify-content: center; align-items: center;">
-            <div class="card-content" style="padding: 1.5rem;">
+            <div class="card-content" style="padding: 1.5rem; margin-bottom: 0;">
               <i class="fa fa-plus fa-2x"></i>
               <h3 class="title is-6">{{ $t('component.organization.createNew') }}</h3>
             </div>
@@ -151,6 +151,7 @@
     .card {
       box-shadow: none !important;
       border: 1px solid $grey-lighter;
+      position: relative;
       padding: $padding;
       align-self: stretch;
       width: 100%;
@@ -160,36 +161,65 @@
       &:hover {
         border-color: $grey;
       }
-    }
 
-    .image {
-      margin-bottom: 0.5em;
-      img {
-        height: 80px;
-        object-fit: contain;
+      .image {
+        margin-bottom: 0.5em;
+        img {
+          height: 80px;
+          object-fit: contain;
+        }
+      }
+
+      .card-content, .card-footer {
+        padding: 0;
+        float: left;
+        width: 100%;
+        text-align: center;
+      }
+
+      .card-content {
+        margin-bottom: 3.5rem;
+      }
+
+      .card-footer {
+        // margin: -1rem;
+        // margin-top: 20px;
+        padding: 0.5rem;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 17;
+        align-self: flex-end;
+
+        .under-construction {
+          min-width: 49%;
+        }
+
+        .button {
+          // margin-top: 10px;
+          font-size: 16px;
+          background-color: transparent;
+          border: 1px solid transparen;
+          color: $grey-light;
+
+          transition: all 25ms ease;
+
+          &:hover {
+            background-color: $white;
+            border-color: darken($white, 15%);
+            color: $grey-dark;
+          }
+
+          &.danger:hover {
+            background-color: darken($danger, 5%);
+            border-color: darken($danger, 15%);
+            color: $white;
+          }
+        }
       }
     }
 
-    .card-content, .card-footer {
-      padding: 0;
-      float: left;
-      width: 100%;
-      text-align: center;
-    }
 
-    .card-footer {
-      margin-top: 20px;
-      position: relative;
-      z-index: 17;
-
-      .under-construction {
-        min-width: 49%;
-      }
-
-      .button {
-        margin-top: 10px;
-        font-size: 16px;
-      }
-    }
   }
 </style>
