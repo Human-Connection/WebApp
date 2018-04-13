@@ -17,6 +17,7 @@ envsub .env .env \
        -e WEBAPP_PORT=3000 \
        -e API_HOST=localhost \
        -e API_PORT=3030 \
+       -e EMBED_API_URL=http://localhost:3050 \
        -e MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
 # empty remaining
 envsub .env .env

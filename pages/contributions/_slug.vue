@@ -49,7 +49,7 @@
             <div class="cando-details-difficulty" v-if="isCanDo">
               <can-do-difficulty :post="contribution" />
             </div>
-            <div class="content" v-html="content"></div>
+            <div class="content hc-editor-content" v-html="content" ref="content"></div>
             <div class="cando-details-reason" v-if="isCanDo">
               <can-do-reason :post="contribution" />
             </div>
@@ -168,7 +168,7 @@
   import CanDoCount from '~/components/CanDos/Count'
   import CanDoDifficulty from '~/components/CanDos/Difficulty'
   import CanDoReason from '~/components/CanDos/Reason'
-  import { isEmpty } from 'lodash'
+  import { isEmpty, truncate } from 'lodash'
   import linkifyHtml from 'linkifyjs/html'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
@@ -241,9 +241,23 @@
         return this.contribution.content.indexOf('<iframe') >= 0
       },
       content () {
-        let txt = this.contribution.content || this.contribution.contentExcerpt
-        txt = txt.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
-        return linkifyHtml(txt || '')
+        if (!this.contribution) {
+          return ''
+        }
+
+        let content = this.contribution.content || this.contribution.contentExcerpt
+        content = content.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+
+        if (process.server) {
+          return content
+        }
+
+        const utils = require('quill-url-embeds').utils
+        const populator = new utils.populator('/embeds')
+        this.$nextTick(() => {
+          populator.populate(this.$refs.content)
+        })
+        return content
       },
       categories () {
         return isEmpty(this.contribution.categories) ? [] : this.contribution.categories
@@ -274,7 +288,7 @@
 </script>
 
 
-<style scoped lang="scss">
+<style lang="scss">
   @import 'assets/styles/utilities';
   @import '~bulma/sass/base/helpers';
 

@@ -7,6 +7,7 @@ import createLocaleMiddleware from 'express-locale'
 import cookieParser from 'cookie-parser'
 import redirectSSL from 'redirect-ssl'
 import avatar from './avatar'
+import embeds from './embeds'
 import raven from '../plugins/raven-server'
 import { readFileSync } from 'fs'
 
@@ -37,6 +38,7 @@ app.use(bodyParser.json())
 
 app.use('/healthcheck', expressHealthcheck())
 app.use('/avatar', avatar())
+app.use('/embeds', embeds())
 
 // Init Nuxt.js
 const nuxt = new Nuxt(nuxtConfig)

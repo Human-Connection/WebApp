@@ -26,22 +26,15 @@
             <button class="ql-list" value="ordered" ></button>
           </b-tooltip>
         </div>
-        <div class="ql-formats">
-          <b-tooltip :label="$t('component.editor.link')" type="is-black">
-            <button class="ql-link"></button>
-          </b-tooltip>
-          <b-tooltip :label="$t('component.editor.video')" type="is-black">
-            <button class="ql-video"></button>
-          </b-tooltip>
-        </div>
       </div>
-      <div class="hc-editor-container">
+      <div class="hc-editor-container content hc-editor-content">
         <div class="quill-editor" :class="editorClass"
           v-model="editorText"
           :disabled="loading"
           @blur="editorBlur()"
           @focus="editorFocus()"
           @ready="editorReady($event)"
+          ref="content"
           v-quill:myQuillEditor="computedEditorOptions"></div>
         <div class="plugins" v-if="ready && myQuillBus">
           <editor-mentions :quill="myQuillBus" />
@@ -119,7 +112,8 @@
               container: `#toolbar-editor-${this.identifier}`,
               handlers: {
               }
-            }
+            },
+            urlEmbeds: {}
           },
           placeholder: 'Schreiben ...'
         }
@@ -169,6 +163,9 @@
       }
     },
     created () {
+      this.editorText = this.value
+    },
+    mounted () {
       this.editorText = this.value
     }
   }
