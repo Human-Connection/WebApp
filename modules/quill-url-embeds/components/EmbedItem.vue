@@ -9,6 +9,7 @@
 
 <script>
   import LinkEmbed from './LinkEmbed.vue'
+  import ImageEmbed from './ImageEmbed.vue'
   import VideoEmbed from './VideoEmbed.vue'
   import DefaultEmbed from './DefaultEmbed.vue'
 
@@ -16,6 +17,7 @@
     name: 'ql-embed-item',
     components: {
       LinkEmbed,
+      ImageEmbed,
       VideoEmbed,
       DefaultEmbed
     },
@@ -33,6 +35,9 @@
     },
     computed: {
       componentType () {
+        if (this.meta.embed && this.meta.embed.type === 'photo') {
+          return 'image-embed'
+        }
         if (this.meta.embed && this.meta.embed.type === 'video') {
           return 'video-embed'
         }
