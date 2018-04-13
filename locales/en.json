@@ -176,6 +176,7 @@
       "italic": "italic font",
       "link": "insert a link (mark text in advance)",
       "linkEnterUrl": "enter link (http:…, https:…, mailto:some@email.org or tel:0123456789)",
+      "linkPlaceholder": "please enter a link ...",
       "listOrdered": "ordered list",
       "listUnordered": "unordered list",
       "video": "embed a video",

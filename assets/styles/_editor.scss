@@ -42,6 +42,13 @@ $editor-border-radius: 2px;
         height: 100%;
         box-sizing: border-box;
       }
+
+      &.ql-editor-button {
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
     }
 
     .ql-stroke {

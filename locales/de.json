@@ -176,6 +176,7 @@
       "italic": "kursive Schrift",
       "link": "Link einfügen (Text vorher markieren)",
       "linkEnterUrl": "Link einfügen (http:…, https:…, mailto:eine@email.org oder tel:0123456789)",
+      "linkPlaceholder": "Bitte füge einen Link ein ...",
       "listOrdered": "Liste als Aufzählung",
       "listUnordered": "Liste",
       "video": "Video einbetten",
