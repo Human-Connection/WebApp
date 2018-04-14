@@ -32,6 +32,11 @@
               <hc-icon icon="link" />
             </button>
           </b-tooltip>
+          <b-tooltip :label="$t('component.editor.emoji')" type="is-black">
+            <button @click.prevent="$refs.editorEmojis.toggle()" class="ql-editor-button">
+              <hc-icon icon="smile-o" />
+            </button>
+          </b-tooltip>
         </div>
       </div>
       <div class="hc-editor-container content hc-editor-content">
@@ -45,6 +50,7 @@
           v-quill:myQuillEditor="computedEditorOptions"></div>
         <div class="plugins" v-if="ready && myQuillBus">
           <editor-links :quill="myQuillBus" ref="editorLinks" />
+          <editor-emojis :quill="myQuillBus" ref="editorEmojis" />
           <editor-mentions :quill="myQuillBus" />
         </div>
       </div>
@@ -54,6 +60,7 @@
 
 <script>
   import EditorLinks from '~/components/Editor/Links/EditorLinks'
+  import EditorEmojis from '~/components/Editor/Emojis/EditorEmojis'
   import EditorMentions from '~/components/Mentions/EditorMentions'
   import Emitter from 'emitter-js'
 
@@ -88,7 +95,8 @@
     name: 'hc-editor',
     components: {
       EditorMentions,
-      EditorLinks
+      EditorLinks,
+      EditorEmojis
     },
     props: {
       value: {

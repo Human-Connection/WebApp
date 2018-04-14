@@ -45,9 +45,9 @@
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "dependencies": {
-    "axios": "^0.18.0",
     "@nuxtjs/dotenv": "~1.1.0",
     "@nuxtjs/pwa": "~2.0.5",
+    "axios": "^0.18.0",
     "babel-eslint": "~8.2.1",
     "babel-preset-vue-app": "~2.0.0",
     "body-parser": "~1.18.2",
@@ -96,6 +96,7 @@
     "v2-table": "~1.0.1",
     "valid-url": "~1.0.9",
     "vue": "~2.5.13",
+    "vue-click-outside": "^1.0.7",
     "vue-clip": "git+https://github.com/alexsasharegan/vue-clip.git#develop",
     "vue-count-to": "~1.0.13",
     "vue-in-viewport-mixin": "~1.0.3",
