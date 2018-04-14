@@ -3,7 +3,7 @@
     <div class="hc-emoji-list">
       <div v-for="(emoji, name) in emojis"
         :key="name" @click="choose(emoji, name)"
-        class="hc-emoji-item"><span>{{ emoji }}</span>
+        class="hc-emoji-item">{{ emoji }}
       </div>
     </div>
   </div>
@@ -109,13 +109,7 @@
     justify-content: center;
     border-radius: 100%;
     cursor:pointer;
-    font-size: 1.2em;
-
-    & > span {
-      width: 1.2em;
-      height: 1.2em;
-      line-height: 1.2em;
-    }
+    font-size: 16px;
 
     &:hover {
       background-color: $white-ter;
