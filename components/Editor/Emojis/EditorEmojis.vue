@@ -99,12 +99,4 @@
     min-height: 40px;
     padding: 5px;
   }
-
-  .hc-editor-popup-focus {
-    display: block;
-    opacity: 0;
-    height: 0;
-    padding: 0;
-    overflow: hidden;
-  }
 </style>

@@ -32,6 +32,11 @@
               <hc-icon icon="link" />
             </button>
           </b-tooltip>
+          <b-tooltip :label="$t('component.editor.embed')" type="is-black">
+            <button @click.prevent="$refs.editorEmbeds.toggle()" class="ql-editor-button">
+              <hc-icon icon="code" />
+            </button>
+          </b-tooltip>
           <b-tooltip :label="$t('component.editor.emoji')" type="is-black">
             <button @click.prevent="$refs.editorEmojis.toggle()" class="ql-editor-button">
               <hc-icon icon="smile-o" />
@@ -50,6 +55,7 @@
           v-quill:myQuillEditor="computedEditorOptions"></div>
         <div class="plugins" v-if="ready && myQuillBus">
           <editor-links :quill="myQuillBus" ref="editorLinks" />
+          <editor-embeds :quill="myQuillBus" ref="editorEmbeds" />
           <editor-emojis :quill="myQuillBus" ref="editorEmojis" />
           <editor-mentions :quill="myQuillBus" />
         </div>
@@ -60,6 +66,7 @@
 
 <script>
   import EditorLinks from '~/components/Editor/Links/EditorLinks'
+  import EditorEmbeds from '~/components/Editor/Embeds/EditorEmbeds'
   import EditorEmojis from '~/components/Editor/Emojis/EditorEmojis'
   import EditorMentions from '~/components/Mentions/EditorMentions'
   import Emitter from 'emitter-js'
@@ -72,6 +79,7 @@
       this.updateContents = (ops) => quillEditor.updateContents(ops)
       this.setSelection = (index) => quillEditor.setSelection(index)
       this.getSelection = (focus) => quillEditor.getSelection(focus)
+      this.getLine = (index) => quillEditor.getLine(index)
       this.getText = (index, length) => quillEditor.getText(index, length)
       this.format = (name, value, source) => quillEditor.format(name, value, source)
       quillEditor.on('text-change', (...args) => bus.emit('text-change', ...args))
@@ -96,6 +104,7 @@
     components: {
       EditorMentions,
       EditorLinks,
+      EditorEmbeds,
       EditorEmojis
     },
     props: {
