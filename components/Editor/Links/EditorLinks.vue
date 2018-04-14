@@ -8,7 +8,7 @@
               class="input"
               id="hc-editor-link-input"
               v-model="url"
-              @blur="close()"
+              @blur="insert()"
               type="text"
               v-bind:placeholder="$t('component.editor.linkPlaceholder')"
               ref="input">
@@ -72,7 +72,9 @@
       insert () {
         let url = this.url
         this.close()
-        this.quill.format('link', url)
+        if (url) {
+          this.quill.format('link', url)
+        }
       }
     },
     beforeDestroy () {
