@@ -2025,7 +2025,7 @@ builtin-status-codes@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/builtin-status-codes/-/builtin-status-codes-3.0.0.tgz#85982878e21b98e1c66425e03d0174788f569ee8"
 
-bulma-steps-component@~0.5.3:
+bulma-steps-component@^0.5.3:
   version "0.5.3"
   resolved "https://registry.yarnpkg.com/bulma-steps-component/-/bulma-steps-component-0.5.3.tgz#9f2f9843b16ed8d1fb724bdd6942540911c3d101"
 

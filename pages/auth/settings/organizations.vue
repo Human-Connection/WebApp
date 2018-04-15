@@ -120,6 +120,9 @@
         const organizations = await this.$api.service('organizations').find({
           query: {
             $limit: 50,
+            $sort: {
+              createdAt: -1
+            },
             userId: this.user._id
           }
         })

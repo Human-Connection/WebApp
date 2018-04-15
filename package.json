@@ -54,7 +54,7 @@
     "bricks.js": "~1.8.0",
     "buefy": "~0.6.5",
     "bulma": "~0.6.2",
-    "bulma-steps-component": "~0.5.3",
+    "bulma-steps-component": "^0.5.3",
     "cookie-parser": "~1.4.3",
     "cookie-universal-nuxt": "~1.0.14",
     "cross-env": "~5.1.3",
