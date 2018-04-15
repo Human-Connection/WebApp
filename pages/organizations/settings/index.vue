@@ -157,14 +157,15 @@
         this.isLoading = true;
         try {
           let data = Object.assign({_id: this.organization._id}, this.form)
-          await this.$store.dispatch("organizations/patch", data)
+          const res = await this.$store.dispatch("organizations/patch", data)
 
           this.$snackbar.open({
             message: this.$t('auth.settings.saveSettingsSuccess'),
             type: "is-success"
           });
 
-          this.$parent.$emit('change', data)
+          // update the organization on the parent component
+          this.$parent.$emit('change', res)
         } catch (err) {
           this.$toast.open({
             message: err.message,
