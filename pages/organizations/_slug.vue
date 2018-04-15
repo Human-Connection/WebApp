@@ -23,7 +23,7 @@
                        @stop-sending="uploadingLogo = false" ></hc-upload>
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
-          <div class="edit-wrapper has-text-right">
+          <div class="edit-wrapper has-text-right" v-if="canEdit">
             <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
           </div>
           <div class="organization-name">
@@ -134,7 +134,8 @@
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
+        isAuthenticated: 'auth/isAuthenticated',
+        user: 'auth/user'
       }),
       coverImg () {
         if (!isEmpty(this.form.coverImg)) {
@@ -149,6 +150,9 @@
       },
       followerCount () {
         return this.organization.followerIds.length
+      },
+      canEdit() {
+        return ['admin', 'moderator'].includes(this.user.role) !== false || this.organization.userId === this.user._id
       }
     },
     methods: {

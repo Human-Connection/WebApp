@@ -59,6 +59,7 @@
       <div class="column">
         <transition name="slide-up" appear>
           <nuxt :organization="organization"
+                :user="user"
                 :class="classes"
                 @change="updateOrganization"
                 @error="onError"
@@ -71,6 +72,7 @@
 
 <script>
   import animatable from '~/components/mixins/animatable'
+  import { mapGetters } from 'vuex'
 
   export default {
     mixins: [animatable],
@@ -79,9 +81,14 @@
         title: this.$t('auth.account.settings', 'Settings')
       }
     },
-    async asyncData ({app, query, error, redirect}) {
+    async asyncData ({app, query, store, error, redirect}) {
       try {
         const organization = await app.$api.service('organizations').get(query.id)
+        const user = store.getters['auth/user']
+        if (['admin', 'moderator'].includes(user.role) === false || organization.userId !== user._id) {
+          error({ statusCode: 403 })
+        }
+
         return {
           organization
         }
@@ -94,6 +101,11 @@
           return {}
         }
       }
+    },
+    computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      })
     },
     methods: {
       onError () {

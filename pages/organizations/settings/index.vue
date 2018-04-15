@@ -1,10 +1,15 @@
 <template>
   <div v-if="organization">
-    <div class="info-text">
-      <h2 class="title is-3">
-        {{ $t('component.organization.stepBasics', 'Basics') }}
-      </h2>
-      <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
+    <div class="info-text columns">
+      <div class="column">
+        <h2 class="title is-3">
+          {{ $t('component.organization.stepBasics', 'Basics') }}
+        </h2>
+        <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
+      </div>
+      <div class="column is-3 settings-left" v-if="this.$parent.$attrs.user.role === 'admin' || this.$parent.$attrs.user.role === 'moderator'">
+        <b-switch v-model="form.isEnabled"></b-switch>
+      </div>
     </div>
     <hr>
     <div class="columns">
@@ -39,6 +44,7 @@
         form: {
           name: '',
           logo: '',
+          isEnabled: false,
           language: this.$i18n.locale()
         },
         organization: null,
@@ -59,6 +65,7 @@
         this.form = Object.assign(this.form, {
           name: this.organization.name,
           logo: this.organization.logo,
+          isEnabled: this.organization.isEnabled,
           language: this.organization.language,
         })
       })
@@ -101,3 +108,11 @@
     }
   };
 </script>
+
+<style lang="scss" scoped>
+  .settings-left {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+</style>
