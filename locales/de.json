@@ -170,6 +170,7 @@
       "createNew": "Neue Organisation erstellen",
       "createSave": "Organisation speichern",
       "createLater": "Später",
+      "goToProfile": "zum Profil",
       "requiredHint": "Diese Felder werden benötigt, damit deine Organisation veröffentlicht werden kann.",
       "name": "Name der Organisation",
       "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",

@@ -21,7 +21,7 @@
                    type="link"
                    target="_blank"
                    color="white">
-          zum Profil <hc-icon class="icon-right" icon="angle-right" />
+          {{ $t('component.organization.goToProfile')}} <hc-icon class="icon-right" icon="angle-right" />
         </hc-button>
       </div>
     </div>

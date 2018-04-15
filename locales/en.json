@@ -170,6 +170,7 @@
       "createNew": "Create new Organization",
       "createSave": "Save Organization",
       "createLater": "Later",
+      "goToProfile": "open Profile",
       "requiredHint": "These fields are required for your Organization to become public.",
       "name": "Organization name",
       "createOrgaSectionPlaceholder": "How is the organization called?",
