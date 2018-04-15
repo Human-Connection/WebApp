@@ -8,12 +8,28 @@
         <h1 class="title is-3 is-spaced">{{ $t('component.organization.createNew') }}</h1>
         <ul class="steps is-horizontal">
           <li class="steps-segment"
-              :class="{ 'is-active': step === 1 }">
+              :class="{
+                'is-active': step === 1,
+                'has-gaps': validatedStep < 1,
+                'is-not-validated': validationStep <= 1
+              }">
             <a @click="toStep(1)" class="steps-marker">1</a>
           </li>
           <li class="steps-segment"
-              :class="{ 'is-active': step === 2 }">
+              :class="{
+                'is-active': step === 2,
+                'has-gaps': validatedStep < 2,
+                'is-not-validated': validationStep <= 2
+              }">
             <a @click="toStep(2)" class="steps-marker">2</a>
+          </li>
+          <li class="steps-segment disabled is-disabled"
+              :class="{
+                'is-active': step === 3,
+                'has-gaps': validatedStep < 3,
+                'is-not-validated': validationStep <= 3
+              }">
+            <a @click="toStep(3)" class="steps-marker">3</a>
           </li>
           <li class="steps-segment">
             <span class="steps-marker">
@@ -26,7 +42,6 @@
         <form @submit.prevent="save">
           <transition :name="transitionName">
             <div key="step1" v-if="step === 1">
-              <p class="subtitle is-6">{{ $t('component.organization.nameHint') }}</p>
               <div class="avatar-wrapper">
                 <div class="user-avatar">
                   <hc-upload class="avatar-upload"
@@ -38,6 +53,7 @@
                 </div>
               </div>
               <div class="field">
+                <p class="subtitle is-6">{{ $t('component.organization.nameHint') }}</p>
                 <div class="control has-icons-right"
                      :class="{ 'has-error': $v.form.name.$error }">
                   <label class="label is-required" for="form-name">{{ $t('component.organization.name') }}</label>
@@ -128,12 +144,24 @@
                 </div>
               </div>
               <br />
+              <hc-button color="primary"
+                          @click.prevent="toStep(3)"
+                          size="medium"
+                          type="button"
+                          class="is-fullwidth"
+                          :isLoading="isLoading"
+                          :disabled="isLoading">
+                {{ $t('button.next') }} <hc-icon class="icon-right" icon="angle-right" />
+              </hc-button>
+            </div>
+            <div key="step3" v-if="step === 3">
               <div class="field"
                    :class="{ 'has-error': $v.form.categoryIds.$error }">
                 <label class="label is-required">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
                 <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
                 <p :class="{ 'is-hidden': !$v.form.categoryIds.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
               </div>
+              <br />
               <hc-button color="primary"
                           @click.prevent="save"
                           size="medium"
@@ -177,6 +205,7 @@ export default {
         language: this.$i18n.locale()
       },
       step: 1,
+      validatedStep: 0,
       transitionName: 'slide-next',
       errors: null,
       isLoading: false,
@@ -198,18 +227,23 @@ export default {
           }
         }
       };
-    } else {
+    } else if (this.step === 2) {
       rules = {
         form: {
-          type: {
-            required
-          },
-          categoryIds: {
-            required
-          },
           description: {
             required,
             minLength: minLength(10)
+          },
+          type: {
+            required
+          },
+        }
+      };
+    } else {
+      rules = {
+        form: {
+          categoryIds: {
+            required
           }
         }
       };
@@ -238,6 +272,11 @@ export default {
           type: 'is-danger'
         })
         return false
+      }
+
+      // update next valid step
+      if (step > this.step && step > this.validatedStep) {
+        this.validatedStep = this.step
       }
 
       this.step = step;
@@ -304,6 +343,10 @@ export default {
         .steps-segment::after {
           transition: all 250ms ease;
         }
+
+        .is-not-validated a {
+          pointer-events: none;
+        }
       }
 
       .card-teaser {
@@ -328,7 +371,7 @@ export default {
       width: 100%;
       justify-content: center;
       display: flex;
-      padding: 2rem 0;
+      padding: 0 0 2rem;
     }
     .user-avatar {
       $borderRadius: 50%;
