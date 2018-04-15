@@ -10,8 +10,7 @@
           <li class="steps-segment"
               :class="{
                 'is-active': step === 1,
-                'has-gaps': validatedStep < 1,
-                'is-not-validated': validationStep <= 1
+                'has-gaps': validatedStep < 1
               }">
             <a @click="toStep(1)" class="steps-marker">1</a>
           </li>
@@ -19,7 +18,7 @@
               :class="{
                 'is-active': step === 2,
                 'has-gaps': validatedStep < 2,
-                'is-not-validated': validationStep <= 2
+                'is-not-validated': validatedStep < 1
               }">
             <a @click="toStep(2)" class="steps-marker">2</a>
           </li>
@@ -27,7 +26,7 @@
               :class="{
                 'is-active': step === 3,
                 'has-gaps': validatedStep < 3,
-                'is-not-validated': validationStep <= 3
+                'is-not-validated': validatedStep < 2
               }">
             <a @click="toStep(3)" class="steps-marker">3</a>
           </li>
@@ -42,64 +41,7 @@
         <form @submit.prevent="save">
           <transition :name="transitionName">
             <div key="step1" v-if="step === 1">
-              <div class="avatar-wrapper">
-                <div class="user-avatar">
-                  <hc-upload class="avatar-upload"
-                              :preview-image="form.logo"
-                              :test="true"
-                              @update="onAvatarUploadCompleted"
-                              @start-sending="uploadingLogo = true"
-                              @stop-sending="uploadingLogo = false" ></hc-upload>
-                </div>
-              </div>
-              <div class="field">
-                <p class="subtitle is-6">{{ $t('component.organization.nameHint') }}</p>
-                <div class="control has-icons-right"
-                     :class="{ 'has-error': $v.form.name.$error }">
-                  <label class="label is-required" for="form-name">{{ $t('component.organization.name') }}</label>
-                  <input v-focus
-                         autofocus
-                         id="form-name"
-                         class="input "
-                         :class="{ 'is-danger': errors }"
-                         type="text"
-                         :placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
-                         v-model="form.name">
-                  <span v-if="errors" class="icon is-small is-right">
-                    <i class="fa fa-warning"></i>
-                  </span>
-                </div>
-                <p :class="{ 'is-hidden': !$v.form.name.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-              </div>
-              <div class="field">
-                <div class="control"
-                     :class="{ 'has-error': $v.form.language.$error }">
-                  <label class="label is-required" for="form-orgaLanguages">{{ $t('component.organization.organizationLanguageSelection') }}</label>
-                  <div class="block" id="form-orgaLanguages">
-                    <b-radio v-model="form.language"
-                              @input="$v.form.language.$touch()"
-                              native-value="de">
-                      Deutsch
-                    </b-radio>
-                    <b-radio v-model="form.language"
-                              @input="$v.form.language.$touch()"
-                              native-value="en">
-                      English
-                    </b-radio>
-                    <p :class="{ 'is-hidden': !$v.form.language.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-                  </div>
-                </div>
-              </div>
-
-              <hc-button color="primary"
-                          @click.prevent="toStep(2)"
-                          size="medium"
-                          type="button"
-                          class="is-fullwidth"
-                          :isLoading="isLoading"
-                          :disabled="isLoading">
-                {{ $t('button.next') }} <hc-icon class="icon-right" icon="angle-right" />
-              </hc-button>
+              <orga-form-step-1 ref="formStep" :data="form" @validate="onValidation" />
             </div>
             <div key="step2" v-if="step === 2">
               <article class="message is-small">
@@ -107,63 +49,13 @@
                   <i class="fa fa-warning"></i> {{ $t('component.organization.requiredHint') }}
                 </div>
               </article>
-              <div class="field"
-                   :class="{ 'has-error': $v.form.description.$error }">
-                <label class="label is-required" for="form-description">{{ $t('component.organization.orgaDescriptionPlaceholder', 'describe the organization') }}</label>
-                <hc-editor
-                  identifier="description"
-                  id="form-description"
-                  data-test="description"
-                  v-model.trim="form.description"
-                  :class="{ 'is-danger': $v.form.description.$error }"
-                  @blur="$v.form.description.$touch()"
-                  :loading="isLoading"></hc-editor>
-                <p :class="{ 'is-hidden': !$v.form.description.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-              </div>
-              <div class="field"
-                   :class="{ 'has-error': $v.form.type.$error }">
-                <label class="label is-required">{{ $t('component.organization.type') }}</label>
-                <div class="field-body">
-                  <div class="field">
-                    <div class="control has-icons-left">
-                      <div class="select">
-                        <select v-model="form.type">
-                          <option value="ngo" selected>{{ $t('component.organization.types.ngo') }}</option>
-                          <option value="npo">{{ $t('component.organization.types.npo') }}</option>
-                          <option value="goodpurpose">{{ $t('component.organization.types.goodpurpose') }}</option>
-                          <option value="ev">{{ $t('component.organization.types.ev') }}</option>
-                          <option value="eva">{{ $t('component.organization.types.eva') }}</option>
-                        </select>
-                        <div class="icon is-small is-left">
-                          <i class="fa fa-cogs"></i>
-                        </div>
-                      </div>
-                    </div>
-                  <p :class="{ 'is-hidden': !$v.form.type.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-                  </div>
-                </div>
-              </div>
-              <br />
-              <hc-button color="primary"
-                          @click.prevent="toStep(3)"
-                          size="medium"
-                          type="button"
-                          class="is-fullwidth"
-                          :isLoading="isLoading"
-                          :disabled="isLoading">
-                {{ $t('button.next') }} <hc-icon class="icon-right" icon="angle-right" />
-              </hc-button>
+              <orga-form-step-2 ref="formStep" :data="form" @validate="onValidation" />
             </div>
             <div key="step3" v-if="step === 3">
-              <div class="field"
-                   :class="{ 'has-error': $v.form.categoryIds.$error }">
-                <label class="label is-required">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
-                <categories-select v-model="form.categoryIds" :disabled="isLoading"></categories-select>
-                <p :class="{ 'is-hidden': !$v.form.categoryIds.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
-              </div>
+              <orga-form-step-3 ref="formStep" :data="form" @validate="onValidation" :hideButton="true" />
               <br />
               <hc-button color="primary"
-                          @click.prevent="save"
+                          @click.prevent="$refs.formStep.validate()"
                           size="medium"
                           type="button"
                           class="is-fullwidth"
@@ -181,17 +73,19 @@
 
 <script>
 import animatable from "~/components/mixins/animatable";
-import { validationMixin } from "vuelidate";
-import { required, minLength, maxLength } from "vuelidate/lib/validators";
-import CategoriesSelect from "~/components/Categories/CategoriesSelect.vue";
 import { mapGetters } from "vuex";
+import OrgaFormStep1 from "~/components/Organizations/steps/OrgaFormStep1.vue";
+import OrgaFormStep2 from "~/components/Organizations/steps/OrgaFormStep2.vue";
+import OrgaFormStep3 from "~/components/Organizations/steps/OrgaFormStep3.vue";
 
 export default {
   middleware: "authenticated",
   layout: "blank",
-  mixins: [animatable, validationMixin],
+  mixins: [animatable],
   components: {
-    "categories-select": CategoriesSelect
+    OrgaFormStep1,
+    OrgaFormStep2,
+    OrgaFormStep3
   },
   data() {
     return {
@@ -212,44 +106,6 @@ export default {
       uploadingLogo: false
     };
   },
-  validations() {
-    let rules = {};
-    if (this.step === 1) {
-      rules = {
-        form: {
-          name: {
-            required,
-            minLength: minLength(3),
-            maxLength: maxLength(100)
-          },
-          language: {
-            required
-          }
-        }
-      };
-    } else if (this.step === 2) {
-      rules = {
-        form: {
-          description: {
-            required,
-            minLength: minLength(10)
-          },
-          type: {
-            required
-          },
-        }
-      };
-    } else {
-      rules = {
-        form: {
-          categoryIds: {
-            required
-          }
-        }
-      };
-    }
-    return rules;
-  },
   computed: {
     ...mapGetters({
       user: "auth/user"
@@ -261,18 +117,22 @@ export default {
     });
   },
   methods: {
-    toStep(step) {
-      this.transitionName = (step > this.step) ? 'slide-next' : 'slide-prev'
-
-      if (step > this.step && this.$v.form.$invalid) {
-        this.$v.form.$touch()
+    onValidation (result) {
+      if (!result) {
         this.animate('shake')
         this.$toast.open({
-          message: this.$t('auth.validation.error'),
-          type: 'is-danger'
-        })
-        return false
+            message: this.$t('auth.validation.error'),
+            type: 'is-danger'
+          })
+      } else if (this.  step === 3) {
+        this.save()
+      } else {
+        this.form = Object.assign(this.form, result)
+        this.toStep(this.step + 1)
       }
+    },
+    toStep(step) {
+      this.transitionName = (step > this.step) ? 'slide-next' : 'slide-prev'
 
       // update next valid step
       if (step > this.step && step > this.validatedStep) {
@@ -282,15 +142,6 @@ export default {
       this.step = step;
     },
     async save() {
-      if (this.$v.form.$invalid) {
-        this.$v.form.$touch()
-        this.animate('shake')
-        this.$toast.open({
-          message: this.$t('auth.validation.error'),
-          type: 'is-danger'
-        })
-        return false
-      }
 
       this.errors = false;
       this.isLoading = true;
@@ -309,9 +160,6 @@ export default {
           this.errors = true;
           this.isLoading = false;
         });
-    },
-    onAvatarUploadCompleted(value) {
-      this.form.logo = value;
     }
   },
   head() {
@@ -344,6 +192,7 @@ export default {
           transition: all 250ms ease;
         }
 
+        .is-active a,
         .is-not-validated a {
           pointer-events: none;
         }
@@ -365,61 +214,6 @@ export default {
       min-height: 400px;
       transition: all 100ms ease;
       transition-delay: 100ms;
-    }
-
-    .avatar-wrapper {
-      width: 100%;
-      justify-content: center;
-      display: flex;
-      padding: 0 0 2rem;
-    }
-    .user-avatar {
-      $borderRadius: 50%;
-
-      border-radius: $borderRadius;
-      width: 120px;
-      height: 120px;
-      position: relative;
-      display: inline-block;
-      background-color: #fff;
-
-      .avatar-upload {
-        & {
-          border: none;
-          border-radius: $borderRadius;
-          overflow: hidden;
-          width: 100%;
-          height: 100%;
-          max-height: 100%;
-          min-height: 100%;
-          max-width: 100%;
-          min-width: 100%;
-        }
-      }
-
-      .hc-upload.sending {
-        i.fa {
-          opacity: 0;
-        }
-
-        .hc-upload-progress {
-          bottom: 49% !important;
-          z-index: 10;
-        }
-      }
-
-      &:before {
-        border-radius: 50%;
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 10;
-        pointer-events: none;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
-      }
     }
   }
 </style>

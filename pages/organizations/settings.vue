@@ -3,7 +3,6 @@
     <div class="columns">
       <div class="column is-9">
         <h2 class="title is-2">{{ $t('component.organization.general', 'Organization settings') }}</h2>
-        <!--<p class="title subtitle is-5">{{ $t('component.organization.settingsWelcome') }}</p>-->
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
@@ -29,14 +28,27 @@
     <div class="columns">
       <div class="column is-one-third menu">
         <aside class="menu">
-          <!--<p class="menu-label">
+          <p class="menu-label">
             {{ $t('component.organization.generalDetails', 'General details') }}
-          </p>-->
+          </p>
           <ul class="menu-list">
             <li @click.prevent="$router.push({ name: 'organizations-settings', query: { id: organization._id } })"
                 :class="{ 'is-active': $route.name === 'organizations-settings'}">
-              <a>{{ $t('component.organization.generalData', 'Organizationdata') }}</a>
+              <a>{{ $t('component.organization.stepBasics', 'Basics') }}</a>
             </li>
+            <li @click.prevent="$router.push({ name: 'organizations-settings-details', query: { id: organization._id } })"
+                :class="{ 'is-active': $route.name === 'organizations-settings-details'}">
+              <a>{{ $t('component.organization.stepDetails', 'Details') }}</a>
+            </li>
+            <li @click.prevent="$router.push({ name: 'organizations-settings-categories', query: { id: organization._id } })"
+                :class="{ 'is-active': $route.name === 'organizations-settings-categories'}">
+              <a>{{ $t('component.organization.stepCategories', 'Categories') }}</a>
+            </li>
+          </ul>
+          <p class="menu-label">
+            {{ $t('component.projects.label') }}
+          </p>
+          <ul class="menu-list">
             <li @click.prevent="$router.push({ name: 'organizations-settings-projects', query: { id: organization._id } })"
                 :class="{ 'is-active': $route.name === 'organizations-settings-projects'}">
               <a>{{ $t('component.projects.label', 'Projects') }}</a>
@@ -47,7 +59,9 @@
       <div class="column">
         <transition name="slide-up" appear>
           <nuxt :organization="organization"
+                :class="classes"
                 @change="updateOrganization"
+                @error="onError"
                 class="settings-content"/>
         </transition>
       </div>
@@ -56,7 +70,10 @@
 </template>
 
 <script>
+  import animatable from '~/components/mixins/animatable'
+
   export default {
+    mixins: [animatable],
     head () {
       return {
         title: this.$t('auth.account.settings', 'Settings')
@@ -65,7 +82,6 @@
     async asyncData ({app, query, error, redirect}) {
       try {
         const organization = await app.$api.service('organizations').get(query.id)
-        console.log('organization', organization)
         return {
           organization
         }
@@ -80,6 +96,9 @@
       }
     },
     methods: {
+      onError () {
+        this.animate('shake')
+      },
       updateOrganization (organization) {
         // update organization after it was saved by child view
         this.organization = Object.assign(this.organization, organization)
@@ -90,6 +109,7 @@
 
 <style lang="scss">
   @import "assets/styles/settings/main";
+  @import "assets/styles/_animations";
 
   .breadcrumb {
     margin-top: -1.5rem;

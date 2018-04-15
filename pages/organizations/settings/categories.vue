@@ -2,15 +2,15 @@
   <div v-if="organization">
     <div class="info-text">
       <h2 class="title is-3">
-        {{ $t('component.organization.stepBasics', 'Basics') }}
+        {{ $t('component.organization.stepCategories', 'Categories') }}
       </h2>
-      <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
+      <!--<p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>-->
     </div>
     <hr>
     <div class="columns">
       <div class="column">
         <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-1 ref="form" :data="form" @validate="onValidation" :hideButton="true" />
+          <orga-form-step-3 ref="form" :data="form" @validate="onValidation" :hideButton="true" />
         </form>
       </div>
     </div>
@@ -27,19 +27,17 @@
 </template>
 
 <script>
-  import OrgaFormStep1 from "~/components/Organizations/steps/OrgaFormStep1.vue";
+  import OrgaFormStep3 from "~/components/Organizations/steps/OrgaFormStep3.vue";
 
   export default {
     mixins: [],
     components: {
-      OrgaFormStep1
+      OrgaFormStep3
     },
     data() {
       return {
         form: {
-          name: '',
-          logo: '',
-          language: this.$i18n.locale()
+          categoryIds: []
         },
         organization: null,
         isLoading: false
@@ -57,9 +55,7 @@
         this.organization = this.$parent.$attrs.organization
 
         this.form = Object.assign(this.form, {
-          name: this.organization.name,
-          logo: this.organization.logo,
-          language: this.organization.language,
+          categoryIds: this.organization.categoryIds
         })
       })
     },
@@ -94,7 +90,6 @@
             message: err.message,
             type: "is-danger"
           });
-          this.$parent.$emit('error', err)
         }
         this.isLoading = false;
       }

@@ -1,0 +1,198 @@
+<template>
+  <div>
+    <div class="avatar-wrapper">
+      <div class="user-avatar">
+        <hc-upload class="avatar-upload"
+                    :preview-image="form.logo"
+                    :test="true"
+                    @update="onAvatarUploadCompleted"
+                    @start-sending="uploadingLogo = true"
+                    @stop-sending="uploadingLogo = false" ></hc-upload>
+      </div>
+    </div>
+    <div class="field">
+      <p class="subtitle is-6">{{ $t('component.organization.nameHint') }}</p>
+      <div class="control has-icons-right"
+            :class="{ 'has-error': $v.form.name.$error }">
+        <label class="label is-required" for="form-name">{{ $t('component.organization.name') }}</label>
+        <input v-focus
+                autofocus
+                id="form-name"
+                class="input "
+                type="text"
+                :placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
+                v-model="form.name">
+      </div>
+      <p :class="{ 'is-hidden': !$v.form.name.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+    </div>
+    <div class="field">
+      <div class="control"
+            :class="{ 'has-error': $v.form.language.$error }">
+        <label class="label is-required" for="form-orgaLanguages">{{ $t('component.organization.organizationLanguageSelection') }}</label>
+        <div class="block" id="form-orgaLanguages">
+          <b-radio v-model="form.language"
+                    @input="$v.form.language.$touch()"
+                    native-value="de">
+            Deutsch
+          </b-radio>
+          <b-radio v-model="form.language"
+                    @input="$v.form.language.$touch()"
+                    native-value="en">
+            English
+          </b-radio>
+          <p :class="{ 'is-hidden': !$v.form.language.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+        </div>
+      </div>
+    </div>
+    <slot v-if="!hideButton">
+      <hc-button color="primary"
+                @click.prevent="validate()"
+                size="medium"
+                type="button"
+                class="is-fullwidth"
+                :isLoading="isLoading"
+                :disabled="isLoading">
+        {{ $t('button.next') }} <hc-icon class="icon-right" icon="angle-right" />
+      </hc-button>
+    </slot>
+  </div>
+</template>
+
+<script>
+  import { validationMixin } from "vuelidate";
+  import { required, minLength, maxLength } from "vuelidate/lib/validators";
+
+  export default {
+    mixins: [validationMixin],
+    props: {
+      data: {
+        type: Object
+      },
+      hideButton: {
+        type: Boolean,
+        default: false
+      }
+    },
+    name: 'orga-form-step-1',
+    data () {
+      return {
+        form: {
+          logo: null,
+          name: '',
+          language: this.$i18n.locale()
+        },
+        isLoading: false,
+        uploadingLogo: false
+      }
+    },
+    watch: {
+      data (data) {
+        this.updateData(data)
+      },
+      isLoading (isLoading) {
+        this.$emit('isLoading', isLoading)
+      },
+      uploadingLogo (uploadingLogo) {
+        this.$emit('disabled', uploadingLogo)
+      }
+    },
+    mounted () {
+      this.$nextTick(() => {
+        this.updateData(this.data)
+      })
+    },
+    methods: {
+      updateData (data) {
+        this.form = Object.assign(this.form, {
+          logo: data.logo,
+          name: data.name,
+          language: data.language,
+        })
+      },
+      validate () {
+        if (this.$v.form.$invalid) {
+          this.$v.form.$touch()
+          this.$emit('validate', false)
+        } else {
+          // return validated form data
+          this.$emit('validate', this.form)
+        }
+      },
+      onAvatarUploadCompleted(value) {
+        this.form.logo = value;
+      }
+    },
+    validations() {
+      return {
+        form: {
+          name: {
+            required,
+            minLength: minLength(3),
+            maxLength: maxLength(100)
+          },
+          language: {
+            required
+          }
+        }
+      };
+    }
+  }
+</script>
+
+<style lang="scss" scoped>
+  .avatar-wrapper {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    padding: 0 0 2rem;
+
+    .user-avatar {
+      $borderRadius: 50%;
+
+      border-radius: $borderRadius;
+      width: 120px;
+      height: 120px;
+      position: relative;
+      display: inline-block;
+      background-color: #fff;
+
+      .avatar-upload {
+        & {
+          border: none;
+          border-radius: $borderRadius;
+          overflow: hidden;
+          width: 100%;
+          height: 100%;
+          max-height: 100%;
+          min-height: 100%;
+          max-width: 100%;
+          min-width: 100%;
+        }
+      }
+
+      .hc-upload.sending {
+        i.fa {
+          opacity: 0;
+        }
+
+        .hc-upload-progress {
+          bottom: 49% !important;
+          z-index: 10;
+        }
+      }
+
+      &:before {
+        border-radius: 50%;
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+</style>

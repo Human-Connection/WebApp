@@ -201,7 +201,10 @@
       "generalDetails": "Allgemeine Einstellungen",
       "generalData": "Organisationsdaten",
       "deleted": "Die Organisation wurde erfolgreich gelöscht.",
-      "organizationLanguageSelection": "Hauptsprache der Organisation"
+      "organizationLanguageSelection": "Hauptsprache der Organisation",
+      "stepBasics": "Basisdaten",
+      "stepDetails": "Details",
+      "stepCategories": "Kategorien"
     },
     "projects": {
       "label": "Projekte"
