@@ -18,7 +18,7 @@
               <h3 class="title is-6">{{ organization.name }}</h3>
             </div>
             <div class="card-footer" style="align-self: bottom;">
-                <hc-button @click.prevent="edit(organization.slug)"
+                <hc-button @click.prevent="edit(organization._id)"
                            color="light"
                            size="medium"
                            type="button"
@@ -126,8 +126,8 @@
         this.organizations = organizations.data
         this.isLoading = false
       },
-      edit(slug) {
-        this.$router.push({name: 'organizations-settings', query: { slug }})
+      edit(id) {
+        this.$router.push({name: 'organizations-settings', query: { id }})
       },
       trashModal(organization, index) {
         this.selectedOrganization = organization

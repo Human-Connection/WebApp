@@ -24,7 +24,7 @@
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
           <div class="edit-wrapper has-text-right">
-            <i class="fa fa-wrench" @click.prevent="edit(organization.slug)"></i>
+            <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
           </div>
           <div class="organization-name">
             <span>{{ organization.name || '' }}</span>
@@ -170,8 +170,8 @@
           }
         }
       },
-      edit(slug) {
-        this.$router.push({name: 'organizations-settings', query: {slug: slug}})
+      edit(id) {
+        this.$router.push({name: 'organizations-settings', query: {id}})
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value

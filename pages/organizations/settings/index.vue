@@ -163,6 +163,8 @@
             message: this.$t('auth.settings.saveSettingsSuccess'),
             type: "is-success"
           });
+
+          this.$parent.$emit('change', data)
         } catch (err) {
           this.$toast.open({
             message: err.message,

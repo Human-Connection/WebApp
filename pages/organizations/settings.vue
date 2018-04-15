@@ -7,10 +7,10 @@
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
-              <nuxt-link :to="{ name: 'auth-settings' }">{{ $t('auth.account.settings') }}</nuxt-link>
+              <nuxt-link :to="{ name: 'auth-settings'}">{{ $t('auth.account.settings') }}</nuxt-link>
             </li>
             <li>
-              <nuxt-link :to="{ name: 'auth-settings-organizations' }">{{ $t('auth.settings.organizations', 'My Organizations') }}</nuxt-link>
+              <nuxt-link :to="{ name: 'auth-settings-organizations'}">{{ $t('auth.settings.organizations', 'My Organizations') }}</nuxt-link>
             </li>
             <li class="is-active"><a href="#" aria-current="page">{{ organization.name }}</a></li>
           </ul>
@@ -33,11 +33,11 @@
             {{ $t('component.organization.generalDetails', 'General details') }}
           </p>-->
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'organizations-settings' })"
+            <li @click.prevent="$router.push({ name: 'organizations-settings', query: { id: organization._id } })"
                 :class="{ 'is-active': $route.name === 'organizations-settings'}">
               <a>{{ $t('component.organization.generalData', 'Organizationdata') }}</a>
             </li>
-            <li @click.prevent="$router.push({ name: 'organizations-settings-projects' })"
+            <li @click.prevent="$router.push({ name: 'organizations-settings-projects', query: { id: organization._id } })"
                 :class="{ 'is-active': $route.name === 'organizations-settings-projects'}">
               <a>{{ $t('component.projects.label', 'Projects') }}</a>
             </li>
@@ -46,7 +46,9 @@
       </div>
       <div class="column">
         <transition name="slide-up" appear>
-          <nuxt :organization="organization" class="settings-content"/>
+          <nuxt :organization="organization"
+                @change="updateOrganization"
+                class="settings-content"/>
         </transition>
       </div>
     </div>
@@ -60,19 +62,26 @@
         title: this.$t('auth.account.settings', 'Settings')
       }
     },
-    async asyncData ({app, query, error}) {
+    async asyncData ({app, query, error, redirect}) {
       try {
-        const organization = await app.$api.service('organizations').find({
-          query: {
-            slug: query.slug
-          }
-        })
+        const organization = await app.$api.service('organizations').get(query.id)
+        console.log('organization', organization)
         return {
-          organization: organization.data[0] || []
+          organization
         }
       } catch (err) {
-        error({statusCode: err.code || 500, message: err.message})
-        return {}
+        if (err.code === 404) {
+          redirect({name: 'auth-settings-organizations'})
+        } else {
+          error({statusCode: err.code || 500, message: err.message})
+          return {}
+        }
+      }
+    },
+    methods: {
+      updateOrganization (organization) {
+        console.log('updateOrganization', organization)
+        this.organization = organization
       }
     }
   }
