@@ -134,23 +134,23 @@
     },
     watch: {
       'this.$parent.$attrs.organization': (organization) => {
+        // get current organization from parent view
         this.organization = this.organization
       }
     },
     mounted() {
       this.$nextTick(() => {
+        // get current organization from parent view
         this.organization = this.$parent.$attrs.organization
 
-      this.form.name = this.organization.name
-      this.form.description = this.organization.description
-      this.form.type = this.organization.type
-      this.form.orgaLanguage = this.organization.language
-      if (this.organization.categoryIds.length > 0) {
-        this.organization.categoryIds.forEach((catId, index) => {
-          this.form.categoryIds.push(catId)
+        this.form = Object.assign(this.form, {
+          name: this.organization.name,
+          description: this.organization.description,
+          type: this.organization.type,
+          orgaLanguage: this.organization.language,
+          categoryIds: this.organization.categoryIds
         })
-      }
-        })
+      })
     },
     methods: {
       async save() {

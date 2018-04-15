@@ -71,6 +71,7 @@
         }
       } catch (err) {
         if (err.code === 404) {
+          // redirect user to its organization list if it was not found
           redirect({name: 'auth-settings-organizations'})
         } else {
           error({statusCode: err.code || 500, message: err.message})
@@ -80,8 +81,8 @@
     },
     methods: {
       updateOrganization (organization) {
-        console.log('updateOrganization', organization)
-        this.organization = organization
+        // update organization after it was saved by child view
+        this.organization = Object.assign(this.organization, organization)
       }
     }
   }
