@@ -15,7 +15,7 @@
       <div class="control has-icons-right"
             :class="{ 'has-error': $v.form.name.$error }">
         <label class="label is-required" for="form-name">{{ $t('component.organization.name') }}</label>
-        <input v-focus
+        <input v-focus="autoFocus"
                 autofocus
                 id="form-name"
                 class="input "
@@ -71,6 +71,10 @@
       hideButton: {
         type: Boolean,
         default: false
+      },
+      autoFocus: {
+        type: Boolean,
+        default: true
       }
     },
     name: 'orga-form-step-1',

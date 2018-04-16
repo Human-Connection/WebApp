@@ -7,15 +7,15 @@
         </h2>
         <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
       </div>
-      <div class="column is-3 settings-left" v-if="this.$parent.$attrs.user.role === 'admin' || this.$parent.$attrs.user.role === 'moderator'">
-        <b-switch v-model="form.isEnabled"></b-switch>
+      <div class="column is-3 settings-left">
+        <b-switch v-model="form.isEnabled" :disabled="!canEnable"></b-switch>
       </div>
     </div>
     <hr>
     <div class="columns">
       <div class="column">
         <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-1 ref="form" :data="form" @validate="onValidation" :hideButton="true" />
+          <orga-form-step-1 ref="form" :data="form" @validate="onValidation" :hideButton="true" :autoFocus="false" />
         </form>
       </div>
     </div>
@@ -69,6 +69,16 @@
           language: this.organization.language,
         })
       })
+    },
+    computed: {
+      canEdit () {
+        // owner, moderator, admin
+        return this.organization.userId === this.$parent.$attrs.user._id || ['admin', 'moderator'].includes(this.$parent.$attrs.user.role)
+      },
+      canEnable () {
+        // owner (if reviewed), moderator, admin
+        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.isReviewed
+      }
     },
     methods: {
       onValidation (result) {
