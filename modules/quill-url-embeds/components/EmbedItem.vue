@@ -41,6 +41,9 @@
         if (this.meta.embed && this.meta.embed.type === 'video') {
           return 'video-embed'
         }
+        if (!this.meta.embed && this.meta.type === 'video' && this.meta.contentType) {
+          return 'video-embed'
+        }
         if (this.meta.embed && this.meta.embed.type === 'link') {
           return 'link-embed'
         }

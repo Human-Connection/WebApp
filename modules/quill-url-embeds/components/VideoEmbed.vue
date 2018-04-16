@@ -1,13 +1,14 @@
 <template>
   <div class="ql-video-embed">
-    <div class="ql-video-embed-wrapper" v-if="embedUrl">
+    <video v-if="!embedUrl && isNativeVideo" :src="meta.url" controls></video>
+    <div class="ql-video-embed-wrapper" v-if="embedUrl && !isNativeVideo">
       <iframe :src="embedUrl"
         frameborder="0"
         webkitallowfullscreen
         mozallowfullscreen
         allowfullscreen></iframe>
     </div>
-    <default-embed v-else
+    <default-embed v-if="!embedUrl && !isNativeVideo"
       :meta="meta"
       :url="url" ></default-embed>
   </div>
@@ -43,6 +44,13 @@
           return `https://www.youtube.com/embed/${videoUrl}?feature=oembed`
         }
         return false
+      },
+      isNativeVideo () {
+        try {
+          return !this.meta.embed && ['video/mp4', 'video/ogg', 'video/webm'].includes(this.meta.contentType)
+        } catch (err) {
+          return false
+        }
       }
     }
   }
