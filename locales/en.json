@@ -204,7 +204,9 @@
       "organizationLanguageSelection": "main language of the Organization",
       "stepBasics": "Basics",
       "stepDetails": "Details",
-      "stepCategories": "Categories"
+      "stepCategories": "Categories",
+      "messageInReview": "<strong>In Review</strong><p>Your organization has to be reviewed before others can see it.<br/> Please be percent so one of our moderators can have a look. If it takes to long, feel free to <a href=\"mailto:{email}\">write us an email</a>.</p>",
+      "messageInReviewMod": "<strong>In Review</strong><p>Hey seams like you are a Moderator. Please take a moment to validate this organization.</p>"
     },
     "projects": {
       "label": "Projects"
@@ -335,7 +337,8 @@
     "addOrganization": "Add organization",
     "addProject": "Add project",
     "random": "Randomize",
-    "next": "Next"
+    "next": "Next",
+    "review": "Activate"
   },
   "legal": {
     "copyrights": "Copyrights:",
@@ -491,7 +494,7 @@
       "saveSettingsSuccess": "Your settings have been saved.",
       "profileWelcome": "Welcome to your profile",
       "profileWelcomeText": "Here is the place to edit your data.",
-      "languageSettings": "language settings",
+      "languageSettings": "Language settings",
       "languageSettingsText": "Here you can choose in which languages you see contributions and your interface.",
       "contentLanguagesLabel": "Language(s) for Content",
       "interfaceLanguageLabel": "Language for the Interface",

@@ -24,7 +24,7 @@
         </hc-button>
       </div>
     </div>
-
+    <organization-review-banner v-if="user" :user="user" :organization="organization" @review="updateOrganization" />
     <div class="columns">
       <div class="column is-one-third menu">
         <aside class="menu">
@@ -72,10 +72,14 @@
 
 <script>
   import animatable from '~/components/mixins/animatable'
+  import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
   import { mapGetters } from 'vuex'
 
   export default {
     mixins: [animatable],
+    components: {
+      OrganizationReviewBanner
+    },
     head () {
       return {
         title: this.$t('auth.account.settings', 'Settings')
@@ -85,7 +89,7 @@
       try {
         const organization = await app.$api.service('organizations').get(query.id)
         const user = store.getters['auth/user']
-        if (['admin', 'moderator'].includes(user.role) === false || organization.userId !== user._id) {
+        if (organization.userId !== user._id && ['admin', 'moderator'].includes(user.role) === false) {
           error({ statusCode: 403 })
         }
 
@@ -105,7 +109,15 @@
     computed: {
       ...mapGetters({
         user: 'auth/user'
-      })
+      }),
+      canEdit () {
+        // owner, moderator, admin
+        return this.organization.userId === this.user._id || ['admin', 'moderator'].includes(this.user.role) === true
+      },
+      canEnable () {
+        // owner (if reviewed), moderator, admin
+        return ['admin', 'moderator'].includes(this.user.role) === true || this.organization.isReviewed
+      }
     },
     methods: {
       onError () {

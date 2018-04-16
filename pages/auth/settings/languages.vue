@@ -4,7 +4,7 @@
       <h2 class="title is-3">
         {{ $t('auth.settings.languageSettings') }}
       </h2>
-      <p>{{ $t('auth.settings.languageSettingsText') }}</p>
+      <p class="subtitle is-6">{{ $t('auth.settings.languageSettingsText') }}</p>
     </div>
     <hr>
     <div class="language-wrapper">

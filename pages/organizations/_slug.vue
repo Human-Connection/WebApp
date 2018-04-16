@@ -60,7 +60,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <div v-html="organization.description"></div>
+          <div class="content" v-html="organization.description"></div>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <div class="under-construction">
@@ -82,6 +82,7 @@
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
+        <organization-review-banner v-if="user" :user="user" :organization="organization" :disableReview="true" />
       </div>
     </div>
   </section>
@@ -92,12 +93,12 @@
 
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
-  import OrganizationsForm from '../../components/Organizations/OrganizationsForm'
+  import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
 
   export default {
     components: {
       HcTextcount,
-      'organizations-form': OrganizationsForm
+      OrganizationReviewBanner
     },
     data () {
       return {

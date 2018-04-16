@@ -149,7 +149,7 @@ export default {
         .dispatch("organizations/create", this.form)
         .then(res => {
           this.isLoading = false;
-          this.$router.push(`/organizations/${res.slug}`);
+          this.$router.push({ name: 'organizations-settings', query: { id: res._id } });
         })
         .catch(error => {
           this.$toast.open({

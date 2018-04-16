@@ -204,7 +204,9 @@
       "organizationLanguageSelection": "Hauptsprache der Organisation",
       "stepBasics": "Basisdaten",
       "stepDetails": "Details",
-      "stepCategories": "Kategorien"
+      "stepCategories": "Kategorien",
+      "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch Überprüft werden bevor sie andere sehen können.<br/> Bitte habe ein wenig Geduld bis unsere Moderatoren die gelegenheit hatte deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns ein E-Mail</a>.</p>",
+      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie Freizuschalten.</p>"
     },
     "projects": {
       "label": "Projekte"
@@ -335,7 +337,8 @@
     "addOrganization": "Organisation erstellen",
     "addProject": "Projekt erstellen",
     "random": "Zufallsgenerator",
-    "next": "Weiter"
+    "next": "Weiter",
+    "review": "Freischalten"
   },
   "legal": {
     "copyrights": "Urheberrecht:",
