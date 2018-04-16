@@ -27,6 +27,12 @@
       </span>
       {{ $t('component.admin.users', 'Benutzer') }}
     </nuxt-link>
+    <nuxt-link to="/admin/notifications" class="menu-item">
+      <span class="menu-icon">
+        <hc-icon icon="bullhorn"></hc-icon>
+      </span>
+      {{ $t('component.admin.systemNotifications', 'System Notifications') }}
+    </nuxt-link>
   </nav>
 </template>
 
