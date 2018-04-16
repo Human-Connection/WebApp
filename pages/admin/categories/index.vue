@@ -1,8 +1,8 @@
 <template>
-  <section class="content">
-    <h1>{{ $t('component.admin.manageCategories', 'Manage Categories') }}</h1>
+  <section>
+    <h3 class="title is-3">{{ $t('component.admin.manageCategories', 'Manage Categories') }}</h3>
     <form @submit.prevent="saveEntries">
-      <table class="table">
+      <table class="table is-fullwidth is-narrow">
         <thead>
           <tr>
             <th>{{ $t('component.admin.categoryTitle', 'Title') }}</th>
@@ -38,18 +38,22 @@
           </tr>
         </tbody>
       </table>
-      <div class="columns">
-        <div class="column">
-          <hc-button color="grey" @click.prevent="addEntry()">
-            <hc-icon icon="plus"></hc-icon>&nbsp; {{ $t('component.admin.addCategory', 'Kategorie hinzufügen') }}
-          </hc-button>
+      <footer class="card-footer">
+        <div class="field is-grouped">
+          <div class="control">
+            <hc-button color="grey" @click.prevent="addEntry()">
+              <hc-icon icon="plus" />
+              &nbsp; {{ $t('component.admin.addCategory', 'Kategorie hinzufügen') }}
+            </hc-button>
+          </div>
+          <div class="control">
+            <hc-button>
+              <hc-icon icon="check" />
+              &nbsp; {{ $t('button.save') }}
+            </hc-button>
+          </div>
         </div>
-        <div class="column has-text-right">
-          <hc-button>
-            <hc-icon icon="check"></hc-icon>&nbsp; Änderungen speichern
-          </hc-button>
-        </div>
-      </div>
+      </footer>
     </form>
   </section>
 </template>
@@ -114,11 +118,31 @@
       }
     },
     created () {
-      this.categoriesList = JSON.parse(JSON.stringify(this.categories))
+      this.$nextTick(() => {
+        this.categoriesList = JSON.parse(JSON.stringify(this.categories))
+      })
     }
   }
 </script>
 
 <style scoped lang="scss">
+  @import "assets/styles/utilities";
 
+  $padding: 1.5rem;
+
+  footer.card-footer {
+    margin: -$padding;
+    margin-top: 2rem;
+    margin-bottom: -2rem;
+    background: lighten($grey-lighter, 10%);
+    padding: 1rem $padding;
+    display: flex;
+    justify-content: right;
+  }
+
+  .table {
+    th, td {
+      border-bottom: none;
+    }
+  }
 </style>

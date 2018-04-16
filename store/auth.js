@@ -11,6 +11,11 @@ export const mutations = {
   SET_USER (state, user) {
     state.user = user || null
   },
+  SET_USER_SETTINGS (state, userSettings) {
+    state.user = Object.assign(state.user, {
+      userSettings: Object.assign(this.getters['auth/userSettings'], userSettings)
+    })
+  },
   SET_TOKEN (state, token) {
     state.token = token || null
   }
@@ -34,6 +39,15 @@ export const getters = {
   },
   token (state) {
     return state.token
+  },
+  userSettings (state, getters, rootState, rootGetters) {
+    const defaultLanguage = (state.user && state.user.language) ? state.user.language : rootGetters['i18n/locale']
+    const userSettings = (state.user && state.user.userSettings) ? state.user.userSettings : {}
+
+    return Object.assign({
+      uiLanguage: defaultLanguage,
+      contentLanguages: [defaultLanguage]
+    }, userSettings)
   }
 }
 
@@ -43,7 +57,7 @@ export const actions = {
     // get fresh jwt token
     await dispatch('refreshJWT', 'auth/init')
 
-    // check if the token is autenticated
+    // check if the token is authenticated
     const isAuthenticated = await dispatch('checkAuth')
     if (isAuthenticated) {
       try {
@@ -104,21 +118,40 @@ export const actions = {
 
     return payloadValid === true
   },
-  async login ({commit, dispatch}, {email, password}) {
+  async login ({commit, dispatch, getters}, {email, password}) {
     try {
       commit('SET_USER', null)
       commit('SET_TOKEN', null)
       const user = await this.app.$api.auth({strategy: 'local', email, password})
-      const locale = this.app.$cookies.get('locale')
-      if (user && user.language !== locale && !isEmpty(locale)) {
-        user.language = locale
-        dispatch('patch', {
-          language: user.language
-        })
-      }
 
       commit('SET_USER', user)
-      commit('newsfeed/clear', null, { root: true })
+
+      try {
+        const waitForUserSettings = () => {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              resolve(getters.userSettings)
+            }, 250)
+          })
+        }
+        const locale = this.app.$cookies.get('locale')
+        const userSettings = await waitForUserSettings()
+        if (!isEmpty(locale) && user && userSettings && userSettings.uiLanguage !== locale) {
+          // console.log('update user locale setting with cookie setting (had changed in on login screen)')
+          // update user locale setting with cookie setting (had changed in on login screen)
+          dispatch('usersettings/patch', {
+            uiLanguage: locale
+          }, { root: true })
+        } else if (isEmpty(locale) && user && userSettings && userSettings.uiLanguage) {
+          // console.log('set locale to user setting and persist in cookie')
+          // set locale to user setting and persist in cookie
+          this.app.$cookies.set('locale', userSettings.uiLanguage)
+          this.app.$i18n.set(userSettings.uiLanguage)
+        }
+        commit('newsfeed/clear', null, { root: true })
+      } catch (err) {
+        console.error(err)
+      }
 
       return user
     } catch (err) {
@@ -128,10 +161,7 @@ export const actions = {
     }
   },
   async logout ({commit}) {
-    await this.app.$api.logout()
-    commit('SET_USER', null)
-    commit('SET_TOKEN', null)
-    commit('newsfeed/clear', null, { root: true })
+    this.app.router.push('/auth/logout')
   },
   register ({dispatch, commit}, {email, password, inviteCode}) {
     return this.app.$api.service('users').create({email, password, inviteCode})
@@ -159,6 +189,16 @@ export const actions = {
     user = await this.app.$api.service('users').patch(user._id, data)
     commit('SET_USER', user)
     return user
+  },
+  async refreshUser ({state, commit}, userSettings) {
+    if (state.user && userSettings) {
+      commit('SET_USER_SETTINGS', userSettings)
+    } else if (state.user) {
+      const user = await this.app.$api.service('users').get(state.user._id)
+      commit('SET_USER', user)
+      return user
+    }
+    return state.user
   },
   verify ({dispatch}, verifyToken) {
     if (!verifyToken) { return false }

@@ -1,7 +1,6 @@
 <template>
-  <section class="">
-    <h1 class="is-size-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h1>
-    <br>
+  <section>
+    <h3 class="title is-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h3>
     <b-tabs v-model="activeTab">
       <b-tab-item label="Users" icon="users">
         <article class="message is-small">
@@ -121,7 +120,7 @@
                :class="{ 'is-loading': isLoading }"
                :disabled="isLoading || !results || !resultDownloadURL"
                download="data.csv">
-              <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.-', 'Download CSV') }}</strong>
+              <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
             </a>
           </div>
         </div>
@@ -158,7 +157,9 @@
         inviteResults: [],
         currentPage: 1,
         paginationInfo: {
-          text: this.paginationText
+          text: '', // this.paginationText,
+          nextPageText: '>',
+          prevPageText: '<'
         },
         activeTab: null
       }
@@ -210,7 +211,7 @@
         each(files, file => {
           if (!file.name.endsWith('.csv')) {
             this.$snackbar.open({
-              message: this.$t('component.admin.-', `You have to select a valid .csv`),
+              message: this.$t('component.admin.messageCSVInvalid', `You have to select a valid .csv`),
               type: 'is-danger'
             })
             this.invitesLoading = false
@@ -242,7 +243,7 @@
               this.handleInvitesPageChange(1)
             } catch (err) {
               this.$snackbar.open({
-                message: this.$t('component.admin.-', `ERROR: ${err.message}`),
+                message: `ERROR: ${err.message}`,
                 type: 'is-danger'
               })
               this.invitesLoading = false
@@ -267,7 +268,10 @@
         this.$api.service('admin').timeout = 240000 // 4 minutes timeout
         this.$api.service('admin').create({ createInvites: data, sendInviteEmails }).then(res => {
           this.$snackbar.open({
-            message: this.$t('component.admin.-', `Created ${res.length} of ${this.invitePreview.length} invites`),
+            message: this.$t('component.admin.messageInvitesGenerated', {
+              countCreated: res.length,
+              countRequested: this.invitePreview.length
+            }),
             type: 'is-success'
           })
           if (res && res.length) {

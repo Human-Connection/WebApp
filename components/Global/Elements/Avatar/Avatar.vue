@@ -52,7 +52,8 @@ export default {
     },
     computed: {
       username () {
-        return this.name || this.user.name || 'anonymus'
+        let username = this.name || this.user.name || 'Anonymus'
+        return username || 'Anonymus'
       },
       hasImage () {
         return Boolean(this.avatar) && !this.error
@@ -88,9 +89,11 @@ export default {
     watch: {
       'user.name' (name) {
         this.initial(name)
+        this.updateSize()
       },
       name (name) {
         this.initial(name)
+        this.updateSize()
       }
     },
     methods: {
@@ -98,7 +101,8 @@ export default {
         this.error = true
       },
       initial (username) {
-        let parts = username.split(/[ -]/)
+        let un = username || 'Anonymus'
+        let parts = un.split(/[ -]/)
         let initials = ''
         for (var i = 0; i < parts.length; i++) {
           initials += parts[i].charAt(0)
@@ -132,6 +136,10 @@ export default {
         return (usePound ? '#' : '') + (g | (b << 8) | (r << 16)).toString(16)
       },
       updateSize () {
+        if (this.hasImage) {
+          return
+        }
+
         try {
           this.size = this.$refs.avatar.getBoundingClientRect().width
         } catch (err) {}

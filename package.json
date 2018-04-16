@@ -52,7 +52,7 @@
     "body-parser": "~1.18.2",
     "body-scroll-lock": "^2.2.0",
     "bricks.js": "~1.8.0",
-    "buefy": "~0.6.3",
+    "buefy": "~0.6.5",
     "bulma": "~0.6.2",
     "bulma-steps-component": "~0.5.3",
     "cookie-parser": "~1.4.3",
@@ -94,6 +94,7 @@
     "v2-table": "~1.0.1",
     "valid-url": "~1.0.9",
     "vue": "~2.5.13",
+    "vue-affix": "^0.2.4",
     "vue-clip": "git+https://github.com/alexsasharegan/vue-clip.git#develop",
     "vue-count-to": "~1.0.13",
     "vue-in-viewport-mixin": "~1.0.3",
@@ -104,9 +105,11 @@
     "vue-server-renderer": "~2.5.13",
     "vue-styleguidist": "~1.4.6",
     "vue-template-compiler": "~2.5.13",
+    "vue-text-glitch": "^1.0.1",
     "vuelidate": "~0.6.1",
     "vuex-i18n": "~1.10.5",
-    "webpack": "^3.0.0"
+    "webpack": "^3.0.0",
+    "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
     "@nuxtjs/webpackmonitor": "~0.1.0",

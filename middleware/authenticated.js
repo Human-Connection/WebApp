@@ -1,11 +1,13 @@
 import { isEmpty } from 'lodash'
 
 export default async ({ store, route, redirect }) => {
+  let publicPages = process.env.publicPages
+  publicPages.push('auth-logout')
   // only affect non public pages
-  if ((process.env.publicPages || []).indexOf(route.name) >= 0) {
+  if (publicPages.indexOf(route.name) >= 0) {
     return true
   }
-  // await store.dispatch('auth/refreshJWT', 'authendicated middleware')
+  // await store.dispatch('auth/refreshJWT', 'authenticated middleware')
   const isAuthenticated = await store.dispatch('auth/checkAuth')
   if (isAuthenticated === true) {
     return true

@@ -139,6 +139,18 @@
     }
   }
 
+  .button {
+    & > * {
+      transition: opacity 100ms;
+    }
+    &.is-loading {
+      & > * {
+        opacity: .5;
+      }
+    }
+  }
+
+
   .is-fullwidth {
     width: 100%;
   }

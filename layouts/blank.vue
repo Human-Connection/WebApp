@@ -44,6 +44,8 @@
 <style lang="scss">
   @import 'assets/styles/utilities';
   .layout_blank {
+    $duration: 250ms;
+
     position: fixed;
     top: 0;
     left: 0;
@@ -54,20 +56,22 @@
     z-index: 9998;
     overflow: scroll;
     // background-color: $backdrop-color;
-
-    transition: opacity 150ms ease-in-out;
+    transform: translate3d(0, 0, 0);
+    transition: transform $duration ease-out, opacity $duration ease-out;
 
     & > .container {
       min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 150ms;
+      transition: transform $duration ease-out, opacity $duration ease-out;
+
       opacity: 1;
     }
   }
 
   .hidden {
     opacity: 0;
+    transform: translate3d(0, -10px, 0);
   }
 </style>

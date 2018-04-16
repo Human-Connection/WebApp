@@ -35,6 +35,7 @@
       "contributions": "Contributions",
       "deleteCategory": "delete this category",
       "development": "Development Mode",
+      "developmentWarning": "Warning! I hope you know what you do!?",
       "index_title": "Monitor Contributions",
       "label": "Admin",
       "manageCategories": "Manage Categories of Topics",
@@ -42,12 +43,18 @@
       "notifications": "Notifications",
       "organisations": "Organisations",
       "projects": "Projects",
+      "openInvites": "Open Invites",
+      "follows": "Follows",
+      "shouts": "Shouts",
       "seedDemoContributions": "Seed demo contributions",
       "seedDemoContributionsSuccessMessage": "Added the demo entries to the database!",
       "seedFakeData": "Seed extensive fake data",
       "seedFakeDataSuccessMessage": "Created a ton of new entries, have fun!",
       "settings": "Settings",
-      "users": "Users"
+      "users": "Users",
+      "messageCSVInvalid": "You have to select a valid .csv",
+      "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
+      "buttonDownloadCSV": "Download CSV"
     },
     "category": {
       "filterTitle": "Filter posts",
@@ -120,6 +127,7 @@
       "letsTalk": "Let’s talk",
       "letsTalkDescription": "Using Let’s Talk you can contact {user} and have a dialog, e.g. to discuss the content of the post or to give feed back or suggestions. You can set, whether your talk should be private or open.",
       "organizations": "Organizations",
+      "organizationsCreate": "create an Organization",
       "map": "Map",
       "messages": "Messages",
       "messageSaveSuccess": "Thanks for your contribution. You are awesome.",
@@ -157,6 +165,36 @@
       "validationErrorTitle": "Please give your contribution a title (min 3 chars)",
       "validationErrorContent": "Please provide a text",
       "validationErrorCategories": "Choose at least one category to be able to save this contribution"
+    },
+    "organization": {
+      "createNew": "Create new Organization",
+      "createSave": "Save Organization",
+      "createLater": "Later",
+      "requiredHint": "These fields are required for your Organization to become public.",
+      "name": "Organization name",
+      "createOrgaSectionPlaceholder": "How is the organization called?",
+      "nameHint": "This is the name users can use to search for your Organisation and find it.",
+      "orgaDescription": "Description",
+      "orgaDescriptionPlaceholder": "describe the organization",
+      "type": "type of the Organization",
+      "types": {
+        "ngo": "Non-governmental organization",
+        "npo": "Non-profit organization",
+        "goodpurpose": "Good purpose",
+        "ev": "Association",
+        "eva": "charitable Organization"
+      },
+      "foundingYear": "Year of foundation",
+      "foundingYearSectionPlaceholder": "When has the organization be founded?",
+      "street": "Street & number",
+      "zipcode": "Postal code",
+      "city": "City",
+      "country": "Country",
+      "phone": "Phone",
+      "email": "E-Mail address",
+      "website": "Website",
+      "logo": "Logo",
+      "organizationSaveSuccess": "The Organization has been created."
     },
     "notification": {
       "label": "Notifications",
@@ -236,6 +274,20 @@
     "takeAction": {
       "noOrganizations": "Sorry there are no organizations that fit that contribution right now. <br/><br/>Do you want to add one?",
       "noProjects": "Sorry there are no projects that fit that contribution right now. <br/><br/>Do you want to add one?"
+    },
+    "organization": {
+      "shouts": "Shouts",
+      "supporter": "Supporter",
+      "aboutUs": "About us",
+      "more": "Funding & more",
+      "welcome": "Welcome",
+      "faqTitle": "Questions & Answers",
+      "defaultDescription": "Describe your Organization."
+    },
+    "profile": {
+      "navContributed": "Contributions",
+      "navCommented": "Commented",
+      "navShouted": "Shouted"
     }
   },
   "upload": {
@@ -244,6 +296,10 @@
       "maxFilesize": "Maximum allowed file size is {size}.",
       "acceptedFiles": "You may only upload images here."
     }
+  },
+  "actions": {
+    "follow": "You now follow {name}",
+    "unfollow": "You unfollowed {name}"
   },
   "button": {
     "back": "Back",
@@ -265,7 +321,8 @@
     "addContribution": "Add contribution",
     "addOrganization": "Add organization",
     "addProject": "Add project",
-    "random": "Randomize"
+    "random": "Randomize",
+    "next": "Next"
   },
   "legal": {
     "copyrights": "Copyrights:",
@@ -346,6 +403,7 @@
       "nameSection": "How may we call you?",
       "nameTitle": "Nice to meet you",
       "password": "Password",
+      "passwordRepeat": "repeat password",
       "inviteCode": "Invite-Code",
       "profile": "My Profile",
       "settings": "Settings",
@@ -364,6 +422,7 @@
       "welcomeTitle": "Welcome"
     },
     "login": {
+      "forbidden": "You have to be logged in to see the requested site",
       "label": "Login",
       "description": "If you have an account at Human Connection, please log-in here.",
       "stayLoggedIn": "Stay logged in",
@@ -379,13 +438,57 @@
     },
     "register": {
       "description": "Join in Human Connection and take part in the Community. Your account is free and will keep that way all along.",
+      "descriptionStep1": "Check or enter your email address and invitation code which you got with your invite email. Make sure that you use the same email.",
+      "descriptionStep2": "Create a secure password and repeat it in the second field. Use at least 8 chars, short sentences are easy to remember. We will show you how secure your password is.",
       "noAccountYet": "No account yet?",
       "accountAlready": "You already have an account?",
       "label": "Register",
       "next": "Next",
       "back": "Back",
       "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
-      "validationErrorPasswordRepeat": "Both passwords must match"
+      "validationErrorPasswordRepeat": "Both passwords must match",
+      "validationErrorIsFullAge": "Please confirm that you are of full legal age",
+      "passwordSecurity": "Password security",
+      "passwordStrength0": "Very insecure password",
+      "passwordStrength1": "Insecure password",
+      "passwordStrength2": "Mediocre password",
+      "passwordStrength3": "Strong password",
+      "passwordStrength4": "Very strong password"
+    },
+    "validation": {
+      "error": "Please check your data",
+      "errorPassword": "Enter your password",
+      "errorMinLength": "Enter min length {minLength}",
+      "errorPasswordRepeat": "Both passwords must match"
+    },
+    "settings": {
+      "general": "General",
+      "security": "Security",
+      "data": "Your data",
+      "access": "Access",
+      "organizations": "Organizations",
+      "myOrganizations": "My Organizations",
+      "yourName": "Your Name",
+      "yourEmail": "Your E-Mail address",
+      "yourAvatar": "Your Avatar",
+      "networkSettings": "Network settings",
+      "dashboard": "Dashboard",
+      "languages": "Languages",
+      "saveLabel": "Save",
+      "saveSettingsSuccess": "Your settings have been saved.",
+      "profileWelcome": "Welcome to your profile",
+      "profileWelcomeText": "Here is the place to edit your data.",
+      "languageSettings": "language settings",
+      "languageSettingsText": "Here you can choose in which languages you see contributions and your interface.",
+      "contentLanguagesLabel": "Language(s) for Content",
+      "interfaceLanguageLabel": "Language for the Interface",
+      "securityWelcome": "Security settings",
+      "securityWelcomeText": "This is the area about your account security. You can update your password regularly to increase security. Please don't share your password with anyone and keep it in a safe place.",
+      "changePassword": "Change password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "newPasswordConfirm": "Confirm new password",
+      "validationErrorContentLanguages": "Choose at least one language"
     }
   },
   "ressource": {

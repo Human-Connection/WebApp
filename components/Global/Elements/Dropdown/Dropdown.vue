@@ -180,7 +180,7 @@
     position: absolute;
     visibility: hidden;
     opacity: 0;
-    transform: translateY(-5px);
+    transform: translate3d(0, -5px, 0);
     transition-property: visibility, opacity, transform;
     transition-duration: 400ms;
     transition-timing-function: $easeOut;
@@ -188,13 +188,13 @@
     &.uk-open {
       visibility: visible;
       opacity: 1;
-      transform: translateY(0);
+      transform: translate3d(0, 0, 0);
     }
 
     @include until($tablet) {
       .hc-dropdown-container.mobile-fixed &,
       .hc-dropdown-container.mobile-full & {
-        transform: translateX(-15px);
+        transform: translate3d(-15px, 0, 0);
         border-radius: 0;
         border: 0;
         border-top: 1px solid $grey-lighter;
@@ -206,7 +206,7 @@
         flex-direction: column;
 
         &.uk-open {
-          transform: translateX(0);
+          transform: translate3d(0, 0, 0);
         }
       }
 

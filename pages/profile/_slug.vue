@@ -248,15 +248,19 @@
         this.updatedUser = user
       }
     },
-    async mounted () {
-      let res = await this.$api.service('follows').get(this.user._id)
-      if (res !== null) {
-        this.following = {
-          users: res.users || [],
-          organizations: res.organizations || [],
-          projects: res.projects || []
-        }
-      }
+    mounted () {
+      this.$nextTick(async () => {
+        try {
+          let res = await this.$api.service('follows').get(this.user._id)
+          if (res !== null) {
+            this.following = {
+              users: res.users || [],
+              organizations: res.organizations || [],
+              projects: res.projects || []
+            }
+          }
+        } catch (err) {}
+      })
     },
     head () {
       return {
@@ -354,26 +358,6 @@
           font-size: 0.6em;
           text-transform: uppercase;
         }
-      }
-    }
-
-    .hc-textcounters {
-      display: flex;
-      justify-content: center;
-      margin: 15px 0;
-
-      .textcountitem {
-        text-align: center;
-        border-right: 1px solid #dadada;
-        //border-left: 1px solid #dadada;
-        padding: 0 10px 0 10px;
-      }
-      .textcountitem:first-child {
-        text-align: right;
-      }
-      .textcountitem:last-child {
-        text-align: left;
-        border-right: 0;
       }
     }
 
