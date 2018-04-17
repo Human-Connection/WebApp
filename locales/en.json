@@ -57,6 +57,7 @@
       "notificationSlotContribution": "Contribution",
       "notificationSlotProfile": "Profile",
       "createNotification": "create a new Notification",
+      "createNotificationSuccess": "The Notification has been created.",
       "createLabel": "Create",
       "organisations": "Organisations",
       "projects": "Projects",
