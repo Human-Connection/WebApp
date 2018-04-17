@@ -50,9 +50,7 @@ module.exports = {
   css: [
     'font-awesome/css/font-awesome.min.css',
     'mapbox-gl/dist/mapbox-gl.css',
-    'assets/styles/main.scss',
-    'quill/dist/quill.snow.css',
-    'quill/dist/quill.core.css'
+    'assets/styles/main.scss'
   ],
   build: {
     presets: ['vue-app'],
@@ -94,7 +92,7 @@ module.exports = {
     {src: '~/plugins/debug.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/api.js'},
-    {src: '~/plugins/directives.js', ssr: false},
+    {src: '~/plugins/vue-directives.js', ssr: false},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
     {src: '~/plugins/keep-alive.js', ssr: false},
     {src: '~/plugins/i18n.js'},

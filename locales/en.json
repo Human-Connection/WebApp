@@ -156,7 +156,7 @@
       "writePostImagePlaceholder": "internet address of the image (URL)",
       "writePostSection": "Title",
       "writePostSectionPlaceholder": "How do you call that story?",
-      "writePostContentPlaceholder": "write something amazing...",
+      "writePostContentPlaceholder": "Write something amazing ...",
       "visibilityPublic": "Public",
       "visibilityFriends": "Friends",
       "visibilityPrivate": "Private",
@@ -170,6 +170,7 @@
       "createNew": "Create new Organization",
       "createSave": "Save Organization",
       "createLater": "Later",
+      "goToProfile": "open Profile",
       "requiredHint": "These fields are required for your Organization to become public.",
       "name": "Organization name",
       "createOrgaSectionPlaceholder": "How is the organization called?",
@@ -194,7 +195,21 @@
       "email": "E-Mail address",
       "website": "Website",
       "logo": "Logo",
-      "organizationSaveSuccess": "The Organization has been created."
+      "organizationSaveSuccess": "The Organization has been created.",
+      "settingsWelcome": "Manage your Organization settings.",
+      "general": "Organizationsettings",
+      "generalDetails": "General Settings",
+      "generalData": "Organizationdata",
+      "deleted": "The Organization has been deleted successfully.",
+      "organizationLanguageSelection": "main language of the Organization",
+      "stepBasics": "Basics",
+      "stepDetails": "Details",
+      "stepCategories": "Categories",
+      "messageInReview": "<strong>In Review</strong><p>Your organization has to be reviewed before others can see it.<br/> Please be percent so one of our moderators can have a look. If it takes to long, feel free to <a href=\"mailto:{email}\">write us an email</a>.</p>",
+      "messageInReviewMod": "<strong>In Review</strong><p>Hey seams like you are a Moderator. Please take a moment to validate this organization.</p>"
+    },
+    "projects": {
+      "label": "Projects"
     },
     "notification": {
       "label": "Notifications",
@@ -212,8 +227,12 @@
       "bold": "bold font",
       "blockquote": "block quote",
       "italic": "italic font",
+      "embed": "Insert embed (videos / images / links)",
+      "embedInsert": "Please insert a link and press enter ...",
+      "emoji": "insert emoji",
       "link": "insert a link (mark text in advance)",
       "linkEnterUrl": "enter link (http:…, https:…, mailto:some@email.org or tel:0123456789)",
+      "linkPlaceholder": "please enter a link ...",
       "listOrdered": "ordered list",
       "listUnordered": "unordered list",
       "video": "embed a video",
@@ -322,7 +341,8 @@
     "addOrganization": "Add organization",
     "addProject": "Add project",
     "random": "Randomize",
-    "next": "Next"
+    "next": "Next",
+    "review": "Activate"
   },
   "legal": {
     "copyrights": "Copyrights:",
@@ -478,7 +498,7 @@
       "saveSettingsSuccess": "Your settings have been saved.",
       "profileWelcome": "Welcome to your profile",
       "profileWelcomeText": "Here is the place to edit your data.",
-      "languageSettings": "language settings",
+      "languageSettings": "Language settings",
       "languageSettingsText": "Here you can choose in which languages you see contributions and your interface.",
       "contentLanguagesLabel": "Language(s) for Content",
       "interfaceLanguageLabel": "Language for the Interface",
@@ -488,7 +508,8 @@
       "currentPassword": "Current password",
       "newPassword": "New password",
       "newPasswordConfirm": "Confirm new password",
-      "validationErrorContentLanguages": "Choose at least one language"
+      "validationErrorContentLanguages": "Choose at least one language",
+      "organizationDeleteModel": "Are you sure you want to delete <b>{organization}</b>?"
     }
   },
   "ressource": {

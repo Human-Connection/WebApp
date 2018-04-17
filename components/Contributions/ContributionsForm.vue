@@ -68,6 +68,7 @@
           v-model.trim="form.content"
           :class="{ 'is-danger': $v.form.content.$error }"
           @blur="$v.form.content.$touch()"
+          @fetchedMeta="handleMeta"
           :loading="isLoading"
           :editorOptions="editorOptions"/>
       </div>
@@ -104,7 +105,8 @@
         <div class="control">
           <hc-editor
             identifier="cando-reason"
-            v-model="form.cando.reason"
+            v-model.trim="form.cando.reason"
+            @fetchedMeta="handleMeta"
             :loading="isLoading"
             :editorOptions="editorOptions2"/>
         </div>
@@ -305,6 +307,9 @@
           categoryIds: [],
           tags: [],
           attachments: [],
+          meta: {
+            hasVideo: false
+          },
           cando: {
             difficulty: null,
             reasonTitle: null,
@@ -380,6 +385,17 @@
       deleteDropFile (index) {
         this.dropFiles.splice(index, 1)
       },
+      handleMeta (data) {
+        if (data.type && data.type === 'video') {
+          this.form.meta.hasVideo = true
+        }
+        if (data.embed && data.embed.type && data.embed.type === 'video') {
+          this.form.meta.hasVideo = true
+        }
+        if (!this.form.teaserImg && data.image && data.image.url) {
+          this.form.teaserImg = data.image.url
+        }
+      },
       async onSubmit () {
         if (this.$v.form.$invalid) {
           this.animate('shake')
@@ -401,6 +417,7 @@
           if (formData.type !== 'cando') {
             delete formData.cando
           }
+          this.$api.service('contributions').timeout = 30000;
           let res = null
           if (this.form._id) {
             res = await this.$api.service('contributions').patch(formData._id, formData)

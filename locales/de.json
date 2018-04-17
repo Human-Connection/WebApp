@@ -155,7 +155,7 @@
       "writePost": "Beitrag schreiben",
       "writePostSection": "Überschrift",
       "writePostSectionPlaceholder": "Welchen Titel soll Dein Beitrag bekommen?",
-      "writePostContentPlaceholder": "schreib etwas inspirierendes... ",
+      "writePostContentPlaceholder": "Schreib etwas inspirierendes ... ",
       "voteOnePluralNone": "Abstimmung ::: Abstimmungen ::: Keine Abstimmungen",
       "visibilityPublic": "Öffentlich",
       "visibilityFriends": "Nur Freunde",
@@ -170,6 +170,7 @@
       "createNew": "Neue Organisation erstellen",
       "createSave": "Organisation speichern",
       "createLater": "Später",
+      "goToProfile": "zum Profil",
       "requiredHint": "Diese Felder werden benötigt, damit deine Organisation veröffentlicht werden kann.",
       "name": "Name der Organisation",
       "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",
@@ -194,7 +195,21 @@
       "email": "E-Mail adresse",
       "website": "Webseite",
       "logo": "Logo",
-      "organizationSaveSuccess": "Die Organisation wurde erstellt."
+      "organizationSaveSuccess": "Die Organisation wurde erstellt.",
+      "settingsWelcome": "Hier kannst Du deine Organisation verwalten.",
+      "general": "Organisations-Einstellungen",
+      "generalDetails": "Allgemeine Einstellungen",
+      "generalData": "Organisationsdaten",
+      "deleted": "Die Organisation wurde erfolgreich gelöscht.",
+      "organizationLanguageSelection": "Hauptsprache der Organisation",
+      "stepBasics": "Basisdaten",
+      "stepDetails": "Details",
+      "stepCategories": "Kategorien",
+      "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch Überprüft werden bevor sie andere sehen können.<br/> Bitte habe ein wenig Geduld bis unsere Moderatoren die gelegenheit hatte deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns ein E-Mail</a>.</p>",
+      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie Freizuschalten.</p>"
+    },
+    "projects": {
+      "label": "Projekte"
     },
     "notification": {
       "label": "Benachrichtigungen",
@@ -212,8 +227,12 @@
       "bold": "fette Schrift",
       "blockquote": "Zitat eingerückt",
       "italic": "kursive Schrift",
+      "embed": "Medien einbinden (Videos / Bilder / Links)",
+      "embedInsert": "Bitte füge einen Link ein und drücke Enter ...",
+      "emoji": "Emoji einfügen",
       "link": "Link einfügen (Text vorher markieren)",
       "linkEnterUrl": "Link einfügen (http:…, https:…, mailto:eine@email.org oder tel:0123456789)",
+      "linkPlaceholder": "Bitte füge einen Link ein ...",
       "listOrdered": "Liste als Aufzählung",
       "listUnordered": "Liste",
       "video": "Video einbetten",
@@ -304,7 +323,7 @@
   "button": {
     "back": "Zurück",
     "cancel": "Abbrechen",
-    "close": "Schliessen",
+    "close": "Schließen",
     "create": "Erstellen",
     "delete": "Löschen",
     "edit": "Bearbeiten",
@@ -322,7 +341,8 @@
     "addOrganization": "Organisation erstellen",
     "addProject": "Projekt erstellen",
     "random": "Zufallsgenerator",
-    "next": "Weiter"
+    "next": "Weiter",
+    "review": "Freischalten"
   },
   "legal": {
     "copyrights": "Urheberrecht:",
@@ -488,7 +508,8 @@
       "currentPassword": "Aktuelles Passwort",
       "newPassword": "Neues Passwort",
       "newPasswordConfirm": "Neues Passwort bestätigen",
-      "validationErrorContentLanguages": "Wähle mindestens eine Sprache"
+      "validationErrorContentLanguages": "Wähle mindestens eine Sprache",
+      "organizationDeleteModel": "Bist du sicher das du <b>{organization}</b> löschen möchtest?"
     }
   },
   "ressource": {

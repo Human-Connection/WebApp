@@ -1,6 +1,5 @@
 <template>
   <section class="container organization-profile"
-           :class="{ blocked: showOverlay }"
            style="position: relative">
     <hc-upload class="profile-header card"
                v-if="isOwner"
@@ -24,9 +23,11 @@
                        @stop-sending="uploadingLogo = false" ></hc-upload>
             <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
           </div>
+          <div class="edit-wrapper has-text-right" v-if="canEdit">
+            <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
+          </div>
           <div class="organization-name">
-            <hc-textedit v-if="isOwner" @change="updateName" :type="'text'" :value="organization.name || ''"></hc-textedit>
-            <span v-if="!isOwner">{{ organization.name || '' }}</span>
+            <span>{{ organization.name || '' }}</span>
           </div>
           <div class="organization-follows hc-textcounters">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
@@ -59,8 +60,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <hc-textedit v-if="isOwner" @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
-          <span v-if="!isOwner">{{ organization.description }}</span>
+          <div class="content" v-html="organization.description"></div>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <div class="under-construction">
@@ -82,18 +82,9 @@
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
-        <!-- TODO: add timeline for organizations -->
-        <div class="card is-box organization-form-wrapper" v-if="showOrganizationForm">
-          <div class="card-content" style="overflow-x: hidden">
-            <organizations-form @saved="submitForm"
-                                @cancel="cancelForm"
-                                :canEdit="isOwner"
-                                :id="organization._id" />
-          </div>
-        </div>
+        <organization-review-banner v-if="user" :user="user" :organization="organization" :disableReview="true" />
       </div>
     </div>
-    <div class="editlayer" v-if="showOverlay"></div>
   </section>
 </template>
 
@@ -102,12 +93,12 @@
 
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
-  import OrganizationsForm from '../../components/Organizations/OrganizationsForm'
+  import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
 
   export default {
     components: {
       HcTextcount,
-      'organizations-form': OrganizationsForm
+      OrganizationReviewBanner
     },
     data () {
       return {
@@ -115,14 +106,12 @@
           coverImg: null,
           logo: null
         },
-        showOrganizationForm: false,
-        showOverlay: false,
         uploadingCover: false,
         uploadingLogo: false
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({app, params, store, redirect}) {
+    async asyncData ({app, params, store, error}) {
       let organization, owner, isOwner
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await app.$api.service('organizations').find({
@@ -132,7 +121,7 @@
         })
       }
       if (!organization || isEmpty(organization.data)) {
-        return redirect('/organizations/name')
+        error({ statusCode: 404 })
       } else {
         // is owner?
         owner = store.getters['auth/user']
@@ -146,7 +135,8 @@
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
+        isAuthenticated: 'auth/isAuthenticated',
+        user: 'auth/user'
       }),
       coverImg () {
         if (!isEmpty(this.form.coverImg)) {
@@ -161,11 +151,10 @@
       },
       followerCount () {
         return this.organization.followerIds.length
+      },
+      canEdit() {
+        return ['admin', 'moderator'].includes(this.user.role) !== false || this.organization.userId === this.user._id
       }
-    },
-    mounted () {
-      this.showOrganizationForm = !this.organization.isEnabled
-      this.showOverlay = this.showOrganizationForm
     },
     methods: {
       async followOrganization () {
@@ -186,28 +175,8 @@
           }
         }
       },
-      updateDescription (val) {
-        if (val !== undefined) {
-          this.organization.description = val
-          this.$store.dispatch('organizations/patch', this.organization)
-        }
-      },
-      updateName (val) {
-        if (val !== undefined && this.organization.name !== val) {
-          this.organization.name = val
-          this.$store.dispatch('organizations/patch', this.organization).then((res) => {
-            if (res.slug !== '') {
-              this.$router.push(`/organizations/${res.slug}`)
-            }
-          })
-        }
-      },
-      submitForm () {
-        this.showOrganizationForm = false
-        this.showOverlay = false
-      },
-      cancelForm () {
-        this.showOverlay = false
+      edit(id) {
+        this.$router.push({name: 'organizations-settings', query: {id}})
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
@@ -309,6 +278,16 @@
     .organization-sidebar-right {
       h3 {
         text-align: center;
+      }
+    }
+
+    .edit-wrapper {
+      .fa-wrench {
+        color: $grey-light;
+        cursor: pointer;
+        &:hover {
+          color: $grey-dark;
+        }
       }
     }
 
