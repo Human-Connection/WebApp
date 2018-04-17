@@ -252,7 +252,7 @@
           return content
         }
 
-        const utils = require('quill-url-embeds').utils
+        const utils = require('~/modules/quill-url-embeds/index').utils
         const populator = new utils.populator('/embeds')
         this.$nextTick(() => {
           populator.populate(this.$refs.content)
