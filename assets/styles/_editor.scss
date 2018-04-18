@@ -15,6 +15,10 @@ $editor-border-radius: 2px;
   padding: 8px;
   box-sizing: border-box;
 
+  @include mobile() {
+    display: none;
+  }
+
   .ql-formats {
     margin-right: 15px;
     display: inline-block;
@@ -41,6 +45,13 @@ $editor-border-radius: 2px;
         float: left;
         height: 100%;
         box-sizing: border-box;
+      }
+
+      &.ql-editor-button {
+        font-size: 18px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
     }
 

@@ -26,6 +26,23 @@
             <button class="ql-list" value="ordered" ></button>
           </b-tooltip>
         </div>
+        <div class="ql-formats">
+          <b-tooltip :label="$t('component.editor.link')" type="is-black">
+            <button @click.prevent="$refs.editorLinks.toggle()" class="ql-editor-button">
+              <hc-icon icon="link" />
+            </button>
+          </b-tooltip>
+          <b-tooltip :label="$t('component.editor.embed')" type="is-black">
+            <button @click.prevent="$refs.editorEmbeds.toggle()" class="ql-editor-button">
+              <hc-icon icon="code" />
+            </button>
+          </b-tooltip>
+          <b-tooltip :label="$t('component.editor.emoji')" type="is-black">
+            <button @click.prevent="$refs.editorEmojis.toggle()" class="ql-editor-button">
+              <hc-icon icon="smile-o" />
+            </button>
+          </b-tooltip>
+        </div>
       </div>
       <div class="hc-editor-container content hc-editor-content">
         <div class="quill-editor" :class="editorClass"
@@ -37,6 +54,9 @@
           ref="content"
           v-quill:myQuillEditor="computedEditorOptions"></div>
         <div class="plugins" v-if="ready && myQuillBus">
+          <editor-links :quill="myQuillBus" ref="editorLinks" />
+          <editor-embeds :quill="myQuillBus" ref="editorEmbeds" />
+          <editor-emojis :quill="myQuillBus" ref="editorEmojis" />
           <editor-mentions :quill="myQuillBus" />
         </div>
       </div>
@@ -45,6 +65,9 @@
 </template>
 
 <script>
+  import EditorLinks from '~/components/Editor/Links/EditorLinks'
+  import EditorEmbeds from '~/components/Editor/Embeds/EditorEmbeds'
+  import EditorEmojis from '~/components/Editor/Emojis/EditorEmojis'
   import EditorMentions from '~/components/Mentions/EditorMentions'
   import Emitter from 'emitter-js'
 
@@ -55,6 +78,10 @@
       this.getBounds = (index) => quillEditor.getBounds(index)
       this.updateContents = (ops) => quillEditor.updateContents(ops)
       this.setSelection = (index) => quillEditor.setSelection(index)
+      this.getSelection = (focus) => quillEditor.getSelection(focus)
+      this.getLine = (index) => quillEditor.getLine(index)
+      this.getText = (index, length) => quillEditor.getText(index, length)
+      this.format = (name, value, source) => quillEditor.format(name, value, source)
       quillEditor.on('text-change', (...args) => bus.emit('text-change', ...args))
       quillEditor.on('selection-change', (...args) => bus.emit('selection-change', ...args))
     }
@@ -75,7 +102,10 @@
   export default {
     name: 'hc-editor',
     components: {
-      EditorMentions
+      EditorMentions,
+      EditorLinks,
+      EditorEmbeds,
+      EditorEmojis
     },
     props: {
       value: {
@@ -113,7 +143,9 @@
               handlers: {
               }
             },
-            urlEmbeds: {}
+            urlEmbeds: {
+              metaCallback: this.handleMeta
+            }
           },
           placeholder: 'Schreiben ...'
         }
@@ -148,6 +180,9 @@
       editorReady () {
         this.myQuillBus = new QuillBus(this.myQuillEditor)
         this.ready = true
+      },
+      handleMeta (data) {
+        this.$emit('fetchedMeta', data)
       }
     },
     watch: {
