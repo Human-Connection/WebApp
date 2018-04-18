@@ -124,9 +124,14 @@
                 </template>
             </v2-table-column>
             <v2-table-column label="Slot" prop="slot" align="center">
-                <template slot-scope="row">
-                    {{ row.slot }}
-                </template>
+              <template slot-scope="row">
+                {{ row.slot }}
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Created" prop="createdAt" align="center">
+              <template slot-scope="row">
+                {{ row.createdAt }}
+              </template>
             </v2-table-column>
         </v2-table>
       </no-ssr>
@@ -135,6 +140,7 @@
 </template>
 
 <script>
+  import moment from 'moment'
   import { isEmpty, map, keyBy } from 'lodash'
   import { mapGetters } from 'vuex'
   import animatable from '~/components/mixins/animatable'
@@ -233,7 +239,7 @@
           this.form.requireConfirmation = !this.form.requireConfirmation
         }
       },
-      createNotification() {
+      async createNotification() {
         if (this.$v.form.$invalid) {
           this.animate('shake')
           this.$toast.open({
@@ -251,17 +257,17 @@
 
         try {
           let formData = Object.assign({}, this.form)
-          this.$api.service('system-notifications').create(formData).then((res) => {
-            if(!isEmpty(res)) {
-              this.isLoading = false
-              this.notifications.push(res)
-              this.$snackbar.open({
-                message: this.$t('component.admin.createNotificationSuccess'),
-                duration: 4000,
-                type: 'is-success'
-              })
-            }
-          })
+          let res = await this.$api.service('system-notifications').create(formData)
+          if(!isEmpty(res)) {
+            this.isLoading = false
+            this.$set(this.notifications, res)
+            let clone = this.notifications.slice(0)
+            this.$snackbar.open({
+              message: this.$t('component.admin.createNotificationSuccess'),
+              duration: 4000,
+              type: 'is-success'
+            })
+          }
         } catch (err) {
           console.error(err)
           this.isLoading = false
