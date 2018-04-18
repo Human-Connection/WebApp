@@ -206,7 +206,8 @@
       "stepDetails": "Details",
       "stepCategories": "Categories",
       "messageInReview": "<strong>In Review</strong><p>Your organization has to be reviewed before others can see it.<br/> Please be percent so one of our moderators can have a look. If it takes to long, feel free to <a href=\"mailto:{email}\">write us an email</a>.</p>",
-      "messageInReviewMod": "<strong>In Review</strong><p>Hey seams like you are a Moderator. Please take a moment to validate this organization.</p>"
+      "messageInReviewMod": "<strong>In Review</strong><p>Hey seams like you are a Moderator. Please take a moment to validate this organization.</p>",
+      "visibility": "Visibility"
     },
     "projects": {
       "label": "Projects"
@@ -515,6 +516,8 @@
     }
   },
   "info": {
-    "created": "Created"
+    "created": "Created",
+    "active": "Active",
+    "inactive": "Inactive"
   }
 }

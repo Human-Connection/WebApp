@@ -11,7 +11,6 @@
       </div>
     </div>
     <div class="field">
-      <p class="subtitle is-6">{{ $t('component.organization.nameHint') }}</p>
       <div class="control has-icons-right"
             :class="{ 'has-error': $v.form.name.$error }">
         <label class="label is-required" for="form-name">{{ $t('component.organization.name') }}</label>
@@ -22,6 +21,7 @@
                 type="text"
                 :placeholder="$t('component.organization.createOrgaSectionPlaceholder')"
                 v-model="form.name">
+        <p class="small-info">{{ $t('component.organization.nameHint') }}</p>
       </div>
       <p :class="{ 'is-hidden': !$v.form.name.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
     </div>

@@ -206,7 +206,8 @@
       "stepDetails": "Details",
       "stepCategories": "Kategorien",
       "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch Überprüft werden bevor sie andere sehen können.<br/> Bitte habe ein wenig Geduld bis unsere Moderatoren die gelegenheit hatte deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns ein E-Mail</a>.</p>",
-      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie Freizuschalten.</p>"
+      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie Freizuschalten.</p>",
+      "visibility": "Anzeigeeinstellung"
     },
     "projects": {
       "label": "Projekte"
@@ -515,6 +516,8 @@
     }
   },
   "info": {
-    "created": "Erstellt"
+    "created": "Erstellt",
+    "active": "Aktiviert",
+    "inactive": "Deaktiviert"
   }
 }
