@@ -82,7 +82,8 @@
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
-        <organization-review-banner v-if="user" :user="user" :organization="organization" :disableReview="true" />
+        <organization-review-banner v-if="user && !organization.reviewedBy" :user="user" :organization="organization" :disableReview="true" />
+        <organization-visibility-banner v-else-if="user" :user="user" :organization="organization" />
       </div>
     </div>
   </section>
@@ -94,11 +95,13 @@
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
   import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
+  import OrganizationVisibilityBanner from '~/components/Organizations/OrganizationVisibilityBanner.vue'
 
   export default {
     components: {
       HcTextcount,
-      OrganizationReviewBanner
+      OrganizationReviewBanner,
+      OrganizationVisibilityBanner
     },
     data () {
       return {

@@ -205,8 +205,9 @@
       "stepBasics": "Basisdaten",
       "stepDetails": "Details",
       "stepCategories": "Kategorien",
-      "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch Überprüft werden bevor sie andere sehen können.<br/> Bitte habe ein wenig Geduld bis unsere Moderatoren die gelegenheit hatte deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns ein E-Mail</a>.</p>",
-      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie Freizuschalten.</p>",
+      "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch überprüft werden bevor andere sie sehen können.<br/> Bitte habe ein wenig Geduld bis unsere Moderatoren die Gelegenheit hatte deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns ein E-Mail</a>.</p>",
+      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie freizuschalten.</p>",
+      "messageInvisible": "<strong>Unsichtbar</strong><p>Diese Organisation muss sichtbar geschalten werden bevor andere sie sehen können.</p>",
       "visibility": "Anzeigeeinstellung"
     },
     "projects": {
@@ -324,6 +325,7 @@
   "button": {
     "back": "Zurück",
     "cancel": "Abbrechen",
+    "changeSettings": "Einstellungen ändern",
     "close": "Schließen",
     "create": "Erstellen",
     "delete": "Löschen",
@@ -343,7 +345,8 @@
     "addProject": "Projekt erstellen",
     "random": "Zufallsgenerator",
     "next": "Weiter",
-    "review": "Freischalten"
+    "review": "Freischalten",
+    "startReview": "Überprüfung starten"
   },
   "legal": {
     "copyrights": "Urheberrecht:",

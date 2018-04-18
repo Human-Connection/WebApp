@@ -33,9 +33,21 @@ $ yarn start
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
-### Test Login
+### Test Logins
+
+**Admin**
 
 E-Mail: `test@test.de`  
+Password: `1234`
+
+**Moderator**
+
+E-Mail: `test2@test2.de`  
+Password: `1234`
+
+**Normal User**
+
+E-Mail: `test3@test3.de`  
 Password: `1234`
 
 ## Styleguide

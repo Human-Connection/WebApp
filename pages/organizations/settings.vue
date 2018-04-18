@@ -116,7 +116,7 @@
       },
       canEnable () {
         // owner (if reviewed), moderator, admin
-        return ['admin', 'moderator'].includes(this.user.role) === true || this.organization.isReviewed
+        return ['admin', 'moderator'].includes(this.user.role) === true || this.organization.reviewedBy
       }
     },
     methods: {

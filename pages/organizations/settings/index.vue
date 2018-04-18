@@ -85,7 +85,7 @@
       },
       canEnable () {
         // owner (if reviewed), moderator, admin
-        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.isReviewed
+        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.reviewedBy
       }
     },
     methods: {
