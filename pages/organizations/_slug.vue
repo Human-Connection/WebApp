@@ -150,7 +150,7 @@
         } else if (!isEmpty(this.organization.coverImg)) {
           return this.organization.coverImg
         } else {
-          return null
+          return ''
         }
       },
       followerCount () {
