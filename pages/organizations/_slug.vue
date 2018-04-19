@@ -150,7 +150,7 @@
         } else if (!isEmpty(this.organization.coverImg)) {
           return this.organization.coverImg
         } else {
-          return 'https://source.unsplash.com/random/1250x280'
+          return null
         }
       },
       followerCount () {
