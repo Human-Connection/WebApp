@@ -207,7 +207,10 @@
       const limit = itemLimit
       const systemNotifications = await app.$api.service('system-notifications').find({
         query: {
-          $limit: limit
+          $limit: limit,
+          $sort: {
+            createdAt: -1
+          }
         }
       })
       return {
@@ -259,9 +262,16 @@
           let formData = Object.assign({}, this.form)
           let res = await this.$api.service('system-notifications').create(formData)
           if(!isEmpty(res)) {
+            const systemNotifications = await this.$api.service('system-notifications').find({
+              query: {
+                $limit: this.itemLimit,
+                $sort: {
+                  createdAt: -1
+                }
+              }
+            })
+            this.notifications = systemNotifications
             this.isLoading = false
-            this.$set(this.notifications, res)
-            let clone = this.notifications.slice(0)
             this.$snackbar.open({
               message: this.$t('component.admin.createNotificationSuccess'),
               duration: 4000,
