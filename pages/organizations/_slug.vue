@@ -29,7 +29,7 @@
           <div class="organization-name">
             <span>{{ organization.name || '' }}</span>
           </div>
-          <div class="organization-follows hc-textcounters">
+          <div class="organization-follows hc-textcounters under-construction">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
               <div class="action-button">
                 <i class="fa fa-bullhorn is-action-icon"></i>
@@ -42,7 +42,8 @@
             </hc-textcount>
           </div>
         </hc-box>
-        <div class="organization-actions">
+        <!-- TODO: get better looking interactions -->
+        <div class="organization-actions" v-if="false">
           <hc-box top="true" class="organization-action">
             <i class="fa fa-envelope"></i>
           </hc-box>
