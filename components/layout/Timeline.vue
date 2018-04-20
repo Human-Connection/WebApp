@@ -302,6 +302,9 @@ import { setTimeout } from 'timers';
             $sort: {
               createdAt: -1
             },
+            userId: {
+              $ne: userId
+            },
             visibility: 'public',
             isEnabled: true,
             _id: {
