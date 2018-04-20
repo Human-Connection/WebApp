@@ -125,7 +125,7 @@
           <ul class="is-list">
             <li v-for="canDo in candos" :key="canDo._id">
               <hc-button type="link" :to="{name:'contributions-slug', params: {slug: canDo.slug}}">
-                <hc-truncate :text="canDo.title" :length="30" :options="{seperator: ''}" />
+                <hc-truncate :text="canDo.title" length=30 :options="{seperator: ''}" />
               </hc-button>
             </li>
           </ul>

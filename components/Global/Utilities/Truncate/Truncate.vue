@@ -20,7 +20,7 @@
        * The number of characters
        */
       length: {
-        type: Number,
+        type: [Number, String],
         required: true
       },
       options: {
