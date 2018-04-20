@@ -102,7 +102,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
-  import { castArray } from 'lodash'
+  import { castArray, flatMap } from 'lodash'
 import { setTimeout } from 'timers';
 
   export default {
@@ -206,6 +206,7 @@ import { setTimeout } from 'timers';
         // by createdAt DESC
         (async () => {
           const userId = await this.getUserId()
+
           let query = {
             userId: userId,
             $limit: 30,
@@ -241,19 +242,16 @@ import { setTimeout } from 'timers';
           const userId = await this.getUserId()
 
           const shouts = await this.$api.service('shouts').find({
-            userId,
-            $limit: 30,
-            $sort: {
-              createdAt: -1
+            query: {
+              userId,
+              $limit: 30,
+              $sort: {
+                createdAt: -1
+              }
             }
           })
 
-          let contributionIds = []
-          shouts.data.forEach(item => {
-            if (item.foreignService === 'contributions') {
-              contributionIds.push(item.foreignId)
-            }
-          })
+          const contributionIds = flatMap(shouts.data, 'foreignId')
 
           let query = {
             $limit: 30,
@@ -288,17 +286,16 @@ import { setTimeout } from 'timers';
           const userId = await this.getUserId()
 
           const comments = await this.$api.service('comments').find({
-            userId,
-            $limit: 30,
-            $sort: {
-              createdAt: -1
+            query: {
+              userId,
+              $limit: 30,
+              $sort: {
+                createdAt: -1
+              }
             }
           })
 
-          let commentIds = []
-          comments.data.forEach(item => {
-            commentIds.push(item.contributionId)
-          })
+          const commentIds = flatMap(comments.data, 'contributionId')
 
           let query = {
             $limit: 30,
