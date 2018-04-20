@@ -219,7 +219,7 @@ import { setTimeout } from 'timers';
         return userId
       },
       async getContributions (user, limit = 10, skip = 0) {
-        console.log('getContributions', limit)
+        // console.log('getContributions', limit)
         // get the contributions by the userId and sort it
         // by createdAt DESC
         const userId = await this.getUserId()
@@ -252,7 +252,7 @@ import { setTimeout } from 'timers';
         }
       },
       async getShouts (user, limit = 10, skip = 0) {
-        console.log('getShouts', limit)
+        // console.log('getShouts', limit)
         // get the contributions by the userId and sort it
         // by createdAt DESC
         const userId = await this.getUserId()
@@ -271,8 +271,6 @@ import { setTimeout } from 'timers';
             $select: ['foreignId']
           }
         })
-
-        console.log(shouts)
 
         const contributionIds = flatMap(shouts.data, 'foreignId')
 
@@ -303,7 +301,7 @@ import { setTimeout } from 'timers';
         }
       },
       async getCommented (user, limit = 10, skip = 0) {
-        console.log('getCommented', limit)
+        // console.log('getCommented', limit)
         // get the contributions by the userId and sort it
         // by createdAt DESC
         if (limit) {
