@@ -4,7 +4,7 @@
     <div class="columns">
       <div class="column level">
         <div class="level-item has-text-centered">
-          <hc-tooltip type="is-dark" :label="`${userCount} Total | ${userCountVerified} Verified`">
+          <hc-tooltip type="is-dark" :label="`${userCountUnverified} Unverified | ${userCountActive} Monthly Active | ${userCountOnline} Online`">
             <div>
               <p class="heading">{{ $t('component.admin.users', 'Users') }}</p>
               <p class="title">
@@ -108,6 +108,15 @@
 
 <script>
   import countTo from 'vue-count-to'
+  import moment from 'moment'
+
+  const wait = (ms) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve()
+      }, ms)
+    })
+  }
 
   export default {
     middleware: 'admin',
@@ -124,7 +133,9 @@
       return {
         countDuration: 2500,
         userCount: 0,
-        userCountVerified: 0,
+        userCountUnverified: 0,
+        userCountActive: 0,
+        userCountOnline: 0,
         contributionCount: 0,
         contributionCountPost: 0,
         contributionCountCanDo: 0,
@@ -139,54 +150,81 @@
         shoutCount: 0
       }
     },
-    mounted () {
-      this.$api.service('users').find({query: { $limit: 0 }})
+    methods () {
+
+    },
+    async mounted () {
+
+      await wait(50)
+      await this.$api.service('users').find({query: { $limit: 0 }})
         .then(res => {
           this.userCount = res.total || 0
         })
-      this.$api.service('users').find({query: { $limit: 0, isVerified: true }})
-        .then(res => {
-          this.userCountVerified = res.total || 0
-        })
 
-      this.$api.service('contributions').find({query: { $limit: 0 }})
+      wait(1000).then(async () => {
+        await this.$api.service('users').find({query: { $limit: 0, isVerified: { $ne: true } }})
+          .then(res => {
+            this.userCountUnverified = res.total || 0
+          })
+        await this.$api.service('users').find({query: { $limit: 0, isVerified: true, lastActiveAt: { $gt: moment().subtract(30, 'days').toDate() } }})
+          .then(res => {
+            this.userCountActive= res.total || 0
+          })
+        await this.$api.service('users').find({query: { $limit: 0, isVerified: true, lastActiveAt: { $gt: moment().subtract(30, 'minutes').toDate() } }})
+          .then(res => {
+            this.userCountOnline= res.total || 0
+          })
+      })
+
+      await this.$api.service('contributions').find({query: { $limit: 0 }})
         .then(res => {
           this.contributionCount = res.total || 0
         })
-      this.$api.service('contributions').find({query: { $limit: 0, type: 'post' }})
-        .then(res => {
-          this.contributionCountPost = res.total || 0
-        })
-      this.$api.service('contributions').find({query: { $limit: 0, type: 'cando' }})
-        .then(res => {
-          this.contributionCountCanDo = res.total || 0
-        })
 
-      this.$api.service('comments').find({query: { $limit: 0 }})
+      wait(100).then(async () => {
+        await this.$api.service('contributions').find({query: { $limit: 0, type: 'post' }})
+          .then(res => {
+            this.contributionCountPost = res.total || 0
+          })
+        await this.$api.service('contributions').find({query: { $limit: 0, type: 'cando' }})
+          .then(res => {
+            this.contributionCountCanDo = res.total || 0
+          })
+      })
+
+      await this.$api.service('comments').find({query: { $limit: 0 }})
         .then(res => {
           this.commentsCount = res.total || 0
         })
-      this.$api.service('organizations').find({query: { $limit: 0 }})
+
+      await this.$api.service('organizations').find({query: { $limit: 0 }})
         .then(res => {
           this.organizationCount = res.total || 0
         })
-      this.$api.service('projects').find({query: { $limit: 0 }})
+
+      await this.$api.service('projects').find({query: { $limit: 0 }})
         .then(res => {
           this.projectCount = res.total || 0
         })
-      this.$api.service('notifications').find({query: { $limit: 0 }})
+
+      await this.$api.service('notifications').find({query: { $limit: 0 }})
         .then(res => {
           this.notificationCount = res.total || 0
         })
-      this.$api.service('notifications').find({query: { $limit: 0, unseen: true }})
-        .then(res => {
-          this.notificationCountUnread = res.total || 0
-        })
-      this.$api.service('emotions').find({query: { $limit: 0 }})
+
+      wait(1000).then(async () => {
+        await this.$api.service('notifications').find({query: { $limit: 0, unseen: true }})
+          .then(res => {
+            this.notificationCountUnread = res.total || 0
+          })
+      })
+
+      await this.$api.service('emotions').find({query: { $limit: 0 }})
         .then(res => {
           this.emotionCount = res.total || 0
         })
-      this.$api.service('invites').find({query: { $limit: 0, wasUsed: { $ne: true } }})
+
+      await this.$api.service('invites').find({query: { $limit: 0, wasUsed: { $ne: true } }})
         .then(res => {
           this.inviteCount = res.total || 0
         })
@@ -194,7 +232,8 @@
       //   .then(res => {
       //     this.followCount = res.total || 0
       //   })
-      this.$api.service('shouts').find({query: { $limit: 0 }})
+
+      await this.$api.service('shouts').find({query: { $limit: 0 }})
         .then(res => {
           this.shoutCount = res.total || 0
         })
