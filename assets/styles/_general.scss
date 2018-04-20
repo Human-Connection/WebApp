@@ -468,3 +468,15 @@ $iconPadding: .3em;
     margin: 0;
   }
 }
+
+ol.is-list {
+  list-style: decimal outside;
+  margin-left: 2em;
+  margin-top: 1em;
+}
+
+ul.is-list {
+  list-style: disc outside;
+  margin-left: 2em;
+  margin-top: 1em;
+}
