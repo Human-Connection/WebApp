@@ -7,7 +7,7 @@
     :class="classes" :to="to" @click.native="click">
     <slot></slot>
   </nuxt-link>
-  <a v-else :class="classes" @click="click">
+  <a v-else :href="to ? this.$router.resolve(to).href : ''" :class="classes" @click="click">
     <slot></slot>
   </a>
 </template>
@@ -78,7 +78,10 @@
     },
     computed: {
       classes () {
-        let classes = 'button'
+        let classes = ''
+        if (!this.isLink) {
+          classes += 'button'
+        }
         if (this.color) {
           classes += ` is-${this.color}`
         }
@@ -101,11 +104,18 @@
       },
       hasType () {
         return this.to ? 'nuxt' : this.type
+      },
+      isLink () {
+        return !['button', 'nuxt'].includes(this.type)
       }
     },
     methods: {
-      click (event) {
-        this.$emit('click', event)
+      click (e) {
+        if (!this.isLink || (!e.metaKey && !e.ctrlKey)) {
+          // do open detail page without reload if no extra keys are specefied
+          e.preventDefault()
+          this.$emit('click', e)
+        }
       }
     }
   }
