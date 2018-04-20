@@ -132,7 +132,7 @@ import { setTimeout } from 'timers';
         this.getContributions(user)
       }
     },
-    mounted () {
+    async mounted () {
       this.isLoading = true
       this.loadingFinished = false
 
@@ -145,8 +145,8 @@ import { setTimeout } from 'timers';
 
       if (this.user) {
         this.getContributions(this.user)
-        this.getCommented(this.user)
-        this.getShouts(this.user)
+        this.getCommented(this.user, 0)
+        this.getShouts(this.user, 0)
       }
     },
     destroy () {
@@ -167,17 +167,32 @@ import { setTimeout } from 'timers';
           {
             key: 'contributed',
             label: this.$t('page.profile.navContributed', 'Contributed'),
-            count: this.contributed.total || 0
+            count: this.contributed.total || 0,
+            action: () => {
+              if (this.contributed.total && !this.contributed.data.length) {
+                this.getContributions(this.user)
+              }
+            }
           },
           {
             key: 'commented',
             label: this.$t('page.profile.navCommented', 'Commented'),
-            count: this.commented.total || 0
+            count: this.commented.total || 0,
+            action: () => {
+              if (this.commented.total && !this.commented.data.length) {
+                this.getCommented(this.user)
+              }
+            }
           },
           {
             key: 'shouted',
             label: this.$t('page.profile.navShouted', 'Shouted'),
-            count: this.shouted.total || 0
+            count: this.shouted.total || 0,
+            action: () => {
+              if (this.shouted.total && !this.shouted.data.length) {
+                this.getShouts(this.user)
+              }
+            }
           }
         ]
       }
@@ -189,10 +204,12 @@ import { setTimeout } from 'timers';
             this.$scrollTo(this.$refs.timeline, 250, {
               onDone: () => {
                 this.tabIndex = index
+                item.action()
               }
             })
           } else {
             this.tabIndex = index
+            item.action()
           }
         } catch (err) {}
       },
@@ -201,130 +218,141 @@ import { setTimeout } from 'timers';
         let userId = user._id !== undefined ? user._id : user.data[0]._id
         return userId
       },
-      getContributions (user) {
+      async getContributions (user, limit = 10, skip = 0) {
+        console.log('getContributions', limit)
         // get the contributions by the userId and sort it
         // by createdAt DESC
-        (async () => {
-          const userId = await this.getUserId()
+        const userId = await this.getUserId()
 
-          let query = {
-            userId: userId,
-            $limit: 30,
-            $sort: {
-              createdAt: -1
-            }
+        let query = {
+          userId: userId,
+          $limit: limit,
+          $sort: {
+            createdAt: -1
           }
+        }
 
-          // show only public posts if its not your own profile
-          if (!this.isOwnProfile) {
-            query.visibility = 'public'
-              // query.categoryIds = { $exists: true, $not: {$size: 0} }
-          }
+        // show only public posts if its not your own profile
+        if (!this.isOwnProfile) {
+          query.visibility = 'public'
+            // query.categoryIds = { $exists: true, $not: {$size: 0} }
+        }
 
-          try {
-            let res = await this.$api.service('contributions').find({query})
-            this.contributed = res
-            this.isLoading = false
-            this.loadingFinished = true
-          } catch (err) {
-            // this just displays nothing
-            // @todo implement some user feedback
-            console.error(err)
-            this.isLoading = false
-            this.loadingFinished = true
-          }
-        })()
+        try {
+          let res = await this.$api.service('contributions').find({query})
+          this.contributed = res
+          this.isLoading = false
+          this.loadingFinished = true
+        } catch (err) {
+          // this just displays nothing
+          // @todo implement some user feedback
+          console.error(err)
+          this.isLoading = false
+          this.loadingFinished = true
+        }
       },
-      getShouts (user) {
+      async getShouts (user, limit = 10, skip = 0) {
+        console.log('getShouts', limit)
         // get the contributions by the userId and sort it
         // by createdAt DESC
-        (async () => {
-          const userId = await this.getUserId()
+        const userId = await this.getUserId()
 
-          const shouts = await this.$api.service('shouts').find({
-            query: {
-              userId,
-              $limit: 30,
-              $sort: {
-                createdAt: -1
-              }
-            }
-          })
+        if (limit) {
+          this.isLoading = true
+        }
 
-          const contributionIds = flatMap(shouts.data, 'foreignId')
-
-          let query = {
-            $limit: 30,
+        const shouts = await this.$api.service('shouts').find({
+          query: {
+            userId,
             $sort: {
               createdAt: -1
             },
-            visibility: 'public',
-            isEnabled: true,
-            _id: {
-              $in: contributionIds
-            }
+            $limit: limit,
+            $select: ['foreignId']
           }
+        })
 
-          try {
-            let res = await this.$api.service('contributions').find({query})
-            this.shouted = res
-            this.isLoading = false
-            this.loadingFinished = true
-          } catch (err) {
-            // this just displays nothing
-            // @todo implement some user feedback
-            console.error(err)
-            this.isLoading = false
-            this.loadingFinished = true
+        console.log(shouts)
+
+        const contributionIds = flatMap(shouts.data, 'foreignId')
+
+        let query = {
+          $limit: limit,
+          $sort: {
+            createdAt: -1
+          },
+          visibility: 'public',
+          isEnabled: true,
+          _id: {
+            $in: contributionIds
           }
-        })()
+        }
+
+        try {
+          let res = await this.$api.service('contributions').find({query})
+          this.shouted = res
+          this.shouted.total = shouts.total
+          this.isLoading = false
+          this.loadingFinished = true
+        } catch (err) {
+          // this just displays nothing
+          // @todo implement some user feedback
+          console.error(err)
+          this.isLoading = false
+          this.loadingFinished = true
+        }
       },
-      getCommented (user) {
+      async getCommented (user, limit = 10, skip = 0) {
+        console.log('getCommented', limit)
         // get the contributions by the userId and sort it
         // by createdAt DESC
-        (async () => {
-          const userId = await this.getUserId()
+        if (limit) {
+          this.isLoading = true
+        }
 
-          const comments = await this.$api.service('comments').find({
-            query: {
-              userId,
-              $limit: 30,
-              $sort: {
-                createdAt: -1
-              }
-            }
-          })
+        const userId = await this.getUserId()
 
-          const commentIds = flatMap(comments.data, 'contributionId')
-
-          let query = {
-            $limit: 30,
+        const comments = await this.$api.service('comments').find({
+          query: {
+            userId,
             $sort: {
               createdAt: -1
             },
-            userId: {
-              $ne: userId
-            },
-            visibility: 'public',
-            isEnabled: true,
-            _id: {
-              $in: commentIds
-            }
+            $limit: limit,
+            $select: ['contributionId']
           }
+        })
 
-          try {
-            let res = await this.$api.service('contributions').find({query})
-            this.commented = res
-            this.isLoading = false
-            this.loadingFinished = true
-          } catch (err) {
-            // this just displays nothing
-            // @todo implement some user feedback
-            console.error(err)
-            this.isLoading = false
-            this.loadingFinished = true
+        const commentIds = flatMap(comments.data, 'contributionId')
+
+        let query = {
+          $limit: limit,
+          $sort: {
+            createdAt: -1
+          },
+          userId: {
+            $ne: userId
+          },
+          visibility: 'public',
+          isEnabled: true,
+          _id: {
+            $in: commentIds
           }
-        })()
+        }
+
+        try {
+          let res = await this.$api.service('contributions').find({query})
+          this.commented = res
+          this.commented.total = comments.total
+          this.isLoading = false
+          this.loadingFinished = true
+        } catch (err) {
+          // this just displays nothing
+          // @todo implement some user feedback
+          console.error(err)
+          this.isLoading = false
+          this.loadingFinished = true
+        }
       },
       updateNavSize () {
         try {
