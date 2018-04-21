@@ -10,7 +10,7 @@
       <span class="menu-icon">
         <hc-icon icon="cog"></hc-icon>
       </span>
-      {{ $t('auth.account.settings', 'Kontoeinstellungen') }}
+      {{ $t('auth.account.settings', 'Einstellungen') }}
     </nuxt-link>
     <nuxt-link to="messages" class="menu-item">
       <span class="menu-icon">

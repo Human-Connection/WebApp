@@ -30,7 +30,7 @@
         <hc-button @click="$refs.dropdown.close()"
           size="medium"
           :fullWidth="true">
-          {{ $t('button.back', 'Back') }}
+          <hc-icon icon="angle-left" />&nbsp; {{ $t('button.back', 'Back') }}
         </hc-button>
       </div>
     </hc-dropdown>

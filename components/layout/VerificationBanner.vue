@@ -9,7 +9,7 @@
       <div class="notification is-primary" v-else-if="!user.name">
         <button class="delete" @click="active = false"></button>
         Bitte verrate uns deinen Namen um Beiträge erstellen zu können:
-        <nuxt-link :to="{ name: 'auth-name' }">Namen erstellen</nuxt-link>
+        <nuxt-link :to="{ name: 'auth-settings' }">Namen erstellen</nuxt-link>
       </div>
     </template>
   </section>

@@ -51,6 +51,7 @@
     align-items: center;
     padding: 0.4rem 1rem;
     color: $grey;
+    user-select: none;
 
     &:hover, &.uk-open, &.active {
       &:not(.static) {

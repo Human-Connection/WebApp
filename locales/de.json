@@ -34,7 +34,8 @@
       "comments": "Kommentare",
       "contributions": "Beiträge",
       "deleteCategory": "Diese Kategorie löschen",
-      "development": "Entwicklersersmodus",
+      "development": "Entwickler Modus",
+      "developmentWarning": "Vorsicht! Ich hoffe du weißt was du tust!?",
       "index_title": "Übersicht der Beiträge",
       "label": "Administration",
       "manageCategories": "Themen-Kategorien verwalten",
@@ -42,12 +43,18 @@
       "notifications": "Benachrichtigungen",
       "organisations": "Organisationen",
       "projects": "Projekte",
+      "openInvites": "offene Einladungen",
+      "follows": "Follows",
+      "shouts": "Empfehlungen",
       "seedDemoContributions": "Demo-Beiträge generieren",
       "seedDemoContributionsSuccessMessage": "Demo-Beiträge zur Datenbank hinzugefügt!",
       "seedFakeData": "Umfangreiche Pseudodaten generieren",
       "seedFakeDataSuccessMessage": "Massig neue Einträge wurden generiert, viel Spaß!",
       "settings": "Einstellungen",
-      "users": "Benutzer"
+      "users": "Benutzer",
+      "messageCSVInvalid": "Du musst eine valide .csv auswählen",
+      "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
+      "buttonDownloadCSV": "Download CSV"
     },
     "calendar": {
       "label": "Kalender"
@@ -120,6 +127,7 @@
       "letsTalk": "Miteinander reden",
       "letsTalkDescription": "Mit {user} ins Gespräch kommen und in Kontakt treten, um z.B. Inhalte des Beitrags zu diskutieren, Rückmeldungen oder Anregungen zu geben. Du kannst einstellen, ob das Zwiegespräch öffentlich oder privat sein soll.",
       "organizations": "Organisationen",
+      "organizationsCreate": "Neue Organisation erstellen",
       "map": "Karte",
       "messages": "Beiträge",
       "messageSaveSuccess": "Danke für Deinen Beitrag. Du bist grandios.",
@@ -158,6 +166,53 @@
       "validationErrorContent": "Bitte gebe deinem Beitrag einen Text",
       "validationErrorCategories": "Wähle mindestens eine Kategorie aus um den Beitrag zu speichern"
     },
+    "organization": {
+      "createNew": "Neue Organisation erstellen",
+      "createSave": "Organisation speichern",
+      "createLater": "Später",
+      "goToProfile": "zum Profil",
+      "requiredHint": "Diese Felder werden benötigt, damit deine Organisation veröffentlicht werden kann.",
+      "name": "Name der Organisation",
+      "createOrgaSectionPlaceholder": "Wie wird die Organisation genannt?",
+      "nameHint": "Unter diesem Namen werden Nutzer deine Organisation suchen und finden können.",
+      "orgaDescription": "Beschreibung",
+      "orgaDescriptionPlaceholder": "Beschreibe die Organisation",
+      "type": "Organisationsform",
+      "types": {
+        "ngo": "Nicht Regierungsorganisation",
+        "npo": "Nicht Profitorientierte Organisation",
+        "goodpurpose": "Guter Zweck",
+        "ev": "Verein (e.V.)",
+        "eva": "Verein (e.V. gemeinnützig anerkannt)"
+      },
+      "foundingYear": "Gründungsjahr",
+      "foundingYearSectionPlaceholder": "Wann wurde die Organisation gegründet?",
+      "street": "Straße & Hausnummer",
+      "zipcode": "Postleitzahl",
+      "city": "Stadt",
+      "country": "Country",
+      "phone": "Telefon",
+      "email": "E-Mail adresse",
+      "website": "Webseite",
+      "logo": "Logo",
+      "organizationSaveSuccess": "Die Organisation wurde erstellt.",
+      "settingsWelcome": "Hier kannst Du deine Organisation verwalten.",
+      "general": "Organisations-Einstellungen",
+      "generalDetails": "Allgemeine Einstellungen",
+      "generalData": "Organisationsdaten",
+      "deleted": "Die Organisation wurde erfolgreich gelöscht.",
+      "organizationLanguageSelection": "Hauptsprache der Organisation",
+      "stepBasics": "Basisdaten",
+      "stepDetails": "Details",
+      "stepCategories": "Kategorien",
+      "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch überprüft werden bevor andere sie sehen können.<br/> Bitte habe ein wenig Geduld bis unsere Moderatoren die Gelegenheit hatte deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns ein E-Mail</a>.</p>",
+      "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey sieht aus als wärst du Moderator. Bitte nimm dir kurz Zeit diese Organisation zu überprüfen und sie freizuschalten.</p>",
+      "messageInvisible": "<strong>Unsichtbar</strong><p>Diese Organisation muss sichtbar geschalten werden bevor andere sie sehen können.</p>",
+      "visibility": "Anzeigeeinstellung"
+    },
+    "projects": {
+      "label": "Projekte"
+    },
     "notification": {
       "label": "Benachrichtigungen",
       "messageEmpty": "Du hast keine Benachrichtigungen.",
@@ -168,7 +223,7 @@
       }
     },
     "dashbord": {
-      "label": "Entdecken"
+      "label": "Dashboard"
     },
     "editor": {
       "bold": "fette Schrift",
@@ -240,6 +295,20 @@
     "takeAction": {
       "noOrganizations": "Es gibt leider noch keine Organisationen die zu diesem Beitrag passen. <br/><br/>Willst Du eine erstellen?",
       "noProjects": "Es gibt leider noch keine Projekte die zu diesem Beitrag passen. <br/><br/>Willst Du eins erstellen?"
+    },
+    "organization": {
+      "shouts": "Zurufe",
+      "supporter": "Unterstützer",
+      "aboutUs": "Über uns",
+      "more": "Spenden & Mehr",
+      "welcome": "Willkommen",
+      "faqTitle": "Fragen & Antworten",
+      "defaultDescription": "Beschreibe deine Organisation."
+    },
+    "profile": {
+      "navContributed": "Beiträge",
+      "navCommented": "Kommentiert",
+      "navShouted": "Empfohlen"
     }
   },
   "upload": {
@@ -249,10 +318,15 @@
       "acceptedFiles": "Du kannst hier nur Bilddateien hochladen."
     }
   },
+  "actions": {
+    "follow": "Du folgst nun \"{name}\"",
+    "unfollow": "Du folgst \"{name}\" nun nicht mehr"
+  },
   "button": {
     "back": "Zurück",
     "cancel": "Abbrechen",
-    "close": "Schliessen",
+    "changeSettings": "Einstellungen ändern",
+    "close": "Schließen",
     "create": "Erstellen",
     "delete": "Löschen",
     "edit": "Bearbeiten",
@@ -269,7 +343,10 @@
     "addContribution": "Beitrag erstellen",
     "addOrganization": "Organisation erstellen",
     "addProject": "Projekt erstellen",
-    "random": "Zufallsgenerator"
+    "random": "Zufallsgenerator",
+    "next": "Weiter",
+    "review": "Freischalten",
+    "startReview": "Überprüfung starten"
   },
   "legal": {
     "copyrights": "Urheberrecht:",
@@ -350,9 +427,10 @@
       "nameSection": "Wie dürfen wir Dich nennen?",
       "nameTitle": "Schön, Dich kennenzulernen",
       "password": "Passwort",
+      "passwordRepeat": "Passwort wiederholen",
       "inviteCode": "Einladungs-Code",
       "profile": "Mein Profil",
-      "settings": "Kontoeinstellungen",
+      "settings": "Einstellungen",
       "verifyingErrorDescription": "Wir konnten Deine E-Mail-Adresse nicht überprüfen. Vielleicht war der geklickte Link schon veraltet. Wiederhole bitte die E-Mail-Überprüfung.",
       "verifyingErrorSection": "Hoppla ...",
       "verifyingInfo": "Überprüfen der E-Mail Adresse ...",
@@ -368,6 +446,7 @@
       "welcomeTitle": "Willkommen"
     },
     "login": {
+      "forbidden": "Um diese Seite anzeigen zu können musst du eingeloggt sein",
       "label": "Anmelden",
       "description": "Wenn Du ein Konto bei Human Connection hast, melde Dich bitte hier an.",
       "stayLoggedIn": "Angemeldet bleiben",
@@ -383,13 +462,58 @@
     },
     "register": {
       "description": "Tritt Human Connection bei und habe an der Gemeinschaft teil. Dein Konto ist kostenlos und wird es immer bleiben.",
+      "descriptionStep1": "Überprüfe bzw. gib deine E-Mail-Adresse und den Einladungs-Code ein den du per E-Mail bekommen hast. Du musst die E-Mail-Adresse verwenden auf die du deine Einladung bekommen hast.",
+      "descriptionStep2": "Erstelle ein sicheres Passwort und wiederhole es im zweiten Feld. Verwende mindestens 8 Zeichen, kurze Sätze kann man sich besonders gut merken. Wir zeigen dir an wie sicher dein Passwort ist.",
       "noAccountYet": "Noch kein Konto?",
       "accountAlready": "Du hast bereits ein Konto?",
       "label": "Registrieren",
       "next": "Weiter",
       "back": "Zurück",
-      "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der emails",
-      "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen"
+      "errorInviteCodeInvalid": "Der Einladungscode ist entweder bereits registriert oder passt nicht zu der email",
+      "validationErrorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen",
+      "validationErrorIsFullAge": "Bitte bestätige das du Volljährig bist",
+      "passwordSecurity": "Passwortsicherheit",
+      "passwordStrength0": "Sehr unsicheres Passwort",
+      "passwordStrength1": "Unsicheres Passwort",
+      "passwordStrength2": "Mittelmäßiges Passwort",
+      "passwordStrength3": "Sicheres Passwort",
+      "passwordStrength4": "Sehr sicheres Passwort"
+    },
+    "validation": {
+      "error": "Bitte überprüfe deine Eingabe",
+      "errorPassword": "Bitte gib dein Passwort ein",
+      "errorMinLength": "Mindestens {minLength} Zeichen",
+      "errorPasswordRepeat": "Die beiden Passwörter müssen übereinstimmen"
+    },
+    "settings": {
+      "general": "Allgemein",
+      "security": "Sicherheit",
+      "data": "Deine Daten",
+      "access": "Zugriff",
+      "organizations": "Organisationen",
+      "myOrganizations": "Meine Organisationen",
+      "yourName": "Dein Name",
+      "yourEmail": "Deine E-Mail Adresse",
+      "yourAvatar": "Dein Avatar",
+      "networkSettings": "Netzwerkeinstellungen",
+      "dashboard": "Dashboard",
+      "languages": "Sprachen",
+      "saveLabel": "Speichern",
+      "saveSettingsSuccess": "Die Einstellungen wurden gespeichert.",
+      "profileWelcome": "Willkommen in deinem Profil",
+      "profileWelcomeText": "Hier kannst Du deine Daten verwalten.",
+      "languageSettings": "Spracheinstellungen",
+      "languageSettingsText": "Hier kannst Du wählen in welcher Sprache die Webseite und Beiträge angezeigt werden.",
+      "contentLanguagesLabel": "Sprache(n) für Inhalte",
+      "interfaceLanguageLabel": "Sprache für Benutzeroberfläche",
+      "securityWelcome": "Sicherheitseinstellungen",
+      "securityWelcomeText": "In diesem Bereich geht es um deine Accountsicherheit. Du kannst Dein Passwort regelmäßig ändern um die Sicherheit weiter zu erhöhen. Bitte gib an niemanden dein Passwort weiter.",
+      "changePassword": "Passwort ändern",
+      "currentPassword": "Aktuelles Passwort",
+      "newPassword": "Neues Passwort",
+      "newPasswordConfirm": "Neues Passwort bestätigen",
+      "validationErrorContentLanguages": "Wähle mindestens eine Sprache",
+      "organizationDeleteModel": "Bist du sicher das du <b>{organization}</b> löschen möchtest?"
     }
   },
   "ressource": {
@@ -399,6 +523,8 @@
     }
   },
   "info": {
-    "created": "Erstellt"
+    "created": "Erstellt",
+    "active": "Aktiviert",
+    "inactive": "Deaktiviert"
   }
 }

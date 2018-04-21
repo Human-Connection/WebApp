@@ -17,7 +17,7 @@
           <div class="field">
             <div class="control has-icons-left has-icons-right" :class="{ 'has-error': $v.form.email.$error }">
               <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
-              <input ref="focus"
+              <input v-focus
                      id="form-email"
                      name="email"
                      type="email"
@@ -32,7 +32,7 @@
               <span v-if="$v.form.email.$error" class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
               </span>
-              <p v-if="$v.form.email.$error" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
+              <p :class="{ 'is-hidden': !$v.form.email.$error }" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
             </div>
           </div>
           <div class="field">
@@ -51,7 +51,7 @@
               <span v-if="$v.form.password.$error" class="icon is-small is-right">
                 <i class="fa fa-warning"></i>
               </span>
-              <p v-if="$v.form.password.$error" class="help is-danger">{{ $t('auth.login.validationErrorPassword') }}</p>
+              <p :class="{ 'is-hidden': !$v.form.password.$error }" class="help is-danger">{{ $t('auth.login.validationErrorPassword') }}</p>
             </div>
           </div>
           <div class="field has-text-left is-hidden">
@@ -64,6 +64,7 @@
                      type="button"
                      class="is-fullwidth"
                      :isLoading="isLoading">
+            <i class="fa fa-sign-in"></i>&nbsp;
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>
@@ -124,13 +125,9 @@
     },
     mounted () {
       this.$nextTick(() => {
-        try {
-          this.$refs['focus'].focus()
-        } catch (err) {}
-
         if (this.$route.params.path || this.$route.query.path) {
           this.$snackbar.open({
-            message: `you have to login!`,
+            message: this.$t('auth.login.forbidden'),
             type: 'is-danger'
           })
         }

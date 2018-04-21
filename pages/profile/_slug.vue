@@ -29,11 +29,9 @@
                 @update="onAvatarUploadCompleted"
                 @start-sending="uploadingAvatar = true"
                 @stop-sending="uploadingAvatar = false" >
-                <hc-avatar :user="user" />
+                <hc-avatar class="is-big" :user="user" :showOnlineStatus="false" />
               </hc-upload>
-              <hc-avatar  v-else
-                  class="avatar-upload"
-                  :user="user"></hc-avatar>
+              <hc-avatar v-else class="is-big avatar-upload" :user="user" :showOnlineStatus="false" />
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
@@ -116,12 +114,19 @@
           </div>
         </hc-box>
         <hc-title>{{ $t('auth.account.myDoings', 'Aktionen') }}</hc-title>
-        <hc-box>
+        <hc-box :isLoading="isLoadingCanDos">
           <hc-subtitle>{{ $t('auth.account.myCanDos', 'Meine Can Do’s') }}</hc-subtitle>
           <div class="hc-textcounters">
             <hc-textcount class="textcountitem" :count="user.candos" :text="$t('auth.account.myCanDosAltogether', 'Can Do’s')"/>
             <hc-textcount class="textcountitem" :count="user.candos.filter(({done}) => !!done)" :text="$t('auth.account.myCanDosDone', 'geschafft')"/>
           </div>
+          <ul class="is-list">
+            <li v-for="canDo in candos" :key="canDo._id">
+              <hc-button type="link" :to="{name:'contributions-slug', params: {slug: canDo.slug}}">
+                <hc-truncate :text="canDo.title" length=30 :options="{seperator: ''}" />
+              </hc-button>
+            </li>
+          </ul>
         </hc-box>
       </div>
       <hc-timeline v-if="user" :user="user" />
@@ -136,8 +141,7 @@
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
   import thumbnailHelper from '~/helpers/thumbnails'
-
-  import { isEmpty } from 'lodash'
+  import { isEmpty, flatMap } from 'lodash'
 
   export default {
     components: {
@@ -189,7 +193,9 @@
         user: null,
         isOwner: false,
         params: null,
-        updatedUser: null
+        updatedUser: null,
+        candos: [],
+        isLoadingCanDos: false
       }
     },
     middleware: ['authenticated'],
@@ -246,17 +252,41 @@
           avatar: value
         })
         this.updatedUser = user
+      },
+      async loadCandos () {
+        if (this.user.candos && this.user.candos.length) {
+          this.isLoadingCanDos = true
+        }
+        const res = await this.$api.service('contributions').find({
+          query: {
+            _id: {
+              $in: flatMap(this.user.candos, 'contributionId')
+            },
+            type: 'cando',
+            $limit: 5,
+            $sort: {
+              createdAt: -1
+            }
+          }
+        })
+        this.isLoadingCanDos = false
+        this.candos = res.data
       }
     },
-    async mounted () {
-      let res = await this.$api.service('follows').get(this.user._id)
-      if (res !== null) {
-        this.following = {
-          users: res.users || [],
-          organizations: res.organizations || [],
-          projects: res.projects || []
-        }
-      }
+    mounted () {
+      this.$nextTick(async () => {
+        try {
+          let res = await this.$api.service('follows').get(this.user._id)
+          if (res !== null) {
+            this.following = {
+              users: res.users || [],
+              organizations: res.organizations || [],
+              projects: res.projects || []
+            }
+          }
+          this.loadCandos()
+        } catch (err) {}
+      })
     },
     head () {
       return {
@@ -309,7 +339,7 @@
           background-color: #fff;
 
           .avatar-upload {
-            & {
+            &, & > div {
               border:        none;
               border-radius: $borderRadius;
               overflow:      hidden;
@@ -354,26 +384,6 @@
           font-size: 0.6em;
           text-transform: uppercase;
         }
-      }
-    }
-
-    .hc-textcounters {
-      display: flex;
-      justify-content: center;
-      margin: 15px 0;
-
-      .textcountitem {
-        text-align: center;
-        border-right: 1px solid #dadada;
-        //border-left: 1px solid #dadada;
-        padding: 0 10px 0 10px;
-      }
-      .textcountitem:first-child {
-        text-align: right;
-      }
-      .textcountitem:last-child {
-        text-align: left;
-        border-right: 0;
       }
     }
 

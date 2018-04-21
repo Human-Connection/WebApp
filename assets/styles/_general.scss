@@ -232,6 +232,8 @@ div.is-loading {
   z-index: 2;
   opacity: .5;
 
+  transition: 150ms ease;
+
   &:after {
     @include loader;
     @include center(1em);
@@ -314,22 +316,167 @@ div[class*="v2-table__"][style],
   border-top-right-radius: 0 !important;
 }
 
-label.is-required,
-.is-required > label {
-  &::after {
-    content: " *";
+label,
+.label {
+  color: $grey-dark;
+
+  &:not(:last-child) {
+    margin-bottom: 0.2em;
+  }
+
+  &.is-required,
+  &.is-required > label {
+    &::after {
+      content: " *";
+    }
   }
 }
 
 .has-error {
-  span.check {
+  span.check,
+  input {
     border-color: $red !important;
   }
-  .control-label {
+  .control-label,
+  label,
+  label & {
     color: $red;
   }
 }
 
 .control.has-icons-left .icon, .control.has-icons-right .icon {
   height: 2.5em;
+}
+
+$iconPadding: .3em;
+.icon-left {
+  padding-right: $iconPadding;
+}
+.icon-right {
+  padding-left: $iconPadding;
+}
+
+.v2-table__pagination {
+  user-select: none;
+
+  li.page {
+    // border-radius: 50%;
+
+    &:hover {
+      border-color: $grey;
+      color: darken($primary, 20%);
+    }
+
+    &.cur-page {
+      &, &:hover {
+        background-color: $primary;
+        border-color: $primary;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.hc-textcounters {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0;
+
+  .textcountitem {
+    text-align: center;
+    border-right: 1px solid #dadada;
+    padding: 0 10px 0 10px;
+  }
+  .textcountitem:first-child {
+    text-align: right;
+    // & > div {
+    //   text-align: right !important;
+    // }
+  }
+  .textcountitem:last-child {
+    text-align: left;
+    // & > div {
+    //   text-align: left !important;
+    // }
+    border-right: 0;
+  }
+}
+
+// slide up ease
+.slide-up-enter-active {
+  transition: all 500ms $easeOut;
+  transition-delay: 20ms;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.slide-up-enter, .slide-up-leave-active {
+  opacity: 0;
+  box-shadow: none;
+  transform: translate3d(0, 15px, 0);
+}
+
+// slide next / prev
+.slide-next-enter-active, .slide-prev-enter-active {
+  transition: transform 500ms $easeOut, opacity 500ms $easeOut;
+  transition-delay: 100ms;
+  opacity: 1;
+}
+.slide-next-enter, .slide-next-leave-active {
+  opacity: 0;
+  transform: translate3d(10px, 0, 0);
+}
+.slide-prev-enter, .slide-prev-leave-active {
+  opacity: 0;
+  transform: translate3d(-10px, 0, 0);
+}
+.slide-next-leave-active, .slide-prev-leave-active {
+  display: none;
+}
+.slide-next-leave-active, .slide-prev-leave-active {
+  opacity: 0;
+  transform: translate3d(-2px, 0, 0);
+  transition: transform 100ms $easeOut, opacity 100ms $easeOut;
+}
+
+.fade-delayed-leave-active {
+  transition: opacity 0;
+  transition-delay: 0;
+}
+.fade-delayed-enter-active {
+  transition: opacity 300ms ease-out;
+  transition-delay: 100ms;
+  opacity: 1;
+}
+.fade-delayed-enter, .fade-delayed-leave-active {
+  opacity: 0.1;
+}
+
+// used for animating the form helper text in when there is an issue
+.help, .message {
+  transition: all 150ms ease-in;
+
+  &, &.is-hidden {
+    display: block !important;
+    overflow: hidden;
+    height: auto;
+  }
+
+  &.is-hidden {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+ol.is-list {
+  list-style: decimal outside;
+  margin-left: 2em;
+  margin-top: 1em;
+}
+
+ul.is-list {
+  list-style: disc outside;
+  margin-left: 2em;
+  margin-top: 1em;
 }
