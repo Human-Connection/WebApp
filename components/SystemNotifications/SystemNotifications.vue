@@ -63,14 +63,28 @@
         }).then((res) => {
           if(!isEmpty(res.data)) {
             this.notification = res.data[0]
-            if (this.notification.type === 'agb'){
+            let hasAccepted = this.user.agbAccepted
+            if (this.notification.type === 'agb' && !hasAccepted){
               this.isAcceptModalActive = true
             }
           }
         })
       },
-      acceptAgb () {
-        console.log('ACCEPT AGB')
+      async acceptAgb () {
+        try {
+          let data = {agbAccepted : Date.now()}
+          await this.$store.dispatch("auth/patch", data)
+
+          this.$snackbar.open({
+            message: this.$t('auth.settings.saveSettingsSuccess'),
+            type: "is-success"
+          });
+        } catch (err) {
+          this.$toast.open({
+            message: err.message,
+            type: "is-danger"
+          });
+        }
         this.isAcceptModalActive = false
       }
     },
