@@ -7,7 +7,7 @@
     :class="classes" :to="to" @click.native="click">
     <slot></slot>
   </nuxt-link>
-  <a v-else :href="to ? this.$router.resolve(to).href : ''" :class="classes" @click="click">
+  <a v-else :href="to ? this.$router.resolve(to).href : ''" :class="classes" @click="click.native">
     <slot></slot>
   </a>
 </template>
@@ -103,7 +103,10 @@
         return classes
       },
       hasType () {
-        return this.to ? 'nuxt' : this.type
+        if (this.type) {
+          return this.type
+        }
+        return this.to ? 'nuxt' : sthis.type
       },
       isLink () {
         return !['button', 'nuxt'].includes(this.type)
