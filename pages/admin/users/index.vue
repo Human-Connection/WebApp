@@ -19,7 +19,7 @@
             <v2-table-column label="Name" prop="name" align="left" width="220">
               <template slot-scope="row">
                 <div @click="openProfile(row)" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<div style="display: inline-block; padding: 5px 10px;">{{ row.name }}</div>
+                  <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<div style="display: inline-block; padding: 5px 10px;">{{ row.name }}</div>
                 </div>
               </template>
             </v2-table-column>

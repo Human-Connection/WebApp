@@ -4,14 +4,14 @@
     :persist="true"
     :hideFooterTablet="true">
     <hc-navbar-button slot="toggle">
-      <hc-avatar :showOnlineStatus="false" :user="user" class="is-hidden-mobile" />
+      <hc-avatar :user="user" class="is-hidden-mobile" />
       <hc-icon icon="bars" class="is-hidden-tablet" />
     </hc-navbar-button>
     <hc-dropdown-title class="is-hidden-tablet">
       <nuxt-link class="mobile-user-header"
         to="/profile" @click.native="close()">
         <span v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymous'})"></span>
-        <hc-avatar :showOnlineStatus="false" :user="user" />
+        <hc-avatar :user="user" />
       </nuxt-link>
     </hc-dropdown-title>
     <div class="hc-user-menu">

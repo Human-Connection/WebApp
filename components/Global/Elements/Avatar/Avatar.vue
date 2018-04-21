@@ -39,7 +39,7 @@ export default {
       },
       showOnlineStatus: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     data () {

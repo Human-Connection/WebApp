@@ -3,6 +3,7 @@
        :class="{ 'is-active': user.slug }"
        @click="showProfile">
     <hc-avatar class="hc-follower-image"
+               :showOnlineStatus="true"
                :user="user"></hc-avatar>
     <div class="hc-follower-details">
       <span class="details-title">{{ user.name }}</span>
