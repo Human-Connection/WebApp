@@ -138,7 +138,7 @@
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~/components/Map/Map.vue'
-  import Timeline from '~/components/Profile/Timeline/Timeline'
+  import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
   import thumbnailHelper from '~/helpers/thumbnails'
   import { isEmpty, flatMap } from 'lodash'
