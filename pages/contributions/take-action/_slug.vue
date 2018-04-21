@@ -17,13 +17,13 @@
             </div>
             <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
-                <tr v-for="organization in organizations" :key="organization._id">
+                <tr style="cursor: pointer" v-for="organization in organizations" :key="organization._id" @click="$router.push('/organizations/' + organization.slug)">
                   <td>
                     <img v-if="organization.logo" style="max-width: 100px;" :src="organization.logo" alt=""/>
                   </td>
                   <td>
                     <strong>{{ organization.name }}</strong><br/>
-                    <small>{{ organization.description }}</small>
+                    <small>{{ organization.descriptionExcerpt }}</small>
                   </td>
                   <td class="has-text-right"><strong>{{ organization.followerIds.length }}</strong>&nbsp;Follower</td>
                 </tr>
@@ -37,14 +37,14 @@
                 <tr>
                   <td class="has-text-centered">
                     <h6 class="is-size-6 has-text-grey" v-html="$t('page.takeAction.noOrganizations')"></h6>
-                    <button class="button is-primary">
-                      <hc-icon icon="plus" set="fa"></hc-icon>&nbsp; {{ $t('button.addOrganization', 'Add Organization') }}
-                    </button>
+                    <hc-button @click.prevent="$router.push('/organizations/create')">
+                      <i class="fa fa-plus"></i>
+                      &nbsp;<span>{{ $t('component.contribution.organizationsCreate') }}</span>
+                    </hc-button>
                   </td>
                 </tr>
               </tbody>
             </table>
-
             <div v-if="canDos">
               <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
               <can-do-list :can-dos="canDos" @update="updateContribution" />
@@ -345,5 +345,8 @@
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
+  }
+  .create-organization-wrapper {
+    margin: 10px 0px;
   }
 </style>

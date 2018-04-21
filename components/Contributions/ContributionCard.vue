@@ -242,6 +242,7 @@
       padding: $padding;
 
       header {
+        position: relative;
         margin-bottom: 10px;
         margin-top: 0;
       }
@@ -280,20 +281,25 @@
   }
 
   .ribbon {
+
+    $ribbonColor: lighten(desaturate(#005093, 50%), 25%);
+    $ribbonColorDark: darken($ribbonColor, 20%);
+
     position:         absolute;
     font-size:        0.9em;
     font-weight:      bold;
     padding:          6px 6px;
-    color:            #7e7e7e;
-    background-color: #f9f9f9;
-    right:            -7px;
-    top:              10px;
+    color:            #fff;
+    background-color: $ribbonColor;
+    right:            -32px;
+    top:              -5px;
     border-radius:    2px 0 0 2px;
     box-shadow:       $card-shadow;
+    z-index:          11;
     // border:           1px solid #ccc;
 
     &:before {
-      content: ' ';
+      content: " ";
       position: absolute;
       width: 0;
       height: 0;
@@ -301,7 +307,7 @@
       bottom: -6px;
       border-width: 3px 4px 3px 3px;
       border-style: solid;
-      border-color: #ccc transparent transparent #ccc;
+      border-color: $ribbonColorDark transparent transparent $ribbonColorDark;
     }
   }
 

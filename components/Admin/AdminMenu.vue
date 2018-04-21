@@ -1,5 +1,8 @@
 <template>
-  <nav class="sidebar-menu">
+  <nav class="sidebar-menu menu">
+    <!--<p class="menu-label">
+      {{ $t('auth.settings.general', 'General') }}
+    </p>-->
     <nuxt-link to="/admin" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="th"></hc-icon>
@@ -37,16 +40,16 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
 
-  $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/2;
+  $icon-padding: ($sidebar-closed-width - $sidebar-icon-width)/4;
 
   .sidebar-menu {
-    background-color: $white;
+    // background-color: $white;
   }
 
   .menu-item {
     display: flex;
     position: relative;
-    padding: 10px $icon-padding;
+    padding: 0.1em $icon-padding;
     margin-bottom: 5px;
     color: $grey-darker;
     align-items: center;
@@ -59,7 +62,7 @@
     }
 
     &.nuxt-link-exact-active {
-      background-color: $white-ter;
+      background-color: $white;
     }
   }
 
@@ -75,9 +78,9 @@
     font-size: 1.2em;
     transition: all 0.1s ease-out;
 
-    .nuxt-link-exact-active & {
-      color: $white;
-      background-color: $primary;
-    }
+    // .nuxt-link-exact-active & {
+    //   color: $white;
+    //   background-color: $primary;
+    // }
   }
 </style>

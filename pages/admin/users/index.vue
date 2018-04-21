@@ -1,7 +1,6 @@
 <template>
-  <section class="">
-    <h1 class="is-size-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h1>
-    <br>
+  <section>
+    <h3 class="title is-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h3>
     <b-tabs v-model="activeTab">
       <b-tab-item label="Users" icon="users">
         <article class="message is-small">
@@ -17,7 +16,7 @@
                     :shown-pagination="true"
                     :pagination-info="paginationInfo"
                     @page-change="handleUserPageChange">
-            <v2-table-column label="Name" prop="name" align="left" width="250">
+            <v2-table-column label="Name" prop="name" align="left" width="220">
               <template slot-scope="row">
                 <div @click="openProfile(row)" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
                   <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<div style="display: inline-block; padding: 5px 10px;">{{ row.name }}</div>
@@ -27,6 +26,12 @@
             <v2-table-column label="Verified" prop="isVerified" align="center">
               <template slot-scope="row">
                 <i v-show="row.isVerified" class="fa fa-check-circle"></i>
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Last Active" prop="lastActiveAt" align="left">
+              <template slot-scope="row">
+                <hc-relative-date-time :dateTime="row.lastActiveAt" v-if="row.lastActiveAt" />
+                <span v-else>-</span>
               </template>
             </v2-table-column>
             <v2-table-column label="Lang" prop="language" align="center">
@@ -121,7 +126,7 @@
                :class="{ 'is-loading': isLoading }"
                :disabled="isLoading || !results || !resultDownloadURL"
                download="data.csv">
-              <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.-', 'Download CSV') }}</strong>
+              <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
             </a>
           </div>
         </div>
@@ -158,7 +163,9 @@
         inviteResults: [],
         currentPage: 1,
         paginationInfo: {
-          text: this.paginationText
+          text: '', // this.paginationText,
+          nextPageText: '>',
+          prevPageText: '<'
         },
         activeTab: null
       }
@@ -210,7 +217,7 @@
         each(files, file => {
           if (!file.name.endsWith('.csv')) {
             this.$snackbar.open({
-              message: this.$t('component.admin.-', `You have to select a valid .csv`),
+              message: this.$t('component.admin.messageCSVInvalid', `You have to select a valid .csv`),
               type: 'is-danger'
             })
             this.invitesLoading = false
@@ -242,7 +249,7 @@
               this.handleInvitesPageChange(1)
             } catch (err) {
               this.$snackbar.open({
-                message: this.$t('component.admin.-', `ERROR: ${err.message}`),
+                message: `ERROR: ${err.message}`,
                 type: 'is-danger'
               })
               this.invitesLoading = false
@@ -267,7 +274,10 @@
         this.$api.service('admin').timeout = 240000 // 4 minutes timeout
         this.$api.service('admin').create({ createInvites: data, sendInviteEmails }).then(res => {
           this.$snackbar.open({
-            message: this.$t('component.admin.-', `Created ${res.length} of ${this.invitePreview.length} invites`),
+            message: this.$t('component.admin.messageInvitesGenerated', {
+              countCreated: res.length,
+              countRequested: this.invitePreview.length
+            }),
             type: 'is-success'
           })
           if (res && res.length) {
@@ -304,7 +314,7 @@
       async handleUserPageChange (page) {
         this.currentPage = page
         this.usersLoading = true
-        const start = (page - 1) * this.itemLimit + 1
+        const start = (page - 1) * this.itemLimit
 
         this.users = await this.$api.service('users').find({
           query: {
@@ -317,7 +327,7 @@
       async handleInvitesPageChange (page) {
         this.currentPage = page
         this.invitesLoading = true
-        const start = (page - 1) * this.itemLimit + 1
+        const start = (page - 1) * this.itemLimit
         this.invitesLoading = false
 
         this.invitePaginated = this.invitePreview.slice(start - 1, start + this.itemLimit)

@@ -26,7 +26,7 @@
                     <div class="field">
                         <p class="control has-icons-right">
                             <input
-                              ref="focus"
+                              v-focus
                               type="text"
                               class="input "
                               :class="{ 'is-danger': errors }"
@@ -88,11 +88,6 @@
         user: 'auth/user'
       })
     },
-    mounted () {
-      this.$nextTick(() => {
-        this.$refs['focus'].focus()
-      })
-    },
     methods: {
       async save () {
         this.errors = false
@@ -133,7 +128,9 @@
     },
     watch: {
       user (user) {
-        this.data.name = user.name
+        this.$nextTick(() => {
+          this.data.name = user.name
+        })
       }
     },
     head () {

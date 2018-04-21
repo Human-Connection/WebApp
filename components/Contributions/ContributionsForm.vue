@@ -45,7 +45,7 @@
           v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
           v-bind:disabled="isLoading">
       </div>
-      <p v-if="$v.form.title.$error" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
+      <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
     </div>
     <div class="tags">
       <div v-for="(file, index) in dropFiles"
@@ -72,7 +72,7 @@
           :loading="isLoading"
           :editorOptions="editorOptions"/>
       </div>
-      <p v-if="$v.form.content.$error" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
+      <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
     </div>
     <hr/>
     <div v-if="form.type === 'cando'">
@@ -121,7 +121,7 @@
         :disabled="isLoading">
       </categories-select>
     </div>
-    <div class="message is-danger is-small" v-if="!form.categoryIds.length">
+    <div class="message is-danger is-small" :class="{ 'is-hidden': form.categoryIds.length }">
       <div class="message-body">
         <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.validationErrorCategories') }}</span>
       </div>
@@ -201,25 +201,26 @@
         <i class="fa fa-eye-slash"></i> &nbsp;<span>{{ $t('component.contribution.postPrivate') }}</span>
       </div>
     </div>
-    <hr/>
     <no-ssr>
-      <div class="field is-grouped is-grouped-right">
-        <div class="control">
-          <button class="button has-text-grey is-white" @click.prevent="$router.back()">
-            <i class="fa fa-times"></i>
-            &nbsp;{{ $t('button.cancel') }}
-          </button>
+      <footer class="card-footer">
+        <div class="field is-grouped is-grouped-right">
+          <div class="control">
+            <button class="button has-text-grey is-light" @click.prevent="$router.back()">
+              <i class="fa fa-times"></i>
+              &nbsp;{{ $t('button.cancel') }}
+            </button>
+          </div>
+          <div class="control">
+            <hc-button :isLoading="isLoading"
+                      :disabled="disabled"
+                      data-test="submit"
+                      @click.prevent="onSubmit">
+              <i class="fa fa-check"></i>
+              &nbsp;<span>{{ buttonPublishLabel }}</span>
+            </hc-button>
+          </div>
         </div>
-        <div class="control">
-          <hc-button :isLoading="isLoading"
-                     :disabled="disabled"
-                     data-test="submit"
-                     @click.prevent="onSubmit">
-            <i class="fa fa-check"></i>
-            &nbsp;<span>{{ buttonPublishLabel }}</span>
-          </hc-button>
-        </div>
-      </div>
+      </footer>
     </no-ssr>
   </form>
 </template>
@@ -363,6 +364,11 @@
       }
     },
     methods: {
+      // beforeRouteLeave () {
+      //   if (process.client) {
+      //     alert('BOOM')
+      //   }
+      // },
       setPostType (newIndex) {
         this.options.postTypes.forEach((postType, index) => {
           if (index === newIndex) {
@@ -473,5 +479,16 @@
       pointer-events: none;
       opacity: .5;
     }
+  }
+
+  $padding: 1.5rem;
+  footer.card-footer {
+    margin: -2.25rem;
+    margin-top: 2rem;
+    margin-bottom: -4rem;
+    background: lighten($grey-lighter, 10%);
+    padding: 1rem $padding;
+    display: flex;
+    justify-content: right;
   }
 </style>

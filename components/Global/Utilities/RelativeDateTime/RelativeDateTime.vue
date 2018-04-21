@@ -1,5 +1,5 @@
 <template>
-  <span>{{ relativeDateTime }}</span>
+  <span :title="absoluteTime">{{ relativeDateTime }}</span>
 </template>
 
 <script>
@@ -16,7 +16,8 @@
       return {
         relativeDateTime: null,
         interval: 15000,
-        timeout: null
+        timeout: null,
+        absoluteTime: null
       }
     },
     computed: {
@@ -33,6 +34,8 @@
       calcRelativeDateTime () {
         clearTimeout(this.timeout)
         let t = moment(this.dateTime).locale(this.locale)
+        this.absoluteTime = t.format('llll')
+
         this.relativeDateTime = t.utc().fromNow()
 
         if (!process.browser) {

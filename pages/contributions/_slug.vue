@@ -247,6 +247,7 @@
 
         let content = this.contribution.content || this.contribution.contentExcerpt
         content = content.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+        content = linkifyHtml(content)
 
         if (process.server) {
           return content

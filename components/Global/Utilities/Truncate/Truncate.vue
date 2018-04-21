@@ -13,12 +13,24 @@
        * The text to shorten
        */
       text: {
-        type: String
+        type: String,
+        required: true
       },
       /**
        * The number of characters
        */
-      length: {}
+      length: {
+        type: [Number, String],
+        required: true
+      },
+      options: {
+        type: Object,
+        default: (options) => {
+          return Object.assign({
+            seperator: /,? +/
+          }, options)
+        }
+      }
     },
     computed: {
       truncatedText () {
@@ -27,7 +39,7 @@
         }
         return truncate(this.text, {
           length: this.length,
-          separator: /,? +/
+          separator: this.options.separator
         })
       }
     }

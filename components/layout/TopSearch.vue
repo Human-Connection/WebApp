@@ -1,14 +1,16 @@
 <template>
   <div class="hc-top-search">
     <search-input class="is-hidden-mobile"></search-input>
-    <hc-dropdown :persist="true" :mobileFixed="true"
-      @open="$refs.searchInput.focus()"
-      class="is-hidden-tablet">
+    <hc-dropdown :persist="true"
+                 :mobileFixed="true"
+                 @open="opened"
+                 @hide="closed"
+                 class="is-hidden-tablet">
       <hc-navbar-button slot="toggle">
         <hc-icon icon="search"></hc-icon>
       </hc-navbar-button>
       <div class="hc-top-search-mobile-inner">
-        <search-input ref="searchInput"></search-input>
+        <search-input :focus="true" v-if="mobileSearchVisible" ref="searchInput"></search-input>
       </div>
     </hc-dropdown>
   </div>
@@ -22,6 +24,23 @@
     name: 'hc-top-search',
     components: {
       SearchInput
+    },
+    data () {
+      return {
+        mobileSearchVisible: false
+      }
+    },
+    methods: {
+      opened () {
+        setTimeout(() => {
+          this.mobileSearchVisible = true
+        }, 25)
+      },
+      closed () {
+        setTimeout(() => {
+          this.mobileSearchVisible = false
+        }, 100)
+      }
     }
   }
 </script>

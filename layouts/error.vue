@@ -2,7 +2,11 @@
   <div class="layout_blank" :id="id">
     <div class="content">
       <div id="error">
-        <h1 v-html="header"></h1>
+        <h1>
+          <no-ssr>
+            <TextGlitch :text="header" :steps=10 />
+          </no-ssr>
+        </h1>
         <h3 v-html="subHeader"></h3>
         <img :src="errorImage" :alt="header" class="error_img" />
         <p v-html="copy"></p>
@@ -17,10 +21,14 @@
 </template>
 <script>
   import Raven from 'raven-js'
+  import VueTextGlitch from 'vue-text-glitch'
 
   export default {
     props: ['error'],
     layout: 'blank',
+    components: {
+        'TextGlitch': VueTextGlitch
+    },
     middleware: [
       'maintenance'
     ],
@@ -55,7 +63,7 @@
         return this.$t(`component.error.header${parseInt(this.statusCode)}`, 'Error')
       },
       subHeader () {
-        return this.$t(`component.error.subHeader${parseInt(this.error.statusCode)}`, this.error.message)
+        return this.$t(`component.error.subHeader${parseInt(this.error.statusCode || 500)}`, this.error.message)
       },
       copy () {
         return this.$t(`component.error.copy${parseInt(this.statusCode)}`)

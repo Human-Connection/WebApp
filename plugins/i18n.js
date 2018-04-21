@@ -21,8 +21,8 @@ export default ({ app, req, cookie, store }) => {
     const token = store.getters['auth/token']
     // persist language if it differs from last value
     if (isDifferent && user && user._id && token) {
-      store.dispatch('auth/patch', {
-        language: mutation.payload.locale
+      store.dispatch('usersettings/patch', {
+        uiLanguage: mutation.payload.locale
       }, { root: true })
     }
   }, 500)
@@ -45,11 +45,11 @@ export default ({ app, req, cookie, store }) => {
 
   let userLocale = 'en'
   const localeCookie = app.$cookies.get(key)
-  const user = store.getters['auth/user']
+  const userSettings = store.getters['auth/userSettings']
 
-  if (user && user.language) {
+  if (userSettings && userSettings.uiLanguage) {
     // try to get saved user preference
-    userLocale = user.language
+    userLocale = userSettings.uiLanguage
   } else if (!isEmpty(localeCookie)) {
     userLocale = localeCookie
   } else {
@@ -77,6 +77,8 @@ export default ({ app, req, cookie, store }) => {
       }
     })
   }
+
+  app.$i18n = Vue.i18n
 
   return i18nStore
 }
