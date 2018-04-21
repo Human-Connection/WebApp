@@ -29,11 +29,9 @@
                 @update="onAvatarUploadCompleted"
                 @start-sending="uploadingAvatar = true"
                 @stop-sending="uploadingAvatar = false" >
-                <hc-avatar :user="user" />
+                <hc-avatar class="is-big" :user="user" :showOnlineStatus="false" />
               </hc-upload>
-              <hc-avatar  v-else
-                  class="avatar-upload"
-                  :user="user"></hc-avatar>
+              <hc-avatar v-else class="is-big avatar-upload" :user="user" :showOnlineStatus="false" />
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>
@@ -140,7 +138,7 @@
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
   import Map from '~/components/Map/Map.vue'
-  import Timeline from '~/components/layout/Timeline'
+  import Timeline from '~/components/Profile/Timeline/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
   import thumbnailHelper from '~/helpers/thumbnails'
   import { isEmpty, flatMap } from 'lodash'
@@ -341,7 +339,7 @@
           background-color: #fff;
 
           .avatar-upload {
-            & {
+            &, & > div {
               border:        none;
               border-radius: $borderRadius;
               overflow:      hidden;

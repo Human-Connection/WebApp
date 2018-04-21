@@ -9,7 +9,7 @@
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false" >
     </hc-upload>
-    <img :src="coverImg" v-if="!isOwner" alt="" class="profile-header card">
+    <img :src="coverImg" v-else alt="" class="profile-header card">
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
         <hc-box top="true" class="organization-hc-box">
@@ -20,8 +20,17 @@
                        :test="true"
                        @update="onLogoUploadCompleted"
                        @start-sending="uploadingLogo = true"
-                       @stop-sending="uploadingLogo = false" ></hc-upload>
-            <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
+                       @stop-sending="uploadingLogo = false" >
+              <hc-avatar class="is-big"
+                         :user="organization"
+                         :showOnlineStatus="false"
+                         imageKey="logo" />
+            </hc-upload>
+            <hc-avatar v-else
+                       class="is-big avatar-upload"
+                       :user="organization"
+                       :showOnlineStatus="false"
+                       imageKey="logo" />
           </div>
           <div class="edit-wrapper has-text-right" v-if="canEdit">
             <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
@@ -116,7 +125,7 @@
     },
     middleware: ['authenticated'],
     async asyncData ({app, params, store, error}) {
-      let organization, owner, isOwner
+      let organization
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await app.$api.service('organizations').find({
           query: {
@@ -126,15 +135,10 @@
       }
       if (!organization || isEmpty(organization.data)) {
         error({ statusCode: 404 })
-      } else {
-        // is owner?
-        owner = store.getters['auth/user']
-        isOwner = owner && owner._id === organization.data[0].userId
       }
       return {
         params,
-        organization: organization.data[0],
-        isOwner
+        organization: organization.data[0]
       }
     },
     computed: {
@@ -152,6 +156,9 @@
         } else {
           return ''
         }
+      },
+      isOwner () {
+        return this.user && this.user._id === this.organization.userId
       },
       followerCount () {
         return this.organization.followerIds.length
@@ -263,6 +270,8 @@
     .avatar {
       border: none;
       border-radius: 50%;
+      width: 100%;
+      height: 100%;
     }
 
     .organization-follows {
@@ -341,7 +350,7 @@
           background-color: #fff;
 
           .avatar-upload {
-            & {
+            &, & > div {
               border:        none;
               border-radius: $borderRadius;
               overflow:      hidden;
