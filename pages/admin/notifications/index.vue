@@ -48,6 +48,7 @@
                   <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
                   <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
                   <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
+                  <option value="agb">{{ $t('component.admin.notificationTypeAgbUpdate') }}</option>
                 </select>
               </div>
             </div>

@@ -53,6 +53,7 @@
       "notificationTypeInfo": "Info",
       "notificationTypePatchNotes": "Update Info",
       "notificationTypeAnnouncement": "Bekanntgabe",
+      "notificationTypeAgbUpdate": "Agb Update",
       "notificationSlotTop": "Oben",
       "notificationSlotContribution": "Beiträge",
       "notificationSlotProfile": "Profil",
@@ -320,6 +321,7 @@
     "unfollow": "Du folgst \"{name}\" nun nicht mehr"
   },
   "button": {
+    "accept": "Akzeptieren",
     "back": "Zurück",
     "cancel": "Abbrechen",
     "close": "Schliessen",
