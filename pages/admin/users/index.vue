@@ -327,7 +327,7 @@
       async handleInvitesPageChange (page) {
         this.currentPage = page
         this.invitesLoading = true
-        const start = (page - 1) * this.itemLimit
+        const start = (page - 1) * this.itemLimit + 1
         this.invitesLoading = false
 
         this.invitePaginated = this.invitePreview.slice(start - 1, start + this.itemLimit)
