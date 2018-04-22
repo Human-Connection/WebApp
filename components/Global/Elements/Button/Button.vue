@@ -106,7 +106,7 @@
         if (this.type) {
           return this.type
         }
-        return this.to ? 'nuxt' : sthis.type
+        return this.to ? 'nuxt' : this.type
       },
       isLink () {
         return !['button', 'nuxt'].includes(this.type)
