@@ -46,8 +46,10 @@
               <div class="select">
                 <select v-model="form.type">
                   <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
+                  <!--
                   <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
                   <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
+                  -->
                   <option value="agb">{{ $t('component.admin.notificationTypeAgbUpdate') }}</option>
                 </select>
               </div>
@@ -65,8 +67,10 @@
               <div class="select">
                 <select v-model="form.slot">
                   <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>
+                  <!--
                   <option value="contribution" >{{ $t('component.admin.notificationSlotContribution') }}</option>
                   <option value="profile">{{ $t('component.admin.notificationSlotProfile') }}</option>
+                  -->
                 </select>
               </div>
             </div>
