@@ -1,17 +1,16 @@
 <template>
     <div class="system-notification">
-        <div class="agb-modal">
+        <div v-if="agbUpdate.type === 'agb'" class="agb-modal">
             <b-modal :active.sync="isAcceptModalActive" :canCancel=false has-modal-card animation="zoom-in">
                 <div class="modal-background"></div>
                 <div class="modal-card">
                     <section class="modal-card-body">
                         <h2 class="title is-3">
-                            {{ notification.title }}
+                            {{ agbUpdate.title }}
                         </h2>
                         <hr />
-                        <p>
-                            {{ notification.content }}
-                        </p>
+                        <div v-html="agbUpdate.content">
+                        </div>
                     </section>
                     <footer class="modal-card-foot">
                         <hc-button color="success"
@@ -23,6 +22,14 @@
                     </footer>
                 </div>
             </b-modal>
+        </div>
+        <div class="notification-info-wrapper" v-if="notification.type === 'info'">
+            <div class="notification is-info">
+                <div v-html="notification.content"></div>
+                <div class="has-text-right">
+                    <a class="confirm-info" href="#">Okay</a>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -38,6 +45,7 @@
     data () {
       return {
         notification: {},
+        agbUpdate: {},
         isAccepting: false,
         isAcceptModalActive: false
       }
@@ -62,11 +70,27 @@
           }
         }).then((res) => {
           if(!isEmpty(res.data)) {
-            this.notification = res.data[0]
-            let hasAccepted = this.user.agbAccepted
-            if (this.notification.type === 'agb' && !hasAccepted){
-              this.isAcceptModalActive = true
+            this.agbUpdate = res.data[0]
+            if (this.agbUpdate.type === 'agb'){
+              let hasAccepted = this.user.agbAccepted
+              if (!hasAccepted){
+                this.isAcceptModalActive = true
+              }
             }
+          }
+        })
+
+        this.$api.service('system-notifications').find({
+          query: {
+            type: 'info',
+            $limit: 1,
+            $sort: {
+              createdAt: -1
+            }
+          }
+        }).then((res) => {
+          if(!isEmpty(res.data)) {
+            this.notification = res.data[0]
           }
         })
       },
@@ -93,4 +117,11 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
+
+  .notification-info-wrapper {
+    margin-bottom: 20px;
+  }
+  .confirm-info {
+    text-decoration: none;
+  }
 </style>

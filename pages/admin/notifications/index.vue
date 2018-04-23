@@ -150,6 +150,11 @@
                 {{ row.slot }}
               </template>
             </v2-table-column>
+          <v2-table-column label="Language" prop="language" align="center">
+            <template slot-scope="row">
+              {{ row.language }}
+            </template>
+          </v2-table-column>
             <v2-table-column label="Created" prop="createdAt" align="center">
               <template slot-scope="row">
                 {{ row.createdAt }}
@@ -293,6 +298,8 @@
                 }
               }
             })
+            this.form.title = ''
+            this.form.content = ''
             this.notifications = systemNotifications
             this.isLoading = false
             this.$snackbar.open({
