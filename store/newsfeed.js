@@ -2,54 +2,6 @@ import Vue from 'vue'
 import _ from 'lodash'
 import { Base64 } from 'js-base64'
 
-/**
- * build the $and or $or query from the given parameters
- *
- * @param {Array}  diff     emotions
- * @param {Object} query    query object
- * @param {String} mode     $and, $or
- * @param {String} compare  $lt, $gt
- */
-const buildQueryEmotions = function (diff, query, mode, compare) {
-  diff.forEach((emotion) => {
-    let obj = {}
-    obj[`emotions.${emotion}.percent`] = {}
-    obj[`emotions.${emotion}.percent`][compare] = 20 // $lt or $gt
-    if (!query[mode]) {
-      query[mode] = []
-    }
-    query[mode].push(obj)
-  })
-}
-
-/**
- * build the emotion filter query based on the selected emotions and on the mode (exclude / include)
- *
- * @param {Array}   emotions
- * @param {Object}  query
- * @param {Boolean} exclude
- */
-const buildFilterEmotions = function (emotions, query, exclude = true) {
-  const all = ['funny', 'happy', 'surprised', 'cry', 'angry']
-  if (_.isEmpty(emotions) || emotions.length === all.length) {
-    return
-  }
-
-  const queryObj = {}
-  if (exclude) {
-    // use exclude method
-    buildQueryEmotions(_.xor(emotions, all), queryObj, '$and', '$lt')
-    buildQueryEmotions(_.intersection(emotions, all), queryObj, '$or', '$gt')
-  } else {
-    // use include method when less then the half of the emotions are selected
-    buildQueryEmotions(_.intersection(emotions, all), queryObj, '$or', '$gt')
-  }
-
-  if (!_.isEmpty(queryObj)) {
-    query = Object.assign(query, queryObj)
-  }
-}
-
 export const state = () => {
   return {
     contributions: [],
@@ -155,11 +107,8 @@ export const getters = {
       $sort: state.sort,
       visibility: 'public'
     }
-    if (rootState.auth.user) {
-      query.language = {
-        $in: _.castArray(rootGetters['auth/userSettings'].contentLanguages)
-      }
-    }
+    query = Object.assign(query, rootGetters['search/queryLanguages'])
+
     // generate the search query with the token entered inside the search field
     if (!_.isEmpty(state.search)) {
       // query.title = { $search: state.search }
@@ -167,16 +116,10 @@ export const getters = {
       query.$language = Vue.i18n.locale()
     }
     // generate the category filter query by using the selected category ids
-    if (!_.isEmpty(state.filter.categoryIds)) {
-      query.categoryIds = {
-        $in: state.filter.categoryIds
-      }
-    } else {
-      delete query.categoryIds
-    }
+    query = Object.assign(query, rootGetters['search/queryCategories'])
 
     // generate the emotions filter query by using the selected emotions
-    buildFilterEmotions(state.filter.emotions, query)
+    query = Object.assign(query, rootGetters['search/queryEmotions'])
 
     return query
   }

@@ -209,26 +209,30 @@
         defaultCount: 3
       }
     },
-    async asyncData ({app, params, error}) {
+    async asyncData ({app, params, error, store}) {
       try {
         let contributions = await app.$api.service('contributions').find({
           query: {
             slug: params.slug
           }
         })
-        const relatedPosts = await app.$api.service('contributions').find({
-          query: {
-            categoryIds: {
-              $in: contributions.data[0].categoryIds
-            },
-            type: 'post',
-            $sort: {
-              shoutCount: -1,
-              createdAt: -1
-            },
-            $limit: 10
+        let query = {
+          categoryIds: {
+            $in: contributions.data[0].categoryIds
+          },
+          type: 'post',
+          $sort: {
+            shoutCount: -1,
+            createdAt: -1
+          },
+          $limit: 10,
+          _id: {
+            $ne: contributions.data[0]._id
           }
-        })
+        }
+        query = Object.assign(query, store.getters['search/queryEmotions'])
+        query = Object.assign(query, store.getters['search/queryLanguages'])
+        const relatedPosts = await app.$api.service('contributions').find({query})
         return {
           relatedPosts: relatedPosts.data || [],
           contribution: contributions.data[0],
