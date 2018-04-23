@@ -53,7 +53,7 @@
       <div class="column level">
         <div class="level-item has-text-centered">
           <div>
-            <p class="heading">{{ $t('component.admin.organisations', 'Organizations') }}</p>
+            <p class="heading">{{ $t('component.admin.organizations', 'Organizations') }}</p>
             <p class="title">
               <count-to :startVal="0" :endVal="organizationCount" :duration="countDuration" :autoplay="true" separator="." />
             </p>
