@@ -1,8 +1,8 @@
-import { castArray } from 'lodash'
-
 export const state = () => {
   return {
     follow: {
+      _id: null,
+      userId: null,
       foreignId: null,
       foreignService: null,
       isPending: false,
@@ -19,61 +19,97 @@ export const mutations = {
 }
 
 export const getters = {
-  isFollowing (state) {
-    return state.follow.isFollowing
-  },
   follow (state) {
     return state.follow
   }
 }
 
 export const actions = {
-  // Called from plugins/init-store-subscriptions only once
-  // subscribe ({dispatch}) {
-  //   return this.app.$api.service('comments')
-  //     .on('created', debounce((comment) => {
-  //       dispatch('fetchByContributionId')
-  //     }, 500))
-  //     .on('patched', debounce((comment) => {
-  //       dispatch('fetchByContributionId')
-  //     }, 500))
-  // },
   async syncFollow ({state, commit}, {userId, foreignId, foreignService}) {
+    console.log('TRY TO GET FOLLOW STATUS', userId, foreignId, foreignService)
+    let status = Object.assign({}, state.follow)
+
+    if (status.userId !== userId) {
+      status.count = 0
+    }
+    status.userId = userId
+    status.isPending = true
+    commit('follow', status)
+
+    status = Object.assign({}, state.follow)
+
+    try {
+      const res = await this.app.$api.service('follows').find({
+        query: {
+          userId,
+          foreignId,
+          foreignService
+        }
+      })
+      console.log('++++++++++++res', res)
+      status.count = res.total
+      status._id = res.data.length ? res.data[0]._id : null
+    } catch (err) {}
+
+    status.isFollowing = Boolean(status._id)
+    status.isPending = false
+
+    console.log('***************', status)
+
+    commit('follow', status)
+  },
+  async follow ({state, commit, dispatch}, {foreignId, foreignService}) {
+    console.log('TRY TO FOLLOW', foreignId, foreignService)
+
     let status = Object.assign({}, state.follow)
     status.isPending = true
     commit('follow', status)
 
-    const res = await this.app.$api.service('follows').find({
-      query: {
-        userId,
+    status = Object.assign({}, state.follow)
+
+    try {
+      await this.app.$api.service('follows').create({
         foreignId,
         foreignService
-      }
-    })
+      })
+    } catch (err) {}
 
-    console.log('res', res)
+    status.isFollowing = true
+    // status.isPending = false
+
+    commit('follow', status)
+
+    dispatch('syncFollow', {
+      userId: state.follow.userId,
+      foreignId: foreignId,
+      foreignService: foreignService
+    })
+  },
+  async unfollow ({state, commit, dispatch}, {_id}) {
+    console.log('TRY TO UNFOLLOW', _id)
+
+    let status = Object.assign({}, state.follow)
+    status.isPending = true
+    commit('follow', status)
 
     status = Object.assign({}, state.follow)
-    status.isPending = false
 
-    status.isFollowing = res && Boolean(res._id)
+    try {
+      await this.app.$api.service('follows').remove({
+        _id: _id
+      })
+    } catch (err) {}
 
+    status.isFollowing = false
+    status.count--
+    // status.isPending = false
+    status._id = null
     commit('follow', status)
-  },
-  async follow ({state, commit}, {foreignId, foreignService}) {
-    console.log('TRY TO FOLLOW', foreignId, foreignService)
 
-    const status = Object.assign({}, state.follow)
-    status.isPending = true
-
-    const res = await this.app.$api.service('follows').create({
-      foreignId,
-      foreignService
+    dispatch('syncFollow', {
+      userId: state.follow.userId,
+      foreignId: state.follow.foreignId,
+      foreignService: state.follow.foreignService
     })
-
-    status.isFollowing = res.length
-    status.isPending = false
-
-    commit('follow', status)
   }
 }

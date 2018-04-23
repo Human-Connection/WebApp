@@ -283,7 +283,10 @@
             query: {
               userId: this.user._id,
               foreignService: 'users',
-              $limit: 5
+              $limit: 5,
+              $sort: {
+                createdAt: -1
+              }
             }
           }).then(res => {
             console.log('RES', res)

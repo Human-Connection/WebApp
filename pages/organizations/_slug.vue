@@ -159,7 +159,7 @@
         return this.user && this.user._id === this.organization.userId
       },
       followerCount () {
-        return this.organization.followerIds.length
+        return this.organization.followersCounts ? this.organization.followersCounts.users : 0
       },
       canEdit() {
         return ['admin', 'moderator'].includes(this.user.role) !== false || this.organization.userId === this.user._id
@@ -169,20 +169,19 @@
       async followOrganization () {
         let currentUser = this.$store.getters['auth/user']
         let organizationId = this.organization._id
-        if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
-          const res = await this.$store.dispatch('organizations/follow', {
-            currentUserId: currentUser._id,
-            organizationId: organizationId
-          })
-          console.log('#res', res)
-
-          if (!isEmpty(res.id)) {
-            this.$snackbar.open({
-              message: this.$t('actions.follow', { name: this.organization.name }),
-              type: 'is-success'
-            })
-          }
-        }
+        // if (indexOf(this.organization.followerIds, currentUser._id) <= 0) {
+        //   const res = await this.$store.dispatch('organizations/follow', {
+        //     currentUserId: currentUser._id,
+        //     organizationId: organizationId
+        //   })
+        //   console.log('#res', res)
+        //   if (!isEmpty(res.id)) {
+        //     this.$snackbar.open({
+        //       message: this.$t('actions.follow', { name: this.organization.name }),
+        //       type: 'is-success'
+        //     })
+        //   }
+        // }
       },
       edit(id) {
         this.$router.push({name: 'organizations-settings', query: {id}})

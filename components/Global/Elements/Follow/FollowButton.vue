@@ -3,13 +3,13 @@
     <div class="columns is-mobile has-text-centered">
       <div class="column level-item">
         <div>
-          <p class="title">{{ followersCounts.users || 0 }}</p>
+          <p class="title">{{ followingCount }}</p>
           <p class="heading">Fans</p>
         </div>
       </div>
-      <div class="column level-item">
+      <div class="column level-item" style="opacity: .25">
         <div>
-          <p class="title">{{ Math.round(Math.random() * 115) }}</p>
+          <p class="title">{{ 0 }}</p>
           <p class="heading">Freunde</p>
         </div>
       </div>
@@ -17,7 +17,7 @@
     <div v-if="showButtons" class="columns is-mobile field has-text-centered">
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth" @click="toggleFollow" :disabled="follow.isPending" :isLoading="follow.isPending">
-          <template v-if="isFollowing">
+          <template v-if="follow.isFollowing">
             <hc-icon icon="bell-slash" class="icon-left" /> Entfolgen
           </template>
           <template v-else>
@@ -25,8 +25,8 @@
           </template>
         </hc-button>
       </div>
-      <div class="column control has-text-centered">
-        <hc-button color="button" @click="toggleConnected">
+      <div class="column control has-text-centered" style="opacity: .25; pointer-events: none;">
+        <hc-button color="button" @click="toggleConnected" :disabled="true">
           <template v-if="connected">
             <hc-icon icon="user-times" class="icon-left" /> Trennen
           </template>
@@ -57,35 +57,38 @@
     data () {
       return {
         connected: false,
-        followersCounts: {
-          users: 0
-        }
+        followingCount: 0
       }
     },
     mounted () {
+      this.followingCount = this.user.followersCounts ? this.user.followersCounts.users : 0
+      console.log('USER: ', this.user)
       this.$store.dispatch('connections/syncFollow', {
         userId: this.loggedInUser._id,
         foreignId: this.user._id,
         foreignService: 'users'
       })
-
-      if (this.user && this.user.followersCounts && this.user.followersCounts.users) {
-        this.$set(this.followersCounts, 'users', this.user.followersCounts.users)
-      }
     },
     computed: {
       ...mapGetters({
-        isFollowing: 'connections/isFollowing',
         follow: 'connections/follow',
         loggedInUser: 'auth/user'
       })
     },
     methods: {
       async toggleFollow () {
-        await this.$store.dispatch('connections/follow', {
-          foreignId: this.user._id,
-          foreignService: 'users'
-        })
+        if (this.follow._id) {
+          await this.$store.dispatch('connections/unfollow', {
+            _id: this.follow._id
+          })
+          this.followingCount--
+        } else {
+          await this.$store.dispatch('connections/follow', {
+            foreignId: this.user._id,
+            foreignService: 'users'
+          })
+          this.followingCount++
+        }
         this.$snackbar.open({
           message: 'Following!'
         })
@@ -102,6 +105,10 @@
 
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
+
+  .level-item {
+    user-select: none;
+  }
 
   .follow-wrapper {
     margin-top: 1rem;

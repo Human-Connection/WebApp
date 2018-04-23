@@ -25,7 +25,7 @@
                     <strong>{{ organization.name }}</strong><br/>
                     <small>{{ organization.descriptionExcerpt }}</small>
                   </td>
-                  <td class="has-text-right"><strong>{{ organization.followerIds.length }}</strong>&nbsp;Follower</td>
+                  <td class="has-text-right"><strong>{{ organization.followersCounts ? organization.followersCounts.users : 0 }}</strong>&nbsp;Follower</td>
                 </tr>
                 <tr>
                   <td colspan="3" class="is-white">
@@ -263,7 +263,10 @@
             categoryIds: {
               $in: contributions.data[0].categoryIds
             },
-            $limit: 3
+            $limit: 5,
+            $sort: {
+              followersCounts: -1
+            }
           }
         })
         const projects = await app.$api.service('projects').find({
