@@ -17,6 +17,11 @@ export const mutations = {
       state.query = null
     } else {
       state.query = query
+
+      // go to newsfeed to see search results
+      if (this.app.router.currentRoute.name !== 'index') {
+        this.app.router.push({ name: 'index' })
+      }
     }
   },
   categoryIds (state, categoryIds) {

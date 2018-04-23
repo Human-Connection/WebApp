@@ -28,7 +28,6 @@ export default {
    * @param {Boolean} exclude
    */
   buildFilterEmotions: (emotions, query, exclude = true) => {
-    console.log('buildFilterEmotions', emotions, query)
     const all = ['funny', 'happy', 'surprised', 'cry', 'angry']
     if (_.isEmpty(emotions) || emotions.length === all.length) {
       return
