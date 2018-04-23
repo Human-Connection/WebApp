@@ -220,6 +220,7 @@
           categoryIds: {
             $in: contributions.data[0].categoryIds
           },
+          visibility: 'public',
           type: 'post',
           $sort: {
             shoutCount: -1,
