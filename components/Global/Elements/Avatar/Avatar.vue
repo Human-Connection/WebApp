@@ -1,4 +1,5 @@
 <template>
+  <div class="avatar-wrapper" :class="{'is-online': isOnline}">
     <div class="img-circle profile-image"
          ref="avatar"
          :style="style">
@@ -11,12 +12,14 @@
         @error="onError" />
       <span v-if="!hasImage">{{ userInitial }}</span>
     </div>
+  </div>
 </template>
 
 
 <script>
   import thumbnailHelper from '~/helpers/thumbnails'
   import { throttle } from 'lodash'
+  import moment from 'moment'
 
 export default {
     name: 'hc-avatar',
@@ -24,11 +27,19 @@ export default {
       url: {
         type: String
       },
+      imageKey: {
+        type: String,
+        default: 'avatar'
+      },
       user: {
         type: Object
       },
       name: {
         type: String
+      },
+      showOnlineStatus: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
@@ -41,14 +52,31 @@ export default {
           '#DC3E2A', '#A7BE33', '#DF542A', '#00A3DA', '#84BF41'
         ],
         size: 36,
-        error: false
+        error: false,
+        isOnline: false,
+        interval: null
       }
     },
     mounted () {
-      this.updateSize()
+      this.$nextTick(() => {
+        this.updateSize()
+        this.updateOnlineStatus()
+
+        if (this.showOnlineStatus) {
+          this.interval = setInterval(() => {
+            this.updateOnlineStatus()
+          }, 1000 * 60 * 5)
+        }
+      })
+    },
+    destroyed () {
+      clearInterval(this.interval)
     },
     activated () {
-      this.updateSize()
+      this.$nextTick(() => {
+        this.updateSize()
+        this.updateOnlineStatus()
+      })
     },
     computed: {
       username () {
@@ -59,13 +87,13 @@ export default {
         return Boolean(this.avatar) && !this.error
       },
       avatar () {
-        return thumbnailHelper.getThumbnail(this.user, 'avatar', 'small')
+        return thumbnailHelper.getThumbnail(this.user, this.imageKey, 'small')
       },
       preview () {
-        return thumbnailHelper.getThumbnail(this.user, 'avatar', 'placeholder')
+        return thumbnailHelper.getThumbnail(this.user, this.imageKey, 'placeholder')
       },
       srcset () {
-        return thumbnailHelper.srcSetFromThumbnails(this.user, 'avatar', ['large', 'medium', 'small'])
+        return thumbnailHelper.srcSetFromThumbnails(this.user, this.imageKey, ['large', 'medium', 'small'])
       },
       userInitial () {
         return this.initial(this.username)
@@ -90,10 +118,12 @@ export default {
       'user.name' (name) {
         this.initial(name)
         this.updateSize()
+        this.updateOnlineStatus()
       },
       name (name) {
         this.initial(name)
         this.updateSize()
+        this.updateOnlineStatus()
       }
     },
     methods: {
@@ -139,20 +169,60 @@ export default {
         if (this.hasImage) {
           return
         }
-
         try {
           this.size = this.$refs.avatar.getBoundingClientRect().width
         } catch (err) {}
       },
       resizeHandler: throttle(() => {
         this.updateSize()
-      }, 200)
+      }, 200),
+      updateOnlineStatus () {
+        if (!this.showOnlineStatus) {
+          return
+        }
+
+        if (this.user.lastActiveAt) {
+          this.isOnline = this.user.lastActiveAt && moment(this.user.lastActiveAt).diff(moment(), 'minutes') >= -15
+        } else {
+          this.isOnline = false
+        }
+      }
     }
   }
 </script>
 
 <style lang="scss">
   @import "assets/styles/utilities";
+
+  .avatar-wrapper {
+
+    position: relative;
+    &.is-online:after {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: $green;
+      border-radius: 50%;
+      border: 2px solid white;
+      width: 30%;
+      height: 30%;
+      bottom: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+    &.is-big {
+      position: initial;
+
+      &.is-online:after {
+        width: 22%;
+        height: 22%;
+        border-width: 3px;
+        bottom: 2%;
+        right: 2%;
+      }
+    }
+  }
 
   .profile-image {
     box-shadow:      0 0 0 1px white;

@@ -1,16 +1,27 @@
 <template>
   <transition name="fade">
     <article class="message" v-if="isReady && !isReviewed">
-      <template v-if="!isMod || disableReview">
+      <template v-if="!isMod">
         <div class="message-body"
             v-html="$t('component.organization.messageInReview', {email: 'support@human-connection.org'})"></div>
+      </template>
+      <template v-else-if="disableReview">
+        <div class="message-body">
+          <div v-html="$t('component.organization.messageInReviewMod', {email: 'support@human-connection.org'})"></div>
+          <br />
+          <div>
+            <hc-button @click.prevent="startReview">
+              {{ $t('button.startReview') }}
+            </hc-button>
+          </div>
+        </div>
       </template>
       <template v-else>
         <div class="message-body">
           <div v-html="$t('component.organization.messageInReviewMod', {email: 'support@human-connection.org'})"></div>
           <br />
-          <div class="has-text-right">
-            <hc-button size="small" @click="reviewOrganization">
+          <div>
+            <hc-button @click="reviewOrganization">
               <hc-icon class="icon-left" icon="check" /> {{ $t('button.review') }}
             </hc-button>
           </div>
@@ -50,7 +61,11 @@
         })
         console.log(res)
         this.$emit('review', res)
-        this.reviewed = res.isReviewed
+        this.reviewed = res.reviewedBy
+      },
+      startReview () {
+        let id = this.organization._id
+        this.$router.push({name: 'organizations-settings', query: {id}})
       }
     },
     computed: {
@@ -58,7 +73,7 @@
         return this.user && this.organization
       },
       isReviewed () {
-        return this.organization.isReviewed || this.reviewed
+        return this.organization.reviewedBy || this.reviewed
       },
       isMod () {
         return this.user && ['admin', 'moderator'].includes(this.user.role)

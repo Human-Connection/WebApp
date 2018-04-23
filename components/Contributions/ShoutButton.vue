@@ -38,8 +38,8 @@
       }
     },
     watch: {
-      contribution (contribution) {
-        this.shoutCount = contribution.shoutCount
+      'contribution.shoutCount' (shoutCount) {
+        this.shoutCount = shoutCount
       }
     },
     computed: {

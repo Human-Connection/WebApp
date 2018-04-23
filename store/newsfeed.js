@@ -107,11 +107,8 @@ export const getters = {
       $sort: state.sort,
       visibility: 'public'
     }
-    if (rootState.auth.user) {
-      query.language = {
-        $in: _.castArray(rootGetters['auth/userSettings'].contentLanguages)
-      }
-    }
+    query = Object.assign(query, rootGetters['search/queryLanguages'])
+
     // generate the search query with the token entered inside the search field
     if (!_.isEmpty(state.search)) {
       // query.title = { $search: state.search }
@@ -119,27 +116,11 @@ export const getters = {
       query.$language = Vue.i18n.locale()
     }
     // generate the category filter query by using the selected category ids
-    if (!_.isEmpty(state.filter.categoryIds)) {
-      query.categoryIds = {
-        $in: state.filter.categoryIds
-      }
-    } else {
-      delete query.categoryIds
-    }
+    query = Object.assign(query, rootGetters['search/queryCategories'])
+
     // generate the emotions filter query by using the selected emotions
-    if (!_.isEmpty(state.filter.emotions)) {
-      query.$and = []
-      _.xor(state.filter.emotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {
-        let obj = {}
-        obj[`emotions.${emotion}.percent`] = {$lt: 20}
-        query.$and.push(obj)
-      })
-      if (_.isEmpty(query.$and)) {
-        delete query.$and
-      }
-    } else {
-      delete query.$and
-    }
+    query = Object.assign(query, rootGetters['search/queryEmotions'])
+
     return query
   }
 }

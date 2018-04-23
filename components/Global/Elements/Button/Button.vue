@@ -7,7 +7,7 @@
     :class="classes" :to="to" @click.native="click">
     <slot></slot>
   </nuxt-link>
-  <a v-else :class="classes" @click="click">
+  <a v-else :target="target" :href="to ? this.$router.resolve(to).href : ''" :class="classes" @click="click">
     <slot></slot>
   </a>
 </template>
@@ -74,11 +74,21 @@
       type: {
         type: String,
         default: 'button'
+      },
+      /**
+       * Set target: null, _blank, etc.
+       */
+      target: {
+        type: String,
+        default: null
       }
     },
     computed: {
       classes () {
-        let classes = 'button'
+        let classes = ''
+        if (!this.isLink) {
+          classes += 'button'
+        }
         if (this.color) {
           classes += ` is-${this.color}`
         }
@@ -100,12 +110,27 @@
         return classes
       },
       hasType () {
+        if (this.type) {
+          return this.type
+        }
         return this.to ? 'nuxt' : this.type
+      },
+      isLink () {
+        return ['button', 'nuxt'].includes(this.type) === false
       }
     },
     methods: {
-      click (event) {
-        this.$emit('click', event)
+      click (e) {
+        if (this.type === 'button' && this.to) {
+          // open page when its a button
+          this.$router.push(this.to)
+        } else if (this.isLink && this.to && !this.target && !e.metaKey && !e.ctrlKey) {
+          // prevent default link behavoir in favor of the vue router if no modefier keys are pressed
+          // but only if no target is specefied
+          e.preventDefault()
+          this.$router.push(this.to)
+        }
+        this.$emit('click', e)
       }
     }
   }

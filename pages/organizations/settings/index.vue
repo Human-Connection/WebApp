@@ -8,7 +8,6 @@
         <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
       </div>
       <div class="column is-3 settings-left">
-        <b-switch v-model="form.isEnabled" :disabled="!canEnable"></b-switch>
       </div>
     </div>
     <hr>
@@ -17,6 +16,15 @@
         <form @submit.prevent="$refs.form.validate()">
           <orga-form-step-1 ref="form" :data="form" @validate="onValidation" :hideButton="true" :autoFocus="false" />
         </form>
+        <div class="field has-margin-top-small">
+          <div class="control">
+            <label class="label">{{ $t('component.organization.visibility') }}</label>
+            <b-switch v-model="form.isEnabled" :disabled="!canEnable">
+              <span v-if="form.isEnabled">{{ $t('info.active') }}</span>
+              <span v-else>{{ $t('info.inactive') }}</span>
+            </b-switch>
+          </div>
+        </div>
       </div>
     </div>
     <footer class="card-footer">
@@ -77,7 +85,7 @@
       },
       canEnable () {
         // owner (if reviewed), moderator, admin
-        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.isReviewed
+        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.reviewedBy
       }
     },
     methods: {

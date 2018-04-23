@@ -42,6 +42,9 @@
         searching: false
       }
     },
+    mounted () {
+      this.value = this.searchQuery
+    },
     methods: {
       ...mapMutations({
         search: 'search/query'

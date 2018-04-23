@@ -9,7 +9,7 @@
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false" >
     </hc-upload>
-    <img :src="coverImg" v-if="!isOwner" alt="" class="profile-header card">
+    <img :src="coverImg" v-else alt="" class="profile-header card">
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
         <hc-box top="true" class="organization-hc-box">
@@ -20,8 +20,15 @@
                        :test="true"
                        @update="onLogoUploadCompleted"
                        @start-sending="uploadingLogo = true"
-                       @stop-sending="uploadingLogo = false" ></hc-upload>
-            <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
+                       @stop-sending="uploadingLogo = false" >
+              <hc-avatar class="is-big"
+                         :user="organization"
+                         imageKey="logo" />
+            </hc-upload>
+            <hc-avatar v-else
+                       class="is-big avatar-upload"
+                       :user="organization"
+                       imageKey="logo" />
           </div>
           <div class="edit-wrapper has-text-right" v-if="canEdit">
             <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
@@ -29,7 +36,7 @@
           <div class="organization-name">
             <span>{{ organization.name || '' }}</span>
           </div>
-          <div class="organization-follows hc-textcounters">
+          <div class="organization-follows hc-textcounters under-construction">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
               <div class="action-button">
                 <i class="fa fa-bullhorn is-action-icon"></i>
@@ -42,7 +49,8 @@
             </hc-textcount>
           </div>
         </hc-box>
-        <div class="organization-actions">
+        <!-- TODO: get better looking interactions -->
+        <div class="organization-actions" v-if="false">
           <hc-box top="true" class="organization-action">
             <i class="fa fa-envelope"></i>
           </hc-box>
@@ -82,7 +90,8 @@
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
-        <organization-review-banner v-if="user" :user="user" :organization="organization" :disableReview="true" />
+        <organization-review-banner v-if="user && !organization.reviewedBy" :user="user" :organization="organization" :disableReview="true" />
+        <organization-visibility-banner v-else-if="user" :user="user" :organization="organization" />
       </div>
     </div>
   </section>
@@ -94,11 +103,13 @@
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
   import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
+  import OrganizationVisibilityBanner from '~/components/Organizations/OrganizationVisibilityBanner.vue'
 
   export default {
     components: {
       HcTextcount,
-      OrganizationReviewBanner
+      OrganizationReviewBanner,
+      OrganizationVisibilityBanner
     },
     data () {
       return {
@@ -112,7 +123,7 @@
     },
     middleware: ['authenticated'],
     async asyncData ({app, params, store, error}) {
-      let organization, owner, isOwner
+      let organization
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await app.$api.service('organizations').find({
           query: {
@@ -122,15 +133,10 @@
       }
       if (!organization || isEmpty(organization.data)) {
         error({ statusCode: 404 })
-      } else {
-        // is owner?
-        owner = store.getters['auth/user']
-        isOwner = owner && owner._id === organization.data[0].userId
       }
       return {
         params,
-        organization: organization.data[0],
-        isOwner
+        organization: organization.data[0]
       }
     },
     computed: {
@@ -146,8 +152,11 @@
         } else if (!isEmpty(this.organization.coverImg)) {
           return this.organization.coverImg
         } else {
-          return 'https://source.unsplash.com/random/1250x280'
+          return ''
         }
+      },
+      isOwner () {
+        return this.user && this.user._id === this.organization.userId
       },
       followerCount () {
         return this.organization.followerIds.length
@@ -259,6 +268,8 @@
     .avatar {
       border: none;
       border-radius: 50%;
+      width: 100%;
+      height: 100%;
     }
 
     .organization-follows {
@@ -337,7 +348,7 @@
           background-color: #fff;
 
           .avatar-upload {
-            & {
+            &, & > div {
               border:        none;
               border-radius: $borderRadius;
               overflow:      hidden;

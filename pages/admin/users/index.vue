@@ -16,7 +16,7 @@
                     :shown-pagination="true"
                     :pagination-info="paginationInfo"
                     @page-change="handleUserPageChange">
-            <v2-table-column label="Name" prop="name" align="left" width="250">
+            <v2-table-column label="Name" prop="name" align="left" width="220">
               <template slot-scope="row">
                 <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
                   <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
@@ -29,6 +29,12 @@
             <v2-table-column label="Verified" prop="isVerified" align="center">
               <template slot-scope="row">
                 <i v-show="row.isVerified" class="fa fa-check-circle"></i>
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Last Active" prop="lastActiveAt" align="left">
+              <template slot-scope="row">
+                <hc-relative-date-time :dateTime="row.lastActiveAt" v-if="row.lastActiveAt" />
+                <span v-else>-</span>
               </template>
             </v2-table-column>
             <v2-table-column label="Lang" prop="language" align="center">
@@ -312,7 +318,7 @@
       async handleUserPageChange (page) {
         this.currentPage = page
         this.usersLoading = true
-        const start = (page - 1) * this.itemLimit + 1
+        const start = (page - 1) * this.itemLimit
 
         this.users = await this.$api.service('users').find({
           query: {
