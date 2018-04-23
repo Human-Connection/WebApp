@@ -38,7 +38,6 @@
           _id: this.organization._id,
           isReviewed: true
         })
-        // console.log(res)
         this.$emit('review', res)
         this.isEnabled = res.isEnabled
       },
