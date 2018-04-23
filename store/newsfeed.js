@@ -2,6 +2,54 @@ import Vue from 'vue'
 import _ from 'lodash'
 import { Base64 } from 'js-base64'
 
+/**
+ * build the $and or $or query from the given parameters
+ *
+ * @param {Array}  diff     emotions
+ * @param {Object} query    query object
+ * @param {String} mode     $and, $or
+ * @param {String} compare  $lt, $gt
+ */
+const buildQueryEmotions = function (diff, query, mode, compare) {
+  diff.forEach((emotion) => {
+    let obj = {}
+    obj[`emotions.${emotion}.percent`] = {}
+    obj[`emotions.${emotion}.percent`][compare] = 20 // $lt or $gt
+    if (!query[mode]) {
+      query[mode] = []
+    }
+    query[mode].push(obj)
+  })
+}
+
+/**
+ * build the emotion filter query based on the selected emotions and on the mode (exclude / include)
+ *
+ * @param {Array}   emotions
+ * @param {Object}  query
+ * @param {Boolean} exclude
+ */
+const buildFilterEmotions = function (emotions, query, exclude = true) {
+  const all = ['funny', 'happy', 'surprised', 'cry', 'angry']
+  if (_.isEmpty(emotions) || emotions.length === all.length) {
+    return
+  }
+
+  const queryObj = {}
+  if (exclude) {
+    // use exclude method
+    buildQueryEmotions(_.xor(emotions, all), queryObj, '$and', '$lt')
+    buildQueryEmotions(_.intersection(emotions, all), queryObj, '$or', '$gt')
+  } else {
+    // use include method when less then the half of the emotions are selected
+    buildQueryEmotions(_.intersection(emotions, all), queryObj, '$or', '$gt')
+  }
+
+  if (!_.isEmpty(queryObj)) {
+    query = Object.assign(query, queryObj)
+  }
+}
+
 export const state = () => {
   return {
     contributions: [],
@@ -126,20 +174,10 @@ export const getters = {
     } else {
       delete query.categoryIds
     }
+
     // generate the emotions filter query by using the selected emotions
-    if (!_.isEmpty(state.filter.emotions)) {
-      query.$and = []
-      _.xor(state.filter.emotions, ['funny', 'happy', 'surprised', 'cry', 'angry']).forEach((emotion) => {
-        let obj = {}
-        obj[`emotions.${emotion}.percent`] = {$lt: 20}
-        query.$and.push(obj)
-      })
-      if (_.isEmpty(query.$and)) {
-        delete query.$and
-      }
-    } else {
-      delete query.$and
-    }
+    buildFilterEmotions(state.filter.emotions, query)
+
     return query
   }
 }
