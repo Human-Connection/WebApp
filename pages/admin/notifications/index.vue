@@ -59,6 +59,23 @@
       </div>
       <div class="field">
         <div class="is-normal">
+          <label class="label">{{ $t('component.admin.notificationLanguage') }}</label>
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <div class="control has-icons-left">
+              <div class="select">
+                <select v-model="form.language">
+                  <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
+                  <option value="en">{{ $t('component.admin.notificationLanguageEN') }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <div class="is-normal">
           <label class="label">{{ $t('component.admin.notificationSlot') }}</label>
         </div>
         <div class="field-body">
@@ -166,6 +183,7 @@
           type: 'info',
           title: '',
           content: '',
+          language: 'de',
           slot: 'top',
           requireConfirmation: false,
           showOnce: true
