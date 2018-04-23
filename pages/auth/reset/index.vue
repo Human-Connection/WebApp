@@ -1,19 +1,15 @@
 <template>
-  <section id="page-auth-login" class="container content">
+  <section id="page-auth-reset" class="container content">
     <div class="card" :class="classes">
       <div class="card-content">
         <hc-flag-switch />
-        <nuxt-link v-if="false"
-                   :to="$route.params.path || '/'"
-                   class="delete"
-                   style="display: block; position: absolute; right: 1.5rem; top: 1rem;"></nuxt-link>
         <div class="card-teaser">
           <nuxt-link :to="$route.params.path || '/'">
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">{{ $t('auth.login.description') }}</p>
-        <form @submit.prevent="login">
+        <p class="subtitle is-6">{{ $t('auth.login.passwordResetDescription') }}</p>
+        <form @submit.prevent="reset">
           <div class="field">
             <div class="control has-icons-left has-icons-right" :class="{ 'has-error': $v.form.email.$error }">
               <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
@@ -35,48 +31,20 @@
               <p :class="{ 'is-hidden': !$v.form.email.$error }" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
             </div>
           </div>
-          <div class="field">
-            <div class="control has-icons-left has-icons-right" :class="{ 'has-error': $v.form.password.$error }">
-              <label class="is-hidden" for="form-password">{{ $t('auth.account.password') }}</label>
-              <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
-                     id="form-password"
-                     name="password"
-                     type="password"
-                     :placeholder="$t('auth.account.password')"
-                     v-model="form.password"
-                     @blur="$v.form.password.$touch()">
-              <span class="icon is-left">
-                <i class="fa fa-lock"></i>
-              </span>
-              <span v-if="$v.form.password.$error" class="icon is-small is-right">
-                <i class="fa fa-warning"></i>
-              </span>
-              <p :class="{ 'is-hidden': !$v.form.password.$error }" class="help is-danger">{{ $t('auth.login.validationErrorPassword') }}</p>
-            </div>
-          </div>
-          <div class="field has-text-left is-hidden">
-            <b-switch v-model="stayLoggedIn">{{ $t('auth.login.stayLoggedIn') }}</b-switch>
-          </div>
           <hc-button color="primary"
                      name="submit"
-                     @click.prevent="login"
+                     @click.prevent="reset"
                      size="medium"
                      type="button"
                      class="is-fullwidth"
                      :isLoading="isLoading">
-            <i class="fa fa-sign-in"></i>&nbsp;
-            {{ $t('auth.login.label') }}
+            {{ $t('auth.login.resetPassword') }}
           </hc-button>
         </form>
       </div>
       <footer class="card-footer">
-        <!--
-        <nuxt-link :to="{ name: 'auth-register', params: { path: this.$route.params.path } }" class="card-footer-item">
-          {{ $t('auth.register.noAccountYet') }}
-        </nuxt-link>
-        -->
-        <nuxt-link :to="{ name: 'auth-reset' }" class="card-footer-item is-disabled disabled">
-          {{ $t('auth.login.forgotPassword') }}
+        <nuxt-link :to="{ name: 'auth-login' }" class="card-footer-item is-disabled disabled">
+          {{ $t('auth.login.backToLogin') }}
         </nuxt-link>
       </footer>
     </div>
@@ -100,11 +68,9 @@
     data () {
       return {
         form: {
-          email: '',
-          password: ''
+          email: ''
         },
-        isLoading: false,
-        stayLoggedIn: false
+        isLoading: false
       }
     },
     validations () {
@@ -113,9 +79,6 @@
           email: {
             required,
             email
-          },
-          password: {
-            required
           }
         }
       }
@@ -131,7 +94,7 @@
       })
     },
     methods: {
-      login () {
+      reset () {
         if (this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.animate('shake')
@@ -143,28 +106,29 @@
           return
         }
         this.isLoading = true
-        this.$store.dispatch('auth/login', this.form)
+        this.$store.dispatch('auth/resetPassword', this.form)
           .then(() => {
             this.$snackbar.open({
-              message: this.$t('auth.login.successInfo'),
+              message: this.$t('auth.login.passwordResetRequestSuccess'),
               duration: 4000,
               type: 'is-success'
             })
-            this.$router.replace(this.$route.params.path || this.$route.query.path || '/')
+            this.isLoading = false
           })
           .catch(() => {
             this.isLoading = false
             this.$toast.open({
-              message: this.$t('auth.login.errorInvalid'),
+              message: this.$t('auth.login.passwordResetRequestError'),
               type: 'is-danger'
             })
             this.animate('shake')
+            this.isLoading = false
           })
       }
     },
     head () {
       return {
-        title: this.$t('auth.login.label')
+        title: this.$t('auth.login.resetPassword')
       }
     }
   }
