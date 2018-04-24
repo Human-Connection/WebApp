@@ -68,7 +68,13 @@
         return (this.fullContentShown && this.content) ? linkifyHtml(this.content) : linkifyHtml(this.comment.contentExcerpt)
       },
       isTruncated () {
-        return this.getText.slice(-3) === '...' || this.getText.slice(-1) === '…' || this.fullContentShown
+        if (this.comment.hasMore === undefined) {
+          // old logic
+          return this.getText.slice(-3) === '...' || this.getText.slice(-1) === '…' || this.fullContentShown
+        } else {
+          // new logic
+          return this.comment.hasMore
+        }
       }
     },
     mounted () {

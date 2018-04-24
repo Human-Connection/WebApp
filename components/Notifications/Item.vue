@@ -11,6 +11,7 @@
 <script>
   import author from '~/components/Author/Author.vue'
   import { isEmpty } from 'lodash'
+  import sanitize from 'sanitize-html'
 
   export default {
     name: 'hc-notification-item',
@@ -44,9 +45,13 @@
         return this.notification.message || this.$t(`component.notification.message.${this.type}`, this.messageParams)
       },
       messageParams () {
+        let excerpt = !isEmpty(this.notification.comment) ? this.notification.comment.contentExcerpt : ''
+        excerpt = (!excerpt && !isEmpty(this.notification.contribution)) ? this.notification.contribution.contentExcerpt : excerpt
+
         return {
           userName: this.userName,
-          title: !isEmpty(this.notification.contribution) ? this.notification.contribution.title : ''
+          title: !isEmpty(this.notification.contribution) ? this.notification.contribution.title : '',
+          excerpt: sanitize(excerpt, {allowedTags: []})
         }
       }
     }
@@ -82,16 +87,6 @@
     // margin-top: 0.5em;
     padding: 1rem 0 0.5rem;
   }
-
-
-  .notification {
-    p {
-      font-size: $size-7;
-    }
-  }
-</style>ing: 1rem 0 0.5rem;
-  }
-
 
   .notification {
     p {

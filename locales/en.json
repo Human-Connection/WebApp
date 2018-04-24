@@ -223,9 +223,10 @@
       "label": "Notifications",
       "messageEmpty": "You don't have any notifications.",
       "message": {
-        "comment": "<strong>{userName}</strong> has commented your contribution:<br /> <strong>{title}</strong>",
-        "comment-mention": "<strong>{userName}</strong> has mentioned you in a comment for {title}.",
-        "contribution-mention": "<strong>{userName}</strong> has mentioned you in a contribution:<br /> <strong>{title</strong>}"
+        "comment": "<strong>{userName}</strong> has commented your contribution <strong>{title}</strong>: <br />{excerpt}",
+        "comment-mention": "<strong>{userName}</strong> has mentioned you in a comment for {title}: <br />{excerpt}",
+        "contribution-mention": "<strong>{userName}</strong> has mentioned you in a contribution <strong>{title}</strong>: <br />{excerpt}",
+        "following-contribution": "<strong>{userName}</strong> has created a new contribution <strong>{title}</strong>: <br />{excerpt}"
       }
     },
     "dashbord": {
