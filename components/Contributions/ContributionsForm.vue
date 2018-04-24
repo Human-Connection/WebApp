@@ -203,7 +203,7 @@
     </div>
     <no-ssr>
       <footer class="card-footer">
-        <div class="field is-grouped is-grouped-right is-fullwidth" style="width: 100%">
+        <div class="field is-grouped">
           <div class="control">
             <button class="button has-text-grey is-light" @click.prevent="$router.back()">
               <i class="fa fa-times"></i>

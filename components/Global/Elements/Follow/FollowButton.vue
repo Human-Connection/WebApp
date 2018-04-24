@@ -18,7 +18,7 @@
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth" @click="toggleFollow" :disabled="follow.isPending" :isLoading="follow.isPending">
           <template v-if="follow.isFollowing">
-            <hc-icon icon="bell-slash" class="icon-left" /> {{ $t('component.follow.buttonLabelUnFollow') }}
+            <hc-icon icon="bell" class="icon-left" /> {{ $t('component.follow.buttonLabelUnFollow') }}
           </template>
           <template v-else>
             <hc-icon icon="bell-o" class="icon-left" /> {{ $t('component.follow.buttonLabelFollow') }}

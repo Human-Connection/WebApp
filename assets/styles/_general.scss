@@ -123,6 +123,7 @@ hr {
 
 .card-footer {
   border-top-color: $grey-lighter;
+  justify-content: flex-end !important;
 
   .card-footer-item:not(:last-child) {
     border-right-color: $grey-lighter;
