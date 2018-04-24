@@ -155,7 +155,7 @@
       "type-vote": "Vote",
       "versus": "Versus",
       "versusDescription": "In Versus, one deals fairly and critically on the basis of factual counter-arguments on this subject. That means one must necessarily remain factual, if one wants to compare one another with knowledge and arguments. Because the lack of respect, unfairness with one another or even in a manner of hate-filled speech will lead to the exclusion.",
-      "voteOnePluralNone": "vote ::: votes ::: no vote",
+      "voteOnePluralNone": "Vote ::: Votes ::: no vote",
       "writePost": "Write a Post",
       "writePostContent": "Content",
       "writePostImageLabel": "Teaser Image",
