@@ -40,10 +40,10 @@
                   </small>
                 </td>
               </tr>
-              <tr v-if="false">
+              <tr>
                 <td colspan="2" class="is-white">
                   <a @click="showAllPosts = !showAllPosts"
-                     v-if="!showAllPosts"
+                     v-if="!showAllPosts && false"
                      class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
