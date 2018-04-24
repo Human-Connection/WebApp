@@ -43,13 +43,14 @@ export const actions = {
         dispatch('fetch')
       }, 500))
   },
-  fetch ({commit}) {
+  fetch ({commit, rootGetters}) {
     return this.app.$api.service('notifications').find({
       query: {
         $limit: 30,
         $sort: {
           createdAt: -1
         },
+        userId: rootGetters['auth/user']._id,
         unseen: true
       }
     })

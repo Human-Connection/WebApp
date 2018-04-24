@@ -33,14 +33,14 @@
                   v-for="contribution in relatedPostList"
                   :key="contribution._id"
                   @click="$router.push('/contributions/' + contribution.slug)">
-                <td>{{ contribution.title }}</td>
+                <td><strong>{{ contribution.title }}</strong></td>
                 <td class="has-text-right nowrap">
                   <small>
                     <strong>{{ contribution.shoutCount || 0 }}</strong>&nbsp;<hc-icon set="fa" icon="bullhorn" />&nbsp;&nbsp;<strong>{{ contribution.comments.length || 0 }}</strong>&nbsp;<hc-icon set="fa" icon="comments" />
                   </small>
                 </td>
               </tr>
-              <tr>
+              <tr v-if="false">
                 <td colspan="2" class="is-white">
                   <a @click="showAllPosts = !showAllPosts"
                      v-if="!showAllPosts"

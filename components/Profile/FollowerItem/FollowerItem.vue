@@ -4,7 +4,7 @@
        @click="showProfile">
     <hc-avatar class="hc-follower-image"
                :showOnlineStatus="true"
-               :user="user"></hc-avatar>
+               :user="user" />
     <div class="hc-follower-details">
       <span class="details-title">{{ user.name }}</span>
       <span v-if="lastContributionDate"

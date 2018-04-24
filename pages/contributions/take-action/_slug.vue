@@ -263,6 +263,10 @@
             categoryIds: {
               $in: contributions.data[0].categoryIds
             },
+            isEnabled: 1,
+            reviewedBy: {
+              $ne: null
+            },
             $limit: 5,
             $sort: {
               followersCounts: -1
