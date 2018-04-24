@@ -140,7 +140,6 @@
           return
         }
         this.isLoading = true
-        console.log(this.token)
         const data = {
           token: this.token,
           password: this.form.password
@@ -152,7 +151,7 @@
               duration: 4000,
               type: 'is-success'
             })
-            this.$router.replace('/login')
+            this.$router.replace('/auth/login')
           })
           .catch(() => {
             this.isLoading = false

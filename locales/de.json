@@ -454,7 +454,7 @@
       "forgotPassword": "Passwort vergessen?",
       "errorInvalid": "Überprüfe Deine Zugangsdaten!",
       "passwordResetDescription": "Bitte gib deine E-Mail Adresse ein, um dein Passwort zurückzusetzen.",
-      "passwordResetSuccess": "Dein Passwort wurde erfolgreich gespeichert.",
+      "passwordResetSuccess": "Dein neues Passwort wurde erfolgreich gespeichert.",
       "passwordResetError": "Das hat leider nicht geklappt. Bitte stelle sicher, dass der Link noch aktuell ist.",
       "passwordResetRequestSuccess": "Wir haben dir eine Nachricht an deine E-Mail Adresse geschickt. Bitte klicke dort auf den entsprechenden Link, um dein Passwort zurückzusetzen.",
       "passwordResetRequestError": "Das hat leider nicht geklappt. Bitte überprüfe, ob du die korrekte E-Mail Adresse eingegeben hast.",

@@ -454,7 +454,7 @@
       "forgotPassword": "Forgot password?",
       "errorInvalid": "Check your login data!",
       "passwordResetDescription": "Please fill in your email address and click on \"Reset password\".",
-      "passwordResetSuccess": "Your password was saved successfully.",
+      "passwordResetSuccess": "Your new password was saved successfully.",
       "passwordResetError": "That did not work. Please ensure the current link is not outdated.",
       "passwordResetRequestSuccess": "We have sent you a message to your email address. Please follow the included link in order to reset your password.",
       "passwordResetRequestError": "That did not work. Please check if the inserted email address is correct.",

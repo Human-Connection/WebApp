@@ -110,7 +110,7 @@
           .then(() => {
             this.$snackbar.open({
               message: this.$t('auth.login.passwordResetRequestSuccess'),
-              duration: 4000,
+              duration: 8000,
               type: 'is-success'
             })
             this.isLoading = false
