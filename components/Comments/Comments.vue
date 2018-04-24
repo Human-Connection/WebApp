@@ -4,13 +4,19 @@
       <strong>{{ $t('component.contribution.commentsLoading', 'Loading Comments...') }}</strong>
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
-      <comment v-for="comment in comments" :key="comment._id" :comment="comment" :onUpvote="upvote"></comment>
+      <comment @reply="onReply"
+               v-for="comment in comments"
+               :isAuthor="comment.userId === post.userId"
+               :isOwner="comment.userId === user._id"
+               :key="comment._id"
+               :comment="comment"
+               :onUpvote="upvote" />
     </transition-group>
     <div v-else class="notification">
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
     </div>
-    <comment-form :post="post"/>
+    <comment-form :post="post" :replyComment="replyComment" />
   </div>
 </template>
 
@@ -26,6 +32,11 @@
     components: {
       'comment': comment,
       'comment-form': commentForm
+    },
+    data () {
+      return {
+        replyComment: null
+      }
     },
     computed: {
       ...mapGetters({
@@ -44,6 +55,9 @@
         } else {
           this.$store.dispatch('comments/upvote', comment)
         }
+      },
+      onReply (comment) {
+        this.replyComment = comment
       }
     },
     mounted () {

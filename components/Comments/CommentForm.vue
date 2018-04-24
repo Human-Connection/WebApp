@@ -3,6 +3,7 @@
     <hc-avatar :user="user" />
     <form class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
+        ref="editor"
         editorClass="autowrap"
         v-model="form.content"
         :editorOptions="editorOptions" />
@@ -22,14 +23,21 @@
 
   export default {
     name: 'hc-comment-form',
-    props: ['post'],
+    props: {
+      post: {
+        type: Object,
+        required: true
+      },
+      replyComment: {
+        type: Object
+      }
+    },
     data () {
       return {
         isLoading: false,
         form: {
           content: '',
-          contributionId: null,
-          language: 'en'
+          contributionId: null
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -38,6 +46,14 @@
           }
         }
       }
+    },
+    watch: {
+      replyComment (comment) {
+        this.reply(comment)
+      }
+    },
+    mounted () {
+      this.reply(this.replyComment)
     },
     computed: {
       ...mapGetters({
@@ -49,6 +65,21 @@
       }
     },
     methods: {
+      reply (comment) {
+        if (!comment) {
+          return
+        }
+        const mention = `<p><a class="hc-editor-mention-blot" href="/profile/${comment.user.slug}" data-hc-mention="{&quot;_id&quot;:&quot;${comment.user._id}&quot;,&quot;slug&quot;:&quot;${comment.user.slug}&quot;}">@${comment.user.name}</a>&nbsp;</p>&nbsp;`
+        // this.form.content = mention
+
+        try {
+          this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
+          // this.$refs.editor.myQuillEditor.clipboard.dangerouslyPasteHTML(mention)
+          // this.$refs.editor.myQuillEditor.focus()
+          // this.$refs.editor.myQuillEditor.setSelection(mention.length)
+          this.$scrollTo(this.$refs.editor.$el, 500)
+        } catch (err) {}
+      },
       async submitComment () {
         if (!this.hasContent) {
           this.form.content = ''

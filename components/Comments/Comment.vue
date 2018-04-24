@@ -3,15 +3,19 @@
     <div class="columns is-mobile">
       <div class="column">
         <author :user="comment.user"
-          :created-at="comment.createdAt" />
+                :isAuthor="isAuthor"
+                :created-at="comment.createdAt" />
       </div>
       <div class="column has-text-right">
-        <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
+        <hc-tooltip v-if="!isOwner" :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
           <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
             <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
             <i class="fa fa-angle-double-up"></i>&nbsp;
           </a>
         </hc-tooltip>
+        <div v-else>
+          <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
+        </div>
       </div>
     </div>
     <p v-html="getText"></p>
@@ -19,9 +23,9 @@
       <div class="column" style="padding-top: 1rem;">
         <nav class="level is-mobile">
           <div class="level-left">
-            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
-              <a class="level-item" style="cursor: not-allowed; pointer-events: visible;">
-                <span class="icon is-small"><i class="fa fa-reply"></i></span>
+            <hc-tooltip v-if="!isOwner" :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
+              <a class="level-item" @click.prevent="$emit('reply', comment)">
+                <span class="icon is-small"><i class="fa fa-reply icon-left"></i> Reply</span>
               </a>
             </hc-tooltip>
           </div>
@@ -52,6 +56,12 @@
       comment: {
         type: Object,
         required: true
+      },
+      isAuthor: {
+        type: Boolean
+      },
+      isOwner: {
+        type: Boolean
       }
     },
     data () {

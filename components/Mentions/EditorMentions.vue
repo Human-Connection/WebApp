@@ -128,15 +128,17 @@
         }
       },
       itemSelected ({item}) {
-        this.insertMention(item)
+        this.prepareMention(item)
       },
-      insertMention (item) {
+      prepareMention (item) {
         let deleteLength = this.searchString.length + 1 // + @
-        // Save index, because it is going to be reset
         let index = this.index
-        let name = `@${item.name}`
-        let _id = item._id
-        let slug = item.slug
+        this.insertMention(index, item, deleteLength)
+      },
+      insertMention (index, user, deleteLength = 0) {
+        let name = `@${user.name}`
+        let _id = user._id
+        let slug = user.slug
         const ops = new Delta()
           .retain(index)
           .delete(deleteLength)

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ disabled: disableLink }"
+  <div :class="{ disabled: disableLink, 'is-owner': isOwner }"
         class="media hc__author"
         @click="showProfile">
     <div class="media-left">
@@ -30,6 +30,9 @@
       },
       createdAt: {
         type: [ String, Date ]
+      },
+      isOwner: {
+        type: Boolean
       }
     },
     methods: {
@@ -61,6 +64,16 @@
   @import "assets/styles/utilities";
 
   .hc__author {
+    &.is-owner {
+      .title {
+        background-color: $primary;
+        display: inline-block;
+        padding: .2rem .35rem;
+        border-radius: 3px;
+        color: $white;
+      }
+    }
+
       cursor: pointer;
       &.disabled {
         cursor: default !important;
