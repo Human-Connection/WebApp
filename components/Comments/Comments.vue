@@ -58,6 +58,7 @@
       },
       onReply (comment) {
         this.replyComment = comment
+        this.$nextTick(() => this.replyComment = null)
       }
     },
     mounted () {
