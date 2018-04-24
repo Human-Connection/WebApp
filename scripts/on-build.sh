@@ -10,5 +10,5 @@ export BUILD_DATE="$(date +'%Y-%m-%d %T')"
 
 # create .env from .env.tmp and fill in build vars
 # while swill keep deploy time variables intact
-envsub --protect ../.env.tmp ../.env
-envsub --protect ../server/.env-secrets.tmp ../server/.env-secrets
+envsub --protect .env.tmp .env
+envsub --protect server/.env-secrets.tmp server/.env-secrets

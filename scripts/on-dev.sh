@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-sh on-build.sh
-sh on-start.sh
+sh ./scripts/on-build.sh
+sh ./scripts/on-start.sh
