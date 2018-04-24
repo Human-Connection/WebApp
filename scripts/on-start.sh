@@ -10,7 +10,7 @@ export DEPLOY_DATE="$(date +'%Y-%m-%d %T')"
 
 # replace the remaining deploy time variables inside .env
 # while also setting all non existing vars to empty values
-envsub .env .env \
+envsub ../.env ../.env \
        --system \
        -e WEBAPP_BASE_URL=http://localhost:3000 \
        -e WEBAPP_HOST=localhost \
@@ -20,5 +20,5 @@ envsub .env .env \
        -e EMBED_API_URL=http://localhost:3050 \
        -e MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
 # empty remaining
-envsub .env .env
-envsub ./server/.env-secrets.tmp ./server/.env-secrets
+envsub ../.env ../.env
+envsub ../server/.env-secrets.tmp ../server/.env-secrets
