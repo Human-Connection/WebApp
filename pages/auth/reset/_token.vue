@@ -1,19 +1,14 @@
 <template>
-  <section id="page-auth-reset" class="container content">
+  <section id="page-auth-reset" class="container">
     <div class="card" :class="classes">
       <div class="card-content">
         <hc-flag-switch/>
-        <div class="card-teaser">
-          <nuxt-link :to="$route.params.path || '/'">
-            <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
-          </nuxt-link>
-        </div>
-        <p class="subtitle is-6">{{ $t('auth.login.passwordResetDescription') }}</p>
         <form @submit.prevent="reset">
           <div class="field">
-            <div class="control has-icons-left has-icons-right">
-              <label class="is-hidden" for="form-password">{{ $t('auth.account.password') }}</label>
-              <input :class="{ 'input': true, 'is-danger': $v.form.password.$error }"
+            <label for="form-password" class="label is-required">{{ $t('auth.settings.newPassword') }}</label>
+            <div class="control has-icons-left has-icons-right"
+                 :class="{ 'has-error': $v.form.password.$error }">
+              <input class="input"
                      v-focus
                      id="form-password"
                      autofocus
@@ -23,20 +18,25 @@
                      autocomplete="new-password"
                      @blur="$v.form.password.$touch()">
               <span class="icon is-small is-left">
-                    <i class="fa fa-lock"></i>
-                  </span>
+                <i class="fa fa-lock"></i>
+              </span>
               <span v-if="$v.form.password.$error || ($v.form.password.$dirty && !passwordSecure)"
-                    class="icon is-small is-right">
-                    <i class="fa fa-warning"></i>
-                  </span>
+                class="icon is-small is-right">
+                <i class="fa fa-warning"></i>
+              </span>
             </div>
-            <p :class="{ 'is-hidden': !$v.form.password.$error }" class="help is-danger">
-              {{ $t('auth.validation.errorPassword') }}</p>
+            <p :class="{ 'is-hidden': !($v.form.password.$error && !$v.form.password.required) }" class="help is-danger">
+              {{ $t('auth.validation.error') }}
+            </p>
+            <p :class="{ 'is-hidden': !($v.form.password.$error && !$v.form.password.minLength) }" class="help is-danger">
+              {{ $t('auth.validation.errorMinLength', { minLength: 8 }) }}
+            </p>
           </div>
           <div class="field">
-            <div class="control has-icons-left has-icons-right">
-              <label class="is-hidden" for="form-passwordRepeat">{{ $t('auth.account.passwordRepeat') }}</label>
-              <input :class="{ 'input': true, 'is-danger': $v.form.passwordRepeat.$error }"
+            <label for="form-passwordRepeat" class="label is-required">{{ $t('auth.settings.newPassword') }}</label>
+            <div class="control has-icons-left has-icons-right"
+                 :class="{ 'has-error': $v.form.passwordRepeat.$error }">
+              <input class="input"
                      type="password"
                      id="form-passwordRepeat"
                      :placeholder="$t('auth.account.password')"
@@ -44,11 +44,11 @@
                      autocomplete="new-password"
                      @blur="$v.form.passwordRepeat.$touch()">
               <span class="icon is-small is-left">
-                    <i class="fa fa-lock"></i>
-                  </span>
+                  <i class="fa fa-lock"></i>
+                </span>
               <span v-if="$v.form.passwordRepeat.$error" class="icon is-small is-right">
-                    <i class="fa fa-warning"></i>
-                  </span>
+                  <i class="fa fa-warning"></i>
+                </span>
               <p :class="{ 'is-hidden': !$v.form.passwordRepeat.$error }" class="help is-danger">
                 {{ $t('auth.register.validationErrorPasswordRepeat') }}</p>
             </div>
@@ -109,7 +109,7 @@
         form: {
           password: {
             required,
-            minLength: minLength(6)
+            minLength: minLength(8)
           },
           passwordRepeat: {
             sameAsPassword: sameAs('password')
@@ -178,6 +178,7 @@
 
   .card {
     margin: 0 auto;
+    min-width: 400px;
     max-width: 460px;
     text-align: center;
     border: none;
