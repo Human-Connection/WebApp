@@ -8,7 +8,7 @@
 
           <h3 v-if= "categories.length">{{ $t('component.category.labelLongOnePluralNone', null, categories.length) }}</h3>
           <div class="tags" v-if= "categories.length">
-            <span class="tag" v-for="category in categories">
+            <span class="tag" v-for="category in categories" :key="category._id">
               <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
             </span>
           </div>
@@ -17,6 +17,8 @@
             <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
             <div class="tags">
               <span class="tag"
+                    style="cursor: pointer;"
+                    @click="$store.commit('search/query', tag)"
                     v-for="tag in tags"
                     :key="tag">
                 <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}

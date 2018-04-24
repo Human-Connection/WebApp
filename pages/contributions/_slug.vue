@@ -65,7 +65,11 @@
               </span>
             </div>
             <div class="tags" v-if= "tags.length">
-              <span class="tag" v-for="tag in tags" :key="tag._id">
+              <span @click="$store.commit('search/query', tag)"
+                    class="tag"
+                    style="cursor: pointer;"
+                    v-for="tag in tags"
+                    :key="tag">
                 <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
               </span>
             </div>
