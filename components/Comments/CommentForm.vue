@@ -1,6 +1,6 @@
 <template>
   <div class="comment-form-container" v-if="post && isVerified">
-    <hc-avatar :user="user" />
+    <hc-avatar :user="user" class="avatar" />
     <form class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
         ref="editor"
@@ -69,14 +69,8 @@
         if (!comment) {
           return
         }
-        const mention = `<p><a class="hc-editor-mention-blot" href="/profile/${comment.user.slug}" data-hc-mention="{&quot;_id&quot;:&quot;${comment.user._id}&quot;,&quot;slug&quot;:&quot;${comment.user.slug}&quot;}">@${comment.user.name}</a>&nbsp;</p>&nbsp;`
-        // this.form.content = mention
-
         try {
           this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
-          // this.$refs.editor.myQuillEditor.clipboard.dangerouslyPasteHTML(mention)
-          // this.$refs.editor.myQuillEditor.focus()
-          // this.$refs.editor.myQuillEditor.setSelection(mention.length)
           this.$scrollTo(this.$refs.editor.$el, 500)
         } catch (err) {}
       },
@@ -118,7 +112,7 @@
     padding-top: 20px;
   }
 
-  .profile-image {
+  .avatar {
     float: left;
   }
 
