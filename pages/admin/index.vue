@@ -82,7 +82,7 @@
           </div>
         </div>
       </div>
-      <div class="column level under-construction">
+      <div class="column level">
         <div class="level-item has-text-centered">
           <div>
             <p class="heading">{{ $t('component.admin.follows', 'Follows') }}</p>
@@ -228,10 +228,11 @@
         .then(res => {
           this.inviteCount = res.total || 0
         })
-      // this.$api.service('follows').find({query: { $limit: 0 }})
-      //   .then(res => {
-      //     this.followCount = res.total || 0
-      //   })
+
+      await this.$api.service('follows').find({query: { $limit: 0 }})
+        .then(res => {
+          this.followCount = res.total || 0
+        })
 
       await this.$api.service('shouts').find({query: { $limit: 0 }})
         .then(res => {

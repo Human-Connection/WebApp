@@ -18,10 +18,10 @@
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth" @click="toggleFollow" :disabled="follow.isPending" :isLoading="follow.isPending">
           <template v-if="follow.isFollowing">
-            <hc-icon icon="bell-slash" class="icon-left" /> Entfolgen
+            <hc-icon icon="bell-slash" class="icon-left" /> {{ $t('component.follow.buttonLabelUnFollow') }}
           </template>
           <template v-else>
-            <hc-icon icon="bell-o" class="icon-left" /> Folgen
+            <hc-icon icon="bell-o" class="icon-left" /> {{ $t('component.follow.buttonLabelFollow') }}
           </template>
         </hc-button>
       </div>
@@ -82,16 +82,19 @@
             _id: this.follow._id
           })
           this.followingCount--
+          this.$snackbar.open({
+            message: this.$t('component.follow.messageUnFollowSuccess', {name: this.user.name || 'Anonymus'})
+          })
         } else {
           await this.$store.dispatch('connections/follow', {
             foreignId: this.user._id,
             foreignService: 'users'
           })
           this.followingCount++
+          this.$snackbar.open({
+            message: this.$t('component.follow.messageFollowSuccess', {name: this.user.name || 'Anonymus'})
+          })
         }
-        this.$snackbar.open({
-          message: 'Following!'
-        })
       },
       toggleConnected () {
         this.connected = !this.connected

@@ -22,6 +22,12 @@
       "countedDescription": "{count} human want to shout this post ::: {count} people want to shout this post ::: This post has no shout yet",
       "messageSuccess": "You shout it out loud"
     },
+    "follow": {
+      "buttonLabelFollow": "Follow",
+      "buttonLabelUnFollow": "Following",
+      "messageFollowSuccess": "You now follow {name}",
+      "messageUnFollowSuccess": "You not longer follow {name}"
+    },
     "admin": {
       "addCategory": "add category",
       "categoryIdentifier": "Identifier",

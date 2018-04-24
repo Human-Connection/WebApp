@@ -22,6 +22,12 @@
       "countedDescription": "{count} Mensch möchte den Beitrag ausrufen ::: {count} Leute möchten den Beitrag ausrufen ::: Der Beitrag hat noch keinen Ruf",
       "messageSuccess": "Du hast es weiter gesagt"
     },
+    "follow": {
+      "buttonLabelFollow": "Folgen",
+      "buttonLabelUnFollow": "Folgst",
+      "messageFollowSuccess": "Du folgst {name} nun",
+      "messageUnFollowSuccess": "Du folgst {name} nicht mehr"
+    },
     "admin": {
       "addCategory": "Kategorie hinzufügen",
       "categoryIdentifier": "Bezeichner",
