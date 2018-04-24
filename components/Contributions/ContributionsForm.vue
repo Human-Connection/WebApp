@@ -1,5 +1,5 @@
 <template>
-  <form v-bind:disabled="isLoading" :class="classes">
+  <form v-bind:disabled="isLoading">
     <!-- ToDo remove :test="true" for production -->
     <hc-upload :previewImage="form.teaserImg"
                :test="true"
@@ -203,7 +203,7 @@
     </div>
     <no-ssr>
       <footer class="card-footer">
-        <div class="field is-grouped is-grouped-right">
+        <div class="field is-grouped is-grouped-right is-fullwidth" style="width: 100%">
           <div class="control">
             <button class="button has-text-grey is-light" @click.prevent="$router.back()">
               <i class="fa fa-times"></i>
@@ -232,7 +232,6 @@
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import EditorMentions from '~/components/Mentions/EditorMentions'
-  import animatable from '~/components/mixins/animatable'
   import { isEmpty } from 'lodash'
   import { validationMixin } from 'vuelidate'
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
@@ -240,7 +239,7 @@
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
-    mixins: [animatable, validationMixin],
+    mixins: [validationMixin],
     components: {
       Author,
       CategoriesSelect,
@@ -398,7 +397,7 @@
       },
       async onSubmit () {
         if (this.$v.form.$invalid) {
-          this.animate('shake')
+          this.$emit('validate', false)
           this.$toast.open({
             message: this.$t('component.contribution.validationError'),
             type: 'is-danger'
@@ -409,6 +408,7 @@
           }, 500)
           return
         }
+        this.$emit('validate', true)
 
         this.isLoading = true
 

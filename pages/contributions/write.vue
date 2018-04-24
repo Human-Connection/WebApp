@@ -1,29 +1,39 @@
 <template>
   <div class="columns">
-    <div class="card column is-8 is-offset-2">
+    <div class="card column is-8 is-offset-2" :class="classes">
       <section class="section">
-        <contributions-form></contributions-form>
+        <contributions-form @validate="onValidate" />
       </section>
     </div>
   </div>
 </template>
 
 <script>
+  import animatable from '~/components/mixins/animatable'
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
 
   export default {
     middleware: ['authenticated', 'verified'],
+    mixins: [animatable],
     components: {
       ContributionsForm
     },
     deactivated () {
       this.$destroy()
+    },
+    methods: {
+      onValidate (success) {
+        if (!success) {
+          this.animate('shake')
+        }
+      }
     }
   }
 </script>
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+  @import "assets/styles/_animations";
 
   .card {
     border: none;
