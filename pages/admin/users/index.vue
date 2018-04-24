@@ -19,10 +19,10 @@
             <v2-table-column label="Name" prop="name" align="left" width="220">
               <template slot-scope="row">
                 <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
+                  <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
                 </a>
                 <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-                  <hc-avatar :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
+                  <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
                 </div>
               </template>
             </v2-table-column>
