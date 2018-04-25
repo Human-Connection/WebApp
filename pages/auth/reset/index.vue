@@ -8,39 +8,46 @@
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">{{ $t('auth.login.passwordResetDescription') }}</p>
-        <form @submit.prevent="reset">
-          <div class="field">
-            <div class="control has-icons-left has-icons-right" :class="{ 'has-error': $v.form.email.$error }">
-              <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
-              <input v-focus
-                     id="form-email"
-                     name="email"
-                     type="email"
-                     autofocus
-                     :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
-                     :placeholder="$t('auth.account.email')"
-                     v-model.trim="form.email"
-                     @blur="$v.form.email.$touch()">
-              <span class="icon is-small is-left">
-                <i class="fa fa-envelope"></i>
-              </span>
-              <span v-if="$v.form.email.$error" class="icon is-small is-right">
-                <i class="fa fa-warning"></i>
-              </span>
-              <p :class="{ 'is-hidden': !$v.form.email.$error }" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
-            </div>
+        <transition name="slide-up">
+          <div v-if="!success" key="step1">
+            <p class="subtitle is-6">{{ $t('auth.login.passwordResetDescription') }}</p>
+            <form @submit.prevent="reset">
+              <div class="field">
+                <div class="control has-icons-left has-icons-right" :class="{ 'has-error': $v.form.email.$error }">
+                  <label class="is-hidden" for="form-email">{{ $t('auth.account.email') }}</label>
+                  <input v-focus
+                        id="form-email"
+                        name="email"
+                        type="email"
+                        autofocus
+                        :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
+                        :placeholder="$t('auth.account.email')"
+                        v-model.trim="form.email"
+                        @blur="$v.form.email.$touch()">
+                  <span class="icon is-small is-left">
+                    <i class="fa fa-envelope"></i>
+                  </span>
+                  <span v-if="$v.form.email.$error" class="icon is-small is-right">
+                    <i class="fa fa-warning"></i>
+                  </span>
+                  <p :class="{ 'is-hidden': !$v.form.email.$error }" class="help is-danger">{{ $t('auth.login.validationErrorEmail') }}</p>
+                </div>
+              </div>
+              <hc-button color="primary"
+                        name="submit"
+                        @click.prevent="reset"
+                        size="medium"
+                        type="button"
+                        class="is-fullwidth"
+                        :isLoading="isLoading">
+                {{ $t('auth.login.resetPassword') }}
+              </hc-button>
+            </form>
           </div>
-          <hc-button color="primary"
-                     name="submit"
-                     @click.prevent="reset"
-                     size="medium"
-                     type="button"
-                     class="is-fullwidth"
-                     :isLoading="isLoading">
-            {{ $t('auth.login.resetPassword') }}
-          </hc-button>
-        </form>
+          <div v-else key="step2">
+            <p class="subtitle is-6">{{ $t('auth.login.passwordResetRequestSuccess') }}</p>
+          </div>
+        </transition>
       </div>
       <footer class="card-footer">
         <nuxt-link :to="{ name: 'auth-login' }" class="card-footer-item is-disabled disabled">
@@ -70,7 +77,8 @@
         form: {
           email: ''
         },
-        isLoading: false
+        isLoading: false,
+        success: false
       }
     },
     validations () {
@@ -108,11 +116,12 @@
         this.isLoading = true
         this.$store.dispatch('auth/resetPassword', this.form)
           .then(() => {
-            this.$snackbar.open({
-              message: this.$t('auth.login.passwordResetRequestSuccess'),
-              duration: 8000,
-              type: 'is-success'
-            })
+            // this.$snackbar.open({
+            //   message: this.$t('auth.login.passwordResetRequestSuccess'),
+            //   duration: 8000,
+            //   type: 'is-success'
+            // })
+            this.success = true
             this.isLoading = false
           })
           .catch(() => {
