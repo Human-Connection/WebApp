@@ -232,5 +232,34 @@ export const actions = {
       .catch(err => {
         console.error(err.message, err)
       })
+  },
+  resetPassword ({state}, data) {
+    return this.app.$api.service('authManagement').create({
+      action: 'sendResetPwd',
+      value: {
+        email: data.email
+      }
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        throw new Error(err.message)
+      })
+  },
+  setNewPassword ({state}, data) {
+    return this.app.$api.service('authManagement').create({
+      action: 'resetPwdLong',
+      value: {
+        token: data.token,
+        password: data.password
+      }
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        throw new Error(err.message)
+      })
   }
 }

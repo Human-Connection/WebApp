@@ -3,7 +3,7 @@
         class="media hc__author"
         @click="showProfile">
     <div class="media-left">
-      <hc-avatar :user="user"></hc-avatar>
+      <hc-avatar :user="user" :showOnlineStatus="true"></hc-avatar>
     </div>
     <div class="media-content">
       <p class="title" v-if="!user">

@@ -23,13 +23,11 @@
                        @stop-sending="uploadingLogo = false" >
               <hc-avatar class="is-big"
                          :user="organization"
-                         :showOnlineStatus="false"
                          imageKey="logo" />
             </hc-upload>
             <hc-avatar v-else
                        class="is-big avatar-upload"
                        :user="organization"
-                       :showOnlineStatus="false"
                        imageKey="logo" />
           </div>
           <div class="edit-wrapper has-text-right" v-if="canEdit">
