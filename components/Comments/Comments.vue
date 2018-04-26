@@ -56,6 +56,10 @@
 <style scoped lang="scss">
   @import "assets/styles/utilities";
 
+  .comments {
+    margin-top: $margin;
+  }
+
   .comment-enter-active, .comment-leave-active {
     transition: all .5s ease-out;
   }
