@@ -11,6 +11,7 @@ class MentionBlot extends EmbedBlot {
     node.setAttribute('href', url)
     node.setAttribute('class', mentionClass)
     node.setAttribute(dataIdentifier, JSON.stringify(item))
+    node.setAttribute('contenteditable', 'false')
     node.insertAdjacentHTML('beforeend', item.name)
     return node
   }
