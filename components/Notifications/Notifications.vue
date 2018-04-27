@@ -8,7 +8,7 @@
         <hc-icon icon="bell"
           class="notification-icon-bell"
           :class="{ animate: notify }"></hc-icon>
-        <hc-count-label :count="notifications.length" v-if="notifications"></hc-count-label>
+        <hc-count-label :count="notificationsTotal" v-if="notifications"></hc-count-label>
       </span>
     </hc-navbar-button>
     <div class="hc-notifications">
@@ -63,7 +63,8 @@
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
-        notifications: 'notifications/all'
+        notifications: 'notifications/all',
+        notificationsTotal: 'notifications/total'
       })
     },
     watch: {
