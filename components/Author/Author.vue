@@ -2,10 +2,10 @@
   <div :class="{ disabled: disableLink, 'is-owner': isOwner }"
         class="media hc__author"
         @click="showProfile">
-    <div class="media-left">
+    <div class="media-left" v-if="showAvatar">
       <hc-avatar :user="user" :showOnlineStatus="true"></hc-avatar>
     </div>
-    <div class="media-content">
+    <div class="media-content" v-if="showText">
       <p class="title" v-if="!user">
         {{ $t('component.contribution.creatorUnknown') }}
       </p>
@@ -33,6 +33,14 @@
       },
       isOwner: {
         type: Boolean
+      },
+      showAvatar: {
+        type: Boolean,
+        default: true
+      },
+      showText: {
+        type: Boolean,
+        default: true
       }
     },
     methods: {

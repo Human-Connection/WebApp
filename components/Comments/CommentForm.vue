@@ -1,18 +1,29 @@
 <template>
   <div class="comment-form-container" v-if="post && isVerified">
-    <hc-avatar :user="user" class="avatar" />
+    <div class="comment-form-aside">
+      <hc-avatar :user="user" />
+    </div>
     <form class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
         ref="editor"
         editorClass="autowrap"
         v-model="form.content"
         :editorOptions="editorOptions" />
-      <button type="submit"
-        class="submit-button button is-primary is-fullwidth"
-        :disabled="!this.hasContent"
-        :class="{ 'is-loading': isLoading }">
-        {{ $t('button.submitComment','Submit comment') }}
-      </button>
+      <div class="comment-form-actions">
+        <button type="button"
+          class="button is-hidden-mobile"
+          :disabled="!this.hasContent"
+          @click="form.content = ''"
+          :class="{ 'is-loading': isLoading }">
+          {{ $t('button.cancel') }}
+        </button>
+        <button type="submit"
+          class="button is-primary"
+          :disabled="!this.hasContent"
+          :class="{ 'is-loading': isLoading }">
+          {{ $t('button.submitComment','Submit comment') }}
+        </button>
+      </div>
     </form>
   </div>
 </template>
@@ -109,20 +120,34 @@
 
   .comment-form-container {
     border-top: 1px solid $grey-lighter;
-    padding-top: 20px;
+    margin-top: $margin-large;
+    padding-top: $margin-large;
+    display: flex;
   }
 
-  .avatar {
-    float: left;
+  .comment-form-aside {
+    flex: 0 0 51px;
+    width: 51px;
+    padding-top: 5px;
   }
 
   .comment-form {
-
-    margin-left: 3.5rem;
+    flex: 1 1 0;
   }
 
-  .submit-button {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+  .comment-form-actions {
+    padding-top: $padding-small;
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+      width: 100%;
+
+      @media (min-width: $tablet) {
+        width: auto;
+        min-width: 160px;
+      }
+    }
   }
+
 </style>
