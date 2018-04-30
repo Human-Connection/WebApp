@@ -109,7 +109,7 @@
 
   .comment-form {
     flex: 1 1 0;
-    overflow: auto;
+    // overflow: auto;
   }
 
   .comment-form-actions {
