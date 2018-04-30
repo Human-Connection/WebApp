@@ -8,7 +8,8 @@
       <div class="comment-header">
         <div class="comment-header-author">
           <author :user="comment.user"
-            :showAvatar="false" />
+            :showAvatar="false"
+            :createdAt="comment.createdAt" />
         </div>
         <div class="comment-header-actions">
           <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
