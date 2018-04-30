@@ -146,7 +146,6 @@
             urlEmbeds: {
               metaCallback: this.handleMeta
             },
-            pasteHandler: {}
           },
           placeholder: 'Schreiben ...'
         }
