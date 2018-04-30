@@ -145,7 +145,7 @@
             },
             urlEmbeds: {
               metaCallback: this.handleMeta
-            },
+            }
           },
           placeholder: 'Schreiben ...'
         }
