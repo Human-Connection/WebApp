@@ -8,7 +8,8 @@
       <div class="comment-header">
         <div class="comment-header-author">
           <author :user="comment.user"
-            :showAvatar="false" />
+            :showAvatar="false"
+            :createdAt="comment.createdAt" />
         </div>
         <div class="comment-header-actions">
           <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
@@ -68,10 +69,16 @@
     },
     computed: {
       getText () {
-        return (this.fullContentShown && this.content) ? linkifyHtml(this.content) : linkifyHtml(this.comment.contentExcerpt)
+        return (this.fullContentShown && this.content)
+          ? linkifyHtml(this.content)
+          : linkifyHtml(this.comment.contentExcerpt)
       },
       isTruncated () {
-        return this.getText.slice(-3) === '...' || this.getText.slice(-1) === '…' || this.fullContentShown
+        return this.getText.slice(-3) === '...' ||
+          this.getText.slice(-1) === '…' ||
+          this.getText.slice(-7) === '...</p>' ||
+          this.getText.slice(-5) === '…</p>' ||
+          this.fullContentShown
       }
     },
     mounted () {
@@ -129,6 +136,7 @@
   .comment-main {
     position: relative;
     flex: 1 1 0;
+    overflow: auto;
     padding: $padding-small;
     background-color: $white;
 

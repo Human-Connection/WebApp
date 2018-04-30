@@ -45,7 +45,8 @@
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
           modules: {
-            toolbar: null
+            toolbar: null,
+            pasteHandler: {}
           }
         }
       }
@@ -108,6 +109,7 @@
 
   .comment-form {
     flex: 1 1 0;
+    // overflow: auto;
   }
 
   .comment-form-actions {
