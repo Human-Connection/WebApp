@@ -277,9 +277,9 @@
   dependencies:
     "@types/node" "*"
 
-"@vue/test-utils@~1.0.0-beta.11":
-  version "1.0.0-beta.13"
-  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-1.0.0-beta.13.tgz#309dc50d2a55ac9facf781f62bbd236475ba5033"
+"@vue/test-utils@~1.0.0-beta.15":
+  version "1.0.0-beta.15"
+  resolved "https://registry.yarnpkg.com/@vue/test-utils/-/test-utils-1.0.0-beta.15.tgz#9f8d85b9f2312217c81d72eba97e176fba23da09"
   dependencies:
     lodash "^4.17.4"
 
@@ -11265,11 +11265,7 @@ vue-webpack-loaders@^1.0.5:
     vue-style-loader "^3.0.1"
     vue-template-compiler "^2.4.2"
 
-vue@^2.4.2, vue@^2.5.13, vue@^2.5.2:
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.13.tgz#95bd31e20efcf7a7f39239c9aa6787ce8cf578e1"
-
-vue@~2.5.16:
+vue@^2.4.2, vue@^2.5.13, vue@^2.5.2, vue@~2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
