@@ -119,7 +119,7 @@
     "ava": "~0.25.0",
     "backpack-core": "~0.5.0",
     "browser-env": "~3.2.4",
-    "codecov": "~3.0.0",
+    "codecov": "~3.0.1",
     "eslint": "~4.18.2",
     "eslint-config-standard": "~11.0.0-beta.0",
     "eslint-loader": "~2.0.0",
