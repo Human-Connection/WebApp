@@ -10908,9 +10908,9 @@ vue-hot-reload-api@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.3.0.tgz#97976142405d13d8efae154749e88c4e358cf926"
 
-vue-in-viewport-mixin@~1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/vue-in-viewport-mixin/-/vue-in-viewport-mixin-1.0.3.tgz#15aebfa4f2f616c12083d9bb2a91853d29b170a6"
+vue-in-viewport-mixin@~1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/vue-in-viewport-mixin/-/vue-in-viewport-mixin-1.0.4.tgz#51a3eb3e9a58211dfb25dc7882ab84b73aa0b225"
   dependencies:
     scrollmonitor "^1.1.3"
 

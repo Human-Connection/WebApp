@@ -99,7 +99,7 @@
     "vue-click-outside": "^1.0.7",
     "vue-clip": "git+https://github.com/alexsasharegan/vue-clip.git#develop",
     "vue-count-to": "~1.0.13",
-    "vue-in-viewport-mixin": "~1.0.3",
+    "vue-in-viewport-mixin": "~1.0.4",
     "vue-infinite-loading": "~2.2.3",
     "vue-loader": "~14.1.1",
     "vue-quill-editor": "~3.0.5",
