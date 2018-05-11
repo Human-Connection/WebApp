@@ -1,4 +1,5 @@
 import { clone } from 'lodash'
+import searchQueryBuilder from './utils/search-query-builder'
 
 export const state = () => {
   return {
@@ -16,6 +17,11 @@ export const mutations = {
       state.query = null
     } else {
       state.query = query
+
+      // go to newsfeed to see search results
+      if (this.app.router.currentRoute.name !== 'index') {
+        this.app.router.push({ name: 'index' })
+      }
     }
   },
   categoryIds (state, categoryIds) {
@@ -46,6 +52,25 @@ export const getters = {
   },
   all (state) {
     return state
+  },
+  queryEmotions (state, getters, rootState, rootGetters) {
+    // generate the emotions filter query by using the selected emotions
+    return searchQueryBuilder.buildFilterEmotions(getters.emotions, {})
+  },
+  queryCategories (state, getters, rootState, rootGetters) {
+    // generate the category filter query by using the selected category ids
+    return searchQueryBuilder.buildFilterCategories(getters.categoryIds, {})
+  },
+  queryLanguages (state, getters, rootState, rootGetters) {
+    if (rootState.auth.user) {
+      const languages = rootGetters['auth/userSettings'].contentLanguages
+      return searchQueryBuilder.buildFilterLanguages(languages, {})
+    } else {
+      return {}
+    }
+  },
+  querySearch (state, getters, rootState, rootGetters) {
+
   }
 }
 

@@ -69,13 +69,15 @@
           </hc-button>
         </form>
       </div>
-      <footer class="card-footer is-hidden">
+      <footer class="card-footer">
+        <!--
         <nuxt-link :to="{ name: 'auth-register', params: { path: this.$route.params.path } }" class="card-footer-item">
           {{ $t('auth.register.noAccountYet') }}
         </nuxt-link>
-        <a href="#" style="cursor: not-allowed" class="card-footer-item is-disabled disabled">
+        -->
+        <nuxt-link :to="{ name: 'auth-reset' }" class="card-footer-item is-disabled disabled">
           {{ $t('auth.login.forgotPassword') }}
-        </a>
+        </nuxt-link>
       </footer>
     </div>
   </section>
@@ -117,11 +119,6 @@
           }
         }
       }
-    },
-    computed: {
-      ...mapGetters({
-        user: 'auth/user'
-      })
     },
     mounted () {
       this.$nextTick(() => {

@@ -29,9 +29,9 @@
                 @update="onAvatarUploadCompleted"
                 @start-sending="uploadingAvatar = true"
                 @stop-sending="uploadingAvatar = false" >
-                <hc-avatar class="is-big" :user="user" :showOnlineStatus="false" />
+                <hc-avatar class="is-big" :user="user" />
               </hc-upload>
-              <hc-avatar v-else class="is-big avatar-upload" :user="user" :showOnlineStatus="false" />
+              <hc-avatar v-else :showOnlineStatus="true" class="is-big avatar-upload" :user="user" />
             </template>
           </div>
           <div class="user-name">{{ user.name }}</div>

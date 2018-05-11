@@ -49,6 +49,7 @@ export const actions = {
   fetchByContributionId ({commit, state}, contributionId) {
     contributionId = contributionId || state.contributionId
     commit('setContributionId', contributionId)
+    // TODO: implement pagination for comments
     return this.app.$api.service('comments').find({
       query: {
         contributionId: contributionId,
@@ -56,7 +57,7 @@ export const actions = {
           // upvoteCount: -1,
           createdAt: 1
         },
-        $limit: 50
+        $limit: 100
       }
     })
       .then((result) => {

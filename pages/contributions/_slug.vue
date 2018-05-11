@@ -224,7 +224,12 @@
     methods: {
       onContribSettingsUpdate (data) {
         if (data._id === this.contribution._id) {
-          this.contribution = data
+          // update only needed attributes to prevent flash of content
+          // which would stop playing media like videos
+          this.contribution.isEnabled = data.isEnabled
+          this.contribution.emotions = data.emotions
+          this.contribution.shoutCount = data.shoutCount
+          this.contribution.visibility = data.visibility
         }
       }
     },

@@ -13,7 +13,7 @@
       <span class="menu-icon">
         <hc-icon icon="cog"></hc-icon>
       </span>
-      {{ $t('component.admin.settings', 'Einstellungen') }}
+      {{ $t('component.admin.settings', 'Settings') }}
     </nuxt-link>
     <nuxt-link to="/admin/categories" class="menu-item">
       <span class="menu-icon">
@@ -21,11 +21,17 @@
       </span>
       {{ $t('component.category.labelOnePluralNone', null, 2) }}
     </nuxt-link>
+    <nuxt-link to="/admin/organizations" class="menu-item">
+      <span class="menu-icon">
+        <hc-icon icon="university"></hc-icon>
+      </span>
+      {{ $t('component.admin.organizations', 'Organizations') }}
+    </nuxt-link>
     <nuxt-link to="/admin/users" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="user"></hc-icon>
       </span>
-      {{ $t('component.admin.users', 'Benutzer') }}
+      {{ $t('component.admin.users', 'Users') }}
     </nuxt-link>
   </nav>
 </template>
