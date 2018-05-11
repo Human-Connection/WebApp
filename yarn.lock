@@ -8652,13 +8652,13 @@ raven-js@~3.25.0:
   version "3.25.0"
   resolved "https://registry.yarnpkg.com/raven-js/-/raven-js-3.25.0.tgz#4ee92410b61665d730f34a54a0893fbb3769f5cb"
 
-raven@~2.4.2:
-  version "2.4.2"
-  resolved "https://registry.yarnpkg.com/raven/-/raven-2.4.2.tgz#0129e2adc30788646fd530b67d08a8ce25d4f6dc"
+raven@~2.6.1:
+  version "2.6.1"
+  resolved "https://registry.yarnpkg.com/raven/-/raven-2.6.1.tgz#9b1945c02b93ef84e92e0dd2843095c1294530b3"
   dependencies:
     cookie "0.3.1"
     md5 "^2.2.1"
-    stack-trace "0.0.9"
+    stack-trace "0.0.10"
     timed-out "4.0.1"
     uuid "3.0.0"
 
@@ -9925,10 +9925,6 @@ ssri@^5.2.4:
 stack-trace@0.0.10:
   version "0.0.10"
   resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.10.tgz#547c70b347e8d32b4e108ea1a2a159e5fdde19c0"
-
-stack-trace@0.0.9:
-  version "0.0.9"
-  resolved "https://registry.yarnpkg.com/stack-trace/-/stack-trace-0.0.9.tgz#a8f6eaeca90674c333e7c43953f275b451510695"
 
 stack-utils@^1.0.1:
   version "1.0.1"
