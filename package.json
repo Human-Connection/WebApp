@@ -117,7 +117,7 @@
     "@nuxtjs/webpackmonitor": "~0.1.0",
     "@vue/test-utils": "~1.0.0-beta.11",
     "ava": "~0.25.0",
-    "backpack-core": "~0.5.0",
+    "backpack-core": "~0.7.0",
     "browser-env": "~3.2.4",
     "codecov": "~3.0.2",
     "eslint": "~4.19.1",
