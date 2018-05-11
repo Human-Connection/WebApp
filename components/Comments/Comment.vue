@@ -10,7 +10,8 @@
           <author
             :user="comment.user"
             :showAvatar="false"
-            :isAuthor="isAuthor" />
+            :isAuthor="isAuthor"
+            :createdAt="comment.createdAt" />
         </div>
         <div class="comment-header-actions">
           <hc-tooltip v-if="!isOwner" :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
@@ -76,12 +77,18 @@
     },
     computed: {
       getText () {
-        return (this.fullContentShown && this.content) ? linkifyHtml(this.content) : linkifyHtml(this.comment.contentExcerpt)
+        return (this.fullContentShown && this.content)
+          ? linkifyHtml(this.content)
+          : linkifyHtml(this.comment.contentExcerpt)
       },
       isTruncated () {
         if (this.comment.hasMore === undefined) {
           // old logic
-          return this.getText.slice(-3) === '...' || this.getText.slice(-1) === '…' || this.fullContentShown
+          return this.getText.slice(-3) === '...' ||
+                 this.getText.slice(-1) === '…' ||
+                 this.getText.slice(-7) === '...</p>' ||
+                 this.getText.slice(-5) === '…</p>' ||
+                 this.fullContentShown
         } else {
           // new logic
           return this.comment.hasMore
@@ -143,6 +150,7 @@
   .comment-main {
     position: relative;
     flex: 1 1 0;
+    overflow: auto;
     padding: $padding-small;
     background-color: $white;
 
