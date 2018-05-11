@@ -105,7 +105,7 @@
     "vue-quill-editor": "~3.0.5",
     "vue-scrollto": "~2.9.0",
     "vue-server-renderer": "~2.5.13",
-    "vue-styleguidist": "~1.4.6",
+    "vue-styleguidist": "~1.7.7",
     "vue-template-compiler": "~2.5.13",
     "vue-text-glitch": "^1.0.1",
     "vuelidate": "~0.6.1",
