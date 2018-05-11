@@ -1342,9 +1342,9 @@ babel-polyfill@6.23.0:
     core-js "^2.4.0"
     regenerator-runtime "^0.10.0"
 
-babel-preset-backpack@^0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/babel-preset-backpack/-/babel-preset-backpack-0.5.0.tgz#4b8c8823e2cf8e3d66deb3a332915ad6df990452"
+babel-preset-backpack@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/babel-preset-backpack/-/babel-preset-backpack-0.7.0.tgz#7794b922cb43306e952afe784a921650fdee3c76"
   dependencies:
     babel-plugin-transform-class-properties "^6.19.0"
     babel-plugin-transform-es2015-modules-commonjs "^6.18.0"
@@ -1536,19 +1536,20 @@ backo2@1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/backo2/-/backo2-1.0.2.tgz#31ab1ac8b129363463e35b3ebb69f4dfcfba7947"
 
-backpack-core@~0.5.0:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/backpack-core/-/backpack-core-0.5.0.tgz#93e9c4e6f16922cdcc56b4f52c6a8fa35043ea7d"
+backpack-core@~0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/backpack-core/-/backpack-core-0.7.0.tgz#ccc7bde25dfd13153bfa6d9e687dd64cb187a7ef"
   dependencies:
     babel-core "^6.25.0"
     babel-loader "^7.1.0"
-    babel-preset-backpack "^0.5.0"
+    babel-preset-backpack "^0.7.0"
     cross-spawn "^5.0.1"
     friendly-errors-webpack-plugin "^1.6.1"
+    json-loader "^0.5.7"
     nodemon "^1.11.0"
     ramda "^0.23.0"
     source-map-support "^0.4.15"
-    webpack "^3.0.0"
+    webpack "^3.11.0"
     webpack-node-externals "^1.6.0"
 
 bail@^1.0.0:
@@ -6021,7 +6022,7 @@ jsesc@~0.5.0:
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-0.5.0.tgz#e7dee66e35d6fc16f710fe91d5cf69f70f08911d"
 
-json-loader@^0.5.4:
+json-loader@^0.5.4, json-loader@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/json-loader/-/json-loader-0.5.7.tgz#dca14a70235ff82f0ac9a3abeb60d337a365185d"
 
