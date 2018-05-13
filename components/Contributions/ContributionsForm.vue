@@ -10,7 +10,7 @@
     </hc-upload>
     <div class="columns">
       <div class="column">
-        <author :user="user" />
+        <author :user="userOrOrganization" />
       </div>
       <div class="column"></div>
     </div>
@@ -285,6 +285,10 @@
         form: rules
       }
     },
+    async mounted () {
+      this.form.organizationId = this.form.organizationId || this.$route.query.organizationId || null
+      this.organization = this.form.organizationId ? await this.$api.service('organizations').get(this.form.organizationId) : null
+    },
     data () {
       // const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
       // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
@@ -295,10 +299,12 @@
         isLoading: false,
         uploadingCover: false,
         dropFiles: null,
+        organization: null,
         form: {
           _id: null,
           type: 'post',
           teaserImg: null,
+          organizationId: null,
           title: '',
           content: '',
           language: this.$i18n.locale(),
@@ -355,6 +361,9 @@
       ...mapGetters({
         user: 'auth/user'
       }),
+      userOrOrganization () {
+        return this.organization || this.user
+      },
       buttonPublishLabel () {
         return this.form._id ? this.$t('button.update') : this.$t('button.publish')
       },

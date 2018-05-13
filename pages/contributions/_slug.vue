@@ -9,7 +9,7 @@
               <div class="column">
                 <author
                   class="author"
-                  :user="contribution.user"
+                  :user="contribution.organization || contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
               <div class="column is-one-third">

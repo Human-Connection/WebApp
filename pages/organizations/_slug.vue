@@ -89,9 +89,44 @@
         </div>
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
-        <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
         <organization-review-banner v-if="user && !organization.reviewedBy" :user="user" :organization="organization" :disableReview="true" />
         <organization-visibility-banner v-else-if="user" :user="user" :organization="organization" />
+        <div class="timeline">
+          <div class="timeline-content">
+            <div class="timeline-intro" v-if="!contributed.data.length && loadingFinished">
+              <p>
+                {{ $t('component.timeline.noContributionsFound') }}
+              </p>
+            </div>
+            <div class="timeline-intro">
+              <hc-tooltip :label="$t('component.contribution.writePost')"
+                          type="is-black"
+                          position="is-right">
+                <hc-button color="primary"
+                          size="large"
+                          type="nuxt"
+                          circle
+                          :to="$router.resolve({name:'contributions-write', query: { organizationId: organization._id }}).href">
+                  <hc-icon icon="plus"/>
+                </hc-button>
+              </hc-tooltip>
+            </div>
+            <div v-if="isLoading" class="timeline-loader">
+              <div class="is-loading"></div>
+            </div>
+            <div class="timeline-missing-line"></div>
+            <div class="timeline-post-wrapper is-clearfix">
+              <div class="timeline-post-direction" v-if="!isLoading && contributed.data"
+                                                  v-for="contribution in contributed.data"
+                                                  :key="contribution._id">
+                <contribution-card class="card timeline arrow"
+                  :post="contribution" :key="contribution._id">
+                  <small slot="category">{{ $t('component.contribution.type-' + contribution.type) }}</small>
+                </contribution-card>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -101,18 +136,23 @@
   import {mapGetters} from 'vuex'
 
   import { isEmpty, indexOf } from 'lodash'
-  import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
+  import HcTextcount from '~/components/Global/Typography/Textcount/Textcount'
+  import ContributionCard from '~/components/Contributions/ContributionCard.vue'
   import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
   import OrganizationVisibilityBanner from '~/components/Organizations/OrganizationVisibilityBanner.vue'
 
   export default {
     components: {
       HcTextcount,
+      ContributionCard,
       OrganizationReviewBanner,
       OrganizationVisibilityBanner
     },
     data () {
       return {
+        isLoading: true,
+        loadingFinished: false,
+        contributed: {total: 0, data: []},
         form: {
           coverImg: null,
           logo: null
@@ -139,6 +179,36 @@
         organization: organization.data[0]
       }
     },
+    async mounted () {
+      const limit = 10
+
+      let query = {
+        organizationId: this.organization._id,
+        $limit: limit,
+        $sort: {
+          createdAt: -1
+        }
+      }
+
+      // show only public posts if its not your own profile
+      if (!this.canEdit) {
+        query.visibility = 'public'
+          // query.categoryIds = { $exists: true, $not: {$size: 0} }
+      }
+
+      try {
+        let res = await this.$api.service('contributions').find({query})
+        this.contributed = res
+        this.isLoading = false
+        this.loadingFinished = true
+      } catch (err) {
+        // this just displays nothing
+        // @todo implement some user feedback
+        console.error(err)
+        this.isLoading = false
+        this.loadingFinished = true
+      }
+    },
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
@@ -162,7 +232,7 @@
         return this.organization.followersCounts ? this.organization.followersCounts.users : 0
       },
       canEdit() {
-        return ['admin', 'moderator'].includes(this.user.role) !== false || this.organization.userId === this.user._id
+        return this.isOwner || ['admin', 'moderator'].includes(this.user.role) !== false
       }
     },
     methods: {
@@ -207,6 +277,7 @@
 
 <style lang="scss">
   @import "assets/styles/utilities";
+  @import "../../components/layout/timeline";
 
   .organization-profile {
     #main {
@@ -269,6 +340,14 @@
       border-radius: 50%;
       width: 100%;
       height: 100%;
+    }
+
+    .organization-timeline {
+      margin-top: 1rem;
+
+      .timeline-content {
+        padding-top: 0;
+      }
     }
 
     .organization-follows {

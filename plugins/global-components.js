@@ -20,7 +20,6 @@ req.keys().forEach(path => {
   let name = getComponentName(path)
   Vue.component(name, component.default)
 })
-
 export default ({ app }) => (
   app.globalComponents = () => {
     return globalComponents

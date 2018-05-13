@@ -3,7 +3,10 @@
         class="media hc__author"
         @click="showProfile">
     <div class="media-left" v-if="showAvatar">
-      <hc-avatar :user="user" :showOnlineStatus="true"></hc-avatar>
+      <hc-avatar
+        :user="user"
+        :showOnlineStatus="true"
+        :imageKey="imageKey" />
     </div>
     <div class="media-content" v-if="showText">
       <p class="title" v-if="!user">
@@ -45,7 +48,10 @@
     },
     methods: {
       showProfile () {
-        if (this.isOwnProfile) {
+        if (this.user.userId) {
+          // its an organization
+          this.$router.push(`/organizations/${this.user.slug}`)
+        } else if (this.isOwnProfile) {
           // own profile
           this.$router.push(`/profile/`)
         } else if (this.user.slug) {
@@ -58,6 +64,9 @@
       ...mapGetters({
         currentUser: 'auth/user'
       }),
+      imageKey () {
+        return (this.user && this.user.logo) ? 'logo' : 'avatar'
+      },
       isOwnProfile () {
         return this.currentUser && this.currentUser._id === this.user._id
       },

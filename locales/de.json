@@ -282,7 +282,7 @@
     },
     "timeline": {
       "loadingContributions": "Beiträge werden geladen …",
-      "noContributionsFound": "Keine Beiträge gefunden, schreibe doch etwas",
+      "noContributionsFound": "Keine Beiträge gefunden",
       "introQuestion": "{username}, was sind Deine Pläne für heute?",
       "title": "Chronik"
     }

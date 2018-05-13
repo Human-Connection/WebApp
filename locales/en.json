@@ -282,7 +282,7 @@
     },
     "timeline": {
       "loadingContributions": "Loading content …",
-      "noContributionsFound": "No contributions found, write something.",
+      "noContributionsFound": "No contributions found",
       "introQuestion": "What are your plans for today {username}?",
       "title": "Timeline"
     }
