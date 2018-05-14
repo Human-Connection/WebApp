@@ -527,7 +527,12 @@
       "newPassword": "New password",
       "newPasswordConfirm": "Confirm new password",
       "validationErrorContentLanguages": "Choose at least one language",
-      "organizationDeleteModel": "Are you sure you want to delete <b>{organization}</b>?"
+      "organizationDeleteModel": "Are you sure you want to delete <b>{name}</b>?",
+      "organizationAddresses": "Addresses",
+      "organizationStreet": "Street",
+      "organizationZipCode": "Zip Code",
+      "organizationCity": "City",
+      "organizationCountry": "Country"
     }
   },
   "ressource": {

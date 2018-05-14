@@ -47,7 +47,7 @@
     watch: {
       'this.$parent.$attrs.organization': (organization) => {
         // get current organization from parent view
-        this.organization = this.organization
+        this.organization = organization
       }
     },
     mounted() {

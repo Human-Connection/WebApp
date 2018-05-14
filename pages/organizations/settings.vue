@@ -44,6 +44,10 @@
                 :class="{ 'is-active': $route.name === 'organizations-settings-categories'}">
               <a>{{ $t('component.organization.stepCategories', 'Categories') }}</a>
             </li>
+            <li @click.prevent="$router.push({ name: 'organizations-settings-addresses', query: { id: organization._id } })"
+                :class="{ 'is-active': $route.name === 'organizations-settings-addresses'}">
+              <a>{{ $t('auth.settings.organizationAddresses', 'Addresses') }}</a>
+            </li>
           </ul>
           <p class="menu-label">
             {{ $t('component.projects.label') }}

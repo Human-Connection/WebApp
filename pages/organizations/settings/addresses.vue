@@ -1,30 +1,16 @@
 <template>
   <div v-if="organization">
-    <div class="info-text columns">
-      <div class="column">
-        <h2 class="title is-3">
-          {{ $t('component.organization.stepBasics', 'Basics') }}
-        </h2>
-        <p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>
-      </div>
-      <div class="column is-3 settings-left">
-      </div>
+    <div class="info-text">
+      <h2 class="title is-3">
+        {{ $t('auth.settings.organizationAddresses', 'Addresses') }}
+      </h2>
     </div>
     <hr>
     <div class="columns">
       <div class="column">
         <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-1 ref="form" :data="form" @validate="onValidation" :hideButton="true" :autoFocus="false" />
+          <orga-form-addresses ref="form" :data="form" @validate="onValidation" :hideButton="true" />
         </form>
-        <div class="field has-margin-top-small">
-          <div class="control">
-            <label class="label">{{ $t('component.organization.visibility') }}</label>
-            <b-switch v-model="form.isEnabled" :disabled="!canEnable">
-              <span v-if="form.isEnabled">{{ $t('info.active') }}</span>
-              <span v-else>{{ $t('info.inactive') }}</span>
-            </b-switch>
-          </div>
-        </div>
       </div>
     </div>
     <footer class="card-footer">
@@ -40,20 +26,17 @@
 </template>
 
 <script>
-  import OrgaFormStep1 from "~/components/Organizations/steps/OrgaFormStep1.vue";
+  import OrgaFormAddresses from "~/components/Organizations/steps/OrgaFormAddresses.vue";
 
   export default {
     mixins: [],
     components: {
-      OrgaFormStep1
+      OrgaFormAddresses
     },
     data() {
       return {
         form: {
-          name: '',
-          logo: '',
-          isEnabled: false,
-          language: this.$i18n.locale()
+          addresses: []
         },
         organization: null,
         isLoading: false
@@ -71,22 +54,9 @@
         this.organization = this.$parent.$attrs.organization
 
         this.form = Object.assign(this.form, {
-          name: this.organization.name,
-          logo: this.organization.logo,
-          isEnabled: this.organization.isEnabled,
-          language: this.organization.language,
+          addresses: this.organization.addresses
         })
       })
-    },
-    computed: {
-      canEdit () {
-        // owner, moderator, admin
-        return this.organization.userId === this.$parent.$attrs.user._id || ['admin', 'moderator'].includes(this.$parent.$attrs.user.role)
-      },
-      canEnable () {
-        // owner (if reviewed), moderator, admin
-        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.reviewedBy
-      }
     },
     methods: {
       onValidation (result) {
@@ -119,18 +89,9 @@
             message: err.message,
             type: "is-danger"
           });
-          this.$parent.$emit('error', err)
         }
         this.isLoading = false;
       }
     }
   };
 </script>
-
-<style lang="scss" scoped>
-  .settings-left {
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-end;
-  }
-</style>

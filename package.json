@@ -104,6 +104,7 @@
     "vue-in-viewport-mixin": "~1.0.3",
     "vue-infinite-loading": "~2.2.3",
     "vue-loader": "~14.1.1",
+    "vue-places": "^1.1.0",
     "vue-quill-editor": "~3.0.5",
     "vue-scrollto": "~2.9.0",
     "vue-server-renderer": "~2.5.13",
