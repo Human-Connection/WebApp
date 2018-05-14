@@ -86,7 +86,7 @@
             {{ address.zipCode }} {{ address.city }}
           </td>
           <td>
-            {{ address.country }}
+            {{ countryByCode(address.country) }}
           </td>
           <td>
             <a
@@ -144,6 +144,10 @@
   import { validationMixin } from "vuelidate";
   import { required, minLength, maxLength } from "vuelidate/lib/validators";
   import { isEmpty } from "lodash";
+
+  const countries = require("i18n-iso-countries");
+  countries.registerLocale(require("i18n-iso-countries/langs/en.json"));
+  countries.registerLocale(require("i18n-iso-countries/langs/de.json"));
 
   const Places = process.client ? require('vue-places').default : null
   const Map = () => import('~/components/Map/Map.vue')
@@ -222,6 +226,9 @@
       })
     },
     methods: {
+      countryByCode (code) {
+        return countries.getName(code, this.$i18n.locale())
+      },
       onAddress (data) {
         if (!data || !data.latlng) {
           return
@@ -234,7 +241,7 @@
           street: data.name || data.street || null,
           zipCode: data.postcode || data.zipCode || null,
           city: data.city || null,
-          country: data.country || data.countryCode || null
+          country: data.countryCode || data.country || null
         })
         try {
           this.form = Object.assign(this.form, {
