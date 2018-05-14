@@ -1,5 +1,5 @@
 <template>
-  <form v-bind:disabled="isLoading">
+  <form :disabled="isLoading">
     <!-- ToDo remove :test="true" for production -->
     <hc-upload :previewImage="form.teaserImg"
                :test="true"
@@ -42,8 +42,8 @@
           v-model.trim="form.title"
           @blur="$v.form.title.$touch()"
           type="text"
-          v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
-          v-bind:disabled="isLoading">
+          :placeholder="$t('component.contribution.writePostSectionPlaceholder')"
+          :disabled="isLoading">
       </div>
       <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
     </div>
@@ -96,8 +96,8 @@
             class="input"
             v-model="form.cando.reasonTitle"
             type="text"
-            v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
-            v-bind:disabled="isLoading">
+            :placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
+            :disabled="isLoading">
         </p>
       </div>
       <div class="field">
