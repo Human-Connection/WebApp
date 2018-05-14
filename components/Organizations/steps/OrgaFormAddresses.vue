@@ -263,8 +263,13 @@
         }, 350)
       },
       edit (index) {
-        this.editIndex = index
-        this.updateData(this.data.addresses[index])
+        if (this.editIndex !== null && index === this.editIndex) {
+          this.editIndex = null
+          this.updateData({})
+        } else {
+          this.editIndex = index
+          this.updateData(this.data.addresses[index])
+        }
       },
       validate () {
         if (this.$v.form.$invalid) {
