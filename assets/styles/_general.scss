@@ -481,3 +481,21 @@ ul.is-list {
   margin-left: 2em;
   margin-top: 1em;
 }
+
+.modal {
+  &.is-active {
+    .modal-background {
+      opacity: 0.5;
+    }
+  }
+  .modal-card {
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    max-width: 400px;
+  }
+  .modal-card-foot {
+    justify-content: flex-end;
+    padding: 0.8rem;
+  }
+}
