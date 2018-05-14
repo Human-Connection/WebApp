@@ -1,0 +1,52 @@
+@import "assets/styles/utilities";
+
+.account-settings,
+.organization-settings {
+  .is-active {
+    background: #fefefe;
+  }
+  .info-text {
+    margin-bottom: 25px;
+  }
+  .editable-details {
+    margin-bottom: 25px;
+  }
+  .control {
+    .help.counter {
+      float: none;
+    }
+  }
+  .language-wrapper {
+    .icon {
+      margin-top: 21px;
+    }
+  }
+
+  .menu {
+    @media (min-width: $tablet) {
+      max-width: 240px;
+    }
+  }
+
+  .card {
+    $padding: 1.5rem;
+
+    padding: $padding !important;
+
+    footer.card-footer {
+      margin: -$padding;
+      margin-top: 2rem;
+      background: lighten($grey-lighter, 10%);
+      padding: 1rem $padding;
+      display: flex;
+      justify-content: right;
+    }
+  }
+}
+
+.settings-content {
+  overflow-x: hidden;
+  @extend .card;
+  background-color: $white;
+  box-shadow: $card-shadow-hover;
+}

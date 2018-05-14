@@ -52,6 +52,9 @@
       selectedCategoryIds (categoryIds) {
         this.$emit('input', categoryIds)
         this.$emit('change', categoryIds)
+      },
+      value (value) {
+        this.selectedCategoryIds = this.value
       }
     },
     methods: {

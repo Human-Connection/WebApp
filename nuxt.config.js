@@ -8,7 +8,8 @@ module.exports = {
       'auth-login',
       'auth-register',
       'auth-signup',
-      'auth-passwort-reset',
+      'auth-reset',
+      'auth-reset-token',
       'legal',
       'test'
     ],
@@ -92,7 +93,7 @@ module.exports = {
     {src: '~/plugins/debug.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/api.js'},
-    {src: '~/plugins/directives.js', ssr: false},
+    {src: '~/plugins/vue-directives.js', ssr: false},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
     {src: '~/plugins/keep-alive.js', ssr: false},
     {src: '~/plugins/i18n.js'},

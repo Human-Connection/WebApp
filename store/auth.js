@@ -41,12 +41,17 @@ export const getters = {
     return state.token
   },
   userSettings (state, getters, rootState, rootGetters) {
-    const defaultLanguage = (state.user && state.user.language) ? state.user.language : rootGetters['i18n/locale']
     const userSettings = (state.user && state.user.userSettings) ? state.user.userSettings : {}
+
+    const defaultLanguage = (state.user && state.user.language) ? state.user.language : rootGetters['i18n/locale']
+    let contentLanguages = !isEmpty(userSettings.contentLanguages) ? userSettings.contentLanguages : []
+    if (isEmpty(contentLanguages)) {
+      contentLanguages = userSettings.uiLanguage ? [userSettings.uiLanguage] : [defaultLanguage]
+    }
 
     return Object.assign({
       uiLanguage: defaultLanguage,
-      contentLanguages: [defaultLanguage]
+      contentLanguages: contentLanguages
     }, userSettings)
   }
 }
@@ -226,6 +231,35 @@ export const actions = {
       })
       .catch(err => {
         console.error(err.message, err)
+      })
+  },
+  resetPassword ({state}, data) {
+    return this.app.$api.service('authManagement').create({
+      action: 'sendResetPwd',
+      value: {
+        email: data.email
+      }
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        throw new Error(err.message)
+      })
+  },
+  setNewPassword ({state}, data) {
+    return this.app.$api.service('authManagement').create({
+      action: 'resetPwdLong',
+      value: {
+        token: data.token,
+        password: data.password
+      }
+    })
+      .then(() => {
+        return true
+      })
+      .catch(err => {
+        throw new Error(err.message)
       })
   }
 }

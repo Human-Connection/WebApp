@@ -1,4 +1,6 @@
 import Vue from 'vue'
+import VueClickOutside from 'vue-click-outside'
+Vue.directive('click-outside', VueClickOutside)
 
 // Register a global custom directive called `v-focus`
 Vue.directive('focus', {

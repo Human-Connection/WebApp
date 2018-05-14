@@ -224,7 +224,12 @@
     methods: {
       onContribSettingsUpdate (data) {
         if (data._id === this.contribution._id) {
-          this.contribution = data
+          // update only needed attributes to prevent flash of content
+          // which would stop playing media like videos
+          this.contribution.isEnabled = data.isEnabled
+          this.contribution.emotions = data.emotions
+          this.contribution.shoutCount = data.shoutCount
+          this.contribution.visibility = data.visibility
         }
       }
     },
@@ -247,12 +252,13 @@
 
         let content = this.contribution.content || this.contribution.contentExcerpt
         content = content.replace(/(\r\n|\n\r|\r|\n)/g, '<br>$1').replace(/<p><br><\/p>/g, '')
+        content = linkifyHtml(content)
 
         if (process.server) {
           return content
         }
 
-        const utils = require('quill-url-embeds').utils
+        const utils = require('~/modules/quill-url-embeds/index').utils
         const populator = new utils.populator('/embeds')
         this.$nextTick(() => {
           populator.populate(this.$refs.content)

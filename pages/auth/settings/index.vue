@@ -4,7 +4,7 @@
       <h2 class="title is-3">
         {{ $t('auth.settings.profileWelcome') }}
       </h2>
-      <p>{{ $t('auth.settings.profileWelcomeText') }}</p>
+      <p class="subtitle is-6">{{ $t('auth.settings.profileWelcomeText') }}</p>
     </div>
     <hr>
     <div class="columns" style="position: relative;">

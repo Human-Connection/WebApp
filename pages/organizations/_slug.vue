@@ -1,6 +1,5 @@
 <template>
   <section class="container organization-profile"
-           :class="{ blocked: showOverlay }"
            style="position: relative">
     <hc-upload class="profile-header card"
                v-if="isOwner"
@@ -10,7 +9,7 @@
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false" >
     </hc-upload>
-    <img :src="coverImg" v-if="!isOwner" alt="" class="profile-header card">
+    <img :src="coverImg" v-else alt="" class="profile-header card">
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
         <hc-box top="true" class="organization-hc-box">
@@ -21,14 +20,23 @@
                        :test="true"
                        @update="onLogoUploadCompleted"
                        @start-sending="uploadingLogo = true"
-                       @stop-sending="uploadingLogo = false" ></hc-upload>
-            <img :src="organization.logo" v-if="!isOwner" alt="" class="avatar">
+                       @stop-sending="uploadingLogo = false" >
+              <hc-avatar class="is-big"
+                         :user="organization"
+                         imageKey="logo" />
+            </hc-upload>
+            <hc-avatar v-else
+                       class="is-big avatar-upload"
+                       :user="organization"
+                       imageKey="logo" />
+          </div>
+          <div class="edit-wrapper has-text-right" v-if="canEdit">
+            <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
           </div>
           <div class="organization-name">
-            <hc-textedit v-if="isOwner" @change="updateName" :type="'text'" :value="organization.name || ''"></hc-textedit>
-            <span v-if="!isOwner">{{ organization.name || '' }}</span>
+            <span>{{ organization.name || '' }}</span>
           </div>
-          <div class="organization-follows hc-textcounters">
+          <div class="organization-follows hc-textcounters under-construction">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
               <div class="action-button">
                 <i class="fa fa-bullhorn is-action-icon"></i>
@@ -41,7 +49,8 @@
             </hc-textcount>
           </div>
         </hc-box>
-        <div class="organization-actions">
+        <!-- TODO: get better looking interactions -->
+        <div class="organization-actions" v-if="false">
           <hc-box top="true" class="organization-action">
             <i class="fa fa-envelope"></i>
           </hc-box>
@@ -59,8 +68,7 @@
           <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         </div>
         <hc-box top="true">
-          <hc-textedit v-if="isOwner" @change="updateDescription" :type="'textarea'" :value="organization.description || ''"></hc-textedit>
-          <span v-if="!isOwner">{{ organization.description }}</span>
+          <div class="content" v-html="organization.description"></div>
         </hc-box>
         <hc-title>Aktiv werden</hc-title>
         <div class="under-construction">
@@ -82,18 +90,10 @@
       </div>
       <div class="column is-8-tablet is-9-widescreen organization-timeline">
         <hc-title>{{ $t('page.organization.welcome', 'Willkommen') }}</hc-title>
-        <!-- TODO: add timeline for organizations -->
-        <div class="card is-box organization-form-wrapper" v-if="showOrganizationForm">
-          <div class="card-content" style="overflow-x: hidden">
-            <organizations-form @saved="submitForm"
-                                @cancel="cancelForm"
-                                :canEdit="isOwner"
-                                :id="organization._id" />
-          </div>
-        </div>
+        <organization-review-banner v-if="user && !organization.reviewedBy" :user="user" :organization="organization" :disableReview="true" />
+        <organization-visibility-banner v-else-if="user" :user="user" :organization="organization" />
       </div>
     </div>
-    <div class="editlayer" v-if="showOverlay"></div>
   </section>
 </template>
 
@@ -102,12 +102,14 @@
 
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '../../components/Global/Typography/Textcount/Textcount'
-  import OrganizationsForm from '../../components/Organizations/OrganizationsForm'
+  import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
+  import OrganizationVisibilityBanner from '~/components/Organizations/OrganizationVisibilityBanner.vue'
 
   export default {
     components: {
       HcTextcount,
-      'organizations-form': OrganizationsForm
+      OrganizationReviewBanner,
+      OrganizationVisibilityBanner
     },
     data () {
       return {
@@ -115,15 +117,13 @@
           coverImg: null,
           logo: null
         },
-        showOrganizationForm: false,
-        showOverlay: false,
         uploadingCover: false,
         uploadingLogo: false
       }
     },
     middleware: ['authenticated'],
-    async asyncData ({app, params, store, redirect}) {
-      let organization, owner, isOwner
+    async asyncData ({app, params, store, error}) {
+      let organization
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {
         organization = await app.$api.service('organizations').find({
           query: {
@@ -132,21 +132,17 @@
         })
       }
       if (!organization || isEmpty(organization.data)) {
-        return redirect('/organizations/name')
-      } else {
-        // is owner?
-        owner = store.getters['auth/user']
-        isOwner = owner && owner._id === organization.data[0].userId
+        error({ statusCode: 404 })
       }
       return {
         params,
-        organization: organization.data[0],
-        isOwner
+        organization: organization.data[0]
       }
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
+        isAuthenticated: 'auth/isAuthenticated',
+        user: 'auth/user'
       }),
       coverImg () {
         if (!isEmpty(this.form.coverImg)) {
@@ -156,16 +152,18 @@
         } else if (!isEmpty(this.organization.coverImg)) {
           return this.organization.coverImg
         } else {
-          return 'https://source.unsplash.com/random/1250x280'
+          return ''
         }
+      },
+      isOwner () {
+        return this.user && this.user._id === this.organization.userId
       },
       followerCount () {
         return this.organization.followerIds.length
+      },
+      canEdit() {
+        return ['admin', 'moderator'].includes(this.user.role) !== false || this.organization.userId === this.user._id
       }
-    },
-    mounted () {
-      this.showOrganizationForm = !this.organization.isEnabled
-      this.showOverlay = this.showOrganizationForm
     },
     methods: {
       async followOrganization () {
@@ -186,28 +184,8 @@
           }
         }
       },
-      updateDescription (val) {
-        if (val !== undefined) {
-          this.organization.description = val
-          this.$store.dispatch('organizations/patch', this.organization)
-        }
-      },
-      updateName (val) {
-        if (val !== undefined && this.organization.name !== val) {
-          this.organization.name = val
-          this.$store.dispatch('organizations/patch', this.organization).then((res) => {
-            if (res.slug !== '') {
-              this.$router.push(`/organizations/${res.slug}`)
-            }
-          })
-        }
-      },
-      submitForm () {
-        this.showOrganizationForm = false
-        this.showOverlay = false
-      },
-      cancelForm () {
-        this.showOverlay = false
+      edit(id) {
+        this.$router.push({name: 'organizations-settings', query: {id}})
       },
       onCoverUploadCompleted (value) {
         this.form.coverImg = value
@@ -290,6 +268,8 @@
     .avatar {
       border: none;
       border-radius: 50%;
+      width: 100%;
+      height: 100%;
     }
 
     .organization-follows {
@@ -309,6 +289,16 @@
     .organization-sidebar-right {
       h3 {
         text-align: center;
+      }
+    }
+
+    .edit-wrapper {
+      .fa-wrench {
+        color: $grey-light;
+        cursor: pointer;
+        &:hover {
+          color: $grey-dark;
+        }
       }
     }
 
@@ -358,7 +348,7 @@
           background-color: #fff;
 
           .avatar-upload {
-            & {
+            &, & > div {
               border:        none;
               border-radius: $borderRadius;
               overflow:      hidden;

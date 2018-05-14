@@ -140,6 +140,7 @@
   .hc-navbar-item {
     display: flex;
     height: $navbar-height;
+    user-select: none;
 
     @include until($tablet) {
       flex: 0 0 20vw !important;

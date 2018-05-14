@@ -4,7 +4,7 @@
       <h2 class="title is-3">
         {{ $t('auth.settings.securityWelcome') }}
       </h2>
-      <p>{{ $t('auth.settings.securityWelcomeText') }}</p>
+      <p class="subtitle is-6">{{ $t('auth.settings.securityWelcomeText') }}</p>
     </div>
     <hr>
     <h3 class="title is-4">{{ $t('auth.settings.changePassword') }}</h3>

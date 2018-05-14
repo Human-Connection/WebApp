@@ -18,6 +18,9 @@
       <hc-navbar-item :static="true" class="is-hidden-mobile">
         <span v-html="$t('auth.account.helloUser', {username: (user && user.name) ? user.name : 'Anonymous'})"></span>
       </hc-navbar-item>
+      <hc-navbar-item :static="true" v-if="user && user.role !== 'user'" class="is-hidden-mobile user-role">
+        <small>{{ user.role }}</small>
+      </hc-navbar-item>
       <hr class="navbar-divider">
       <hc-navbar-item class="nav-item" to="/profile" @click.native="close()">
         <span class="icon">
@@ -123,5 +126,13 @@
 
   .logout-button {
     margin-bottom: 0.7rem;
+  }
+
+  .user-role {
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: -1rem;
+    color: lighten($grey, 10%) !important;
+    text-transform: capitalize;
   }
 </style>

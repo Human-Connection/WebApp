@@ -140,7 +140,7 @@
         const ops = new Delta()
           .retain(index)
           .delete(deleteLength)
-          .insert(name, {mention: { _id, slug }})
+          .insert({mention: { name, _id, slug }})
           .insert(' ')
         this.stopChangeListener()
         this.quill.updateContents(ops)

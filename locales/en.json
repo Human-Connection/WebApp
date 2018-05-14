@@ -63,7 +63,7 @@
       "createNotification": "create a new Notification",
       "createNotificationSuccess": "The Notification has been created.",
       "createLabel": "Create",
-      "organisations": "Organisations",
+      "organizations": "Organisations",
       "projects": "Projects",
       "openInvites": "Open Invites",
       "follows": "Follows",
@@ -192,6 +192,7 @@
       "createNew": "Create new Organization",
       "createSave": "Save Organization",
       "createLater": "Later",
+      "goToProfile": "open Profile",
       "requiredHint": "These fields are required for your Organization to become public.",
       "name": "Organization name",
       "createOrgaSectionPlaceholder": "How is the organization called?",
@@ -216,7 +217,23 @@
       "email": "E-Mail address",
       "website": "Website",
       "logo": "Logo",
-      "organizationSaveSuccess": "The Organization has been created."
+      "organizationSaveSuccess": "The Organization has been created.",
+      "settingsWelcome": "Manage your Organization settings.",
+      "general": "Organizationsettings",
+      "generalDetails": "General Settings",
+      "generalData": "Organizationdata",
+      "deleted": "The Organization has been deleted successfully.",
+      "organizationLanguageSelection": "main language of the Organization",
+      "stepBasics": "Basics",
+      "stepDetails": "Details",
+      "stepCategories": "Categories",
+      "messageInReview": "<strong>In Review</strong><p>Your organization has to be reviewed before others can see it.<br/> Please be percent so one of our moderators can have a look. If it takes to long, feel free to <a href=\"mailto:{email}\">write us an email</a>.</p>",
+      "messageInReviewMod": "<strong>In Review</strong><p>Hey seams like you are a Moderator. Please take a moment to validate this organization.</p>",
+      "messageInvisible": "<strong>Invisible</strong><p>This organization has to be visible before others can see it.</p>",
+      "visibility": "Visibility"
+    },
+    "projects": {
+      "label": "Projects"
     },
     "notification": {
       "label": "Notifications",
@@ -234,8 +251,12 @@
       "bold": "bold font",
       "blockquote": "block quote",
       "italic": "italic font",
+      "embed": "Insert embed (videos / images / links)",
+      "embedInsert": "Please insert a link and press enter ...",
+      "emoji": "insert emoji",
       "link": "insert a link (mark text in advance)",
       "linkEnterUrl": "enter link (http:…, https:…, mailto:some@email.org or tel:0123456789)",
+      "linkPlaceholder": "please enter a link ...",
       "listOrdered": "ordered list",
       "listUnordered": "unordered list",
       "video": "embed a video",
@@ -327,6 +348,7 @@
     "accept": "Accept",
     "back": "Back",
     "cancel": "Cancel",
+    "changeSettings": "Change settings",
     "close": "Close",
     "create": "Create",
     "delete": "Delete",
@@ -345,7 +367,9 @@
     "addOrganization": "Add organization",
     "addProject": "Add project",
     "random": "Randomize",
-    "next": "Next"
+    "next": "Next",
+    "review": "Activate",
+    "startReview": "Start review"
   },
   "legal": {
     "copyrights": "Copyrights:",
@@ -445,12 +469,19 @@
       "welcomeTitle": "Welcome"
     },
     "login": {
+      "backToLogin": "Back to login",
       "forbidden": "You have to be logged in to see the requested site",
       "label": "Login",
       "description": "If you have an account at Human Connection, please log-in here.",
       "stayLoggedIn": "Stay logged in",
       "forgotPassword": "Forgot password?",
       "errorInvalid": "Check your login data!",
+      "passwordResetDescription": "Please fill in your email address and click on \"Reset password\".",
+      "passwordResetSuccess": "Your new password was saved successfully.",
+      "passwordResetError": "That did not work. Please ensure the current link is not outdated.",
+      "passwordResetRequestSuccess": "We have sent you a message to your email address. Please follow the included link in order to reset your password.",
+      "passwordResetRequestError": "That did not work. Please check if the inserted email address is correct.",
+      "resetPassword": "Reset password",
       "successInfo": "Congratulations, you are in!",
       "validationError": "Please check your data",
       "validationErrorEmail": "Check your email address",
@@ -501,7 +532,7 @@
       "saveSettingsSuccess": "Your settings have been saved.",
       "profileWelcome": "Welcome to your profile",
       "profileWelcomeText": "Here is the place to edit your data.",
-      "languageSettings": "language settings",
+      "languageSettings": "Language settings",
       "languageSettingsText": "Here you can choose in which languages you see contributions and your interface.",
       "contentLanguagesLabel": "Language(s) for Content",
       "interfaceLanguageLabel": "Language for the Interface",
@@ -511,7 +542,8 @@
       "currentPassword": "Current password",
       "newPassword": "New password",
       "newPasswordConfirm": "Confirm new password",
-      "validationErrorContentLanguages": "Choose at least one language"
+      "validationErrorContentLanguages": "Choose at least one language",
+      "organizationDeleteModel": "Are you sure you want to delete <b>{organization}</b>?"
     }
   },
   "ressource": {
@@ -521,6 +553,8 @@
     }
   },
   "info": {
-    "created": "Created"
+    "created": "Created",
+    "active": "Active",
+    "inactive": "Inactive"
   }
 }

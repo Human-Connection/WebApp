@@ -1,6 +1,16 @@
 <template>
-  <section class="container account-settings" style="position: relative">
-    <h2 class="title is-2">Einstellungen</h2>
+  <section class="container account-settings">
+    <h2 class="title is-2">{{ $t('auth.account.settings') }}</h2>
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <nuxt-link :to="{ name: 'auth-settings' }">{{ $t('auth.account.settings') }}</nuxt-link>
+        </li>
+        <li class="is-active">
+          <a href="#" aria-current="page">{{ $t(($route.name === 'auth-settings') ? 'auth.settings.data' : $route.name.replace(/-/g, '.')) }}</a>
+        </li>
+      </ul>
+    </nav>
     <div class="columns">
       <div class="column is-one-third menu">
         <aside class="menu">
@@ -44,7 +54,7 @@
       </div>
       <div class="column">
         <transition name="slide-up" appear>
-          <nuxt class="settings-content settingswrapper"/>
+          <nuxt class="settings-content"/>
         </transition>
       </div>
     </div>
@@ -62,54 +72,5 @@
 </script>
 
 <style lang="scss">
-  @import "assets/styles/utilities";
-  .account-settings {
-    .is-active {
-      background: #fefefe;
-    }
-    .info-text {
-      margin-bottom: 25px;
-    }
-    .editable-details {
-      margin-bottom: 25px;
-    }
-    .control {
-      .help.counter {
-        float: none;
-      }
-    }
-    .language-wrapper {
-      .icon {
-        margin-top: 21px;
-      }
-    }
-
-    .menu {
-      @media (min-width: $tablet) {
-        max-width: 240px;
-      }
-    }
-
-    .card {
-      $padding: 1.5rem;
-
-      padding: $padding !important;
-
-      footer.card-footer {
-        margin: -$padding;
-        margin-top: 2rem;
-        background: lighten($grey-lighter, 10%);
-        padding: 1rem $padding;
-        display: flex;
-        justify-content: right;
-      }
-    }
-  }
-
-  .settings-content {
-    overflow-x: hidden;
-    @extend .card;
-    background-color: $white;
-    box-shadow: $card-shadow-hover;
-  }
+  @import "assets/styles/settings/main";
 </style>

@@ -1,13 +1,27 @@
 <template>
   <div :class="classes">
     <slot></slot>
+    <b-loading :is-full-page="false" :active.sync="loading"></b-loading>
   </div>
 </template>
 
 <script>
   export default {
     name: 'hc-box',
-    props: ['top', 'bottom'],
+    props: ['top', 'bottom', 'isLoading'],
+    data () {
+      return {
+        loading: false
+      }
+    },
+    watch: {
+      isLoading (loading) {
+        this.loading = loading === true
+      }
+    },
+    mounted () {
+      this.loading = this.isLoading === true
+    },
     computed: {
       classes () {
         let classes = 'card is-box'
