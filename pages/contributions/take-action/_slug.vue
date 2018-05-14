@@ -147,9 +147,9 @@
               </table>
             </div>
 
-            <div class="under-construction">
+            <div>
               <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
-              <hc-map :places="places" :zoom="zoom" :center="center" height="350px" :token="$env.MAPBOX_TOKEN" />
+              <hc-map :lang="$i18n.locale()" :places="places" :zoom="zoom" :center="center" height="350px" :token="$env.MAPBOX_TOKEN" />
             </div>
 
           </div>

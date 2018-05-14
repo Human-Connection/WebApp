@@ -31,6 +31,10 @@
         type: String,
         required: true
       },
+      lang: {
+        type: String,
+        default: 'en'
+      },
       /**
        * Center point of the map
        */
@@ -53,6 +57,7 @@
     },
     data () {
       return {
+        map: null,
         isLoading: true,
         wasAtLeastOnceVisible: false
       }
@@ -80,28 +85,40 @@
           this.wasAtLeastOnceVisible = true
           this.removeInViewportHandlers()
         }
+      },
+      lang (lang) {
+        if (this.map) {
+          this.applyLanguage(lang)
+        }
       }
     },
     methods: {
+      applyLanguage (lang) {
+        if (!lang) {
+          lang = this.lang
+        }
+        this.map.setLayoutProperty('country-label-lg', 'text-field', ['get', 'name_' + lang])
+      },
       createMap () {
         try {
           const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
           mapboxgl.accessToken = this.token
           // init the map
-          let map = new mapboxgl.Map({
+          this.map = new mapboxgl.Map({
             container: 'map',
             style: 'mapbox://styles/mapbox/streets-v10',
             zoom: this.zoom,
             center: this.center
           })
-          map.on('data', (e) => {
+          this.map.on('data', (e) => {
             if (e.isSourceLoaded) {
+              this.applyLanguage()
               this.isLoading = false
-              map.off('data')
+              this.map.off('data')
             }
           })
 
-          this.places.forEach(function (marker) {
+          this.places.forEach((marker) => {
             // create the popup
             let popup = new mapboxgl.Popup()
               .setText(marker.properties.title)
@@ -114,7 +131,7 @@
             new mapboxgl.Marker(el)
               .setLngLat(marker.geometry.coordinates)
               .setPopup(popup) // sets a popup on this marker
-              .addTo(map)
+              .addTo(this.map)
           })
         } catch (err) {}
       }
