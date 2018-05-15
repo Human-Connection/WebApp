@@ -129,7 +129,6 @@
   @import "assets/styles/utilities";
 
   $padding: 1.5rem;
-
   footer.card-footer {
     margin: -$padding;
     margin-top: 2rem;

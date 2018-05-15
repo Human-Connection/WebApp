@@ -1,38 +1,37 @@
 <template>
-    <div class="system-notification">
-        <div v-if="termsAndConditionsUpdate.type === 'termsAndConditions'" class="terms-and-conditions-modal">
-            <b-modal :active.sync="isAcceptModalActive" :canCancel=false has-modal-card animation="zoom-in">
-                <div class="modal-background"></div>
-                <div class="modal-card ">
-                    <section class="modal-card-body">
-                        <h2 class="title is-3">
-                            {{ termsAndConditionsUpdate.title }}
-                        </h2>
-                        <hr />
-                        <div class="content" v-html="termsAndConditionsUpdate.content">
-                        </div>
-                    </section>
-                    <footer class="modal-card-foot">
-                        <hc-button color="success"
-                                   @click="acceptTermsAndConditions()"
-                                   :isLoading="isAccepting"
-                                   :disabled="isAccepting">
-                            <hc-icon class="icon-left" icon="check" /> {{ $t('button.accept' ) }}
-                        </hc-button>
-                    </footer>
-                </div>
-            </b-modal>
-        </div>
-        <div class="notification-info-wrapper" v-if="notification && notification.type === 'info'">
-            <div class="notification is-warning">
-                <button v-if="!notification.requireConfirmation && notification.showOnce" class="delete" @click="closeNotification"></button>
-                <div v-html="notification.content"></div>
-                <div v-if="notification.requireConfirmation" class="has-text-right">
-                    <a class="confirm-info" href="#">Okay</a>
-                </div>
+  <div class="system-notification">
+    <div v-if="termsAndConditionsUpdate.type === 'termsAndConditions'" class="terms-and-conditions-modal">
+      <b-modal :active.sync="isAcceptModalActive" :canCancel=false has-modal-card animation="zoom-in">
+        <div class="modal-background"></div>
+        <div class="modal-card ">
+          <header class="modal-card-head">
+            <h4 class="modal-card-title">{{ termsAndConditionsUpdate.title }}</h4>
+          </header>
+          <section class="modal-card-body">
+            <div class="content" v-html="termsAndConditionsUpdate.content">
             </div>
+          </section>
+          <footer class="modal-card-foot">
+            <hc-button color="success"
+                        @click="acceptTermsAndConditions()"
+                        :isLoading="isAccepting"
+                        :disabled="isAccepting">
+              <hc-icon class="icon-left" icon="check" /> {{ $t('button.accept' ) }}
+            </hc-button>
+          </footer>
         </div>
+      </b-modal>
     </div>
+    <div class="notification-info-wrapper" v-if="notification && notification.type === 'info'">
+      <div class="notification is-warning">
+        <button v-if="!notification.requireConfirmation && notification.showOnce" class="delete" @click="closeNotification"></button>
+        <div v-html="notification.content"></div>
+        <div v-if="notification.requireConfirmation" class="has-text-right">
+          <a class="confirm-info" href="#">Okay</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -167,16 +166,6 @@
   .modal {
     .modal-background {
       opacity: 0.8;
-    }
-    .modal-card {
-      width: calc(80vw - 40px);
-      max-width: 800px;
-    }
-  }
-
-  @media (max-width: $tablet) {
-    .modal .modal-card {
-      width: auto;
     }
   }
 

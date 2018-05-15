@@ -3,166 +3,187 @@
     <div class="createNotificationForm">
       <h3 class="title is-3">{{ $t('component.admin.manageNotifications', 'Manage System Notifications') }}</h3>
       <hr />
-      <h4 class="title is-4">{{ $t('component.admin.createNotification', 'Create Notification') }}</h4>
-      <div class="field is-required" ref="title">
-        <label class="label" for="form-title">{{ $t('component.admin.notificationTitle') }}</label>
-        <div class="control" :class="{ 'has-error': $v.form.title.$error }">
-          <input
-                  class="input"
-                  id="form-title"
-                  data-test="title"
-                  :class="{ 'is-danger': $v.form.title.$error }"
-                  maxlength="64"
-                  v-model.trim="form.title"
-                  @blur="$v.form.title.$touch()"
-                  type="text"
-                  v-bind:placeholder="$t('component.admin.notificationTitle')"
-                  v-bind:disabled="isLoading">
-        </div>
-        <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
-      </div>
-      <div class="field is-required">
-        <label class="label" for="form-content">{{ $t('component.admin.notificationContent') }}</label>
-        <div class="control" :class="{ 'has-error': $v.form.content.$error }">
-          <hc-editor
-                  identifier="content"
-                  id="form-content"
-                  data-test="content"
-                  v-model.trim="form.content"
-                  :class="{ 'is-danger': $v.form.content.$error }"
-                  @blur="$v.form.content.$touch()"
-                  :loading="isLoading"
-                  :editorOptions="editorOptions"></hc-editor>
-        </div>
-        <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
-      </div>
-      <div class="field">
-        <div class="is-normal">
-          <label class="label">{{ $t('component.admin.notificationType') }}</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-left">
-              <div class="select">
-                <select v-model="form.type">
-                  <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
-                  <!--
-                  <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
-                  <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
-                  -->
-                  <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditionsUpdate') }}</option>
-                </select>
+      <b-modal :active.sync="isCreateModalActive" has-modal-card animation="zoom-in">
+        <div class="modal-background"></div>
+        <div class="modal-card" :class="classes">
+          <header class="modal-card-head">
+            <h4 class="modal-card-title">{{ $t('component.admin.createNotification', 'Create Notification') }}</h4>
+          </header>
+          <section class="modal-card-body" ref="modalContent">
+            <div class="field is-required" ref="title">
+              <label class="label" for="form-title">{{ $t('component.admin.notificationTitle') }}</label>
+              <div class="control" :class="{ 'has-error': $v.form.title.$error }">
+                <input
+                        class="input"
+                        id="form-title"
+                        data-test="title"
+                        :class="{ 'is-danger': $v.form.title.$error }"
+                        maxlength="64"
+                        v-model.trim="form.title"
+                        @blur="$v.form.title.$touch()"
+                        type="text"
+                        v-bind:placeholder="$t('component.admin.notificationTitle')"
+                        v-bind:disabled="isLoading">
+              </div>
+              <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
+            </div>
+            <div class="field is-required">
+              <label class="label" for="form-content">{{ $t('component.admin.notificationContent') }}</label>
+              <div class="control" :class="{ 'has-error': $v.form.content.$error }">
+                <hc-editor
+                        identifier="content"
+                        id="form-content"
+                        data-test="content"
+                        v-model.trim="form.content"
+                        :class="{ 'is-danger': $v.form.content.$error }"
+                        @blur="$v.form.content.$touch()"
+                        :loading="isLoading"
+                        :editorOptions="editorOptions"></hc-editor>
+              </div>
+              <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
+            </div>
+            <div class="field">
+              <div class="is-normal">
+                <label class="label">{{ $t('component.admin.notificationType') }}</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <div class="select">
+                      <select v-model="form.type">
+                        <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
+                        <!--
+                        <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
+                        <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
+                        -->
+                        <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditionsUpdate') }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="is-normal">
-          <label class="label">{{ $t('component.admin.notificationLanguage') }}</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-left">
-              <div class="select">
-                <select v-model="form.language">
-                  <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
-                  <option value="en">{{ $t('component.admin.notificationLanguageEN') }}</option>
-                </select>
+            <div class="field">
+              <div class="is-normal">
+                <label class="label">{{ $t('component.admin.notificationLanguage') }}</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <div class="select">
+                      <select v-model="form.language">
+                        <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
+                        <option value="en">{{ $t('component.admin.notificationLanguageEN') }}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="field">
-        <div class="is-normal">
-          <label class="label">{{ $t('component.admin.notificationSlot') }}</label>
-        </div>
-        <div class="field-body">
-          <div class="field">
-            <div class="control has-icons-left">
-              <div class="select">
-                <select v-model="form.slot">
-                  <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>
-                  <!--
-                  <option value="contribution" >{{ $t('component.admin.notificationSlotContribution') }}</option>
-                  <option value="profile">{{ $t('component.admin.notificationSlotProfile') }}</option>
-                  -->
-                </select>
+            <div class="field">
+              <div class="is-normal">
+                <label class="label">{{ $t('component.admin.notificationSlot') }}</label>
+              </div>
+              <div class="field-body">
+                <div class="field">
+                  <div class="control has-icons-left">
+                    <div class="select">
+                      <select v-model="form.slot">
+                        <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>
+                        <!--
+                        <option value="contribution" >{{ $t('component.admin.notificationSlotContribution') }}</option>
+                        <option value="profile">{{ $t('component.admin.notificationSlotProfile') }}</option>
+                        -->
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+            <div class="field">
+              <label class="label is-required" for="form-showOnce">{{ $t('component.admin.notificationOnce') }}</label>
+              <div class="control" id="form-showOnce">
+                <b-switch
+                        v-model="form.showOnce"
+                        @click.native="toggleMode('once')">
+                  {{ $t('component.admin.activate', 'Activate') }}
+                </b-switch>
+              </div>
+            </div>
+            <div class="field">
+              <label class="label is-required" for="form-requireConfirmation">{{ $t('component.admin.notificationConfirm') }}</label>
+              <div class="control" id="form-requireConfirmation">
+                <b-switch
+                        v-model="form.requireConfirmation"
+                        @click.native="toggleMode('confirmation')">
+                  {{ $t('component.admin.activate', 'Activate') }}
+                </b-switch>
+              </div>
+            </div>
+            <br /><br />
+          </section>
+          <footer class="modal-card-foot">
+            <hc-button color="light" @click.prevent="isCreateModalActive = false">
+              <hc-icon icon="times" />
+              &nbsp; {{ $t('button.cancel') }}
+            </hc-button>
+            <hc-button color="success"
+                        @click="createNotification"
+                        :isLoading="isLoading"
+                        :disabled="isLoading">
+              <hc-icon class="icon-left" icon="bullhorn" /> {{ $t('component.admin.createLabel', 'Created') }}
+            </hc-button>
+          </footer>
         </div>
+      </b-modal>
+      <div class="notificationList">
+        <no-ssr>
+          <v2-table :data="notifications.data"
+                    :stripe="true"
+                    :loading="notificationsLoading"
+                    :total="notifications.total"
+                    :shown-pagination="true"
+                    :pagination-info="paginationInfo"
+                    @page-change="handleNotificationPageChange">
+              <v2-table-column label="Title" prop="title" align="left">
+                  <template slot-scope="row">
+                      {{ row.title }}
+                  </template>
+              </v2-table-column>
+              <v2-table-column label="Type" prop="type" align="left">
+                  <template slot-scope="row">
+                      {{ row.type }}
+                  </template>
+              </v2-table-column>
+              <v2-table-column label="Slot" prop="slot" align="left">
+                <template slot-scope="row">
+                  {{ row.slot }}
+                </template>
+              </v2-table-column>
+            <v2-table-column label="Language" prop="language" align="left">
+              <template slot-scope="row">
+                <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
+              </template>
+            </v2-table-column>
+              <v2-table-column label="Created" prop="createdAt" align="left">
+                <template slot-scope="row">
+                  {{ row.createdAt }}
+                </template>
+              </v2-table-column>
+          </v2-table>
+        </no-ssr>
       </div>
-      <div class="field">
-        <label class="label is-required" for="form-showOnce">{{ $t('component.admin.notificationOnce') }}</label>
-        <div class="control" id="form-showOnce">
-          <b-switch
-                  v-model="form.showOnce"
-                  @click.native="toggleMode('once')">
-            {{ $t('component.admin.activate', 'Activate') }}
-          </b-switch>
-        </div>
-      </div>
-      <div class="field">
-        <label class="label is-required" for="form-requireConfirmation">{{ $t('component.admin.notificationConfirm') }}</label>
-        <div class="control" id="form-requireConfirmation">
-          <b-switch
-                  v-model="form.requireConfirmation"
-                  @click.native="toggleMode('confirmation')">
-            {{ $t('component.admin.activate', 'Activate') }}
-          </b-switch>
-        </div>
-      </div>
-      <hr />
-      <div class="field is-grouped is-grouped-left">
+    </div>
+    <footer class="card-footer">
+      <div class="field is-grouped">
         <div class="control">
-          <hc-button :isLoading="isLoading"
-                     :disabled="isLoading"
-                     @click.prevent="createNotification">
-            <i class="fa fa-bullhorn"></i>
-            &nbsp;<span>{{ $t('component.admin.createLabel', 'Created') }}</span>
+          <hc-button color="grey" @click.prevent="isCreateModalActive = true">
+            <hc-icon icon="plus" />
+            &nbsp; {{ $t('component.admin.addSystemNotification', 'Add Notification') }}
           </hc-button>
         </div>
       </div>
-    </div>
-    <div class="notificationList">
-      <no-ssr>
-        <v2-table :data="notifications.data"
-                  :stripe="true"
-                  :loading="notificationsLoading"
-                  :total="notifications.total"
-                  :shown-pagination="true"
-                  :pagination-info="paginationInfo"
-                  @page-change="handleNotificationPageChange">
-            <v2-table-column label="Title" prop="title" align="center">
-                <template slot-scope="row">
-                    {{ row.title }}
-                </template>
-            </v2-table-column>
-            <v2-table-column label="Type" prop="type" align="center">
-                <template slot-scope="row">
-                    {{ row.type }}
-                </template>
-            </v2-table-column>
-            <v2-table-column label="Slot" prop="slot" align="center">
-              <template slot-scope="row">
-                {{ row.slot }}
-              </template>
-            </v2-table-column>
-          <v2-table-column label="Language" prop="language" align="center">
-            <template slot-scope="row">
-              <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
-            </template>
-          </v2-table-column>
-            <v2-table-column label="Created" prop="createdAt" align="center">
-              <template slot-scope="row">
-                {{ row.createdAt }}
-              </template>
-            </v2-table-column>
-        </v2-table>
-      </no-ssr>
-    </div>
+    </footer>
   </section>
 </template>
 
@@ -193,6 +214,7 @@
           requireConfirmation: false,
           showOnce: true
         },
+        isCreateModalActive: false,
         itemLimit: itemLimit,
         notificationsLoading: true,
         notifications: [],
@@ -278,7 +300,9 @@
             type: 'is-danger'
           })
           setTimeout(() => {
-            this.$scrollTo(this.$refs.title, 500)
+            this.$scrollTo(this.$refs.title, 500, {
+              container: this.$refs.modalContent
+            })
             this.$v.form.$touch()
           }, 500)
           return
@@ -307,6 +331,8 @@
               duration: 4000,
               type: 'is-success'
             })
+
+            this.isCreateModalActive = false
           }
         } catch (err) {
           console.error(err)
@@ -336,7 +362,7 @@
     },
     head () {
       return {
-        title: 'System Notifications verwalten'
+        title: this.$t('component.admin.manageNotifications', 'Manage System Notifications')
       }
     }
   }
@@ -344,6 +370,7 @@
 
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
+  @import "assets/styles/_animations";
 
   .field {
     margin-bottom: 10px;
@@ -368,5 +395,16 @@
 
   .fa-check-circle {
     color: $primary;
+  }
+
+  $padding: 1.5rem;
+  footer.card-footer {
+    margin: -$padding;
+    margin-top: 2rem;
+    margin-bottom: -2rem;
+    background: lighten($grey-lighter, 10%);
+    padding: 1rem $padding 0.5rem;
+    display: flex;
+    justify-content: left;
   }
 </style>
