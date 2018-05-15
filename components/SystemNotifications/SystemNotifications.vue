@@ -29,7 +29,7 @@
           <strong>{{ notification.title }}</strong>
           <div v-html="notification.content"></div>
           <div v-if="notification.requireConfirmation" class="has-text-right">
-            <a class="confirm-info button is-white is-small" @click.prevent="closeNotification">{{ $t('button.okay') }}</a>
+            <a class="confirm-info button is-improved system notifications is-small" @click.prevent="closeNotification">{{ $t('button.okay') }}</a>
           </div>
         </div>
       </div>
