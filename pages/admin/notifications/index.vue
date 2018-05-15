@@ -50,7 +50,7 @@
                   </div>
                   <div class="field-body">
                     <div class="field">
-                      <div class="control has-icons-left">
+                      <div class="control">
                         <div class="select">
                           <select v-model="form.type">
                             <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
@@ -73,7 +73,7 @@
                   </div>
                   <div class="field-body">
                     <div class="field">
-                      <div class="control has-icons-left">
+                      <div class="control">
                         <div class="select">
                           <select v-model="form.language">
                             <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
@@ -92,7 +92,7 @@
                   </div>
                   <div class="field-body">
                     <div class="field">
-                      <div class="control has-icons-left">
+                      <div class="control">
                         <div class="select">
                           <select v-model="form.slot">
                             <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>-->
