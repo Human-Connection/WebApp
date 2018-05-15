@@ -50,7 +50,7 @@
     "axios": "^0.18.0",
     "babel-eslint": "~8.2.1",
     "babel-preset-vue-app": "~2.0.0",
-    "body-parser": "~1.18.2",
+    "body-parser": "~1.18.3",
     "body-scroll-lock": "^2.4.2",
     "bricks.js": "~1.8.0",
     "buefy": "~0.6.5",
