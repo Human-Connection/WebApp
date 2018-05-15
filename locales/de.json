@@ -50,7 +50,7 @@
       "notificationLanguage": "Sprache der Notification",
       "notificationLanguageDE": "Deutsch",
       "notificationLanguageEN": "Englisch",
-      "notificationSlot": "Wo soll die Notification angezeigt werden?",
+      "notificationSlot": "Position",
       "notificationOnce": "Nur einmal anzeigen?",
       "notificationConfirm": "Muss bestätigt werden?",
       "notificationTypeInfo": "Info",

@@ -50,7 +50,7 @@
       "notificationLanguage": "Notification language",
       "notificationLanguageDE": "German",
       "notificationLanguageEN": "English",
-      "notificationSlot": "Where do you want to show the Notification?",
+      "notificationSlot": "Position",
       "notificationOnce": "Only show once?",
       "notificationConfirm": "has to be confirmed?",
       "notificationTypeInfo": "Info",

@@ -42,85 +42,100 @@
               </div>
               <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
             </div>
-            <div class="field">
-              <div class="is-normal">
-                <label class="label">{{ $t('component.admin.notificationType') }}</label>
-              </div>
-              <div class="field-body">
+            <div class="columns">
+              <div class="column">
                 <div class="field">
-                  <div class="control has-icons-left">
-                    <div class="select">
-                      <select v-model="form.type">
-                        <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
-                        <!--
-                        <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
-                        <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
-                        -->
-                        <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditionsUpdate') }}</option>
-                      </select>
+                  <div class="is-normal">
+                    <label class="label">{{ $t('component.admin.notificationType') }}</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control has-icons-left">
+                        <div class="select">
+                          <select v-model="form.type">
+                            <option value="info">{{ $t('component.admin.notificationTypeInfo') }}</option>
+                            <!--
+                            <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
+                            <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
+                            -->
+                            <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditionsUpdate') }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <div class="is-normal">
+                    <label class="label">{{ $t('component.admin.notificationLanguage') }}</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control has-icons-left">
+                        <div class="select">
+                          <select v-model="form.language">
+                            <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
+                            <option value="en">{{ $t('component.admin.notificationLanguageEN') }}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <div class="is-normal">
+                    <label class="label">{{ $t('component.admin.notificationSlot') }}</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <div class="control has-icons-left">
+                        <div class="select">
+                          <select v-model="form.slot">
+                            <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>
+                            <!--
+                            <option value="contribution" >{{ $t('component.admin.notificationSlotContribution') }}</option>
+                            <option value="profile">{{ $t('component.admin.notificationSlotProfile') }}</option>
+                            -->
+                          </select>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="field">
-              <div class="is-normal">
-                <label class="label">{{ $t('component.admin.notificationLanguage') }}</label>
-              </div>
-              <div class="field-body">
+
+            <div class="columns">
+              <div class="column">
                 <div class="field">
-                  <div class="control has-icons-left">
-                    <div class="select">
-                      <select v-model="form.language">
-                        <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
-                        <option value="en">{{ $t('component.admin.notificationLanguageEN') }}</option>
-                      </select>
-                    </div>
+                  <label class="label is-required" for="form-showOnce">{{ $t('component.admin.notificationOnce') }}</label>
+                  <div class="control" id="form-showOnce">
+                    <b-switch
+                            v-model="form.showOnce"
+                            @click.native="toggleMode('once')">
+                      {{ $t('component.admin.activate', 'Activate') }}
+                    </b-switch>
+                  </div>
+                </div>
+              </div>
+              <div class="column">
+                <div class="field">
+                  <label class="label is-required" for="form-requireConfirmation">{{ $t('component.admin.notificationConfirm') }}</label>
+                  <div class="control" id="form-requireConfirmation">
+                    <b-switch
+                            v-model="form.requireConfirmation"
+                            @click.native="toggleMode('confirmation')">
+                      {{ $t('component.admin.activate', 'Activate') }}
+                    </b-switch>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="field">
-              <div class="is-normal">
-                <label class="label">{{ $t('component.admin.notificationSlot') }}</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <div class="control has-icons-left">
-                    <div class="select">
-                      <select v-model="form.slot">
-                        <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>
-                        <!--
-                        <option value="contribution" >{{ $t('component.admin.notificationSlotContribution') }}</option>
-                        <option value="profile">{{ $t('component.admin.notificationSlotProfile') }}</option>
-                        -->
-                      </select>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label is-required" for="form-showOnce">{{ $t('component.admin.notificationOnce') }}</label>
-              <div class="control" id="form-showOnce">
-                <b-switch
-                        v-model="form.showOnce"
-                        @click.native="toggleMode('once')">
-                  {{ $t('component.admin.activate', 'Activate') }}
-                </b-switch>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label is-required" for="form-requireConfirmation">{{ $t('component.admin.notificationConfirm') }}</label>
-              <div class="control" id="form-requireConfirmation">
-                <b-switch
-                        v-model="form.requireConfirmation"
-                        @click.native="toggleMode('confirmation')">
-                  {{ $t('component.admin.activate', 'Activate') }}
-                </b-switch>
-              </div>
-            </div>
-            <br /><br />
+            <br />
           </section>
           <footer class="modal-card-foot">
             <hc-button color="light" @click.prevent="isCreateModalActive = false">

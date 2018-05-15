@@ -510,8 +510,10 @@ ul.is-list {
     }
   }
 
-  .modal-card-body {
+  section.modal-card-body {
     padding-bottom: 3rem !important;
+    height: auto;
+    max-height: 60vh;
   }
 
   .modal-card-foot {
@@ -531,7 +533,12 @@ ul.is-list {
 }
 
 @media (max-width: $tablet) {
-  .modal .modal-card {
-    width: auto;
+  .modal {
+    .modal-card {
+      width: auto;
+    }
+    section.modal-card-body {
+      max-height: 100vh;
+    }
   }
 }
