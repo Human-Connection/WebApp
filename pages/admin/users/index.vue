@@ -3,11 +3,12 @@
     <h3 class="title is-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h3>
     <b-tabs v-model="activeTab">
       <b-tab-item label="Users" icon="users">
-        <article class="message is-small">
-          <div class="message-body">
+        <div class="info-text">
+          <p class="subtitle is-6">
             <i class="fa fa-info-circle"></i> A list of registered users with their email verification status.
-          </div>
-        </article>
+          </p>
+        </div>
+        <hr>
         <no-ssr>
           <v2-table :data="users.data"
                     :stripe="true"
@@ -49,11 +50,12 @@
         </no-ssr>
       </b-tab-item>
       <b-tab-item label="Invite Codes" icon="ticket">
-        <article class="message is-small">
-          <div class="message-body">
+        <div class="info-text">
+          <p class="subtitle is-6">
             <i class="fa fa-info-circle"></i> Here you can invite users by providing a a csv file with at least the email and the language (de/en) of the users to invite.
-          </div>
-        </article>
+          </p>
+        </div>
+        <hr>
         <div class="field">
           <div class="control has-text-centered">
             <br />
