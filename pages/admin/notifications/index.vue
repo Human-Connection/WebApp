@@ -50,7 +50,7 @@
                   <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
                   <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
                   -->
-                  <option value="agb">{{ $t('component.admin.notificationTypeAgbUpdate') }}</option>
+                  <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditionsUpdate') }}</option>
                 </select>
               </div>
             </div>
@@ -121,7 +121,7 @@
                      :disabled="isLoading"
                      @click.prevent="createNotification">
             <i class="fa fa-bullhorn"></i>
-            &nbsp;<span>{{ $t('component.admin.createLabel', 'Create') }}</span>
+            &nbsp;<span>{{ $t('component.admin.createLabel', 'Created') }}</span>
           </hc-button>
         </div>
       </div>
@@ -152,7 +152,7 @@
             </v2-table-column>
           <v2-table-column label="Language" prop="language" align="center">
             <template slot-scope="row">
-              {{ row.language }}
+              <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
             </template>
           </v2-table-column>
             <v2-table-column label="Created" prop="createdAt" align="center">
@@ -320,12 +320,15 @@
       async handleNotificationPageChange (page) {
         this.currentPage = page
         this.notificationsLoading = true
-        const start = (page - 1) * this.itemLimit + 1
+        const start = (page - 1) * this.itemLimit
 
         this.notifications = await this.$api.service('system-notifications').find({
           query: {
             $limit: this.itemLimit,
-            $skip: start
+            $skip: start,
+            $sort: {
+              createdAt: -1
+            }
           }
         })
         this.notificationsLoading = false

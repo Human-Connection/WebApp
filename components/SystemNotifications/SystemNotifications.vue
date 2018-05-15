@@ -1,20 +1,20 @@
 <template>
     <div class="system-notification">
-        <div v-if="agbUpdate.type === 'agb'" class="agb-modal">
+        <div v-if="termsAndConditionsUpdate.type === 'termsAndConditions'" class="terms-and-conditions-modal">
             <b-modal :active.sync="isAcceptModalActive" :canCancel=false has-modal-card animation="zoom-in">
                 <div class="modal-background"></div>
-                <div class="modal-card">
+                <div class="modal-card ">
                     <section class="modal-card-body">
                         <h2 class="title is-3">
-                            {{ agbUpdate.title }}
+                            {{ termsAndConditionsUpdate.title }}
                         </h2>
                         <hr />
-                        <div v-html="agbUpdate.content">
+                        <div class="content" v-html="termsAndConditionsUpdate.content">
                         </div>
                     </section>
                     <footer class="modal-card-foot">
                         <hc-button color="success"
-                                   @click="acceptAgb()"
+                                   @click="acceptTermsAndConditions()"
                                    :isLoading="isAccepting"
                                    :disabled="isAccepting">
                             <hc-icon class="icon-left" icon="check" /> {{ $t('button.accept' ) }}
@@ -23,10 +23,11 @@
                 </div>
             </b-modal>
         </div>
-        <div class="notification-info-wrapper" v-if="notification.type === 'info'">
-            <div class="notification is-info">
+        <div class="notification-info-wrapper" v-if="notification && notification.type === 'info'">
+            <div class="notification is-warning">
+                <button v-if="!notification.requireConfirmation && notification.showOnce" class="delete" @click="closeNotification"></button>
                 <div v-html="notification.content"></div>
-                <div class="has-text-right">
+                <div v-if="notification.requireConfirmation" class="has-text-right">
                     <a class="confirm-info" href="#">Okay</a>
                 </div>
             </div>
@@ -35,17 +36,22 @@
 </template>
 
 <script>
-  import { isEmpty } from 'lodash'
+  import { isEmpty, castArray } from 'lodash'
   import {mapGetters} from 'vuex'
+  import moment from 'moment'
 
   export default {
     name: 'system-notification',
-    components: {
+    props: {
+      type: {
+        type: String,
+        default: 'info'
+      }
     },
     data () {
       return {
         notification: {},
-        agbUpdate: {},
+        termsAndConditionsUpdate: {},
         isAccepting: false,
         isAcceptModalActive: false
       }
@@ -59,44 +65,77 @@
       })
     },
     methods: {
-      init () {
-        this.$api.service('system-notifications').find({
-          query: {
-            type: 'agb',
-            $limit: 1,
-            $sort: {
-              createdAt: -1
-            }
-          }
-        }).then((res) => {
-          if(!isEmpty(res.data)) {
-            this.agbUpdate = res.data[0]
-            if (this.agbUpdate.type === 'agb'){
-              let hasAccepted = this.user.agbAccepted
-              if (!hasAccepted){
-                this.isAcceptModalActive = true
-              }
-            }
+      async closeNotification () {
+        await this.$store.dispatch('auth/patch', {
+          $push: {
+            systemNotificationsSeen: this.notification._id
           }
         })
-
+        this.notification = null
+      },
+      init () {
+        this.showTermsAndConditions()
+        this.showInfo()
+        /* switch (this.type.toLowerCase()) {
+          case 'termsAndConditions':
+            this.showTermsAndConditions()
+            break;
+          case 'info':
+          default:
+            this.showInfo()
+            break;
+        } */
+      },
+      showTermsAndConditions () {
         this.$api.service('system-notifications').find({
           query: {
-            type: 'info',
+            type: 'termsAndConditions',
             $limit: 1,
+            language: this.$i18n.locale(),
             $sort: {
               createdAt: -1
             }
           }
         }).then((res) => {
-          if(!isEmpty(res.data)) {
-            this.notification = res.data[0]
+          if (isEmpty(res.data)) {
+            return
+          }
+          this.termsAndConditionsUpdate = res.data[0]
+          let hasAccepted = this.user.termsAndConditionsAccepted
+          if (!hasAccepted || moment(hasAccepted) < moment(this.termsAndConditionsUpdate.createdAt)) {
+            this.isAcceptModalActive = true
           }
         })
       },
-      async acceptAgb () {
+      showInfo () {
+        let query = {
+          type: 'info',
+          $limit: 1,
+          language: this.$i18n.locale(),
+          $sort: {
+            createdAt: -1
+          }
+        }
+        const systemNotificationsSeen = this.user.systemNotificationsSeen
+        console.log('>> systemNotificationsSeen', systemNotificationsSeen)
+
+        if (!isEmpty(systemNotificationsSeen)) {
+          query._id = {
+            $nin: systemNotificationsSeen
+          }
+        }
+        console.log('>> query', {query})
+
+        this.$api.service('system-notifications').find({query})
+          .then((res) => {
+            if(!isEmpty(res.data)) {
+              this.notification = res.data[0]
+            }
+        })
+      },
+      async acceptTermsAndConditions () {
         try {
-          let data = {agbAccepted : Date.now()}
+          let data = {termsAndConditionsAccepted : Date.now()}
           await this.$store.dispatch("auth/patch", data)
 
           this.$snackbar.open({
@@ -123,5 +162,25 @@
   }
   .confirm-info {
     text-decoration: none;
+  }
+
+  .modal {
+    .modal-background {
+      opacity: 0.8;
+    }
+    .modal-card {
+      width: calc(80vw - 40px);
+      max-width: 800px;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    .modal .modal-card {
+      width: auto;
+    }
+  }
+
+  .content {
+    padding-bottom: 2rem;
   }
 </style>

@@ -3,7 +3,7 @@
     <hc-frame>
       <div class="container" id="main" role="main">
         <hc-verification-banner/>
-        <system-notifications></system-notifications>
+        <system-notifications />
         <nuxt keep-alive />
       </div>
       <hc-footer/>
