@@ -112,24 +112,30 @@
             <div class="columns">
               <div class="column">
                 <div class="field">
-                  <label class="label is-required" for="form-showOnce">{{ $t('component.admin.notificationOnce') }}</label>
-                  <div class="control" id="form-showOnce">
+                  <label class="label is-required" for="form-requireConfirmation">
+                    <i class="fa icon-left" :class="{'fa-square-o': !form.requireConfirmation, 'fa-check-square-o': form.requireConfirmation}"></i>{{ $t('component.admin.notificationConfirm') }}
+                  </label>
+                  <div class="control" id="form-requireConfirmation">
                     <b-switch
-                            v-model="form.showOnce"
-                            @click.native="toggleMode('once')">
-                      {{ $t(`button.${form.showOnce ? 'yes' : 'no'}`) }}
+                            :disabled="form.type === 'termsAndConditions'"
+                            v-model="form.requireConfirmation"
+                            @click.native="toggleMode('confirmation')">
+                      {{ $t(`button.${form.requireConfirmation ? 'yes' : 'no'}`) }}
                     </b-switch>
                   </div>
                 </div>
               </div>
               <div class="column">
                 <div class="field">
-                  <label class="label is-required" for="form-requireConfirmation">{{ $t('component.admin.notificationConfirm') }}</label>
-                  <div class="control" id="form-requireConfirmation">
+                  <label class="label is-required" for="form-permanent">
+                    <i class="fa icon-left" :class="{'fa-lock': form.permanent, 'fa-unlock': !form.permanent}"></i>{{ $t('component.admin.notificationPermanent') }}
+                  </label>
+                  <div class="control" id="form-permanent">
                     <b-switch
-                            v-model="form.requireConfirmation"
-                            @click.native="toggleMode('confirmation')">
-                      {{ $t(`button.${form.requireConfirmation ? 'yes' : 'no'}`) }}
+                            :disabled="form.type === 'termsAndConditions' || form.requireConfirmation"
+                            v-model="form.permanent"
+                            @click.native="toggleMode('once')">
+                      {{ $t(`button.${form.permanent ? 'yes' : 'no'}`) }}
                     </b-switch>
                   </div>
                 </div>
@@ -159,7 +165,7 @@
                   :shown-pagination="true"
                   :pagination-info="paginationInfo"
                   @page-change="handleNotificationPageChange">
-          <v2-table-column label="Title" prop="title" align="left">
+          <v2-table-column label="Title" prop="title" align="left" width="260">
             <template slot-scope="row">
                 {{ row.title }}
             </template>
@@ -169,14 +175,20 @@
               {{ $t(`component.admin.notificationType${upperFirst(row.type)}`) }}
             </template>
           </v2-table-column>
-          <v2-table-column label="Mandatory" prop="slot" align="left">
+          <v2-table-column label="" prop="slot" align="left">
             <template slot-scope="row">
-              <i v-show="row.requireConfirmation" class="fa fa-check-circle"></i>
-            </template>
-          </v2-table-column>
-          <v2-table-column label="Permanent" prop="slot" align="left">
-            <template slot-scope="row">
-              <i v-show="!row.requireConfirmation && !row.showOnce" class="fa fa-check-circle"></i>
+              <div>
+                <div class="icon-left">
+                  <!-- requireConfirmation -->
+                  <i v-if="row.requireConfirmation" class="fa fa-check-square-o"></i>
+                  <i v-else class="fa fa-square-o"></i>
+                </div>
+                <div class="icon-left">
+                  <!-- show once -->
+                  <i v-if="!row.requireConfirmation && row.permanent" class="fa fa-lock"></i>
+                  <i v-else class="fa fa-unlock"></i>
+                </div>
+              </div>
             </template>
           </v2-table-column>
           <v2-table-column label="" prop="language" align="left">
@@ -227,7 +239,7 @@
     language: 'de',
     slot: 'top',
     requireConfirmation: false,
-    showOnce: true
+    permanent: false
   }
 
   export default {
@@ -310,6 +322,17 @@
       isCreateModalActive (val) {
         this.form = Object.assign({}, defaultForm)
         this.$v.$reset()
+      },
+      'form.requireConfirmation' (val) {
+        if (val) {
+          this.form.permanent = false
+        }
+      },
+      'form.type' (val) {
+        if (val === 'termsAndConditions') {
+          this.form.requireConfirmation = true
+          this.form.permanent = false
+        }
       }
     },
     methods: {
@@ -329,7 +352,7 @@
       },
       toggleMode (mode) {
         if (mode === 'once') {
-          this.form.showOnce = !this.form.showOnce
+          this.form.permanent = !this.form.permanent
         }
 
         if (mode === 'confirmation') {

@@ -25,7 +25,7 @@
     <transition name="fade">
       <div class="notification-info-wrapper" v-if="notification && notification.type === 'info'">
         <div class="notification">
-          <button v-if="!notification.requireConfirmation && notification.showOnce" class="delete" @click.prevent="closeNotification"></button>
+          <button v-if="!notification.requireConfirmation && !notification.permanent" class="delete" @click.prevent="closeNotification"></button>
           <strong>{{ notification.title }}</strong>
           <div v-html="notification.content"></div>
           <div v-if="notification.requireConfirmation" class="has-text-right">

@@ -565,3 +565,14 @@ ul.is-list {
     }
   }
 }
+
+.switch:focus input[type="checkbox"] + .check {
+  box-shadow: none !important;
+}
+.switch.is-disabled, .switch[disabled] {
+  pointer-events: none;
+}
+
+#webpack-hot-middleware-clientOverlay {
+  z-index: 999999;
+}
