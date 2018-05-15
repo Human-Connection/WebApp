@@ -13,7 +13,7 @@
           </section>
           <footer class="modal-card-foot">
             <hc-button color="success"
-                        @click="acceptTermsAndConditions()"
+                        @click="acceptTermsAndConditions"
                         :isLoading="isAccepting"
                         :disabled="isAccepting">
               <hc-icon class="icon-left" icon="check" /> {{ $t('button.accept' ) }}
@@ -22,15 +22,18 @@
         </div>
       </b-modal>
     </div>
-    <div class="notification-info-wrapper" v-if="notification && notification.type === 'info'">
-      <div class="notification is-warning">
-        <button v-if="!notification.requireConfirmation && notification.showOnce" class="delete" @click="closeNotification"></button>
-        <div v-html="notification.content"></div>
-        <div v-if="notification.requireConfirmation" class="has-text-right">
-          <a class="confirm-info" href="#">Okay</a>
+    <transition name="fade">
+      <div class="notification-info-wrapper" v-if="notification && notification.type === 'info'">
+        <div class="notification">
+          <button v-if="!notification.requireConfirmation && notification.showOnce" class="delete" @click.prevent="closeNotification"></button>
+          <strong>{{ notification.title }}</strong>
+          <div v-html="notification.content"></div>
+          <div v-if="notification.requireConfirmation" class="has-text-right">
+            <a class="confirm-info button is-light is-small" @click.prevent="closeNotification">{{ $t('button.okay') }}</a>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -85,52 +88,50 @@
             break;
         } */
       },
-      showTermsAndConditions () {
-        this.$api.service('system-notifications').find({
-          query: {
-            type: 'termsAndConditions',
-            $limit: 1,
-            language: this.$i18n.locale(),
-            $sort: {
-              createdAt: -1
-            }
-          }
-        }).then((res) => {
-          if (isEmpty(res.data)) {
-            return
-          }
-          this.termsAndConditionsUpdate = res.data[0]
-          let hasAccepted = this.user.termsAndConditionsAccepted
-          if (!hasAccepted || moment(hasAccepted) < moment(this.termsAndConditionsUpdate.createdAt)) {
-            this.isAcceptModalActive = true
-          }
-        })
-      },
-      showInfo () {
+      async showTermsAndConditions () {
+        const hasAccepted = this.user.termsAndConditionsAccepted
         let query = {
-          type: 'info',
+          type: 'termsAndConditions',
           $limit: 1,
           language: this.$i18n.locale(),
+          active: true,
           $sort: {
             createdAt: -1
           }
         }
-        const systemNotificationsSeen = this.user.systemNotificationsSeen
-        console.log('>> systemNotificationsSeen', systemNotificationsSeen)
+        if (hasAccepted) {
+          query.createdAt = {
+            $gt: this.user.termsAndConditionsAccepted
+          }
+        }
+        const res = await this.$api.service('system-notifications').find({query})
+        if (!isEmpty(res.data)) {
+          this.termsAndConditionsUpdate = res.data[0]
+          this.isAcceptModalActive = true
+        }
+      },
+      async showInfo () {
+        let query = {
+          type: 'info',
+          $limit: 1,
+          language: this.$i18n.locale(),
+          active: true,
+          $sort: {
+            createdAt: -1
+          }
+        }
 
+        const systemNotificationsSeen = this.user.systemNotificationsSeen
         if (!isEmpty(systemNotificationsSeen)) {
           query._id = {
             $nin: systemNotificationsSeen
           }
         }
-        console.log('>> query', {query})
 
-        this.$api.service('system-notifications').find({query})
-          .then((res) => {
-            if(!isEmpty(res.data)) {
-              this.notification = res.data[0]
-            }
-        })
+        const res = await this.$api.service('system-notifications').find({query})
+        if(!isEmpty(res.data)) {
+          this.notification = res.data[0]
+        }
       },
       async acceptTermsAndConditions () {
         try {

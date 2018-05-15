@@ -68,7 +68,8 @@
     width: 100%;
     transition: all 0.1s ease-out;
     letter-spacing: 0.05em;
-    word-break: break-all;
+    // word-break: break-all;
+    line-height: 1.1em;
 
     &:hover {
       background-color: $white-ter;

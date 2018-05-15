@@ -75,6 +75,27 @@ input, textarea {
   background-color: $white-bis;
 }
 
+/*
+// THIS MAKES CARD CORNERS ROUND
+// TODO: fix some display issues
+
+.card,
+.settings-content,
+.admin-content {
+  border-radius: 8px !important;
+
+  .image,
+  .teaser-image {
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+  }
+
+  footer {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+} */
+
 .checkbox {
   display: inline-flex !important;
 }
@@ -482,6 +503,8 @@ ul.is-list {
 }
 
 .modal {
+  z-index: 999;
+
   &.is-active {
     .modal-background {
       opacity: 0.5;

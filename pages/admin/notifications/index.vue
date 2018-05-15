@@ -58,7 +58,7 @@
                             <option value="patchnotes" >{{ $t('component.admin.notificationTypePatchNotes') }}</option>
                             <option value="announcement">{{ $t('component.admin.notificationTypeAnnouncement') }}</option>
                             -->
-                            <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditionsUpdate') }}</option>
+                            <option value="termsAndConditions">{{ $t('component.admin.notificationTypeTermsAndConditions') }}</option>
                           </select>
                         </div>
                       </div>
@@ -85,7 +85,7 @@
                   </div>
                 </div>
               </div>
-              <div class="column">
+              <!--<div class="column">
                 <div class="field">
                   <div class="is-normal">
                     <label class="label">{{ $t('component.admin.notificationSlot') }}</label>
@@ -95,18 +95,18 @@
                       <div class="control has-icons-left">
                         <div class="select">
                           <select v-model="form.slot">
-                            <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>
+                            <option value="top">{{ $t('component.admin.notificationSlotTop') }}</option>-->
                             <!--
                             <option value="contribution" >{{ $t('component.admin.notificationSlotContribution') }}</option>
                             <option value="profile">{{ $t('component.admin.notificationSlotProfile') }}</option>
                             -->
-                          </select>
+                          <!--</select>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
             </div>
 
             <div class="columns">
@@ -117,7 +117,7 @@
                     <b-switch
                             v-model="form.showOnce"
                             @click.native="toggleMode('once')">
-                      {{ $t('component.admin.activate', 'Activate') }}
+                      {{ $t(`button.${form.showOnce ? 'yes' : 'no'}`) }}
                     </b-switch>
                   </div>
                 </div>
@@ -129,7 +129,7 @@
                     <b-switch
                             v-model="form.requireConfirmation"
                             @click.native="toggleMode('confirmation')">
-                      {{ $t('component.admin.activate', 'Activate') }}
+                      {{ $t(`button.${form.requireConfirmation ? 'yes' : 'no'}`) }}
                     </b-switch>
                   </div>
                 </div>
@@ -152,41 +152,50 @@
         </div>
       </b-modal>
       <div class="notificationList">
-        <no-ssr>
-          <v2-table :data="notifications.data"
-                    :stripe="true"
-                    :loading="notificationsLoading"
-                    :total="notifications.total"
-                    :shown-pagination="true"
-                    :pagination-info="paginationInfo"
-                    @page-change="handleNotificationPageChange">
-              <v2-table-column label="Title" prop="title" align="left">
-                  <template slot-scope="row">
-                      {{ row.title }}
-                  </template>
-              </v2-table-column>
-              <v2-table-column label="Type" prop="type" align="left">
-                  <template slot-scope="row">
-                      {{ row.type }}
-                  </template>
-              </v2-table-column>
-              <v2-table-column label="Slot" prop="slot" align="left">
-                <template slot-scope="row">
-                  {{ row.slot }}
-                </template>
-              </v2-table-column>
-            <v2-table-column label="Language" prop="language" align="left">
-              <template slot-scope="row">
-                <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
-              </template>
-            </v2-table-column>
-              <v2-table-column label="Created" prop="createdAt" align="left">
-                <template slot-scope="row">
-                  {{ row.createdAt }}
-                </template>
-              </v2-table-column>
-          </v2-table>
-        </no-ssr>
+        <v2-table :data="notifications.data"
+                  :stripe="true"
+                  :loading="notificationsLoading"
+                  :total="notifications.total"
+                  :shown-pagination="true"
+                  :pagination-info="paginationInfo"
+                  @page-change="handleNotificationPageChange">
+          <v2-table-column label="Title" prop="title" align="left">
+            <template slot-scope="row">
+                {{ row.title }}
+            </template>
+          </v2-table-column>
+          <v2-table-column label="Type" prop="type" align="left">
+            <template slot-scope="row">
+              {{ $t(`component.admin.notificationType${upperFirst(row.type)}`) }}
+            </template>
+          </v2-table-column>
+          <v2-table-column label="Mandatory" prop="slot" align="left">
+            <template slot-scope="row">
+              <i v-show="row.requireConfirmation" class="fa fa-check-circle"></i>
+            </template>
+          </v2-table-column>
+          <v2-table-column label="Permanent" prop="slot" align="left">
+            <template slot-scope="row">
+              <i v-show="!row.requireConfirmation && !row.showOnce" class="fa fa-check-circle"></i>
+            </template>
+          </v2-table-column>
+          <v2-table-column label="" prop="language" align="left">
+            <template slot-scope="row">
+              <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
+            </template>
+          </v2-table-column>
+          <v2-table-column label="Active" prop="createdAt" align="left">
+            <template slot-scope="row" v-show="row.active">
+              <i v-if="row.type === 'termsAndConditions'"
+                  class="fa fa-lg fa-toggle-on"
+                  style="cursor: not-allowed; opacity: .5"></i>
+              <a v-else @click.prevent="toggleActiveState(row)">
+                <i v-if="row.active" class="fa fa-lg fa-toggle-on"></i>
+                <i v-else class="fa fa-lg fa-toggle-off"></i>
+              </a>
+            </template>
+          </v2-table-column>
+        </v2-table>
       </div>
     </div>
     <footer class="card-footer">
@@ -194,7 +203,7 @@
         <div class="control">
           <hc-button color="grey" @click.prevent="isCreateModalActive = true">
             <hc-icon icon="plus" />
-            &nbsp; {{ $t('component.admin.addSystemNotification', 'Add Notification') }}
+            &nbsp; {{ $t('button.add') }}
           </hc-button>
         </div>
       </div>
@@ -204,13 +213,22 @@
 
 <script>
   import moment from 'moment'
-  import { isEmpty, map, keyBy } from 'lodash'
+  import { isEmpty, map, keyBy, upperFirst } from 'lodash'
   import { mapGetters } from 'vuex'
   import animatable from '~/components/mixins/animatable'
   import { validationMixin } from 'vuelidate'
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
   let itemLimit = 10
+  const defaultForm = {
+    type: 'info',
+    title: '',
+    content: '',
+    language: 'de',
+    slot: 'top',
+    requireConfirmation: false,
+    showOnce: true
+  }
 
   export default {
     middleware: 'admin',
@@ -219,16 +237,7 @@
     data () {
       const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
       return {
-        form: {
-          _id: '',
-          type: 'info',
-          title: '',
-          content: '',
-          language: 'de',
-          slot: 'top',
-          requireConfirmation: false,
-          showOnce: true
-        },
+        form: Object.assign({}, defaultForm),
         isCreateModalActive: false,
         itemLimit: itemLimit,
         notificationsLoading: true,
@@ -297,7 +306,27 @@
         return `<span>Total of <strong>${this.notifications ? this.notifications.total : 0}</strong>, <strong>${this.itemLimit}</strong> per page</span>`
       }
     },
+    watch: {
+      isCreateModalActive (val) {
+        this.form = Object.assign({}, defaultForm)
+        this.$v.$reset()
+      }
+    },
     methods: {
+      async toggleActiveState (notification) {
+        await this.$api.service('system-notifications').patch(notification._id, {
+          active: !notification.active
+        })
+        notification.active = !notification.active
+        this.$snackbar.open({
+          message: this.$t('auth.settings.saveSettingsSuccess'),
+          duration: 2000,
+          type: 'is-success'
+        })
+      },
+      upperFirst (val) {
+        return upperFirst(val)
+      },
       toggleMode (mode) {
         if (mode === 'once') {
           this.form.showOnce = !this.form.showOnce
@@ -343,7 +372,6 @@
             this.isLoading = false
             this.$snackbar.open({
               message: this.$t('component.admin.createNotificationSuccess'),
-              duration: 4000,
               type: 'is-success'
             })
 
@@ -421,5 +449,9 @@
     padding: 1rem $padding 0.5rem;
     display: flex;
     justify-content: left;
+  }
+
+  .fa-toggle-off {
+    color: $red;
   }
 </style>
