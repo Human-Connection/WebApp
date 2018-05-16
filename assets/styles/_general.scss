@@ -519,36 +519,43 @@ ul.is-list {
   }
   .modal-card-head {
     background-color: $white;
-    border-bottom-color: $grey-lighter;
+    border-bottom: none;
 
     &::after {
       content: "";
       height: 30px;
-      background: linear-gradient(rgba(255,255,255,.8), rgba(255,255,255,0));
+      background: linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0));
       position: absolute;
-      width: 100%;
-      bottom: -31px;
+      width: calc(100% - 10px);
+      bottom: -30px;
+      left: 0;
       pointer-events: none;
       z-index: 1;
     }
   }
 
-  section.modal-card-body {
-    padding-bottom: 3rem !important;
+  .modal-card-body {
     height: auto;
     max-height: 60vh;
+
+    & > *:last-child {
+      padding-bottom: 3rem !important;
+    }
   }
 
   .modal-card-foot {
     justify-content: flex-end;
     padding: 0.8rem;
+    border-top-color: $grey-lighter;
 
     &::before {
       content: "";
       height: 45px;
       background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.9));
       position: absolute;
-      width: 100%;
+      width: calc(100% - 10px);
+      z-index: 1;
+      left: 0;
       top: -46px;
       pointer-events: none;
     }
@@ -560,7 +567,7 @@ ul.is-list {
     .modal-card {
       width: auto;
     }
-    section.modal-card-body {
+    .modal-card-body {
       max-height: 100vh;
     }
   }
