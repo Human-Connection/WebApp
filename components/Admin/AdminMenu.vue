@@ -35,7 +35,7 @@
     </nuxt-link>
     <nuxt-link to="/admin/pages" class="menu-item">
       <span class="menu-icon">
-        <hc-icon icon="file-text-o"></hc-icon>
+        <hc-icon icon="file-text"></hc-icon>
       </span>
       {{ $t('component.admin.pages', 'Pages') }}
     </nuxt-link>
