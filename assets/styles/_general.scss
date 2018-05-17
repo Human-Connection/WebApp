@@ -241,6 +241,14 @@ a, .is-link, button {
       border-color: transparent;
     }
   }
+  th, tr > td {
+    &:first-child {
+      padding-left: .5rem;
+    }
+    &:last-child {
+      padding-right: .5rem;
+    }
+  }
 }
 
 div.loading-container {
@@ -325,6 +333,16 @@ div[class*="v2-table__"][style],
 .v2-table__table-container[style],
 .v2-table__table-wrapper[style] {
   width: 100% !important;
+}
+
+.v2-table__header-row,
+.v2-table__row {
+  & > div:first-child {
+    padding-left: 1rem;
+  }
+  & > div:last-child {
+    padding-right: 1rem;
+  }
 }
 
 /*@keyframes ProgressAnimation {
@@ -503,14 +521,21 @@ ul.is-list {
 }
 
 .modal {
-  z-index: 999;
+
+  .modal-background {
+    transition: opacity 200ms ease-in-out;
+  }
 
   &.is-active {
+    z-index: 999;
+
     .modal-background {
       opacity: 0.5;
     }
   }
   .modal-card {
+    box-shadow: $card-shadow-hover;
+
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
 
@@ -531,6 +556,16 @@ ul.is-list {
       left: 0;
       pointer-events: none;
       z-index: 1;
+    }
+
+    &.is-extended {
+      display: block;
+      background-color: lighten($grey-light, 25%);
+      border-bottom: 1px solid $grey-lighter;
+
+      &::after {
+        bottom: -31px;
+      }
     }
   }
 
