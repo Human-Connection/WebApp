@@ -33,6 +33,12 @@
       </span>
       {{ $t('component.admin.users', 'Users') }}
     </nuxt-link>
+    <nuxt-link to="/admin/pages" class="menu-item">
+      <span class="menu-icon">
+        <hc-icon icon="file-text-o"></hc-icon>
+      </span>
+      {{ $t('component.admin.pages', 'Pages') }}
+    </nuxt-link>
     <nuxt-link to="/admin/notifications" class="menu-item">
       <span class="menu-icon">
         <hc-icon icon="bullhorn"></hc-icon>

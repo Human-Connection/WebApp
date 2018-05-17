@@ -2,7 +2,6 @@
   <section>
     <div class="createNotificationForm">
       <h3 class="title is-3">{{ $t('component.admin.manageNotifications', 'Manage System Notifications') }}</h3>
-      <hr />
       <b-modal :active.sync="isCreateModalActive" has-modal-card animation="zoom-in">
         <div class="modal-background"></div>
         <div class="modal-card" :class="classes">
@@ -11,7 +10,7 @@
           </header>
           <section class="modal-card-body" ref="modalContent">
             <div class="field is-required" ref="title">
-              <label class="label" for="form-title">{{ $t('component.admin.notificationTitle') }}</label>
+              <label class="label" for="form-title">{{ $t('component.admin.labelTitle') }}</label>
               <div class="control" :class="{ 'has-error': $v.form.title.$error }">
                 <input
                         class="input"
@@ -22,13 +21,13 @@
                         v-model.trim="form.title"
                         @blur="$v.form.title.$touch()"
                         type="text"
-                        v-bind:placeholder="$t('component.admin.notificationTitle')"
-                        v-bind:disabled="isLoading">
+                        :placeholder="$t('component.admin.labelTitle')"
+                        :disabled="isLoading">
               </div>
               <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
             </div>
             <div class="field is-required">
-              <label class="label" for="form-content">{{ $t('component.admin.notificationContent') }}</label>
+              <label class="label" for="form-content">{{ $t('component.admin.labelContent') }}</label>
               <div class="control" :class="{ 'has-error': $v.form.content.$error }">
                 <hc-editor
                         identifier="content"
@@ -46,7 +45,7 @@
               <div class="column">
                 <div class="field">
                   <div class="is-normal">
-                    <label class="label">{{ $t('component.admin.notificationType') }}</label>
+                    <label class="label">{{ $t('component.admin.labelType') }}</label>
                   </div>
                   <div class="field-body">
                     <div class="field">
@@ -69,15 +68,15 @@
               <div class="column">
                 <div class="field">
                   <div class="is-normal">
-                    <label class="label">{{ $t('component.admin.notificationLanguage') }}</label>
+                    <label class="label">{{ $t('component.admin.labelLanguage') }}</label>
                   </div>
                   <div class="field-body">
                     <div class="field">
                       <div class="control">
                         <div class="select">
                           <select v-model="form.language">
-                            <option value="de">{{ $t('component.admin.notificationLanguageDE') }}</option>
-                            <option value="en">{{ $t('component.admin.notificationLanguageEN') }}</option>
+                            <option value="de">{{ $t('component.admin.languageDE') }}</option>
+                            <option value="en">{{ $t('component.admin.languageEN') }}</option>
                           </select>
                         </div>
                       </div>
@@ -141,6 +140,21 @@
                 </div>
               </div>
             </div>
+            <div class="columns">
+              <div class="column">
+                <div class="field">
+                  <label class="label is-required" for="form-requireConfirmation">
+                    {{ $t('component.admin.labelActive') }}
+                  </label>
+                  <div class="control" id="form-requireConfirmation">
+                    <b-switch
+                            :disabled="form.type === 'termsAndConditions'"
+                            v-model="form.active">
+                    </b-switch>
+                  </div>
+                </div>
+              </div>
+            </div>
             <br />
           </section>
           <footer class="modal-card-foot">
@@ -165,7 +179,7 @@
                   :shown-pagination="true"
                   :pagination-info="paginationInfo"
                   @page-change="handleNotificationPageChange">
-          <v2-table-column label="Title" prop="title" align="left" width="260">
+          <v2-table-column label="Title" prop="title" align="left">
             <template slot-scope="row">
                 {{ row.title }}
             </template>
@@ -175,28 +189,26 @@
               {{ $t(`component.admin.notificationType${upperFirst(row.type)}`) }}
             </template>
           </v2-table-column>
-          <v2-table-column label="" prop="slot" align="left">
+          <v2-table-column label="" prop="slot" align="center" width="46">
             <template slot-scope="row">
-              <div>
-                <div class="icon-left">
-                  <!-- requireConfirmation -->
-                  <i v-if="row.requireConfirmation" class="fa fa-check-square-o"></i>
-                  <i v-else class="fa fa-square-o"></i>
-                </div>
-                <div class="icon-left">
-                  <!-- show once -->
-                  <i v-if="!row.requireConfirmation && row.permanent" class="fa fa-lock"></i>
-                  <i v-else class="fa fa-unlock"></i>
-                </div>
+              <div style="display: inline-block;">
+                <!-- requireConfirmation -->
+                <i v-if="row.requireConfirmation" class="fa fa-check-square-o"></i>
+                <i v-else class="fa fa-square-o"></i>
+              </div>&nbsp;
+              <div style="display: inline-block;">
+                <!-- show once -->
+                <i v-if="!row.requireConfirmation && row.permanent" class="fa fa-lock"></i>
+                <i v-else class="fa fa-unlock"></i>
               </div>
             </template>
           </v2-table-column>
-          <v2-table-column label="" prop="language" align="left">
+          <v2-table-column label="" prop="language" align="right" width="32">
             <template slot-scope="row">
               <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
             </template>
           </v2-table-column>
-          <v2-table-column label="Active" prop="createdAt" align="left">
+          <v2-table-column label="Active" prop="createdAt" align="right" width="60">
             <template slot-scope="row" v-show="row.active">
               <i v-if="row.type === 'termsAndConditions'"
                   class="fa fa-lg fa-toggle-on"
@@ -237,6 +249,7 @@
     title: '',
     content: '',
     language: 'de',
+    active: true,
     slot: 'top',
     requireConfirmation: false,
     permanent: false
@@ -263,7 +276,7 @@
           prevPageText: '<'
         },
         editorOptions: {
-          placeholder: i18nEditorPlaceholder
+          placeholder: this.$t('component.admin.labelContent')
         },
       }
     },
