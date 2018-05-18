@@ -1,6 +1,6 @@
 <template>
-  <section class="container content">
-    <div class="card" :class="classes">
+  <section class="container">
+    <div class="card content" :class="classes">
       <div class="card-content">
         <hc-flag-switch />
         <!--<nuxt-link v-if="!useInviteCode"
@@ -158,6 +158,28 @@
         </nuxt-link>
       </footer>
     </div>
+    <b-modal
+        :active.sync="modalOpened"
+        has-modal-card
+        animation="zoom-in">
+      <div class="modal-background"></div>
+      <div class="modal-card ">
+        <b-loading :is-full-page="false" :active="modalIsLoading" />
+        <header v-if="!modalIsLoading" class="modal-card-head">
+          <h4 class="modal-card-title">{{ modalPage.title }}</h4>
+        </header>
+        <section class="modal-card-body">
+          <div class="content" v-html="modalPage.content"></div>
+        </section>
+        <footer class="modal-card-foot">
+          <hc-button color="light"
+                      @click="modalOpened = false"
+                      :disabled="modalIsLoading">
+            <hc-icon class="icon-left" icon="times" /> {{ $t('button.close' ) }}
+          </hc-button>
+        </footer>
+      </div>
+    </b-modal>
   </section>
 </template>
 
@@ -168,6 +190,7 @@
   import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
   import FlagSwitch from '~/components/Auth/FlagSwitch'
   import PasswordMeter from '~/components/Auth/PasswordMeter'
+  import { mapMutations } from 'vuex';
 
   export default {
     middleware: 'anonymous',
@@ -186,6 +209,12 @@
           inviteCode: this.$route.query.code || '',
           isFullAge: false
         },
+        modalPage: {
+          title: '',
+          content: ''
+        },
+        modalOpened: false,
+        modalIsLoading: false,
         step: 0,
         inviteCodeIsInvalid: false,
         isLoading: false,
@@ -238,8 +267,27 @@
           this.$i18n.set(this.$route.query.lang)
         }
       })
+      this.openPageInModal('termsAndConditions')
     },
     methods: {
+      async openPageInModal (page) {
+        this.modalIsLoading = true
+        this.modalOpened = true
+        const res = await this.$api.service('system-notifications').find({
+          query: {
+            type: page,
+            $limit: 1,
+            language: this.$i18n.locale()
+          }
+        })
+        if (res && res.data && res.data.length) {
+          this.modalPage = res.data[0]
+        } else {
+          this.modalPage.title = 'ERROR'
+          this.modalPage.content = '<img src="/assets/svg/errors/error404.svg" style="padding: 2rem 3rem;" />'
+        }
+        this.modalIsLoading = false
+      },
       toStep (step) {
         if (step === 1 && this.step === 0) {
           this.form.email = this.$route.query.email || ''

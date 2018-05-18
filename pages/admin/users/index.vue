@@ -8,7 +8,7 @@
             <i class="fa fa-info-circle"></i> A list of registered users with their email verification status.
           </p>
         </div>
-        <hr>
+        <br>
         <no-ssr>
           <v2-table :data="users.data"
                     :stripe="true"
@@ -35,7 +35,7 @@
                 <span v-else>-</span>
               </template>
             </v2-table-column>
-            <v2-table-column label="Lang" prop="language" align="center">
+            <v2-table-column label="" prop="language" align="center" width="40">
               <template slot-scope="row">
                 <template v-if="row.language">
                   <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
@@ -55,7 +55,7 @@
             <i class="fa fa-info-circle"></i> Here you can invite users by providing a a csv file with at least the email and the language (de/en) of the users to invite.
           </p>
         </div>
-        <hr>
+        <br>
         <div class="field">
           <div class="control has-text-centered">
             <br />
@@ -93,7 +93,7 @@
                 <a :href="`${baseURL}/auth/register?email=${row.email}&code=${row.code}&lang=${row.language}`">{{ row.code }}</a>
               </template>
             </v2-table-column>
-            <v2-table-column label="Lang" prop="language" align="center">
+            <v2-table-column label="" prop="language" align="center" width="40">
               <template slot-scope="row">
                 <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
               </template>

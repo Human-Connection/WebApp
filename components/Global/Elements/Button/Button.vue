@@ -76,7 +76,7 @@
         default: 'button'
       },
       /**
-       * Set target: null, _blank, etc.
+       * Set target: null, _blank, modal, etc.
        */
       target: {
         type: String,

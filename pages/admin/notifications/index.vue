@@ -176,7 +176,7 @@
                   :stripe="true"
                   :loading="notificationsLoading"
                   :total="notifications.total"
-                  :shown-pagination="true"
+                  :shown-pagination="totalPages > 1"
                   :pagination-info="paginationInfo"
                   @page-change="handleNotificationPageChange">
           <v2-table-column label="Title" prop="title" align="left">

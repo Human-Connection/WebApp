@@ -42,6 +42,7 @@
       "labelTitle": "Titel",
       "labelContent": "Inhalt",
       "labelType": "Typ",
+      "labelKey": "Key",
       "labelLanguage": "Sprache",
       "labelActive": "Aktiv",
       "languageDE": "Deutsch",
