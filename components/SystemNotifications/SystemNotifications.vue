@@ -76,7 +76,9 @@
         this.notification = null
       },
       init () {
-        this.showTermsAndConditions()
+        if (this.user) {
+          this.showTermsAndConditions()
+        }
         this.showInfo()
         /* switch (this.type.toLowerCase()) {
           case 'termsAndConditions':
