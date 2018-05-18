@@ -1,0 +1,48 @@
+// slide up ease
+.slide-up-enter-active {
+  transition: all 500ms $easeOut;
+  transition-delay: 20ms;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.slide-up-enter, .slide-up-leave-active {
+  opacity: 0;
+  box-shadow: none;
+  transform: translate3d(0, 15px, 0);
+}
+
+// slide next / prev
+.slide-next-enter-active, .slide-prev-enter-active {
+  transition: transform 500ms $easeOut, opacity 500ms $easeOut;
+  transition-delay: 100ms;
+  opacity: 1;
+}
+.slide-next-enter, .slide-next-leave-active {
+  opacity: 0;
+  transform: translate3d(10px, 0, 0);
+}
+.slide-prev-enter, .slide-prev-leave-active {
+  opacity: 0;
+  transform: translate3d(-10px, 0, 0);
+}
+.slide-next-leave-active, .slide-prev-leave-active {
+  display: none;
+}
+.slide-next-leave-active, .slide-prev-leave-active {
+  opacity: 0;
+  transform: translate3d(-2px, 0, 0);
+  transition: transform 100ms $easeOut, opacity 100ms $easeOut;
+}
+
+.fade-delayed-leave-active {
+  transition: opacity 0;
+  transition-delay: 0;
+}
+.fade-delayed-enter-active {
+  transition: opacity 300ms ease-out;
+  transition-delay: 100ms;
+  opacity: 1;
+}
+.fade-delayed-enter, .fade-delayed-leave-active {
+  opacity: 0.1;
+}

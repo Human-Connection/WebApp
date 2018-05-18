@@ -154,3 +154,27 @@ a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
     background-color: $white-ter;
   }
 }
+
+.ql-video {
+  width: 100%;
+
+  @include mobile() {
+    height: 52vw;
+  }
+
+  @include tablet-only() {
+    height: 34vw;
+  }
+
+  @include desktop-only() {
+    height: 312px;
+  }
+
+  @include widescreen() {
+    height: 384px;
+  }
+
+  @include fullhd() {
+    height: 425px;
+  }
+}

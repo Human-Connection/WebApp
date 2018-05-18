@@ -10,7 +10,13 @@ p, .content {
   line-height: $body-line-height;
 }
 
-.content.hc-editor-content {
+.content.hc-editor-content,
+.content {
+  h1, h2, h3, h4, h5, h6 {
+    &:not(:first-child) {
+      margin-top: 2rem;
+    }
+  }
   p {
     &:not(:last-child) {
       margin-bottom: 0;
