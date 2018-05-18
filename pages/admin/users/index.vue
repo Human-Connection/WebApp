@@ -111,9 +111,10 @@
         <div class="field">
           <b-checkbox v-model="form.sendInviteEmails" style="item-align: center" :disabled="isLoading || invitesLoading">Send invite mails</b-checkbox>
         </div>
-        <div class="field columns is-mobile">
-          <div class="control column">
-            <hc-button color="danger"
+        <footer class="card-footer">
+          <div class="field is-grouped">
+            <div class="control">
+              <hc-button color="danger"
                        @click="inviteUsers()"
                        :isLoading="isLoading || invitesLoading"
                        :disabled="isLoading || !invitePreview.length || !!resultDownloadURL">
@@ -121,17 +122,18 @@
               <span style="font-weight: normal" v-if="form.sendInviteEmails">(with mailing)</span>
               <span style="font-weight: normal" v-else>(no mailing)</span></strong>
             </hc-button>
-          </div>
-          <div class="control column">
-            <a :href="resultDownloadURL"
+            </div>
+            <div class="control">
+              <a :href="resultDownloadURL"
                class="button pull-right"
                :class="{ 'is-loading': isLoading }"
                :disabled="isLoading || !results || !resultDownloadURL"
                download="data.csv">
               <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
             </a>
+            </div>
           </div>
-        </div>
+        </footer>
       </b-tab-item>
     </b-tabs>
   </section>
@@ -362,5 +364,16 @@
 
   .fa-check-circle {
     color: $primary;
+  }
+
+  $padding: 1.5rem;
+  footer.card-footer {
+    margin: -$padding;
+    margin-top: 2rem;
+    margin-bottom: -3rem;
+    background: lighten($grey-lighter, 10%);
+    padding: 1rem $padding;
+    display: flex;
+    justify-content: right;
   }
 </style>
