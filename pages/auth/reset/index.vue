@@ -23,7 +23,7 @@
                         :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
                         :placeholder="$t('auth.account.email')"
                         v-model.trim="form.email"
-                        @blur="$v.form.email.$touch()">
+                        @blur="form.email ? $v.form.email.$touch() : null">
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>

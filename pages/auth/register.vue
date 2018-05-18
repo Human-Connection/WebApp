@@ -102,7 +102,7 @@
                         :placeholder="$t('auth.account.password')"
                         v-model="form.password"
                         autocomplete="new-password"
-                        @blur="$v.form.password.$touch()">
+                        @blur="form.password ? $v.form.password.$touch() : null">
                   <span class="icon is-small is-left">
                     <i class="fa fa-lock"></i>
                   </span>
@@ -143,9 +143,9 @@
                 {{ $t('auth.register.label') }}
               </hc-button>
               <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;{{ $t('auth.register.back') }}</a>
-              <p class="small-info" style="margin-top: 2rem;" v-html="$t('auth.account.confirmTermsOfUsage', {
-                  'termsOfService': $t('legal.termsOfService'),
-                  'dataPrivacyStatement': $t('legal.dataPrivacyStatement'),
+              <p @click="openLegalInfo" class="small-info" style="margin-top: 2rem;" v-html="$t('auth.account.confirmTermsOfUsage', {
+                  'termsOfService': linkTermsOfService,
+                  'dataPrivacyStatement': linkPrivacyPolicy,
                   'url': '/legal'
                 })"></p>
             </div>
@@ -158,28 +158,6 @@
         </nuxt-link>
       </footer>
     </div>
-    <b-modal
-        :active.sync="modalOpened"
-        has-modal-card
-        animation="zoom-in">
-      <div class="modal-background"></div>
-      <div class="modal-card ">
-        <b-loading :is-full-page="false" :active="modalIsLoading" />
-        <header v-if="!modalIsLoading" class="modal-card-head">
-          <h4 class="modal-card-title">{{ modalPage.title }}</h4>
-        </header>
-        <section class="modal-card-body">
-          <div class="content" v-html="modalPage.content"></div>
-        </section>
-        <footer class="modal-card-foot">
-          <hc-button color="light"
-                      @click="modalOpened = false"
-                      :disabled="modalIsLoading">
-            <hc-icon class="icon-left" icon="times" /> {{ $t('button.close' ) }}
-          </hc-button>
-        </footer>
-      </div>
-    </b-modal>
   </section>
 </template>
 
@@ -209,12 +187,6 @@
           inviteCode: this.$route.query.code || '',
           isFullAge: false
         },
-        modalPage: {
-          title: '',
-          content: ''
-        },
-        modalOpened: false,
-        modalIsLoading: false,
         step: 0,
         inviteCodeIsInvalid: false,
         isLoading: false,
@@ -267,26 +239,27 @@
           this.$i18n.set(this.$route.query.lang)
         }
       })
-      this.openPageInModal('termsAndConditions')
     },
     methods: {
-      async openPageInModal (page) {
-        this.modalIsLoading = true
-        this.modalOpened = true
-        const res = await this.$api.service('system-notifications').find({
-          query: {
-            type: page,
-            $limit: 1,
-            language: this.$i18n.locale()
-          }
-        })
-        if (res && res.data && res.data.length) {
-          this.modalPage = res.data[0]
-        } else {
-          this.modalPage.title = 'ERROR'
-          this.modalPage.content = '<img src="/assets/svg/errors/error404.svg" style="padding: 2rem 3rem;" />'
+      openLegalInfo (e) {
+        if (e.metaKey || e.ctrlKey) {
+          return
         }
-        this.modalIsLoading = false
+        switch (e.target.getAttribute('data-page')) {
+          case 'privacy-policy':
+            e.preventDefault()
+            this.$openInModal({slug: 'privacy-policy'})
+            break;
+          case 'terms-and-conditions':
+            e.preventDefault()
+            this.$openInModal({slug: 'terms-and-conditions'})
+            break;
+        }
+      },
+      resetRouteHash () {
+        this.$nextTick(() => {
+          this.$router.replace(this.$route.fullPath.split('#').shift())
+        })
       },
       toStep (step) {
         if (step === 1 && this.step === 0) {
@@ -342,6 +315,14 @@
           })
       }
     },
+    computed: {
+      linkPrivacyPolicy () {
+        return `<a data-page="privacy-policy" href="/pages/privacy-policy" target="_blank">${this.$t('legal.privacyPolicy')}</a>`
+      },
+      linkTermsOfService () {
+        return `<a data-page="terms-and-conditions" href="/pages/terms-and-conditions" target="_blank">${this.$t('legal.dataPrivacyStatement')}</a>`
+      }
+    },
     head () {
       return {
         title: this.$t('auth.register.label')
@@ -380,6 +361,10 @@
         margin-top: 2rem;
       }
     }
+  }
+
+  .small-info a {
+    font-weight: bold !important;
   }
 
   form {

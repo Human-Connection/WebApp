@@ -26,7 +26,7 @@
             </v2-table-column>
             <v2-table-column label="Slug" prop="slug" align="left">
               <template slot-scope="row">
-                <hc-button v-if="!isProtected(row.type)" type="link" :to="`/pages/${row.slug}`" target="_blank">{{ row.slug }}</hc-button>
+                <hc-button type="link" :to="`/pages/${row.slug}`" target="_blank">{{ row.slug }}</hc-button>
               </template>
             </v2-table-column>
             <v2-table-column label="Type" prop="type" align="left">

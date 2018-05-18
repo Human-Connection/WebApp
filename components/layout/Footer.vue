@@ -3,8 +3,34 @@
     <div class="container">
       <div class="content has-text-centered">
         <p>
-          <span v-html="$t('humanConnectionMadeWithHeart')"></span> | 
-          <nuxt-link :to="{ name: 'legal' }">{{ $t('legal.imprint') }}</nuxt-link>
+          <hc-button
+                type="link"
+                to="https://human-connection.org"
+                target="_blank"
+                v-html="$t('humanConnectionMadeWithHeart')">
+            {{ $t('legal.imprint') }}
+          </hc-button>・
+          <hc-button
+                type="link"
+                to="/pages/imprint"
+                :prevent="true"
+                @click="$openInModal({slug: 'imprint'})">
+            {{ $t('legal.imprint') }}
+          </hc-button>・
+          <hc-button
+                type="link"
+                to="/pages/terms-and-conditions"
+                :prevent="true"
+                @click="$openInModal({slug: 'terms-and-conditions'})">
+            {{ $t('legal.termsAndConditions') }}
+          </hc-button>・
+          <hc-button
+                type="link"
+                to="/pages/privacy-policy"
+                :prevent="true"
+                @click="$openInModal({slug: 'privacy-policy'})">
+            {{ $t('legal.privacyPolicy') }}
+          </hc-button>
         </p>
       </div>
     </div>
@@ -13,7 +39,26 @@
 
 <script>
   export default {
-    name: 'hc-footer'
+    name: 'hc-footer',
+    methods: {
+      openLegalInfo (e) {
+        switch (e.target.getAttribute('data-page')) {
+          case 'imprint':
+            e.preventDefault()
+            this.$openInModal({slug: 'imprint'})
+            break;
+          case 'terms-and-conditions':
+            e.preventDefault()
+            this.$openInModal({slug: 'terms-and-conditions'})
+            break;
+            break;
+          case 'privacy-policy':
+            e.preventDefault()
+            this.$openInModal({slug: 'privacy-policy'})
+            break;
+        }
+      }
+    }
   }
 </script>
 
