@@ -10888,9 +10888,9 @@ vue-in-viewport-mixin@~1.0.4:
   dependencies:
     scrollmonitor "^1.1.3"
 
-vue-infinite-loading@~2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.2.3.tgz#6912fcbe3fd44b97a555ab0b5a78b6100bd056c5"
+vue-infinite-loading@~2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.3.1.tgz#56f29616bcc95f21fd8a829ce747f30b333e890c"
 
 vue-loader@13.7.0, vue-loader@^13.0.4:
   version "13.7.0"
