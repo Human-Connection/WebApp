@@ -78,7 +78,7 @@
     "js-base64": "~2.4.3",
     "js-cookie": "~2.2.0",
     "linkifyjs": "^2.1.6",
-    "lodash": "~4.17.4",
+    "lodash": "~4.17.10",
     "mapbox-gl": "~0.45.0",
     "mapbox-gl-vue": "~1.7.0",
     "moment": "~2.21.0",
