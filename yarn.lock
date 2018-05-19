@@ -10848,9 +10848,9 @@ vue-count-to@~1.0.13:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/vue-count-to/-/vue-count-to-1.0.13.tgz#3e7573ea6e64c2b2972f64e0a2ab2e23c7590ff3"
 
-vue-docgen-api@^2.3.9, vue-docgen-api@~2.3.9:
-  version "2.3.9"
-  resolved "https://registry.yarnpkg.com/vue-docgen-api/-/vue-docgen-api-2.3.9.tgz#924b7a37eff69dab51b219a11499242b566253f7"
+vue-docgen-api@^2.3.9, vue-docgen-api@~2.3.11:
+  version "2.3.11"
+  resolved "https://registry.yarnpkg.com/vue-docgen-api/-/vue-docgen-api-2.3.11.tgz#3c7fce7544f23a9d38373bf6830d5a85dd65f6b3"
   dependencies:
     babel-core "^6.25.0"
     babel-plugin-transform-object-rest-spread "^6.26.0"
