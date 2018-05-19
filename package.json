@@ -80,7 +80,7 @@
     "linkifyjs": "^2.1.6",
     "lodash": "~4.17.4",
     "mapbox-gl": "~0.45.0",
-    "mapbox-gl-vue": "~1.7.0",
+    "mapbox-gl-vue": "~1.9.0",
     "moment": "~2.21.0",
     "nuxt": "~1.4.0",
     "parchment": "^1.1.4",
