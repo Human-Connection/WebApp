@@ -58,7 +58,7 @@
     "bulma-steps-component": "^0.5.3",
     "cheerio": "^1.0.0-rc.2",
     "cookie-parser": "~1.4.3",
-    "cookie-universal-nuxt": "~1.0.14",
+    "cookie-universal-nuxt": "~2.0.2",
     "cross-env": "~5.1.5",
     "css-loader": "~0.28.10",
     "csv-parse": "~2.0.4",
