@@ -55,18 +55,6 @@ module.exports = {
   ],
   build: {
     presets: ['vue-app'],
-    vendor: [
-      'moment',
-      'bricks.js',
-      'vuex-i18n',
-      'mapbox-gl',
-      // Feathers
-      'feathers/client',
-      'feathers-socketio/client',
-      'socket.io-client',
-      'feathers-hooks',
-      'feathers-authentication-client'
-    ],
     extend (config) {
       /*
        ** Run ESLINT on save
