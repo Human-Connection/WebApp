@@ -45,6 +45,9 @@ export const actions = {
       .on('patched', debounce((comment) => {
         dispatch('fetchByContributionId')
       }, 500))
+      .on('removed', debounce((comment) => {
+        dispatch('fetchByContributionId')
+      }, 500))
   },
   fetchByContributionId ({commit, state}, contributionId) {
     contributionId = contributionId || state.contributionId
@@ -80,7 +83,13 @@ export const actions = {
       dispatch('fetchByContributionId', comment.contributionId)
     })
   },
-  async create ({dispatch}, data) {
+  create ({dispatch}, data) {
     return this.app.$api.service('comments').create(data)
+  },
+  patch ({dispatch}, data) {
+    return this.app.$api.service('comments').patch(data._id, data)
+  },
+  remove ({dispatch}, id) {
+    return this.app.$api.service('comments').remove(id)
   }
 }

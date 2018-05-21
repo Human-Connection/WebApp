@@ -1,52 +1,100 @@
 <template>
   <div class="comment autowrap" :class="{ highlight: highlight }">
-    <div class="comment-aside">
-      <author :user="comment.user"
-        :showText="false" />
-    </div>
-    <div class="comment-main">
-      <div class="comment-header">
-        <div class="comment-header-author">
-          <author :user="comment.user"
-            :showAvatar="false"
-            :createdAt="comment.createdAt" />
+    <template v-if="comment.deleted">
+      <div class="comment-aside">
+      </div>
+      <div class="comment-main comment-deleted">
+        <hc-icon icon="ban" class="comment-deleted-icon" />
+        {{ $t('component.contribution.commentDeletedByUser') }}
+      </div>
+    </template>
+    <template v-else>
+      <div class="comment-aside">
+        <author :user="comment.user"
+          :showText="false" />
+      </div>
+      <div class="comment-main">
+        <div class="comment-header">
+          <div class="comment-header-author">
+            <author :user="comment.user"
+              :showAvatar="false"
+              :createdAt="comment.createdAt" />
+          </div>
+          <div class="comment-header-actions">
+            <template v-if="isOwner">
+              <hc-tooltip :label="$t('component.contribution.commentEdit')" type="is-black" position="is-left">
+                <hc-button @click="startEdit" color="light" size="small">
+                  <hc-icon icon="pencil"></hc-icon>
+                </hc-button>
+              </hc-tooltip>
+              <hc-tooltip :label="$t('component.contribution.commentDelete')" type="is-black" position="is-left">
+                <hc-button @click="removeComment" color="light" size="small">
+                  <hc-icon icon="ban"></hc-icon>
+                </hc-button>
+              </hc-tooltip>
+            </template>
+            <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
+              <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
+                <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
+                <i class="fa fa-angle-double-up"></i>&nbsp;
+              </a>
+            </hc-tooltip>
+          </div>
         </div>
-        <div class="comment-header-actions">
-          <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
-            <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
-              <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
-              <i class="fa fa-angle-double-up"></i>&nbsp;
+        <div v-html="getText" class="comment-text" v-if="!edit"></div>
+        <form class="comment-form" @submit.prevent="patchComment" v-else>
+          <hc-editor identifier="comment"
+            editorClass="autowrap"
+            v-model="newContent"
+            :editorOptions="editorOptions" />
+          <div class="comment-form-actions">
+            <hc-button
+              class="button is-hidden-mobile"
+              color="light"
+              :disabled="isLoading"
+              @click="cancelEdit">
+              {{ $t('button.cancel') }}
+            </hc-button>
+            <hc-button
+              :formSubmit="true"
+              :disabled="!newContent"
+              :isLoading="isLoading">
+              {{ $t('button.saveComment','Submit comment') }}
+            </hc-button>
+          </div>
+        </form>
+        <div class="comment-footer">
+          <div class="comment-footer-actions-left">
+            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
+              <a class="level-item" style="cursor: not-allowed; pointer-events: visible;">
+                <span class="icon is-small"><i class="fa fa-reply"></i></span>
+              </a>
+            </hc-tooltip>
+          </div>
+          <div class="comment-footer-actions-right">
+            <a v-if="isTruncated" @click="toggleText" class="is-small">
+              <span v-if="!fullContentShown">{{ $t('button.showMore', 'Mehr') }} <i class="is-small fa fa-angle-down"></i></span>
+              <span v-else>{{ $t('button.showLess', 'Weniger') }} <i class="is-small fa fa-angle-up"></i></span>
             </a>
-          </hc-tooltip>
+          </div>
         </div>
       </div>
-      <div v-html="getText" class="comment-text"></div>
-      <div class="comment-footer">
-        <div class="comment-footer-actions-left">
-          <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
-            <a class="level-item" style="cursor: not-allowed; pointer-events: visible;">
-              <span class="icon is-small"><i class="fa fa-reply"></i></span>
-            </a>
-          </hc-tooltip>
-        </div>
-        <div class="comment-footer-actions-right">
-          <a v-if="isTruncated" @click="toggleText" class="is-small">
-            <span v-if="!fullContentShown">{{ $t('button.showMore', 'Mehr') }} <i class="is-small fa fa-angle-down"></i></span>
-            <span v-else>{{ $t('button.showLess', 'Weniger') }} <i class="is-small fa fa-angle-up"></i></span>
-          </a>
-        </div>
-      </div>
-    </div>
+    </template>
   </div>
 </template>
 
 <script>
+  import { mapGetters, mapActions } from 'vuex'
   import author from '~/components/Author/Author.vue'
+  import commentForm from '~/components/Comments/CommentForm.vue'
   import linkifyHtml from 'linkifyjs/html'
-  import HcAvatar from "../Global/Elements/Avatar/Avatar.vue";
 
   export default {
     name: 'hc-comment',
+    components: {
+      commentForm,
+      author
+    },
     props: {
       onUpvote: {
         type: Function,
@@ -60,14 +108,23 @@
     data () {
       return {
         fullContentShown: false,
-        highlight: false
+        highlight: false,
+        edit: false,
+        isLoading: false,
+        newContent: '',
+        editorOptions: {
+          placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
+          modules: {
+            toolbar: null,
+            pasteHandler: {}
+          }
+        }
       }
     },
-    components: {
-      HcAvatar,
-      'author': author
-    },
     computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      }),
       getText () {
         return (this.fullContentShown && this.content)
           ? linkifyHtml(this.content)
@@ -79,17 +136,59 @@
           this.getText.slice(-7) === '...</p>' ||
           this.getText.slice(-5) === '…</p>' ||
           this.fullContentShown
+      },
+      isOwner () {
+        return this.user && this.comment && this.comment.user &&
+          this.comment.user._id === this.user._id
       }
     },
     mounted () {
       this.scrollToCommentIfSelected()
     },
     methods: {
+      ...mapActions({
+        fetchById: 'comments/fetchById',
+        remove: 'comments/remove',
+        patch: 'comments/patch'
+      }),
+      removeComment () {
+        this.$dialog.confirm({
+          title: this.$t('component.contribution.commentDelete'),
+          message: this.$t('component.contribution.commentDeleteMsg'),
+          confirmText: this.$t('button.confirmDelete'),
+          cancelText: this.$t('button.cancel'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => this.remove(this.comment._id)
+        })
+      },
+      startEdit () {
+        this.fetchById(this.comment._id)
+          .then((res) => {
+            this.newContent = res.content
+            this.edit = true
+          })
+      },
+      cancelEdit () {
+        this.edit = false
+      },
+      async patchComment () {
+        this.isLoading = true
+        const data = {
+          _id: this.comment._id,
+          content: this.newContent
+        }
+        await this.patch(data)
+        setTimeout(() => {
+          this.edit = false
+          this.isLoading = false
+        }, 600)
+      },
       toggleText () {
         if (this.content) {
           this.fullContentShown = !this.fullContentShown
         } else {
-          this.$store.dispatch('comments/fetchById', this.comment._id)
+          this.fetchById(this.comment._id)
             .then((res) => {
               this.content = res.content
               this.fullContentShown = !this.fullContentShown
@@ -154,11 +253,50 @@
     }
   }
 
+  .comment-deleted {
+    display: flex;
+    align-items: center;
+    color: $grey;
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .comment-deleted-icon {
+    position: relative;
+    top: 1px;
+    margin-right: 5px;
+  }
+
   .comment-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     margin-bottom: $margin-small;
+  }
+
+  .comment-header-actions {
+    display: flex;
+    align-items: flex-start;
+    & > * {
+      margin-left: 5px;
+    }
+  }
+
+  .comment-form-actions {
+    padding-top: $padding-small;
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+      width: 100%;
+
+      @media (min-width: $tablet) {
+        width: auto;
+        min-width: 160px;
+      }
+    }
   }
 
   .comment-footer {
