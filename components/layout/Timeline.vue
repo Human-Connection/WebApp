@@ -103,7 +103,6 @@
   import { mapGetters } from 'vuex'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
   import { castArray, flatMap } from 'lodash'
-import { setTimeout } from 'timers';
 
   export default {
     components: {
