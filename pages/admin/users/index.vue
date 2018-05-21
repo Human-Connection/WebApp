@@ -29,16 +29,21 @@
                 <i v-show="row.isVerified" class="fa fa-check-circle"></i>
               </template>
             </v2-table-column>
+            <v2-table-column label="Legal" prop="termsAndConditionsAccepted" align="center">
+              <template slot-scope="row">
+                <i v-show="row.termsAndConditionsAccepted" :title="row.termsAndConditionsAccepted" class="fa fa-check-circle"></i>
+              </template>
+            </v2-table-column>
             <v2-table-column label="Last Active" prop="lastActiveAt" align="left">
               <template slot-scope="row">
                 <hc-relative-date-time :dateTime="row.lastActiveAt" v-if="row.lastActiveAt" />
                 <span v-else>-</span>
               </template>
             </v2-table-column>
-            <v2-table-column label="" prop="language" align="center" width="40">
+            <v2-table-column label="" prop="userSettings.uiLanguage" align="center" width="40">
               <template slot-scope="row">
-                <template v-if="row.language">
-                  <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
+                <template v-if="row.userSettings">
+                  <img width="16" :src="`/assets/svg/flags/${row.userSettings.uiLanguage}.svg`" />
                 </template>
                 <template v-else>
                   -
