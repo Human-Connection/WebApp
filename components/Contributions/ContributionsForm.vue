@@ -75,44 +75,46 @@
       <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
     </div>
     <hr/>
-    <div v-if="form.type === 'cando'">
-      <div class="field is-required">
-        <label class="label">{{ $t('component.contribution.difficultyDescription') }}</label>
-        <div class="control" :class="{ 'has-error': $v.form.cando.difficulty.$error }">
-          <b-radio
-            v-for="difficulty in options.difficulties"
-            :key="difficulty" :native-value="difficulty"
-            @change="$v.form.cando.difficulty.$touch()"
-            v-model="form.cando.difficulty">
-              {{ $t(`difficulty.${difficulty}`) }}
-          </b-radio>
+    <transition name="fade">
+      <div v-if="form.type === 'cando'" key="cando">
+        <div class="field is-required">
+          <label class="label">{{ $t('component.contribution.difficultyDescription') }}</label>
+          <div class="control" :class="{ 'has-error': $v.form.cando.difficulty.$error }">
+            <b-radio
+              v-for="difficulty in options.difficulties"
+              :key="difficulty" :native-value="difficulty"
+              @change="$v.form.cando.difficulty.$touch()"
+              v-model="form.cando.difficulty">
+                {{ $t(`difficulty.${difficulty}`) }}
+            </b-radio>
+          </div>
         </div>
-      </div>
-      <hr/>
-      <div class="field">
-        <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
-        <p class="control has-margin-bottom-medium">
-          <input
-            class="input"
-            v-model="form.cando.reasonTitle"
-            type="text"
-            v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
-            v-bind:disabled="isLoading">
-        </p>
-      </div>
-      <div class="field">
-        <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
-        <div class="control">
-          <hc-editor
-            identifier="cando-reason"
-            v-model.trim="form.cando.reason"
-            @fetchedMeta="handleMeta"
-            :loading="isLoading"
-            :editorOptions="editorOptions2"/>
+        <hr/>
+        <div class="field">
+          <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
+          <p class="control has-margin-bottom-medium">
+            <input
+              class="input"
+              v-model="form.cando.reasonTitle"
+              type="text"
+              v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
+              v-bind:disabled="isLoading">
+          </p>
         </div>
+        <div class="field">
+          <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
+          <div class="control">
+            <hc-editor
+              identifier="cando-reason"
+              v-model.trim="form.cando.reason"
+              @fetchedMeta="handleMeta"
+              :loading="isLoading"
+              :editorOptions="editorOptions2"/>
+          </div>
+        </div>
+        <hr/>
       </div>
-      <hr/>
-    </div>
+    </transition>
     <div class="field is-required">
       <label class="label" for="form-categoryIds">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select
