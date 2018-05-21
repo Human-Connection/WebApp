@@ -143,7 +143,7 @@
                 {{ $t('auth.register.label') }}
               </hc-button>
               <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;{{ $t('auth.register.back') }}</a>
-              <p @click="openLegalInfo" class="small-info" style="margin-top: 2rem;" v-html="$t('auth.account.confirmTermsOfUsage', {
+              <p @click="openLegalInfo" class="small-info" style="padding-top: 1rem; padding-bottom: 0;" v-html="$t('auth.account.confirmTermsOfUsage', {
                   'termsOfService': linkTermsOfService,
                   'dataPrivacyStatement': linkPrivacyPolicy,
                   'url': '/legal'
@@ -337,11 +337,25 @@
 
   .card {
     margin: 0 auto;
-    max-width: 460px;
+    width: 460px;
+    transition: height 250ms ease;
     text-align: center;
     border: none;
     box-shadow: $card-shadow;
     // overflow-x: hidden;
+
+    p {
+      padding-bottom: 1em;
+    }
+    .field p {
+      padding-bottom: 0;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    .card {
+      width: 100%;
+    }
   }
 
   .subtitle {
