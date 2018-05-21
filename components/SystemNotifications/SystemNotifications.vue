@@ -27,12 +27,12 @@
         <div class="message-body content">
           <div class="header">
             <h2 class="title is-5">{{ notification.title }}</h2>
-            <button v-if="!notification.requireConfirmation && !notification.permanent" class="delete" @click.prevent="closeNotification"></button>
           </div>
           <div v-html="notification.content"></div>
           <div v-if="notification.requireConfirmation">
             <a class="confirm-info button is-info notifications" @click.prevent="closeNotification">{{ $t('button.okay') }}</a>
           </div>
+          <button v-if="!notification.requireConfirmation && !notification.permanent" class="delete" @click.prevent="closeNotification"></button>
         </div>
       </article>
     </transition>
@@ -163,25 +163,6 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
 
-  .message {
-    margin-bottom: 20px;
-
-    .message-body {
-      padding-bottom: 1.5rem;
-
-      .header {
-        position: relative;
-        padding-right: 2rem;
-        margin-bottom: -.5rem;
-
-        .delete {
-          position: absolute;
-          top: 0;
-          right: 0;
-        }
-      }
-    }
-  }
   .confirm-info {
     text-decoration: none;
     padding-left: 1rem;

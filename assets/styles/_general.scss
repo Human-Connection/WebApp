@@ -392,3 +392,19 @@ ul.is-list {
 #webpack-hot-middleware-clientOverlay {
   z-index: 999999;
 }
+
+.message {
+  margin-bottom: 1rem;
+
+  .message-body {
+    position: relative;
+    padding-right: 3rem;
+    padding-bottom: 1.5rem;
+
+    .delete {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+}
