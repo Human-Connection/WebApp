@@ -249,7 +249,7 @@ export default {
       justify-self: center;
       display: block;
       width: 100%;
-      margin-top: 0.2em;
+      margin-top: 0.15em;
       font-weight: bold;
     }
   }
