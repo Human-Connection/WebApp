@@ -12,10 +12,10 @@
                :comment="comment"
                :onUpvote="upvote" />
     </transition-group>
-    <div v-else class="notification">
+    <!--<div v-else class="notification">
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
-    </div>
+    </div>-->
     <comment-form :post="post" :replyComment="replyComment" />
   </div>
 </template>

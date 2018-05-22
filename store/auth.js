@@ -169,7 +169,7 @@ export const actions = {
     this.app.router.push('/auth/logout')
   },
   register ({dispatch, commit}, {email, password, inviteCode}) {
-    return this.app.$api.service('users').create({email, password, inviteCode})
+    return this.app.$api.service('users').create({email, password, inviteCode, termsAndConditionsAccepted: new Date()})
       .then(response => {
         return dispatch('login', {email, password})
       })

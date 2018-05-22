@@ -37,7 +37,7 @@ const urlEmbedBuilder = (initOptions) => {
     }
     registerTypeListener () {
       this.quill.on('text-change', (delta, oldDelta, source) => {
-        if (source == 'api' || !this.userHasTyped) {
+        if (source === 'api' || !this.userHasTyped) {
           return
         }
         let ops = delta.ops

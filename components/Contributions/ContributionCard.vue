@@ -212,6 +212,7 @@
       cursor: pointer;
       transition: box-shadow 150ms ease-out, transform 150ms ease-out;
       position: relative;
+      border-radius: 5px;
 
       @include tablet() {
         &:hover {

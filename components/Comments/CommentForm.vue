@@ -13,8 +13,7 @@
         <button type="button"
           class="button is-hidden-mobile"
           :disabled="!this.hasContent"
-          @click="form.content = ''"
-          :class="{ 'is-loading': isLoading }">
+          @click="form.content = ''">
           {{ $t('button.cancel') }}
         </button>
         <button type="submit"

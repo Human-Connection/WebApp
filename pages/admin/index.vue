@@ -150,9 +150,6 @@
         shoutCount: 0
       }
     },
-    methods () {
-
-    },
     async mounted () {
 
       await wait(50)

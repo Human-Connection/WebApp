@@ -189,6 +189,10 @@
     padding-top: 30px;
   }
 
+  .card-content {
+    padding: 2em;
+  }
+
   .card-teaser {
     img {
       display: inline-block;
@@ -202,8 +206,8 @@
   }
 
   form {
-    margin: 1em auto;
-    padding: 1em;
+    margin: 1em auto 0;
+    padding: 0em;
     text-align: left;
   }
 </style>

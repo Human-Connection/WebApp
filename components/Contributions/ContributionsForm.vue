@@ -6,7 +6,7 @@
                @update="value => { form.teaserImg = value }"
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false"
-               style="margin: -3.8rem -2.25rem 2.25rem;">
+               style="margin: -3.0rem -1.5rem 2rem;">
     </hc-upload>
     <div class="columns">
       <div class="column">
@@ -75,44 +75,46 @@
       <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
     </div>
     <hr/>
-    <div v-if="form.type === 'cando'">
-      <div class="field is-required">
-        <label class="label">{{ $t('component.contribution.difficultyDescription') }}</label>
-        <div class="control" :class="{ 'has-error': $v.form.cando.difficulty.$error }">
-          <b-radio
-            v-for="difficulty in options.difficulties"
-            :key="difficulty" :native-value="difficulty"
-            @change="$v.form.cando.difficulty.$touch()"
-            v-model="form.cando.difficulty">
-              {{ $t(`difficulty.${difficulty}`) }}
-          </b-radio>
+    <transition name="fade">
+      <div v-if="form.type === 'cando'" key="cando">
+        <div class="field is-required">
+          <label class="label">{{ $t('component.contribution.difficultyDescription') }}</label>
+          <div class="control" :class="{ 'has-error': $v.form.cando.difficulty.$error }">
+            <b-radio
+              v-for="difficulty in options.difficulties"
+              :key="difficulty" :native-value="difficulty"
+              @change="$v.form.cando.difficulty.$touch()"
+              v-model="form.cando.difficulty">
+                {{ $t(`difficulty.${difficulty}`) }}
+            </b-radio>
+          </div>
         </div>
-      </div>
-      <hr/>
-      <div class="field">
-        <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
-        <p class="control has-margin-bottom-medium">
-          <input
-            class="input"
-            v-model="form.cando.reasonTitle"
-            type="text"
-            :placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
-            :disabled="isLoading">
-        </p>
-      </div>
-      <div class="field">
-        <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
-        <div class="control">
-          <hc-editor
-            identifier="cando-reason"
-            v-model.trim="form.cando.reason"
-            @fetchedMeta="handleMeta"
-            :loading="isLoading"
-            :editorOptions="editorOptions2"/>
+        <hr/>
+        <div class="field">
+          <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
+          <div class="control has-margin-bottom-medium">
+            <input
+              class="input"
+              v-model="form.cando.reasonTitle"
+              type="text"
+              :placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
+              :disabled="isLoading">
+          </div>
         </div>
+        <div class="field">
+          <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
+          <div class="control">
+            <hc-editor
+              identifier="cando-reason"
+              v-model.trim="form.cando.reason"
+              @fetchedMeta="handleMeta"
+              :loading="isLoading"
+              :editorOptions="editorOptions2"/>
+          </div>
+        </div>
+        <hr/>
       </div>
-      <hr/>
-    </div>
+    </transition>
     <div class="field is-required">
       <label class="label" for="form-categoryIds">{{ $t('component.category.labelLongOnePluralNone', null, 2) }}</label>
       <categories-select
@@ -492,9 +494,9 @@
 
   $padding: 1.5rem;
   footer.card-footer {
-    margin: -2.25rem;
+    margin: -1.5rem;
     margin-top: 2rem;
-    margin-bottom: -4rem;
+    margin-bottom: -3rem;
     background: lighten($grey-lighter, 10%);
     padding: 1rem $padding;
     display: flex;

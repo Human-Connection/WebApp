@@ -28,7 +28,7 @@
             <hc-relative-date-time :dateTime="row.createdAt" />
           </template>
         </v2-table-column>
-        <v2-table-column label="Lang" prop="language" align="center">
+        <v2-table-column label="" prop="language" align="center" width="42">
           <template slot-scope="row">
             <template v-if="row.language">
               <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />

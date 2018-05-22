@@ -173,7 +173,7 @@
     align-items: center;
 
     img {
-      height: $navbar-height - 20px;
+      height: $navbar-height - 1.25rem;
       width: auto;
     }
   }

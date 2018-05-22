@@ -2,7 +2,7 @@
   <section class="container organization-settings">
     <div class="columns">
       <div class="column is-9">
-        <h2 class="title is-2">{{ $t('component.organization.general', 'Organization settings') }}</h2>
+        <h2 class="title is-2 is-marginless">{{ $t('component.organization.general', 'Organization settings') }}</h2>
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
@@ -134,12 +134,3 @@
     }
   }
 </script>
-
-<style lang="scss">
-  @import "assets/styles/settings/main";
-  @import "assets/styles/_animations";
-
-  .breadcrumb {
-    margin-top: -1.5rem;
-  }
-</style>

@@ -1,9 +1,11 @@
 <template>
   <div class="columns">
-    <div class="card column is-8 is-offset-2" :class="classes">
-      <section class="section">
-        <contributions-form @validate="onValidate" />
-      </section>
+    <div class="column is-8 is-offset-2">
+      <div class="card" :class="classes">
+        <section class="section">
+          <contributions-form @validate="onValidate" />
+        </section>
+      </div>
     </div>
   </div>
 </template>

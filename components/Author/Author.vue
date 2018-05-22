@@ -115,7 +115,6 @@
       }
 
       .subtitle {
-          padding-top: 3px;
           color:       $grey;
           font-size:   $size-7;
 
