@@ -38,6 +38,7 @@
               :v="$v"
               :type="form.de.type"
               :formKey="form.de.key"
+              @keyChanged="onKeyChanged"
                 />
         <page-form key="de"
               v-if="currentModalLang === 'de'"
@@ -46,6 +47,7 @@
               :v="$v"
               :type="form.de.type"
               :formKey="form.de.key"
+              @keyChanged="onKeyChanged"
                 />
       </section>
       <footer class="modal-card-foot">
@@ -106,6 +108,13 @@
       }
     },
     methods: {
+      onKeyChanged (key, language) {
+        languages.forEach(lang => {
+          if (lang !== language) {
+            this.form[lang].key = key
+          }
+        })
+      },
       validate () {
         languages.forEach(lang => {
           if (this.$v.form[lang].$invalid) {

@@ -151,7 +151,7 @@
         this.pages = pages
       },
       isProtected (type) {
-        return ['imprint','termsAndConditions','privacyPolicy'].includes(type)
+        return ['imprint','termsAndConditions','dataPrivacy'].includes(type)
       },
       async toggleActiveState (page) {
         await this.$api.service('pages').patch(page._id, {

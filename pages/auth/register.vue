@@ -145,7 +145,7 @@
               <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;{{ $t('auth.register.back') }}</a>
               <p @click="openLegalInfo" class="small-info" style="padding-top: 1rem; padding-bottom: 0;" v-html="$t('auth.account.confirmTermsOfUsage', {
                   'termsOfService': linkTermsOfService,
-                  'dataPrivacyStatement': linkPrivacyPolicy,
+                  'dataPrivacyStatement': linkDataPrivacy,
                   'url': '/legal'
                 })"></p>
             </div>
@@ -246,9 +246,9 @@
           return
         }
         switch (e.target.getAttribute('data-page')) {
-          case 'privacy-policy':
+          case 'data-privacy':
             e.preventDefault()
-            this.$openInModal({slug: 'privacy-policy'})
+            this.$openInModal({slug: 'data-privacy'})
             break;
           case 'terms-and-conditions':
             e.preventDefault()
@@ -316,11 +316,11 @@
       }
     },
     computed: {
-      linkPrivacyPolicy () {
-        return `<a data-page="privacy-policy" href="/pages/privacy-policy" target="_blank">${this.$t('legal.privacyPolicy')}</a>`
+      linkDataPrivacy () {
+        return `<a data-page="data-privacy" href="/pages/data-privacy" target="_blank">${this.$t('legal.dataPrivacyStatement')}</a>`
       },
       linkTermsOfService () {
-        return `<a data-page="terms-and-conditions" href="/pages/terms-and-conditions" target="_blank">${this.$t('legal.dataPrivacyStatement')}</a>`
+        return `<a data-page="terms-and-conditions" href="/pages/terms-and-conditions" target="_blank">${this.$t('legal.termsAndConditions')}</a>`
       }
     },
     head () {

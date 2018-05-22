@@ -34,7 +34,7 @@
               @blur="v.form[language].key.$touch"
               type="text"
               :placeholder="$t('component.admin.labelKey')"
-              :disabled="isLoading">
+              :disabled="isLoading || isProtected(form.type)">
           </div>
           <p :class="{ 'is-hidden': !v.form[language].key.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
         </div>
@@ -50,10 +50,10 @@
             <div class="field">
               <div class="control">
                 <div class="select is-fullwidth">
-                  <select v-model="form.type" :disabled="form._id">
+                  <select v-model="form.type" :disabled="true">
                     <option value="page" selected>{{ $t('component.admin.pageTypePage') }}</option>
                     <option value="imprint">{{ $t('component.admin.pageTypeImprint') }}</option>
-                    <option value="privacyPolicy">{{ $t('component.admin.pageTypePrivacyPolicy') }}</option>
+                    <option value="dataPrivacy">{{ $t('component.admin.pageTypeDataPrivacy') }}</option>
                     <option value="termsAndConditions">{{ $t('component.admin.pageTypeTermsAndConditions') }}</option>
                   </select>
                 </div>
@@ -127,7 +127,6 @@
         this.$emit('isLoading', isLoading)
       },
       v (v) {
-        console.log('UPDAET $v')
         this.$v = v
         this.$v.$touch()
       },
@@ -135,6 +134,9 @@
         if (this.isProtected(type)) {
           this.form.key = type
         }
+      },
+      'form.key' (key) {
+        this.$emit('keyChanged', key, this.language)
       }
     },
     mounted () {
@@ -155,7 +157,7 @@
         }
       },
       isProtected (type) {
-        return ['imprint','termsAndConditions','privacyPolicy'].includes(type)
+        return ['imprint','termsAndConditions','dataPrivacy'].includes(type)
       }
     }
   }
