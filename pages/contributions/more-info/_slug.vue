@@ -151,33 +151,37 @@
         </section>
       </div>
     </div>
-    <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: fixed; width: 100%;">
-        <ul class="menu-list">
-          <li>
-            <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-              1. <strong>{{ $t('component.contribution.post') }}</strong>
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
-              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
-            </nuxt-link>
-            <ul>
-              <li><a v-scroll-to="{el: '#relatedPosts'}">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
-              <li><a v-scroll-to="{el: '#proAndContras'}">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
-              <li><a v-scroll-to="{el: '#bestlists'}">{{ $t('component.contribution.bestList') }}</a></li>
-              <li><a v-scroll-to="{el: '#votes'}">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
-              <li><a v-scroll-to="{el: '#chatrooms'}">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
+    <div class="column is-3 is-2-widescreen is-hidden-mobile">
+      <no-ssr>
+        <affix relative-element-selector=".section" :scroll-affix="false" :offset="{ top: 79, bottom: 40 }" style="width: 100%">
+          <aside class="menu" style="width: 700px" ref="menu">
+            <ul class="menu-list">
+              <li>
+                <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
+                  1. <strong>{{ $t('component.contribution.post') }}</strong>
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }" class="is-active">
+                  2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
+                </nuxt-link>
+                <ul>
+                  <li><a v-scroll-to="{el: '#relatedPosts'}">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</a></li>
+                  <li><a v-scroll-to="{el: '#proAndContras'}">{{ $t('component.contribution.proAndContraPluralised', null, 2) }}</a></li>
+                  <li><a v-scroll-to="{el: '#bestlists'}">{{ $t('component.contribution.bestList') }}</a></li>
+                  <li><a v-scroll-to="{el: '#votes'}">{{ $t('component.contribution.voteOnePluralNone', null, 2) }}</a></li>
+                  <li><a v-scroll-to="{el: '#chatrooms'}">{{ $t('component.contribution.chatroomBriefOrLong', null, 1) }}</a></li>
+                </ul>
+              </li>
+              <li>
+                <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
+                  3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
+                </nuxt-link>
+              </li>
             </ul>
-          </li>
-          <li>
-            <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
-            </nuxt-link>
-          </li>
-        </ul>
-      </aside>
+          </aside>
+        </affix>
+      </no-ssr>
     </div>
   </div>
 </template>

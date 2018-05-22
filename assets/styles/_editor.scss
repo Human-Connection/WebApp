@@ -60,7 +60,7 @@ $editor-border-radius: 2px;
       stroke: currentcolor;
       stroke-linecap: round;
       stroke-linejoin: round;
-      stroke-width: 2;
+      stroke-width: 2px;
     }
 
     .ql-fill {
@@ -68,7 +68,7 @@ $editor-border-radius: 2px;
     }
 
     .ql-thin {
-      stroke-width: 1;
+      stroke-width: 1px;
     }
   }
 }
@@ -152,5 +152,29 @@ a.hc-editor-mention-blot, .ql-snow .ql-editor a.hc-editor-mention-blot {
 
   .ql-embed-image {
     background-color: $white-ter;
+  }
+}
+
+.ql-video {
+  width: 100%;
+
+  @include mobile() {
+    height: 52vw;
+  }
+
+  @include tablet-only() {
+    height: 34vw;
+  }
+
+  @include desktop-only() {
+    height: 312px;
+  }
+
+  @include widescreen() {
+    height: 384px;
+  }
+
+  @include fullhd() {
+    height: 425px;
   }
 }

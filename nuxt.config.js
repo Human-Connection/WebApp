@@ -10,7 +10,7 @@ module.exports = {
       'auth-signup',
       'auth-reset',
       'auth-reset-token',
-      'legal',
+      'pages-slug',
       'test'
     ],
     // pages to keep alive
@@ -103,7 +103,8 @@ module.exports = {
     {src: '~/plugins/quill/index.js', ssr: false},
     {src: '~/plugins/v2-table.js', ssr: false},
     {src: '~/plugins/scroll-to.js', ssr: false},
-    {src: '~/plugins/affix.js', ssr: false}
+    {src: '~/plugins/affix.js', ssr: false},
+    {src: '~/plugins/open-page-in-modal.js', ssr: false}
   ],
   modules: [
     'cookie-universal-nuxt',

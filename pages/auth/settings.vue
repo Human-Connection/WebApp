@@ -1,6 +1,6 @@
 <template>
   <section class="container account-settings">
-    <h2 class="title is-2">{{ $t('auth.account.settings') }}</h2>
+    <h2 class="title is-2 is-marginless">{{ $t('auth.account.settings') }}</h2>
     <nav class="breadcrumb" aria-label="breadcrumbs">
       <ul>
         <li>

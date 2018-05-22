@@ -1,3 +1,9 @@
 .card {
   box-shadow: 0 0 3px rgba(10, 10, 10, 0.2);
 }
+
+@media (max-width: $tablet) {
+  .card {
+    box-shadow: none !important;
+  }
+}
