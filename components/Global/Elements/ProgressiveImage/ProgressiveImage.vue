@@ -89,8 +89,6 @@
     mounted () {
       if (this.inViewport.now) {
         this.wasAtLeastOnceVisible = true
-      } else {
-        this.inViewport.listening = true
       }
     },
     methods: {
@@ -102,7 +100,6 @@
         this.$emit('onPreview')
 
         if (!this.wasAtLeastOnceVisible) {
-          this.inViewport.listening = true
           this.removeInViewportHandlers()
           this.inViewportInit()
         }
