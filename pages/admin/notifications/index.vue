@@ -210,10 +210,7 @@
           </v2-table-column>
           <v2-table-column label="Active" prop="createdAt" align="right" width="60">
             <template slot-scope="row" v-show="row.active">
-              <i v-if="row.type === 'termsAndConditions'"
-                  class="fa fa-lg fa-toggle-on"
-                  style="cursor: not-allowed; opacity: .5"></i>
-              <a v-else @click.prevent="toggleActiveState(row)">
+              <a @click.prevent="toggleActiveState(row)">
                 <i v-if="row.active" class="fa fa-lg fa-toggle-on"></i>
                 <i v-else class="fa fa-lg fa-toggle-off"></i>
               </a>
