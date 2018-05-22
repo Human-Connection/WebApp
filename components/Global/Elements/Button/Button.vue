@@ -8,7 +8,7 @@
     <slot></slot>
   </nuxt-link>
   <a v-else :target="target" :href="getLink" :class="classes" @click="click">
-    <slot></slot>
+    <slot />
   </a>
 </template>
 

@@ -126,38 +126,40 @@
       </div>
     </div>
     <div class="column is-3 is-2-widescreen is-hidden-mobile">
-      <affix relative-element-selector=".section" :scroll-affix="false" :offset="{ top: 75, bottom: 40 }" style="width: 100%">
-        <aside class="menu" style="width: 700px" ref="menu">
-          <ul class="menu-list">
-            <li>
-              <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-                1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
-              </nuxt-link>
-              <ul>
-                <li>
-                  <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
-                </li>
-                <li>
-                  <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
-                </li>
-                <li>
-                  <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
-                </li>
-              </ul>
-            </li>
-            <li>
-              <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-                2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
-              </nuxt-link>
-            </li>
-            <li>
-              <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-                3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
-              </nuxt-link>
-            </li>
-          </ul>
-        </aside>
-      </affix>
+      <no-ssr>
+        <affix relative-element-selector=".section" :scroll-affix="false" :offset="{ top: 75, bottom: 40 }" style="width: 100%">
+          <aside class="menu" style="width: 700px" ref="menu">
+            <ul class="menu-list">
+              <li>
+                <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
+                  1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
+                </nuxt-link>
+                <ul>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
+                  </li>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
+                  </li>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
+                  2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
+                </nuxt-link>
+              </li>
+              <li>
+                <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
+                  3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
+                </nuxt-link>
+              </li>
+            </ul>
+          </aside>
+        </affix>
+      </no-ssr>
     </div>
   </div>
 </template>

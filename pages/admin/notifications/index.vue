@@ -484,7 +484,7 @@
     background: lighten($grey-lighter, 10%);
     padding: 1rem $padding 0.5rem;
     display: flex;
-    justify-content: left;
+    justify-content: flex-start;
   }
 
   .fa-toggle-off {

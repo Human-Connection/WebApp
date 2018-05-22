@@ -8,13 +8,13 @@
             <hc-contribution-bread-crumb :contribution="contribution" />
 
             <h3 class="title is-4" id="organizations">{{ $t('component.contribution.organizations') }}</h3>
-            <div class="is-hidden tabs is-small">
+            <!--<div class="tabs is-small">
               <ul>
                 <li class="is-active"><a>Wohltätig</a></li>
                 <li><a>Non-Profit</a></li>
                 <li><a>Andere</a></li>
               </ul>
-            </div>
+            </div>-->
             <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
                 <tr style="cursor: pointer" v-for="organization in organizations" :key="organization._id" @click="$router.push('/organizations/' + organization.slug)">
@@ -45,6 +45,7 @@
                 </tr>
               </tbody>
             </table>
+
             <div v-if="canDos">
               <h3 class="title is-4" id="can-dos">{{ $t('component.contribution.canDos') }}</h3>
               <can-do-list :can-dos="canDos" @update="updateContribution" />
@@ -157,35 +158,37 @@
       </div>
     </div>
     <div class="column is-3 is-2-widescreen is-hidden-mobile">
-      <affix relative-element-selector=".section" :scroll-affix="false" :offset="{ top: 75, bottom: 40 }" style="width: 100%">
-        <aside class="menu" style="width: 700px" ref="menu">
-          <ul class="menu-list">
-            <li>
-              <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
-                1. <strong>{{ $t('component.contribution.post') }}</strong>
-              </nuxt-link>
-            </li>
-            <li>
-              <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-                2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
-              </nuxt-link>
-            </li>
-            <li>
-              <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
-                3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
-              </nuxt-link>
-              <ul>
-                <li><a v-scroll-to="{el: '#organizations'}">{{ $t('component.contribution.organizations') }}</a></li>
-                <li><a v-scroll-to="{el: '#can-dos'}">{{ $t('component.contribution.canDos') }}</a></li>
-                <li><a v-scroll-to="{el: '#projects'}">{{ $t('component.contribution.projects') }}</a></li>
-                <li><a v-scroll-to="{el: '#jobs'}">{{ $t('component.contribution.jobs') }}</a></li>
-                <li><a v-scroll-to="{el: '#events'}">{{ $t('component.contribution.events') }}</a></li>
-                <li><a v-scroll-to="{el: '#maps'}">{{ $t('component.contribution.map') }}</a></li>
-              </ul>
-            </li>
-          </ul>
-        </aside>
-      </affix>
+      <no-ssr>
+        <affix relative-element-selector=".section" :offset="{ top: 75, bottom: 40 }" style="width: 100%">
+          <aside class="menu" style="width: 700px" ref="menu">
+            <ul class="menu-list">
+              <li>
+                <hc-button type="link" :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized">
+                  1. <strong>{{ $t('component.contribution.post') }}</strong>
+                </hc-button>
+              </li>
+              <li>
+                <hc-button type="link" :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
+                  2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
+                </hc-button>
+              </li>
+              <li>
+                <hc-button type="link" :to="{ path: '/contributions/take-action/' + this.contribution.slug }" class="is-active">
+                  3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
+                </hc-button>
+                <ul>
+                  <li><a v-scroll-to="{el: '#organizations'}">{{ $t('component.contribution.organizations') }}</a></li>
+                  <li><a v-scroll-to="{el: '#can-dos'}">{{ $t('component.contribution.canDos') }}</a></li>
+                  <li><a v-scroll-to="{el: '#projects'}">{{ $t('component.contribution.projects') }}</a></li>
+                  <li><a v-scroll-to="{el: '#jobs'}">{{ $t('component.contribution.jobs') }}</a></li>
+                  <li><a v-scroll-to="{el: '#events'}">{{ $t('component.contribution.events') }}</a></li>
+                  <li><a v-scroll-to="{el: '#maps'}">{{ $t('component.contribution.map') }}</a></li>
+                </ul>
+              </li>
+            </ul>
+          </aside>
+        </affix>
+      </no-ssr>
     </div>
   </div>
 </template>
