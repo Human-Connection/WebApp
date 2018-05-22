@@ -159,7 +159,7 @@
     </div>
     <div class="column is-3 is-2-widescreen is-hidden-mobile">
       <no-ssr>
-        <affix relative-element-selector=".section" :offset="{ top: 75, bottom: 40 }" style="width: 100%">
+        <affix relative-element-selector=".section" :offset="{ top: 79, bottom: 40 }" style="width: 100%">
           <aside class="menu" style="width: 700px" ref="menu">
             <ul class="menu-list">
               <li>

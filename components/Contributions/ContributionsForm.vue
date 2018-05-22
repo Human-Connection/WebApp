@@ -6,7 +6,7 @@
                @update="value => { form.teaserImg = value }"
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false"
-               style="margin: -3.8rem -2.25rem 2.25rem;">
+               style="margin: -3.0rem -1.5rem 2rem;">
     </hc-upload>
     <div class="columns">
       <div class="column">
@@ -485,9 +485,9 @@
 
   $padding: 1.5rem;
   footer.card-footer {
-    margin: -2.25rem;
+    margin: -1.5rem;
     margin-top: 2rem;
-    margin-bottom: -4rem;
+    margin-bottom: -3rem;
     background: lighten($grey-lighter, 10%);
     padding: 1rem $padding;
     display: flex;
