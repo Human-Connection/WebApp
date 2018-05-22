@@ -150,7 +150,7 @@ hr {
   > .tag {
     margin-bottom: 5px;
     margin-right: 5px !important;
-    justify-content: left;
+    justify-content: flex-start;
     overflow-x: hidden;
 
     &:last-child {

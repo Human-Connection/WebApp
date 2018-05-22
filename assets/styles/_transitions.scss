@@ -35,8 +35,8 @@
 }
 
 .fade-delayed-leave-active {
-  transition: opacity 0;
-  transition-delay: 0;
+  transition: opacity 0ms;
+  transition-delay: 0ms;
 }
 .fade-delayed-enter-active {
   transition: opacity 300ms ease-out;
