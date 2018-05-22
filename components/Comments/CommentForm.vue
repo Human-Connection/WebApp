@@ -39,8 +39,7 @@
         isLoading: false,
         form: {
           content: '',
-          contributionId: null,
-          language: 'en'
+          contributionId: null
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
