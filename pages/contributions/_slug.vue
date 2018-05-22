@@ -12,7 +12,7 @@
                   :user="contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
-              <div class="column is-one-third">
+              <div class="column">
                 <hc-button v-if="canEdit"
                            class="action-btn"
                            color="light"
