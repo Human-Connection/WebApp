@@ -2,27 +2,23 @@
   <footer class="footer">
     <div class="container">
       <div class="content">
-        <hc-button
-              type="link"
-              to="https://human-connection.org"
-              target="_blank"
-              v-html="$t('humanConnectionMadeWithHeart')">
-          {{ $t('legal.imprint') }}
-        </hc-button>・
+        <a href="https://human-connection.org"
+           target="_blank"
+           v-html="$t('humanConnectionMadeWithHeart')" /> &nbsp;⏐&nbsp;
         <hc-button
               type="link"
               to="/pages/imprint"
               :prevent="true"
               @click="$openInModal({slug: 'imprint'})">
           {{ $t('legal.imprint') }}
-        </hc-button>・
+        </hc-button> &nbsp;‑&nbsp;
         <hc-button
               type="link"
               to="/pages/terms-and-conditions"
               :prevent="true"
               @click="$openInModal({slug: 'terms-and-conditions'})">
           {{ $t('legal.termsAndConditions') }}
-        </hc-button>・
+        </hc-button> &nbsp;‑&nbsp;
         <hc-button
               type="link"
               to="/pages/privacy-policy"
