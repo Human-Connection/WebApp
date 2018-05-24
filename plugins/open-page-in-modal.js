@@ -50,7 +50,7 @@ const ModalForm = {
       <div class="modal-card ">
         <b-loading :is-full-page="false" :active="isLoading" />
         <header v-if="!isLoading" class="modal-card-head">
-          <h4 class="modal-card-title">{{ title }}</h4>
+          <p class="title is-4 modal-card-title">{{ title }}</p>
         </header>
         <section class="modal-card-body">
           <div class="content" v-html="content"></div>

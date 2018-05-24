@@ -9,7 +9,7 @@
       <div class="card">
         <section class="section">
           <b-loading :is-full-width="false" :active="isLoading" />
-          <h2 class="title is-3">{{ title }}</h2>
+          <h2 class="title is-2">{{ title }}</h2>
           <div class="content" v-html="content"></div>
         </section>
       </div>

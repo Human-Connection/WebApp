@@ -36,7 +36,7 @@
       </div>
     </transition>
     <footer class="card-footer">
-      <div class="columns">
+      <div class="columns is-mobile">
         <div class="column">
           <b-switch type="is-danger" v-model="deleteEnabled"></b-switch>
         </div>
