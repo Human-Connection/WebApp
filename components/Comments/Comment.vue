@@ -264,8 +264,6 @@
   }
 
   .comment-deleted-icon {
-    position: relative;
-    top: 1px;
     margin-right: 5px;
   }
 

@@ -317,6 +317,9 @@ import { setTimeout } from 'timers';
               createdAt: -1
             },
             $limit: limit,
+            deleted: {
+              $ne: true
+            },
             $select: ['contributionId']
           }
         })
