@@ -8,8 +8,7 @@
           <h1 class="is-hidden">Human-Connection</h1>
           <a class="hc-navbar-brand-logo"
              @click="onLogoClick"
-             :title="$t('component.layout.topbarLabel')"
-             active-class="">
+             :title="$t('component.layout.topbarLabel')">
             <img class="is-hidden-mobile"
                  src="/Logo-Horizontal-Alpha.svg"
                  alt="Human-Connection.org"/>
