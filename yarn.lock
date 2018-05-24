@@ -11094,9 +11094,9 @@ vue@^2.4.2, vue@^2.5.13, vue@~2.5.16:
   version "2.5.16"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.5.16.tgz#07edb75e8412aaeed871ebafa99f4672584a0085"
 
-vuelidate@~0.6.1:
-  version "0.6.2"
-  resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.6.2.tgz#b417f5367407b047a2548119b25db56fe2bd5753"
+vuelidate@~0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/vuelidate/-/vuelidate-0.7.2.tgz#ec9dc7940e475a4b330fa9bb0b1ec21841bfbfb5"
 
 vuex-i18n@~1.10.5:
   version "1.10.5"
