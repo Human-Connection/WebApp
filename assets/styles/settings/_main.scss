@@ -25,8 +25,11 @@
     @media (min-width: $tablet) {
       max-width: 240px;
     }
-    .is-active {
-      background: #fefefe;
+    @media (min-width: $widescreen) {
+      max-width: 300px;
+    }
+    .nuxt-link-exact-active.active-link {
+      background-color: white !important;
     }
 
     .menu-list > li {
@@ -49,11 +52,11 @@
     }
   }
 
-  .settings-content {
-    // overflow-x: hidden;
-    @extend .card;
-    background-color: $white;
-    box-shadow: $card-shadow-hover;
-  }
+}
+.settings-content {
+  // overflow-x: hidden;
+  @extend .card;
+  background-color: $white;
+  box-shadow: $card-shadow-hover;
 }
 
