@@ -2,7 +2,7 @@
   <div class="security fullwidth-box" :class="classes">
     <div class="info-text">
       <h2 class="title is-3">
-        {{ $t('auth.settings.securityWelcome') }}
+        <hc-icon icon="lock" class="icon-left" />{{ $t('auth.settings.securityWelcome') }}
       </h2>
       <p class="subtitle is-6">{{ $t('auth.settings.securityWelcomeText') }}</p>
     </div>
