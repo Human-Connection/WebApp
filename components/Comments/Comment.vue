@@ -23,18 +23,18 @@
           <div class="comment-header-actions">
             <template v-if="isOwner">
               <hc-tooltip :label="$t('component.contribution.commentEdit')" type="is-black" position="is-left">
-                <hc-button @click="startEdit" color="light" size="small">
+                <hc-button @click="startEdit" color="white" size="small">
                   <hc-icon icon="pencil"></hc-icon>
                 </hc-button>
               </hc-tooltip>
               <hc-tooltip :label="$t('component.contribution.commentDelete')" type="is-black" position="is-left">
-                <hc-button @click="removeComment" color="light" size="small">
+                <hc-button @click="removeComment" color="white" size="small">
                   <hc-icon icon="ban"></hc-icon>
                 </hc-button>
               </hc-tooltip>
             </template>
             <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
-              <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
+              <a :disabled="isOwner" @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
                 <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
                 <i class="fa fa-angle-double-up"></i>&nbsp;
               </a>
@@ -334,5 +334,10 @@
     100% {
       background-color: transparent;
     }
+  }
+
+  a[disabled] {
+    cursor: not-allowed;
+    pointer-events: none;
   }
 </style>
