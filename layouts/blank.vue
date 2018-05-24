@@ -3,11 +3,17 @@
     <div class="container" role="main">
       <nuxt/>
     </div>
+    <hc-footer class="end-footer"/>
   </div>
 </template>
 
 <script>
+  import HcFooter from '~/components/layout/Footer.vue'
+
   export default {
+    components: {
+      HcFooter
+    },
     data () {
       return {
         hidden: true
@@ -43,6 +49,7 @@
 
 <style lang="scss">
   @import 'assets/styles/utilities';
+
   .layout_blank {
     $duration: 250ms;
 
@@ -52,7 +59,7 @@
     right: 0;
     bottom: 0;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     z-index: 9998;
     overflow: scroll;
     // background-color: $backdrop-color;
@@ -68,10 +75,20 @@
 
       opacity: 1;
     }
+
+    .hidden {
+      opacity: 0;
+      transform: translate3d(0, -10px, 0);
+    }
+
+    footer.footer.end-footer {
+      position: relative;
+      display: inline-block;
+      margin-top: 3rem;
+
+      // position: absolute !important;
+      // bottom: 0 !important;
+    }
   }
 
-  .hidden {
-    opacity: 0;
-    transform: translate3d(0, -10px, 0);
-  }
 </style>

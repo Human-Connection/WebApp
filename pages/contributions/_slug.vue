@@ -106,17 +106,21 @@
                   <comments :post="contribution"/>
                 </b-tab-item>
                 <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
-                  <div class="notification is-warning">
-                    {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
-                    <br/><br/>
-                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
+                  <div class="message is-warning">
+                    <div class="message-body">
+                      {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                      <br/><br/>
+                      <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
+                    </div>
                   </div>
                 </b-tab-item>
                 <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
-                  <div class="notification is-warning">
-                    {{ $t('component.contribution.versusDescription') }}
-                    <br/><br/>
-                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
+                  <div class="message is-warning">
+                    <div class="message-body">
+                      {{ $t('component.contribution.versusDescription') }}
+                      <br/><br/>
+                      <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
+                    </div>
                   </div>
                 </b-tab-item>
               </b-tabs>
@@ -125,37 +129,41 @@
         </section>
       </div>
     </div>
-    <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: fixed; width: 100%;">
-        <ul class="menu-list">
-          <li>
-            <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
-            </nuxt-link>
-            <ul>
+    <div class="column is-3 is-2-widescreen is-hidden-mobile">
+      <no-ssr>
+        <affix relative-element-selector=".section" :scroll-affix="false" :offset="{ top: 79, bottom: 40 }" style="width: 100%">
+          <aside class="menu" style="width: 700px" ref="menu">
+            <ul class="menu-list">
               <li>
-                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
+                <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
+                  1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
+                </nuxt-link>
+                <ul>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
+                  </li>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
+                  </li>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
+                  </li>
+                </ul>
               </li>
               <li>
-                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
+                <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
+                  2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
+                </nuxt-link>
               </li>
               <li>
-                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
+                <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
+                  3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
+                </nuxt-link>
               </li>
             </ul>
-          </li>
-          <li>
-            <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
-            </nuxt-link>
-          </li>
-        </ul>
-      </aside>
+          </aside>
+        </affix>
+      </no-ssr>
     </div>
   </div>
 </template>

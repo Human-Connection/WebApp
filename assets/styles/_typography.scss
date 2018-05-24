@@ -1,5 +1,4 @@
-//font-family
-@import url('https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i');
+@import "fonts/lato.scss";
 
 .small-info {
   font-size: $size-7;
@@ -10,7 +9,13 @@ p, .content {
   line-height: $body-line-height;
 }
 
-.content.hc-editor-content {
+.content.hc-editor-content,
+.content {
+  h1, h2, h3, h4, h5, h6 {
+    &:not(:first-child) {
+      margin-top: 2rem;
+    }
+  }
   p {
     &:not(:last-child) {
       margin-bottom: 0;

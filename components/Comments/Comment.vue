@@ -171,6 +171,7 @@
       },
       cancelEdit () {
         this.edit = false
+        this.newContent = this.comment.content
       },
       async patchComment () {
         this.isLoading = true

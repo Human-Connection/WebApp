@@ -28,6 +28,9 @@
     watch: {
       locale () {
         this.calcRelativeDateTime()
+      },
+      dateTime (dateTime) {
+        this.calcRelativeDateTime()
       }
     },
     methods: {
@@ -55,6 +58,9 @@
     },
     mounted () {
       this.calcRelativeDateTime()
+    },
+    destroyed () {
+      clearTimeout(this.timeout)
     }
   }
 </script>
