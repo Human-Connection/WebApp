@@ -120,7 +120,7 @@
 
           .fa {
               font-size:  12px;
-              margin-top: 2px;
+              margin-top: -0.8em;
               color:      $grey-light;
           }
       }

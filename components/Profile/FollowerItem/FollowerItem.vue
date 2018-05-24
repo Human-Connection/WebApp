@@ -57,6 +57,8 @@
 </script>
 
 <style lang="scss">
+  @import 'assets/styles/utilities';
+
   .hc-follower-item {
     display: flex;
     padding-bottom: 8px;
@@ -80,6 +82,8 @@
       }
       .details-timestamp {
         font-size: 10px;
+        margin-top: -0.8em;
+        color: $grey;
       }
     }
   }
