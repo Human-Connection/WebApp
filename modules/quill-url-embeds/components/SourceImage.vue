@@ -43,7 +43,7 @@
       max-height: 100%;
       width: auto;
       object-fit: contain;
-      justify-self: right;
+      justify-self: end;
     }
 
     span {

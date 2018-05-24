@@ -4,7 +4,7 @@
 // We have to import that here again as otherwise nuxt would break as
 // they use "~" as an alias for the srcDir instead of the node_modules folder
 // so this here is a workaround :-/
-@import "assets/styles/hc-icons.scss";
+@import "assets/styles/fonts/hc-icons.scss";
 @import "~font-awesome/css/font-awesome.min.css";
 @import "~mapbox-gl/dist/mapbox-gl.css";
 
@@ -238,11 +238,11 @@ $sidebarwidth: 250px;
     .hljs-comment {color: #8f5536;}
     .hljs-atom {color: #aa759f;}
     .hljs-number {color: #aa759f;}
-  
+
     .hljs-property, .hljs-attribute, .hljs-attr {color: #90a959;}
     .hljs-keyword {color: #ac4142;}
     .hljs-string {color: #f4bf75;}
-  
+
     .hljs-variable {color: #90a959;}
     .hljs-variable-2 {color: #6a9fb5;}
     .hljs-def {color: #d28445;}
@@ -250,7 +250,7 @@ $sidebarwidth: 250px;
     .hljs-bracket {color: #202020;}
     .hljs-tag {color: #ac4142;}
     .hljs-link {color: #aa759f;}
-    
+
   }
 
 }

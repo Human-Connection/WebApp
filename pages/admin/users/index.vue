@@ -3,11 +3,12 @@
     <h3 class="title is-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h3>
     <b-tabs v-model="activeTab">
       <b-tab-item label="Users" icon="users">
-        <article class="message is-small">
-          <div class="message-body">
+        <div class="info-text">
+          <p class="subtitle is-6">
             <i class="fa fa-info-circle"></i> A list of registered users with their email verification status.
-          </div>
-        </article>
+          </p>
+        </div>
+        <br>
         <no-ssr>
           <v2-table :data="users.data"
                     :stripe="true"
@@ -28,16 +29,21 @@
                 <i v-show="row.isVerified" class="fa fa-check-circle"></i>
               </template>
             </v2-table-column>
+            <v2-table-column label="Legal" prop="termsAndConditionsAccepted" align="center">
+              <template slot-scope="row">
+                <i v-show="row.termsAndConditionsAccepted" :title="row.termsAndConditionsAccepted" class="fa fa-check-circle"></i>
+              </template>
+            </v2-table-column>
             <v2-table-column label="Last Active" prop="lastActiveAt" align="left">
               <template slot-scope="row">
                 <hc-relative-date-time :dateTime="row.lastActiveAt" v-if="row.lastActiveAt" />
                 <span v-else>-</span>
               </template>
             </v2-table-column>
-            <v2-table-column label="Lang" prop="language" align="center">
+            <v2-table-column label="" prop="userSettings.uiLanguage" align="center" width="40">
               <template slot-scope="row">
-                <template v-if="row.language">
-                  <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
+                <template v-if="row.userSettings">
+                  <img width="16" :src="`/assets/svg/flags/${row.userSettings.uiLanguage}.svg`" />
                 </template>
                 <template v-else>
                   -
@@ -49,11 +55,12 @@
         </no-ssr>
       </b-tab-item>
       <b-tab-item label="Invite Codes" icon="ticket">
-        <article class="message is-small">
-          <div class="message-body">
+        <div class="info-text">
+          <p class="subtitle is-6">
             <i class="fa fa-info-circle"></i> Here you can invite users by providing a a csv file with at least the email and the language (de/en) of the users to invite.
-          </div>
-        </article>
+          </p>
+        </div>
+        <br>
         <div class="field">
           <div class="control has-text-centered">
             <br />
@@ -91,7 +98,7 @@
                 <a :href="`${baseURL}/auth/register?email=${row.email}&code=${row.code}&lang=${row.language}`">{{ row.code }}</a>
               </template>
             </v2-table-column>
-            <v2-table-column label="Lang" prop="language" align="center">
+            <v2-table-column label="" prop="language" align="center" width="40">
               <template slot-scope="row">
                 <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
               </template>
@@ -109,9 +116,10 @@
         <div class="field">
           <b-checkbox v-model="form.sendInviteEmails" style="item-align: center" :disabled="isLoading || invitesLoading">Send invite mails</b-checkbox>
         </div>
-        <div class="field columns is-mobile">
-          <div class="control column">
-            <hc-button color="danger"
+        <footer class="card-footer">
+          <div class="field is-grouped">
+            <div class="control">
+              <hc-button color="danger"
                        @click="inviteUsers()"
                        :isLoading="isLoading || invitesLoading"
                        :disabled="isLoading || !invitePreview.length || !!resultDownloadURL">
@@ -119,17 +127,18 @@
               <span style="font-weight: normal" v-if="form.sendInviteEmails">(with mailing)</span>
               <span style="font-weight: normal" v-else>(no mailing)</span></strong>
             </hc-button>
-          </div>
-          <div class="control column">
-            <a :href="resultDownloadURL"
+            </div>
+            <div class="control">
+              <a :href="resultDownloadURL"
                class="button pull-right"
                :class="{ 'is-loading': isLoading }"
                :disabled="isLoading || !results || !resultDownloadURL"
                download="data.csv">
               <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
             </a>
+            </div>
           </div>
-        </div>
+        </footer>
       </b-tab-item>
     </b-tabs>
   </section>
@@ -360,5 +369,16 @@
 
   .fa-check-circle {
     color: $primary;
+  }
+
+  $padding: 1.5rem;
+  footer.card-footer {
+    margin: -$padding;
+    margin-top: 2rem;
+    margin-bottom: -3rem;
+    background: lighten($grey-lighter, 10%);
+    padding: 1rem $padding;
+    display: flex;
+    justify-content: right;
   }
 </style>

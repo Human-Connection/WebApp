@@ -23,7 +23,7 @@
                         :class="{ 'input': true, 'is-danger': $v.form.email.$error }"
                         :placeholder="$t('auth.account.email')"
                         v-model.trim="form.email"
-                        @blur="$v.form.email.$touch()">
+                        @blur="form.email ? $v.form.email.$touch() : null">
                   <span class="icon is-small is-left">
                     <i class="fa fa-envelope"></i>
                   </span>
@@ -159,6 +159,10 @@
     padding-top: 30px;
   }
 
+  .card-content {
+    padding: 2em;
+  }
+
   .card-teaser {
     img {
       display: inline-block;
@@ -172,8 +176,8 @@
   }
 
   form {
-    margin: 1em auto;
-    padding: 1em;
+    margin: 1em auto 0;
+    padding: 0em;
     text-align: left;
   }
 </style>

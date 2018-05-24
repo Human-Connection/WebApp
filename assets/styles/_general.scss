@@ -8,7 +8,7 @@
 //}
 
 #main {
-  padding-top: $navbar-height + 1rem;
+  padding-top: $navbar-height + 1.25rem;
   padding-bottom: 40px;
   min-height: 80vh;
 }
@@ -75,6 +75,27 @@ input, textarea {
   background-color: $white-bis;
 }
 
+/*
+// THIS MAKES CARD CORNERS ROUND
+// TODO: fix some display issues
+
+.card,
+.settings-content,
+.admin-content {
+  border-radius: 8px !important;
+
+  .image,
+  .teaser-image {
+    border-top-left-radius: 6px !important;
+    border-top-right-radius: 6px !important;
+  }
+
+  footer {
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+  }
+} */
+
 .checkbox {
   display: inline-flex !important;
 }
@@ -110,11 +131,7 @@ input, textarea {
 }
 
 hr {
-  opacity: 0.4 !important;
-}
-
-.modal.is-active {
-  z-index: 10000;
+  opacity: 0.8 !important;
 }
 
 .button {
@@ -133,7 +150,7 @@ hr {
   > .tag {
     margin-bottom: 5px;
     margin-right: 5px !important;
-    justify-content: left;
+    justify-content: flex-start;
     overflow-x: hidden;
 
     &:last-child {
@@ -146,30 +163,6 @@ dl dt {
   font-weight: bold;
 }
 
-
-.ql-video {
-  width: 100%;
-
-  @include mobile() {
-    height: 52vw;
-  }
-
-  @include tablet-only() {
-    height: 34vw;
-  }
-
-  @include desktop-only() {
-    height: 312px;
-  }
-
-  @include widescreen() {
-    height: 384px;
-  }
-
-  @include fullhd() {
-    height: 425px;
-  }
-}
 
 #main.container {
   @include mobile() {
@@ -206,20 +199,7 @@ a, .is-link, button {
 }
 
 .notices {
-  z-index: 9998;
-}
-
-.table {
-  &.is-empty {
-    tr:hover {
-      background-color: transparent;
-    }
-  }
-  &.is-striped {
-    td {
-      border-color: transparent;
-    }
-  }
+  z-index: 10000;
 }
 
 div.loading-container {
@@ -296,16 +276,6 @@ body .sentry-error-embed-wrapper {
   z-index: 99999 !important;
 }
 
-div[class^="v2-table__"][style],
-div[class*="v2-table__"][style],
-.v2-table__body-wrapper[style],
-.v2-table__footer-wrapper[style],
-.v2-table__header-wrapper[style],
-.v2-table__table-container[style],
-.v2-table__table-wrapper[style] {
-  width: 100% !important;
-}
-
 /*@keyframes ProgressAnimation {
   0% {background-position: 0% 50%}
   100% {background-position: 200% 50%}
@@ -356,27 +326,6 @@ $iconPadding: .3em;
   padding-left: $iconPadding;
 }
 
-.v2-table__pagination {
-  user-select: none;
-
-  li.page {
-    // border-radius: 50%;
-
-    &:hover {
-      border-color: $grey;
-      color: darken($primary, 20%);
-    }
-
-    &.cur-page {
-      &, &:hover {
-        background-color: $primary;
-        border-color: $primary;
-        font-weight: bold;
-      }
-    }
-  }
-}
-
 .hc-textcounters {
   display: flex;
   justify-content: center;
@@ -400,55 +349,6 @@ $iconPadding: .3em;
     // }
     border-right: 0;
   }
-}
-
-// slide up ease
-.slide-up-enter-active {
-  transition: all 500ms $easeOut;
-  transition-delay: 20ms;
-  opacity: 1;
-  transform: translate3d(0, 0, 0);
-}
-.slide-up-enter, .slide-up-leave-active {
-  opacity: 0;
-  box-shadow: none;
-  transform: translate3d(0, 15px, 0);
-}
-
-// slide next / prev
-.slide-next-enter-active, .slide-prev-enter-active {
-  transition: transform 500ms $easeOut, opacity 500ms $easeOut;
-  transition-delay: 100ms;
-  opacity: 1;
-}
-.slide-next-enter, .slide-next-leave-active {
-  opacity: 0;
-  transform: translate3d(10px, 0, 0);
-}
-.slide-prev-enter, .slide-prev-leave-active {
-  opacity: 0;
-  transform: translate3d(-10px, 0, 0);
-}
-.slide-next-leave-active, .slide-prev-leave-active {
-  display: none;
-}
-.slide-next-leave-active, .slide-prev-leave-active {
-  opacity: 0;
-  transform: translate3d(-2px, 0, 0);
-  transition: transform 100ms $easeOut, opacity 100ms $easeOut;
-}
-
-.fade-delayed-leave-active {
-  transition: opacity 0;
-  transition-delay: 0;
-}
-.fade-delayed-enter-active {
-  transition: opacity 300ms ease-out;
-  transition-delay: 100ms;
-  opacity: 1;
-}
-.fade-delayed-enter, .fade-delayed-leave-active {
-  opacity: 0.1;
 }
 
 // used for animating the form helper text in when there is an issue
@@ -479,4 +379,31 @@ ul.is-list {
   list-style: disc outside;
   margin-left: 2em;
   margin-top: 1em;
+}
+
+
+.switch:focus input[type="checkbox"] + .check {
+  box-shadow: none !important;
+}
+.switch.is-disabled, .switch[disabled] {
+  pointer-events: none;
+}
+
+#webpack-hot-middleware-clientOverlay {
+  z-index: 999999;
+}
+
+.message {
+  margin-bottom: 1rem;
+
+  .message-body {
+    position: relative;
+    padding-right: 3rem;
+
+    .delete {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
+  }
 }

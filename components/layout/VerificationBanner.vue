@@ -1,15 +1,19 @@
 <template>
   <section class="global-messages">
     <template v-if="active && isAuthenticated">
-      <div class="notification is-primary" v-if="!user.isVerified">
-        <button class="delete" @click="active = false"></button>
-        {{ $t('auth.account.verifyingResendDescription') }}
-        <a @click="resendVerification()">{{ $t('auth.account.verifyingResendAction') }}</a>
+      <div class="message is-primary" v-if="!user.isVerified">
+        <div class="message-body">
+          <button class="delete" @click="active = false"></button>
+          {{ $t('auth.account.verifyingResendDescription') }}
+          <a @click="resendVerification()">{{ $t('auth.account.verifyingResendAction') }}</a>
+        </div>
       </div>
-      <div class="notification is-primary" v-else-if="!user.name">
-        <button class="delete" @click="active = false"></button>
-        Bitte verrate uns deinen Namen um Beiträge erstellen zu können:
-        <nuxt-link :to="{ name: 'auth-settings' }">Namen erstellen</nuxt-link>
+      <div class="message is-primary" v-else-if="!user.name">
+        <div class="message-body">
+          <button class="delete" @click="active = false"></button>
+          Bitte verrate uns deinen Namen um Beiträge erstellen zu können:
+          <nuxt-link :to="{ name: 'auth-settings' }">Namen erstellen</nuxt-link>
+        </div>
       </div>
     </template>
   </section>
