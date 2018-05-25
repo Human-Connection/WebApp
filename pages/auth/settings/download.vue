@@ -15,7 +15,7 @@
     </transition>
     <footer class="card-footer">
       <hc-button :isLoading="isLoading"
-                 :disabled="isLoading || isProcessing"
+                 :disabled="true || isLoading || isProcessing"
                  @click.prevent="generateAndSendDownloadLink">
         <hc-icon class="icon-left" icon="paper-plane" />
         <span>{{ $t('auth.settings.downloadSendLink', 'Send Download Link') }}</span>
@@ -44,6 +44,13 @@
     methods: {
       async generateAndSendDownloadLink () {
         this.isLoading = true
+
+        const res = await this.$api.service('user-data-download').create({
+          userId: this.user._id
+        })
+        console.log('##RES', res)
+
+        this.isLoading = false
       }
     }
   }

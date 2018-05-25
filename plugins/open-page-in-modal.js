@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import linkifyHtml from 'linkifyjs/html'
 
 const ModalForm = {
   props: {
@@ -31,7 +32,7 @@ const ModalForm = {
         .then(res => {
           if (res && res.data && res.data.length) {
             this.title = res.data[0].title
-            this.content = res.data[0].content
+            this.content = linkifyHtml(res.data[0].content)
           } else {
             this.title = 'ERROR'
             this.content = '<img src="/assets/svg/errors/error404.svg" style="padding: 2rem 3rem;" />'
