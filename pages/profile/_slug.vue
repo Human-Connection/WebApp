@@ -286,6 +286,7 @@
     mounted () {
       this.$nextTick(async () => {
         try {
+          /*
           let res = await this.$api.service('follows').get(this.user._id)
           if (res !== null) {
             this.following = {
@@ -294,6 +295,7 @@
               projects: res.projects || []
             }
           }
+          */
           this.loadCandos()
         } catch (err) {}
       })
