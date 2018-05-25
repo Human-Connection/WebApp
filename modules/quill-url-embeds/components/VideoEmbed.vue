@@ -2,7 +2,13 @@
   <div class="ql-video-embed">
     <video v-if="!embedUrl && isNativeVideo" :src="meta.url" controls></video>
     <div class="ql-video-embed-wrapper" v-if="embedUrl && !isNativeVideo">
-      <iframe :src="embedUrl"
+      <div v-if="!renderEmbed"
+        class="ql-video-embed-preview"
+        @click="renderEmbed = true">
+        <img :src="meta.image.url" />
+      </div>
+      <iframe v-else
+        :src="embedUrl"
         frameborder="0"
         webkitallowfullscreen
         mozallowfullscreen
@@ -34,8 +40,14 @@
         }
       }
     },
+    data () {
+      return {
+        renderEmbed: false
+      }
+    },
     computed: {
       embedUrl () {
+        console.log(this.meta)
         if (this.meta.player && this.meta.player.url) {
           return this.meta.player.url
         }
@@ -62,7 +74,7 @@
     width: 100%;
     padding-top: 56%;
 
-    iframe {
+    iframe, .ql-video-embed-preview {
       position: absolute;
       top: 0;
       left: 0;
@@ -71,6 +83,10 @@
       padding: 0;
       width: 100%;
       height: 100%;
+    }
+
+    .ql-video-embed-preview {
+      cursor: pointer;
     }
   }
 </style>
