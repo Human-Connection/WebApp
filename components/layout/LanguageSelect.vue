@@ -98,6 +98,7 @@
 
     .flag {
       opacity: .7;
+      top: -0.05em;
     }
     :hover {
       .flag {

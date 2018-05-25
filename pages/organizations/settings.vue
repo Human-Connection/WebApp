@@ -2,7 +2,7 @@
   <section class="container organization-settings">
     <div class="columns">
       <div class="column is-9">
-        <h2 class="title is-2">{{ $t('component.organization.general', 'Organization settings') }}</h2>
+        <h2 class="title is-2 is-marginless">{{ $t('component.organization.general', 'Organization settings') }}</h2>
         <nav class="breadcrumb" aria-label="breadcrumbs">
           <ul>
             <li>
@@ -27,31 +27,27 @@
     <organization-review-banner v-if="user" :user="user" :organization="organization" @review="updateOrganization" />
     <div class="columns">
       <div class="column is-one-third menu">
-        <aside class="menu">
+        <aside>
           <p class="menu-label">
             {{ $t('component.organization.generalDetails', 'General details') }}
           </p>
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'organizations-settings', query: { id: organization._id } })"
-                :class="{ 'is-active': $route.name === 'organizations-settings'}">
-              <a>{{ $t('component.organization.stepBasics', 'Basics') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings', query: { id: organization._id } }">{{ $t('component.organization.stepBasics', 'Basics') }}</nuxt-link>
             </li>
-            <li @click.prevent="$router.push({ name: 'organizations-settings-details', query: { id: organization._id } })"
-                :class="{ 'is-active': $route.name === 'organizations-settings-details'}">
-              <a>{{ $t('component.organization.stepDetails', 'Details') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings-details', query: { id: organization._id } }">{{ $t('component.organization.stepDetails', 'Details') }}</nuxt-link>
             </li>
-            <li @click.prevent="$router.push({ name: 'organizations-settings-categories', query: { id: organization._id } })"
-                :class="{ 'is-active': $route.name === 'organizations-settings-categories'}">
-              <a>{{ $t('component.organization.stepCategories', 'Categories') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings-categories', query: { id: organization._id } }">{{ $t('component.organization.stepCategories', 'Categories') }}</nuxt-link>
             </li>
           </ul>
           <p class="menu-label">
             {{ $t('component.projects.label') }}
           </p>
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'organizations-settings-projects', query: { id: organization._id } })"
-                :class="{ 'is-active': $route.name === 'organizations-settings-projects'}">
-              <a>{{ $t('component.projects.label', 'Projects') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings-projects', query: { id: organization._id } }">{{ $t('component.projects.label', 'Projects') }}</nuxt-link>
             </li>
           </ul>
         </aside>
@@ -133,9 +129,4 @@
 
 <style lang="scss">
   @import "assets/styles/settings/main";
-  @import "assets/styles/_animations";
-
-  .breadcrumb {
-    margin-top: -1.5rem;
-  }
 </style>

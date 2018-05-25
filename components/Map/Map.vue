@@ -61,8 +61,6 @@
     mounted () {
       if (this.inViewport.now) {
         this.wasAtLeastOnceVisible = true
-      } else {
-        this.inViewport.listening = true
       }
     },
     watch: {

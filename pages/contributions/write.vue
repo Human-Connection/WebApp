@@ -1,9 +1,11 @@
 <template>
   <div class="columns">
-    <div class="card column is-8 is-offset-2">
-      <section class="section">
-        <contributions-form></contributions-form>
-      </section>
+    <div class="column is-8 is-offset-2">
+      <div class="card">
+        <section class="section">
+          <contributions-form></contributions-form>
+        </section>
+      </div>
     </div>
   </div>
 </template>

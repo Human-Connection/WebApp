@@ -31,10 +31,10 @@
                 @stop-sending="uploadingAvatar = false" >
                 <hc-avatar class="is-big" :user="user" />
               </hc-upload>
-              <hc-avatar v-else :showOnlineStatus="true" class="is-big avatar-upload" :user="user" />
+              <hc-avatar v-else :showOnlineStatus="true" class="is-big avatar-upload" :class="{ mask: maskUser }" :user="user" />
             </template>
           </div>
-          <div class="user-name">{{ user.name }}</div>
+          <div class="user-name" :class="{ mask: maskUser }">{{ user.name }}</div>
           <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
@@ -225,7 +225,8 @@
     },
     computed: {
       ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
+        isAuthenticated: 'auth/isAuthenticated',
+        currentUserSettings: "auth/userSettings"
       }),
       coverImg () {
         let thumbnail = thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
@@ -236,6 +237,15 @@
       },
       coverPreview () {
         return thumbnailHelper.getThumbnail(this.user, 'coverImg', 'coverPlaceholder', this.coverImg)
+      },
+      maskUser () {
+        if (!this.user) {
+          return false
+        }
+        if (!this.currentUserSettings || !this.currentUserSettings.hideUsersWithoutTermsOfUseSigniture) {
+          return false
+        }
+        return isEmpty(this.user.termsAndConditionsAccepted)
       }
     },
     methods: {
@@ -300,6 +310,11 @@
   @import "assets/styles/utilities";
 
   .page-profile {
+
+    .mask {
+      filter: blur(5px);
+      opacity: .5;
+    }
 
     #main {
       margin-top: 0;
@@ -422,6 +437,5 @@
       }
     }
   }
-
 
 </style>

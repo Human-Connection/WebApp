@@ -58,8 +58,8 @@ In a VueJS file apply this by:
 ```html
 <!-- in file register.vue -->
 <p class="small-info" v-html="$t('auth.account.confirmTermsOfUsage', {
-    'termsOfService': $t('legal.termsOfService'),
-    'dataPrivacyStatement': $t('legal.termsOfService'),
+    'termsOfService': $t('legal.termsAndConditions'),
+    'dataPrivacyStatement': $t('legal.dataPrivacyStatement'),
     'url': '/legal'
   })"></p>
 ```

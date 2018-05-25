@@ -103,7 +103,6 @@
   import { mapGetters } from 'vuex'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
   import { castArray, flatMap } from 'lodash'
-import { setTimeout } from 'timers';
 
   export default {
     components: {
@@ -313,10 +312,16 @@ import { setTimeout } from 'timers';
         const comments = await this.$api.service('comments').find({
           query: {
             userId,
+            deleted: {
+              $ne: true
+            },
             $sort: {
               createdAt: -1
             },
             $limit: limit,
+            deleted: {
+              $ne: true
+            },
             $select: ['contributionId']
           }
         })

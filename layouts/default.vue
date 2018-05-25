@@ -3,6 +3,7 @@
     <hc-frame>
       <div class="container" id="main" role="main">
         <hc-verification-banner/>
+        <system-notifications />
         <nuxt keep-alive />
       </div>
       <hc-footer/>
@@ -14,12 +15,14 @@
   import HcFooter from '~/components/layout/Footer.vue'
   import HcFrame from '~/components/layout/Frame.vue'
   import HcVerificationBanner from '~/components/layout/VerificationBanner.vue'
+  import SystemNotifications from '~/components/SystemNotifications/SystemNotifications.vue'
 
   export default {
     components: {
       HcFooter,
       HcFrame,
-      HcVerificationBanner
+      HcVerificationBanner,
+      SystemNotifications
     },
     head () {
       let head = {

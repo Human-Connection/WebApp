@@ -1,5 +1,6 @@
 <template>
   <button v-if="hasType === 'button'"
+    :type="buttonType"
     :class="classes" @click="click" :disabled="disabled">
     <slot></slot>
   </button>
@@ -7,8 +8,8 @@
     :class="classes" :to="to" @click.native="click">
     <slot></slot>
   </nuxt-link>
-  <a v-else :target="target" :href="to ? this.$router.resolve(to).href : ''" :class="classes" @click="click">
-    <slot></slot>
+  <a v-else :target="target" :href="getLink" :class="classes" @click="click">
+    <slot />
   </a>
 </template>
 
@@ -76,11 +77,25 @@
         default: 'button'
       },
       /**
+       * Set formSubmit state: true | false
+       */
+      formSubmit: {
+        type: Boolean,
+        default: false
+      },
+      /**
        * Set target: null, _blank, etc.
        */
       target: {
         type: String,
         default: null
+      },
+      /**
+       * Do not open the link, only handle the click handling
+       */
+      prevent: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {
@@ -113,24 +128,42 @@
         if (this.type) {
           return this.type
         }
-        return this.to ? 'nuxt' : this.type
+        return 'nuxt'
       },
       isLink () {
         return ['button', 'nuxt'].includes(this.type) === false
+      },
+      buttonType () {
+        return this.formSubmit ? 'submit' : ''
+      },
+      isExternal () {
+        return (typeof this.to === 'string' && this.to.indexOf('http') === 0)
+      },
+      getLink () {
+        if (this.isExternal) {
+          return this.to
+        }
+        return this.to ? this.$router.resolve(this.to).href : ''
       }
     },
     methods: {
       click (e) {
         if (this.type === 'button' && this.to) {
           // open page when its a button
-          this.$router.push(this.to)
+          if (!this.prevent && !this.isExternal) {
+            this.$router.push(this.to)
+          }
         } else if (this.isLink && this.to && !this.target && !e.metaKey && !e.ctrlKey) {
           // prevent default link behavoir in favor of the vue router if no modefier keys are pressed
           // but only if no target is specefied
           e.preventDefault()
-          this.$router.push(this.to)
+          if (!this.prevent && !this.isExternal) {
+            this.$router.push(this.to)
+          }
         }
-        this.$emit('click', e)
+        if (!e.metaKey && !e.ctrlKey) {
+          this.$emit('click', e)
+        }
       }
     }
   }

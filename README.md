@@ -18,7 +18,7 @@ This is the nuxt + express version of our WebApp as nuxt.js seams to be more sta
 
 ## Build Setup
 
-> we recommand to install the project locally for the best development ease and performance
+> we recommend to install the project locally for the best development ease and performance
 
 ``` bash
 # install dependencies

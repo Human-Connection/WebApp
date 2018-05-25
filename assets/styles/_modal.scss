@@ -1,0 +1,108 @@
+
+.modal {
+  // .modal-background {
+  //   transition: opacity 200ms ease-in-out !important;
+  // }
+
+  &.is-active {
+    z-index: 9999;
+
+    .modal-background {
+      opacity: 0.5;
+    }
+  }
+  .modal-card {
+    box-shadow: $card-shadow-hover;
+
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+
+    width: calc(80vw - 40px);
+    max-width: 800px;
+  }
+
+  &.dialog .modal-card {
+    max-width: 550px;
+  }
+
+  .modal-card-head {
+    background-color: $white;
+    border-bottom: none;
+
+    &::after {
+      content: "";
+      height: 30px;
+      background: linear-gradient(rgba(255,255,255,1), rgba(255,255,255,0));
+      position: absolute;
+      width: calc(100% - 10px);
+      bottom: -30px;
+      left: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    &.is-extended {
+      display: block;
+      background-color: lighten($grey-light, 25%);
+      border-bottom: 1px solid $grey-lighter;
+
+      &::after {
+        bottom: -31px;
+        background: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,0));
+      }
+    }
+  }
+
+  .modal-card-body .columns {
+    margin-bottom: .5rem;
+  }
+  @media (min-width: $tablet) {
+    .modal-card-body .columns {
+      margin-bottom: -0.5rem;
+    }
+  }
+
+  .modal-card-body {
+    height: auto;
+    min-height: 100px;
+    max-height: 60vh;
+    padding-left: 2rem;
+    padding-right: 2rem;
+
+    & > *:first-child {
+      padding-top: 1rem !important;
+    }
+    & > *:last-child {
+      padding-bottom: 2rem !important;
+    }
+  }
+
+  .modal-card-foot {
+    justify-content: flex-end;
+    padding: 0.8rem;
+    border-top-color: $grey-lighter;
+
+    &::before {
+      content: "";
+      height: 45px;
+      background: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,.9));
+      position: absolute;
+      width: calc(100% - 10px);
+      z-index: 1;
+      left: 0;
+      top: -46px;
+      pointer-events: none;
+    }
+  }
+}
+
+@media (max-width: $tablet) {
+  .modal {
+    .modal-card {
+      width: auto;
+    }
+    .modal-card-body {
+      max-height: 100vh;
+    }
+  }
+}

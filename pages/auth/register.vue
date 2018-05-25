@@ -1,6 +1,6 @@
 <template>
-  <section class="container content">
-    <div class="card" :class="classes">
+  <section class="container">
+    <div class="card content" :class="classes">
       <div class="card-content">
         <hc-flag-switch />
         <!--<nuxt-link v-if="!useInviteCode"
@@ -102,7 +102,7 @@
                         :placeholder="$t('auth.account.password')"
                         v-model="form.password"
                         autocomplete="new-password"
-                        @blur="$v.form.password.$touch()">
+                        @blur="form.password ? $v.form.password.$touch() : null">
                   <span class="icon is-small is-left">
                     <i class="fa fa-lock"></i>
                   </span>
@@ -143,9 +143,9 @@
                 {{ $t('auth.register.label') }}
               </hc-button>
               <a @click.prevent="toStep(1)"><i class="fa fa-arrow-left"></i> &nbsp;{{ $t('auth.register.back') }}</a>
-              <p class="small-info" style="margin-top: 2rem;" v-html="$t('auth.account.confirmTermsOfUsage', {
-                  'termsOfService': $t('legal.termsOfService'),
-                  'dataPrivacyStatement': $t('legal.dataPrivacyStatement'),
+              <p @click="openLegalInfo" class="small-info" style="padding-top: 1rem; padding-bottom: 0;" v-html="$t('auth.account.confirmTermsOfUsage', {
+                  'termsOfService': linkTermsOfService,
+                  'dataPrivacyStatement': linkDataPrivacy,
                   'url': '/legal'
                 })"></p>
             </div>
@@ -168,6 +168,7 @@
   import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
   import FlagSwitch from '~/components/Auth/FlagSwitch'
   import PasswordMeter from '~/components/Auth/PasswordMeter'
+  import { mapMutations } from 'vuex';
 
   export default {
     middleware: 'anonymous',
@@ -240,6 +241,26 @@
       })
     },
     methods: {
+      openLegalInfo (e) {
+        if (e.metaKey || e.ctrlKey) {
+          return
+        }
+        switch (e.target.getAttribute('data-page')) {
+          case 'privacy':
+            e.preventDefault()
+            this.$openInModal({slug: 'privacy'})
+            break;
+          case 'terms-and-conditions':
+            e.preventDefault()
+            this.$openInModal({slug: 'terms-and-conditions'})
+            break;
+        }
+      },
+      resetRouteHash () {
+        this.$nextTick(() => {
+          this.$router.replace(this.$route.fullPath.split('#').shift())
+        })
+      },
       toStep (step) {
         if (step === 1 && this.step === 0) {
           this.form.email = this.$route.query.email || ''
@@ -294,6 +315,14 @@
           })
       }
     },
+    computed: {
+      linkDataPrivacy () {
+        return `<a data-page="privacy" href="/pages/privacy" target="_blank">${this.$t('legal.dataPrivacyStatement')}</a>`
+      },
+      linkTermsOfService () {
+        return `<a data-page="terms-and-conditions" href="/pages/terms-and-conditions" target="_blank">${this.$t('legal.termsAndConditions')}</a>`
+      }
+    },
     head () {
       return {
         title: this.$t('auth.register.label')
@@ -308,11 +337,25 @@
 
   .card {
     margin: 0 auto;
-    max-width: 460px;
+    width: 460px;
+    transition: height 250ms ease;
     text-align: center;
     border: none;
     box-shadow: $card-shadow;
     // overflow-x: hidden;
+
+    p {
+      padding-bottom: 1em;
+    }
+    .field p {
+      padding-bottom: 0;
+    }
+  }
+
+  @media (max-width: $tablet) {
+    .card {
+      width: 100%;
+    }
   }
 
   .subtitle {
@@ -332,6 +375,10 @@
         margin-top: 2rem;
       }
     }
+  }
+
+  .small-info a {
+    font-weight: bold !important;
   }
 
   form {

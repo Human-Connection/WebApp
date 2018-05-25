@@ -2,7 +2,17 @@
   <div class="ql-video-embed">
     <video v-if="!embedUrl && isNativeVideo" :src="meta.url" controls></video>
     <div class="ql-video-embed-wrapper" v-if="embedUrl && !isNativeVideo">
-      <iframe :src="embedUrl"
+      <div v-if="!renderEmbed"
+        class="ql-video-embed-preview"
+        @click="renderEmbed = true">
+        <img :src="meta.image.url" />
+        <div class="player-icon">
+          <img src="/assets/images/media/play-light.png"
+              srcset="/assets/images/media/play-light.png 2x, /assets/images/media/play-light.png 1x" />
+        </div>
+      </div>
+      <iframe v-else
+        :src="embedUrl"
         frameborder="0"
         webkitallowfullscreen
         mozallowfullscreen
@@ -34,6 +44,11 @@
         }
       }
     },
+    data () {
+      return {
+        renderEmbed: false
+      }
+    },
     computed: {
       embedUrl () {
         if (this.meta.player && this.meta.player.url) {
@@ -62,7 +77,7 @@
     width: 100%;
     padding-top: 56%;
 
-    iframe {
+    iframe, .ql-video-embed-preview {
       position: absolute;
       top: 0;
       left: 0;
@@ -71,6 +86,31 @@
       padding: 0;
       width: 100%;
       height: 100%;
+    }
+
+    .ql-video-embed-preview {
+      cursor: pointer;
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
+
+      .player-icon {
+        & > img {
+          width: 80px;
+          height: 80px;
+        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
     }
   }
 </style>

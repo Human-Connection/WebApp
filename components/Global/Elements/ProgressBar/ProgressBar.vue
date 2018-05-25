@@ -70,7 +70,7 @@
 
 <style lang="scss" scoped>
   // @import "font-awesome/css/font-awesome.min.css";
-  @import "~assets/styles/hc-icons.scss";
+  @import "~assets/styles/fonts/hc-icons.scss";
 
   .hc-progress-bar {
     position: relative;

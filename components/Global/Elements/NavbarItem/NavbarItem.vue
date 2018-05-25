@@ -5,9 +5,9 @@
     :to="to"
     :is="component">
     <slot></slot>
-    <div class="navbar-item-mobile-icon">
+    <span class="navbar-item-mobile-icon">
       <hc-icon icon="angle-right"></hc-icon>
-    </div>
+    </span>
   </component>
 </template>
 

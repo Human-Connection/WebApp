@@ -12,8 +12,7 @@
         <button type="button"
           class="button is-hidden-mobile"
           :disabled="!this.hasContent"
-          @click="form.content = ''"
-          :class="{ 'is-loading': isLoading }">
+          @click="form.content = ''">
           {{ $t('button.cancel') }}
         </button>
         <button type="submit"
@@ -39,8 +38,7 @@
         isLoading: false,
         form: {
           content: '',
-          contributionId: null,
-          language: 'en'
+          contributionId: null
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),

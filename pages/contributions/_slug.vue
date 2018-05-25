@@ -5,23 +5,27 @@
         <section class="section">
           <div class="">
             <contribution-image v-if="!hasEmbeddedVideo" :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
-            <div class="columns is-mobile">
-              <div class="column">
+            <div class="contribution-header">
+              <div class="contribution-author">
                 <author
                   class="author"
                   :user="contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
-              <div class="column is-one-third">
+              <div class="contribution-actions">
                 <hc-button v-if="canEdit"
-                           class="action-btn"
                            color="light"
                            :isLoading="isLoading"
                            @click="isLoading = true"
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
-                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
+                  <hc-icon icon="pencil" />&nbsp; {{ $t('button.edit') }}
                 </hc-button>
-                <contribution-menu class="button is-light action-btn"
+                <hc-button v-if="canEdit"
+                           color="light"
+                           @click="removeContribution">
+                  <hc-icon icon="ban" />&nbsp; {{ $t('button.delete') }}
+                </hc-button>
+                <contribution-menu class="button is-light"
                                   :post="contribution"
                                   @update="onContribSettingsUpdate" />
               </div>
@@ -102,17 +106,21 @@
                   <comments :post="contribution"/>
                 </b-tab-item>
                 <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
-                  <div class="notification is-warning">
-                    {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
-                    <br/><br/>
-                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
+                  <div class="message is-warning">
+                    <div class="message-body">
+                      {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                      <br/><br/>
+                      <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
+                    </div>
                   </div>
                 </b-tab-item>
                 <b-tab-item v-bind:label="$t('component.contribution.versus')" id="versus">
-                  <div class="notification is-warning">
-                    {{ $t('component.contribution.versusDescription') }}
-                    <br/><br/>
-                    <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
+                  <div class="message is-warning">
+                    <div class="message-body">
+                      {{ $t('component.contribution.versusDescription') }}
+                      <br/><br/>
+                      <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Versus</strong>, coming soon...)
+                    </div>
                   </div>
                 </b-tab-item>
               </b-tabs>
@@ -121,37 +129,41 @@
         </section>
       </div>
     </div>
-    <div class="column is-3 is-2-widescreen is-hidden-mobile" style="position: relative;">
-      <aside class="menu" style="position: fixed; width: 100%;">
-        <ul class="menu-list">
-          <li>
-            <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
-              1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
-            </nuxt-link>
-            <ul>
+    <div class="column is-3 is-2-widescreen is-hidden-mobile">
+      <no-ssr>
+        <affix relative-element-selector=".section" :scroll-affix="false" :offset="{ top: 79, bottom: 40 }" style="width: 100%">
+          <aside class="menu" style="width: 700px" ref="menu">
+            <ul class="menu-list">
               <li>
-                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
+                <nuxt-link :to="{ path: '/contributions/' + this.contribution.slug }" class="is-capitalized is-active">
+                  1. <strong>{{ $t('component.contribution.type-' + contribution.type) }}</strong>
+                </nuxt-link>
+                <ul>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.commentsCounted', {count: commentCount}, commentCount) }}</a>
+                  </li>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
+                  </li>
+                  <li>
+                    <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
+                  </li>
+                </ul>
               </li>
               <li>
-                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.letsTalk') }}</a>
+                <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
+                  2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
+                </nuxt-link>
               </li>
               <li>
-                <a v-scroll-to="{el: $refs.tabs}">{{ $t('component.contribution.versus') }}</a>
+                <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
+                  3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
+                </nuxt-link>
               </li>
             </ul>
-          </li>
-          <li>
-            <nuxt-link :to="{ path: '/contributions/more-info/' + this.contribution.slug }">
-              2. <strong>{{ $t('component.contribution.moreInfoBriefOrLong', null, 1) }}</strong>
-            </nuxt-link>
-          </li>
-          <li>
-            <nuxt-link :to="{ path: '/contributions/take-action/' + this.contribution.slug }">
-              3. <strong>{{ $t('component.contribution.takeAction') }}</strong>
-            </nuxt-link>
-          </li>
-        </ul>
-      </aside>
+          </aside>
+        </affix>
+      </no-ssr>
     </div>
   </div>
 </template>
@@ -223,6 +235,11 @@
     },
     methods: {
       onContribSettingsUpdate (data) {
+        // Contribution was deleted -> redirect
+        if (data.deleted) {
+          this.$router.replace('/')
+          return
+        }
         if (data._id === this.contribution._id) {
           // update only needed attributes to prevent flash of content
           // which would stop playing media like videos
@@ -231,6 +248,22 @@
           this.contribution.shoutCount = data.shoutCount
           this.contribution.visibility = data.visibility
         }
+      },
+      removeContribution () {
+        this.$dialog.confirm({
+          title: this.$t('component.contribution.delete'),
+          message: this.$t('component.contribution.deleteMsg'),
+          confirmText: this.$t('button.confirmDelete'),
+          cancelText: this.$t('button.cancel'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => this.remove()
+        })
+      },
+      remove () {
+        this.$router.replace('/')
+        this.$api.service('contributions')
+          .remove(this.contribution._id)
       }
     },
     computed: {
@@ -307,11 +340,32 @@
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
+    background-color: darken($white-bis, 3%);
   }
 
-  .action-btn {
-    @extend .is-pulled-right;
-    margin-left: 0.5rem;
+  .contribution-header {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .contribution-author {
+    margin-bottom: 1.5rem;
+  }
+
+  .contribution-actions {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+
+    & > * {
+      margin-left: 0.5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
   }
 
   .cando-header {

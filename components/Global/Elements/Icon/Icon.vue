@@ -31,7 +31,7 @@
 
 <style lang="scss" scoped>
   // @import "font-awesome/css/font-awesome.min.css";
-  @import "~assets/styles/hc-icons.scss";
+  @import "~assets/styles/fonts/hc-icons.scss";
 
   i, emoji {
     font-size: inherit;
@@ -39,8 +39,8 @@
   }
 
   emoji {
-    width: 1.2em; 
-    display: inline-block; 
+    width: 1.2em;
+    display: inline-block;
     margin-bottom: -0.2em;
   }
 </style>
