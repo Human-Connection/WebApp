@@ -13,48 +13,50 @@
     </nav>
     <div class="columns">
       <div class="column is-one-third menu">
-        <aside class="menu">
+        <aside>
           <p class="menu-label">
             {{ $t('auth.settings.general', 'General') }}
           </p>
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'auth-settings' })"
-                :class="{ 'is-active': $route.name === 'auth-settings'}">
-              <a>{{ $t('auth.settings.data', 'Your Data') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings' }">{{ $t('auth.settings.data', 'Your Data') }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-security' }">{{ $t('auth.settings.security', 'Security') }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-download' }">{{ $t('auth.settings.download', 'Download Data') }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-delete' }">{{ $t('auth.settings.delete', 'Delete Account') }}</nuxt-link>
             </li>
           </ul>
-          <p class="menu-label">
-            {{ $t('auth.settings.security', 'Security') }}
-          </p>
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'auth-settings-access' })"
-                :class="{ 'is-active': $route.name === 'auth-settings-access'}">
-              <a>{{ $t('auth.settings.access', 'Access') }}</a>
-            </li>
           </ul>
           <p class="menu-label">
             {{ $t('auth.settings.organizations', 'Organizations') }}
           </p>
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'auth-settings-organizations' })"
-                :class="{ 'is-active': $route.name === 'auth-settings-organizations'}">
-              <a>{{ $t('auth.settings.myOrganizations', 'My Organizations') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-organizations' }">{{ $t('auth.settings.myOrganizations', 'My Organizations') }}</nuxt-link>
             </li>
           </ul>
           <p class="menu-label">
             {{ $t('auth.settings.networkSettings', 'Network settings') }}
           </p>
           <ul class="menu-list">
-            <li @click.prevent="$router.push({ name: 'auth-settings-languages' })"
-                :class="{ 'is-active': $route.name === 'auth-settings-languages'}">
-              <a>{{ $t('auth.settings.languages', 'Languages') }}</a>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-languages' }">{{ $t('auth.settings.languages', 'Languages') }}</nuxt-link>
+            </li>
+            <li v-if="user && user.role === 'admin'">
+              <nuxt-link :to="{ name: 'auth-settings-presentation' }">{{ $t('auth.settings.presentation', 'Presentation') }}</nuxt-link>
             </li>
           </ul>
         </aside>
       </div>
       <div class="column">
         <transition name="slide-up" appear>
-          <nuxt class="settings-content"/>
+          <nuxt class="settings-content" />
         </transition>
       </div>
     </div>
@@ -62,11 +64,18 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     head () {
       return {
         title: this.$t('auth.account.settings', 'Settings')
       }
+    },
+    computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      })
     }
   }
 </script>

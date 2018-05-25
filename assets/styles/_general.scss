@@ -407,3 +407,14 @@ ul.is-list {
     }
   }
 }
+
+.b-checkbox[type="is-danger"] {
+  input[type="checkbox"]:checked + .check {
+    background-color: $red;
+    border-color: $red;
+  }
+  color: $red;
+}
+.is-danger {
+  color: $red;
+}

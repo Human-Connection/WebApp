@@ -21,9 +21,9 @@
         </hc-button> &nbsp;‑&nbsp;
         <hc-button
               type="link"
-              to="/pages/data-privacy"
+              to="/pages/privacy"
               :prevent="true"
-              @click="$openInModal({slug: 'data-privacy'})">
+              @click="$openInModal({slug: 'privacy'})">
           {{ $t('legal.dataPrivacy') }}
         </hc-button>
       </div>
@@ -46,9 +46,9 @@
             this.$openInModal({slug: 'terms-and-conditions'})
             break;
             break;
-          case 'data-privacy':
+          case 'privacy':
             e.preventDefault()
-            this.$openInModal({slug: 'data-privacy'})
+            this.$openInModal({slug: 'privacy'})
             break;
         }
       }

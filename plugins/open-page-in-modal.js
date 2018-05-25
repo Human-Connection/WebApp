@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import linkifyHtml from 'linkifyjs/html'
 
 const ModalForm = {
   props: {
@@ -31,7 +32,7 @@ const ModalForm = {
         .then(res => {
           if (res && res.data && res.data.length) {
             this.title = res.data[0].title
-            this.content = res.data[0].content
+            this.content = linkifyHtml(res.data[0].content)
           } else {
             this.title = 'ERROR'
             this.content = '<img src="/assets/svg/errors/error404.svg" style="padding: 2rem 3rem;" />'
@@ -50,7 +51,7 @@ const ModalForm = {
       <div class="modal-card ">
         <b-loading :is-full-page="false" :active="isLoading" />
         <header v-if="!isLoading" class="modal-card-head">
-          <h4 class="modal-card-title">{{ title }}</h4>
+          <p class="title is-3 modal-card-title">{{ title }}</p>
         </header>
         <section class="modal-card-body">
           <div class="content" v-html="content"></div>

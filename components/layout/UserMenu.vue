@@ -113,7 +113,7 @@
 
   .icon {
     text-align: left;
-    padding-left: 0.5em;
+    padding-left: 0;
     width: 1.5em;
   }
 

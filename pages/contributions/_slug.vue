@@ -5,23 +5,27 @@
         <section class="section">
           <div class="">
             <contribution-image v-if="!hasEmbeddedVideo" :refresh="refreshOrNot" :src="contribution.thumbnails.teaserImg"></contribution-image>
-            <div class="columns is-mobile">
-              <div class="column">
+            <div class="contribution-header">
+              <div class="contribution-author">
                 <author
                   class="author"
                   :user="contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
-              <div class="column">
+              <div class="contribution-actions">
                 <hc-button v-if="canEdit"
-                           class="action-btn"
                            color="light"
                            :isLoading="isLoading"
                            @click="isLoading = true"
                            :to="{ path: `/contributions/edit/${contribution.slug}` }">
-                  <i class="fa fa-pencil" style="font-size: 1rem;"></i>&nbsp; {{ $t('button.edit') }}
+                  <hc-icon icon="pencil" />&nbsp; {{ $t('button.edit') }}
                 </hc-button>
-                <contribution-menu class="button is-light action-btn"
+                <hc-button v-if="canEdit"
+                           color="light"
+                           @click="removeContribution">
+                  <hc-icon icon="ban" />&nbsp; {{ $t('button.delete') }}
+                </hc-button>
+                <contribution-menu class="button is-light"
                                   :post="contribution"
                                   @update="onContribSettingsUpdate" />
               </div>
@@ -231,6 +235,11 @@
     },
     methods: {
       onContribSettingsUpdate (data) {
+        // Contribution was deleted -> redirect
+        if (data.deleted) {
+          this.$router.replace('/')
+          return
+        }
         if (data._id === this.contribution._id) {
           // update only needed attributes to prevent flash of content
           // which would stop playing media like videos
@@ -239,6 +248,22 @@
           this.contribution.shoutCount = data.shoutCount
           this.contribution.visibility = data.visibility
         }
+      },
+      removeContribution () {
+        this.$dialog.confirm({
+          title: this.$t('component.contribution.delete'),
+          message: this.$t('component.contribution.deleteMsg'),
+          confirmText: this.$t('button.confirmDelete'),
+          cancelText: this.$t('button.cancel'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => this.remove()
+        })
+      },
+      remove () {
+        this.$router.replace('/')
+        this.$api.service('contributions')
+          .remove(this.contribution._id)
       }
     },
     computed: {
@@ -315,11 +340,32 @@
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
+    background-color: darken($white-bis, 3%);
   }
 
-  .action-btn {
-    @extend .is-pulled-right;
-    margin-left: 0.5rem;
+  .contribution-header {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .contribution-author {
+    margin-bottom: 1.5rem;
+  }
+
+  .contribution-actions {
+    display: flex;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+
+    & > * {
+      margin-left: 0.5rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
   }
 
   .cando-header {
