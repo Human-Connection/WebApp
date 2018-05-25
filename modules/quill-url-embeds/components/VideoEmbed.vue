@@ -6,6 +6,10 @@
         class="ql-video-embed-preview"
         @click="renderEmbed = true">
         <img :src="meta.image.url" />
+        <div class="player-icon">
+          <img src="/assets/images/media/play-light.png"
+              srcset="/assets/images/media/play-light.png 2x, /assets/images/media/play-light.png 1x" />
+        </div>
       </div>
       <iframe v-else
         :src="embedUrl"
@@ -87,6 +91,21 @@
 
     .ql-video-embed-preview {
       cursor: pointer;
+
+      .player-icon {
+        & > img {
+          width: 80px;
+          height: 80px;
+        }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+      }
     }
   }
 </style>
