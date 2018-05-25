@@ -21,18 +21,6 @@
               :createdAt="comment.createdAt" />
           </div>
           <div class="comment-header-actions">
-            <template v-if="isOwner">
-              <hc-tooltip :label="$t('component.contribution.commentEdit')" type="is-black" position="is-left">
-                <hc-button @click="startEdit" color="white" size="small">
-                  <hc-icon icon="pencil"></hc-icon>
-                </hc-button>
-              </hc-tooltip>
-              <hc-tooltip :label="$t('component.contribution.commentDelete')" type="is-black" position="is-left">
-                <hc-button @click="removeComment" color="white" size="small">
-                  <hc-icon icon="ban"></hc-icon>
-                </hc-button>
-              </hc-tooltip>
-            </template>
             <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
               <a :disabled="isOwner" @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
                 <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
@@ -70,6 +58,18 @@
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
             </hc-tooltip>
+            <template v-if="isOwner && !edit">
+              <hc-tooltip :label="$t('component.contribution.commentEdit')" type="is-black" position="is-right">
+                <hc-button @click.prevent="startEdit" color="white" size="small" type="link">
+                  <hc-icon icon="pencil" class="icon-left" />
+                </hc-button>
+              </hc-tooltip>&nbsp;
+              <hc-tooltip :label="$t('component.contribution.commentDelete')" type="is-black" position="is-right">
+                <hc-button @click.prevent="removeComment" color="white" size="small" type="link">
+                  <hc-icon icon="ban" class="icon-left" />
+                </hc-button>
+              </hc-tooltip>
+            </template>
           </div>
           <div class="comment-footer-actions-right">
             <a v-if="isTruncated" @click="toggleText" class="is-small">
@@ -236,7 +236,7 @@
   .comment-main {
     position: relative;
     flex: 1 1 0;
-    overflow: auto;
+    overflow: visible;
     padding: $padding-small;
     background-color: $white;
 
