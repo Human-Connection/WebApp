@@ -21,12 +21,20 @@
               :createdAt="comment.createdAt" />
           </div>
           <div class="comment-header-actions">
-            <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
-              <a :disabled="isOwner" @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
+            <template v-if="isOwner">
+              <div class="disabled">
                 <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
                 <i class="fa fa-angle-double-up"></i>&nbsp;
-              </a>
-            </hc-tooltip>
+              </div>
+            </template>
+            <template v-else>
+              <hc-tooltip :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
+                <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
+                  <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
+                  <i class="fa fa-angle-double-up"></i>&nbsp;
+                </a>
+              </hc-tooltip>
+            </template>
           </div>
         </div>
         <div v-html="getText" class="comment-text" v-if="!edit"></div>
@@ -66,7 +74,7 @@
               </hc-tooltip>&nbsp;
               <hc-tooltip :label="$t('component.contribution.commentDelete')" type="is-black" position="is-right">
                 <hc-button @click.prevent="removeComment" color="white" size="small" type="link">
-                  <hc-icon icon="ban" class="icon-left" />
+                  <hc-icon icon="ban" class="icon-left is-danger" />
                 </hc-button>
               </hc-tooltip>
             </template>
@@ -336,8 +344,7 @@
     }
   }
 
-  a[disabled] {
+  div.disabled {
     cursor: not-allowed;
-    pointer-events: none;
   }
 </style>
