@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ disabled: disableLink }"
+  <div :class="{ disabled: disableLink, mask: maskUser }"
         class="media hc__author"
         @click="showProfile">
     <div class="media-left" v-if="showAvatar">
@@ -21,6 +21,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import { isEmpty } from 'lodash'
 
   export default {
     name: 'hc-author',
@@ -53,13 +54,20 @@
     },
     computed: {
       ...mapGetters({
-        currentUser: 'auth/user'
+        currentUser: 'auth/user',
+        currentUserSettings: 'auth/userSettings'
       }),
       isOwnProfile () {
         return this.currentUser && this.currentUser._id === this.user._id
       },
       disableLink () {
         return (!this.isOwnProfile && !this.user.slug)
+      },
+      maskUser () {
+        if (!this.currentUserSettings || !this.currentUserSettings.hideUsersWithoutTermsOfUseSigniture) {
+          return false
+        }
+        return isEmpty(this.user.termsAndConditionsAccepted)
       }
     }
   }
@@ -109,6 +117,11 @@
           background-position: center;
           background-size:     cover;
           transform: translate3d(0,0,0);
+      }
+
+      &.mask {
+        opacity: .5;
+        filter: blur(3px);
       }
   }
 </style>

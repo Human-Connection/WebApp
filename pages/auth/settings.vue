@@ -48,6 +48,9 @@
             <li>
               <nuxt-link :to="{ name: 'auth-settings-languages' }">{{ $t('auth.settings.languages', 'Languages') }}</nuxt-link>
             </li>
+            <li v-if="user && user.role === 'admin'">
+              <nuxt-link :to="{ name: 'auth-settings-presentation' }">{{ $t('auth.settings.presentation', 'Presentation') }}</nuxt-link>
+            </li>
           </ul>
         </aside>
       </div>
@@ -61,11 +64,18 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     head () {
       return {
         title: this.$t('auth.account.settings', 'Settings')
       }
+    },
+    computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      })
     }
   }
 </script>
