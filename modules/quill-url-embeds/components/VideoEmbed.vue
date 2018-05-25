@@ -90,6 +90,12 @@
 
     .ql-video-embed-preview {
       cursor: pointer;
+      overflow: hidden;
+
+      img {
+        object-fit: cover;
+        width: 100%;
+      }
 
       .player-icon {
         & > img {
