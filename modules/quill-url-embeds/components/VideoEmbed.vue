@@ -51,7 +51,6 @@
     },
     computed: {
       embedUrl () {
-        console.log(this.meta)
         if (this.meta.player && this.meta.player.url) {
           return this.meta.player.url
         }
