@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import linkifyHtml from 'linkifyjs/html'
+
   export default {
     head () {
       return {
@@ -46,7 +48,7 @@
         })
         if (res && res.data && res.data.length) {
           data.title = res.data[0].title
-          data.content = res.data[0].content
+          data.content = linkifyHtml(res.data[0].content)
         } else {
           return error({ statusCode: 404 })
         }
