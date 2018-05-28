@@ -241,7 +241,6 @@
           return
         }
         if (data._id === this.contribution._id) {
-          console.log(data)
           // update only needed attributes to prevent flash of content
           // which would stop playing media like videos
           this.contribution.isEnabled = data.isEnabled
