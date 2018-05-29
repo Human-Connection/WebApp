@@ -12,8 +12,8 @@
       "subHeader500": "OMG, was hast Du getan?",
       "subHeader503": "nimm ne kurze Auszeit",
       "copy403": "Tut uns leid, der Zugang zu dieser Seite bleibt dir verwehrt. <br />Überprüfe die Adresse, <a href=\"/auth/login\">melde dich an</a> oder <a href=\"/\">geh auf Anfang</a>.",
-      "copy404": "Tut uns leid, wir haben diese Seite nicht gefunden. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
-      "copy500": "Oh nein, es ist irgend ein Fehler aufgetreten und wir mussten aufgeben. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy404": "Tut uns leid, wir haben diese Seite nicht gefunden. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:support@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy500": "Oh nein, es ist irgend ein Fehler aufgetreten und wir mussten aufgeben. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:support@human-connection.org\">melde uns diesen Fehler.</a>",
       "copy503": "Wir arbeiten gerade dran, <br />nimm dir nen Kaffee und versuchs danach gleich nochmal."
     },
     "shout": {

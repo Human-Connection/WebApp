@@ -12,8 +12,8 @@
       "subHeader500": "OMG, what have you done?",
       "subHeader503": "take a break",
       "copy403": "Sorry, access to this resource on the server is denied. <br />Either check the URL, <a href=\"/auth/login\">login</a> or <a href=\"/\">go home</a>.",
-      "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
-      "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
+      "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
+      "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
       "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later."
     },
     "shout": {
