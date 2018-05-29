@@ -9,4 +9,4 @@
 ./on-start.sh
 
 # starting the application with the correct settings
-yarn start:pm2 -p $WEBAPP_PORT -H $WEBAPP_HOST
+yarn start -p $WEBAPP_PORT -H $WEBAPP_HOST
