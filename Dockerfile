@@ -6,6 +6,9 @@ RUN apk update && apk upgrade
 RUN apk add git
 RUN rm -rf /var/cache/apk/*
 
+# install global dependencies
+RUN yarn global add pm2 envsub
+
 # expose the app port
 EXPOSE 3000
 
@@ -14,9 +17,6 @@ ENV HOST=0.0.0.0
 ENV WEBAPP_HOST=0.0.0.0
 
 ENTRYPOINT ["./entrypoint.sh"]
-
-# install envsub
-RUN npm install -g envsub
 
 # create working directory
 RUN mkdir -p /var/www/

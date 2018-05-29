@@ -33,6 +33,7 @@
     "build": "yarn build:env && nuxt build && backpack build",
     "build:env": "sh on-build.sh",
     "start": "yarn start:env && node build/main.js",
+    "start:pm2": "yarn start:env && pm2 start node build/main.js -n frontend -i 2 --attach",
     "start:env": "sh on-start.sh",
     "precommit": "yarn eslint",
     "eslint": "eslint --ext .js,.vue .",
