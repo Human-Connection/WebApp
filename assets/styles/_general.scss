@@ -130,6 +130,12 @@ input, textarea {
   hyphens: auto;*/
 }
 
+.autowrap-force {
+  @extend .autowrap;
+  word-break: break-word;
+  hyphens: auto;
+}
+
 hr {
   opacity: 0.8 !important;
 }

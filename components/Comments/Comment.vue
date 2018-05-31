@@ -1,5 +1,5 @@
 <template>
-  <div class="comment autowrap" :class="{ highlight: highlight }">
+  <div class="comment" :class="{ highlight: highlight }">
     <!--<div class="comment-aside">
       <author :user="comment.user"
         :showText="false" />
@@ -48,6 +48,7 @@
           <div class="comment-header-author">
             <author :user="comment.user"
               :showAvatar="false"
+              :isAuthor="isAuthor"
               :createdAt="comment.createdAt" />
           </div>
           <div class="comment-header-actions">
@@ -92,7 +93,7 @@
         <div class="comment-footer">
           <div class="comment-footer-actions-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
-              <a class="level-item" style="cursor: not-allowed; pointer-events: visible;">
+              <a class="level-item" @click.prevent="$emit('reply', comment)">
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
             </hc-tooltip>
@@ -286,7 +287,7 @@
   .comment-main {
     position: relative;
     flex: 1 1 0;
-    overflow: visible;
+    // overflow: visible;
     padding: $padding-small;
     background-color: $white;
 

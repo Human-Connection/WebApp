@@ -38,6 +38,9 @@
       isOwner: {
         type: Boolean
       },
+      isAuthor: {
+        type: Boolean
+      },
       showAvatar: {
         type: Boolean,
         default: true
