@@ -33,6 +33,17 @@ $ yarn start
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
+### Env Vars
+
+## Maintenance
+
+You can start the app in maintenance mode so it does not ask the api in case it is down.
+```
+$ env MAINTENANCE=true yarn dev 
+# or start
+$ env MAINTENANCE=true yarn start
+```
+
 ### Test Logins
 
 **Admin**

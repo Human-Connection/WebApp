@@ -1,5 +1,6 @@
 <template>
   <button v-if="hasType === 'button'"
+    :type="buttonType"
     :class="classes" @click="click" :disabled="disabled">
     <slot></slot>
   </button>
@@ -76,7 +77,14 @@
         default: 'button'
       },
       /**
-       * Set target: null, _blank, modal, etc.
+       * Set formSubmit state: true | false
+       */
+      formSubmit: {
+        type: Boolean,
+        default: false
+      },
+      /**
+       * Set target: null, _blank, etc.
        */
       target: {
         type: String,
@@ -124,6 +132,9 @@
       },
       isLink () {
         return ['button', 'nuxt'].includes(this.type) === false
+      },
+      buttonType () {
+        return this.formSubmit ? 'submit' : ''
       },
       isExternal () {
         return (typeof this.to === 'string' && this.to.indexOf('http') === 0)

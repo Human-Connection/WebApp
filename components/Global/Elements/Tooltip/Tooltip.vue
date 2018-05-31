@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isServer">
+  <div v-if="isServer || disabled">
     <slot></slot>
   </div>
   <no-ssr v-else>
@@ -29,6 +29,10 @@
         type: String
       },
       multilined: {
+        type: Boolean,
+        default: false
+      },
+      disabled: {
         type: Boolean,
         default: false
       }

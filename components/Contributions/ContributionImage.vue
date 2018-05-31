@@ -1,9 +1,10 @@
 <template>
     <hc-progressive-image
-        v-if="src"
+        v-if="src && !error"
         class="teaser-image"
         :preview="getPlaceholder"
         :src="getCover"
+        @error="onImageError"
         @click.native="imageModal"/>
 </template>
 
@@ -27,7 +28,8 @@
           cover: '',
           placeholder: '',
           zoom: ''
-        }
+        },
+        error: false
       }
     },
     created () {
@@ -70,6 +72,9 @@
       }
     },
     methods: {
+      onImageError () {
+        this.error = true
+      },
       imageModal () {
         this.$modal.open({
           content: `<p class="image">

@@ -99,7 +99,7 @@
       },
       createMap () {
         try {
-          const mapboxgl = require('mapbox-gl/dist/mapbox-gl.js')
+          const mapboxgl = require('mapbox-gl')
           mapboxgl.accessToken = this.token
           // init the map
           this.map = new mapboxgl.Map({

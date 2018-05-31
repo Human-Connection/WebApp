@@ -20,6 +20,11 @@
     width: calc(80vw - 40px);
     max-width: 800px;
   }
+
+  &.dialog .modal-card {
+    max-width: 550px;
+  }
+
   .modal-card-head {
     background-color: $white;
     border-bottom: none;

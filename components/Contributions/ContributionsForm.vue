@@ -6,6 +6,7 @@
                @update="value => { form.teaserImg = value }"
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false"
+               @error="onImageError"
                style="margin: -3.0rem -1.5rem 2rem;">
     </hc-upload>
     <div class="columns">
@@ -379,6 +380,9 @@
       //     alert('BOOM')
       //   }
       // },
+      onImageError (e) {
+        this.form.teaserImg = null
+      },
       setPostType (newIndex) {
         this.options.postTypes.forEach((postType, index) => {
           if (index === newIndex) {
@@ -403,6 +407,7 @@
           this.form.meta.hasVideo = true
         }
         if (!this.form.teaserImg && data.image && data.image.url) {
+          console.log('data.image.url', data.image.url, data.image)
           this.form.teaserImg = data.image.url
         }
       },

@@ -21,13 +21,14 @@
             <li>
               <nuxt-link :to="{ name: 'auth-settings' }">{{ $t('auth.settings.data', 'Your Data') }}</nuxt-link>
             </li>
-          </ul>
-          <p class="menu-label">
-            {{ $t('auth.settings.security', 'Security') }}
-          </p>
-          <ul class="menu-list">
             <li>
-              <nuxt-link :to="{ name: 'auth-settings-access' }">{{ $t('auth.settings.access', 'Access') }}</nuxt-link>
+              <nuxt-link :to="{ name: 'auth-settings-security' }">{{ $t('auth.settings.security', 'Security') }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-download' }">{{ $t('auth.settings.download', 'Download Data') }}</nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-delete' }">{{ $t('auth.settings.delete', 'Delete Account') }}</nuxt-link>
             </li>
           </ul>
           <p class="menu-label">
@@ -45,6 +46,9 @@
             <li>
               <nuxt-link :to="{ name: 'auth-settings-languages' }">{{ $t('auth.settings.languages', 'Languages') }}</nuxt-link>
             </li>
+            <li v-if="user && user.role === 'admin'">
+              <nuxt-link :to="{ name: 'auth-settings-presentation' }">{{ $t('auth.settings.presentation', 'Presentation') }}</nuxt-link>
+            </li>
           </ul>
         </aside>
       </div>
@@ -58,11 +62,18 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     head () {
       return {
         title: this.$t('auth.account.settings', 'Settings')
       }
+    },
+    computed: {
+      ...mapGetters({
+        user: 'auth/user'
+      })
     }
   }
 </script>

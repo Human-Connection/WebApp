@@ -58,6 +58,7 @@ app.use(nuxt.render)
 // Listen the server
 app.listen(env.WEBAPP_PORT, env.WEBAPP_HOST)
 console.log(`Server listening on ${env.WEBAPP_HOST}:${env.WEBAPP_PORT}`) // eslint-disable-line no-console
+console.log(`MAINTENANCE ${(Boolean(env.MAINTENANCE) === true).toString()}`) // eslint-disable-line no-console
 console.log(`WEBAPP_PORT ${env.WEBAPP_PORT}`) // eslint-disable-line no-console
 console.log(`WEBAPP_HOST ${env.WEBAPP_HOST}`) // eslint-disable-line no-console
 console.log(`WEBAPP_BASE_URL ${env.WEBAPP_BASE_URL}`) // eslint-disable-line no-console

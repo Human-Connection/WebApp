@@ -9,7 +9,7 @@
       <div class="card">
         <section class="section">
           <b-loading :is-full-width="false" :active="isLoading" />
-          <h2 class="title is-3">{{ title }}</h2>
+          <h2 class="title is-2">{{ title }}</h2>
           <div class="content" v-html="content"></div>
         </section>
       </div>
@@ -18,6 +18,8 @@
 </template>
 
 <script>
+  import linkifyHtml from 'linkifyjs/html'
+
   export default {
     head () {
       return {
@@ -46,7 +48,7 @@
         })
         if (res && res.data && res.data.length) {
           data.title = res.data[0].title
-          data.content = res.data[0].content
+          data.content = linkifyHtml(res.data[0].content)
         } else {
           return error({ statusCode: 404 })
         }

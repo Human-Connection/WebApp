@@ -7,6 +7,7 @@
       <hc-progressive-image
         :src="previewImage"
         :preview="previewImage"
+        @error="onImageError"
         v-if="previewImage" />
     </div>
     <div class="hc-upload-progress">
@@ -141,6 +142,9 @@
       }
     },
     methods: {
+      onImageError (e) {
+        this.$emit('error', e)
+      },
       checkToken () {
         if (!this.token) {
           return

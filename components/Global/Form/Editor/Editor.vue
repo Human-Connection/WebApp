@@ -51,6 +51,7 @@
           @blur="editorBlur()"
           @focus="editorFocus()"
           @ready="editorReady($event)"
+          @keydown.shift.enter.capture="handleShiftEnter"
           ref="content"
           v-quill:myQuillEditor="computedEditorOptions"></div>
         <div class="plugins" v-if="ready && myQuillBus">
@@ -70,6 +71,7 @@
   import EditorEmojis from '~/components/Editor/Emojis/EditorEmojis'
   import EditorMentions from '~/components/Mentions/EditorMentions'
   import Emitter from 'emitter-js'
+  import Delta from 'quill-delta'
 
   class QuillBus {
     constructor (quillEditor) {
@@ -82,6 +84,7 @@
       this.getLine = (index) => quillEditor.getLine(index)
       this.getText = (index, length) => quillEditor.getText(index, length)
       this.format = (name, value, source) => quillEditor.format(name, value, source)
+      this.insertText = (...args) => quillEditor.insertText(...args)
       quillEditor.on('text-change', (...args) => bus.emit('text-change', ...args))
       quillEditor.on('selection-change', (...args) => bus.emit('selection-change', ...args))
     }
@@ -183,6 +186,22 @@
       },
       handleMeta (data) {
         this.$emit('fetchedMeta', data)
+      },
+      // Handle shift + enter > line break outside of quill
+      // Because it is not yet supported by it
+      handleShiftEnter (event) {
+        const quill = this.myQuillBus
+        const sel = quill.getSelection()
+        if (!sel) {
+          return
+        }
+        const ops = new Delta()
+          .retain(sel.index)
+          .insert({linebreak: {}})
+        quill.updateContents(ops)
+        quill.setSelection(sel.index + 1)
+        event.stopPropagation()
+        event.preventDefault()
       }
     },
     watch: {

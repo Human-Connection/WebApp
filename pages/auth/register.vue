@@ -246,9 +246,9 @@
           return
         }
         switch (e.target.getAttribute('data-page')) {
-          case 'data-privacy':
+          case 'privacy':
             e.preventDefault()
-            this.$openInModal({slug: 'data-privacy'})
+            this.$openInModal({slug: 'privacy'})
             break;
           case 'terms-and-conditions':
             e.preventDefault()
@@ -317,7 +317,7 @@
     },
     computed: {
       linkDataPrivacy () {
-        return `<a data-page="data-privacy" href="/pages/data-privacy" target="_blank">${this.$t('legal.dataPrivacyStatement')}</a>`
+        return `<a data-page="privacy" href="/pages/privacy" target="_blank">${this.$t('legal.dataPrivacyStatement')}</a>`
       },
       linkTermsOfService () {
         return `<a data-page="terms-and-conditions" href="/pages/terms-and-conditions" target="_blank">${this.$t('legal.termsAndConditions')}</a>`

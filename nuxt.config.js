@@ -86,6 +86,9 @@ module.exports = {
       config.resolve.alias = aliases // eslint-disable-line no-param-reassign
       // Needed for some plugins that don't pre-compile templates
       config.resolve.alias['vue'] = 'vue/dist/vue.common'
+      // Mapbox-gl throws error after being uglified
+      // https://github.com/mapbox/mapbox-gl-js/issues/4359
+      config.module.noParse = /(mapbox-gl)\.js$/
     }
   },
   plugins: [

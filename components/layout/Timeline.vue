@@ -312,10 +312,16 @@
         const comments = await this.$api.service('comments').find({
           query: {
             userId,
+            deleted: {
+              $ne: true
+            },
             $sort: {
               createdAt: -1
             },
             $limit: limit,
+            deleted: {
+              $ne: true
+            },
             $select: ['contributionId']
           }
         })
