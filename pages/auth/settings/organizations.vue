@@ -57,7 +57,7 @@
         &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
     </footer>-->
-    <b-modal v-if="selectedOrganization" :active.sync="isDeleteModalActive" has-modal-card animation="zoom-in">
+    <b-modal class="dialog" v-if="selectedOrganization" :active.sync="isDeleteModalActive" has-modal-card animation="zoom-in">
       <div class="modal-background"></div>
       <div class="modal-card">
         <section class="modal-card-body">

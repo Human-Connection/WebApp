@@ -159,7 +159,7 @@ export const actions = {
     commit('setLastQueryHash', queryHash)
 
     try {
-      const res = await this.app.$api.service('contributions').find({query: query})
+      const res = await this.app.$api.service('contributions').find({query})
       commit('addContributions', res.data)
 
       setTimeout(() => {
