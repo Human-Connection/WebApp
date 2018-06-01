@@ -97,6 +97,7 @@ export default {
         description: '',
         url: '',
         categoryIds: [],
+        tags: [],
         language: this.$i18n.locale()
       },
       step: 1,

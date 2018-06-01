@@ -37,7 +37,8 @@
     data() {
       return {
         form: {
-          categoryIds: []
+          categoryIds: [],
+          tags: []
         },
         organization: null,
         isLoading: false
@@ -55,7 +56,8 @@
         this.organization = this.$parent.$attrs.organization
 
         this.form = Object.assign(this.form, {
-          categoryIds: this.organization.categoryIds
+          categoryIds: this.organization.categoryIds,
+          tags: this.organization.tags
         })
       })
     },

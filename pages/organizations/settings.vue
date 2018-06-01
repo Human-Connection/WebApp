@@ -42,7 +42,10 @@
               </nuxt-link>
             </li>
             <li>
-              <nuxt-link :to="{ name: 'organizations-settings-categories', query: { id: organization._id } }">{{ $t('component.organization.stepCategories', 'Categories') }}</nuxt-link>
+              <nuxt-link :to="{ name: 'organizations-settings-categories', query: { id: organization._id } }">
+                {{ $t('component.organization.stepCategories', 'Categories') }}
+                <hc-icon v-if="!organization.tags || !organization.tags.length" icon="warning" class="pull-right" />
+              </nuxt-link>
             </li>
             <li>
               <nuxt-link :to="{ name: 'organizations-settings-addresses', query: { id: organization._id } }">
