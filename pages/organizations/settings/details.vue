@@ -38,6 +38,7 @@
       return {
         form: {
           description: '',
+          url: '',
           type: null
         },
         organization: null,
@@ -57,6 +58,7 @@
 
         this.form = Object.assign(this.form, {
           description: this.organization.description,
+          url: this.organization.url,
           type: this.organization.type
         })
       })

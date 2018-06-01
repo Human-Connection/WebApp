@@ -14,8 +14,7 @@
       <div class="control has-icons-right"
             :class="{ 'has-error': $v.form.name.$error }">
         <label class="label is-required" for="form-name">{{ $t('component.organization.name') }}</label>
-        <input v-focus="autoFocus"
-                autofocus
+        <input v-focus
                 id="form-name"
                 class="input "
                 type="text"
