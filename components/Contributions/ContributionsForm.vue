@@ -136,11 +136,9 @@
           <b-taginput
               maxtags="5"
               maxlength="32"
-              size="is-small"
               :value="form.tags"
               icon=""
               placeholder="Add a tag"
-              @keyup.delete.native="onTagDelete"
               @keydown.tab.native="onTagTab">
           </b-taginput>
         </b-field>
@@ -454,11 +452,6 @@
             message: err.message,
             type: 'is-danger'
           })
-        }
-      },
-      onTagDelete (e) {
-        if (isEmpty(e.target.value)) {
-          this.form.tags.pop()
         }
       },
       onTagTab (e) {
