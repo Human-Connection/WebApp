@@ -1,6 +1,10 @@
 <template>
   <div class="hc-top-search">
-    <search-input class="is-hidden-mobile"></search-input>
+    <search-input class="is-hidden-mobile"
+                  id="nav-search"
+                  :value="searchQuery"
+                  :style="{ height: '100%' }"
+                  @search="onSearch" />
     <hc-dropdown :persist="true"
                  :mobileFixed="true"
                  @open="opened"
@@ -10,7 +14,11 @@
         <hc-icon icon="search"></hc-icon>
       </hc-navbar-button>
       <div class="hc-top-search-mobile-inner">
-        <search-input :focus="true" v-if="mobileSearchVisible" ref="searchInput"></search-input>
+        <search-input v-if="mobileSearchVisible"
+                      id="nav-mobile-search"
+                      :value="searchQuery"
+                      :style="{ height: '100%' }"
+                      @search="onSearch" />
       </div>
     </hc-dropdown>
   </div>
@@ -19,6 +27,7 @@
 
 <script>
   import SearchInput from '../Search/SearchInput.vue'
+  import {mapGetters, mapMutations} from 'vuex'
 
   export default {
     name: 'hc-top-search',
@@ -30,16 +39,25 @@
         mobileSearchVisible: false
       }
     },
+    computed: {
+      ...mapGetters({
+        searchQuery: 'search/query'
+      })
+    },
     methods: {
+      onSearch (value) {
+        console.log('onSearch', value)
+        this.$store.commit('search/query', value)
+      },
       opened () {
-        setTimeout(() => {
-          this.mobileSearchVisible = true
-        }, 25)
+        // setTimeout(() => {
+        this.mobileSearchVisible = true
+        // }, 25)
       },
       closed () {
-        setTimeout(() => {
-          this.mobileSearchVisible = false
-        }, 100)
+        // setTimeout(() => {
+        this.mobileSearchVisible = false
+        // }, 100)
       }
     }
   }
