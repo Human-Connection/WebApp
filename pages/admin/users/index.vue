@@ -1,20 +1,17 @@
 <template>
-  <section>
+  <section style="position: relative;">
     <h3 class="title is-3">{{ $t('component.admin.manageUsers', 'Manage Users') }}</h3>
-    <b-tabs v-model="activeTab">
+    <b-tabs class="user-tabs" position="is-right" v-model="activeTab">
       <b-tab-item label="Users" icon="users">
-        <div class="info-text">
-          <p class="subtitle is-6">
-            <i class="fa fa-info-circle"></i> A list of registered users with their email verification status.
-          </p>
-        </div>
-        <br>
+        <search-input id="user-search"
+                      :value="userSearchValue"
+                      @search="userSearchOnInput" />
         <no-ssr>
           <v2-table :data="users.data"
                     :stripe="true"
                     :loading="usersLoading"
                     :total="users.total"
-                    :shown-pagination="true"
+                    :shown-pagination="userTotalPages > 1"
                     :pagination-info="paginationInfo"
                     @page-change="handleUserPageChange">
             <v2-table-column label="Name" prop="name" align="left" width="220">
@@ -92,7 +89,7 @@
                     :stripe="true"
                     :loading="invitesLoading"
                     :total="invitePreview.length"
-                    :shown-pagination="true"
+                    :shown-pagination="currentPage > 1 || invitesTotalPages > 1"
                     :pagination-info="paginationInfo"
                     @page-change="handleInvitesPageChange">
             <v2-table-column label="Email" prop="email" align="left" width="250"></v2-table-column>
@@ -151,12 +148,16 @@
   import moment from 'moment'
   import parse from 'csv-parse/lib/sync'
   import { isEmpty, each, map, keyBy } from 'lodash'
+  import SearchInput from '~/components/Search/SearchInput.vue'
 
   let itemLimit = 10
 
   export default {
     middleware: 'admin',
     layout: 'admin',
+    components: {
+      SearchInput
+    },
     data () {
       return {
         form: {
@@ -170,6 +171,7 @@
         results: '',
         resultDownloadURL: null,
         users: [],
+        userSearchValue: '',
         invitePreview: [],
         invitePaginated: [],
         inviteResults: [],
@@ -204,14 +206,21 @@
       baseURL () {
         return location.origin
       },
-      totalPages () {
+      userTotalPages () {
         return this.users.total / this.itemLimit
+      },
+      invitesTotalPages () {
+        return this.invitePaginated.length / this.itemLimit
       },
       paginationText () {
         return `<span>Total of <strong>${this.user ? this.user.total : 0}</strong>, <strong>${this.itemLimit}</strong> per page</span>`
       }
     },
     methods: {
+      userSearchOnInput (value) {
+        this.userSearchValue = value
+        this.handleUserPageChange(1)
+      },
       /**
        * read the selected csv and
        */
@@ -272,12 +281,6 @@
           reader.readAsText(file)
         })
       },
-      // openProfile (user) {
-      //   if (user.slug) {
-      //     window.open(`/profile/${user.slug}`, '_blank')
-      //     // this.$router.push()
-      //   }
-      // },
       inviteUsers () {
         const sendInviteEmails = this.form.sendInviteEmails === true
 
@@ -329,12 +332,21 @@
         this.usersLoading = true
         const start = (page - 1) * this.itemLimit
 
-        this.users = await this.$api.service('users').find({
-          query: {
-            $limit: this.itemLimit,
-            $skip: start
+        const query = {
+          $limit: this.itemLimit,
+          $skip: start
+        }
+        if (!isEmpty(this.userSearchValue) && this.userSearchValue.indexOf('@') > 0) {
+          console.log('###EMAIL', this.userSearchValue.indexOf('@'))
+          query.email = this.userSearchValue
+        } else if (!isEmpty(this.userSearchValue)) {
+          console.log('###NAME')
+          query.name = {
+            $search: this.userSearchValue
           }
-        })
+        }
+
+        this.users = await this.$api.service('users').find({query})
         this.usersLoading = false
       },
       async handleInvitesPageChange (page) {
@@ -384,5 +396,11 @@
     padding: 1rem $padding;
     display: flex;
     justify-content: right;
+  }
+
+  @media (min-width: 500px) {
+    .user-tabs {
+      margin-top: -4.0rem;
+    }
   }
 </style>

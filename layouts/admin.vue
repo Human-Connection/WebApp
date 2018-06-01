@@ -59,6 +59,10 @@
     box-shadow: $card-shadow;
     background-color: $white;
     padding: 2rem 1.5rem;
+
+    .search {
+      margin-bottom: 1rem;
+    }
   }
 
   .menu {
