@@ -34,8 +34,8 @@
         }
       },
       userName () {
-        let username = this.notificationMeta.user ? this.notificationMeta.user.name : 'Anonymus'
-        return username || 'Anonymus'
+        let username = this.notificationMeta.user ? this.notificationMeta.user.name : this.$t('component.contribution.creatorUnknown')
+        return username || this.$t('component.contribution.creatorUnknown')
       },
       type () {
         return this.notification.type || 'comment'
