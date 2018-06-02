@@ -187,10 +187,6 @@
           // new logic
           return this.comment.hasMore
         }
-      },
-      isOwner () {
-        return this.user && this.comment && this.comment.user &&
-          this.comment.user._id === this.user._id
       }
     },
     mounted () {
