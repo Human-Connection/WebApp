@@ -2,6 +2,33 @@
   height: 2.6em;
 }
 
+$placeholderColor: lighten($grey-dark, 10%);
+
+.input,
+input,
+textarea {
+
+  // &:placeholder-shown,
+  &::placeholder {
+    color: $placeholderColor;
+  }
+}
+
+.input,
+.has-icons-left,
+.has-icons-right {
+  .icon,
+  i {
+    // color: lighten($grey-light, 15%);
+    transition: color 150ms ease-out !important;
+  }
+
+  // &.isActive,
+  // &::focus {
+  //   color: $grey-light;
+  // }
+}
+
 .taginput-container {
   box-shadow: none !important;
   padding-left: .2em !important;
