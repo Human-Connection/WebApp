@@ -1,7 +1,6 @@
 <template>
   <div class="notification option">
     <author class="author"
-            v-if="notificationMeta.user"
             :user="notificationMeta.user"
             :created-at="notificationMeta.createdAt" />
     <p class="notification-message" v-html="message"></p>
