@@ -70,7 +70,12 @@
       onInput () {
         clearTimeout(this.searchProcess)
         this.searching = true
+        // skip on less then three letters
         if (this.searchValue && this.searchValue.toString().length < 3) {
+          return
+        }
+        // skip if nothing changed
+        if (this.searchValue === this.value) {
           return
         }
         this.searchProcess = setTimeout(() => {
@@ -159,9 +164,6 @@
     .icon {
       height: 2.5em;
       font-size: 1em;
-      transition-duration: 0.15s;
-      transition-timing-function: ease-out;
-      transition-property: color;
 
       &.btn-clear {
         position: absolute;

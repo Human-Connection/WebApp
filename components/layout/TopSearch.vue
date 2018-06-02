@@ -46,7 +46,6 @@
     },
     methods: {
       onSearch (value) {
-        console.log('onSearch', value)
         this.$store.commit('search/query', value)
       },
       opened () {
