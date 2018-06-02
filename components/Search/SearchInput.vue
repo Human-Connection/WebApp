@@ -87,8 +87,12 @@
         this.$emit('search', this.searchValue.toString())
       },
       clear () {
+        clearTimeout(this.searchProcess)
         this.searching = false
-        this.$emit('search', '')
+        this.searchValue = ''
+        if (this.value !== this.searchValue) {
+          this.$emit('search', '')
+        }
       }
     },
     watch: {
