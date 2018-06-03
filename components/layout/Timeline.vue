@@ -9,7 +9,7 @@
     </no-ssr>
     <!--<hc-title>{{ $t('component.timeline.title') }}</hc-title>
     <div class="timeline-intro">
-      <p v-if="isOwnProfile">{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
+      <p v-if="isOwnProfile">{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : $t('component.contribution.creatorUnknown') }) }}</p>
       <p v-if="!contributed.data.length && loadingFinished && isOwnProfile">
         {{ $t('component.timeline.noContributionsFound') }}
       </p>
@@ -31,7 +31,7 @@
             </p>
           </div>
           <div class="timeline-intro" v-if="isOwnProfile">
-            <p>{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : 'Anonymus' }) }}</p>
+            <p>{{ $t('component.timeline.introQuestion', { 'username': user.name ? user.name : $t('component.contribution.creatorUnknown') }) }}</p>
             <hc-tooltip :label="$t('component.contribution.writePost')"
                         type="is-black"
                         position="is-right">

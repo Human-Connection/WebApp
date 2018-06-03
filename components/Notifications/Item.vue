@@ -1,7 +1,6 @@
 <template>
   <div class="notification option">
     <author class="author"
-            v-if="notificationMeta.user"
             :user="notificationMeta.user"
             :created-at="notificationMeta.createdAt" />
     <p class="notification-message" v-html="message"></p>
@@ -35,8 +34,8 @@
         }
       },
       userName () {
-        let username = this.notificationMeta.user ? this.notificationMeta.user.name : 'Anonymus'
-        return username || 'Anonymus'
+        let username = this.notificationMeta.user ? this.notificationMeta.user.name : this.$t('component.contribution.creatorUnknown')
+        return username || this.$t('component.contribution.creatorUnknown')
       },
       type () {
         return this.notification.type || 'comment'

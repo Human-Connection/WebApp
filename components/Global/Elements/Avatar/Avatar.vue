@@ -80,8 +80,8 @@ export default {
     },
     computed: {
       username () {
-        let username = this.name || this.user.name || 'Anonymus'
-        return username || 'Anonymus'
+        let username = this.name || this.user.name
+        return username || this.$t('component.contribution.creatorUnknown')
       },
       hasImage () {
         return Boolean(this.avatar) && !this.error
@@ -131,7 +131,7 @@ export default {
         this.error = true
       },
       initial (username) {
-        let un = username || 'Anonymus'
+        let un = username || this.$t('component.contribution.creatorUnknown')
         let parts = un.split(/[ -]/)
         let initials = ''
         for (var i = 0; i < parts.length; i++) {

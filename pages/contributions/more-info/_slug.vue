@@ -271,7 +271,7 @@
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
-        return this.isVerified && this.contribution.user._id === userId
+        return this.isVerified && this.contribution.user && this.contribution.user._id === userId
       },
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null

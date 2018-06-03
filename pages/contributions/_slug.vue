@@ -112,7 +112,7 @@
                 <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                   <div class="message is-warning">
                     <div class="message-body">
-                      {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                      {{ $t('component.contribution.letsTalkDescription', {user: contribution.user ? contribution.user.name : $t('component.contribution.creatorUnknown') }) }}
                       <br/><br/>
                       <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
                     </div>
@@ -311,7 +311,7 @@
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
-        return this.isVerified && this.contribution.user._id === userId
+        return this.isVerified && this.contribution.user && this.contribution.user._id === userId
       },
       refreshOrNot () {
         return !!this.$route.query.refresh === true ? 800 : null
