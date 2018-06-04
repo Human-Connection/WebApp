@@ -7,7 +7,6 @@
                 v-if="isOwner"
                 :preview-image="coverImg"
                 :test="true"
-                :circular="false"
                 @update="onCoverUploadCompleted"
                 @start-sending="uploadingCover = true"
                 @stop-sending="uploadingCover = false" >
