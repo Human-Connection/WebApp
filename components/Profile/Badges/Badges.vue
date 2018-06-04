@@ -44,7 +44,7 @@
   margin-top: 15px;
 
   li:first-child {
-    margin-left: 0;
+    margin-left: -2px;
   }
   li img {
     height: 35px;
@@ -52,13 +52,14 @@
   li {
     list-style: none;
     float: left;
-    margin-right: -7px;
+    margin-right: -9px;
+
 
     &:nth-child(2),
     &:nth-child(4),
     &:nth-child(6) {
       img {
-        margin-top: 16px;
+        margin-top: 19px;
         display: block;
       }
     }
