@@ -34,9 +34,13 @@
             <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
           </div>
           <div class="organization-name">
-            <span>{{ organization.name || '' }}</span>
+            <span>{{ organization.name }}</span>
           </div>
-          <div class="organization-follows hc-textcounters under-construction">
+          <hc-follow-buttons v-if="user"
+                             service="organizations"
+                             :showButtons="!isOwner"
+                             :entity="organization" />
+          <!--<div class="organization-follows hc-textcounters under-construction">
             <hc-textcount class="textcountitem" :count="1337" :text="$t('page.organization.shouts', 'Zurufe')">
               <div class="action-button">
                 <i class="fa fa-bullhorn is-action-icon"></i>
@@ -47,7 +51,7 @@
                 <i @click="followOrganization" class="fa fa-bell-o is-action-icon"></i>
               </div>
             </hc-textcount>
-          </div>
+          </div>-->
         </hc-box>
         <!-- TODO: get better looking interactions -->
         <div class="organization-actions" v-if="false">
@@ -137,6 +141,7 @@
 
   import { isEmpty, indexOf } from 'lodash'
   import HcTextcount from '~/components/Global/Typography/Textcount/Textcount'
+  import FollowButtons from '~/components/Global/Elements/Follow/FollowButtons.vue'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
   import OrganizationReviewBanner from '~/components/Organizations/OrganizationReviewBanner.vue'
   import OrganizationVisibilityBanner from '~/components/Organizations/OrganizationVisibilityBanner.vue'
@@ -145,6 +150,7 @@
     components: {
       HcTextcount,
       ContributionCard,
+      'hc-follow-buttons': FollowButtons,
       OrganizationReviewBanner,
       OrganizationVisibilityBanner
     },

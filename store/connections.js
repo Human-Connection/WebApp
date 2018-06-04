@@ -26,13 +26,14 @@ export const getters = {
 
 export const actions = {
   async syncFollow ({state, commit}, {userId, foreignId, foreignService}) {
-    console.log('TRY TO GET FOLLOW STATUS', userId, foreignId, foreignService)
     let status = Object.assign({}, state.follow)
 
     if (status.userId !== userId) {
       status.count = 0
     }
     status.userId = userId
+    status.foreignId = foreignId
+    status.foreignService = foreignService
     status.isPending = true
     commit('follow', status)
 
@@ -46,21 +47,19 @@ export const actions = {
           foreignService
         }
       })
-      console.log('++++++++++++res', res)
-      status.count = res.total
+      status.count = res.total || 0
       status._id = res.data.length ? res.data[0]._id : null
-    } catch (err) {}
+    } catch (err) {
+      console.error(err)
+      status.count = 0
+    }
 
     status.isFollowing = Boolean(status._id)
     status.isPending = false
 
-    console.log('***************', status)
-
     commit('follow', status)
   },
   async follow ({state, commit, dispatch}, {foreignId, foreignService}) {
-    console.log('TRY TO FOLLOW', foreignId, foreignService)
-
     let status = Object.assign({}, state.follow)
     status.isPending = true
     commit('follow', status)
@@ -86,8 +85,6 @@ export const actions = {
     })
   },
   async unfollow ({state, commit, dispatch}, {_id}) {
-    console.log('TRY TO UNFOLLOW', _id)
-
     let status = Object.assign({}, state.follow)
     status.isPending = true
     commit('follow', status)

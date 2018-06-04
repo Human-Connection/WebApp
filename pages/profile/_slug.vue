@@ -38,7 +38,9 @@
           <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
-          <hc-follow-button v-if="user" :showButtons="!isOwner" :user="user" style="border-bottom: none; margin-bottom: -0.5rem;" />
+          <hc-follow-buttons v-if="user"
+                             :showButtons="!isOwner"
+                             :entity="user" />
           <div v-if="false" class="hc-shortcuts level under-construction">
             <!-- TODO: replace the cdn images with local hc icons -->
             <div class="level-item has-text-centered">
@@ -83,9 +85,9 @@
         <hc-box class="" bottom="true">
           <hc-subtitle>{{ $t('auth.account.myFollowing', 'Following') }}</hc-subtitle>
           <div class="hc-textcounters">
-            <hc-textcount class="textcountitem" :count="following.organizations.total" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, following.organizations.total)"/>
-            <hc-textcount class="textcountitem" :count="following.users.total" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, following.users.total)"/>
-            <hc-textcount class="textcountitem" :count="following.projects.total" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, following.projects.total)"/>
+            <hc-textcount class="textcountitem" :count="followingCounts.organizations" :text="$t('auth.account.myFollowingNgoOnePluralNone', null, followingCounts.organizations)"/>
+            <hc-textcount class="textcountitem" :count="followingCounts.users" :text="$t('auth.account.myFollowingPeopleOnePluralNone', null, followingCounts.users)"/>
+            <hc-textcount class="textcountitem" :count="followingCounts.projects" :text="$t('auth.account.myFollowingProjectsOnePluralNone', null, followingCounts.projects)"/>
           </div>
           <div class="hc-follower-list">
             <hc-follower-item v-for="item in following.users.data" :key="item._id" :user="item.user" />
@@ -137,7 +139,7 @@
 <script>
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
-  import FollowButton from '~/components/Global/Elements/Follow/FollowButton.vue'
+  import FollowButtons from '~/components/Global/Elements/Follow/FollowButtons.vue'
   import Map from '~/components/Map/Map.vue'
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
@@ -147,7 +149,7 @@
   export default {
     components: {
       'hc-follower-item': FollowerItem,
-      'hc-follow-button': FollowButton,
+      'hc-follow-buttons': FollowButtons,
       'hc-profile-badges': Badges,
       'hc-map': Map,
       'hc-timeline': Timeline
@@ -231,6 +233,13 @@
         loggedInUser: 'auth/user',
         currentUserSettings: "auth/userSettings"
       }),
+      followingCounts () {
+        return {
+          users: this.user && this.user.followingCounts ? (this.user.followingCounts.users || 0) : 0,
+          organizations: this.user && this.user.followingCounts ? (this.user.followingCounts.organizations || 0) : 0,
+          projects: this.user && this.user.followingCounts ? (this.user.followingCounts.projects || 0) : 0
+        }
+      },
       coverImg () {
         let thumbnail = thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
         if (!thumbnail && this.user.wasSeeded && !this.isOwner) {
@@ -266,51 +275,47 @@
         })
         this.updatedUser = user
       },
-      async loadCandos () {
-        if (this.user.candos && this.user.candos.length) {
-          this.isLoadingCanDos = true
-        }
-        const res = await this.$api.service('contributions').find({
-          query: {
-            _id: {
-              $in: flatMap(this.user.candos, 'contributionId')
-            },
-            type: 'cando',
-            $limit: 5,
-            $sort: {
-              createdAt: -1
-            }
-          }
-        })
-        this.isLoadingCanDos = false
-        this.candos = res.data
-      }
-    },
-    mounted () {
-      this.$nextTick(async () => {
+      async loadFollows (service = 'users') {
         try {
-          this.$api.service('follows').find({
+          const res = await this.$api.service('follows').find({
             query: {
               userId: this.user._id,
-              foreignService: 'users',
+              foreignService: service,
               $limit: 5,
               $sort: {
                 createdAt: -1
               }
             }
-          }).then(res => {
-            console.log('RES', res)
-            this.$set(this.following, 'users', res)
           })
-          // console.log(res)
-          // if (res !== null) {
-          //   this.following = {
-          //     users: res.users || { total: 0, data: [] },
-          //     organizations: res.organizations || { total: 0, data: [] },
-          //     projects: res.projects || { total: 0, data: [] }
-          //   }
-          // }
-          // }
+          this.$set(this.following, service, res)
+        } catch (err) {}
+      },
+      async loadCandos () {
+        if (this.user.candos && this.user.candos.length) {
+          this.isLoadingCanDos = true
+        }
+        try {
+          const res = await this.$api.service('contributions').find({
+            query: {
+              _id: {
+                $in: flatMap(this.user.candos, 'contributionId')
+              },
+              type: 'cando',
+              $limit: 5,
+              $sort: {
+                createdAt: -1
+              }
+            }
+          })
+          this.candos = res.data
+        } catch (err) {}
+        this.isLoadingCanDos = false
+      }
+    },
+    mounted () {
+      this.$nextTick(() => {
+        try {
+          this.loadFollows()
           this.loadCandos()
         } catch (err) {}
       })
