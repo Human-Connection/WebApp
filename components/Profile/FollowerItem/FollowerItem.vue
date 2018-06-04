@@ -82,7 +82,7 @@
       }
       .details-timestamp {
         font-size: 10px;
-        margin-top: -0.8em;
+        margin-top: -0.6em;
         color: $grey;
       }
     }
