@@ -102,7 +102,7 @@
                 {{ $t('component.timeline.noContributionsFound') }}
               </p>
             </div>
-            <div class="timeline-intro">
+            <div class="timeline-intro" v-if="isOwner">
               <hc-tooltip :label="$t('component.contribution.writePost')"
                           type="is-black"
                           position="is-right">
