@@ -4,7 +4,7 @@
       <hc-tooltip type="is-dark"
         :label="$t('component.contribution.canDoResetInfo')">
         <hc-button @click="toggleDone" :size="size">
-          <hc-icon icon="smile-o" />&nbsp;
+          <span class="smiley">☻</span>&nbsp;
           {{ $t('component.contribution.canDoCompleted') }}
         </hc-button>
       </hc-tooltip>
@@ -169,5 +169,12 @@
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
     }
+  }
+
+  .smiley {
+    font-size: 1.3em;
+    display: inline-block;
+    margin-top: -0.2em;
+    margin-bottom: -0.3em;
   }
 </style>
