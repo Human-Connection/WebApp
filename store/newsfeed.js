@@ -83,6 +83,9 @@ export const getters = {
       skip: state.skip,
       sort: state.sort
     }
+    if (!_.isEmpty(state.search)) {
+      queryData.$sort = {}
+    }
     if (rootState.auth.user) {
       queryData.language = {
         $in: _.castArray(rootGetters['auth/userSettings'].contentLanguages)
@@ -106,6 +109,9 @@ export const getters = {
       $limit: state.limit,
       $sort: state.sort,
       visibility: 'public'
+    }
+    if (!_.isEmpty(state.search)) {
+      query.$sort = {}
     }
     query = Object.assign(query, rootGetters['search/queryLanguages'])
 
