@@ -405,7 +405,7 @@
           this.form.meta.hasVideo = true
         }
         if (!this.form.teaserImg && data.image && data.image.url) {
-          console.log('data.image.url', data.image.url, data.image)
+          // console.log('data.image.url', data.image.url, data.image)
           this.form.teaserImg = data.image.url
         }
       },

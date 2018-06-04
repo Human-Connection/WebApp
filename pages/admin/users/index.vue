@@ -337,10 +337,8 @@
           $skip: start
         }
         if (!isEmpty(this.userSearchValue) && this.userSearchValue.indexOf('@') > 0) {
-          console.log('###EMAIL', this.userSearchValue.indexOf('@'))
           query.email = this.userSearchValue
         } else if (!isEmpty(this.userSearchValue)) {
-          console.log('###NAME')
           query.name = {
             $search: this.userSearchValue
           }

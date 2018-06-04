@@ -60,7 +60,6 @@
     },
     methods: {
       updateValue () {
-        console.log('updateValue', this.value)
         if (!this.value) {
           this.searchValue = ''
         } else if (this.value.toString() !== this.searchValue.toString()) {

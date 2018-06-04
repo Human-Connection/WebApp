@@ -48,8 +48,6 @@
         const res = await this.$api.service('user-data-download').create({
           userId: this.user._id
         })
-        console.log('##RES', res)
-
         this.isLoading = false
       }
     }

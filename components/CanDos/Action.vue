@@ -79,7 +79,6 @@
         return !!this.currentUserCando
       },
       isDone () {
-        console.log('isDone', Object.assign({}, this.currentUserCando))
         return this.currentUserCando && this.currentUserCando.done
       },
       doneAt () {
@@ -123,7 +122,6 @@
         let data = {
           done: !this.currentUserCando.done
         }
-        console.log('done', data, this.currentUserCando._id)
         this.$api.service('users-candos')
           .patch(this.currentUserCando._id, data)
           .then(data => {
