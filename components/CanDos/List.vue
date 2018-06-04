@@ -1,8 +1,8 @@
 <template>
   <div class="cando-list">
-    <table class="table is-striped">
+    <table class="table is-striped is-hoverable">
       <tbody>
-      <tr v-for="canDo in canDosList" :key="canDo._id">
+      <tr v-for="canDo in canDosList" :key="canDo._id" style="cursor: pointer;" @click="goToCanDo(canDo)">
         <td>
           <hc-truncate :text="canDo.title" :length="50" />
           <div class="cando-list-action">
@@ -65,6 +65,9 @@
     methods: {
       update () {
         this.$emit('update')
+      },
+      goToCanDo (canDo) {
+        this.$router.push({name: 'contributions-slug', params: { slug: canDo.slug }})
       }
     }
   }
@@ -73,7 +76,12 @@
 <style scoped lang="scss">
   @import 'assets/styles/utilities';
 
+  .cando-list {
+    margin-bottom: 2rem;
+  }
+
   .cando-list-action {
-    margin-top: 0.2rem;
+    margin-top: .2rem;
+    margin-bottom: .2rem;
   }
 </style>

@@ -79,6 +79,7 @@
         return !!this.currentUserCando
       },
       isDone () {
+        console.log('isDone', Object.assign({}, this.currentUserCando))
         return this.currentUserCando && this.currentUserCando.done
       },
       doneAt () {
@@ -86,7 +87,8 @@
       }
     },
     methods: {
-      addToList () {
+      addToList (e) {
+        e.stopImmediatePropagation()
         if (!this.isVerified || !this.user || !this.canDo) {
           return false
         }
@@ -101,7 +103,8 @@
           })
           .catch(this.handleError)
       },
-      removeFromList () {
+      removeFromList (e) {
+        e.stopImmediatePropagation()
         if (!this.currentUserCando) {
           return false
         }
@@ -112,13 +115,15 @@
           })
           .catch(this.handleError)
       },
-      toggleDone () {
+      toggleDone (e) {
+        e.stopImmediatePropagation()
         if (!this.currentUserCando) {
           return false
         }
         let data = {
           done: !this.currentUserCando.done
         }
+        console.log('done', data, this.currentUserCando._id)
         this.$api.service('users-candos')
           .patch(this.currentUserCando._id, data)
           .then(data => {
