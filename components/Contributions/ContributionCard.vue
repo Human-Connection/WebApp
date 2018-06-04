@@ -218,7 +218,7 @@
         &:hover {
           box-shadow: $card-shadow-hover;
           // transform: scale(1.02);
-          z-index: 2;
+          z-index: 5;
         }
       }
     }
