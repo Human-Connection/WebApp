@@ -13,7 +13,6 @@ export const state = () => {
     limit: 15,
     skip: 0,
     sort: {
-      shoutCount: -1,
       createdAt: -1
     },
     isLoading: false,
