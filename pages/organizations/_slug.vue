@@ -1,15 +1,19 @@
 <template>
   <section class="container organization-profile"
+           :class="{'has-cover': organization.coverImg || isOwner}"
            style="position: relative">
-    <hc-upload class="profile-header card"
-               v-if="isOwner"
-               :preview-image="coverImg"
-               :test="true"
-               @update="onCoverUploadCompleted"
-               @start-sending="uploadingCover = true"
-               @stop-sending="uploadingCover = false" >
-    </hc-upload>
-    <img :src="coverImg" v-else alt="" class="profile-header card">
+    <template>
+      <hc-upload class="profile-header card"
+                v-if="isOwner"
+                :preview-image="coverImg"
+                :test="true"
+                :circular="false"
+                @update="onCoverUploadCompleted"
+                @start-sending="uploadingCover = true"
+                @stop-sending="uploadingCover = false" >
+      </hc-upload>
+      <img :src="coverImg" v-else-if="isOwner || organization.coverImg " alt="" class="profile-header card">
+    </template>
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
         <hc-box top="true" class="organization-hc-box">
@@ -18,23 +22,38 @@
                        v-if="isOwner"
                        :preview-image="form.logo || organization.logo"
                        :test="true"
+                       :circular="false"
                        @update="onLogoUploadCompleted"
                        @start-sending="uploadingLogo = true"
                        @stop-sending="uploadingLogo = false" >
               <hc-avatar class="is-big"
                          :user="organization"
+                         :crop="false"
                          imageKey="logo" />
             </hc-upload>
             <hc-avatar v-else
                        class="is-big avatar-upload"
                        :user="organization"
+                       :crop="false"
                        imageKey="logo" />
           </div>
           <div class="edit-wrapper has-text-right" v-if="canEdit">
             <i class="fa fa-wrench" @click.prevent="edit(organization._id)"></i>
           </div>
           <div class="organization-name">
-            <span>{{ organization.name }}</span>
+            <strong>{{ organization.name }}</strong><br />
+            <small>{{ $t(`component.organization.types.${organization.type}`) }}</small>
+          </div>
+          <div class="tags categories" v-if="organization.categories.length">
+            <hc-tooltip :label="$t(`component.category.slug2label-${category.slug}`)"
+                      v-for="category in organization.categories"
+                      :key="category._id"
+                      style="margin-right: 5px;"
+                      type="is-dark">
+                <span class="tag" style="border-radius: 100%; width: 32px; height: 32px; font-size: 1rem; opacity: 0.8;">
+                  <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon>
+                </span>
+            </hc-tooltip>
           </div>
           <hc-follow-buttons v-if="user"
                              service="organizations"
@@ -68,19 +87,17 @@
             <i class="fa fa-ellipsis-h"></i>
           </hc-box>
         </div>
-        <div class="title-wrapper">
-          <hc-title>{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
-        </div>
+        <hc-title class="title">{{ $t('page.organization.aboutUs', 'Über uns') }}</hc-title>
         <hc-box top="true">
           <div class="content" v-html="organization.description"></div>
         </hc-box>
-        <hc-title>Aktiv werden</hc-title>
+        <hc-title class="title">Aktiv werden</hc-title>
         <div class="under-construction">
           <hc-box top="true">
             <div class="organization-call-to-action">Crowdplanting am 31.02.2018, Klicke auf diese Zeitmaschine um mehr zu erfahren!</div>
           </hc-box>
         </div>
-        <hc-title>{{ $t('page.organization.more', 'Spenden & Mehr') }}</hc-title>
+        <hc-title class="title">{{ $t('page.organization.more', 'Spenden & Mehr') }}</hc-title>
         <div class="under-construction">
           <hc-box top="true">
             <div class="organization-welcome">Spende hier für mehr Bäume und Obst!</div>
@@ -285,7 +302,13 @@
   @import "assets/styles/utilities";
   @import "../../components/layout/timeline";
 
+  $borderRadius: 0;
+
   .organization-profile {
+    &.has-cover .organization-avatar {
+      // transform: translateX(50%) translateY(-50%) !important;
+    }
+
     #main {
       margin-top: 0;
     }
@@ -356,19 +379,6 @@
       }
     }
 
-    .organization-follows {
-      display: flex;
-      justify-content: center;
-      margin: 25px 0;
-
-      .textcountitem {
-        border-right: 1px solid #dadada;
-        padding: 0 10px 0 10px;
-      }
-      .textcountitem:last-child {
-        border-right: 0;
-      }
-    }
 
     .organization-sidebar-right {
       h3 {
@@ -377,6 +387,10 @@
     }
 
     .edit-wrapper {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+
       .fa-wrench {
         color: $grey-light;
         cursor: pointer;
@@ -389,11 +403,11 @@
     .organization-sidebar-left {
       min-height: 200px;
 
-      .title-wrapper {
-        clear: both;
+      & > .title {
+        margin-bottom: -1rem;
       }
 
-      .organization-actions {
+      /*.organization-actions {
         .organization-action {
           width: 25%;
           float: left;
@@ -413,44 +427,50 @@
             }
           }
         }
+      }*/
+
+      .organization-avatar {
+        border-radius: $borderRadius;
+        width:         100%;
+        height:        130px;
+        border:        none;
+        display:       inline-block;
+        background-color: #fff;
+
+        .avatar-upload {
+          &, & > div {
+            border:        none;
+            border-radius: $borderRadius;
+            overflow:      hidden;
+            width:         100%;
+            height:        100%;
+            max-height:    100%;
+            min-height:    100%;
+            max-width:     100%;
+            min-width:     100%;
+
+            & img {
+              background-color: #fff;
+              object-fit:    contain;
+            }
+          }
+        }
       }
 
       .organization-hc-box {
         position: relative;
-        $borderRadius: 50%;
-
-        .organization-avatar {
-          border-radius: $borderRadius;
-          width:         130px;
-          height:        130px;
-          position:      absolute;
-          top:           0;
-          left:          50%;
-          transform:     translateX(-50%) translateY(-50%);
-          border:        5px solid white;
-          display:       inline-block;
-          background-color: #fff;
-
-          .avatar-upload {
-            &, & > div {
-              border:        none;
-              border-radius: $borderRadius;
-              overflow:      hidden;
-              width:         100%;
-              height:        100%;
-              max-height:    100%;
-              min-height:    100%;
-              max-width:     100%;
-              min-width:     100%;
-            }
-          }
-        }
 
         .organization-name {
-          font-weight: bold;
           font-size: 16px;
           text-align: center;
-          padding-top: 60px;
+          padding-top: 1.2rem;
+        }
+
+        .categories {
+          text-align: center;
+          padding-top: 1rem;
+          margin-bottom: -0.5rem;
+          justify-content: center;
         }
       }
     }

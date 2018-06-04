@@ -5,9 +5,10 @@
         <hc-upload class="avatar-upload"
                     :preview-image="form.logo"
                     :test="true"
+                    :circular="false"
                     @update="onAvatarUploadCompleted"
                     @start-sending="uploadingLogo = true"
-                    @stop-sending="uploadingLogo = false" ></hc-upload>
+                    @stop-sending="uploadingLogo = false" />
       </div>
     </div>
     <div class="field">
@@ -150,19 +151,21 @@
     padding: 0 0 2rem;
 
     .user-avatar {
-      $borderRadius: 50%;
-
-      border-radius: $borderRadius;
-      width: 120px;
+      // $borderRadius: 0;
+      // border-radius: $borderRadius !important;
+      width: 100%;
       height: 120px;
+      // border: none;
       position: relative;
       display: inline-block;
       background-color: #fff;
 
       .avatar-upload {
-        & {
+        background-color: #fff;
+
+        &, & > div {
           border: none;
-          border-radius: $borderRadius;
+          // border-radius: $borderRadius;
           overflow: hidden;
           width: 100%;
           height: 100%;
@@ -170,6 +173,11 @@
           min-height: 100%;
           max-width: 100%;
           min-width: 100%;
+
+          // img {
+          //   background-color: #fff;
+          //   object-fit:    contain !important;
+          // }
         }
       }
 
@@ -185,7 +193,7 @@
       }
 
       &:before {
-        border-radius: 50%;
+        // border-radius: 50%;
         content: "";
         position: absolute;
         top: 0;
@@ -194,7 +202,7 @@
         right: 0;
         z-index: 10;
         pointer-events: none;
-        box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+        // box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
       }
     }
   }
