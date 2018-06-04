@@ -42,6 +42,11 @@
       id () {
         return `page-name-${this.$route.name}`
       }
+    },
+    head () {
+      return {
+        title: 'loading...'
+      }
     }
   }
 </script>
