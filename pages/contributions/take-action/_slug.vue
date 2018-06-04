@@ -15,7 +15,7 @@
                 <li><a>Andere</a></li>
               </ul>
             </div>-->
-            <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
+            <table class="table is-striped is-hoverable" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
                 <tr style="cursor: pointer" v-for="organization in organizations" :key="organization._id" @click="$router.push('/organizations/' + organization.slug)">
                   <td>
