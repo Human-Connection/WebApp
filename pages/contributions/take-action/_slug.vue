@@ -18,8 +18,9 @@
             <table class="table is-striped is-hoverable" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
                 <tr style="cursor: pointer" v-for="organization in organizations" :key="organization._id" @click="$router.push('/organizations/' + organization.slug)">
-                  <td>
-                    <img v-if="organization.logo" style="max-width: 100px;" :src="organization.logo" alt=""/>
+                  <td style="width: 60px; text-align: center;">
+                    <img v-if="organization.logo" class="list-image" :src="organization.thumbnails.logo.medium" alt=""/>
+                    <hc-icon v-else icon="image" style="width: 100%;" class="list-image" />
                   </td>
                   <td>
                     <strong>{{ organization.name }}</strong><br/>
@@ -360,5 +361,23 @@
   }
   .create-organization-wrapper {
     margin: 10px 0px;
+  }
+
+  table.table {
+    td {
+      line-height: 1.3em !important;
+    }
+
+    .list-image {
+      max-width: 60px;
+      max-height: 60px;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        font-size: 3em;
+        color: $grey-lighter;
+      }
+    }
   }
 </style>

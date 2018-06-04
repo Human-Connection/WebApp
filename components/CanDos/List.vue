@@ -84,4 +84,10 @@
     margin-top: .2rem;
     margin-bottom: .2rem;
   }
+
+  table.table {
+    td {
+      line-height: 1.3em !important;
+    }
+  }
 </style>

@@ -27,12 +27,16 @@
           </template>
 
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
-          <table class="table is-striped" :class="{ 'is-empty': !relatedPosts.length }">
+          <table class="table is-striped is-hoverable" :class="{ 'is-empty': !relatedPosts.length }">
             <tbody v-if="relatedPostList.length">
               <tr style="cursor: pointer"
                   v-for="contribution in relatedPostList"
                   :key="contribution._id"
                   @click="$router.push('/contributions/' + contribution.slug)">
+                <td style="width: 60px; text-align: center;">
+                  <img v-if="contribution.teaserImg" class="list-image" :src="contribution.thumbnails.teaserImg.cardS" alt=""/>
+                  <hc-icon v-else icon="image" class="list-image" />
+                </td>
                 <td><strong>{{ contribution.title }}</strong></td>
                 <td class="has-text-right nowrap">
                   <small>
@@ -303,5 +307,23 @@
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
+  }
+
+  table.table {
+    td {
+      line-height: 1.3em !important;
+    }
+
+    .list-image {
+      max-width: 60px;
+      max-height: 60px;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        font-size: 3em;
+        color: $grey-lighter;
+      }
+    }
   }
 </style>
