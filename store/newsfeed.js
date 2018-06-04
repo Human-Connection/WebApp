@@ -52,7 +52,11 @@ export const mutations = {
   updateContribution (state, contribution) {
     const index = _.findIndex(state.contributions, { _id: contribution._id })
     if (index >= 0) {
-      Vue.set(state.contributions, index, contribution)
+      if (contribution.deleted) {
+        Vue.delete(state.contributions, index)
+      } else {
+        Vue.set(state.contributions, index, contribution)
+      }
     }
   },
   setHasNext (state, hasNext) {

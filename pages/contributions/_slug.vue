@@ -176,7 +176,7 @@
 <script>
   import author from '~/components/Author/Author.vue'
   import comments from '~/components/Comments/Comments.vue'
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ShoutButton from '~/components/Contributions/ShoutButton.vue'
   import ContributionMenu from '~/components/Contributions/ContributionMenu'
@@ -238,6 +238,9 @@
         .on('patched', this.onContribSettingsUpdate)
     },
     methods: {
+      ...mapMutations({
+        updateContribution: 'newsfeed/updateContribution'
+      }),
       onContribSettingsUpdate (data) {
         // Contribution was deleted -> redirect
         if (data.deleted) {
@@ -266,9 +269,12 @@
         })
       },
       remove () {
-        this.$router.replace('/')
         this.$api.service('contributions')
           .remove(this.contribution._id)
+          .then((data) => {
+            this.updateContribution(data)
+            this.$router.replace('/')
+          })
       }
     },
     computed: {
