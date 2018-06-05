@@ -108,11 +108,13 @@
             $gt: this.user.termsAndConditionsAccepted
           }
         }
-        const res = await this.$api.service('system-notifications').find({query})
-        if (!isEmpty(res.data)) {
-          this.termsAndConditionsUpdate = res.data[0]
-          this.isAcceptModalActive = true
-        }
+        try {
+          const res = await this.$api.service('system-notifications').find({query})
+          if (!isEmpty(res.data)) {
+            this.termsAndConditionsUpdate = res.data[0]
+            this.isAcceptModalActive = true
+          }
+        } catch (err) {}
       },
       async showInfo () {
         let query = {
@@ -125,19 +127,25 @@
           }
         }
 
-        const systemNotificationsSeen = this.user.systemNotificationsSeen
+        const systemNotificationsSeen = this.user ? this.user.systemNotificationsSeen: []
         if (!isEmpty(systemNotificationsSeen)) {
           query._id = {
             $nin: systemNotificationsSeen
           }
         }
 
-        const res = await this.$api.service('system-notifications').find({query})
-        if(!isEmpty(res.data)) {
-          this.notification = res.data[0]
-          // fix layout issues for affix elements
-          this.$nextTick(() => window.dispatchEvent(new Event('scroll')))
+        if (!this.user) {
+          query.permanent = true
         }
+
+        try {
+          const res = await this.$api.service('system-notifications').find({query})
+          if(!isEmpty(res.data)) {
+            this.notification = res.data[0]
+            // fix layout issues for affix elements
+            this.$nextTick(() => window.dispatchEvent(new Event('scroll')))
+          }
+        } catch (err) {}
       },
       async acceptTermsAndConditions () {
         try {

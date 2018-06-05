@@ -12,8 +12,8 @@
       "subHeader500": "OMG, was hast Du getan?",
       "subHeader503": "nimm ne kurze Auszeit",
       "copy403": "Tut uns leid, der Zugang zu dieser Seite bleibt dir verwehrt. <br />Überprüfe die Adresse, <a href=\"/auth/login\">melde dich an</a> oder <a href=\"/\">geh auf Anfang</a>.",
-      "copy404": "Tut uns leid, wir haben diese Seite nicht gefunden. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
-      "copy500": "Oh nein, es ist irgend ein Fehler aufgetreten und wir mussten aufgeben. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:bugfix@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy404": "Tut uns leid, wir haben diese Seite nicht gefunden. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:support@human-connection.org\">melde uns diesen Fehler.</a>",
+      "copy500": "Oh nein, es ist irgend ein Fehler aufgetreten und wir mussten aufgeben. <br />Überprüfe die Adresse, <a href=\"/\">geh auf Anfang</a> oder <a href=\"mailto:support@human-connection.org\">melde uns diesen Fehler.</a>",
       "copy503": "Wir arbeiten gerade dran, <br />nimm dir nen Kaffee und versuchs danach gleich nochmal."
     },
     "shout": {
@@ -21,6 +21,12 @@
       "addShout": "Diesen Beitrag weiter ausrufen",
       "countedDescription": "{count} Mensch möchte den Beitrag ausrufen ::: {count} Leute möchten den Beitrag ausrufen ::: Der Beitrag hat noch keinen Ruf",
       "messageSuccess": "Du hast es weiter gesagt"
+    },
+    "follow": {
+      "buttonLabelFollow": "Folgen",
+      "buttonLabelUnFollow": "Folgst",
+      "messageFollowSuccess": "Du folgst {name} nun",
+      "messageUnFollowSuccess": "Du folgst {name} nicht mehr"
     },
     "admin": {
       "activate": "Aktivieren",
@@ -48,7 +54,7 @@
       "languageDE": "Deutsch",
       "languageEN": "Englisch",
       "manageCategories": "Themen-Kategorien verwalten",
-      "manageUsers": "Benutzer verwalten",
+      "manageUsers": "Benutzer",
       "managePages": "Seiten verwalten",
       "manageNotifications": "Benachrichtigungen Verwalten",
       "pages": "Seiten",
@@ -255,9 +261,10 @@
       "label": "Benachrichtigungen",
       "messageEmpty": "Du hast keine Benachrichtigungen.",
       "message": {
-        "comment": "<strong>{userName}</strong> hat Deinen Beitrag kommentiert:<br /> <strong>{title}</strong>",
-        "comment-mention": "<strong>{userName}</strong> hat Dich in einem Kommentar zu <strong>{title}</strong> erwähnt.",
-        "contribution-mention": "<strong>{userName}</strong> hat Dich in einem Beitrag erwähnt:<br /> <strong>{title}</strong>"
+        "comment": "<strong>{userName}</strong> hat Deinen Beitrag kommentiert <strong>{title}</strong>: <br />{excerpt}",
+        "comment-mention": "<strong>{userName}</strong> hat Dich in einem Kommentar zu <strong>{title}</strong> erwähnt: <br />{excerpt}",
+        "contribution-mention": "<strong>{userName}</strong> hat Dich in einem Beitrag erwähnt <strong>{title}</strong>: <br />{excerpt}",
+        "following-contribution": "<strong>{userName}</strong> hat einen neuen Beitrag erstellt <strong>{title}</strong>: <br />{excerpt}"
       }
     },
     "dashbord": {
@@ -313,7 +320,7 @@
     },
     "timeline": {
       "loadingContributions": "Beiträge werden geladen …",
-      "noContributionsFound": "Keine Beiträge gefunden, schreibe doch etwas",
+      "noContributionsFound": "Keine Beiträge gefunden",
       "introQuestion": "{username}, was sind Deine Pläne für heute?",
       "title": "Chronik"
     }
@@ -554,7 +561,12 @@
       "newPassword": "Neues Passwort",
       "newPasswordConfirm": "Neues Passwort bestätigen",
       "validationErrorContentLanguages": "Wähle mindestens eine Sprache",
-      "organizationDeleteModel": "Bist Du sicher, dass Du <b>{organization}</b> löschen möchtest?"
+      "organizationDeleteModel": "Bist Du sicher, dass Du <b>{name}</b> löschen möchtest?",
+      "organizationAddresses": "Adressen",
+      "organizationStreet": "Straße",
+      "organizationZipCode": "PLZ",
+      "organizationCity": "Stadt",
+      "organizationCountry": "Land"
     }
   },
   "ressource": {

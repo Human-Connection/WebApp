@@ -1,12 +1,15 @@
 <template>
   <section>
     <h3 class="title is-3">{{ $t('component.admin.organizations', 'Organizations') }}</h3>
+    <search-input id="organization-search"
+                  :value="searchValue"
+                  @search="searchOnInput" />
     <no-ssr>
       <v2-table :data="organizations.data"
                 :stripe="true"
                 :loading="isLoading"
                 :total="organizations.total"
-                :shown-pagination="true"
+                :shown-pagination="totalPages > 1"
                 :pagination-info="paginationInfo"
                 @page-change="handlePageChange">
         <v2-table-column label="Name" prop="name" align="left" width="220">
@@ -47,12 +50,16 @@
   import moment from 'moment'
   import parse from 'csv-parse/lib/sync'
   import { isEmpty, each, map, keyBy } from 'lodash'
+  import SearchInput from '~/components/Search/SearchInput.vue'
 
   let itemLimit = 10
 
   export default {
     middleware: 'admin',
     layout: 'admin',
+    components: {
+      SearchInput
+    },
     data () {
       return {
         itemLimit: itemLimit,
@@ -62,7 +69,8 @@
           text: '', // this.paginationText,
           nextPageText: '>',
           prevPageText: '<'
-        }
+        },
+        searchValue: ''
       }
     },
     async asyncData ({app}) {
@@ -98,20 +106,28 @@
       }
     },
     methods: {
+      searchOnInput (value) {
+        this.searchValue = value
+        this.handlePageChange(1)
+      },
       async handlePageChange (page) {
         this.currentPage = page
         this.isLoading = true
         const start = (page - 1) * this.itemLimit
 
-        this.organizations = await this.$api.service('organizations').find({
-          query: {
-            $limit: this.itemLimit,
-            $sort: {
-              createdAt: -1
-            },
-            $skip: start
+        const query = {
+          $limit: this.itemLimit,
+          $sort: {
+            createdAt: -1
+          },
+          $skip: start
+        }
+        if (!isEmpty(this.searchValue)) {
+          query.name = {
+            $search: this.searchValue
           }
-        })
+        }
+        this.organizations = await this.$api.service('organizations').find({query})
         this.isLoading = false
       }
     },

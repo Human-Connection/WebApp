@@ -36,10 +36,22 @@
               <nuxt-link :to="{ name: 'organizations-settings', query: { id: organization._id } }">{{ $t('component.organization.stepBasics', 'Basics') }}</nuxt-link>
             </li>
             <li>
-              <nuxt-link :to="{ name: 'organizations-settings-details', query: { id: organization._id } }">{{ $t('component.organization.stepDetails', 'Details') }}</nuxt-link>
+              <nuxt-link :to="{ name: 'organizations-settings-details', query: { id: organization._id } }">
+                {{ $t('component.organization.stepDetails', 'Details') }}
+                <hc-icon v-if="!organization.url" icon="warning" class="pull-right" />
+              </nuxt-link>
             </li>
             <li>
-              <nuxt-link :to="{ name: 'organizations-settings-categories', query: { id: organization._id } }">{{ $t('component.organization.stepCategories', 'Categories') }}</nuxt-link>
+              <nuxt-link :to="{ name: 'organizations-settings-categories', query: { id: organization._id } }">
+                {{ $t('component.organization.stepCategories', 'Categories') }}
+                <hc-icon v-if="!organization.tags || !organization.tags.length" icon="warning" class="pull-right" />
+              </nuxt-link>
+            </li>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings-addresses', query: { id: organization._id } }">
+                {{ $t('auth.settings.organizationAddresses', 'Addresses') }}
+                <hc-icon v-if="!organization.addresses || !organization.addresses.length" icon="warning" class="pull-right" />
+              </nuxt-link>
             </li>
           </ul>
           <p class="menu-label">
@@ -129,4 +141,12 @@
 
 <style lang="scss">
   @import "assets/styles/settings/main";
+  @import "assets/styles/animations";
+
+  .menu {
+    i.fa-warning {
+      padding-top: 2px;
+      color: red;
+    }
+  }
 </style>

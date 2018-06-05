@@ -31,8 +31,6 @@
               <nuxt-link :to="{ name: 'auth-settings-delete' }">{{ $t('auth.settings.delete', 'Delete Account') }}</nuxt-link>
             </li>
           </ul>
-          <ul class="menu-list">
-          </ul>
           <p class="menu-label">
             {{ $t('auth.settings.organizations', 'Organizations') }}
           </p>

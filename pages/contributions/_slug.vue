@@ -9,7 +9,7 @@
               <div class="contribution-author">
                 <author
                   class="author"
-                  :user="contribution.user"
+                  :user="contribution.organization || contribution.user"
                   :created-at="contribution.createdAt" />
               </div>
               <div class="contribution-actions">
@@ -69,7 +69,11 @@
               </span>
             </div>
             <div class="tags" v-if= "tags.length">
-              <span class="tag" v-for="tag in tags" :key="tag._id">
+              <span @click="$store.commit('search/query', tag)"
+                    class="tag"
+                    style="cursor: pointer;"
+                    v-for="tag in tags"
+                    :key="tag">
                 <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
               </span>
             </div>
@@ -108,7 +112,7 @@
                 <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                   <div class="message is-warning">
                     <div class="message-body">
-                      {{ $t('component.contribution.letsTalkDescription', {user: contribution.user.name }) }}
+                      {{ $t('component.contribution.letsTalkDescription', {user: contribution.user ? contribution.user.name : $t('component.contribution.creatorUnknown') }) }}
                       <br/><br/>
                       <img src="/under-construction.svg" width="20" style="margin-bottom: -3px; display: inline-block;" /> (<strong>Lets Talk</strong>, coming soon...)
                     </div>
@@ -172,7 +176,7 @@
 <script>
   import author from '~/components/Author/Author.vue'
   import comments from '~/components/Comments/Comments.vue'
-  import {mapGetters} from 'vuex'
+  import {mapGetters, mapMutations} from 'vuex'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ShoutButton from '~/components/Contributions/ShoutButton.vue'
   import ContributionMenu from '~/components/Contributions/ContributionMenu'
@@ -234,6 +238,9 @@
         .on('patched', this.onContribSettingsUpdate)
     },
     methods: {
+      ...mapMutations({
+        updateContribution: 'newsfeed/updateContribution'
+      }),
       onContribSettingsUpdate (data) {
         // Contribution was deleted -> redirect
         if (data.deleted) {
@@ -247,6 +254,7 @@
           this.contribution.emotions = data.emotions
           this.contribution.shoutCount = data.shoutCount
           this.contribution.visibility = data.visibility
+          this.contribution.candoUsers = data.candoUsers
         }
       },
       removeContribution () {
@@ -261,9 +269,12 @@
         })
       },
       remove () {
-        this.$router.replace('/')
         this.$api.service('contributions')
           .remove(this.contribution._id)
+          .then((data) => {
+            this.updateContribution(data)
+            this.$router.replace('/')
+          })
       }
     },
     computed: {
@@ -306,7 +317,7 @@
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
-        return this.isVerified && this.contribution.user._id === userId
+        return this.isVerified && this.contribution.user && this.contribution.user._id === userId
       },
       refreshOrNot () {
         return !!this.$route.query.refresh === true ? 800 : null

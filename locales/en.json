@@ -12,8 +12,8 @@
       "subHeader500": "OMG, what have you done?",
       "subHeader503": "take a break",
       "copy403": "Sorry, access to this resource on the server is denied. <br />Either check the URL, <a href=\"/auth/login\">login</a> or <a href=\"/\">go home</a>.",
-      "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
-      "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:bugfix@human-connection.org\">report this issue.</a>",
+      "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
+      "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
       "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later."
     },
     "shout": {
@@ -21,6 +21,12 @@
       "addShout": "Shout it out loud",
       "countedDescription": "{count} human want to shout this post ::: {count} people want to shout this post ::: This post has no shout yet",
       "messageSuccess": "You shout it out loud"
+    },
+    "follow": {
+      "buttonLabelFollow": "Follow",
+      "buttonLabelUnFollow": "Following",
+      "messageFollowSuccess": "You now follow {name}",
+      "messageUnFollowSuccess": "You not longer follow {name}"
     },
     "admin": {
       "activate": "Activate",
@@ -48,7 +54,7 @@
       "languageDE": "German",
       "languageEN": "English",
       "manageCategories": "Manage Categories of Topics",
-      "manageUsers": "Manage Users",
+      "manageUsers": "Users",
       "managePages": "Manage Pages",
       "manageNotifications": "Manage System Notifications",
       "pages": "Pages",
@@ -155,7 +161,7 @@
       "commentUpvote": "Vote: +1",
       "commentReplyThis": "Reply to this comment",
       "creator": "Creator ::: Creator",
-      "creatorUnknown": "anonymous",
+      "creatorUnknown": "Anonymous",
       "delete": "Delete post",
       "deleteMsg": "Are you sure, that you want to delete this post?",
       "difficultyDescription": "Difficulty",
@@ -187,7 +193,7 @@
       "type-vote": "Vote",
       "versus": "Versus",
       "versusDescription": "In Versus, one deals fairly and critically on the basis of factual counter-arguments on this subject. That means one must necessarily remain factual, if one wants to compare one another with knowledge and arguments. Because the lack of respect, unfairness with one another or even in a manner of hate-filled speech will lead to the exclusion.",
-      "voteOnePluralNone": "vote ::: votes ::: no vote",
+      "voteOnePluralNone": "Vote ::: Votes ::: no vote",
       "writePost": "Write a Post",
       "writePostContent": "Content",
       "writePostImageLabel": "Teaser Image",
@@ -255,9 +261,10 @@
       "label": "Notifications",
       "messageEmpty": "You don't have any notifications.",
       "message": {
-        "comment": "<strong>{userName}</strong> has commented your contribution:<br /> <strong>{title}</strong>",
-        "comment-mention": "<strong>{userName}</strong> has mentioned you in a comment for {title}.",
-        "contribution-mention": "<strong>{userName}</strong> has mentioned you in a contribution:<br /> <strong>{title</strong>}"
+        "comment": "<strong>{userName}</strong> has commented your contribution <strong>{title}</strong>: <br />{excerpt}",
+        "comment-mention": "<strong>{userName}</strong> has mentioned you in a comment for {title}: <br />{excerpt}",
+        "contribution-mention": "<strong>{userName}</strong> has mentioned you in a contribution <strong>{title}</strong>: <br />{excerpt}",
+        "following-contribution": "<strong>{userName}</strong> has created a new contribution <strong>{title}</strong>: <br />{excerpt}"
       }
     },
     "dashbord": {
@@ -313,7 +320,7 @@
     },
     "timeline": {
       "loadingContributions": "Loading content …",
-      "noContributionsFound": "No contributions found, write something.",
+      "noContributionsFound": "No contributions found",
       "introQuestion": "What are your plans for today {username}?",
       "title": "Timeline"
     }
@@ -555,7 +562,12 @@
       "newPassword": "New password",
       "newPasswordConfirm": "Confirm new password",
       "validationErrorContentLanguages": "Choose at least one language",
-      "organizationDeleteModel": "Are you sure you want to delete <b>{organization}</b>?"
+      "organizationDeleteModel": "Are you sure you want to delete <b>{name}</b>?",
+      "organizationAddresses": "Addresses",
+      "organizationStreet": "Street",
+      "organizationZipCode": "Zip Code",
+      "organizationCity": "City",
+      "organizationCountry": "Country"
     }
   },
   "ressource": {

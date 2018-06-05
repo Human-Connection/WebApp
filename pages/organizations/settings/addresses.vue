@@ -2,15 +2,14 @@
   <div v-if="organization">
     <div class="info-text">
       <h2 class="title is-3">
-        {{ $t('component.organization.stepDetails', 'Details') }}
+        {{ $t('auth.settings.organizationAddresses', 'Addresses') }}
       </h2>
-      <!--<p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>-->
     </div>
     <hr>
     <div class="columns">
       <div class="column">
         <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-2 ref="form" :data="form" @validate="onValidation" :hideButton="true" />
+          <orga-form-addresses ref="form" :data="form" @validate="onValidation" :hideButton="true" />
         </form>
       </div>
     </div>
@@ -27,19 +26,17 @@
 </template>
 
 <script>
-  import OrgaFormStep2 from "~/components/Organizations/steps/OrgaFormStep2.vue";
+  import OrgaFormAddresses from "~/components/Organizations/steps/OrgaFormAddresses.vue";
 
   export default {
     mixins: [],
     components: {
-      OrgaFormStep2
+      OrgaFormAddresses
     },
     data() {
       return {
         form: {
-          description: '',
-          url: '',
-          type: null
+          addresses: []
         },
         organization: null,
         isLoading: false
@@ -57,9 +54,7 @@
         this.organization = this.$parent.$attrs.organization
 
         this.form = Object.assign(this.form, {
-          description: this.organization.description,
-          url: this.organization.url,
-          type: this.organization.type
+          addresses: this.organization.addresses
         })
       })
     },

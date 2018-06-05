@@ -3,8 +3,8 @@
     <div v-if="isDone" :key="1">
       <hc-tooltip type="is-dark"
         :label="$t('component.contribution.canDoResetInfo')">
-        <hc-button @click="toggleDone" :size="size">
-          <hc-icon icon="smile-o" />&nbsp;
+        <hc-button @click="toggleDone" :size="size" color="light">
+          <hc-icon icon="check" />&nbsp;
           {{ $t('component.contribution.canDoCompleted') }}
         </hc-button>
       </hc-tooltip>
@@ -12,20 +12,20 @@
     <div v-else-if="onList" :key="2">
       <div class="buttons has-addons">
         <hc-button class="button-first" @click="toggleDone" color="info" :size="size">
-          <hc-icon icon="check" />&nbsp;
+          <hc-icon icon="fast-forward" />&nbsp;
           {{ $t('component.contribution.canDoSetDone') }}
         </hc-button>
         <hc-tooltip type="is-dark"
           :label="$t('component.contribution.canDoCancelInfo')">
           <hc-button class="button-last" @click="removeFromList" color="default" :size="size">
-            <hc-icon icon="ban" />
+            <hc-icon icon="stop" />
           </hc-button>
         </hc-tooltip>
       </div>
     </div>
     <div v-else :key="3">
       <hc-button @click="addToList" :size="size">
-        <hc-icon icon="plus" />&nbsp;
+        <hc-icon icon="play" />&nbsp;
         {{ $t('component.contribution.canDoAdd') }}
       </hc-button>
     </div>
@@ -86,7 +86,8 @@
       }
     },
     methods: {
-      addToList () {
+      addToList (e) {
+        e.stopImmediatePropagation()
         if (!this.isVerified || !this.user || !this.canDo) {
           return false
         }
@@ -101,7 +102,8 @@
           })
           .catch(this.handleError)
       },
-      removeFromList () {
+      removeFromList (e) {
+        e.stopImmediatePropagation()
         if (!this.currentUserCando) {
           return false
         }
@@ -112,7 +114,8 @@
           })
           .catch(this.handleError)
       },
-      toggleDone () {
+      toggleDone (e) {
+        e.stopImmediatePropagation()
         if (!this.currentUserCando) {
           return false
         }
@@ -131,7 +134,9 @@
       },
       updateContribution (message) {
         this.$api.service('contributions')
-          .get(this.post._id)
+          .get(this.post._id, {
+            _populate: 'skip'
+          })
           .then(data => {
             this.$emit('update', data)
             this.$store.commit('newsfeed/updateContribution', data)
@@ -166,5 +171,12 @@
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
     }
+  }
+
+  .smiley {
+    font-size: 1.3em;
+    display: inline-block;
+    margin-top: -0.2em;
+    margin-bottom: -0.3em;
   }
 </style>

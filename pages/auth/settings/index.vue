@@ -15,7 +15,7 @@
             <input
               class="input"
               type="text"
-              placeholder="Anonymus"
+              :placeholder="$t('component.contribution.creatorUnknown')"
               v-model="form.name">
             <span class="icon is-small is-left">
               <i class="fa fa-user"></i>

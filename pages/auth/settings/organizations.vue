@@ -57,12 +57,12 @@
         &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
       </hc-button>
     </footer>-->
-    <b-modal v-if="selectedOrganization" :active.sync="isDeleteModalActive" has-modal-card animation="zoom-in">
+    <b-modal class="dialog" v-if="selectedOrganization" :active.sync="isDeleteModalActive" has-modal-card animation="zoom-in">
       <div class="modal-background"></div>
       <div class="modal-card">
         <section class="modal-card-body">
           <h2 class="title is-3">{{ $t('button.delete' ) }}?</h2>
-          <p v-html="$t('auth.settings.organizationDeleteModel', { organization: selectedOrganization.name })"></p>
+          <p v-html="$t('auth.settings.organizationDeleteModel', { name: selectedOrganization.name })"></p>
         </section>
         <footer class="modal-card-foot">
           <button class="button is-light"
@@ -182,7 +182,7 @@
   }
 
   .organization {
-    $padding: 1em !important;
+    $padding: 1em;
     display: flex;
     padding-top: 1em;
     padding-bottom: 0;
@@ -275,25 +275,5 @@
       }
     }
 
-  }
-
-  .modal {
-
-
-    &.is-active {
-      .modal-background {
-        opacity: 0.3;
-      }
-    }
-    .modal-card {
-      border-top-left-radius: 3px;
-      border-top-right-radius: 3px;
-
-      max-width: 400px;
-    }
-     .modal-card-foot {
-      justify-content: flex-end;
-      padding: 0.8rem;
-    }
   }
 </style>

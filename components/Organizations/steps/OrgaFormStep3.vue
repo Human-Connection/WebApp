@@ -7,6 +7,22 @@
                          :disabled="isLoading"></categories-select>
       <p :class="{ 'is-hidden': !$v.form.categoryIds.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
     </div>
+    <no-ssr>
+      <div class="field autowrap is-required"
+           :class="{ 'has-error': $v.form.tags.$error }">
+        <b-field label="Tags *">
+          <b-taginput
+              maxtags="5"
+              maxlength="32"
+              :value="form.tags"
+              icon=""
+              placeholder="Add a tag"
+              @keydown.tab.native="onTagTab">
+          </b-taginput>
+        </b-field>
+      </div>
+    </no-ssr>
+    <br />
     <slot v-if="!hideButton">
       <hc-button color="primary"
                 @click.prevent="validate()"
@@ -23,6 +39,7 @@
 
 <script>
   import CategoriesSelect from "~/components/Categories/CategoriesSelect.vue";
+  import { isEmpty } from "lodash";
   import { validationMixin } from "vuelidate";
   import { required, minLength, maxLength } from "vuelidate/lib/validators";
 
@@ -44,7 +61,8 @@
     data () {
       return {
         form: {
-          categoryIds: []
+          categoryIds: [],
+          tags: []
         },
         isLoading: false
       }
@@ -65,7 +83,8 @@
     methods: {
       updateData (data) {
         this.form = Object.assign(this.form, {
-          categoryIds: data.categoryIds
+          categoryIds: data.categoryIds,
+          tags: data.tags
         })
       },
       validate () {
@@ -76,12 +95,22 @@
           // return validated form data
           this.$emit('validate', this.form)
         }
+      },
+      onTagTab (e) {
+        if (!isEmpty(e.target.value)) {
+          setTimeout(() => {
+            e.target.focus()
+          }, 20)
+        }
       }
     },
     validations() {
       return {
         form: {
           categoryIds: {
+            required
+          },
+          tags: {
             required
           }
         }

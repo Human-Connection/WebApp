@@ -6,6 +6,9 @@ RUN apk update && apk upgrade
 RUN apk add git
 RUN rm -rf /var/cache/apk/*
 
+# install global dependencies
+RUN yarn global add pm2 envsub
+
 # expose the app port
 EXPOSE 3000
 
@@ -14,9 +17,6 @@ ENV HOST=0.0.0.0
 ENV WEBAPP_HOST=0.0.0.0
 
 ENTRYPOINT ["./entrypoint.sh"]
-
-# install envsub
-RUN npm install -g envsub
 
 # create working directory
 RUN mkdir -p /var/www/
@@ -32,9 +32,9 @@ COPY . /var/www/
 
 # set execution rights on scripts and run the build script
 RUN chmod +x entrypoint.sh
-RUN chmod +x on-build.sh
-RUN chmod +x on-start.sh
-RUN sh on-build.sh
+RUN chmod +x scripts/on-build.sh
+RUN chmod +x scripts/on-start.sh
+RUN sh scripts/on-build.sh
 
 # buld application
 # ENV NODE_ENV=production #we seam to have issues with the production flag on install && build

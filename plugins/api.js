@@ -34,9 +34,7 @@ export default ({app, store, redirect, router}) => {
     }
   }
 
-  const socket = io(endpoint, {
-    timeout: 8000
-  })
+  const socket = io(endpoint)
 
   if (process.server) {
     setTimeout(() => {
@@ -50,7 +48,9 @@ export default ({app, store, redirect, router}) => {
   }
 
   let api = feathers()
-    .configure(socketio(socket))
+    .configure(socketio(socket, {
+      timeout: 20000
+    }))
     .configure(hooks())
     .configure(authentication({
       storage: storage,

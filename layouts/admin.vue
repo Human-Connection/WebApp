@@ -8,7 +8,7 @@
           </h2>
         </section>
         <div class="columns">
-          <div class="column is-one-quarter-tablet ">
+          <div class="column is-one-third-tablet menu">
             <hc-admin-menu />
           </div>
           <div class="column">
@@ -42,6 +42,11 @@
       id () {
         return `page-name-${this.$route.name}`
       }
+    },
+    head () {
+      return {
+        title: 'loading...'
+      }
     }
   }
 </script>
@@ -59,6 +64,19 @@
     box-shadow: $card-shadow;
     background-color: $white;
     padding: 2rem 1.5rem;
+
+    .search {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .menu {
+    @media (min-width: $tablet) {
+      max-width: 240px;
+    }
+    @media (min-width: $widescreen) {
+      max-width: 300px;
+    }
   }
 
   .admin-container {

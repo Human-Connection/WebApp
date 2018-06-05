@@ -91,11 +91,13 @@ export default {
     return {
       form: {
         logo: null,
-        name: "",
-        type: "",
+        name: '',
+        type: '',
         isEnabled: false,
-        description: "",
+        description: '',
+        url: '',
         categoryIds: [],
+        tags: [],
         language: this.$i18n.locale()
       },
       step: 1,

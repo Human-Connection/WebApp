@@ -1,16 +1,19 @@
 <template>
-  <div :class="{ disabled: disableLink, mask: maskUser }"
+  <div :class="{ disabled: disableLink, 'is-owner': isOwner, mask: maskUser }"
         class="media hc__author"
         @click="showProfile">
     <div class="media-left" v-if="showAvatar">
-      <hc-avatar :user="user" :showOnlineStatus="true"></hc-avatar>
+      <hc-avatar
+        :user="getUser"
+        :showOnlineStatus="true"
+        :imageKey="imageKey" />
     </div>
     <div class="media-content" v-if="showText">
       <p class="title" v-if="!user">
         {{ $t('component.contribution.creatorUnknown') }}
       </p>
       <p class="title" v-else>
-        {{ user.name || 'Anonymus' }} </p>
+        {{ getUser.name }} </p>
       <p class="subtitle">
         <i class="fa fa-clock-o"></i>&nbsp;
         <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>
@@ -32,6 +35,12 @@
       createdAt: {
         type: [ String, Date ]
       },
+      isOwner: {
+        type: Boolean
+      },
+      isAuthor: {
+        type: Boolean
+      },
       showAvatar: {
         type: Boolean,
         default: true
@@ -43,12 +52,15 @@
     },
     methods: {
       showProfile () {
-        if (this.isOwnProfile) {
+        if (this.user.userId) {
+          // its an organization
+          this.$router.push(`/organizations/${this.user.slug}`)
+        } else if (this.isOwnProfile) {
           // own profile
           this.$router.push(`/profile/`)
-        } else if (this.user.slug) {
+        } else if (this.getUser.slug) {
           // foreign profile
-          this.$router.push(`/profile/${this.user.slug}`)
+          this.$router.push(`/profile/${this.getUser.slug}`)
         }
       }
     },
@@ -57,17 +69,28 @@
         currentUser: 'auth/user',
         currentUserSettings: 'auth/userSettings'
       }),
+      imageKey () {
+        return (this.user && this.user.logo) ? 'logo' : 'avatar'
+      },
+      getUser () {
+        return Object.assign({
+          _id: null,
+          slug: null,
+          name: this.$t('component.contribution.creatorUnknown'),
+          avatar: null
+        }, this.user)
+      },
       isOwnProfile () {
-        return this.currentUser && this.currentUser._id === this.user._id
+        return this.currentUser && this.currentUser._id === this.getUser._id
       },
       disableLink () {
-        return (!this.isOwnProfile && !this.user.slug)
+        return (!this.isOwnProfile && !this.getUser.slug)
       },
       maskUser () {
         if (!this.currentUserSettings || !this.currentUserSettings.hideUsersWithoutTermsOfUseSigniture) {
           return false
         }
-        return isEmpty(this.user.termsAndConditionsAccepted)
+        return isEmpty(this.getUser.termsAndConditionsAccepted)
       }
     }
   }
@@ -77,6 +100,16 @@
   @import "assets/styles/utilities";
 
   .hc__author {
+    &.is-owner {
+      .title {
+        background-color: $primary;
+        display: inline-block;
+        padding: .2rem .35rem;
+        border-radius: 3px;
+        color: $white;
+      }
+    }
+
       cursor: pointer;
       &.disabled {
         cursor: default !important;
@@ -106,7 +139,7 @@
 
           .fa {
               font-size:  12px;
-              margin-top: 2px;
+              margin-top: -0.8em;
               color:      $grey-light;
           }
       }

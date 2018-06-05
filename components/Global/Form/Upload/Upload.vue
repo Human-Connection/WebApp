@@ -7,6 +7,7 @@
       <hc-progressive-image
         :src="previewImage"
         :preview="previewImage"
+        @error="onImageError"
         v-if="previewImage" />
     </div>
     <div class="hc-upload-progress">
@@ -85,6 +86,10 @@
       maxFileSize: {
         type: Number,
         default: 10
+      },
+      circular: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -131,6 +136,9 @@
         if (this.sending) {
           classes.push('sending')
         }
+        if (this.circular) {
+          classes.push('is-circular')
+        }
         return classes.join(' ')
       },
       maxDimensions () {
@@ -141,6 +149,9 @@
       }
     },
     methods: {
+      onImageError (e) {
+        this.$emit('error', e)
+      },
       checkToken () {
         if (!this.token) {
           return
@@ -242,6 +253,16 @@
     }
   }
 
+  .is-circular {
+    .hc-preview {
+      & > .progressive {
+        & > img {
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
   .hc-preview {
     transition: all 0.2s ease-out;
 
@@ -255,7 +276,7 @@
       > img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
         overflow: hidden;
       }
     }
@@ -272,10 +293,12 @@
     left: 0;
     right: 0;
     bottom: 0;
+    width: 100%;
   }
 
   .sending .hc-upload-progress {
     background: rgba(255, 255, 255, .5);
+    width: 100%;
   }
 
   .hc-attachments-upload-area {
@@ -381,8 +404,9 @@
       display: block;
       top: 0;
       left: 0;
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
+      background-color: #fff;
     }
   }
 </style>

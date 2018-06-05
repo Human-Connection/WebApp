@@ -58,7 +58,7 @@
           <editor-links :quill="myQuillBus" ref="editorLinks" />
           <editor-embeds :quill="myQuillBus" ref="editorEmbeds" />
           <editor-emojis :quill="myQuillBus" ref="editorEmojis" />
-          <editor-mentions :quill="myQuillBus" />
+          <editor-mentions :quill="myQuillBus" ref="editorMentions" />
         </div>
       </div>
     </div>

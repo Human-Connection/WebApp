@@ -20,7 +20,7 @@
     font-size: $size-5;
     text-align: center;
     padding-top: 2em;
-    padding-bottom: 1em;
+    padding-bottom: 1rem;
     font-weight: bold;
 
     /*&:after {

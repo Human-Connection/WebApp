@@ -37,7 +37,8 @@
     data() {
       return {
         form: {
-          categoryIds: []
+          categoryIds: [],
+          tags: []
         },
         organization: null,
         isLoading: false
@@ -46,7 +47,7 @@
     watch: {
       'this.$parent.$attrs.organization': (organization) => {
         // get current organization from parent view
-        this.organization = this.organization
+        this.organization = organization
       }
     },
     mounted() {
@@ -55,7 +56,8 @@
         this.organization = this.$parent.$attrs.organization
 
         this.form = Object.assign(this.form, {
-          categoryIds: this.organization.categoryIds
+          categoryIds: this.organization.categoryIds,
+          tags: this.organization.tags
         })
       })
     },

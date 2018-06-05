@@ -1,16 +1,17 @@
 <template>
-  <form v-bind:disabled="isLoading" :class="classes">
+  <form :disabled="isLoading">
     <!-- ToDo remove :test="true" for production -->
     <hc-upload :previewImage="form.teaserImg"
                :test="true"
                @update="value => { form.teaserImg = value }"
                @start-sending="uploadingCover = true"
                @stop-sending="uploadingCover = false"
+               @error="onImageError"
                style="margin: -3.0rem -1.5rem 2rem;">
     </hc-upload>
     <div class="columns">
       <div class="column">
-        <author :user="user" />
+        <author :user="userOrOrganization" />
       </div>
       <div class="column"></div>
     </div>
@@ -42,8 +43,8 @@
           v-model.trim="form.title"
           @blur="$v.form.title.$touch()"
           type="text"
-          v-bind:placeholder="$t('component.contribution.writePostSectionPlaceholder')"
-          v-bind:disabled="isLoading">
+          :placeholder="$t('component.contribution.writePostSectionPlaceholder')"
+          :disabled="isLoading">
       </div>
       <p :class="{ 'is-hidden': !$v.form.title.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorTitle') }}</p>
     </div>
@@ -92,14 +93,14 @@
         <hr/>
         <div class="field">
           <label class="label">{{ $t('component.contribution.canDoReasonTitle') }}</label>
-          <p class="control has-margin-bottom-medium">
+          <div class="control has-margin-bottom-medium">
             <input
               class="input"
               v-model="form.cando.reasonTitle"
               type="text"
-              v-bind:placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
-              v-bind:disabled="isLoading">
-          </p>
+              :placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
+              :disabled="isLoading">
+          </div>
         </div>
         <div class="field">
           <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
@@ -135,11 +136,9 @@
           <b-taginput
               maxtags="5"
               maxlength="32"
-              size="is-small"
               :value="form.tags"
               icon=""
               placeholder="Add a tag"
-              @keyup.delete.native="onTagDelete"
               @keydown.tab.native="onTagTab">
           </b-taginput>
         </b-field>
@@ -205,7 +204,7 @@
     </div>
     <no-ssr>
       <footer class="card-footer">
-        <div class="field is-grouped is-grouped-right">
+        <div class="field is-grouped">
           <div class="control">
             <button class="button has-text-grey is-light" @click.prevent="$router.back()">
               <i class="fa fa-times"></i>
@@ -234,7 +233,6 @@
   import validUrl from 'valid-url'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import EditorMentions from '~/components/Mentions/EditorMentions'
-  import animatable from '~/components/mixins/animatable'
   import { isEmpty } from 'lodash'
   import { validationMixin } from 'vuelidate'
   import { required, minLength, maxLength } from 'vuelidate/lib/validators'
@@ -242,7 +240,7 @@
   export default {
     name: 'hc-contributions-form',
     props: ['data'],
-    mixins: [animatable, validationMixin],
+    mixins: [validationMixin],
     components: {
       Author,
       CategoriesSelect,
@@ -288,6 +286,10 @@
         form: rules
       }
     },
+    async mounted () {
+      this.form.organizationId = this.form.organizationId || this.$route.query.organizationId || null
+      this.organization = this.form.organizationId ? await this.$api.service('organizations').get(this.form.organizationId) : null
+    },
     data () {
       // const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
       // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
@@ -298,10 +300,12 @@
         isLoading: false,
         uploadingCover: false,
         dropFiles: null,
+        organization: null,
         form: {
           _id: null,
           type: 'post',
           teaserImg: null,
+          organizationId: null,
           title: '',
           content: '',
           language: this.$i18n.locale(),
@@ -358,6 +362,9 @@
       ...mapGetters({
         user: 'auth/user'
       }),
+      userOrOrganization () {
+        return this.organization || this.user
+      },
       buttonPublishLabel () {
         return this.form._id ? this.$t('button.update') : this.$t('button.publish')
       },
@@ -371,6 +378,9 @@
       //     alert('BOOM')
       //   }
       // },
+      onImageError (e) {
+        this.form.teaserImg = null
+      },
       setPostType (newIndex) {
         this.options.postTypes.forEach((postType, index) => {
           if (index === newIndex) {
@@ -395,12 +405,13 @@
           this.form.meta.hasVideo = true
         }
         if (!this.form.teaserImg && data.image && data.image.url) {
+          // console.log('data.image.url', data.image.url, data.image)
           this.form.teaserImg = data.image.url
         }
       },
       async onSubmit () {
         if (this.$v.form.$invalid) {
-          this.animate('shake')
+          this.$emit('validate', false)
           this.$toast.open({
             message: this.$t('component.contribution.validationError'),
             type: 'is-danger'
@@ -411,6 +422,7 @@
           }, 500)
           return
         }
+        this.$emit('validate', true)
 
         this.isLoading = true
 
@@ -440,11 +452,6 @@
             message: err.message,
             type: 'is-danger'
           })
-        }
-      },
-      onTagDelete (e) {
-        if (isEmpty(e.target.value)) {
-          this.form.tags.pop()
         }
       },
       onTagTab (e) {

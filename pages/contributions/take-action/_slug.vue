@@ -15,17 +15,18 @@
                 <li><a>Andere</a></li>
               </ul>
             </div>-->
-            <table class="table is-striped" :class="{ 'is-empty': !organizations.length }">
+            <table class="table is-striped is-hoverable" :class="{ 'is-empty': !organizations.length }">
               <tbody v-if="organizations.length">
                 <tr style="cursor: pointer" v-for="organization in organizations" :key="organization._id" @click="$router.push('/organizations/' + organization.slug)">
-                  <td>
-                    <img v-if="organization.logo" style="max-width: 100px;" :src="organization.logo" alt=""/>
+                  <td style="width: 60px; text-align: center;">
+                    <img v-if="organization.logo" class="list-image" :src="organization.thumbnails.logo.medium" alt=""/>
+                    <hc-icon v-else icon="image" style="width: 100%;" class="list-image" />
                   </td>
                   <td>
                     <strong>{{ organization.name }}</strong><br/>
                     <small>{{ organization.descriptionExcerpt }}</small>
                   </td>
-                  <td class="has-text-right"><strong>{{ organization.followerIds.length }}</strong>&nbsp;Follower</td>
+                  <td class="has-text-right"><strong>{{ organization.followersCounts ? organization.followersCounts.users : 0 }}</strong>&nbsp;Follower</td>
                 </tr>
                 <tr>
                   <td colspan="3" class="is-white">
@@ -148,9 +149,9 @@
               </table>
             </div>
 
-            <div class="under-construction">
+            <div>
               <h3 id="maps">{{ $t('component.contribution.map') }}</h3>
-              <hc-map :places="places" :zoom="zoom" :center="center" height="350px" :token="$env.MAPBOX_TOKEN" />
+              <hc-map :lang="$i18n.locale()" :places="places" :zoom="zoom" :center="center" height="350px" :token="$env.MAPBOX_TOKEN" />
             </div>
 
           </div>
@@ -268,7 +269,14 @@
             categoryIds: {
               $in: contributions.data[0].categoryIds
             },
-            $limit: 3
+            isEnabled: 1,
+            reviewedBy: {
+              $ne: null
+            },
+            $limit: 5,
+            $sort: {
+              followersCounts: -1
+            }
           }
         })
         const projects = await app.$api.service('projects').find({
@@ -316,7 +324,7 @@
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
-        return this.isVerified && this.contribution.user._id === userId
+        return this.isVerified && this.contribution.user && this.contribution.user._id === userId
       },
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
@@ -353,5 +361,23 @@
   }
   .create-organization-wrapper {
     margin: 10px 0px;
+  }
+
+  table.table {
+    td {
+      line-height: 1.3em !important;
+    }
+
+    .list-image {
+      max-width: 60px;
+      max-height: 60px;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        font-size: 3em;
+        color: $grey-lighter;
+      }
+    }
   }
 </style>

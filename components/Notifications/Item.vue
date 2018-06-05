@@ -1,7 +1,6 @@
 <template>
   <div class="notification option">
     <author class="author"
-            v-if="notificationMeta.user"
             :user="notificationMeta.user"
             :created-at="notificationMeta.createdAt" />
     <p class="notification-message" v-html="message"></p>
@@ -11,6 +10,7 @@
 <script>
   import author from '~/components/Author/Author.vue'
   import { isEmpty } from 'lodash'
+  import sanitize from 'sanitize-html'
 
   export default {
     name: 'hc-notification-item',
@@ -28,14 +28,14 @@
         const metaExists = !isEmpty(this.notification[this.type])
         const meta = metaExists ? this.notification[this.type] : this.notification
         return {
-          user: meta.user || false,
+          user: meta.organization || meta.user || false,
           createdAt: meta.createdAt || '',
           title: meta.title || ''
         }
       },
       userName () {
-        let username = this.notificationMeta.user ? this.notificationMeta.user.name : 'Anonymus'
-        return username || 'Anonymus'
+        let username = this.notificationMeta.user ? this.notificationMeta.user.name : this.$t('component.contribution.creatorUnknown')
+        return username || this.$t('component.contribution.creatorUnknown')
       },
       type () {
         return this.notification.type || 'comment'
@@ -44,9 +44,13 @@
         return this.notification.message || this.$t(`component.notification.message.${this.type}`, this.messageParams)
       },
       messageParams () {
+        let excerpt = !isEmpty(this.notification.comment) ? this.notification.comment.contentExcerpt : ''
+        excerpt = (!excerpt && !isEmpty(this.notification.contribution)) ? this.notification.contribution.contentExcerpt : excerpt
+
         return {
           userName: this.userName,
-          title: !isEmpty(this.notification.contribution) ? this.notification.contribution.title : ''
+          title: !isEmpty(this.notification.contribution) ? this.notification.contribution.title : '',
+          excerpt: sanitize(excerpt, {allowedTags: []})
         }
       }
     }
@@ -82,16 +86,6 @@
     // margin-top: 0.5em;
     padding: 1rem 0 0.5rem;
   }
-
-
-  .notification {
-    p {
-      font-size: $size-7;
-    }
-  }
-</style>ing: 1rem 0 0.5rem;
-  }
-
 
   .notification {
     p {

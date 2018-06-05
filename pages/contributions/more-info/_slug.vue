@@ -8,7 +8,7 @@
 
           <h3 v-if= "categories.length">{{ $t('component.category.labelLongOnePluralNone', null, categories.length) }}</h3>
           <div class="tags" v-if= "categories.length">
-            <span class="tag" v-for="category in categories">
+            <span class="tag" v-for="category in categories" :key="category._id">
               <hc-icon v-if="category.icon" set="hc" :icon="category.icon"></hc-icon> {{ $t(`component.category.slug2label-${category.slug}`) }}
             </span>
           </div>
@@ -17,6 +17,8 @@
             <h3>{{ $t('component.contribution.tagOnePluralNone', null, 2) }}</h3>
             <div class="tags">
               <span class="tag"
+                    style="cursor: pointer;"
+                    @click="$store.commit('search/query', tag)"
                     v-for="tag in tags"
                     :key="tag">
                 <hc-icon set="fa" icon="tag"></hc-icon>&nbsp;{{ tag }}
@@ -25,13 +27,17 @@
           </template>
 
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
-          <table class="table is-striped" :class="{ 'is-empty': !relatedPosts.length }">
+          <table class="table is-striped is-hoverable" :class="{ 'is-empty': !relatedPosts.length }">
             <tbody v-if="relatedPostList.length">
               <tr style="cursor: pointer"
                   v-for="contribution in relatedPostList"
                   :key="contribution._id"
                   @click="$router.push('/contributions/' + contribution.slug)">
-                <td>{{ contribution.title }}</td>
+                <td style="width: 60px; text-align: center;">
+                  <img v-if="contribution.teaserImg" class="list-image" :src="contribution.thumbnails.teaserImg.cardS" alt=""/>
+                  <hc-icon v-else icon="image" class="list-image" />
+                </td>
+                <td><strong>{{ contribution.title }}</strong></td>
                 <td class="has-text-right nowrap">
                   <small>
                     <strong>{{ contribution.shoutCount || 0 }}</strong>&nbsp;<hc-icon set="fa" icon="bullhorn" />&nbsp;&nbsp;<strong>{{ contribution.comments.length || 0 }}</strong>&nbsp;<hc-icon set="fa" icon="comments" />
@@ -41,7 +47,7 @@
               <tr>
                 <td colspan="2" class="is-white">
                   <a @click="showAllPosts = !showAllPosts"
-                     v-if="!showAllPosts"
+                     v-if="!showAllPosts && false"
                      class="is-block is-fullwidth has-text-right">{{ $t('button.showMore', 'Mehr') }} <hc-icon icon="angle-down"></hc-icon></a>
                 </td>
               </tr>
@@ -269,7 +275,7 @@
       },
       canEdit () {
         const userId = this.user ? this.user._id : null
-        return this.isVerified && this.contribution.user._id === userId
+        return this.isVerified && this.contribution.user && this.contribution.user._id === userId
       },
       refreshOrNot () {
         let newVar = !!this.$route.query.refresh === true ? 800 : null
@@ -301,5 +307,23 @@
     padding-top: 10px;
     padding-bottom: 40px;
     margin: 1rem -1.5rem -3rem;
+  }
+
+  table.table {
+    td {
+      line-height: 1.3em !important;
+    }
+
+    .list-image {
+      max-width: 60px;
+      max-height: 60px;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        font-size: 3em;
+        color: $grey-lighter;
+      }
+    }
   }
 </style>
