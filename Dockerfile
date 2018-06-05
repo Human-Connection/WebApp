@@ -32,8 +32,8 @@ COPY . /var/www/
 
 # set execution rights on scripts and run the build script
 RUN chmod +x entrypoint.sh
-RUN chmod +x on-build.sh
-RUN chmod +x on-start.sh
+RUN chmod +x scripts/on-build.sh
+RUN chmod +x scripts/on-start.sh
 RUN sh scripts/on-build.sh
 
 # buld application
