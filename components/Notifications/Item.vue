@@ -28,7 +28,7 @@
         const metaExists = !isEmpty(this.notification[this.type])
         const meta = metaExists ? this.notification[this.type] : this.notification
         return {
-          user: meta.user || false,
+          user: meta.organization || meta.user || false,
           createdAt: meta.createdAt || '',
           title: meta.title || ''
         }
