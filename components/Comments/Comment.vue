@@ -1,35 +1,5 @@
 <template>
   <div class="comment" :class="{ highlight: highlight }">
-    <!--<div class="comment-aside">
-      <author :user="comment.user"
-        :showText="false" />
-    </div>
-    <div class="comment-main">
-      <div class="comment-header">
-        <div class="comment-header-author">
-          <author
-            :user="comment.user"
-            :showAvatar="false"
-            :isAuthor="isAuthor"
-            :createdAt="comment.createdAt" />
-        </div>
-        <div class="comment-header-actions">
-          <hc-tooltip v-if="!isOwner" :label="$t('component.contribution.commentUpvote')" type="is-black" position="is-left">
-            <a @click.once="onUpvote(comment)" style="border: none; text-decoration: none; color: #666">
-              <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
-              <i class="fa fa-angle-double-up"></i>&nbsp;
-            </a>
-          </hc-tooltip>
-        </div>
-      </div>
-      <div v-html="getText" class="comment-text"></div>
-      <div class="comment-footer">
-        <div class="comment-footer-actions-left">
-          <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right">
-            <a class="level-item" @click.prevent="$emit('reply', comment)">
-              <span class="icon is-small"><i class="fa fa-reply icon-left"></i></span>
-            </a>
-          </hc-tooltip>-->
     <template v-if="comment.deleted">
       <div class="comment-aside">
       </div>
@@ -214,6 +184,7 @@
           .then((res) => {
             this.newContent = res.content
             this.edit = true
+            this.fullContentShown = false;
           })
       },
       cancelEdit () {
