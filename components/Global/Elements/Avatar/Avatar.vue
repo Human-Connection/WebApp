@@ -1,6 +1,7 @@
 <template>
   <div class="avatar-wrapper" :class="{'is-online': isOnline}">
-    <div class="img-circle profile-image"
+    <div class="profile-image"
+         :class="{crop: crop, 'is-organization': isOrganization, 'img-circle': !isOrganization}"
          ref="avatar"
          :style="style">
       <hc-progressive-image
@@ -40,6 +41,10 @@ export default {
       showOnlineStatus: {
         type: Boolean,
         default: false
+      },
+      crop: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
@@ -82,6 +87,9 @@ export default {
       username () {
         let username = this.name || this.user.name
         return username || this.$t('component.contribution.creatorUnknown')
+      },
+      isOrganization () {
+        return this.user && this.user.userId
       },
       hasImage () {
         return Boolean(this.avatar) && !this.error
@@ -236,8 +244,11 @@ export default {
         height: 100% !important;
         max-width: 100% !important;
         max-height: 100% !important;
-        object-fit: cover;
         overflow: hidden;
+    }
+
+    &.crop img {
+      object-fit: cover;
     }
 
     text-align: center;
@@ -269,6 +280,15 @@ export default {
       left: 0;
       right: 0;
       box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .is-organization {
+    .profile-image {
+      border-radius: 0px !important;
+      img {
+        object-fit: contain;
+      }
     }
   }
 

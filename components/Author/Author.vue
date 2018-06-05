@@ -1,9 +1,12 @@
 <template>
-  <div :class="{ disabled: disableLink, mask: maskUser }"
+  <div :class="{ disabled: disableLink, 'is-owner': isOwner, mask: maskUser }"
         class="media hc__author"
         @click="showProfile">
     <div class="media-left" v-if="showAvatar">
-      <hc-avatar :user="getUser" :showOnlineStatus="true"></hc-avatar>
+      <hc-avatar
+        :user="getUser"
+        :showOnlineStatus="true"
+        :imageKey="imageKey" />
     </div>
     <div class="media-content" v-if="showText">
       <p class="title" v-if="!user">
@@ -32,6 +35,12 @@
       createdAt: {
         type: [ String, Date ]
       },
+      isOwner: {
+        type: Boolean
+      },
+      isAuthor: {
+        type: Boolean
+      },
       showAvatar: {
         type: Boolean,
         default: true
@@ -43,7 +52,10 @@
     },
     methods: {
       showProfile () {
-        if (this.isOwnProfile) {
+        if (this.user.userId) {
+          // its an organization
+          this.$router.push(`/organizations/${this.user.slug}`)
+        } else if (this.isOwnProfile) {
           // own profile
           this.$router.push(`/profile/`)
         } else if (this.getUser.slug) {
@@ -57,6 +69,9 @@
         currentUser: 'auth/user',
         currentUserSettings: 'auth/userSettings'
       }),
+      imageKey () {
+        return (this.user && this.user.logo) ? 'logo' : 'avatar'
+      },
       getUser () {
         return Object.assign({
           _id: null,
@@ -85,6 +100,16 @@
   @import "assets/styles/utilities";
 
   .hc__author {
+    &.is-owner {
+      .title {
+        background-color: $primary;
+        display: inline-block;
+        padding: .2rem .35rem;
+        border-radius: 3px;
+        color: $white;
+      }
+    }
+
       cursor: pointer;
       &.disabled {
         cursor: default !important;
@@ -114,7 +139,7 @@
 
           .fa {
               font-size:  12px;
-              margin-top: 2px;
+              margin-top: -0.8em;
               color:      $grey-light;
           }
       }

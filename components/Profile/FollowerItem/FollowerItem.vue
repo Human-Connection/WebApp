@@ -4,7 +4,7 @@
        @click="showProfile">
     <hc-avatar class="hc-follower-image"
                :showOnlineStatus="true"
-               :user="user"></hc-avatar>
+               :user="user" />
     <div class="hc-follower-details">
       <span class="details-title">{{ user.name }}</span>
       <span v-if="lastContributionDate"
@@ -57,6 +57,8 @@
 </script>
 
 <style lang="scss">
+  @import 'assets/styles/utilities';
+
   .hc-follower-item {
     display: flex;
     padding-bottom: 8px;
@@ -80,6 +82,8 @@
       }
       .details-timestamp {
         font-size: 10px;
+        margin-top: -0.6em;
+        color: $grey;
       }
     }
   }

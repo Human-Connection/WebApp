@@ -1,5 +1,5 @@
 <template>
-  <div class="comment autowrap" :class="{ highlight: highlight }">
+  <div class="comment" :class="{ highlight: highlight }">
     <template v-if="comment.deleted">
       <div class="comment-aside">
       </div>
@@ -18,6 +18,7 @@
           <div class="comment-header-author">
             <author :user="comment.user"
               :showAvatar="false"
+              :isAuthor="isAuthor"
               :createdAt="comment.createdAt" />
           </div>
           <div class="comment-header-actions">
@@ -62,7 +63,7 @@
         <div class="comment-footer">
           <div class="comment-footer-actions-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
-              <a class="level-item" style="cursor: not-allowed; pointer-events: visible;">
+              <a class="level-item" @click.prevent="$emit('reply', comment)">
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
             </hc-tooltip>
@@ -111,6 +112,12 @@
       comment: {
         type: Object,
         required: true
+      },
+      isAuthor: {
+        type: Boolean
+      },
+      isOwner: {
+        type: Boolean
       }
     },
     data () {
@@ -139,15 +146,17 @@
           : linkifyHtml(this.comment.contentExcerpt)
       },
       isTruncated () {
-        return this.getText.slice(-3) === '...' ||
-          this.getText.slice(-1) === '…' ||
-          this.getText.slice(-7) === '...</p>' ||
-          this.getText.slice(-5) === '…</p>' ||
-          this.fullContentShown
-      },
-      isOwner () {
-        return this.user && this.comment && this.comment.user &&
-          this.comment.user._id === this.user._id
+        if (this.comment.hasMore === undefined) {
+          // old logic
+          return this.getText.slice(-3) === '...' ||
+                 this.getText.slice(-1) === '…' ||
+                 this.getText.slice(-7) === '...</p>' ||
+                 this.getText.slice(-5) === '…</p>' ||
+                 this.fullContentShown
+        } else {
+          // new logic
+          return this.comment.hasMore
+        }
       }
     },
     mounted () {
@@ -175,6 +184,7 @@
           .then((res) => {
             this.newContent = res.content
             this.edit = true
+            this.fullContentShown = false;
           })
       },
       cancelEdit () {
@@ -244,7 +254,7 @@
   .comment-main {
     position: relative;
     flex: 1 1 0;
-    overflow: visible;
+    // overflow: visible;
     padding: $padding-small;
     background-color: $white;
 

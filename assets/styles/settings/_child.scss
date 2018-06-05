@@ -45,7 +45,7 @@
 }
 
 .settings-content {
-  overflow-x: hidden;
+  // overflow-x: hidden;
   @extend .card;
   background-color: $white;
   box-shadow: $card-shadow-hover;

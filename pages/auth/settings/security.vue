@@ -154,7 +154,6 @@
             type: "is-success"
           });
         } catch (err) {
-          console.log('#ERR')
           console.error(err)
           if (err.errors.oldPassword) {
             this.currentPasswortInvalid = true

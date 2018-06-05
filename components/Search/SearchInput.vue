@@ -2,15 +2,16 @@
   <div class="search" aria-label="search" role="search" :class="{ 'is-active': isActive }">
     <div class="field">
       <div class="control has-icons-left has-icons-right">
-        <label for="nav-search" class="is-hidden">{{ $t('component.search.placeholder') }}</label>
+        <label :for="id" class="is-hidden">{{ $t('component.search.placeholder') }}</label>
         <input class="input"
                v-focus="focus"
-               id="nav-search"
+               :id="id"
                name="search"
                type="text"
-               v-bind:placeholder="$t('component.search.placeholder')"
-               v-model="value"
-               v-on:keyup="onInput"
+               :placeholder="$t('component.search.placeholder')"
+               v-model="searchValue"
+               @keyup="onInput"
+               @keyup.enter="onEnter"
                ref="input">
         <span class="icon is-small is-left">
           <hc-icon icon="search"></hc-icon>
@@ -24,12 +25,24 @@
 </template>
 
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
+  // import {mapGetters, mapMutations} from 'vuex'
   import {isEmpty} from 'lodash'
 
   export default {
     name: 'hc-search-input',
     props: {
+      id: {
+        type: String,
+        default: 'nav-search'
+      },
+      value: {
+        type: String,
+        default: ''
+      },
+      delay: {
+        type: Number,
+        default: 700
+      },
       focus: {
         type: Boolean,
         default: false
@@ -37,43 +50,65 @@
     },
     data () {
       return {
-        value: '',
+        searchValue: '',
         searchProcess: null,
         searching: false
       }
     },
     mounted () {
-      this.value = this.searchQuery
+      this.updateValue()
     },
     methods: {
-      ...mapMutations({
-        search: 'search/query'
-      }),
-      onInput () {
-        if (this.searching) {
-          clearTimeout(this.searchProcess)
+      updateValue () {
+        if (!this.value) {
+          this.searchValue = ''
+        } else if (this.value.toString() !== this.searchValue.toString()) {
+          this.searchValue = this.value.toString()
         }
+      },
+      onInput () {
+        clearTimeout(this.searchProcess)
         this.searching = true
+        // skip on less then three letters
+        if (this.searchValue && this.searchValue.toString().length < 3) {
+          return
+        }
+        // skip if nothing changed
+        if (this.searchValue === this.value) {
+          return
+        }
         this.searchProcess = setTimeout(() => {
           this.searching = false
-          this.search(this.value)
-        }, 700)
+          this.$emit('search', this.searchValue.toString())
+        }, this.delay)
+      },
+      onEnter () {
+        clearTimeout(this.searchProcess)
+        this.$nextTick(() => {
+          clearTimeout(this.searchProcess)
+        })
+        this.searching = false
+        this.$emit('search', this.searchValue.toString())
       },
       clear () {
-        this.search('')
+        clearTimeout(this.searchProcess)
+        this.searching = false
+        this.searchValue = ''
+        if (this.value !== this.searchValue) {
+          this.$emit('search', '')
+        }
       }
     },
     watch: {
-      searchQuery (query) {
-        this.value = query
+      value (value) {
+        this.$nextTick(() => {
+          this.updateValue()
+        })
       }
     },
     computed: {
-      ...mapGetters({
-        searchQuery: 'search/query'
-      }),
       isActive () {
-        return !isEmpty(this.value)
+        return !isEmpty(this.searchValue)
       }
     }
   }
@@ -84,7 +119,6 @@
 
   .search {
     display: flex;
-    height: 100%;
     width: 100%;
     position: relative;
 
@@ -129,9 +163,6 @@
     .icon {
       height: 2.5em;
       font-size: 1em;
-      transition-duration: 0.15s;
-      transition-timing-function: ease-out;
-      transition-property: color;
 
       &.btn-clear {
         position: absolute;

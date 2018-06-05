@@ -35,7 +35,8 @@
       let head = {
         htmlAttrs: {
           lang: this.$i18n.locale()
-        }
+        },
+        title: 'loading...'
       }
       if (process.env.NODE_ENV === 'development') {
         head.script = [

@@ -7,8 +7,11 @@
       :mobileFull="true"
       :boundaryAlign="true"
       :boundary="$parent.$refs['navbar-container']">
-      <hc-navbar-button slot="toggle">
-        <span class="is-hidden">{{ $t('component.filter.label') }}</span>
+      <hc-navbar-button slot="toggle"
+                        :class="{'active': !!$store.getters['search/query']}">
+        <span class="is-hidden">
+          {{ $t('component.filter.label') }}
+        </span>
         <hc-icon icon="filter"></hc-icon>
       </hc-navbar-button>
       <div class="hc-filter-select">
@@ -47,7 +50,8 @@
       :mobileFull="true"
       :boundaryAlign="true"
       :boundary="$parent.$refs['navbar-container']">
-      <hc-navbar-button slot="toggle">
+      <hc-navbar-button slot="toggle"
+                        :class="{'active': !!$store.getters['search/query']}">
         <hc-icon icon="filter"></hc-icon>
       </hc-navbar-button>
       <div class="hc-filter-select">

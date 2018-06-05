@@ -21,4 +21,4 @@ envsub .env .env \
        -e MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
 # empty remaining
 envsub .env .env
-envsub ./server/.env-secrets.tmp ./server/.env-secrets
+envsub server/.env-secrets.tmp server/.env-secrets

@@ -13,6 +13,19 @@
         :loading="isLoading"></hc-editor>
       <p :class="{ 'is-hidden': !$v.form.description.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
     </div>
+    <div class="field">
+      <div class="control has-icons-right"
+            :class="{ 'has-error': $v.form.url.$error }">
+        <label class="label is-required" for="form-url">{{ $t('component.organization.website') }}</label>
+        <input id="form-url"
+                class="input "
+                type="text"
+                placeholder="https://"
+                @blur="enhanceURL"
+                v-model="form.url">
+      </div>
+      <p :class="{ 'is-hidden': !$v.form.url.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+    </div>
     <div class="field"
           :class="{ 'has-error': $v.form.type.$error }">
       <label class="label is-required">{{ $t('component.organization.type') }}</label>
@@ -53,7 +66,9 @@
 
 <script>
   import { validationMixin } from "vuelidate";
-  import { required, minLength, maxLength } from "vuelidate/lib/validators";
+  import { required, minLength, maxLength, url } from "vuelidate/lib/validators";
+
+  const linkify = require('linkifyjs')
 
   export default {
     mixins: [validationMixin],
@@ -71,6 +86,7 @@
       return {
         form: {
           description: '',
+          url: '',
           type: null
         },
         isLoading: false
@@ -90,13 +106,22 @@
       })
     },
     methods: {
+      enhanceURL () {
+        const urls = linkify.find(this.form.url || '', 'url')
+        if (urls.length) {
+          this.form.url = urls.pop().href
+        }
+      },
       updateData (data) {
         this.form = Object.assign(this.form, {
           description: data.description,
+          url: data.url,
           type: data.type
         })
       },
       validate () {
+        this.enhanceURL()
+
         if (this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.$emit('validate', false)
@@ -112,6 +137,10 @@
           description: {
             required,
             minLength: minLength(10)
+          },
+          url: {
+            required,
+            url
           },
           type: {
             required

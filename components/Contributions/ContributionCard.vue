@@ -25,7 +25,7 @@
           <div class="ribbon">
             <small>{{ $t('component.contribution.type-' + post.type) }}</small>
           </div>
-          <author :user="post.user"
+          <author :user="post.organization || post.user"
             :created-at="post.createdAt" />
           <div class="message is-danger is-small" v-if="!post.isEnabled">
             <div class="message-body">
@@ -218,7 +218,7 @@
         &:hover {
           box-shadow: $card-shadow-hover;
           // transform: scale(1.02);
-          z-index: 2;
+          z-index: 5;
         }
       }
     }

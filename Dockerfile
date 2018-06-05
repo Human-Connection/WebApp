@@ -32,9 +32,9 @@ COPY . /var/www/
 
 # set execution rights on scripts and run the build script
 RUN chmod +x entrypoint.sh
-RUN chmod +x on-build.sh
-RUN chmod +x on-start.sh
-RUN sh on-build.sh
+RUN chmod +x scripts/on-build.sh
+RUN chmod +x scripts/on-start.sh
+RUN sh scripts/on-build.sh
 
 # buld application
 # ENV NODE_ENV=production #we seam to have issues with the production flag on install && build

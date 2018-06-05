@@ -2,11 +2,15 @@ import _ from 'lodash'
 
 export const state = () => {
   return {
+    total: 0,
     notifications: false
   }
 }
 
 export const mutations = {
+  total (state, total) {
+    state.total = total
+  },
   set (state, notifications) {
     if (!notifications || notifications === undefined) {
       state.notifications = null
@@ -15,6 +19,7 @@ export const mutations = {
     }
   },
   clear (state) {
+    state.total = 0
     state.notifications = []
   },
   add (state, notification) {
@@ -25,6 +30,9 @@ export const mutations = {
 export const getters = {
   all (state) {
     return state.notifications
+  },
+  total (state) {
+    return state.total
   }
 }
 
@@ -43,17 +51,19 @@ export const actions = {
         dispatch('fetch')
       }, 500))
   },
-  fetch ({commit}) {
+  fetch ({commit, rootGetters}) {
     return this.app.$api.service('notifications').find({
       query: {
         $limit: 30,
         $sort: {
           createdAt: -1
         },
+        userId: rootGetters['auth/user']._id,
         unseen: true
       }
     })
       .then((result) => {
+        commit('total', result.total)
         commit('set', result.data)
       })
       .catch(() => {

@@ -52,7 +52,11 @@ export const mutations = {
   updateContribution (state, contribution) {
     const index = _.findIndex(state.contributions, { _id: contribution._id })
     if (index >= 0) {
-      Vue.set(state.contributions, index, contribution)
+      if (contribution.deleted) {
+        Vue.delete(state.contributions, index)
+      } else {
+        Vue.set(state.contributions, index, contribution)
+      }
     }
   },
   setHasNext (state, hasNext) {
@@ -83,6 +87,9 @@ export const getters = {
       skip: state.skip,
       sort: state.sort
     }
+    if (!_.isEmpty(state.search)) {
+      queryData.$sort = {}
+    }
     if (rootState.auth.user) {
       queryData.language = {
         $in: _.castArray(rootGetters['auth/userSettings'].contentLanguages)
@@ -106,6 +113,9 @@ export const getters = {
       $limit: state.limit,
       $sort: state.sort,
       visibility: 'public'
+    }
+    if (!_.isEmpty(state.search)) {
+      query.$sort = {}
     }
     query = Object.assign(query, rootGetters['search/queryLanguages'])
 
@@ -158,7 +168,7 @@ export const actions = {
     commit('setLastQueryHash', queryHash)
 
     try {
-      const res = await this.app.$api.service('contributions').find({query: query})
+      const res = await this.app.$api.service('contributions').find({query})
       commit('addContributions', res.data)
 
       setTimeout(() => {

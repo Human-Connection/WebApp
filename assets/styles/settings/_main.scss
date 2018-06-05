@@ -51,7 +51,12 @@
       justify-content: right;
     }
   }
-
+}
+.settings-content {
+  // overflow-x: hidden;
+  @extend .card;
+  background-color: $white;
+  box-shadow: $card-shadow-hover;
 }
 .settings-content {
   // overflow-x: hidden;
