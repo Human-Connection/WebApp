@@ -3,7 +3,7 @@
     <div v-if="termsAndConditionsUpdate.type === 'termsAndConditions'" class="terms-and-conditions-modal">
       <b-modal :active.sync="isAcceptModalActive" :canCancel=false has-modal-card animation="zoom-in">
         <div class="modal-background"></div>
-        <div class="modal-card ">
+        <div class="modal-card">
           <header class="modal-card-head">
             <h4 class="modal-card-title">{{ termsAndConditionsUpdate.title }}</h4>
           </header>
@@ -28,7 +28,7 @@
           <div class="header">
             <h2 class="title is-5">{{ notification.title }}</h2>
           </div>
-          <div v-html="notification.content"></div>
+          <div v-html="notificationContent"></div>
           <div v-if="notification.requireConfirmation">
             <a class="confirm-info button is-info notifications" @click.prevent="closeNotification">{{ $t('button.okay') }}</a>
           </div>
@@ -43,6 +43,7 @@
   import { isEmpty, castArray } from 'lodash'
   import {mapGetters} from 'vuex'
   import moment from 'moment'
+  import linkifyHtml from 'linkifyjs/html'
 
   export default {
     name: 'system-notification',
@@ -66,7 +67,10 @@
     computed: {
       ...mapGetters({
         user: "auth/user"
-      })
+      }),
+      notificationContent () {
+        return linkifyHtml(this.notification.content || '')
+      }
     },
     methods: {
       async closeNotification () {
