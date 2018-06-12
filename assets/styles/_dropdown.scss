@@ -1,5 +1,6 @@
 .dropdown .background {
   background-color: $backdrop-color;
+  z-index: 100;
 }
 
 .dropdown-menu {
