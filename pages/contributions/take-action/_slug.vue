@@ -22,9 +22,9 @@
                     <img v-if="organization.logo" class="list-image" :src="organization.thumbnails.logo.medium" alt=""/>
                     <hc-icon v-else icon="image" style="width: 100%;" class="list-image" />
                   </td>
-                  <td>
-                    <strong>{{ organization.name }}</strong><br/>
-                    <small>{{ organization.descriptionExcerpt }}</small>
+                  <td class="description">
+                    <strong class="headline">{{ organization.name }}</strong><br/>
+                    <div v-html="organization.descriptionExcerpt" />
                   </td>
                   <td class="has-text-right"><strong>{{ organization.followersCounts ? organization.followersCounts.users : 0 }}</strong>&nbsp;Follower</td>
                 </tr>
@@ -378,6 +378,14 @@
         font-size: 3em;
         color: $grey-lighter;
       }
+    }
+  }
+
+  .description {
+    font-size: .9em;
+
+    .headline {
+      font-size: 1.1em;
     }
   }
 </style>
