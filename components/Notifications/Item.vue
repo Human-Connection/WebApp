@@ -1,5 +1,5 @@
 <template>
-  <div class="notification option">
+  <div class="notification option" :class="{ 'unseen' : notification.unseen}">
     <author class="author"
             :user="notificationMeta.user"
             :created-at="notificationMeta.createdAt" />
@@ -70,7 +70,15 @@
     padding: 0.5rem 1rem;
     margin-bottom: 0;
     cursor: pointer;
-    background-color: $white;
+    background-color: lighten($grey-lighter, 8%);
+    border-radius: 0;
+    opacity: 0.7;
+
+    &.unseen {
+      opacity: 1;
+      background-color: $white;
+      // border-right: 5px solid $green;
+    }
 
     &:hover {
       // box-shadow: 0px 2px 7px rgba($black, 0.2);

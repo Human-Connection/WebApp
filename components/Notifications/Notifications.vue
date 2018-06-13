@@ -15,20 +15,22 @@
       <hc-dropdown-title>
         {{ $t('component.notification.label') }}
       </hc-dropdown-title>
-      <p v-if="!isAuthenticated" class="dropdown-content empty">
-        Please
-        <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
-        to see your notifications.
-      </p>
-      <p v-else-if="notifications.length === 0" class="dropdown-content empty">
-        {{ $t('component.notification.messageEmpty') }}
-      </p>
-      <div v-else>
-        <transition-group name="notification" tag="div">
-          <notification-item v-for="notification in notifications"
-            :notification="notification" :key="notification._id"
-            @click.native="followNotification(notification)" />
-        </transition-group>
+      <div class="hc-notifications-content">
+        <p v-if="!isAuthenticated" class="dropdown-content empty">
+          Please
+          <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
+          to see your notifications.
+        </p>
+        <p v-else-if="notifications.length === 0" class="dropdown-content empty">
+          {{ $t('component.notification.messageEmpty') }}
+        </p>
+        <div v-else>
+          <transition-group name="notification" tag="div">
+            <notification-item v-for="notification in notifications"
+              :notification="notification" :key="notification._id"
+              @click.native="followNotification(notification)" />
+          </transition-group>
+        </div>
       </div>
     </div>
     <div slot="footer">
@@ -138,6 +140,9 @@
 
   .hc-notifications {
     min-width: 340px;
+  }
+
+  .hc-notifications-content {
     @include tablet() {
       overflow-y: auto;
       min-height: 100px;

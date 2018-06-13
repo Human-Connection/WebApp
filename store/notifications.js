@@ -52,18 +52,29 @@ export const actions = {
       }, 500))
   },
   fetch ({commit, rootGetters}) {
-    return this.app.$api.service('notifications').find({
+    this.app.$api.service('notifications').find({
       query: {
-        $limit: 30,
-        $sort: {
-          createdAt: -1
-        },
+        $limit: 0,
         userId: rootGetters['auth/user']._id,
         unseen: true
       }
     })
       .then((result) => {
         commit('total', result.total)
+      })
+      .catch(() => {
+        commit('clear')
+      })
+    return this.app.$api.service('notifications').find({
+      query: {
+        $limit: 30,
+        $sort: {
+          createdAt: -1
+        },
+        userId: rootGetters['auth/user']._id
+      }
+    })
+      .then((result) => {
         commit('set', result.data)
       })
       .catch(() => {
