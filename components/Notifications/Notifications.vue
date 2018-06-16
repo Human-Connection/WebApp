@@ -1,14 +1,14 @@
 <template>
   <hc-dropdown ref="dropdown"
-    :mobileFull="true"
-    :hideFooterTablet="true">
+               :mobileFull="true"
+               :hideFooterTablet="true">
     <hc-navbar-button slot="toggle">
       <span class="notification-icon">
         <span class="is-hidden">{{ $t('component.notification.label') }}</span>
         <hc-icon icon="bell"
-          class="notification-icon-bell"
-          :class="{ animate: notify }"></hc-icon>
-        <hc-count-label :count="notificationsTotal" v-if="notifications"></hc-count-label>
+                 class="notification-icon-bell"
+                 :class="{ animate: notify }"></hc-icon>
+        <hc-count-label :count="unseenTotal" v-if="notifications"></hc-count-label>
       </span>
     </hc-navbar-button>
     <div class="hc-notifications">
@@ -27,72 +27,77 @@
         <div v-else>
           <transition-group name="notification" tag="div">
             <notification-item v-for="notification in notifications"
-              :notification="notification" :key="notification._id"
-              @click.native="followNotification(notification)" />
+                               :notification="notification"
+                               :key="notification._id"
+                               @click.native="followNotification(notification)"/>
           </transition-group>
+          <infinite-loading @infinite="onInfinite" v-if="hasMore">
+            <div slot="spinner" class="loader-spinner">
+              <div class="is-loading"></div>
+            </div>
+          </infinite-loading>
         </div>
       </div>
     </div>
     <div slot="footer">
       <hc-button @click="$refs.dropdown.close()"
-        size="medium"
-        :fullWidth="true">
-        <hc-icon class="icon-left" icon="times" /> {{ $t('button.close', 'Close') }}
+                 size="medium"
+                 :fullWidth="true">
+        <hc-icon class="icon-left" icon="times"/>
+        {{ $t('button.close', 'Close') }}
       </hc-button>
     </div>
   </hc-dropdown>
 </template>
 
 <script>
-  import {mapGetters, mapMutations} from 'vuex'
+  import {mapGetters, mapActions} from 'vuex'
   import NotificationItem from '~/components/Notifications/Item.vue'
-  import { isEmpty } from 'lodash'
+  import {isEmpty} from 'lodash'
+  import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
+  import {throttle} from 'lodash'
 
   export default {
     name: 'hc-notifications',
     components: {
-      NotificationItem
+      NotificationItem,
+      InfiniteLoading
     },
     data () {
       return {
         ready: false,
         active: false,
         notify: false,
-        timeout: null,
-        lastCount: 0
+        timeout: null
       }
     },
     computed: {
       ...mapGetters({
         isAuthenticated: 'auth/isAuthenticated',
         notifications: 'notifications/all',
-        notificationsTotal: 'notifications/total'
+        notificationsTotal: 'notifications/total',
+        unseenTotal: 'notifications/unseenTotal',
+        hasMore: 'notifications/hasMore'
       })
     },
     watch: {
-      notifications (notifications) {
+      unseenTotal (unseenTotal) {
         // only add animation to notification icon then we got some new notifications
-        if (notifications.length <= this.lastCount) {
-          this.lastCount = notifications.length
+        if (!unseenTotal) {
           return
         }
-        // remember the notification count
-        this.lastCount = notifications.length
 
-        // add the notify flag wich is used to animate the notification icon
         this.notify = true
         clearTimeout(this.timeout)
         this.timeout = setTimeout(() => {
-          clearTimeout(this.timeout)
-
-          // remove the notify flag to clean the class from the animation as preperation froe the next time
           this.notify = false
         }, 500)
       }
     },
     methods: {
-      ...mapMutations({
-        addNotification: 'notifications/add'
+      ...mapActions({
+        markAsRead: 'notifications/markAsRead',
+        fetchMore: 'notifications/fetchMore'
       }),
       followNotification (notification) {
         if (isEmpty(notification.contribution)) {
@@ -104,10 +109,12 @@
         }
 
         // mark all notifications with the same contribution id as read
-        this.$store.dispatch('notifications/markAsRead', {
-          notification
-        })
+        this.markAsRead({notification})
         this.active = false
+      },
+      async onInfinite ($state) {
+        await this.fetchMore()
+        $state.loaded()
       }
     }
   }
@@ -130,16 +137,32 @@
   }
 
   @keyframes notify {
-    0%   { transform: rotate(0deg); }
-    10%   { transform: rotate(10deg); }
-    30%  { transform: rotate(-15deg); }
-    60%  { transform: rotate(20deg); }
-    90%  { transform: rotate(-15deg); }
-    100% { transform: rotate(0deg); }
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(10deg);
+    }
+    30% {
+      transform: rotate(-15deg);
+    }
+    60% {
+      transform: rotate(20deg);
+    }
+    90% {
+      transform: rotate(-15deg);
+    }
+    100% {
+      transform: rotate(0deg);
+    }
   }
 
   .hc-notifications {
-    min-width: 340px;
+    width: 340px;
+
+    @include tablet() {
+      width: 360px;
+    }
   }
 
   .hc-notifications-content {
@@ -161,5 +184,12 @@
     padding-bottom: 2rem !important;
     text-align: center;
     color: $grey-light;
+  }
+
+  .loader-spinner {
+    width: 100%;
+    position: relative;
+    height: 80px;
+    display: flex;
   }
 </style>
