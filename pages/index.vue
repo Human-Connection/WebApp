@@ -62,7 +62,7 @@
         bricksInstance: null,
         errors: null,
         ready: false,
-        activated: false
+        isActivated: false
       }
     },
     computed: {
@@ -137,7 +137,7 @@
     },
     methods: {
       init () {
-        this.activated = true
+        this.isActivated = true
         app = this
         app.bricksInstance = new Bricks({
           container: '.cards',
@@ -170,7 +170,7 @@
         window.addEventListener('resize', this.resizeHandler)
       },
       cleanup () {
-        this.activated = false
+        this.isActivated = false
         window.removeEventListener('load', this.loadHandler)
         window.removeEventListener('resize', this.resizeHandler)
       },
@@ -191,7 +191,7 @@
         })
       },
       updateGrid: throttle((resize = false, update = false) => {
-        if (!app.activated) {
+        if (!app.isActivated) {
           return
         }
         // throttle the grid updates for better performance
