@@ -36,20 +36,24 @@ export const mutations = {
     state.notifications = []
   },
   add (state, notification) {
+    let toBottom = false
+    if (notification.toBottom) {
+      // to an object with more options, unwrap it...
+      toBottom = true
+      notification = notification.notification
+    }
     const index = state.notifications.findIndex(item => {
       return item._id === notification._id
     })
     if (index > -1) {
       // Replace existing notification
       state.notifications.splice(index, 1, notification)
+    } else if (toBottom) {
+      // Or add new one
+      state.notifications.push(notification)
     } else {
       // Or add new one
       state.notifications.unshift(notification)
-    }
-  },
-  addMany (state, notifications) {
-    if (notifications || notifications.length) {
-      state.notifications.push(...notifications)
     }
   }
 }
@@ -109,18 +113,18 @@ export const actions = {
   fetch ({commit, dispatch}) {
     dispatch('fetchTotal')
     return dispatch('find')
-      .then((result) => {
+      .then(result => {
         commit('set', result.data)
       })
       .catch(error => {
         console.error('fetch could not fetch notifications', error)
       })
   },
-  fetchMore ({state, commit, dispatch}) {
+  fetchMore ({state, dispatch}) {
     const $skip = state.notifications.length
     return dispatch('find', { $skip })
-      .then((result) => {
-        commit('addMany', result.data)
+      .then(result => {
+        dispatch('addMany', result.data)
       })
       .catch(error => {
         console.error('fetchMore could not fetch notifications', error)
@@ -172,6 +176,14 @@ export const actions = {
   toggleUnseen ({state, commit, dispatch}) {
     commit('setOnlyUnseen', !state.onlyUnseen)
     dispatch('fetch')
+  },
+  addMany ({state, commit}, notifications) {
+    notifications = _.castArray(notifications)
+    if (notifications || notifications.length) {
+      notifications.forEach(notification => {
+        commit('add', { notification, toBottom: true })
+      })
+    }
   },
   async markAsRead ({dispatch}, {notification}) {
     let result
