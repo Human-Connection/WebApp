@@ -200,7 +200,7 @@
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
-  import List from '~/components/Lists/List.vue'
+  // import List from '~/components/Lists/List.vue'
   import { isEmpty, castArray } from 'lodash'
 
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
@@ -213,7 +213,7 @@
       'hc-emotion-rating': EmotionRating,
       'hc-contribution-bread-crumb': ContributionBreadcrumb,
       ContributionImage,
-      List
+      // List
     },
     data () {
       return {
