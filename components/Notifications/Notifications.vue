@@ -22,7 +22,7 @@
           </a>
         </hc-tooltip>
         <hc-tooltip v-if="unseenTotal"
-                    :label="$t('component.notification.toggleUnseen')"
+                    :label="$t('component.notification.markAllAsRead')"
                     position="is-left"
                     class="is-pulled-right">
           <a @click.prevent="markAsRead">
