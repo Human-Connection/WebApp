@@ -28,7 +28,7 @@
         const metaExists = !isEmpty(this.notification[this.type])
         const meta = metaExists ? this.notification[this.type] : this.notification
         return {
-          user: meta.organization || meta.user || false,
+          user: meta.organization || meta.user || null,
           createdAt: meta.createdAt || '',
           title: meta.title || ''
         }
@@ -65,24 +65,30 @@
   }
 
   .option {
-    border-bottom: 1px solid lighten($grey-lighter, 6%);
+    border-bottom: 1px solid lighten($grey-lighter, 8%);
     transition: all .2s ease-out;
     padding: 0.5rem 1rem;
     margin-bottom: 0;
     cursor: pointer;
-    background-color: lighten($grey-lighter, 8%);
+    background-color: lighten($grey-lighter, 10%);
     border-radius: 0;
     opacity: 0.7;
+
+    &:hover {
+      background-color: darken($white, 5%);
+      opacity: 1;
+    }
 
     &.unseen {
       opacity: 1;
       background-color: $white;
-      // border-right: 5px solid $green;
-    }
+      border-left: 5px solid $green;
+      padding-left: 0.65rem;
 
-    &:hover {
-      // box-shadow: 0px 2px 7px rgba($black, 0.2);
-      background-color: lighten($grey-lighter, 10%);
+      &:hover {
+        background-color: darken($white, 5%);
+        opacity: 1;
+      }
     }
 
     &:last-of-type {
@@ -96,6 +102,8 @@
   }
 
   .notification {
+    width: 100%;
+
     p {
       font-size: $size-7;
     }

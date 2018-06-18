@@ -260,6 +260,8 @@
     "notification": {
       "label": "Notifications",
       "messageEmpty": "You don't have any notifications.",
+      "toggleUnseen": "Show all {total} messages",
+      "markAllAsRead": "Mark all as read",
       "message": {
         "comment": "<strong>{userName}</strong> has commented your contribution <strong>{title}</strong>: <br />{excerpt}",
         "comment-mention": "<strong>{userName}</strong> has mentioned you in a comment for {title}: <br />{excerpt}",

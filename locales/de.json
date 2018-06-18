@@ -260,6 +260,8 @@
     "notification": {
       "label": "Benachrichtigungen",
       "messageEmpty": "Du hast keine Benachrichtigungen.",
+      "toggleUnseen": "Alle {total} Benachrichtigungen anzeigen",
+      "markAllAsRead": "Alle als gelesen markieren",
       "message": {
         "comment": "<strong>{userName}</strong> hat Deinen Beitrag kommentiert <strong>{title}</strong>: <br />{excerpt}",
         "comment-mention": "<strong>{userName}</strong> hat Dich in einem Kommentar zu <strong>{title}</strong> erwähnt: <br />{excerpt}",

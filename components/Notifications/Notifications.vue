@@ -14,6 +14,21 @@
     <div class="hc-notifications">
       <hc-dropdown-title>
         {{ $t('component.notification.label') }}
+        <hc-tooltip :label="$t('component.notification.toggleUnseen', { total: notificationsTotal })"
+                    position="is-left"
+                    class="is-pulled-right">
+          <a @click.prevent="toggleUnseenHandler">
+            <hc-icon :icon="unseenToggleIcon" style="font-size: 1.2em" />
+          </a>
+        </hc-tooltip>
+        <hc-tooltip v-if="unseenTotal"
+                    :label="$t('component.notification.toggleUnseen')"
+                    position="is-left"
+                    class="is-pulled-right">
+          <a @click.prevent="markAsRead">
+            <hc-icon icon="check" class="icon-left" />
+          </a>
+        </hc-tooltip>
       </hc-dropdown-title>
       <div class="hc-notifications-content">
         <p v-if="!isAuthenticated" class="dropdown-content empty">
@@ -23,8 +38,11 @@
         </p>
         <p v-else-if="notifications.length === 0" class="dropdown-content empty">
           {{ $t('component.notification.messageEmpty') }}
+          <a v-if="notificationsTotal"  @click.prevent="toggleUnseenHandler">
+            <br />{{ $t('component.notification.toggleUnseen', { total: notificationsTotal }) }}
+          </a>
         </p>
-        <div v-else>
+        <div v-else class="notifications-wrapper">
           <transition-group name="notification" tag="div">
             <notification-item v-for="notification in notifications"
                                :notification="notification"
@@ -77,8 +95,12 @@
         notifications: 'notifications/all',
         notificationsTotal: 'notifications/total',
         unseenTotal: 'notifications/unseenTotal',
+        onlyUnseen: 'notifications/onlyUnseen',
         hasMore: 'notifications/hasMore'
-      })
+      }),
+      unseenToggleIcon () {
+        return `toggle-${this.onlyUnseen ? 'off' : 'on'}`
+      }
     },
     watch: {
       unseenTotal (unseenTotal) {
@@ -99,6 +121,10 @@
         markAsRead: 'notifications/markAsRead',
         fetchMore: 'notifications/fetchMore'
       }),
+      toggleUnseenHandler (e) {
+        e.stopPropagation()
+        this.$store.dispatch('notifications/toggleUnseen')
+      },
       followNotification (notification) {
         if (isEmpty(notification.contribution)) {
           // DO NOTHING!
@@ -158,18 +184,29 @@
   }
 
   .hc-notifications {
-    width: 340px;
+    width: 100%;
 
     @include tablet() {
       width: 360px;
     }
   }
 
+  .notifications-wrapper {
+    width: 100%;
+
+    & > div {
+      width: 100%;
+    }
+  }
+
   .hc-notifications-content {
+    width: 100%;
+
     @include tablet() {
       overflow-y: auto;
       min-height: 100px;
       max-height: 400px;
+      display: flex;
     }
   }
 
@@ -177,13 +214,13 @@
     padding: 0.5rem 1rem 0.8rem;
     border: none;
     box-shadow: none;
+    width: 100%;
   }
 
   .dropdown-content.empty {
-    padding-top: 2rem !important;
-    padding-bottom: 2rem !important;
     text-align: center;
     color: $grey-light;
+    align-self: center;
   }
 
   .loader-spinner {
@@ -191,5 +228,6 @@
     position: relative;
     height: 80px;
     display: flex;
+    background-color: lighten($grey-lighter, 10%);
   }
 </style>

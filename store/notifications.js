@@ -8,6 +8,7 @@ export const state = () => {
   return {
     total: 0,
     unseenTotal: 0,
+    onlyUnseen: true,
     notifications: false
   }
 }
@@ -26,6 +27,9 @@ export const mutations = {
       state.notifications = notifications
     }
   },
+  setOnlyUnseen (state, val) {
+    state.onlyUnseen = val
+  },
   clear (state) {
     state.total = 0
     state.unseenTotal = 0
@@ -35,11 +39,11 @@ export const mutations = {
     const index = state.notifications.findIndex(item => {
       return item._id === notification._id
     })
-    // Replace existing notification
     if (index > -1) {
+      // Replace existing notification
       state.notifications.splice(index, 1, notification)
-    // Or add new one
     } else {
+      // Or add new one
       state.notifications.unshift(notification)
     }
   },
@@ -60,9 +64,13 @@ export const getters = {
   unseenTotal (state) {
     return state.unseenTotal
   },
+  onlyUnseen (state) {
+    return state.onlyUnseen
+  },
   hasMore (state) {
-    return state.total &&
-      state.total > state.notifications.length
+    const total = state.onlyUnseen ? state.unseenTotal : state.total
+    return total &&
+      total > state.notifications.length
   }
 }
 
@@ -84,7 +92,7 @@ export const actions = {
         dispatch('fetchOne', notification)
       })
   },
-  find ({rootGetters}, queryParams) {
+  find ({state, rootGetters}, queryParams) {
     let query = {
       $limit: options.limit,
       $sort: {
@@ -92,6 +100,9 @@ export const actions = {
       },
       userId: rootGetters['auth/user']._id,
       ...queryParams
+    }
+    if (state.onlyUnseen) {
+      query.unseen = true
     }
     return this.app.$api.service('notifications').find({ query })
   },
@@ -158,24 +169,45 @@ export const actions = {
       }))
     return Promise.all(requests)
   },
-  markAsRead ({dispatch}, {notification}) {
-    let query = [{
-      id: notification._id
-    }]
+  toggleUnseen ({state, commit, dispatch}) {
+    commit('setOnlyUnseen', !state.onlyUnseen)
+    dispatch('fetch')
+  },
+  async markAsRead ({dispatch}, {notification}) {
+    let result
 
-    if (!_.isEmpty(notification.relatedContributionId)) {
-      query.push({
-        relatedContributionId: notification.relatedContributionId,
-        unseen: true
+    if (notification) {
+      // mark all as read with the same contribution id
+      let query = [{
+        id: notification._id
+      }]
+
+      if (!_.isEmpty(notification.relatedContributionId)) {
+        query.push({
+          relatedContributionId: notification.relatedContributionId,
+          unseen: true
+        })
+      }
+
+      result = await this.app.$api.service('notifications').patch(null, {
+        unseen: false
+      }, {
+        query: {
+          $or: query
+        }
+      })
+    } else {
+      // mark all as read
+      result = await this.app.$api.service('notifications').patch(null, {
+        unseen: false
+      }, {
+        query: {
+          unseen: true
+        }
       })
     }
 
-    return this.app.$api.service('notifications').patch(null, {
-      unseen: false
-    }, {
-      query: {
-        $or: query
-      }
-    })
+    dispatch('fetchTotal')
+    return result
   }
 }
