@@ -341,6 +341,9 @@
     "index": {
       "title": "Welcome"
     },
+    "changelog": {
+      "title": "Changelog"
+    },
     "moreInfo": {
       "noContributions": "Sorry there are no contributions that fit that topic right now. <br/><br/>Do you want to add one?"
     },

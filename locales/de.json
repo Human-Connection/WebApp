@@ -341,6 +341,9 @@
     "index": {
       "title": "Willkommen"
     },
+    "changelog": {
+      "title": "Changelog"
+    },
     "moreInfo": {
       "noContributions": "Es gibt leider noch keine Beiträge, die zu diesem Thema passen. <br/><br/>Willst Du einen erstellen?"
     },

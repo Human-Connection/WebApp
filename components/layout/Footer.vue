@@ -25,6 +25,13 @@
               :prevent="true"
               @click="$openInModal({slug: 'privacy'})">
           {{ $t('legal.dataPrivacy') }}
+        </hc-button> &nbsp;‑&nbsp;
+        <hc-button
+              type="link"
+              to="/pages/changelog"
+              :prevent="true"
+              @click="$openInModal({slug: 'changelog'})">
+          {{ $t('page.changelog.title') }}
         </hc-button>
       </div>
     </div>
@@ -33,26 +40,7 @@
 
 <script>
   export default {
-    name: 'hc-footer',
-    methods: {
-      openLegalInfo (e) {
-        switch (e.target.getAttribute('data-page')) {
-          case 'imprint':
-            e.preventDefault()
-            this.$openInModal({slug: 'imprint'})
-            break;
-          case 'terms-and-conditions':
-            e.preventDefault()
-            this.$openInModal({slug: 'terms-and-conditions'})
-            break;
-            break;
-          case 'privacy':
-            e.preventDefault()
-            this.$openInModal({slug: 'privacy'})
-            break;
-        }
-      }
-    }
+    name: 'hc-footer'
   }
 </script>
 
