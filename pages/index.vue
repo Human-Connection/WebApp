@@ -1,42 +1,45 @@
 <template>
-    <section class="container" style="position: relative">
-        <section class="cards" v-cloak="ready">
-            <card v-for="contribution in contributions"
-                  :post="contribution"
-                  :key="contribution._id"
-                  class="card"
-                  @ready="updateGrid">
-            </card>
-        </section>
-        <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
-            <div slot="no-results">
-                <div v-if="!contributions.length" class="has-text-centered">
-                    <hc-emoji type="cry" width="128"></hc-emoji>
-                    <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
-                    <p>{{ $t('component.search.noResultsText') }}</p><br/>
-                    <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
-                        <hc-button @click="$store.commit('search/query', '')" v-html="$t('component.search.noResultsResetQueryButton', { searchQuery: searchQuery })"></hc-button>
-                    </div>
-                </div>
-                <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26"/>
-                </strong>
-            </div>
-            <div slot="no-more">
-                <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26"/>
-                </strong>
-            </div>
-            <div slot="spinner" class="loader-spinner">
-                <div class="is-loading"></div>
-            </div>
-        </infinite-loading>
-        <div class="add-contribution">
-            <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black">
-                <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
-                    <hc-icon icon="plus"/>
-                </hc-button>
-            </hc-tooltip>
-        </div>
-    </section>
+    <div>
+      <newsfeed-sort />
+      <div class="container" style="position: relative">
+          <section class="cards">
+              <card v-for="contribution in contributions"
+                    :post="contribution"
+                    :key="contribution._id"
+                    class="card"
+                    @ready="updateGrid">
+              </card>
+          </section>
+          <infinite-loading @infinite="onInfinite" ref="infiniteLoading">
+              <div slot="no-results">
+                  <div v-if="!contributions.length" class="has-text-centered">
+                      <hc-emoji type="cry" width="128"></hc-emoji>
+                      <h4 class="is-size-4 loader-no-data">{{ $t('component.search.noResults', 'Sorry nothing there!') }}</h4>
+                      <p>{{ $t('component.search.noResultsText') }}</p><br/>
+                      <div v-if="searchQuery && searchQuery.trim() !== ''" class="control has-text-centered">
+                          <hc-button @click="$store.commit('search/query', '')" v-html="$t('component.search.noResultsResetQueryButton', { searchQuery: searchQuery })"></hc-button>
+                      </div>
+                  </div>
+                  <strong v-else class="loader-no-data">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26"/>
+                  </strong>
+              </div>
+              <div slot="no-more">
+                  <strong class="loader-no-more">{{ $t('component.search.noMoreResults') }} &nbsp;<hc-emoji type="cry" width="26"/>
+                  </strong>
+              </div>
+              <div slot="spinner" class="loader-spinner">
+                  <div class="is-loading"></div>
+              </div>
+          </infinite-loading>
+          <div class="add-contribution">
+              <hc-tooltip :label="$t('component.contribution.writePost')" type="is-black">
+                  <hc-button color="primary" size="large" type="nuxt" to="/contributions/write" circle v-if="isVerified">
+                      <hc-icon icon="plus"/>
+                  </hc-button>
+              </hc-tooltip>
+          </div>
+      </div>
+    </div>
 </template>
 
 <script>
@@ -44,6 +47,7 @@
   import Bricks from 'bricks.js'
   import InfiniteLoading from 'vue-infinite-loading/src/components/InfiniteLoading.vue'
   import { throttle } from 'lodash'
+  import NewsfeedSort from '~/components/Contributions/NewsfeedSort.vue'
 
   const ContributionCard = () => import('~/components/Contributions/ContributionCard.vue')
 
@@ -51,7 +55,8 @@
   export default {
     components: {
       'card': ContributionCard,
-      'infinite-loading': InfiniteLoading
+      'infinite-loading': InfiniteLoading,
+      'newsfeed-sort': NewsfeedSort
     },
     transition: null,
     async asyncData ({store}) {

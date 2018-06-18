@@ -26,6 +26,8 @@
             </div>
           </template>
 
+          <!--<list v-if="relatedPostList.length" :items="relatedPostList"></list>-->
+
           <h3 id="relatedPosts">{{ $t('component.contribution.postRelatedLabelPluralised', null, 2) }}</h3>
           <table class="table is-striped is-hoverable" :class="{ 'is-empty': !relatedPosts.length }">
             <tbody v-if="relatedPostList.length">
@@ -193,11 +195,12 @@
 </template>
 
 <script>
-  import comments from '~/components/Comments/Comments.vue'
   import {mapGetters} from 'vuex'
+  import comments from '~/components/Comments/Comments.vue'
   import EmotionRating from '~/components/Contributions/EmotionRating.vue'
   import ContributionImage from '~/components/Contributions/ContributionImage.vue'
   import HcRelativeDateTime from '~/components/Global/Utilities/RelativeDateTime/RelativeDateTime'
+  import List from '~/components/Lists/List.vue'
   import { isEmpty, castArray } from 'lodash'
 
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
@@ -209,7 +212,8 @@
       'comments': comments,
       'hc-emotion-rating': EmotionRating,
       'hc-contribution-bread-crumb': ContributionBreadcrumb,
-      ContributionImage
+      ContributionImage,
+      List
     },
     data () {
       return {

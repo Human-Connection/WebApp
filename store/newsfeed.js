@@ -12,6 +12,8 @@ export const state = () => {
     },
     limit: 15,
     skip: 0,
+    sortField: 'createdAt',
+    sortOrder: 'desc',
     sort: {
       createdAt: -1
     },
@@ -65,6 +67,16 @@ export const mutations = {
   setLastScrollPos (state, scrollPos) {
     state.lastScrollPos = scrollPos
   },
+  setSortField (state, sortField) {
+    state.sortField = sortField
+    state.sort = {}
+    state.sort[state.sortField] = (state.sortOrder.toLowerCase() === 'desc') ? -1 : 1
+  },
+  setSortOrder (state, order) {
+    state.sortOrder = order
+    state.sort = {}
+    state.sort[state.sortField] = (state.sortOrder.toLowerCase() === 'desc') ? -1 : 1
+  },
   clear (state) {
     state.contributions = []
     state.skip = 0
@@ -78,6 +90,12 @@ export const mutations = {
 export const getters = {
   all (state) {
     return state.contributions
+  },
+  sortField (state) {
+    return state.sortField
+  },
+  sortOrder (state) {
+    return state.sortOrder
   },
   getCurrentQueryHash (state, getters, rootState, rootGetters) {
     let queryData = {

@@ -121,6 +121,10 @@
       "label": "Calender"
     },
     "contribution": {
+      "sort": "Sorting",
+      "sortCreatedAtDesc": "Newest",
+      "sortCreatedAtAsc": "Oldest",
+      "sortShoutCountDesc": "Hottest",
       "language": "Language",
       "visibility": "Visibility",
       "actionMarkAsRead": "mark as read",

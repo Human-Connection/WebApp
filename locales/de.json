@@ -121,6 +121,10 @@
       "slug2label-economy-finances": "Wirtschaft & Finanzen"
     },
     "contribution": {
+      "sort": "Sortierung",
+      "sortCreatedAtDesc": "Neuste",
+      "sortCreatedAtAsc": "Älteste",
+      "sortShoutCountDesc": "Beliebteste",
       "language": "Sprache",
       "visibility": "Sichtbarkeit",
       "actionMarkAsRead": "Als gelesen markieren",
