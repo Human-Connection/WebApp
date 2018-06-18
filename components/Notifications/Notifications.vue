@@ -37,7 +37,12 @@
           to see your notifications.
         </p>
         <p v-else-if="notifications.length === 0" class="dropdown-content empty">
-          {{ $t('component.notification.messageEmpty') }}
+          <template v-if="!notificationsTotal">
+            {{ $t('component.notification.messageEmpty') }}
+          </template>
+          <template v-else>
+            {{ $t('component.notification.messageUnseenEmpty') }}
+          </template>
           <a v-if="notificationsTotal"  @click.prevent="toggleUnseenHandler">
             <br />{{ $t('component.notification.toggleUnseen', { total: notificationsTotal }) }}
           </a>

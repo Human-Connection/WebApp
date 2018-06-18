@@ -260,6 +260,7 @@
     "notification": {
       "label": "Benachrichtigungen",
       "messageEmpty": "Du hast keine Benachrichtigungen.",
+      "messageUnseenEmpty": "Du hast keine ungelesenen Benachrichtigungen.",
       "toggleUnseen": "Alle {total} Benachrichtigungen anzeigen",
       "markAllAsRead": "Alle als gelesen markieren",
       "message": {

@@ -260,6 +260,7 @@
     "notification": {
       "label": "Notifications",
       "messageEmpty": "You don't have any notifications.",
+      "messageUnseenEmpty": "You don't have any unread notifications.",
       "toggleUnseen": "Show all {total} messages",
       "markAllAsRead": "Mark all as read",
       "message": {
