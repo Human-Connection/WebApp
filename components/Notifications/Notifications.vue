@@ -31,22 +31,28 @@
         </hc-tooltip>
       </hc-dropdown-title>
       <div class="hc-notifications-content">
-        <p v-if="!isAuthenticated" class="dropdown-content empty">
-          Please
-          <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
-          to see your notifications.
-        </p>
-        <p v-else-if="notifications.length === 0" class="dropdown-content empty">
-          <template v-if="!notificationsTotal">
-            {{ $t('component.notification.messageEmpty') }}
-          </template>
-          <template v-else>
-            {{ $t('component.notification.messageUnseenEmpty') }}
-          </template>
-          <a v-if="notificationsTotal"  @click.prevent="toggleUnseenHandler">
-            <br />{{ $t('component.notification.toggleUnseen', { total: notificationsTotal }) }}
-          </a>
-        </p>
+        <div v-if="!isAuthenticated" class="dropdown-content empty">
+          <p>
+            Please
+            <nuxt-link :to="{ name: 'auth-login' }">login</nuxt-link>
+            to see your notifications.
+          </p>
+          <b-loading :active="isLoading" :is-full-page="false" />
+        </div>
+        <div v-else-if="notifications.length === 0" class="dropdown-content empty">
+          <p>
+            <template v-if="!notificationsTotal">
+              {{ $t('component.notification.messageEmpty') }}
+            </template>
+            <template v-else>
+              {{ $t('component.notification.messageUnseenEmpty') }}
+            </template>
+            <a v-if="notificationsTotal"  @click.prevent="toggleUnseenHandler">
+              <br />{{ $t('component.notification.toggleUnseen', { total: notificationsTotal }) }}
+            </a>
+          </p>
+          <b-loading :active="isLoading" :is-full-page="false" />
+        </div>
         <div v-else class="notifications-wrapper">
           <transition-group name="notification" tag="div">
             <notification-item v-for="notification in notifications"
@@ -101,7 +107,8 @@
         notificationsTotal: 'notifications/total',
         unseenTotal: 'notifications/unseenTotal',
         onlyUnseen: 'notifications/onlyUnseen',
-        hasMore: 'notifications/hasMore'
+        hasMore: 'notifications/hasMore',
+        isLoading: 'notifications/isLoading'
       }),
       unseenToggleIcon () {
         return `toggle-${this.onlyUnseen ? 'off' : 'on'}`

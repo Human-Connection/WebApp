@@ -9,7 +9,8 @@ export const state = () => {
     total: 0,
     unseenTotal: 0,
     onlyUnseen: true,
-    notifications: false
+    notifications: false,
+    isLoading: false
   }
 }
 
@@ -55,6 +56,9 @@ export const mutations = {
       // Or add new one
       state.notifications.unshift(notification)
     }
+  },
+  isLoading (state, isLoading) {
+    state.isLoading = isLoading
   }
 }
 
@@ -75,6 +79,9 @@ export const getters = {
     const total = state.onlyUnseen ? state.unseenTotal : state.total
     return total &&
       total > state.notifications.length
+  },
+  isLoading (state) {
+    return state.isLoading
   }
 }
 
@@ -96,7 +103,7 @@ export const actions = {
         dispatch('fetchOne', notification)
       })
   },
-  find ({state, rootGetters}, queryParams) {
+  find ({state, commit, rootGetters}, queryParams) {
     let query = {
       $limit: options.limit,
       $sort: {
@@ -108,25 +115,30 @@ export const actions = {
     if (state.onlyUnseen) {
       query.unseen = true
     }
+    commit('isLoading', true)
     return this.app.$api.service('notifications').find({ query })
   },
   fetch ({commit, dispatch}) {
     dispatch('fetchTotal')
     return dispatch('find')
       .then(result => {
+        commit('isLoading', false)
         commit('set', result.data)
       })
       .catch(error => {
+        commit('isLoading', false)
         console.error('fetch could not fetch notifications', error)
       })
   },
-  fetchMore ({state, dispatch}) {
+  fetchMore ({state, commit, dispatch}) {
     const $skip = state.notifications.length
     return dispatch('find', { $skip })
       .then(result => {
+        commit('isLoading', false)
         dispatch('addMany', result.data)
       })
       .catch(error => {
+        commit('isLoading', false)
         console.error('fetchMore could not fetch notifications', error)
       })
   },
@@ -135,11 +147,14 @@ export const actions = {
     if (notification.userId !== rootGetters['auth/user']._id) {
       return
     }
+    commit('isLoading', true)
     return this.app.$api.service('notifications').get(notification._id)
       .then((result) => {
+        commit('isLoading', false)
         commit('add', result)
       })
       .catch(error => {
+        commit('isLoading', false)
         console.error('fetchOne could not fetch notification:', notification._id)
         console.error(error)
       })

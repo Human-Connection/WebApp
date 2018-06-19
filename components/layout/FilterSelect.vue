@@ -34,7 +34,9 @@
             translationPath="component.category.slug2label-"
             :selected="selectedCategoryIds"/>
           <hr/>
-          <strong class="title is-6">{{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}</strong>
+          <strong class="title is-6">
+            {{ $t('component.layout.topbarSectionEmotions', 'Emotions') }}
+          </strong><br/><br/>
           <filter-list
             @change="filterForEmotions"
             :items="emotions"
