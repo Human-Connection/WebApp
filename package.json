@@ -36,6 +36,7 @@
     "start": "yarn start:env && node build/main.js",
     "start:pm2": "yarn start:env && pm2 start node build/main.js -n frontend -i 2 --attach",
     "start:env": "sh scripts/on-start.sh",
+    "refresh": "rm -rf node_modules && yarn install && npm run dev",
     "precommit": "yarn eslint",
     "eslint": "eslint --ext .js,.vue .",
     "styleguide": "vue-styleguidist server",
