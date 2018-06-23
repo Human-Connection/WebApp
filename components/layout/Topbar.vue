@@ -62,7 +62,7 @@
 
   import {throttle} from 'lodash'
 
-  let app = this
+  let app
 
   export default {
     name: 'hc-topbar',
