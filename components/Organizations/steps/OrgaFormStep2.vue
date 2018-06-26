@@ -39,6 +39,7 @@
                 <option value="goodpurpose">{{ $t('component.organization.types.goodpurpose') }}</option>
                 <option value="ev">{{ $t('component.organization.types.ev') }}</option>
                 <option value="eva">{{ $t('component.organization.types.eva') }}</option>
+                <option value="other">{{ $t('component.organization.types.other') }}</option>
               </select>
               <div class="icon is-small is-left">
                 <i class="fa fa-cogs"></i>

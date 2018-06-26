@@ -231,7 +231,8 @@
         "npo": "Non-Profit-Organisation",
         "goodpurpose": "Guter Zweck",
         "ev": "Verein (e.V.)",
-        "eva": "Verein (e.V. gemeinnützig anerkannt)"
+        "eva": "Verein (e.V. gemeinnützig anerkannt)",
+        "other": "Sonstige"
       },
       "foundingYear": "Gründungsjahr",
       "foundingYearSectionPlaceholder": "Wann wurde die Organisation gegründet?",

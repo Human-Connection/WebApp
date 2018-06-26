@@ -231,7 +231,8 @@
         "npo": "Non-profit organization",
         "goodpurpose": "Good purpose",
         "ev": "Association",
-        "eva": "charitable Organization"
+        "eva": "Charitable Organization",
+        "other": "Other"
       },
       "foundingYear": "Year of foundation",
       "foundingYearSectionPlaceholder": "When has the organization be founded?",
