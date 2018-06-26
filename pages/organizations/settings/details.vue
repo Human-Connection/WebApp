@@ -10,7 +10,7 @@
     <div class="columns">
       <div class="column">
         <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-2 ref="form" :data="form" @validate="onValidation" :hideButton="true" />
+          <orga-form-step-2 ref="form" :data="organization" @validate="onValidation" :hideButton="true" />
         </form>
       </div>
     </div>
@@ -55,19 +55,12 @@
       this.$nextTick(() => {
         // get current organization from parent view
         this.organization = this.$parent.$attrs.organization
-
-        this.form = Object.assign(this.form, {
-          description: this.organization.description,
-          url: this.organization.url,
-          type: this.organization.type
-        })
       })
     },
     methods: {
       onValidation (result) {
         if (result) {
-          this.form = Object.assign(this.form, result)
-          this.save()
+          this.save(result)
         } else {
           this.$toast.open({
             message: this.$t('auth.validation.error'),
@@ -76,10 +69,10 @@
           this.$parent.$emit('error')
         }
       },
-      async save() {
-        this.isLoading = true;
+      async save(data) {
+        this.isLoading = true
         try {
-          let data = Object.assign({_id: this.organization._id}, this.form)
+          data._id = this.organization._id
           const res = await this.$store.dispatch("organizations/patch", data)
 
           this.$snackbar.open({
