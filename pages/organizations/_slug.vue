@@ -248,7 +248,8 @@
         }
       },
       isOwner () {
-        return this.user && this.organization.userIds.includes(this.user._id)
+        return this.user &&
+          this.organization.users.some(({id}) => id === this.user._id)
       },
       followerCount () {
         return this.organization.followersCounts ? this.organization.followersCounts.users : 0
