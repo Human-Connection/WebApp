@@ -6372,6 +6372,10 @@ lodash.escaperegexp@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.escaperegexp/-/lodash.escaperegexp-4.1.2.tgz#64762c48618082518ac3df4ccf5d5886dae20347"
 
+lodash.findindex@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/lodash.findindex/-/lodash.findindex-4.6.0.tgz#a3245dee61fb9b6e0624b535125624bb69c11106"
+
 lodash.flatten@^4.2.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flatten/-/lodash.flatten-4.4.0.tgz#f31c22225a9632d2bbf8e4addbef240aa765a61f"
@@ -10839,9 +10843,11 @@ uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
-v2-table@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/v2-table/-/v2-table-1.0.1.tgz#e73ca7344c5817a4abf5b0d08ee4dd40f204229a"
+v2-table@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/v2-table/-/v2-table-3.0.1.tgz#27b08826bf5d192293d6be57a51c2f7dbd7718e6"
+  dependencies:
+    lodash.findindex "^4.6.0"
 
 valid-url@~1.0.9:
   version "1.0.9"
