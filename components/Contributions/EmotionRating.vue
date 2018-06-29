@@ -26,7 +26,7 @@
 
 <script>
   import countTo from 'vue-count-to'
-  import { isEmpty, keys } from 'lodash'
+  import { isEmpty, keys, debounce } from 'lodash'
   import inViewport from 'vue-in-viewport-mixin'
 
   // TODO: move logic to store
@@ -69,13 +69,7 @@
       this.$api.service('contributions').on('patched', res => {
         // TODO: use the new channels feature for the feathers (buzzard) when its released
         if (res._id === this.contribution._id) {
-          keys(this.contribution.emotions).forEach((key) => {
-            this.$refs[key][0].pause()
-            this.values[key].startVal = this.values[key].endVal
-            this.values[key].endVal = this.contribution.emotions[key].percent
-            this.$refs[key][0].start()
-          })
-          this.contribution.emotions = res.emotions
+          this.updateCounts(this, res)
         }
       })
     },
@@ -83,6 +77,15 @@
       this.$api.service('contributions').off('patched')
     },
     methods: {
+      updateCounts: debounce((self, res) => {
+        keys(self.contribution.emotions).forEach((key) => {
+          self.$refs[key][0].pause()
+          self.values[key].startVal = self.values[key].endVal
+          self.values[key].endVal = res.emotions[key].percent
+          self.$refs[key][0].start()
+        })
+        self.contribution.emotions = res.emotions
+      }, 50),
       getEmoticon (key) {
         if (this.selected === key) {
           return `${key}_color`
