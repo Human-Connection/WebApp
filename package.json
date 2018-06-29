@@ -55,7 +55,7 @@
     "body-parser": "~1.18.3",
     "body-scroll-lock": "^2.4.2",
     "bricks.js": "~1.8.0",
-    "buefy": "~0.6.5",
+    "buefy": "~0.6.6",
     "bulma": "~0.7.1",
     "bulma-steps-component": "^0.5.3",
     "cheerio": "^1.0.0-rc.2",
