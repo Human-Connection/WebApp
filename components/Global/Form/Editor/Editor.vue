@@ -150,7 +150,7 @@
               metaCallback: this.handleMeta
             }
           },
-          placeholder: 'Schreiben ...'
+          placeholder: '...'
         }
       }
     },
