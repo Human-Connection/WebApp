@@ -56,12 +56,12 @@
           <div class="control has-icons-left">
             <div class="select">
               <select v-model="form.type">
-                <option value="ngo" selected>{{ $t('component.organization.types.ngo') }}</option>
-                <option value="npo">{{ $t('component.organization.types.npo') }}</option>
-                <option value="goodpurpose">{{ $t('component.organization.types.goodpurpose') }}</option>
-                <option value="ev">{{ $t('component.organization.types.ev') }}</option>
-                <option value="eva">{{ $t('component.organization.types.eva') }}</option>
-                <option value="other">{{ $t('component.organization.types.other') }}</option>
+                <option
+                  v-for="type in organizationTypes"
+                  :key="type"
+                  :value="type">
+                  {{ $t(`component.organization.types.${type}`) }}
+                </option>
               </select>
               <div class="icon is-small is-left">
                 <i class="fa fa-cogs"></i>
@@ -88,7 +88,7 @@
 </template>
 
 <script>
-  // ToDo: add organization types from hc modules
+  import { collections } from 'human-connection-modules';
   import { validationMixin } from "vuelidate";
   import { required, minLength, maxLength, url, email } from "vuelidate/lib/validators";
 
@@ -116,6 +116,7 @@
           channels: [],
           type: null
         },
+        organizationTypes: collections.organizationTypes.names,
         isLoading: false
       }
     },
