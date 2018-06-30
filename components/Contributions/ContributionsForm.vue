@@ -70,6 +70,7 @@
           :class="{ 'is-danger': $v.form.content.$error }"
           @blur="$v.form.content.$touch()"
           @fetchedMeta="handleMeta"
+          :editorOptions="editorOptions"
           :loading="isLoading"/>
       </div>
       <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
@@ -108,6 +109,7 @@
               identifier="cando-reason"
               v-model.trim="form.cando.reason"
               @fetchedMeta="handleMeta"
+              :editorOptions="editorOptions2"
               :loading="isLoading"/>
           </div>
         </div>
@@ -360,6 +362,16 @@
       },
       disabled () {
         return !!this.uploadingCover
+      },
+      editorOptions () {
+        return {
+          placeholder: this.$t('component.contribution.writePostContentPlaceholder')
+        }
+      },
+      editorOptions2 () {
+        return {
+          placeholder: this.$t('component.contribution.canDoReasonContentPlaceholder')
+        }
       }
     },
     methods: {

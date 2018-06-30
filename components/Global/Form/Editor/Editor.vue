@@ -1,6 +1,6 @@
 <template>
   <no-ssr>
-    <div class="hc-editor-wrapper">
+    <div class="hc-editor-wrapper" v-if="showEditor">
       <div :id="`toolbar-editor-${identifier}`" v-if="toolbar">
         <div class="ql-formats">
           <b-tooltip :label="$t('component.editor.italic')" type="is-black">
@@ -134,6 +134,7 @@
     },
     data () {
       return {
+        showEditor: true,
         ready: false,
         editorText: '',
         focus: true,
@@ -214,6 +215,15 @@
         if (newValue !== oldValue) {
           this.editorText = newValue
         }
+      },
+      computedEditorOptions: {
+        handler: function () {
+          this.showEditor = false
+          this.$nextTick(() => {
+            this.showEditor = true
+          })
+        },
+        deep: true
       }
     },
     created () {
