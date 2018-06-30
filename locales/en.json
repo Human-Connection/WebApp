@@ -257,7 +257,8 @@
       "messageInReview": "<strong>In Review</strong><p>Your organization has to be reviewed before others can see it.<br/> Please be percent so one of our moderators can have a look. If it takes to long, feel free to <a href=\"mailto:{email}\">write us an email</a>.</p>",
       "messageInReviewMod": "<strong>In Review</strong><p>Hey seams like you are a Moderator. Please take a moment to validate this organization.</p>",
       "messageInvisible": "<strong>Invisible</strong><p>This organization has to be visible before others can see it.</p>",
-      "visibility": "Visibility"
+      "visibility": "Visibility",
+      "primary": "Primary address"
     },
     "projects": {
       "label": "Projects"
@@ -531,6 +532,8 @@
     "settings": {
       "general": "General",
       "data": "Your data",
+      "email": "Email",
+      "phone": "Phone",
       "security": "Security",
       "download": "Download Data",
       "delete": "Delete account",

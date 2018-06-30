@@ -53,42 +53,66 @@
         </div>
       </div>
     </div>
-    <!--<div class="field">
-      <div class="control">
-        <input
-          class="input"
-          id="form-tel"
-          data-test="tel"
-          maxlength="64"
-          v-model.trim="form.tel"
-          type="text"
-          placeholder="Phone"
-          :disabled="isLoading" />
+    <div class="columns">
+      <div class="column">
+        <div class="field is-required" ref="email">
+          <div class="control">
+            <input
+              class="input"
+              id="form-email"
+              data-test="email"
+              maxlength="64"
+              v-model.trim="form.email"
+              @blur="$v.form.email.$touch()"
+              type="text"
+              :placeholder="$t('auth.settings.email')"
+              :disabled="isLoading" />
+          </div>
+        </div>
       </div>
-    </div>-->
-
-    <table class="table is-striped is-fullwidth">
-      <thead>
-        <th>{{ $t('auth.settings.organizationStreet') }}</th>
-        <th>{{ $t('auth.settings.organizationZipCode') }}</th>
-        <th>{{ $t('auth.settings.organizationCountry') }}</th>
-        <th></th>
-      </thead>
-      <tbody>
-        <tr
+      <div class="column">
+        <div class="field is-required" ref="phone">
+          <div class="control">
+            <input
+              class="input"
+              id="phone"
+              data-test="phone"
+              maxlength="64"
+              v-model.trim="form.phone"
+              @blur="$v.form.phone.$touch()"
+              type="text"
+              :placeholder="$t('auth.settings.phone')"
+              :disabled="isLoading" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field has-margin-top-small">
+      <div class="control">
+        <b-switch v-model="form.primary">
+          <span>{{ $t('component.organization.primary') }}</span>
+        </b-switch>
+      </div>
+    </div>
+    <div class="address-list">
+      <div class="address-item"
           v-for="(address, index) in data.addresses"
-          :key="address.street"
+          :key="index">
+        <div class="address-item-inner"
           :class="{'is-active': (index === editIndex)}">
-          <td>
-            {{ address.street }}
-          </td>
-          <td>
-            {{ address.zipCode }} {{ address.city }}
-          </td>
-          <td>
-            {{ countryByCode(address.country) }}
-          </td>
-          <td>
+          {{ address.street }}<br />
+          {{ address.zipCode }} {{ address.city }}<br />
+          {{ countryByCode(address.country) }}
+          <template v-if="address.email">
+            <br /><hc-icon icon="envelope" /> {{ address.email }}
+          </template>
+          <template v-if="address.phone">
+            <br /><hc-icon icon="phone" /> {{ address.phone }}
+          </template>
+          <template v-if="address.primary">
+            <br /><hc-icon icon="check" /> {{ $t('component.organization.primary') }}
+          </template>
+          <div class="address-item-actions">
             <a
               :title="$t('button.edit')"
               @click="edit(index)"
@@ -101,10 +125,11 @@
               class="btn-delete">
               <hc-icon icon="trash" />
             </a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <br />
     <slot v-if="!hideButton">
       <hc-button
@@ -142,7 +167,7 @@
 
 <script>
   import { validationMixin } from "vuelidate";
-  import { required, minLength, maxLength } from "vuelidate/lib/validators";
+  import { required, minLength, maxLength, email } from "vuelidate/lib/validators";
   import { isEmpty } from "lodash";
 
   const countries = require("i18n-iso-countries");
@@ -196,6 +221,8 @@
           zipCode: null,
           city: null,
           country: null,
+          email: null,
+          phone: null,
           lat: null,
           lng: null
         },
@@ -241,6 +268,8 @@
           street: data.name || data.street || null,
           zipCode: data.postcode || data.zipCode || null,
           city: data.city || null,
+          email: data.email || null,
+          phone: data.phone || null,
           country: data.countryCode || data.country || null
         })
         try {
@@ -312,6 +341,12 @@
           },
           city: {
             required
+          },
+          email: {
+            email
+          },
+          phone: {
+            maxLength: maxLength(64)
           }
         }
       };
@@ -332,5 +367,29 @@
   }
   .btn-delete {
     color: $red;
+  }
+
+  .address-list {
+    display: flex;
+    margin: 0 -$padding-small;
+  }
+
+  .address-item {
+    flex: 0 0 50%;
+  }
+
+  .address-item-inner {
+    background-color: $white-bis;
+    margin: $margin $padding-small 0;
+    padding: $padding;
+    border-bottom: 3px solid $white-ter;
+
+    &.is-active {
+      border-color: $primary;
+    }
+  }
+
+  .address-item-actions {
+    margin-top: $margin;
   }
 </style>

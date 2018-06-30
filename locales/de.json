@@ -257,7 +257,8 @@
       "messageInReview": "<strong>In Überprüfung</strong><p>Deine Organisation muss noch überprüft werden, bevor andere sie sehen können.<br/> Bitte habe ein wenig Geduld, bis unsere Moderatoren die Gelegenheit hatten, deine Organisation freizuschalten. Wenns mal länger dauert, dann <a href=\"mailto:{email}\">schreib uns eine E-Mail</a>.</p>",
       "messageInReviewMod": "<strong>In Überprüfung</strong><p>Hey, sieht aus, als wärst Du Moderator. Bitte nimm dir kurz Zeit, diese Organisation zu überprüfen und sie freizuschalten.</p>",
       "messageInvisible": "<strong>Unsichtbar</strong><p>Diese Organisation muss sichtbar geschaltet werden, bevor andere sie sehen können.</p>",
-      "visibility": "Anzeigeeinstellung"
+      "visibility": "Anzeigeeinstellung",
+      "primary": "Hauptadresse"
     },
     "projects": {
       "label": "Projekte"
@@ -530,6 +531,8 @@
     "settings": {
       "general": "Allgemein",
       "data": "Deine Daten",
+      "email": "E-Mail",
+      "phone": "Telefonnummer",
       "security": "Sicherheit",
       "download": "Daten herunterladen",
       "delete": "Konto Löschen",
