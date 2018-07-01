@@ -54,7 +54,8 @@
         this.organization = this.$parent.$attrs.organization
 
         this.form = Object.assign(this.form, {
-          addresses: this.organization.addresses
+          addresses: this.organization.addresses,
+          primaryAddressIndex: this.organization.primaryAddressIndex,
         })
       })
     },

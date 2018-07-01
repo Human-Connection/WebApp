@@ -87,13 +87,6 @@
         </div>
       </div>
     </div>
-    <div class="field has-margin-top-small">
-      <div class="control">
-        <b-switch v-model="form.primary">
-          <span>{{ $t('component.organization.primary') }}</span>
-        </b-switch>
-      </div>
-    </div>
     <div class="address-list">
       <div class="address-item"
           v-for="(address, index) in data.addresses"
@@ -109,9 +102,12 @@
           <template v-if="address.phone">
             <br /><hc-icon icon="phone" /> {{ address.phone }}
           </template>
-          <template v-if="address.primary">
-            <br /><hc-icon icon="check" /> {{ $t('component.organization.primary') }}
-          </template>
+          <div class="field has-margin-top-small">
+            <div class="control">
+              <input type="radio" v-model="primaryAddressIndex" :value="index">
+              <span>{{ $t('component.organization.primary') }}</span>
+            </div>
+          </div>
           <div class="address-item-actions">
             <a
               :title="$t('button.edit')"
@@ -226,6 +222,7 @@
           lat: null,
           lng: null
         },
+        primaryAddressIndex: null,
         deleteModalActive: false,
         deleteModalVar: null,
         deleteIndex: null,
@@ -241,7 +238,7 @@
     },
     watch: {
       data (data) {
-        this.updateData(data)
+        this.primaryAddressIndex = data.primaryAddressIndex
       },
       isLoading (isLoading) {
         this.$emit('isLoading', isLoading)
@@ -249,7 +246,7 @@
     },
     mounted () {
       this.$nextTick(() => {
-        this.updateData(this.data)
+        this.primaryAddressIndex = this.data.primaryAddressIndex
       })
     },
     methods: {
@@ -322,6 +319,8 @@
             output.addresses[this.editIndex] = from
           }
 
+          output.primaryAddressIndex = this.primaryAddressIndex
+
           this.$emit('validate', output)
           this.editIndex = null
 
@@ -369,18 +368,13 @@
     color: $red;
   }
 
-  .address-list {
-    display: flex;
-    margin: 0 -$padding-small;
-  }
-
   .address-item {
-    flex: 0 0 50%;
+
   }
 
   .address-item-inner {
     background-color: $white-bis;
-    margin: $margin $padding-small 0;
+    margin: $margin 0;
     padding: $padding;
     border-bottom: 3px solid $white-ter;
 
