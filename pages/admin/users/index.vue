@@ -26,12 +26,12 @@
             </v2-table-column>
             <v2-table-column label="Verified" prop="isVerified" align="center">
               <template slot-scope="row">
-                <i v-show="row.isVerified" class="fa fa-check-circle"></i>
+                <i v-show="row.isVerified" class="fa fa-check"></i>
               </template>
             </v2-table-column>
             <v2-table-column label="Legal" prop="termsAndConditionsAccepted" align="center">
               <template slot-scope="row">
-                <i v-show="row.termsAndConditionsAccepted" :title="row.termsAndConditionsAccepted" class="fa fa-check-circle"></i>
+                <i v-show="row.termsAndConditionsAccepted" :title="row.termsAndConditionsAccepted" class="fa fa-check"></i>
               </template>
             </v2-table-column>
             <v2-table-column label="Last Active" prop="lastActiveAt" align="left">
@@ -106,7 +106,7 @@
             <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
             <v2-table-column label="Created" prop="created" align="center">
               <template slot-scope="row">
-                <i v-show="row.created === true" class="fa fa-check-circle"></i>
+                <i v-show="row.created === true" class="fa fa-check"></i>
                 <i v-show="row.created === false" class="fa fa-ban"></i>
               </template>
             </v2-table-column>
@@ -381,7 +381,8 @@
     color: $primary;
   }
 
-  .fa-check-circle {
+  .fa-check-circle,
+  .fa-check {
     color: $primary;
   }
 

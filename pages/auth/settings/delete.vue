@@ -7,7 +7,7 @@
       </h2>
       <p class="subtitle is-6">{{ $t('auth.settings.deleteAccountDescription') }}</p>
     </div>
-    <transition name="fade">
+    <transition name="slide-up">
       <div v-if="deleteEnabled">
         <div class="field">
           <div class="control">
