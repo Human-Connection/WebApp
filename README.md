@@ -34,9 +34,11 @@ $ yarn start
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
-### Env Vars
+## Env Vars
 
-## Maintenance
+> More information on environment variables can be found in the [documentation (WIP)](https://docs.human-connection.org/environments/docker-test-production/docker-configuration.html)
+
+#### Maintenance
 
 You can start the app in maintenance mode so it does not ask the api in case it is down.
 ```
