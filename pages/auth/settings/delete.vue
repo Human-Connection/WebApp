@@ -158,22 +158,4 @@
   .b-checkbox {
     font-weight: bold;
   }
-
-  footer.card-footer {
-    .columns {
-      width: 100%;
-    }
-    .column {
-      align-self: center;
-      &:first-child {
-        text-align: left;
-        margin-left: -1.5rem;
-      }
-
-      &:last-child {
-        text-align: right;
-      }
-      // align-items: center;
-    }
-  }
 </style>

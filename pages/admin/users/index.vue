@@ -123,19 +123,19 @@
                        @click="inviteUsers()"
                        :isLoading="isLoading || invitesLoading"
                        :disabled="isLoading || !invitePreview.length || !!resultDownloadURL">
-              <hc-icon set="fa" icon="bolt"></hc-icon> &nbsp;<strong>Invite {{ invitePreview.length || 0 }} users
-              <span style="font-weight: normal" v-if="form.sendInviteEmails">(with mailing)</span>
-              <span style="font-weight: normal" v-else>(no mailing)</span></strong>
-            </hc-button>
+                <hc-icon set="fa" icon="bolt"></hc-icon> &nbsp;<strong>Invite {{ invitePreview.length || 0 }} users
+                <span style="font-weight: normal" v-if="form.sendInviteEmails">(with mailing)</span>
+                <span style="font-weight: normal" v-else>(no mailing)</span></strong>
+              </hc-button>
             </div>
             <div class="control">
               <a :href="resultDownloadURL"
-               class="button pull-right"
-               :class="{ 'is-loading': isLoading }"
-               :disabled="isLoading || !results || !resultDownloadURL"
-               download="data.csv">
-              <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
-            </a>
+                class="button pull-right"
+                :class="{ 'is-loading': isLoading }"
+                :disabled="isLoading || !results || !resultDownloadURL"
+                download="data.csv">
+                <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
+              </a>
             </div>
           </div>
         </footer>
@@ -385,20 +385,10 @@
     color: $primary;
   }
 
-  $padding: 1.5rem;
-  footer.card-footer {
-    margin: -$padding;
-    margin-top: 2rem;
-    margin-bottom: -3rem;
-    background: lighten($grey-lighter, 10%);
-    padding: 1rem $padding;
-    display: flex;
-    justify-content: right;
-  }
-
   @media (min-width: 500px) {
     .user-tabs {
       margin-top: -4.0rem;
+      margin-bottom: -1rem;
     }
   }
 </style>
