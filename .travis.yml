@@ -26,3 +26,7 @@ after_success:
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker push humanconnection/frontend-nuxt:alpha;
     fi
+  - if [ $TRAVIS_BRANCH == "develop" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker push humanconnection/frontend-nuxt:edge;
+    fi
