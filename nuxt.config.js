@@ -62,11 +62,11 @@ module.exports = {
       'vuex-i18n',
       'mapbox-gl',
       // Feathers
-      'feathers/client',
-      'feathers-socketio/client',
+      '@feathersjs/feathers',
+      '@feathersjs/client',
+      '@feathersjs/socketio-client',
       'socket.io-client',
-      'feathers-hooks',
-      'feathers-authentication-client'
+      '@feathersjs/authentication-client'
     ],
     extend (config) {
       /*
