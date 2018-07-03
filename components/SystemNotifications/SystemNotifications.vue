@@ -66,9 +66,7 @@
 
       this.$api
         .service('system-notifications')
-        .on('created', () => {
-          if (!this.notification) this.init()
-        })
+        .on('created', (data) => this.updateNotification(data, 'created'))
         .on('patched', (data) => this.updateNotification(data, 'patched'))
         .on('removed', (data) => this.updateNotification(data, 'removed'))
     },
@@ -89,16 +87,9 @@
     },
     methods: {
       async updateNotification (data, type) {
-        console.log(data)
         const isNotificationVisible = this.notification && this.notification._id
         const isCurrent = isNotificationVisible && this.notification._id.toString() === data._id.toString()
-        console.log('isNotificationVisible', isNotificationVisible)
-        console.log('isCurrent', isCurrent)
 
-        // if (type === 'patched' && isCurrent) {
-        //   this.notification = data
-        // } else if (isNotificationVisible) {
-        //   }
         if (isCurrent) {
           this.notification = {}
         }
@@ -110,7 +101,8 @@
             systemNotificationsSeen: this.notification._id
           }
         })
-        this.notification = null
+        this.notification = {}
+        this.init()
       },
       init () {
         if (this.user) {
