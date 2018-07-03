@@ -1,5 +1,7 @@
 <template>
-  <section class="container page-profile" style="position: relative">
+  <section class="container page-profile"
+           :class="{'has-cover': contribution.coverImg || isOwner}"
+           style="position: relative">
     <template>
       <hc-upload
         class="profile-header card"
@@ -12,8 +14,9 @@
       </hc-upload>
       <hc-progressive-image
           class="profile-header card"
-          v-else
+          v-else-if="coverImg"
           :src="coverImg"
+          @load="coverReady = true"
           :preview="coverPreview" />
     </template>
     <div class="columns">
@@ -199,7 +202,8 @@
         params: null,
         updatedUser: null,
         candos: [],
-        isLoadingCanDos: false
+        isLoadingCanDos: false,
+        coverReady: false
       }
     },
     middleware: ['authenticated'],
@@ -241,11 +245,7 @@
         }
       },
       coverImg () {
-        let thumbnail = thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
-        if (!thumbnail && this.user.wasSeeded && !this.isOwner) {
-          thumbnail = 'https://source.unsplash.com/random/1250x280'
-        }
-        return thumbnail
+        return thumbnailHelper.getThumbnail(this.updatedUser || this.user, 'coverImg', 'cover')
       },
       coverPreview () {
         return thumbnailHelper.getThumbnail(this.user, 'coverImg', 'coverPlaceholder', this.coverImg)
@@ -343,14 +343,28 @@
     }
 
     .profile-header {
+      &.notReady {
+        min-height: 0;
+        height: 0;
+      }
+
       width: 100%;
-      height: 312px;
+      height: auto;
+      min-height: 50px;
       max-height: 312px;
       overflow: hidden;
       position: relative;
       background-color: darkgrey;
       background-size: cover;
-      background-position: center;
+      background-position: top center;
+
+      .preview,
+      img {
+        background-color: white;
+        background-size: cover;
+        object-fit: cover;
+        top: 0 !important;
+      }
 
       border: none;
       box-shadow: $card-shadow;
