@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div :class="classes">
     <h3 class="title is-3">{{ $t('component.admin.settings', 'Settings') }}</h3>
     <!--<hr>
     <h4 class="title is-5">{{ $t('component.admin.userInvitesHeading', 'User Invites') }}</h4>-->
@@ -10,7 +10,23 @@
     </b-switch>-->
     <transition name="slide-up">
       <div v-if="!showDangerZone" key="settings">
-        <b-switch v-model="form.allowUserInvites">{{ $t('component.admin.userInvitesToggle', 'Allow users to invite others by email') }}</b-switch>
+        <section>
+          <hr>
+          <h4 class="is-5 title">Invites</h4>
+          <div class="columns">
+            <div class="column">
+              <b-switch v-model="form.invites.userCanInvite">{{ $t('component.admin.userInvitesToggle', 'Allow users to invite others by email') }}</b-switch>
+            </div>
+            <div class="column is-6">
+              <div class="field">
+                <div class="control">
+                  <input :disabled="!form.invites.userCanInvite" type="text" style="width: 50px; margin-top: -0.35rem; margin-right: 0.5rem;" id="form-max-invites-by-user" class="input is-small has-text-right" v-model="form.invites.maxInvitesByUser">
+                  <label for="form-max-invites-by-user">Max invites per user</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
       <div v-else key="seeder">
         <hr>
@@ -47,6 +63,7 @@
         </div>
         <div class="column">
           <hc-button color="primary"
+                    @click.prevent="saveSettings"
                     :isLoading="isLoading || seedingFakeData || seedingDemoData"
                     :disabled="isLoading || showDangerZone || seedingFakeData || seedingDemoData"
                   >
@@ -55,16 +72,27 @@
         </div>
       </div>
     </footer>
-  </section>
+  </div>
 </template>
 
 <script>
+  import animatable from '~/components/mixins/animatable'
+
   export default {
     middleware: 'admin',
     layout: 'admin',
+    mixins: [animatable],
     head () {
       return {
         title: this.$t('component.admin.settings')
+      }
+    },
+    async asyncData ({store}) {
+      let settings = await store.getters['settings/get']
+      // remove reactivity
+      settings = JSON.parse(JSON.stringify(settings))
+      return {
+        form: Object.assign({}, settings)
       }
     },
     data () {
@@ -72,13 +100,30 @@
         seedingFakeData: false,
         seedingDemoData: false,
         showDangerZone: false,
-        isLoading: false,
-        form: {
-          allowUserInvites: false
-        }
+        isLoading: false
       }
     },
     methods: {
+      async saveSettings () {
+        this.isLoading = true
+        try {
+          let res = await this.$store.dispatch('settings/patch', this.form)
+          // remove reactivity
+          res = JSON.parse(JSON.stringify(res))
+          this.form = Object.assign(this.form, res)
+          this.$snackbar.open({
+            message: this.$t('auth.settings.saveSettingsSuccess'),
+            type: 'is-success'
+          })
+        } catch (err) {
+          this.animate('shake')
+          this.$toast.open({
+            message: err.message,
+            type: 'is-danger'
+          })
+        }
+        this.isLoading = false
+      },
       seedFakeData () {
         this.$api.service('admin').timeout = 120 * 1000 // 2 minute timeout
         this.seedingFakeData = true
@@ -122,6 +167,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @import "assets/styles/_animations";
   @import "assets/styles/settings/footer";
 
   .message-body {
