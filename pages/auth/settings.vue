@@ -24,6 +24,9 @@
             <li>
               <nuxt-link :to="{ name: 'auth-settings-security' }">{{ $t('auth.settings.security', 'Security') }}</nuxt-link>
             </li>
+            <li v-if="settings && settings.invites.userCanInvite">
+              <nuxt-link :to="{ name: 'auth-settings-invites' }">{{ $t('auth.settings.invites', 'Invites') }}</nuxt-link>
+            </li>
             <li>
               <nuxt-link :to="{ name: 'auth-settings-download' }">{{ $t('auth.settings.download', 'Download Data') }}</nuxt-link>
             </li>
@@ -72,7 +75,8 @@
     },
     computed: {
       ...mapGetters({
-        user: 'auth/user'
+        user: 'auth/user',
+        settings: 'settings/get'
       })
     }
   }

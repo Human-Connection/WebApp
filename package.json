@@ -95,6 +95,7 @@
     "sanitize-html": "^1.18.2",
     "socket.io-client": "~2.1.1",
     "uikit": "^3.0.0-rc.2",
+    "v-clipboard": "^2.0.1",
     "v2-table": "1.0.1",
     "valid-url": "~1.0.9",
     "vue": "~2.5.16",

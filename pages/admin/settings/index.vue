@@ -17,7 +17,7 @@
             <div class="column">
               <b-switch v-model="form.invites.userCanInvite">{{ $t('component.admin.userInvitesToggle', 'Allow users to invite others by email') }}</b-switch>
             </div>
-            <div class="column is-6">
+            <div class="column is-5">
               <div class="field">
                 <div class="control">
                   <input :disabled="!form.invites.userCanInvite" type="text" style="width: 50px; margin-top: -0.35rem; margin-right: 0.5rem;" id="form-max-invites-by-user" class="input is-small has-text-right" v-model="form.invites.maxInvitesByUser">
@@ -89,10 +89,8 @@
     },
     async asyncData ({store}) {
       let settings = await store.getters['settings/get']
-      // remove reactivity
-      settings = JSON.parse(JSON.stringify(settings))
       return {
-        form: Object.assign({}, settings)
+        form: JSON.parse(JSON.stringify(settings)) // remove reactivity
       }
     },
     data () {

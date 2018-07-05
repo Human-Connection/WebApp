@@ -10623,6 +10623,10 @@ uuid@^3.0.0, uuid@^3.0.1, uuid@^3.1.0:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.2.1.tgz#12c528bb9d58d0b9265d9a2f6f0fe8be17ff1f14"
 
+v-clipboard@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/v-clipboard/-/v-clipboard-2.0.1.tgz#db5ce77338a9d7215daa342d4815cdb480f31658"
+
 v2-table@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/v2-table/-/v2-table-1.0.1.tgz#e73ca7344c5817a4abf5b0d08ee4dd40f204229a"

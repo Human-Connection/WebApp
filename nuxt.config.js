@@ -100,6 +100,7 @@ module.exports = {
     {src: '~/plugins/vue-directives.js', ssr: false},
     {src: '~/plugins/init-store-subscriptions.js', ssr: false},
     {src: '~/plugins/keep-alive.js', ssr: false},
+    {src: '~/plugins/clipboard.js', ssr: false},
     {src: '~/plugins/i18n.js'},
     {src: '~/plugins/buefy.js'},
     {src: '~/plugins/vue-clip.js', ssr: false},
