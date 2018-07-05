@@ -6,15 +6,14 @@
       </h2>
       <p class="subtitle is-6">{{ $t('auth.settings.invitesDescription') }}</p>
     </div>
-    <hr>
-    <div>
-      <h5  v-for="invite in invites.data" :key="invite._id"
-          class="is-5 title invite-code"
-          :class="{used: invite.wasUsed}"
-          v-clipboard="() => copyInviteLink(invite)"
-          v-clipboard:success="() => clipboardSuccess(invite)">
-        {{ invite.code }}
-      </h5>
+    <div class="ticket-wrapper">
+      <div class="columns is-multiline">
+        <invite-ticket v-for="invite in invites.data" :key="invite._id"
+                      :code="invite.code"
+                      :used="invite.wasUsed"
+                      v-clipboard="() => copyInviteLink(invite)"
+                      v-clipboard:success="() => clipboardSuccess(invite)" />
+      </div>
     </div>
     <footer class="card-footer">
       <hc-button :isLoading="isLoading"
@@ -29,24 +28,39 @@
 <script>
   import { mapGetters } from "vuex";
   import animatable from '~/components/mixins/animatable'
+  import InviteTicket from '~/components/Auth/InviteTicket'
+  import urlHelper from '~/helpers/urls'
 
   export default {
     mixins: [animatable],
+    components: {
+      'invite-ticket': InviteTicket
+    },
     data() {
       return {
         isLoading: false,
-        invites: []
+        invites: { total: 0, data: [] },
+        fetchTimer: null
       };
     },
     async mounted () {
       this.$nextTick(async () => {
-        const res = await this.$api.service('user-invites').find()
-        this.invites = res || { total: 0, data: [] }
+        await this.fetch()
       })
     },
+    beforeDestroy () {
+      clearTimeout(this.fetchTimer);
+    },
     methods: {
+      async fetch () {
+        clearTimeout(this.fetchTimer);
+        const res = await this.$api.service('user-invites').find()
+        this.invites = res || { total: 0, data: [] }
+        this.fetchTimer = setTimeout(this.fetch, 10000)
+      },
       copyInviteLink (invite) {
-        return `http://localhost:3000/auth/register?email=${invite.email}&code=${invite.code}&invitedByUserId=${invite.invitedByUserId}`
+        const endpoint = urlHelper.buildEndpointURL(this.$env.WEBAPP_HOST, { port: this.$env.WEBAPP_PORT });
+        return `${endpoint}/auth/register?email=${invite.email}&code=${invite.code}&invitedByUserId=${invite.invitedByUserId}`
       },
       clipboardSuccess (invite) {
         this.$snackbar.open({
@@ -58,7 +72,7 @@
         this.isLoading = true;
         try {
           await this.$api.service('user-invites').create({})
-          this.invites = await this.$api.service('user-invites').find()
+          await this.fetch()
 
           this.$snackbar.open({
             message: this.$t('auth.settings.saveSettingsSuccess'),
@@ -89,24 +103,11 @@
 <style lang="scss" scoped>
   @import "assets/styles/_animations";
 
-  .invite-code {
-    padding: 5px;
-    cursor: pointer;
-    width: 120px;
-    text-align: center;
-    display: inline-block;
-    // float: left;
-
-    color: #333;
-    border: 1px solid #aaa;
-    border-radius: 3px;
-    margin-bottom: 5px;
-    margin-right: 5px;
-
-    &.used {
-      text-decoration: line-through;
-      pointer-events: none;
-      opacity: .5;
-    }
+  .ticket-wrapper {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-bottom: -2rem;
+    padding: 1.5rem;
+    background-color: #eee;
   }
 </style>
