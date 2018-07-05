@@ -1,4 +1,4 @@
-import {isArray} from 'lodash'
+import {isArray, merge} from 'lodash'
 
 export const state = () => {
   return {
@@ -42,10 +42,11 @@ export const actions = {
     return res
   },
   async patch ({state, commit}, data) {
+    data = JSON.parse(JSON.stringify(data))
     const service = this.app.$api.service('settings')
     let res
     if (state.settings._id) {
-      res = await service.patch(state.settings._id, data)
+      res = await service.patch(state.settings._id, merge(JSON.parse(JSON.stringify(state.settings)), data))
     } else {
       res = await service.create(data)
     }
