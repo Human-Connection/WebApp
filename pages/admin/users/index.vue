@@ -14,7 +14,7 @@
                     :shown-pagination="userTotalPages > 1"
                     :pagination-info="paginationInfo"
                     @page-change="handleUserPageChange">
-            <v2-table-column label="Name" prop="name" align="left" width="180">
+            <v2-table-column label="Name" prop="name" align="left" width="200">
               <template slot-scope="row">
                 <a :title="row.name" v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
                   <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
