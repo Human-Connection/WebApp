@@ -21,8 +21,11 @@ jobs:
     - script:
       - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
         - docker build -t humanconnection/frontend-nuxt:alpha .
+        fi
+    - script:
       - if [ $TRAVIS_BRANCH == "develop" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
         - docker build -t humanconnection/frontend-nuxt:edge .
+        fi
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
