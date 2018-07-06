@@ -39,7 +39,10 @@
     components: {
       'invite-ticket': InviteTicket
     },
-    async asyncData ({app}) {
+    async asyncData ({app, store, redirect}) {
+      if (!store.getters['settings/showInvites']) {
+        redirect('/auth/settings')
+      }
       const res = await app.$api.service('user-invites').find()
       return {
         invites: res || { total: 0, data: [] }
@@ -58,6 +61,13 @@
     },
     beforeDestroy () {
       clearTimeout(this.fetchTimer);
+    },
+    watch: {
+      showInvites (show) {
+        if (!show) {
+          this.$router.replace('/auth/settings')
+        }
+      }
     },
     methods: {
       async fetch () {
@@ -108,7 +118,8 @@
     computed: {
       ...mapGetters({
         user: "auth/user",
-        settings: 'settings/get'
+        settings: 'settings/get',
+        showInvites: 'settings/showInvites'
       }),
       hasInvitesLeft () {
         return this.settings.invites.userCanInvite &&  this.invites.total < this.settings.invites.maxInvitesByUser
