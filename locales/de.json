@@ -92,7 +92,9 @@
       "users": "Benutzer",
       "messageCSVInvalid": "Du musst eine valide .csv auswählen",
       "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
-      "buttonDownloadCSV": "Download CSV"
+      "buttonDownloadCSV": "Download CSV",
+      "invitesByUserToggle": "Nutzer können andere einladen",
+      "invitesByUserMaxCount": "Maximale Anzahl pro Nutzer"
     },
     "calendar": {
       "label": "Kalender"
@@ -534,6 +536,8 @@
       "invitesGenerateButton": "Einladungscode generieren ::: Einladungscodes generieren",
       "invitesCopiedToClipboard": "Einladungslink für '{code}' kopiert",
       "invitesDescription": "Hier kannst du Einladungscode(s) generieren. Jeder code ist für nur eine Anmeldung gültig. Per klick wird der Einladungslink kopiert und du kannst ihn and einen Freund versenden.",
+      "invitesEmpty": "Um Einladungen zu erstellen, klick auf den Button unten rechts.",
+      "invitesCopyLink": "Link kopieren",
       "download": "Daten herunterladen",
       "delete": "Konto Löschen",
       "presentation": "Presentation",

@@ -13,7 +13,7 @@
       <div class="rip"></div>
     </div>
     <div class="bottom">
-      <a class="copy-btn" href="#">Link kopieren</a>
+      <a class="copy-btn" href="#">{{ $t('auth.settings.invitesCopyLink', 'copy link') }}</a>
     </div>
   </div>
 </template>

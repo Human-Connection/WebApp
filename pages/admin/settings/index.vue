@@ -1,13 +1,6 @@
 <template>
   <div :class="classes">
     <h3 class="title is-3">{{ $t('component.admin.settings', 'Settings') }}</h3>
-    <!--<hr>
-    <h4 class="title is-5">{{ $t('component.admin.userInvitesHeading', 'User Invites') }}</h4>-->
-    <!--<b-switch v-model="showDangerZone">{{ $t('component.admin.userInvitesToggle', 'Allow users to invite other users by email') }}</b-switch>-->
-    <!--<hr>
-    <b-switch v-model="showDangerZone">
-      {{ $t('component.admin.developmentLabel', 'Enable the danger zone') }}<hc-icon icon="warning" class="icon-right" />
-    </b-switch>-->
     <transition name="slide-up">
       <div v-if="!showDangerZone" key="settings">
         <section>
@@ -15,13 +8,13 @@
           <h4 class="is-5 title">Invites</h4>
           <div class="columns">
             <div class="column">
-              <b-switch v-model="form.invites.userCanInvite">{{ $t('component.admin.userInvitesToggle', 'Allow users to invite others by email') }}</b-switch>
+              <b-switch v-model="form.invites.userCanInvite">{{ $t('component.admin.invitesByUserToggle', 'Allow users to invite others') }}</b-switch>
             </div>
             <div class="column is-5">
               <div class="field">
                 <div class="control">
                   <input :disabled="!form.invites.userCanInvite" type="text" style="width: 50px; margin-top: -0.35rem; margin-right: 0.5rem;" id="form-max-invites-by-user" class="input is-small has-text-right" v-model="form.invites.maxInvitesByUser">
-                  <label for="form-max-invites-by-user">Max invites per user</label>
+                  <label for="form-max-invites-by-user">{{ $t('component.admin.invitesByUserMaxCount', 'Max invites per user') }}</label>
                 </div>
               </div>
             </div>

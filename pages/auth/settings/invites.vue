@@ -1,5 +1,5 @@
 <template>
-  <div class="languages fullwidth-box" :class="classes">
+  <div class="fullwidth-box" :class="classes">
     <div class="info-text">
       <h2 class="title is-3">
         {{ $t('auth.settings.invites', 'Invites') }}
@@ -7,12 +7,15 @@
       <p class="subtitle is-6">{{ $t('auth.settings.invitesDescription') }}</p>
     </div>
     <div class="ticket-wrapper">
-      <div class="columns is-multiline">
+      <div class="columns is-multiline" v-if="invites.data.length">
         <invite-ticket v-for="invite in invites.data" :key="invite._id"
                       :code="invite.code"
                       :used="invite.wasUsed"
                       v-clipboard="() => copyInviteLink(invite)"
                       v-clipboard:success="() => clipboardSuccess(invite)" />
+      </div>
+      <div v-else class="has-text-centered" style="padding: 3rem">
+        <p>{{ $t('auth.settings.invitesEmpty', 'click below') }}</p>
       </div>
     </div>
     <footer class="card-footer">
@@ -36,17 +39,22 @@
     components: {
       'invite-ticket': InviteTicket
     },
+    async asyncData ({app}) {
+      const res = await app.$api.service('user-invites').find()
+      return {
+        invites: res || { total: 0, data: [] }
+      }
+    },
     data() {
       return {
         isLoading: false,
         invites: { total: 0, data: [] },
-        fetchTimer: null
+        fetchTimer: null,
+        refrehInterval: 10000
       };
     },
-    async mounted () {
-      this.$nextTick(async () => {
-        await this.fetch()
-      })
+    mounted () {
+      this.fetchTimer = setTimeout(this.fetch, this.refrehInterval)
     },
     beforeDestroy () {
       clearTimeout(this.fetchTimer);
@@ -54,9 +62,18 @@
     methods: {
       async fetch () {
         clearTimeout(this.fetchTimer);
-        const res = await this.$api.service('user-invites').find()
+
+        let res
+        try {
+          res = await this.$api.service('user-invites').find()
+        } catch (err) {
+          this.$toast.open({
+            message: err.message,
+            type: "is-danger"
+          });
+        }
         this.invites = res || { total: 0, data: [] }
-        this.fetchTimer = setTimeout(this.fetch, 10000)
+        this.fetchTimer = setTimeout(this.fetch, this.refrehInterval)
       },
       copyInviteLink (invite) {
         const endpoint = urlHelper.buildEndpointURL(this.$env.WEBAPP_HOST, { port: this.$env.WEBAPP_PORT });

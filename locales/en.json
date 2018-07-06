@@ -92,7 +92,10 @@
       "users": "Users",
       "messageCSVInvalid": "You have to select a valid .csv",
       "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
-      "buttonDownloadCSV": "Download CSV"
+      "buttonDownloadCSV": "Download CSV",
+      "invitesLabel": "Invites",
+      "invitesByUserToggle": "Allow users to invite others",
+      "invitesByUserMaxCount": "Max invites per user"
     },
     "category": {
       "filterTitle": "Filter posts",
@@ -535,6 +538,8 @@
       "invitesGenerateButton": "Generieren invite code ::: Generieren invite codes",
       "invitesCopiedToClipboard": "Copied invite url for code '{code}'",
       "invitesDescription": "Here you can generate invite link(s). Every code is valid for only one registration. After you click a code you can send it to a friend.",
+      "invitesEmpty": "To create invites click the button down below.",
+      "invitesCopyLink": "Copy link",
       "download": "Download Data",
       "delete": "Delete account",
       "presentation": "Presentation",
