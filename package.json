@@ -1,9 +1,9 @@
 {
   "name": "human-connection-webapp",
-  "version": "0.1.0",
   "description": "Human-Connection WebApp",
+  "version": "0.5.0",
   "homepage": "https://human-connection.org",
-  "license": "CC-BY-NC-SA-4.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Human-Connection/WebApp.git"
