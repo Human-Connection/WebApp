@@ -135,7 +135,7 @@
     "eslint-plugin-vue": "^4.5.0",
     "istanbul": "~0.4.5",
     "jsdom": "~11.10.0",
-    "less": "~2.7.3",
+    "less": "~3.5.2",
     "less-loader": "^4.1.0",
     "node-sass": "~4.9.0",
     "require-extension-hooks": "~0.3.2",
