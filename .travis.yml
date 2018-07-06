@@ -24,11 +24,11 @@ jobs:
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:alpha
+    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:alpha;
     docker push humanconnection/frontend-nuxt:alpha;
     fi
   - if [ $TRAVIS_BRANCH == "develop" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge
+    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge;
     docker push humanconnection/frontend-nuxt:edge;
     fi
