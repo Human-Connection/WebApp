@@ -51,35 +51,36 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   @import 'assets/styles/utilities';
-
-  .hero {
-    margin-bottom: 30px;
-  }
-  .hero-body {
-    padding: 2rem 1.5rem;
-  }
-  .admin-content {
-    box-shadow: $card-shadow;
-    background-color: $white;
-    padding: 2rem 1.5rem;
-
-    .search {
-      margin-bottom: 1rem;
-    }
-  }
-
-  .menu {
-    @media (min-width: $tablet) {
-      max-width: 240px;
-    }
-    @media (min-width: $widescreen) {
-      max-width: 300px;
-    }
-  }
+  @import "assets/styles/settings/footer";
 
   .admin-container {
     padding-bottom: 3rem;
+
+    .hero {
+      margin-bottom: 30px;
+    }
+    .hero-body {
+      padding: 2rem 1.5rem;
+    }
+    .admin-content {
+      box-shadow: $card-shadow;
+      background-color: $white;
+      padding: 2rem 1.5rem;
+
+      .search {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .menu {
+      @media (min-width: $tablet) {
+        max-width: 240px;
+      }
+      @media (min-width: $widescreen) {
+        max-width: 300px;
+      }
+    }
   }
 </style>

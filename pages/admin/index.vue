@@ -61,7 +61,7 @@
         </div>
       </div>
       <div class="column level">
-        <div class="level-item has-text-centered">
+        <div class="level-item has-text-centered under-construction">
           <div>
             <p class="heading">{{ $t('component.admin.projects', 'Projects') }}</p>
             <p class="title">
@@ -74,12 +74,14 @@
     <div class="columns">
       <div class="column level">
         <div class="level-item has-text-centered">
-          <div>
-            <p class="heading">{{ $t('component.admin.openInvites', 'Open Invites') }}</p>
-            <p class="title">
-              <count-to :startVal="0" :endVal="inviteCount" :duration="countDuration" :autoplay="true" separator="." />
-            </p>
-          </div>
+          <hc-tooltip type="is-dark" :label="`${inviteCount} via mail | ${inviteCountByUsers} by users`">
+            <div>
+              <p class="heading">{{ $t('component.admin.openInvites', 'Open Invites') }}</p>
+              <p class="title">
+                <count-to :startVal="0" :endVal="inviteCount" :duration="countDuration" :autoplay="true" separator="." />
+              </p>
+            </div>
+          </hc-tooltip>
         </div>
       </div>
       <div class="column level">
@@ -146,6 +148,7 @@
         notificationCountUnread: 0,
         emotionCount: 0,
         inviteCount: 0,
+        inviteCountByUsers: 0,
         followCount: 0,
         shoutCount: 0
       }
@@ -221,9 +224,14 @@
           this.emotionCount = res.total || 0
         })
 
-      await this.$api.service('invites').find({query: { $limit: 0, wasUsed: { $ne: true } }})
+      await this.$api.service('invites').find({query: { $limit: 0, invitedByUserId: { $exists: false }, wasUsed: { $ne: true } }})
         .then(res => {
           this.inviteCount = res.total || 0
+        })
+
+      await this.$api.service('invites').find({query: { $limit: 0, invitedByUserId: { $exists: true }, wasUsed: { $ne: true } }})
+        .then(res => {
+          this.inviteCountByUsers = res.total || 0
         })
 
       await this.$api.service('follows').find({query: { $limit: 0 }})

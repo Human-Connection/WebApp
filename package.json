@@ -1,9 +1,9 @@
 {
   "name": "human-connection-webapp",
-  "version": "0.1.0",
   "description": "Human-Connection WebApp",
+  "version": "0.5.0",
   "homepage": "https://human-connection.org",
-  "license": "CC-BY-NC-SA-4.0",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/Human-Connection/WebApp.git"
@@ -95,6 +95,7 @@
     "sanitize-html": "^1.18.2",
     "socket.io-client": "~2.1.1",
     "uikit": "^3.0.0-rc.2",
+    "v-clipboard": "^2.0.1",
     "v2-table": "1.0.1",
     "valid-url": "~1.0.9",
     "vue": "~2.5.16",

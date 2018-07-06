@@ -13,7 +13,8 @@
         {{ $t('component.contribution.creatorUnknown') }}
       </p>
       <p class="title" v-else>
-        {{ getUser.name }} </p>
+        {{ getUser.name }}
+      </p>
       <p class="subtitle">
         <i class="fa fa-clock-o"></i>&nbsp;
         <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>

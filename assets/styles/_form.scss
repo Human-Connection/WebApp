@@ -41,3 +41,7 @@ textarea {
 .has-error .taginput-container.is-focusable {
   border-color: $red !important;
 }
+
+.field .taginput .taginput-container.is-focusable {
+  height: auto;
+}
