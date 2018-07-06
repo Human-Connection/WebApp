@@ -254,7 +254,7 @@
           this.contribution.emotions = data.emotions
           this.contribution.shoutCount = data.shoutCount
           this.contribution.visibility = data.visibility
-          this.contribution.candoUsers = data.candoUsers
+          this.contribution.candoUsers = data.candoUsers || []
         }
       },
       removeContribution () {
