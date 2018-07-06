@@ -19,14 +19,14 @@ jobs:
       - yarn test:env
       - yarn test
     - script:
-      - docker build -t humanconnection/frontend-nuxt:alpha .
+      - docker build -t humanconnection/frontend-nuxt .
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
-    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_PASSWORD";
     docker push humanconnection/frontend-nuxt:alpha;
     fi
   - if [ $TRAVIS_BRANCH == "develop" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
-    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
+    docker login -u "$DOCKER_USERNAME" --password-stdin "$DOCKER_PASSWORD";
     docker push humanconnection/frontend-nuxt:edge;
     fi
