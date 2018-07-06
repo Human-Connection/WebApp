@@ -1,4 +1,4 @@
-import {isArray, merge} from 'lodash'
+import {isArray, intersection} from 'lodash'
 
 export const state = () => {
   return {
@@ -6,6 +6,7 @@ export const state = () => {
       _id: null,
       invites: {
         userCanInvite: false,
+        onlyUserWithBadgesCanInvite: [],
         maxInvitesByUser: 1
       },
       maintenance: false
@@ -22,6 +23,24 @@ export const mutations = {
 export const getters = {
   get (state) {
     return state.settings
+  },
+  showInvites (state, getters, rootState, rootGetters) {
+    if (!state.settings.invites.userCanInvite) {
+      return false
+    }
+
+    const user = rootGetters['auth/user']
+    const badgeIds = user.badgeIds || []
+    const inviteBadgeIds = state.settings.invites.onlyUserWithBadgesCanInvite
+
+    if (user.role === 'admin') {
+      return true
+    }
+
+    if (inviteBadgeIds.length) {
+      return intersection(badgeIds, inviteBadgeIds).length
+    }
+    return state.settings.invites.userCanInvite
   }
 }
 
@@ -55,7 +74,7 @@ export const actions = {
     const service = this.app.$api.service('settings')
     let res
     if (state.settings._id) {
-      res = await service.patch(state.settings._id, merge(JSON.parse(JSON.stringify(state.settings)), data))
+      res = await service.patch(state.settings._id, Object.assign(JSON.parse(JSON.stringify(state.settings)), data))
     } else {
       res = await service.create(data)
     }

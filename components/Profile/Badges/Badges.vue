@@ -5,7 +5,7 @@
         <li v-for="badge in getBadges" :key="badge._id">
           <!-- @todo maybe there will be some different styling depending in the type -->
           <span :class="badge.type">
-            <img :src="badge.image.path" :alt="badge.image.alt" :title="badge.key">
+            <img :src="badge.image.path" :alt="$t(`component.badges.${badge.image.alt}`)" :title="$t(`component.badges.${badge.key}`)">
           </span>
         </li>
       </ul>
