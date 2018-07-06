@@ -121,7 +121,7 @@
       "settings": "Einstellungen",
       "users": "Benutzer",
       "messageCSVInvalid": "Du musst eine valide .csv auswählen",
-      "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
+      "messageInvitesGenerated": "{countCreated} von {countRequested} Einladungen/Updates verarbeitet",
       "buttonDownloadCSV": "Download CSV",
       "invitesByUserToggle": "Nutzer können andere einladen",
       "invitesByUserMaxCount": "Maximale Anzahl pro Nutzer"
