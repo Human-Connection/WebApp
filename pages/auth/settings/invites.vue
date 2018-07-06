@@ -22,7 +22,7 @@
       <hc-button :isLoading="isLoading"
                   :disabled="isLoading || !hasInvitesLeft"
                   @click.prevent="save">
-        <hc-icon icon="magic" class="icon-left" /> {{ $t('auth.settings.invitesGenerateButton', 'Generate invite codes', {}, settings.invites.maxInvitesByUser) }}
+        <hc-icon icon="ticket" class="icon-left" /> {{ $t('auth.settings.invitesGenerateButton', 'Generate invite codes', {}, settings.invites.maxInvitesByUser) }}
       </hc-button>
     </footer>
   </div>

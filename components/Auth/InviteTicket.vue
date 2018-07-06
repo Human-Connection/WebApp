@@ -13,7 +13,7 @@
       <div class="rip"></div>
     </div>
     <div class="bottom">
-      <a class="copy-btn" href="#">{{ $t('auth.settings.invitesCopyLink', 'copy link') }}</a>
+      <a class="copy-btn" href="#"><hc-icon icon="ticket" class="icon-left" /> {{ $t('auth.settings.invitesCopyLink', 'copy link') }}</a>
     </div>
   </div>
 </template>
@@ -40,10 +40,13 @@
     cursor: pointer;
     user-select: none;
 
-    transition: 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
 
+    &:hover {
+      transform: rotate(-2deg);
+    }
     &:active {
-      transform: rotate(5deg);
+      transform: rotate(2deg);
     }
 
     .subtitle {
