@@ -58,7 +58,7 @@
                   :key="badgeId"
                   width="24"
                   :title="$t(`component.badges.${badgesById[badgeId].key}`)"
-                  :src="getBadgeSrc(badgesById[badgeId].key)" />
+                  :src="badgesById[badgeId].image.path" />
               </template>
             </v2-table-column>
             <v2-table-column label="Role" prop="role" align="left" width="50"></v2-table-column>
@@ -181,7 +181,6 @@
   import parse from 'csv-parse/lib/sync'
   import { isEmpty, each, map, keyBy } from 'lodash'
   import SearchInput from '~/components/Search/SearchInput.vue'
-  import urlHelper from '~/helpers/urls'
 
   let itemLimit = 10
 
@@ -259,10 +258,6 @@
       }
     },
     methods: {
-      getBadgeSrc (name) {
-        const api = urlHelper.buildEndpointURL(this.$env.API_HOST, { port: this.$env.API_PORT })
-        return `${api}/img/badges/${name}.svg`
-      },
       userSearchOnInput (value) {
         this.userSearchValue = value
         this.handleUserPageChange(1)
