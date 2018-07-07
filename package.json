@@ -65,7 +65,7 @@
     "cheerio": "^1.0.0-rc.2",
     "cookie-parser": "~1.4.3",
     "cookie-universal-nuxt": "~2.0.3",
-    "cross-env": "~5.1.6",
+    "cross-env": "~5.2.0",
     "css-loader": "~0.28.10",
     "csv-parse": "~2.4.0",
     "emitter-js": "~2.0.1",
