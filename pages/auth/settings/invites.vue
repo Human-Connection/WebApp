@@ -82,8 +82,10 @@
         // this.fetchTimer = setTimeout(this.fetch, this.refrehInterval)
       },
       copyInviteLink (invite) {
-        const endpoint = urlHelper.buildEndpointURL(this.$env.WEBAPP_HOST, { port: this.$env.WEBAPP_PORT });
-        return `${endpoint}/auth/register?email=${invite.email}&code=${invite.code}&invitedByUserId=${invite.invitedByUserId}`
+        if (process.client) {
+          return `${location.origin}/auth/register?email=${invite.email}&code=${invite.code}&invitedByUserId=${invite.invitedByUserId}`
+        }
+        return null
       },
       async save() {
         this.isLoading = true;
