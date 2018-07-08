@@ -1,5 +1,6 @@
 <template>
-  <div class="widget column is-full-mobile is-half-tablet is-one-third-widescreen" :class="{used}">
+  <div class="ticket column is-full-mobile is-half-tablet is-one-third-widescreen"
+      :class="{used}">
     <div class="top">
       <div class="is-5 title bandname">Alpha-Boardingpass</div>
       <div class="is-6 subtitle">Human-Connection</div>
@@ -13,8 +14,13 @@
       <div class="rip"></div>
     </div>
     <div class="bottom">
-      <a class="copy-btn" href="#"><hc-icon icon="ticket" class="icon-left" /> {{ $t('auth.settings.invitesCopyLink', 'copy link') }}</a>
+      <button class="copy-btn"><hc-icon icon="ticket" class="icon-left" /> {{ $t('auth.settings.invitesCopyLink', 'copy link') }}</button>
     </div>
+    <button
+      class="copy-btn-overlay"
+      v-clipboard:copy="link"
+      v-clipboard:success="clipboardSuccess"
+      >{{ link }}</button>
   </div>
 </template>
 <script>
@@ -24,9 +30,21 @@
         type: String,
         required: true
       },
+      link: {
+        type: String,
+        required: true
+      },
       used: {
         type: Boolean,
         default: false
+      }
+    },
+    methods: {
+      clipboardSuccess (invite) {
+        this.$snackbar.open({
+          message: this.$t('auth.settings.invitesCopiedToClipboard', { code: this.code }),
+          type: "is-success"
+        });
       }
     }
   }
@@ -35,7 +53,17 @@
 <style lang="scss" scoped>
   @import "assets/styles/utilities";
 
-  .widget {
+  .copy-btn-overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .ticket {
     filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, 0.2));
     cursor: pointer;
     user-select: none;
@@ -43,10 +71,10 @@
     transition: all 150ms ease-in-out;
 
     &:hover {
-      transform: rotate(-2deg);
+      transform: rotate(-1deg);
     }
     &:active {
-      transform: rotate(2deg);
+      transform: rotate(-3deg);
     }
 
     .subtitle {
@@ -86,9 +114,6 @@
       position: relative;
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
-      .deetz {
-        padding-bottom: 10px !important;
-      }
     }
     .barcode {
       background-color: #fff;
@@ -106,8 +131,10 @@
       // height: 30px;
       padding-top: 10px;
       .copy-btn {
-        display: inline-block;
         display: block;
+        width: 100%;
+        border: none;
+        pointer-events: none;
         font-size: 12px;
         font-weight: bold;
         text-align: center;

@@ -10,9 +10,8 @@
       <div class="columns is-multiline" v-if="invites.data.length">
         <invite-ticket v-for="invite in invites.data" :key="invite._id"
                       :code="invite.code"
-                      :used="invite.wasUsed"
-                      v-clipboard="() => copyInviteLink(invite)"
-                      v-clipboard:success="() => clipboardSuccess(invite)" />
+                      :link="copyInviteLink(invite)"
+                      :used="invite.wasUsed"/>
       </div>
       <div v-else class="has-text-centered" style="padding: 3rem">
         <p>{{ $t('auth.settings.invitesEmpty', 'click below') }}</p>
@@ -53,7 +52,7 @@
         isLoading: false,
         invites: { total: 0, data: [] },
         fetchTimer: null,
-        refrehInterval: 10000
+        refrehInterval: 20000
       };
     },
     mounted () {
@@ -77,23 +76,14 @@
         try {
           res = await this.$api.service('user-invites').find()
         } catch (err) {
-          this.$toast.open({
-            message: err.message,
-            type: "is-danger"
-          });
+          console.log(err.message)
         }
-        this.invites = res || { total: 0, data: [] }
-        this.fetchTimer = setTimeout(this.fetch, this.refrehInterval)
+        this.invites = res || this.invites || { total: 0, data: [] }
+        // this.fetchTimer = setTimeout(this.fetch, this.refrehInterval)
       },
       copyInviteLink (invite) {
         const endpoint = urlHelper.buildEndpointURL(this.$env.WEBAPP_HOST, { port: this.$env.WEBAPP_PORT });
         return `${endpoint}/auth/register?email=${invite.email}&code=${invite.code}&invitedByUserId=${invite.invitedByUserId}`
-      },
-      clipboardSuccess (invite) {
-        this.$snackbar.open({
-          message: this.$t('auth.settings.invitesCopiedToClipboard', { code: invite.code }),
-          type: "is-success"
-        });
       },
       async save() {
         this.isLoading = true;
