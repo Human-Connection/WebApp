@@ -306,6 +306,10 @@
               this.toStep(1)
               this.inviteCodeIsInvalid = true
               msg = this.$t('auth.register.errorInviteCodeInvalid')
+            } else if (msg === 'invite already used') {
+              this.toStep(1)
+              this.inviteCodeIsInvalid = true
+              msg = this.$t('auth.register.errorInviteAlreadyUsed')
             }
             this.$toast.open({
               message: msg,
