@@ -41,3 +41,9 @@ textarea {
 .has-error .taginput-container.is-focusable {
   border-color: $red !important;
 }
+
+.control input[type="radio"] {
+  margin-right: $padding;
+  position: relative;
+  top: -1px;
+}

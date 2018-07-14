@@ -97,15 +97,18 @@
           {{ address.zipCode }} {{ address.city }}<br />
           {{ countryByCode(address.country) }}
           <template v-if="address.email">
-            <br /><hc-icon icon="envelope" /> {{ address.email }}
+            <br /><hc-icon icon="envelope" class="address-icon" />
+            {{ address.email }}
           </template>
           <template v-if="address.phone">
-            <br /><hc-icon icon="phone" /> {{ address.phone }}
+            <br /><hc-icon icon="phone" class="address-icon" />
+            {{ address.phone }}
           </template>
           <div class="field has-margin-top-small">
             <div class="control">
-              <input type="radio" v-model="primaryAddressIndex" :value="index">
-              <span>{{ $t('component.organization.primary') }}</span>
+              <input type="radio" :id="`primary-address-${index}`"
+                v-model="primaryAddressIndex" :value="index">
+              <label :for="`primary-address-${index}`">{{ $t('component.organization.primary') }}</label>
             </div>
           </div>
           <div class="address-item-actions">
@@ -305,18 +308,20 @@
         }
       },
       validate () {
-        if (this.$v.form.$invalid) {
+        if (this.$v.form.$dirty && this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.$emit('validate', false)
         } else {
           // return validated form data
           let output = Object.assign({}, this.data)
-          const from = Object.assign({}, this.form)
 
-          if (this.editIndex === null) {
-            output.addresses.push(from)
-          } else {
-            output.addresses[this.editIndex] = from
+          if (this.$v.form.$dirty) {
+            const form = Object.assign({}, this.form)
+            if (this.editIndex === null) {
+              output.addresses.push(form)
+            } else {
+              output.addresses[this.editIndex] = form
+            }
           }
 
           output.primaryAddressIndex = this.primaryAddressIndex
@@ -373,10 +378,18 @@
     margin: $margin 0;
     padding: $padding;
     border-bottom: 3px solid $white-ter;
+    line-height: 1.5;
 
     &.is-active {
       border-color: $primary;
     }
+  }
+
+  .address-icon {
+    color: $grey-light;
+    width: 20px;
+    position: relative;
+    top: -1px;
   }
 
   .address-item-actions {
