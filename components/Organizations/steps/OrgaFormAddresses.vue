@@ -368,10 +368,6 @@
     color: $red;
   }
 
-  .address-item {
-
-  }
-
   .address-item-inner {
     background-color: $white-bis;
     margin: $margin 0;
