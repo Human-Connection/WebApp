@@ -53,6 +53,11 @@
                 <hc-icon v-if="!organization.addresses || !organization.addresses.length" icon="warning" class="pull-right" />
               </nuxt-link>
             </li>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings-users', query: { id: organization._id } }">
+                {{ $t('auth.settings.organizationUsers', 'Users') }}
+              </nuxt-link>
+            </li>
           </ul>
           <p class="menu-label">
             {{ $t('component.projects.label') }}

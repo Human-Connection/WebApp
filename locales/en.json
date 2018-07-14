@@ -581,7 +581,8 @@
       "organizationStreet": "Street",
       "organizationZipCode": "Zip Code",
       "organizationCity": "City",
-      "organizationCountry": "Country"
+      "organizationCountry": "Country",
+      "organizationUsers": "Users"
     }
   },
   "ressource": {
