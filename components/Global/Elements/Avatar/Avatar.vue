@@ -13,6 +13,9 @@
         @error="onError" />
       <span v-if="!hasImage">{{ userInitial }}</span>
     </div>
+    <div class="profile-name" v-if="showName">
+      {{ username }}
+    </div>
   </div>
 </template>
 
@@ -42,13 +45,22 @@ export default {
         type: Boolean,
         default: false
       },
+      showName: {
+        type: Boolean,
+        default: false
+      },
       crop: {
         type: Boolean,
         default: true
+      },
+      size: {
+        type: [Number, Boolean],
+        default: null
       }
     },
     data () {
       return {
+        imageSize: 36,
         backgroundColors: [
           '#295E87', '#007D93', '#933D86', '#005093', '#4A5580',
           '#0067A5', '#007D93', '#007A70', '#008F6D', '#008255',
@@ -56,7 +68,6 @@ export default {
           '#E1B424', '#00753C', '#B42554', '#4F3B68', '#EB8B2D',
           '#DC3E2A', '#A7BE33', '#DF542A', '#00A3DA', '#84BF41'
         ],
-        size: 36,
         error: false,
         isOnline: false,
         interval: null
@@ -84,6 +95,9 @@ export default {
       })
     },
     computed: {
+      computedSize () {
+        return this.size || this.imageSize || 36
+      },
       username () {
         let username = this.name || this.user.name
         return username || this.$t('component.contribution.creatorUnknown')
@@ -115,10 +129,12 @@ export default {
       style () {
         return {
           backgroundColor: this.hasImage ? 'transparent' : this.background,
-          fontSize: Math.floor(this.size / 2.5) + 'px',
+          fontSize: Math.floor(this.computedSize / 2.5) + 'px',
           fontWeight: 'bold',
           color: this.fontColor,
-          lineHeight: `${(this.size + Math.floor(this.size / 20))}px`
+          lineHeight: `${(this.computedSize + Math.floor(this.computedSize / 20))}px`,
+          width: `${this.computedSize}px`,
+          height: `${this.computedSize}px`
         }
       }
     },
@@ -178,7 +194,7 @@ export default {
           return
         }
         try {
-          this.size = this.$refs.avatar.getBoundingClientRect().width
+          this.imageSize = this.$refs.avatar.getBoundingClientRect().width
         } catch (err) {}
       },
       resizeHandler: throttle(() => {
@@ -203,8 +219,10 @@ export default {
   @import "assets/styles/utilities";
 
   .avatar-wrapper {
-
     position: relative;
+    display: flex;
+    align-items: center;
+
     &.is-online:after {
       content: "";
       display: block;
@@ -234,8 +252,6 @@ export default {
 
   .profile-image {
     box-shadow:      0 0 0 1px white;
-    width:           36px;
-    height:          36px;
     background:      #fff no-repeat center;
     overflow:        hidden;
 
@@ -263,6 +279,10 @@ export default {
       margin-top: 0.15em;
       font-weight: bold;
     }
+  }
+
+  .profile-name {
+    margin-left: 6px;
   }
 
   .img-circle {

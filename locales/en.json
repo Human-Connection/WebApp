@@ -321,7 +321,8 @@
       "noResults": "Sorry nothing there!",
       "noResultsText": "Try to adjust your search and filters on the top to find what you are searching for.",
       "noResultsResetQueryButton": "Remove \"<strong>{searchQuery}</strong>\" from Search",
-      "noMoreResults": "Sorry that's all what we found"
+      "noMoreResults": "Sorry that's all what we found",
+      "user": "Search user ..."
     },
     "filter": {
       "label": "Filters",

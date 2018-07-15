@@ -321,7 +321,8 @@
       "noResults": "Hier gibts nichts zu sehen!",
       "noResultsText": "Passe Deine Suche bzw. deine Filtereinstellung an, um zu finden, wonach Du suchst.",
       "noResultsResetQueryButton": "Entferne \"<strong>{searchQuery}</strong>\" aus dem Suchfeld",
-      "noMoreResults": "Leider ist das alles, was wir gefunden haben"
+      "noMoreResults": "Leider ist das alles, was wir gefunden haben",
+      "user": "Benutzer suchen ..."
     },
     "filter": {
       "label": "Filter",

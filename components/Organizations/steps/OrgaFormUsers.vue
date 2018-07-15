@@ -1,19 +1,50 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column">
+      <div class="column expand">
         <div class="field is-required" ref="id">
           <div class="control">
-            <input
-              class="input"
-              data-test="id"
-              type="text"
-              v-model="searchString"
-              :disabled="isLoading" />
-            <search :search-string="searchString"
-              @itemselected="itemSelected"></search>
+            <div v-show="!form.id"
+              class="orga-user-search-container">
+              <input class="input"
+                data-test="id"
+                type="text"
+                v-model="searchString"
+                :placeholder="$t('component.search.user')"
+                ref="search"
+                @focus="searchFocus = true"
+                v-click-outside="hideSearch"
+                :disabled="isLoading" />
+              <search :search-string="searchString" v-show="showSearch"
+                class="orga-user-search"
+                @itemselected="itemSelected"></search>
+            </div>
+            <hc-fake-input v-show="form.id"
+              @deleteItem="startNewSearch">
+              <hc-avatar :user="form"
+                :showName="true" :size="26"></hc-avatar>
+            </hc-fake-input>
           </div>
         </div>
+      </div>
+      <div class="column is-narrow">
+        <div class="field is-required" ref="role">
+          <div class="control">
+            <div class="select orga-user-role">
+              <select v-model="form.role">
+                <option
+                  v-for="role in roles"
+                  :key="role"
+                  :value="role">
+                  {{ role }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="column is-narrow">
+        <hc-button>{{ $t('button.add') }}</hc-button>
       </div>
     </div>
     <div class="user-list">
@@ -21,10 +52,14 @@
         <v2-table-column label="Name" prop="name" align="left" width="300">
           <template slot-scope="row">
             <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-              <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
+              <hc-avatar :user="row"
+                :showOnlineStatus="true"
+                :showName="true"></hc-avatar>
             </a>
             <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-              <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
+              <hc-avatar :user="row"
+                :showOnlineStatus="true"
+                :showName="true"></hc-avatar>
             </div>
           </template>
         </v2-table-column>
@@ -88,11 +123,13 @@
   import { required, minLength, maxLength, email } from "vuelidate/lib/validators"
   import { isEmpty } from "lodash"
   import Search from '~/components/Mentions/Search.vue'
+  import HcFakeInput from "../../Global/Elements/FakeInput/FakeInput.vue";
 
   export default {
     name: 'orga-form-users',
     mixins: [validationMixin],
     components: {
+      HcFakeInput,
       Search
     },
     props: {
@@ -107,11 +144,18 @@
     data () {
       return {
         searchString: '',
+        searchFocus: false,
         form: {
           name: null,
+          avatar: null,
+          slug: null,
           id: null,
           role: 'editor'
         },
+        roles: [
+          'editor',
+          'admin'
+        ],
         deleteModalActive: false,
         deleteModalVar: null,
         deleteIndex: null,
@@ -125,6 +169,9 @@
           user.index = index
           return user
         })
+      },
+      showSearch () {
+        return this.searchFocus && this.searchString
       }
     },
     watch: {
@@ -133,13 +180,35 @@
       }
     },
     methods: {
-      itemSelected (user) {
-        this.updateData(user)
+      hideSearch () {
+        this.searchFocus = false
+      },
+      itemSelected (data) {
+        const user = data.item
+        this.form = Object.assign(this.form, {
+          id: user._id || null,
+          avatar: user.avatar || null,
+          name: user.name || null,
+          slug: user.slug || null
+        })
+      },
+      startNewSearch () {
+        this.form = Object.assign(this.form, {
+          id: null,
+          avatar: null,
+          name: null,
+          slug: null
+        })
+        this.$nextTick(() => {
+          this.$refs.search.focus()
+        })
       },
       updateData (data) {
         this.form = Object.assign(this.form, {
           id: data.id || null,
+          avatar: data.avatar || null,
           name: data.name || null,
+          slug: data.slug || null,
           role: data.role || 'editor'
         })
       },
@@ -150,7 +219,7 @@
       },
       del (index) {
         let output = Object.assign({}, this.data)
-        output.addresses.splice(index, 1)
+        output.users.splice(index, 1)
         this.$emit('validate', output)
         this.editIndex = null
         this.closeDeleteModal()
@@ -184,6 +253,7 @@
           } else {
             output.users[this.editIndex] = form
           }
+          this.searchString = ''
 
           this.$emit('validate', output)
           this.editIndex = null
@@ -244,5 +314,26 @@
 
   .address-item-actions {
     margin-top: $margin;
+  }
+
+  .orga-user-search-container {
+    position: relative;
+
+    .orga-user-search {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      top: 100%;
+      z-index: 100;
+    }
+  }
+
+  .orga-user-role {
+    height: 2.6em;
+
+    & > select {
+      height: 2.6em;
+    }
   }
 </style>
