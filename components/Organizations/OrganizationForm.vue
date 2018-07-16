@@ -33,6 +33,8 @@
 </template>
 
 <script>
+  import Vue from 'vue'
+
   export default {
     name: 'organization-form',
     props: {
@@ -40,12 +42,8 @@
         type: Object,
         required: true
       },
-      formData: {
+      formAttributes: {
         type: Object,
-        required: true
-      },
-      updateFormData: {
-        type: Function,
         required: true
       },
       organization: {
@@ -59,6 +57,11 @@
       isLoading: {
         type: Boolean,
         default: true
+      }
+    },
+    data () {
+      return {
+        formData: {}
       }
     },
     watch: {
@@ -90,6 +93,15 @@
             })
           this.$parent.$emit('error')
         }
+      },
+      updateFormData (organization) {
+        Object.keys(this.formAttributes).forEach(key => {
+          Vue.set(
+            this.formData,
+            key,
+            organization[key] || this.formAttributes[key]
+          )
+        })
       }
     }
   };

@@ -1,8 +1,7 @@
 <template>
   <organization-form
     :formComponent="$options.components.FormComponent"
-    :formData="formData"
-    :updateFormData="updateFormData"
+    :formAttributes="formAttributes"
     :organization="organization"
     :user="user"
     :isLoading="isLoading">
@@ -26,7 +25,7 @@
     },
     data() {
       return {
-        formData: {
+        formAttributes: {
           categoryIds: [],
           tags: []
         }
@@ -44,14 +43,6 @@
       isLoading: {
         type: Boolean,
         default: true
-      }
-    },
-    methods: {
-      updateFormData (organization) {
-        this.formData = Object.assign(this.formData, {
-          categoryIds: organization.categoryIds,
-          tags: organization.tags
-        })
       }
     }
   };

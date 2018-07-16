@@ -332,6 +332,7 @@
 
           // reset form values to null
           this.updateData({})
+          this.$v.$reset()
         }
       }
     },

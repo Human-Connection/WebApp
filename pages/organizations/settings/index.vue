@@ -1,8 +1,7 @@
 <template>
   <organization-form
     :formComponent="$options.components.FormComponent"
-    :formData="formData"
-    :updateFormData="updateFormData"
+    :formAttributes="formAttributes"
     :organization="organization"
     :user="user"
     :isLoading="isLoading">
@@ -40,23 +39,13 @@
     },
     data () {
       return {
-        formData: {
+        formAttributes: {
           name: '',
           logo: '',
           isEnabled: false,
           language: this.$i18n.locale()
         }
       };
-    },
-    methods: {
-      updateFormData (organization) {
-        this.formData = Object.assign(this.formData, {
-          name: organization.name,
-          logo: organization.logo,
-          isEnabled: organization.isEnabled,
-          language: organization.language,
-        })
-      }
     }
   };
 </script>

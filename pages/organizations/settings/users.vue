@@ -1,8 +1,7 @@
 <template>
   <organization-form
     :formComponent="$options.components.FormComponent"
-    :formData="formData"
-    :updateFormData="updateFormData"
+    :formAttributes="formAttributes"
     :organization="organization"
     :user="user"
     :isLoading="isLoading">
@@ -39,17 +38,10 @@
     },
     data () {
       return {
-        formData: {
+        formAttributes: {
           users: []
         }
       };
-    },
-    methods: {
-      updateFormData (organization) {
-        this.formData = Object.assign(this.formData, {
-          users: organization.users
-        })
-      }
     }
   };
 </script>
