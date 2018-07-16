@@ -70,11 +70,12 @@
         </aside>
       </div>
       <div class="column">
-        <transition name="slide-up" appear>
-          <nuxt :organization="organization"
+        <transition name="slide-up" appear v-if="organization">
+          <nuxt-child :organization="organization"
                 :user="user"
+                :isLoading="isLoading"
                 :class="classes"
-                @change="updateOrganization"
+                @save="save"
                 @error="onError"
                 class="settings-content"/>
         </transition>
@@ -107,7 +108,8 @@
         }
 
         return {
-          organization
+          organization,
+          isLoading: false
         }
       } catch (err) {
         if (err.code === 404) {
@@ -137,8 +139,27 @@
         this.animate('shake')
       },
       updateOrganization (organization) {
-        // update organization after it was saved by child view
         this.organization = Object.assign(this.organization, organization)
+      },
+      async save(data) {
+        this.isLoading = true;
+        try {
+          data._id = this.organization._id
+          const result = await this.$store.dispatch("organizations/patch", data)
+          this.updateOrganization(result)
+
+          this.$snackbar.open({
+            message: this.$t('auth.settings.saveSettingsSuccess'),
+            type: "is-success"
+          });
+        } catch (err) {
+          this.$toast.open({
+            message: err.message,
+            type: "is-danger"
+          });
+          this.onError()
+        }
+        this.isLoading = false;
       }
     }
   }

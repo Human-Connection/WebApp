@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import OrgaFormAddresses from "~/components/Organizations/steps/OrgaFormAddresses.vue";
+  import OrgaFormAddresses from "~/components/Organizations/steps/OrgaFormAddresses.vue"
 
   export default {
     mixins: [],

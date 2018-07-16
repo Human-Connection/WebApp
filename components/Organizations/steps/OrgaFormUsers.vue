@@ -48,39 +48,41 @@
       </div>
     </div>
     <div class="user-list">
-      <v2-table :data="tableRows" :stripe="true">
-        <v2-table-column label="Name" prop="name" align="left" width="300">
-          <template slot-scope="row">
-            <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-              <hc-avatar :user="row"
-                :showOnlineStatus="true"
-                :showName="true"></hc-avatar>
-            </a>
-            <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-              <hc-avatar :user="row"
-                :showOnlineStatus="true"
-                :showName="true"></hc-avatar>
-            </div>
-          </template>
-        </v2-table-column>
-        <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
-        <v2-table-column align="right" width="100">
-          <template slot-scope="row">
-            <a
-              :title="$t('button.edit')"
-              @click="edit(row.index)"
-              class="btn-edit">
-              <hc-icon icon="pencil" />
-            </a>&nbsp;&nbsp;
-            <a
-              :title="$t('button.delete')"
-              @click="showDeleteModal(row.index)"
-              class="btn-delete">
-              <hc-icon icon="trash" />
-            </a>
-          </template>
-        </v2-table-column>
-      </v2-table>
+      <no-ssr>
+        <v2-table :data="tableRows" :stripe="true">
+          <v2-table-column label="Name" prop="name" align="left" width="300">
+            <template slot-scope="row">
+              <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                <hc-avatar :user="row"
+                  :showOnlineStatus="true"
+                  :showName="true"></hc-avatar>
+              </a>
+              <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                <hc-avatar :user="row"
+                  :showOnlineStatus="true"
+                  :showName="true"></hc-avatar>
+              </div>
+            </template>
+          </v2-table-column>
+          <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
+          <v2-table-column align="right" width="100">
+            <template slot-scope="row">
+              <a
+                :title="$t('button.edit')"
+                @click="edit(row.index)"
+                class="btn-edit">
+                <hc-icon icon="pencil" />
+              </a>&nbsp;&nbsp;
+              <a
+                :title="$t('button.delete')"
+                @click="showDeleteModal(row.index)"
+                class="btn-delete">
+                <hc-icon icon="trash" />
+              </a>
+            </template>
+          </v2-table-column>
+        </v2-table>
+      </no-ssr>
     </div>
 
     <br />
@@ -123,7 +125,7 @@
   import { required, minLength, maxLength, email } from "vuelidate/lib/validators"
   import { isEmpty } from "lodash"
   import Search from '~/components/Mentions/Search.vue'
-  import HcFakeInput from "../../Global/Elements/FakeInput/FakeInput.vue";
+  import HcFakeInput from "../../Global/Elements/FakeInput/FakeInput.vue"
 
   export default {
     name: 'orga-form-users',

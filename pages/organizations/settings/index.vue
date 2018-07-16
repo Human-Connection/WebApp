@@ -14,7 +14,9 @@
     <div class="columns">
       <div class="column">
         <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-1 ref="form" :data="form" @validate="onValidation" :hideButton="true" :autoFocus="false" />
+          <orga-form-step-1 ref="form"
+            :data="form" @validate="onValidation"
+            :hideButton="true" :autoFocus="false" />
         </form>
         <div class="field has-margin-top-small">
           <div class="control">
@@ -47,52 +49,60 @@
     components: {
       OrgaFormStep1
     },
-    data() {
+    props: {
+      organization: {
+        type: Object,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      },
+      isLoading: {
+        type: Boolean,
+        default: true
+      }
+    },
+    data () {
       return {
         form: {
           name: '',
           logo: '',
           isEnabled: false,
           language: this.$i18n.locale()
-        },
-        organization: null,
-        isLoading: false
+        }
       };
     },
     watch: {
-      'this.$parent.$attrs.organization': (organization) => {
-        // get current organization from parent view
-        this.organization = organization
+      organization: {
+        handler () {
+          this.updateForm()
+        },
+        deep: true
       }
     },
-    mounted() {
-      this.$nextTick(() => {
-        // get current organization from parent view
-        this.organization = this.$parent.$attrs.organization
-
+    created () {
+      this.updateForm()
+    },
+    computed: {
+      canEnable () {
+        // owner (if reviewed), moderator, admin
+        return ['admin', 'moderator'].includes(this.user.role) || this.organization.reviewedBy
+      }
+    },
+    methods: {
+      updateForm () {
         this.form = Object.assign(this.form, {
           name: this.organization.name,
           logo: this.organization.logo,
           isEnabled: this.organization.isEnabled,
           language: this.organization.language,
         })
-      })
-    },
-    computed: {
-      canEdit () {
-        // owner, moderator, admin
-        return this.organization.userId === this.$parent.$attrs.user._id || ['admin', 'moderator'].includes(this.$parent.$attrs.user.role)
       },
-      canEnable () {
-        // owner (if reviewed), moderator, admin
-        return ['admin', 'moderator'].includes(this.$parent.$attrs.user.role) || this.organization.reviewedBy
-      }
-    },
-    methods: {
       onValidation (result) {
         if (result) {
           this.form = Object.assign(this.form, result)
-          this.save()
+          this.$emit('save', this.form)
         } else {
           this.$toast.open({
             message: this.$t('auth.validation.error'),
@@ -100,28 +110,6 @@
             })
           this.$parent.$emit('error')
         }
-      },
-      async save() {
-        this.isLoading = true;
-        try {
-          let data = Object.assign({_id: this.organization._id}, this.form)
-          const res = await this.$store.dispatch("organizations/patch", data)
-
-          this.$snackbar.open({
-            message: this.$t('auth.settings.saveSettingsSuccess'),
-            type: "is-success"
-          });
-
-          // update the organization on the parent component
-          this.$parent.$emit('change', res)
-        } catch (err) {
-          this.$toast.open({
-            message: err.message,
-            type: "is-danger"
-          });
-          this.$parent.$emit('error', err)
-        }
-        this.isLoading = false;
       }
     }
   };
