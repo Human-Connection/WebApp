@@ -15,6 +15,7 @@
           <component ref="form"
             :data="formData" @validate="onValidation"
             :hideButton="true" :autoFocus="false"
+            :canEnable="canEnable"
             :is="formComponent" />
         </div>
       </div>
@@ -80,8 +81,8 @@
     methods: {
       onValidation (result) {
         if (result) {
-          this.formData = Object.assign(this.formData, result)
-          this.$parent.$emit('save', this.formData)
+          let formData = Object.assign(this.formData, result)
+          this.$parent.$emit('save', formData)
         } else {
           this.$toast.open({
             message: this.$t('auth.validation.error'),

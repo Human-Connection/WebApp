@@ -44,6 +44,15 @@
         </div>
       </div>
     </div>
+    <div class="field has-margin-top-small" v-if="hideButton">
+      <div class="control">
+        <label class="label">{{ $t('component.organization.visibility') }}</label>
+        <b-switch v-model="form.isEnabled" :disabled="!canEnable">
+          <span v-if="form.isEnabled">{{ $t('info.active') }}</span>
+          <span v-else>{{ $t('info.inactive') }}</span>
+        </b-switch>
+      </div>
+    </div>
     <slot v-if="!hideButton">
       <hc-button color="primary"
                 @click.prevent="validate()"
@@ -72,6 +81,10 @@
         type: Boolean,
         default: false
       },
+      canEnable: {
+        type: Boolean,
+        default: false
+      },
       autoFocus: {
         type: Boolean,
         default: true
@@ -83,7 +96,8 @@
         form: {
           logo: null,
           name: '',
-          language: this.$i18n.locale()
+          language: this.$i18n.locale(),
+          isEnabled: false
         },
         isLoading: false,
         uploadingLogo: false
@@ -111,6 +125,7 @@
           logo: data.logo,
           name: data.name,
           language: data.language,
+          isEnabled: data.isEnabled
         })
       },
       validate () {

@@ -1,82 +1,58 @@
 <template>
-  <div v-if="organization">
-    <div class="info-text">
+  <organization-form
+    :formComponent="$options.components.FormComponent"
+    :formData="formData"
+    :updateFormData="updateFormData"
+    :organization="organization"
+    :user="user"
+    :isLoading="isLoading">
+    <template slot="header">
       <h2 class="title is-3">
         {{ $t('auth.settings.organizationUsers', 'Users') }}
       </h2>
-    </div>
-    <hr>
-    <div class="columns">
-      <div class="column">
-        <form @submit.prevent="$refs.form.validate()">
-          <orga-form-users ref="form"
-            :data="form" @validate="onValidation"
-            :hideButton="true" />
-        </form>
-      </div>
-    </div>
-    <footer class="card-footer">
-      <hc-button
-        :isLoading="isLoading"
-        :disabled="isLoading"
-        @click.prevent="$refs.form.validate()">
-        <i class="fa fa-check"></i>
-        &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
-      </hc-button>
-    </footer>
-  </div>
+    </template>
+  </organization-form>
 </template>
 
 <script>
-  import OrgaFormUsers from "~/components/Organizations/steps/OrgaFormUsers.vue";
+  import OrganizationForm from '~/components/Organizations/OrganizationForm'
+  import FormComponent from '~/components/Organizations/steps/OrgaFormUsers'
 
   export default {
     components: {
-      OrgaFormUsers
+      OrganizationForm,
+      FormComponent
     },
     props: {
       organization: {
         type: Object,
         required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      },
+      isLoading: {
+        type: Boolean,
+        default: true
       }
     },
     data () {
       return {
-        form: {
+        formData: {
           users: []
-        },
-        isLoading: false
+        }
       };
     },
-    watch: {
-      organization: {
-        handler () {
-          this.updateForm()
-        },
-        deep: true
-      }
-    },
-    created () {
-      this.updateForm()
-    },
     methods: {
-      updateForm () {
-        this.form = Object.assign(this.form, {
-          users: this.organization.users
+      updateFormData (organization) {
+        this.formData = Object.assign(this.formData, {
+          users: organization.users
         })
-      },
-      onValidation (result) {
-        if (result) {
-          this.form = Object.assign(this.form, result)
-          this.$emit('save', this.form)
-        } else {
-          this.$toast.open({
-            message: this.$t('auth.validation.error'),
-              type: 'is-danger'
-            })
-          this.$parent.$emit('error')
-        }
       }
     }
   };
 </script>
+
+<style lang="scss" scoped>
+</style>

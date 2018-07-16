@@ -308,14 +308,15 @@
         }
       },
       validate () {
-        if (this.$v.form.$dirty && this.$v.form.$invalid) {
+        const checkDirty = ['city', 'email', 'phone', 'street', 'zipCode']
+        const dirty = checkDirty.some(key => this.$v.form[key].$dirty)
+        if (dirty && this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.$emit('validate', false)
         } else {
           // return validated form data
           let output = Object.assign({}, this.data)
-
-          if (this.$v.form.$dirty) {
+          if (dirty) {
             const form = Object.assign({}, this.form)
             if (this.editIndex === null) {
               output.addresses.push(form)
