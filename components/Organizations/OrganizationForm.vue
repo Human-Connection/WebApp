@@ -99,7 +99,8 @@
           Vue.set(
             this.formData,
             key,
-            organization[key] || this.formAttributes[key]
+            organization[key] !== undefined ?
+              organization[key] : this.formAttributes[key]
           )
         })
       }
