@@ -8,6 +8,8 @@
 #
 
 aliases:
+  blue:
+    value: "#3273DC"
   green:
     value: "#4AA41E"
   vermilion:
@@ -23,6 +25,8 @@ aliases:
   white:
     value: "#fff"
 props:
+  color_blue:
+    value: "{!blue}"
   color_green:
     value: "{!green}"
   color_vermilion_darker:

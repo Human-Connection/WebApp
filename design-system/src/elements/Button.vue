@@ -1,5 +1,5 @@
 <template>
-  <component :is="type" :class="['button', variation]">
+  <component :is="type" :class="['button', variation, color]">
     <slot/>
   </component>
 </template>
@@ -19,6 +19,17 @@ export default {
     type: {
       type: String,
       default: "button",
+    },
+    /**
+     * Background color to give additional meaning.
+     * `green, blue, white, transparent`
+     */
+    color: {
+      type: String,
+      default: "green",
+      validator: value => {
+        return value.match(/(green|blue|white|transparent)/)
+      },
     },
     /**
      * Style variation to give additional meaning.
@@ -41,17 +52,42 @@ export default {
   @include stack-space($space-small);
   @include inset-space($space-small);
   color: set-text-color($color-white, $color-green);
-  background-color: $color-green;
   @media #{$media-query-medium} {
     @include stack-space($space-base);
   }
+}
+
+.green {
+  background-color: $color-green;
+}
+.blue {
+  background-color: $color-blue;
+}
+.white {
+  color: set-text-color($color-green, $color-white);
+  background-color: $color-white;
+}
+.transparent {
+  color: $color-green;
+  background-color: transparent;
 }
 </style>
 
 <docs>
   ```jsx
-  <hc-button>
-    Docs section should have an example that is shown in the documentation.
-  </hc-button>
+  <div>
+    <hc-button>
+      Click me please
+    </hc-button>
+    <hc-button color="blue">
+      Click me please
+    </hc-button>
+    <hc-button color="white">
+      Click me please
+    </hc-button>
+    <hc-button color="transparent">
+      Click me please
+    </hc-button>
+  </div>
   ```
 </docs>
