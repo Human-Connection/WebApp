@@ -124,16 +124,10 @@
   import { validationMixin } from "vuelidate"
   import { required, minLength, maxLength, email } from "vuelidate/lib/validators"
   import { isEmpty } from "lodash"
-  import Search from '~/components/Mentions/Search.vue'
-  import HcFakeInput from "../../Global/Elements/FakeInput/FakeInput.vue"
 
   export default {
-    name: 'orga-form-users',
+    name: 'orga-form-channels',
     mixins: [validationMixin],
-    components: {
-      HcFakeInput,
-      Search
-    },
     props: {
       data: {
         type: Object

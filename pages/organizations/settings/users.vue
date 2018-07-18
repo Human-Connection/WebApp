@@ -15,7 +15,7 @@
 
 <script>
   import OrganizationForm from '~/components/Organizations/OrganizationForm'
-  import FormComponent from '~/components/Organizations/steps/OrgaFormUsers'
+  import FormComponent from '~/components/Organizations/OrgaFormUsers'
 
   export default {
     components: {

@@ -103,7 +103,8 @@
       try {
         const organization = await app.$api.service('organizations').get(query.id)
         const user = store.getters['auth/user']
-        if (organization.userId !== user._id && ['admin', 'moderator'].includes(user.role) === false) {
+        if (organization.users.every(item => item.id !== user._id.toString())
+          && ['admin', 'moderator'].includes(user.role) === false) {
           error({ statusCode: 403 })
         }
 
