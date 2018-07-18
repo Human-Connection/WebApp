@@ -12,6 +12,7 @@ if (process.browser) {
           this.$store.dispatch('categories/subscribe')
           this.$store.dispatch('newsfeed/subscribe')
           this.$store.dispatch('notifications/subscribe')
+          this.$store.dispatch('settings/subscribe')
         }
         init = true
       }

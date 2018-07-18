@@ -22,7 +22,7 @@
         </div>
       </b-modal>
     </div>
-    <transition name="fade">
+    <transition name="slide-up">
       <article class="message is-info" v-if="notification && notification.type === 'info'">
         <div class="message-body content">
           <div class="header">
@@ -61,8 +61,21 @@
         isAcceptModalActive: false
       }
     },
-    mounted: function () {
+    mounted () {
       this.init()
+
+      this.$api
+        .service('system-notifications')
+        .on('created', (data) => this.updateNotification(data, 'created'))
+        .on('patched', (data) => this.updateNotification(data, 'patched'))
+        .on('removed', (data) => this.updateNotification(data, 'removed'))
+    },
+    beforeDestroy () {
+      this.$api
+        .service('system-notifications')
+        .off('created')
+        .off('patched')
+        .off('removed')
     },
     computed: {
       ...mapGetters({
@@ -73,28 +86,29 @@
       }
     },
     methods: {
+      async updateNotification (data, type) {
+        const isNotificationVisible = this.notification && this.notification._id
+        const isCurrent = isNotificationVisible && this.notification._id.toString() === data._id.toString()
+
+        if (isCurrent) {
+          this.notification = {}
+        }
+        this.init()
+      },
       async closeNotification () {
         await this.$store.dispatch('auth/patch', {
           $push: {
             systemNotificationsSeen: this.notification._id
           }
         })
-        this.notification = null
+        this.notification = {}
+        this.init()
       },
       init () {
         if (this.user) {
           this.showTermsAndConditions()
         }
         this.showInfo()
-        /* switch (this.type.toLowerCase()) {
-          case 'termsAndConditions':
-            this.showTermsAndConditions()
-            break;
-          case 'info':
-          default:
-            this.showInfo()
-            break;
-        } */
       },
       async showTermsAndConditions () {
         const hasAccepted = this.user.termsAndConditionsAccepted

@@ -1,8 +1,7 @@
-import feathers from 'feathers/client'
-import socketio from 'feathers-socketio/client'
+import feathers from '@feathersjs/feathers'
+import socketio from '@feathersjs/socketio-client'
 import io from 'socket.io-client'
-import hooks from 'feathers-hooks'
-import authentication from 'feathers-authentication-client'
+import authentication from '@feathersjs/authentication-client'
 import urlHelper from '~/helpers/urls'
 import Vue from 'vue'
 
@@ -51,7 +50,6 @@ export default ({app, store, redirect, router}) => {
     .configure(socketio(socket, {
       timeout: 20000
     }))
-    .configure(hooks())
     .configure(authentication({
       storage: storage,
       storageKey: authKey,
@@ -116,6 +114,11 @@ export default ({app, store, redirect, router}) => {
     }
     return user
   }
+
+  api.on('connection', connection => {
+    // On a new real-time connection, add it to the anonymous channel
+    api.channel('authenticated').join(connection)
+  })
 
   /**
    * @deprecated

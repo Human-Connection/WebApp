@@ -22,7 +22,7 @@
         <v2-table-column label="Reviewd" prop="reviewer" align="center">
           <template slot-scope="row">
             <hc-button v-if="row.reviewedBy" :title="row.reviewer.name" type="link" target="_blank" :to="{name: 'profile-slug', params: {slug: row.reviewer.slug}}">
-              <i v-show="row.reviewedBy" class="fa fa-check-circle"></i>
+              <i v-show="row.reviewedBy" class="fa fa-check"></i>
             </hc-button>
           </template>
         </v2-table-column>
@@ -156,7 +156,8 @@
     color: $primary;
   }
 
-  .fa-check-circle {
+  .fa-check-circle,
+  .fa-check {
     color: $primary;
   }
 </style>

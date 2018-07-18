@@ -65,24 +65,18 @@
         }
       })
     },
-    mounted () {
-      this.$api.service('contributions').on('patched', res => {
-        // TODO: use the new channels feature for the feathers (buzzard) when its released
-        if (res._id === this.contribution._id) {
-          keys(this.contribution.emotions).forEach((key) => {
-            this.$refs[key][0].pause()
-            this.values[key].startVal = this.values[key].endVal
-            this.values[key].endVal = this.contribution.emotions[key].percent
-            this.$refs[key][0].start()
-          })
-          this.contribution.emotions = res.emotions
-        }
-      })
-    },
-    beforeDestroy () {
-      this.$api.service('contributions').off('patched')
-    },
     methods: {
+      updateCounts(emotions) {
+        keys(emotions).forEach((key) => {
+          if (this.values[key].endVal === emotions[key].percent) {
+            return
+          }
+          this.$refs[key][0].pause()
+          this.values[key].startVal = this.values[key].endVal
+          this.values[key].endVal = emotions[key].percent
+          this.$refs[key][0].start()
+        })
+      },
       getEmoticon (key) {
         if (this.selected === key) {
           return `${key}_color`
@@ -107,6 +101,9 @@
       }
     },
     watch: {
+      'contribution.emotions' (emotions) {
+        this.updateCounts(emotions)
+      },
       'inViewport.fully' () {
         if (this.inViewport.fully && process.browser) {
           this.inViewport.listening = false

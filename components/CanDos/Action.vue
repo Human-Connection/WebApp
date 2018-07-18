@@ -56,7 +56,7 @@
         return this.post.cando
       },
       candoUsers () {
-        return this.post.candoUsers
+        return this.post.candoUsers || []
       },
       canDoCount () {
         return this.candoUsers ? this.candoUsers.length : 0
@@ -71,7 +71,7 @@
         if (!this.user || !this.candoUsers) {
           return null
         }
-        return this.post.candoUsers.find(({userId}) => {
+        return this.candoUsers.find(({userId}) => {
           return userId === this.user._id
         })
       },

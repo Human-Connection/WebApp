@@ -14,24 +14,24 @@
                     :shown-pagination="userTotalPages > 1"
                     :pagination-info="paginationInfo"
                     @page-change="handleUserPageChange">
-            <v2-table-column label="Name" prop="name" align="left" width="220">
+            <v2-table-column label="Name" prop="name" align="left" width="200">
               <template slot-scope="row">
-                <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                <a :title="row.name" v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
                   <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
                 </a>
-                <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
+                <div :title="row.name" v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
                   <hc-avatar :showOnlineStatus="true" :user="row" style="display: inline-block; float: left;" />&nbsp;<span style="display: inline-block; padding: 5px 10px;">{{ row.name }}</span>
                 </div>
               </template>
             </v2-table-column>
-            <v2-table-column label="Verified" prop="isVerified" align="center">
+            <v2-table-column label="Verified" prop="isVerified" align="center" width="50">
               <template slot-scope="row">
-                <i v-show="row.isVerified" class="fa fa-check-circle"></i>
+                <i v-show="row.isVerified" class="fa fa-check"></i>
               </template>
             </v2-table-column>
-            <v2-table-column label="Legal" prop="termsAndConditionsAccepted" align="center">
+            <v2-table-column label="Legal" prop="termsAndConditionsAccepted" align="center" width="50">
               <template slot-scope="row">
-                <i v-show="row.termsAndConditionsAccepted" :title="row.termsAndConditionsAccepted" class="fa fa-check-circle"></i>
+                <i v-show="row.termsAndConditionsAccepted" :title="row.termsAndConditionsAccepted" class="fa fa-check"></i>
               </template>
             </v2-table-column>
             <v2-table-column label="Last Active" prop="lastActiveAt" align="left">
@@ -40,7 +40,7 @@
                 <span v-else>-</span>
               </template>
             </v2-table-column>
-            <v2-table-column label="" prop="userSettings.uiLanguage" align="center" width="40">
+            <v2-table-column label="" prop="userSettings.uiLanguage" align="center" width="32">
               <template slot-scope="row">
                 <template v-if="row.userSettings">
                   <img width="16" :src="`/assets/svg/flags/${row.userSettings.uiLanguage}.svg`" />
@@ -50,7 +50,18 @@
                 </template>
               </template>
             </v2-table-column>
-            <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
+            <v2-table-column label="" prop="badges" align="left">
+              <template slot-scope="row">
+                <img
+                  v-if="row.badgeIds.length"
+                  v-for="badgeId in row.badgeIds"
+                  :key="badgeId"
+                  width="24"
+                  :title="$t(`component.badges.${badgesById[badgeId].key}`)"
+                  :src="badgesById[badgeId].image.path" />
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Role" prop="role" align="left" width="50"></v2-table-column>
           </v2-table>
         </no-ssr>
       </b-tab-item>
@@ -92,22 +103,43 @@
                     :shown-pagination="currentPage > 1 || invitesTotalPages > 1"
                     :pagination-info="paginationInfo"
                     @page-change="handleInvitesPageChange">
-            <v2-table-column label="Email" prop="email" align="left" width="250"></v2-table-column>
+            <v2-table-column label="Email" prop="email" align="left" width="200">
+              <template slot-scope="row">
+                <span :title="row.email">{{ row.email }}</span>
+              </template>
+            </v2-table-column>
             <v2-table-column label="Code" prop="code" align="left">
               <template slot-scope="row">
                 <a :href="`${baseURL}/auth/register?email=${row.email}&code=${row.code}&lang=${row.language}`">{{ row.code }}</a>
               </template>
             </v2-table-column>
-            <v2-table-column label="" prop="language" align="center" width="40">
+            <v2-table-column label="" prop="language" align="center" width="32">
               <template slot-scope="row">
                 <img width="16" :src="`/assets/svg/flags/${row.language}.svg`" />
               </template>
             </v2-table-column>
-            <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
+            <v2-table-column label="" prop="badges" align="left">
+              <template slot-scope="row">
+                <img
+                  v-if="row.badges"
+                  v-for="badge in (row.badges || '').split('|')"
+                  :key="badge"
+                  width="24"
+                  :title="$t(`component.badges.${badge}`)"
+                  :src="getBadgeSrc(badge)" />
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Role" prop="role" align="left" width="50"></v2-table-column>
             <v2-table-column label="Created" prop="created" align="center">
               <template slot-scope="row">
-                <i v-show="row.created === true" class="fa fa-check-circle"></i>
+                <i v-show="row.created === true" class="fa fa-check"></i>
                 <i v-show="row.created === false" class="fa fa-ban"></i>
+              </template>
+            </v2-table-column>
+            <v2-table-column label="Updated" prop="updated" align="center">
+              <template slot-scope="row">
+                <i v-show="row.wasUpdated === true" class="fa fa-check"></i>
+                <i v-show="row.wasUpdated === false" class="fa fa-ban"></i>
               </template>
             </v2-table-column>
           </v2-table>
@@ -123,19 +155,19 @@
                        @click="inviteUsers()"
                        :isLoading="isLoading || invitesLoading"
                        :disabled="isLoading || !invitePreview.length || !!resultDownloadURL">
-              <hc-icon set="fa" icon="bolt"></hc-icon> &nbsp;<strong>Invite {{ invitePreview.length || 0 }} users
-              <span style="font-weight: normal" v-if="form.sendInviteEmails">(with mailing)</span>
-              <span style="font-weight: normal" v-else>(no mailing)</span></strong>
-            </hc-button>
+                <hc-icon set="fa" icon="bolt"></hc-icon> &nbsp;<strong>Invite {{ invitePreview.length || 0 }} users
+                <span style="font-weight: normal" v-if="form.sendInviteEmails">(with mailing)</span>
+                <span style="font-weight: normal" v-else>(no mailing)</span></strong>
+              </hc-button>
             </div>
             <div class="control">
               <a :href="resultDownloadURL"
-               class="button pull-right"
-               :class="{ 'is-loading': isLoading }"
-               :disabled="isLoading || !results || !resultDownloadURL"
-               download="data.csv">
-              <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
-            </a>
+                class="button pull-right"
+                :class="{ 'is-loading': isLoading }"
+                :disabled="isLoading || !results || !resultDownloadURL"
+                download="data.csv">
+                <hc-icon set="fa" icon="download"></hc-icon> &nbsp;<strong>{{ $t('component.admin.buttonDownloadCSV', 'Download CSV') }}</strong>
+              </a>
             </div>
           </div>
         </footer>
@@ -181,11 +213,19 @@
           nextPageText: '>',
           prevPageText: '<'
         },
-        activeTab: null
+        activeTab: null,
+        badgesById: []
       }
     },
     async asyncData ({app}) {
       const limit = itemLimit
+
+      const badges = await app.$api.service('badges').find({
+        query: {
+          $limit: 1000
+        }
+      })
+
       const users = await app.$api.service('users').find({
         query: {
           $limit: limit
@@ -194,7 +234,8 @@
       return {
         users: users,
         usersLoading: false,
-        itemLimit: limit
+        itemLimit: limit,
+        badgesById: keyBy(badges.data, '_id')
       }
     },
     filters: {
@@ -311,6 +352,8 @@
             if (created) {
               this.$set(this.invitePreview[key], 'role', resByEmail[item.email].role)
               this.$set(this.invitePreview[key], 'code', resByEmail[item.email].code)
+              this.$set(this.invitePreview[key], 'wasUpdated', resByEmail[item.email].wasUpdated)
+              this.$set(this.invitePreview[key], 'created', !resByEmail[item.email].wasUpdated)
             }
           })
           const blob = new Blob(['\ufeff', this.results])
@@ -381,24 +424,15 @@
     color: $primary;
   }
 
-  .fa-check-circle {
+  .fa-check-circle,
+  .fa-check {
     color: $primary;
-  }
-
-  $padding: 1.5rem;
-  footer.card-footer {
-    margin: -$padding;
-    margin-top: 2rem;
-    margin-bottom: -3rem;
-    background: lighten($grey-lighter, 10%);
-    padding: 1rem $padding;
-    display: flex;
-    justify-content: right;
   }
 
   @media (min-width: 500px) {
     .user-tabs {
       margin-top: -4.0rem;
+      margin-bottom: -1rem;
     }
   }
 </style>
