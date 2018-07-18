@@ -170,6 +170,6 @@
   };
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   @import "assets/styles/_animations";
 </style>

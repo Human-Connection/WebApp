@@ -54,6 +54,11 @@ module.exports = {
     'mapbox-gl/dist/mapbox-gl.css',
     'assets/styles/main.scss'
   ],
+  sassResources: [
+    './design-system/src/styles/styles.scss',
+    './design-system/src/assets/tokens/tokens.scss',
+    './design-system/src/assets/tokens/tokens.map.scss'
+  ],
   build: {
     presets: ['vue-app'],
     vendor: [
@@ -80,9 +85,11 @@ module.exports = {
           exclude: /(node_modules)/
         })
       }
+
       // Add aliases
       const aliases = Object.assign(config.resolve.alias, {
-        '~/helpers': path.resolve(__dirname, 'helpers')
+        '~/helpers': path.resolve(__dirname, 'helpers'),
+        '@@': path.resolve(__dirname, 'design-system/src')
       })
       config.resolve.alias = aliases // eslint-disable-line no-param-reassign
       // Needed for some plugins that don't pre-compile templates
@@ -104,6 +111,7 @@ module.exports = {
     {src: '~/plugins/buefy.js'},
     {src: '~/plugins/vue-clip.js', ssr: false},
     {src: '~/plugins/global-components.js'},
+    {src: '~/plugins/design-system'},
     {src: '~/plugins/quill/index.js', ssr: false},
     {src: '~/plugins/v2-table.js', ssr: false},
     {src: '~/plugins/scroll-to.js', ssr: false},
@@ -111,6 +119,7 @@ module.exports = {
     {src: '~/plugins/open-page-in-modal.js', ssr: false}
   ],
   modules: [
+    'nuxt-sass-resources-loader',
     'cookie-universal-nuxt',
     '@nuxtjs/dotenv'
     // '@nuxtjs/pwa'

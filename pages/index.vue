@@ -1,5 +1,7 @@
 <template>
     <div>
+      <heading>Nice Heading</heading>
+      <form-input></form-input>
       <newsfeed-sort />
       <div class="container" style="position: relative">
           <section class="cards">
