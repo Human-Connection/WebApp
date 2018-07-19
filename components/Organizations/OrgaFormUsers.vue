@@ -75,7 +75,11 @@
               </a>&nbsp;&nbsp;
               <a
                 :title="$t('button.delete')"
-                @click="showDeleteModal(row.index)"
+                @click="$emit('deleteItem', {
+                  ressource: 'users',
+                  index: row.index,
+                  name: row.name
+                })"
                 class="btn-delete">
                 <hc-icon icon="trash" />
               </a>
@@ -84,39 +88,6 @@
         </v2-table>
       </no-ssr>
     </div>
-
-    <br />
-    <slot v-if="!hideButton">
-      <hc-button
-        color="primary"
-        @click.prevent="validate()"
-        size="medium"
-        type="button"
-        class="is-fullwidth"
-        :isLoading="isLoading"
-        :disabled="isLoading">
-        {{ $t('button.next') }} <hc-icon class="icon-right" icon="angle-right" />
-      </hc-button>
-    </slot>
-    <b-modal v-if="deleteIndex !== null" :active.sync="deleteModalActive" has-modal-card animation="zoom-in">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <section class="modal-card-body">
-          <h2 class="title is-3">{{ $t('button.delete' ) }}?</h2>
-          <p v-html="$t('auth.settings.organizationDeleteModel', { name: deleteModalVar })"></p>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-light"
-                  @click.prevent="closeDeleteModal">
-            <hc-icon class="icon-left" icon="times" /> {{ $t('button.cancel' ) }}
-          </button>
-          <hc-button color="danger"
-                     @click.prevent="del(deleteIndex)">
-            <hc-icon class="icon-left" icon="trash" /> {{ $t('button.delete' ) }}
-          </hc-button>
-        </footer>
-      </div>
-    </b-modal>
   </div>
 </template>
 
@@ -135,10 +106,6 @@
     props: {
       data: {
         type: Object
-      },
-      hideButton: {
-        type: Boolean,
-        default: false
       }
     },
     data () {
@@ -156,9 +123,6 @@
           'editor',
           'admin'
         ],
-        deleteModalActive: false,
-        deleteModalVar: null,
-        deleteIndex: null,
         editIndex: null,
         isLoading: false
       }
@@ -211,25 +175,6 @@
           slug: data.slug || null,
           role: data.role || 'editor'
         })
-      },
-      showDeleteModal (index) {
-        this.deleteIndex = index
-        this.deleteModalVar = this.data.users[index].name
-        this.deleteModalActive = true
-      },
-      del (index) {
-        let output = Object.assign({}, this.data)
-        output.users.splice(index, 1)
-        this.$emit('validate', output)
-        this.editIndex = null
-        this.closeDeleteModal()
-      },
-      closeDeleteModal () {
-        this.deleteModalActive = false
-        setTimeout(() => {
-          this.deleteIndex = null
-          this.deleteModalVar = null
-        }, 350)
       },
       edit (index) {
         if (this.editIndex !== null && index === this.editIndex) {

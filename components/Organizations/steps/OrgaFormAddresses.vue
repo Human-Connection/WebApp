@@ -120,7 +120,11 @@
             </a>&nbsp;&nbsp;
             <a
               :title="$t('button.delete')"
-              @click="showDeleteModal(index)"
+              @click="$emit('deleteItem', {
+                ressource: 'addresses',
+                index: index,
+                name: `${address.street}, ${address.zipCode} ${address.city}`
+              })"
               class="btn-delete">
               <hc-icon icon="trash" />
             </a>
@@ -142,25 +146,6 @@
         {{ $t('button.next') }} <hc-icon class="icon-right" icon="angle-right" />
       </hc-button>
     </slot>
-    <b-modal v-if="deleteIndex !== null" :active.sync="deleteModalActive" has-modal-card animation="zoom-in">
-      <div class="modal-background"></div>
-      <div class="modal-card">
-        <section class="modal-card-body">
-          <h2 class="title is-3">{{ $t('button.delete' ) }}?</h2>
-          <p v-html="$t('auth.settings.organizationDeleteModel', { name: deleteModalVar })"></p>
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-light"
-                  @click.prevent="closeDeleteModal">
-            <hc-icon class="icon-left" icon="times" /> {{ $t('button.cancel' ) }}
-          </button>
-          <hc-button color="danger"
-                     @click.prevent="del(deleteIndex)">
-            <hc-icon class="icon-left" icon="trash" /> {{ $t('button.delete' ) }}
-          </hc-button>
-        </footer>
-      </div>
-    </b-modal>
   </div>
 </template>
 
@@ -226,9 +211,6 @@
           lng: null
         },
         primaryAddressIndex: null,
-        deleteModalActive: false,
-        deleteModalVar: null,
-        deleteIndex: null,
         editIndex: null,
         isLoading: false,
         places: generatePlaces(this.data),
@@ -278,25 +260,6 @@
             lng: !isEmpty(data.latlng) ? data.latlng.lng : data.lng
           })
         } catch (err) {}
-      },
-      showDeleteModal (index) {
-        this.deleteIndex = index
-        this.deleteModalVar = this.data.addresses[index].street
-        this.deleteModalActive = true
-      },
-      del (index) {
-        let output = Object.assign({}, this.data)
-        output.addresses.splice(index, 1)
-        this.$emit('validate', output)
-        this.editIndex = null
-        this.closeDeleteModal()
-      },
-      closeDeleteModal () {
-        this.deleteModalActive = false
-        setTimeout(() => {
-          this.deleteIndex = null
-          this.deleteModalVar = null
-        }, 350)
       },
       edit (index) {
         if (this.editIndex !== null && index === this.editIndex) {

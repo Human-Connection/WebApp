@@ -12,9 +12,13 @@
     <form @submit.prevent="$refs.form.validate()">
       <div class="columns">
         <div class="column">
-          <component ref="form"
-            :data="formData" @validate="onValidation"
-            :hideButton="true" :autoFocus="false"
+          <component
+            ref="form"
+            :data="formData"
+            @validate="onValidation"
+            @deleteItem="showDeleteModal"
+            :hideButton="true"
+            :autoFocus="false"
             :canEnable="canEnable"
             :is="formComponent" />
         </div>
@@ -29,6 +33,26 @@
         </hc-button>
       </footer>
     </form>
+
+    <b-modal v-if="deleteIndex !== null" :active.sync="deleteModalActive" has-modal-card animation="zoom-in">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <section class="modal-card-body">
+          <h2 class="title is-3">{{ $t('button.delete' ) }}?</h2>
+          <p v-html="$t('auth.settings.organizationDeleteModel', { name: deleteModalVar })"></p>
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-light"
+                  @click.prevent="closeDeleteModal">
+            <hc-icon class="icon-left" icon="times" /> {{ $t('button.cancel' ) }}
+          </button>
+          <hc-button color="danger"
+                     @click.prevent="del">
+            <hc-icon class="icon-left" icon="trash" /> {{ $t('button.delete' ) }}
+          </hc-button>
+        </footer>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -61,7 +85,11 @@
     },
     data () {
       return {
-        formData: {}
+        formData: {},
+        deleteModalActive: false,
+        deleteModalVar: null,
+        deleteRessource: null,
+        deleteIndex: null
       }
     },
     watch: {
@@ -103,6 +131,27 @@
               organization[key] : this.formAttributes[key]
           )
         })
+      },
+      showDeleteModal ({ ressource, index, name }) {
+        this.deleteRessource = ressource
+        this.deleteIndex = index
+        this.deleteModalVar = name
+        this.deleteModalActive = true
+      },
+      del () {
+        let output = Object.assign({}, this.formData)
+        output[this.deleteRessource].splice(this.deleteIndex, 1)
+        this.onValidation(output)
+        this.editIndex = null
+        this.closeDeleteModal()
+      },
+      closeDeleteModal () {
+        this.deleteModalActive = false
+        setTimeout(() => {
+          this.deleteRessource = null
+          this.deleteIndex = null
+          this.deleteModalVar = null
+        }, 350)
       }
     }
   };
