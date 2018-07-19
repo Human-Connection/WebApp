@@ -15,7 +15,7 @@
                   {{ $t('auth.settings.organizationChannelsTypePlaceholder') }}
                 </option>
                 <option
-                  v-for="type in types"
+                  v-for="type in typeNames"
                   :key="type"
                   :value="type">
                   {{ type }}
@@ -51,7 +51,14 @@
           <v2-table-column label="Type" prop="type" align="left" width="130">></v2-table-column>
           <v2-table-column label="Name" prop="name" align="left">
             <template slot-scope="row">
-              <hc-icon icon="at" /> {{ row.name }}
+              <a v-if="types[row.type] && types[row.type].url"
+                :href="types[row.type].url + '/' + row.name"
+                target="_blank">
+                {{ types[row.type].url }}/{{ row.name }}
+              </a>
+              <span v-else>
+                <hc-icon icon="at" />{{ row.name }}
+              </span>
             </template>
           </v2-table-column>
           <v2-table-column align="right" width="100">
@@ -100,7 +107,8 @@
           name: null,
           type: null
         },
-        types: collections.socialChannels.names,
+        typeNames: collections.socialChannels.names,
+        types: collections.socialChannels.list,
         editIndex: null,
         isLoading: false
       }
