@@ -311,7 +311,8 @@ label,
 
 .has-error {
   span.check,
-  input {
+  input,
+  select {
     border-color: $red !important;
   }
   .control-label,

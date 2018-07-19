@@ -36,6 +36,25 @@
         default: true
       }
     },
+    async asyncData ({app, query, store, error, redirect}) {
+      try {
+        const organization = await app.$api.service('organizations').get(query.id)
+        const user = store.getters['auth/user']
+        const orgaOwner = organization.users.find(item => item.id === user._id.toString())
+        if (!(orgaOwner && orgaOwner.role === 'admin')
+          && ['admin', 'moderator'].includes(user.role) === false) {
+          error({ statusCode: 403 })
+        }
+      } catch (err) {
+        if (err.code === 404) {
+          // redirect user to its organization list if it was not found
+          redirect({name: 'auth-settings-organizations'})
+        } else {
+          error({statusCode: err.code || 500, message: err.message})
+          return {}
+        }
+      }
+    },
     data () {
       return {
         formAttributes: {

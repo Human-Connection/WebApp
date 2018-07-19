@@ -2,7 +2,8 @@
   <div>
     <!--<hc-map :places="places" :zoom="zoom" :center="center" height="350px" :token="$env.MAPBOX_TOKEN" />-->
     <div class="field">
-      <div class="control">
+      <div class="control"
+        :class="{ 'has-error': $v.form.street.$error }">
         <no-ssr>
           <places
             class="input"
@@ -22,7 +23,8 @@
     <div class="columns">
       <div class="column">
         <div class="field is-required" ref="zipCode">
-          <div class="control">
+          <div class="control"
+            :class="{ 'has-error': $v.form.zipCode.$error }">
             <input
               class="input"
               id="form-zip-code"
@@ -36,7 +38,8 @@
           </div>
         </div>
       </div>
-      <div class="column">
+      <div class="column"
+        :class="{ 'has-error': $v.form.city.$error }">
         <div class="field is-required" ref="city">
           <div class="control">
             <input
@@ -56,7 +59,8 @@
     <div class="columns">
       <div class="column">
         <div class="field is-required" ref="email">
-          <div class="control">
+          <div class="control"
+            :class="{ 'has-error': $v.form.email.$error }">
             <input
               class="input"
               id="form-email"
@@ -72,7 +76,8 @@
       </div>
       <div class="column">
         <div class="field is-required" ref="phone">
-          <div class="control">
+          <div class="control"
+            :class="{ 'has-error': $v.form.phone.$error }">
             <input
               class="input"
               id="phone"

@@ -1,45 +1,43 @@
 <template>
   <div>
     <div class="columns">
-      <div class="column expand">
-        <div class="field is-required" ref="id">
-          <div class="control">
-            <div v-show="!form.id"
-              class="orga-user-search-container">
-              <input class="input"
-                data-test="id"
-                type="text"
-                v-model="searchString"
-                :placeholder="$t('component.search.user')"
-                ref="search"
-                @focus="searchFocus = true"
-                v-click-outside="hideSearch"
-                :disabled="isLoading" />
-              <search :search-string="searchString" v-show="showSearch"
-                class="orga-user-search"
-                @itemselected="itemSelected"></search>
-            </div>
-            <hc-fake-input v-show="form.id"
-              @deleteItem="startNewSearch">
-              <hc-avatar :user="form"
-                :showName="true" :size="26"></hc-avatar>
-            </hc-fake-input>
-          </div>
-        </div>
-      </div>
       <div class="column is-narrow">
-        <div class="field is-required" ref="role">
-          <div class="control">
+        <div class="field is-required">
+          <div class="control"
+            :class="{ 'has-error': $v.form.type.$error }">
             <div class="select orga-user-role">
-              <select v-model="form.role">
+              <select v-model="form.type"
+                @blur="$v.form.type.$touch()">
                 <option
-                  v-for="role in roles"
-                  :key="role"
-                  :value="role">
-                  {{ role }}
+                  disabled
+                  selected
+                  :value="null">
+                  {{ $t('auth.settings.organizationChannelsTypePlaceholder') }}
+                </option>
+                <option
+                  v-for="type in types"
+                  :key="type"
+                  :value="type">
+                  {{ type }}
                 </option>
               </select>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="column expand">
+        <div class="field is-required">
+          <div class="control has-icons-left"
+            :class="{ 'has-error': $v.form.name.$error }">
+            <input class="input"
+              type="text"
+              v-model="form.name"
+              @blur="$v.form.name.$touch()"
+              :placeholder="$t('auth.settings.organizationChannelsNamePlaceholder')"
+              :disabled="isLoading" />
+            <span class="icon is-small is-left">
+              <hc-icon icon="at" />
+            </span>
           </div>
         </div>
       </div>
@@ -50,21 +48,12 @@
     <div class="user-list">
       <no-ssr>
         <v2-table :data="tableRows" :stripe="true">
-          <v2-table-column label="Name" prop="name" align="left" width="300">
+          <v2-table-column label="Type" prop="type" align="left" width="130">></v2-table-column>
+          <v2-table-column label="Name" prop="name" align="left">
             <template slot-scope="row">
-              <a v-if="row.slug" :href="`/profile/${row.slug}`" target="_blank" style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-                <hc-avatar :user="row"
-                  :showOnlineStatus="true"
-                  :showName="true"></hc-avatar>
-              </a>
-              <div v-else style="white-space: nowrap;" :class="{'link': !!row.slug}" class="cell-name">
-                <hc-avatar :user="row"
-                  :showOnlineStatus="true"
-                  :showName="true"></hc-avatar>
-              </div>
+              <hc-icon icon="at" /> {{ row.name }}
             </template>
           </v2-table-column>
-          <v2-table-column label="Role" prop="role" align="left"></v2-table-column>
           <v2-table-column align="right" width="100">
             <template slot-scope="row">
               <a
@@ -92,6 +81,7 @@
 </template>
 
 <script>
+  import { collections } from 'human-connection-modules'
   import { validationMixin } from "vuelidate"
   import { required, minLength, maxLength, email } from "vuelidate/lib/validators"
   import { isEmpty } from "lodash"
@@ -106,32 +96,21 @@
     },
     data () {
       return {
-        searchString: '',
-        searchFocus: false,
         form: {
           name: null,
-          avatar: null,
-          slug: null,
-          id: null,
-          role: 'editor'
+          type: null
         },
-        roles: [
-          'editor',
-          'admin'
-        ],
+        types: collections.socialChannels.names,
         editIndex: null,
         isLoading: false
       }
     },
     computed: {
       tableRows () {
-        return this.data.users.map((user, index) => {
-          user.index = index
-          return user
+        return this.data.channels.map((channel, index) => {
+          channel.index = index
+          return channel
         })
-      },
-      showSearch () {
-        return this.searchFocus && this.searchString
       }
     },
     watch: {
@@ -140,36 +119,17 @@
       }
     },
     methods: {
-      hideSearch () {
-        this.searchFocus = false
-      },
       itemSelected (data) {
-        const user = data.item
+        const channel = data.item
         this.form = Object.assign(this.form, {
-          id: user._id || null,
-          avatar: user.avatar || null,
-          name: user.name || null,
-          slug: user.slug || null
-        })
-      },
-      startNewSearch () {
-        this.form = Object.assign(this.form, {
-          id: null,
-          avatar: null,
-          name: null,
-          slug: null
-        })
-        this.$nextTick(() => {
-          this.$refs.search.focus()
+          name: channel.name || null,
+          type: channel.type || null
         })
       },
       updateData (data) {
         this.form = Object.assign(this.form, {
-          id: data.id || null,
-          avatar: data.avatar || null,
           name: data.name || null,
-          slug: data.slug || null,
-          role: data.role || 'editor'
+          type: data.type || null
         })
       },
       edit (index) {
@@ -178,39 +138,44 @@
           this.updateData({})
         } else {
           this.editIndex = index
-          this.updateData(this.data.users[index])
+          this.updateData(this.data.channels[index])
         }
       },
       validate () {
-        if (this.$v.form.$dirty && this.$v.form.$invalid) {
+        const checkDirty = ['name', 'type']
+        const dirty = checkDirty.some(key => this.$v.form[key].$dirty)
+        if (dirty && this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.$emit('validate', false)
         } else {
           // return validated form data
           let output = Object.assign({}, this.data)
-          const form = Object.assign({}, this.form)
-          if (this.editIndex === null) {
-            output.users.push(form)
-          } else {
-            output.users[this.editIndex] = form
+          if (dirty) {
+            const form = Object.assign({}, this.form)
+            console.log('form', form.name)
+            if (this.editIndex === null) {
+              output.channels.push(form)
+            } else {
+              output.channels[this.editIndex] = form
+            }
           }
-          this.searchString = ''
 
           this.$emit('validate', output)
           this.editIndex = null
 
           // reset form values to null
           this.updateData({})
+          this.$v.$reset()
         }
       }
     },
     validations() {
       return {
         form: {
-          id: {
+          name: {
             required
           },
-          role: {
+          type: {
             required
           }
         }
@@ -232,42 +197,6 @@
   }
   .btn-delete {
     color: $red;
-  }
-
-  .address-item-inner {
-    background-color: $white-bis;
-    margin: $margin 0;
-    padding: $padding;
-    border-bottom: 3px solid $white-ter;
-    line-height: 1.5;
-
-    &.is-active {
-      border-color: $primary;
-    }
-  }
-
-  .address-icon {
-    color: $grey-light;
-    width: 20px;
-    position: relative;
-    top: -1px;
-  }
-
-  .address-item-actions {
-    margin-top: $margin;
-  }
-
-  .orga-user-search-container {
-    position: relative;
-
-    .orga-user-search {
-      position: absolute;
-      left: 0;
-      right: 0;
-      width: 100%;
-      top: 100%;
-      z-index: 100;
-    }
   }
 
   .orga-user-role {

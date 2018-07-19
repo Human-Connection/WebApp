@@ -582,7 +582,10 @@
       "organizationZipCode": "PLZ",
       "organizationCity": "Stadt",
       "organizationCountry": "Land",
-      "organizationUsers": "Benutzer"
+      "organizationUsers": "Benutzer",
+      "organizationChannels": "Soziale Kanäle",
+      "organizationChannelsNamePlaceholder": "Benutzername ...",
+      "organizationChannelsTypePlaceholder": "Kanal ..."
     }
   },
   "ressource": {

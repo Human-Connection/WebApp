@@ -2,17 +2,18 @@
   <div>
     <div class="columns">
       <div class="column expand">
-        <div class="field is-required" ref="id">
-          <div class="control">
+        <div class="field is-required">
+          <div class="control"
+            :class="{ 'has-error': $v.form.id.$error }">
             <div v-show="!form.id"
               class="orga-user-search-container">
               <input class="input"
-                data-test="id"
                 type="text"
                 v-model="searchString"
                 :placeholder="$t('component.search.user')"
                 ref="search"
                 @focus="searchFocus = true"
+                @blur="$v.form.id.$touch()"
                 v-click-outside="hideSearch"
                 :disabled="isLoading" />
               <search :search-string="searchString" v-show="showSearch"
@@ -28,10 +29,12 @@
         </div>
       </div>
       <div class="column is-narrow">
-        <div class="field is-required" ref="role">
-          <div class="control">
+        <div class="field is-required">
+          <div class="control"
+            :class="{ 'has-error': $v.form.role.$error }">
             <div class="select orga-user-role">
-              <select v-model="form.role">
+              <select v-model="form.role"
+                @blur="$v.form.role.$touch()">
                 <option
                   v-for="role in roles"
                   :key="role"
@@ -95,6 +98,8 @@
   import { validationMixin } from "vuelidate"
   import { required, minLength, maxLength, email } from "vuelidate/lib/validators"
   import { isEmpty } from "lodash"
+
+  // ToDo: make search abstract
   import Search from '~/components/Mentions/Search.vue'
 
   export default {
@@ -186,25 +191,30 @@
         }
       },
       validate () {
-        if (this.$v.form.$dirty && this.$v.form.$invalid) {
+        const checkDirty = ['id', 'role']
+        const dirty = checkDirty.some(key => this.$v.form[key].$dirty)
+        if (dirty && this.$v.form.$invalid) {
           this.$v.form.$touch()
           this.$emit('validate', false)
         } else {
           // return validated form data
           let output = Object.assign({}, this.data)
-          const form = Object.assign({}, this.form)
-          if (this.editIndex === null) {
-            output.users.push(form)
-          } else {
-            output.users[this.editIndex] = form
+          if (dirty) {
+            const form = Object.assign({}, this.form)
+            console.log('form', form.name)
+            if (this.editIndex === null) {
+              output.users.push(form)
+            } else {
+              output.users[this.editIndex] = form
+            }
           }
-          this.searchString = ''
 
           this.$emit('validate', output)
           this.editIndex = null
 
           // reset form values to null
           this.updateData({})
+          this.$v.$reset()
         }
       }
     },
@@ -236,29 +246,6 @@
   }
   .btn-delete {
     color: $red;
-  }
-
-  .address-item-inner {
-    background-color: $white-bis;
-    margin: $margin 0;
-    padding: $padding;
-    border-bottom: 3px solid $white-ter;
-    line-height: 1.5;
-
-    &.is-active {
-      border-color: $primary;
-    }
-  }
-
-  .address-icon {
-    color: $grey-light;
-    width: 20px;
-    position: relative;
-    top: -1px;
-  }
-
-  .address-item-actions {
-    margin-top: $margin;
   }
 
   .orga-user-search-container {

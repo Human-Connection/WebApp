@@ -54,6 +54,11 @@
               </nuxt-link>
             </li>
             <li>
+              <nuxt-link :to="{ name: 'organizations-settings-channels', query: { id: organization._id } }">
+                {{ $t('auth.settings.organizationChannels', 'Channels') }}
+              </nuxt-link>
+            </li>
+            <li v-if="isAdmin">
               <nuxt-link :to="{ name: 'organizations-settings-users', query: { id: organization._id } }">
                 {{ $t('auth.settings.organizationUsers', 'Users') }}
               </nuxt-link>
@@ -105,6 +110,7 @@
         const user = store.getters['auth/user']
         if (organization.users.every(item => item.id !== user._id.toString())
           && ['admin', 'moderator'].includes(user.role) === false) {
+          throw new Error
           error({ statusCode: 403 })
         }
 
@@ -126,9 +132,11 @@
       ...mapGetters({
         user: 'auth/user'
       }),
-      canEdit () {
-        // owner, moderator, admin
-        return this.organization.userId === this.user._id || ['admin', 'moderator'].includes(this.user.role) === true
+      isAdmin () {
+        // orga user admin, moderator, admin
+        const orgaOwner = this.organization.users.find(item => item.id === this.user._id.toString())
+        return ['admin', 'moderator'].includes(this.user.role) === true ||
+          (orgaOwner && orgaOwner.role === 'admin')
       },
       canEnable () {
         // owner (if reviewed), moderator, admin

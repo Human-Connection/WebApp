@@ -583,7 +583,10 @@
       "organizationZipCode": "Zip Code",
       "organizationCity": "City",
       "organizationCountry": "Country",
-      "organizationUsers": "Users"
+      "organizationUsers": "Users",
+      "organizationChannels": "Social Channels",
+      "organizationChannelsNamePlaceholder": "User name ...",
+      "organizationChannelsTypePlaceholder": "Channel ..."
     }
   },
   "ressource": {
