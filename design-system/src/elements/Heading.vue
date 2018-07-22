@@ -36,7 +36,7 @@ export default {
   @include stack-space($space-base);
   font-family: $font-family-heading;
   line-height: $line-height-heading;
-  color: $color-bleu-de-france;
+  color: $color-green;
   @media #{$media-query-large} {
     // This is how you’d use design tokens with media queries
   }

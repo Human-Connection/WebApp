@@ -6,7 +6,7 @@ module.exports = {
   /**
    * Name of your design system. Changes both page title and sidebar logo.
    */
-  title: "Vue Design System",
+  title: "HC Design System",
   /**
    * Enabling the following option splits sections into separate views.
    */
@@ -105,7 +105,7 @@ module.exports = {
    * Custom wrapper template for the documentation.
    */
   template: {
-    title: "Example — Vue Design System",
+    title: "HC Design System",
     lang: "en",
     trimWhitespace: true,
     head: {

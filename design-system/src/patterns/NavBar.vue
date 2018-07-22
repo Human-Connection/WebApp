@@ -59,8 +59,8 @@ export default {
 
 <style lang="scss" scoped>
 // Design Tokens with local scope
-$color-nav-link: $color-bleu-de-france;
-$color-nav-link-active: $color-bleu-de-france;
+$color-nav-link: $color-green;
+$color-nav-link-active: $color-green;
 
 .nav {
   @include stack-space($space-base);

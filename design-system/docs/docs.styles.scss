@@ -10,23 +10,23 @@
 /* LOCAL DESIGN TOKENS
 --------------------------------------------- */
 
-$docs-grey: #c4cdd5;
-$docs-grey-dark: #4d5865;
-$docs-status-ready: #7cb518;
+$docs-grey: $color-grey-lighter;
+$docs-grey-dark: $color-grey-dark;
+$docs-status-ready: $color-green;
 $docs-breakpoint: 800px;
 $docs-breakpoint-small: 600px;
-$docs-color-heading: rgb(30, 30, 30);
-$docs-color-text: shade($color-silver, 50%);
+$docs-color-heading: $color-black;
+$docs-color-text: $color-grey-dark;
 
 /* BASE
 --------------------------------------------- */
 
 ::-moz-selection {
-  background: $color-bleu-de-france;
+  background: $color-blue;
   color: $color-white;
 }
 ::selection {
-  background: $color-bleu-de-france;
+  background: $color-blue;
   color: $color-white;
 }
 
@@ -36,9 +36,9 @@ div.rsg--root-1 {
 
 div[class^="rsg--root"] {
   a[class^="rsg--link"] {
-    color: $color-bleu-de-france;
+    color: $color-green;
     &:hover {
-      color: $color-bleu-de-france-dark;
+      color: $color-green-bis;
     }
   }
 }
@@ -75,7 +75,7 @@ div[class^="rsg--wrapper"] > h2[class^="rsg--heading"] {
   padding: $space-x-large $space-x-large;
   width: calc(100% + #{$space-x-large * 2});
   margin: -#{$space-small} -#{$space-x-large} $space-large -#{$space-x-large};
-  background: $color-cloud;
+  background: $color-white-bis;
   font-size: $font-size-xx-large;
   a:hover {
     text-decoration: none;
@@ -97,7 +97,7 @@ header[class^="rsg--header"] {
 }
 div[class^="rsg--wrapper"] > h1[class^="rsg--heading"] a {
   font-weight: $font-weight-regular;
-  color: $color-oxford-blue;
+  color: $docs-color-heading;
   letter-spacing: -1px;
   &:hover {
     text-decoration: none;
@@ -204,19 +204,20 @@ p[class^="rsg--para"] code {
 --------------------------------------------- */
 
 div[class^="rsg--sidebar"] {
-  background: mix($color-bleu-de-france, $color-rich-black, 5%);
+  background: $color-white;
   border: 0;
+  box-shadow: $box-shadow-small;
   @media (max-width: #{$docs-breakpoint}) {
     padding-bottom: $space-large;
   }
   a[class^="rsg--link"] {
     font-weight: $font-weight-semi-bold;
-    color: $color-bleu-de-france;
+    color: $color-green;
     &:hover {
-      color: $color-bleu-de-france-lighter;
+      color: $color-green-bis;
     }
     &:active {
-      color: $color-bleu-de-france-dark;
+      color: $color-green-ter;
     }
   }
   ul ul[class^="rsg--list"] {
@@ -231,7 +232,7 @@ div[class^="rsg--sidebar"] {
     }
     & > a,
     & > a:hover {
-      color: tint($color-bleu-de-france, 80%);
+      color: $color-black;
     }
   }
   ul[class^="rsg--list"] {
@@ -280,23 +281,20 @@ div[class^="rsg--sidebar"] {
 
 // Sidebar logo
 div[class^="rsg--logo"] {
-  @include inset-space($space-base);
-  border-bottom: 1px solid rgba($color-white, 0.1);
-  h1 {
-    color: $color-white;
-    color: tint($color-bleu-de-france, 90%);
-    font-weight: $font-weight-regular;
-  }
+  padding-top: 100px;
+  overflow: hidden;
+  background: url('../src/assets/logo-hc.svg') no-repeat $space-small $space-small;
+  background-size: 80%;
 }
 
 // Sidebar search
 div[class^="rsg--search"] input {
   @include inset-squish-space($space-small);
-  color: $color-white;
+  color: $color-grey-dark;
   border: 1px solid transparent;
-  background: mix($color-bleu-de-france, $color-rich-black, 20%);
+  background: $color-white-bis;
   &:focus {
-    border: 1px solid $color-bleu-de-france;
+    border: 1px solid $color-green;
     &::-webkit-textfield-decoration-container {
       display: none !important;
     }
@@ -305,13 +303,13 @@ div[class^="rsg--search"] input {
     }
   }
   &::-webkit-input-placeholder {
-    color: rgba(mix($color-white, $color-bleu-de-france, 50%), 0.35);
+    color: $color-grey-lighter;
   }
   &:-ms-input-placeholder {
-    color: rgba(mix($color-white, $color-bleu-de-france, 50%), 0.35);
+    color: $color-grey-lighter;
   }
   &::-moz-placeholder {
-    color: rgba(mix($color-white, $color-bleu-de-france, 50%), 0.35);
+    color: $color-grey-lighter;
     opacity: 1;
   }
 }

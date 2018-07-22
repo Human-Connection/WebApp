@@ -1,7 +1,6 @@
 import Vue from 'vue'
 
-// Defines contexts to require
-// (you should remove templates from this if not used in production)
+// Register all design system components
 const contexts = [
   require.context('@@/elements/', true, /\.vue$/),
   require.context('@@/patterns/', true, /\.vue$/),
