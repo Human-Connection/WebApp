@@ -116,7 +116,7 @@
     "vue-text-glitch": "^1.0.1",
     "vuelidate": "~0.6.1",
     "vuex-i18n": "~1.10.5",
-    "webpack": "^3.0.0",
+    "webpack": "^4.15.1",
     "zxcvbn": "^4.4.2"
   },
   "devDependencies": {
