@@ -10,17 +10,14 @@
         <hc-icon icon="angle-down" class="icon-right" />
       </a>
       <b-dropdown-item value="createdAt|desc">
-        <!--<hc-icon icon="sort-desc" class="icon-left" /> &nbsp;-->
         <hc-icon icon="check" class="icon-left icon" /> &nbsp;
         {{ $t('component.contribution.sortCreatedAtDesc') }}
       </b-dropdown-item>
       <b-dropdown-item value="createdAt|asc">
-        <!--<hc-icon icon="sort-asc" class="icon-left" /> &nbsp;-->
         <hc-icon icon="check" class="icon-left icon" /> &nbsp;
         {{ $t('component.contribution.sortCreatedAtAsc') }}
       </b-dropdown-item>
       <b-dropdown-item value="shoutCount|desc">
-        <!--<hc-icon icon="sort-desc" class="icon-left" /> &nbsp;-->
         <hc-icon icon="check" class="icon-left icon" /> &nbsp;
         {{ $t('component.contribution.sortShoutCountDesc') }}
       </b-dropdown-item>

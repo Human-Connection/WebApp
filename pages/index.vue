@@ -196,7 +196,7 @@
         })
       },
       updateGrid: throttle((resize = false, update = false) => {
-        if (!app.isActivated) {
+        if (!app || !app.isActivated) {
           return
         }
         // throttle the grid updates for better performance
