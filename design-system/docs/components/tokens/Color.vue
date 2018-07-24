@@ -97,7 +97,7 @@ h3 {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   margin-bottom: $space-large;
-  box-shadow: 0 0 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 rgba(63, 63, 68, 0.15);
+  box-shadow: $box-shadow-small;
   font-size: $font-size-small;
   font-family: $font-family-text;
   color: $color-rich-black;

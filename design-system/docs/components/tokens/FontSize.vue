@@ -25,7 +25,9 @@ export default {
   name: "FontSize",
   methods: {
     orderData: function(data) {
-      let order = orderBy(data, "value", "desc")
+      let order = orderBy(data, ({value}) => {
+        return parseFloat(value)
+      }, "desc")
       return order
     },
   },

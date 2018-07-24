@@ -6,6 +6,7 @@
 @import "../src/assets/tokens/tokens.scss";
 @import "./docs.tokens.scss";
 @import "../src/styles/styles.scss";
+@import "../src/styles/main.scss";
 
 /* LOCAL DESIGN TOKENS
 --------------------------------------------- */
@@ -130,7 +131,7 @@ h2[class^="rsg--heading"] {
 h3[class^="rsg--heading"],
 h3[class^="rsg--heading"] a {
   -webkit-font-smoothing: subpixel-antialiased;
-  font-weight: $font-weight-light;
+  font-weight: $font-weight-regular;
   line-height: $line-height-base;
   margin: 0 0 $space-large;
   font-size: $font-size-large;
@@ -144,7 +145,7 @@ h3[class^="rsg--heading"] a {
 // Heading, level 4
 h4[class^="rsg--heading"],
 h4[class^="rsg--heading"] a {
-  font-weight: $font-weight-semi-bold;
+  font-weight: $font-weight-bold;
   letter-spacing: 0;
   margin: $space-large 0 $space-base;
   font-size: $font-size-large;
@@ -158,7 +159,7 @@ p[class^="rsg--para"] {
   margin-bottom: $space-small;
   line-height: $line-height-base;
   strong a[class^="rsg--link"] {
-    font-weight: $font-weight-semi-bold;
+    font-weight: $font-weight-bold;
   }
   a {
     overflow-wrap: break-word;
@@ -211,7 +212,7 @@ div[class^="rsg--sidebar"] {
     padding-bottom: $space-large;
   }
   a[class^="rsg--link"] {
-    font-weight: $font-weight-semi-bold;
+    font-weight: $font-weight-bold;
     color: $color-green;
     &:hover {
       color: $color-green-bis;
@@ -317,7 +318,7 @@ div[class^="rsg--search"] input {
 // Sidebar 1st level section links
 ul[class^="rsg--list"] a[class*=" rsg--heading"],
 div[class^="rsg--root"] > ul[class^="rsg--list"] > li > a {
-  font-weight: $font-weight-semi-bold;
+  font-weight: $font-weight-bold;
 }
 
 /* CODE PREVIEWS
@@ -439,7 +440,7 @@ div[class^="rsg--root"] div[class^="rsg--tabs"] {
 }
 
 .status {
-  font-family: "Fira Sans", Helvetica, Arial, sans-serif;
+  font-family: $font-family-text;
   font-weight: $font-weight-regular;
   order: 1;
   align-self: flex-end;
@@ -502,7 +503,7 @@ table[class^="rsg--table"] {
     font-weight: $font-weight-bold;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: $font-weight-semi-bold;
+    font-weight: $font-weight-bold;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     border-radius: 0;

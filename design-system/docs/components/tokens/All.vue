@@ -90,7 +90,7 @@ export default {
     color: $color-oxford-blue;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: $font-weight-semi-bold;
+    font-weight: $font-weight-bold;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: left;

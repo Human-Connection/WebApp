@@ -60,7 +60,7 @@ h3 {
 }
 h4 {
   font-size: $font-size-large;
-  font-weight: $font-weight-semi-bold;
+  font-weight: $font-weight-bold;
 }
 h5 {
   font-size: $font-size-base;

@@ -57,7 +57,7 @@ $positive-text: #7cb518;
     text-decoration: line-through;
   }
   &.strong {
-    font-weight: $font-weight-semi-bold;
+    font-weight: $font-weight-bold;
   }
   &.positive {
     color: shade($positive-text, 20%);
