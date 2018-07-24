@@ -6,7 +6,7 @@ module.exports = {
   /**
    * Name of your design system. Changes both page title and sidebar logo.
    */
-  title: "HC Design System",
+  title: "Humanis",
   /**
    * Enabling the following option splits sections into separate views.
    */
@@ -105,7 +105,7 @@ module.exports = {
    * Custom wrapper template for the documentation.
    */
   template: {
-    title: "HC Design System",
+    title: "Humanis",
     lang: "en",
     trimWhitespace: true,
     head: {

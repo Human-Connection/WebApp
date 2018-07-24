@@ -5,8 +5,9 @@
       {name: 'Living Docs', href: 'http://localhost:6060/'}
     ]"/>
     <wrapper>
-      <heading level="h1">Vue Design System</heading>
-      <text-style><a href="https://vueds.com">Vue Design System</a> is an open-source tool for building design systems with Vue.js. It provides you and your team a set of organized tools, patterns &amp; practices. It works as the foundation for your application development.</text-style>
+      <heading level="h1">Humanis</heading>
+      <text-style><a href="/#/">Humanis</a> is Human Connection's Design System. It provides our team a set of organized tools, patterns &amp; practices. It works as the foundation for our application development.</text-style>
+      <hc-button href="http://localhost:6060/" type="a">Open Living Docs</hc-button>
     </wrapper>
   </component>
 </template>
@@ -39,10 +40,10 @@ export default {
 
 <style lang="scss" scoped>
 // Design Tokens with local scope
-$color-template-background: $color-black;
+$color-template-background: $color-white-bis;
 $color-template-background-top: tint($color-template-background, 5%);
 $color-template-background-bottom: shade($color-template-background, 5%);
-$color-template-text: $color-white;
+$color-template-text: $color-black-bis;
 $color-template-link: $color-green;
 
 .index {
@@ -74,11 +75,6 @@ $color-template-link: $color-green;
     position: absolute;
     left: 50%;
     top: 50%;
-  }
-  a {
-    font-family: $font-family-text;
-    color: $color-green;
-    text-decoration: underline;
   }
 }
 </style>

@@ -52,6 +52,7 @@ export default {
   @include stack-space($space-small);
   @include inset-space($space-small);
   color: set-text-color($color-white, $color-green);
+  text-decoration: none;
   @media #{$media-query-medium} {
     @include stack-space($space-base);
   }
