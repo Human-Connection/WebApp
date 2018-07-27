@@ -89,7 +89,7 @@
     "parchment": "^1.1.4",
     "quill": "^1.3.6",
     "quill-delta": "^3.6.2",
-    "raven": "^2.6.2",
+    "raven": "^2.6.3",
     "raven-js": "^3.26.4",
     "redirect-ssl": "~1.3.0",
     "request": "~2.87.0",
