@@ -68,7 +68,7 @@
     "cookie-universal-nuxt": "~2.0.3",
     "cross-env": "~5.2.0",
     "css-loader": "~0.28.10",
-    "csv-parse": "~2.4.0",
+    "csv-parse": "~2.5.0",
     "emitter-js": "~2.0.1",
     "envsub": "~3.1.0",
     "express": "~4.16.2",
