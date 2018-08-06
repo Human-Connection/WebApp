@@ -16,6 +16,36 @@
       "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
       "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later."
     },
+    "badges": {
+        "user_role_moderator": "Moderator",
+        "user_role_developer": "Developer",
+        "user_role_admin": "Admin",
+        "wooold_de_flower": "Flower - 5€",
+        "wooold_de_butterfly": "Butterfly - 25€",
+        "wooold_de_bee": "Bee - 50€",
+        "wooold_de_lifetree": "Tree of Life - 100€",
+        "wooold_de_double_rainbow": "Double-Rainbow 250€",
+        "wooold_de_magic_rainbow": "Magic Rainbow - 1.000€",
+        "wooold_de_end_of_rainbow": "Rainbow - 5.000€",
+        "wooold_de_super_founder": "Super Founder - 11.111€",
+        "indiegogo_en_rabbit": "Rabbit - 5$",
+        "indiegogo_en_racoon": "Racoon - 10$",
+        "indiegogo_en_wolf": "Wolf - 25$",
+        "indiegogo_en_turtle": "Turtle - 100$",
+        "indiegogo_en_rhino": "Rhino - 250$",
+        "indiegogo_en_tiger": "Tiger - 500$",
+        "indiegogo_en_panda": "Panda - 5.000$",
+        "indiegogo_en_whale": "Whale - 11.111$",
+        "indiegogo_en_bear": "Bear - 50$",
+        "fundraisingbox_de_starter": "Starter - 5€ monthly",
+        "fundraisingbox_de_crane": "crane - 10€ monthly",
+        "fundraisingbox_de_balloon": "Balloon - 15€ monthly",
+        "fundraisingbox_de_glider": "Glider - 20€ monthly",
+        "fundraisingbox_de_helicopter": "Helicopter - 25€ monthly",
+        "fundraisingbox_de_bigballoon": "Big Balloon - 35€ monthly",
+        "fundraisingbox_de_airship": "Airship - 50€ monthly",
+        "fundraisingbox_de_alienship": "UFO - 100€ monthly"
+    },
     "shout": {
       "buttonLabel": "Shout",
       "addShout": "Shout it out loud",
@@ -91,8 +121,11 @@
       "settings": "Settings",
       "users": "Users",
       "messageCSVInvalid": "You have to select a valid .csv",
-      "messageInvitesGenerated": "Created {countCreated} of requested {countRequested} invites",
-      "buttonDownloadCSV": "Download CSV"
+      "messageInvitesGenerated": "Created/updated {countCreated} of requested {countRequested} invites",
+      "buttonDownloadCSV": "Download CSV",
+      "invitesLabel": "Invites",
+      "invitesByUserToggle": "Allow users to invite others",
+      "invitesByUserMaxCount": "Max invites per user"
     },
     "category": {
       "filterTitle": "Filter posts",
@@ -212,7 +245,8 @@
       "validationError": "Fill out all marked fields.",
       "validationErrorTitle": "Please give your contribution a title (min 3 chars)",
       "validationErrorContent": "Please provide a text",
-      "validationErrorCategories": "Choose at least one category to be able to save this contribution"
+      "validationErrorCategories": "Choose at least one category to be able to save this contribution",
+      "creatorFemaleOrMale": "Author ::: Author"
     },
     "organization": {
       "createNew": "Create new Organization",
@@ -418,7 +452,6 @@
     "termsAndConditions": "Terms and Conditions",
     "dataPrivacy": "Privacy Policy",
     "dataPrivacyStatement": "Data Privacy Statements"
-
   },
   "auth": {
     "account": {
@@ -441,7 +474,7 @@
       "myFollowersBrief": "Followers",
       "myFollowerItemLastContribution": "Last contribution:",
       "myFollowing": "Following activities",
-      "myFollowingNgoOnePluralNone": "NGO ::: NGOs ::: No NGO",
+      "myFollowingNgoOnePluralNone": "NGO ::: NGO's ::: No NGO",
       "myFollowingPeopleOnePluralNone": "Human ::: People ::: None",
       "myFollowingProjectsOnePluralNone": "Project ::: Projects ::: No Project",
       "myFollowingShowAll": "show all",
@@ -478,7 +511,7 @@
       "verifyingSection": "Email Verification",
       "verifyingSuccessDescription": "Your email address has been verified successfully.",
       "verifyingTitle": "Verification",
-      "welcomeGreeting1": "Good to have you on bord{username}! Welcome at Human Connection. We hope you enjoy discovering and becoming active.",
+      "welcomeGreeting1": "Good to have you on board {username}! Welcome at Human Connection. We hope you enjoy discovering and becoming active.",
       "welcomeGreeting2": "Let us embark on the journey into a future together!",
       "welcomeSection": "The Journey Starts",
       "welcomeTitle": "Welcome"
@@ -514,7 +547,8 @@
       "label": "Register",
       "next": "Next",
       "back": "Back",
-      "errorInviteCodeInvalid": "The Invite code doesn't match the given email or is already in use",
+      "errorInviteCodeInvalid": "The invite code is invalid or doesn't match the given email",
+      "errorInviteAlreadyUsed": "The invite code was already used",
       "validationErrorPasswordRepeat": "Both passwords must match",
       "validationErrorIsFullAge": "Please confirm that you are of full legal age",
       "passwordSecurity": "Password security",
@@ -536,6 +570,13 @@
       "email": "Email",
       "phone": "Phone",
       "security": "Security",
+      "invites": "Invites",
+      "invitesGenerateButton": "Generieren invite code ::: Generieren invite codes",
+      "invitesCopiedToClipboard": "Copied invite URL for code '{code}'",
+      "invitesDescription": "Here you can generate invite link(s). Every code is valid for only one registration. After you click a code you can send it to a friend.",
+      "invitesEmpty": "To create invites click the button down below.",
+      "invitesCopyLink": "Copy link",
+      "invitesOnlyForUserWithBadges": "Only allow for users with following badges",
       "download": "Download Data",
       "delete": "Delete account",
       "presentation": "Presentation",
@@ -544,7 +585,7 @@
       "deleteAccount": "Delete my User Account",
       "deleteAccountConfirm": "Delete my account permanently",
       "deleteAccountMsg": "Are you sure that you want to <b>PERMANENTLY DELETE</b> your user account?",
-      "deleteAccountDescription": "Be aware that your Comments, Posts, CanDo's... are important to our community. If you stil choose to delete those you have to mark them below.",
+      "deleteAccountDescription": "Be aware that your Comments, Posts, CanDo's... are important to our community. If you still choose to delete those you have to mark them below.",
       "deleteAccountWarning": "You <b>CAN'T MANAGE</b> and <b>CAN'T RECOVER</b> your Account, Posts... after deleting your account!",
       "deleteCountCanDos": "Delete my {count} can dos",
       "deleteCountPosts": "Delete my {count} posts",
@@ -554,7 +595,7 @@
       "downloadIsProcessing": "You have successfully requested your download link. As soon as your download is ready you will receive an email.",
       "downloadSendLink": "Send Download Link",
       "presentationDescription": "Here you adjust the network presentation for example before doing screenshots for marketing.",
-      "presentationWarning": "Do screenshots for marketing <b>ONLY WITH THAT SWITCH ON!</b>",
+      "presentationWarning": "Do screenshots for marketing, <b>ONLY WITH THAT SWITCH ON!</b>",
       "presentationHideUsersWithoutTermsOfUseSignitureLabel": "Hide users without signed terms of use",
       "yourName": "Your Name",
       "yourEmail": "Your E-Mail address",

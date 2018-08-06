@@ -46,8 +46,6 @@
               &nbsp; {{ $t('component.admin.addCategory', 'Kategorie hinzufügen') }}
             </hc-button>
           </div>
-        </div>
-        <div class="field is-grouped">
           <div class="control">
             <hc-button>
               <hc-icon icon="check" />
@@ -128,23 +126,6 @@
 </script>
 
 <style scoped lang="scss">
-  @import "assets/styles/utilities";
-
-  $padding: 1.5rem;
-  footer.card-footer {
-    margin: -$padding;
-    margin-top: 2rem;
-    margin-bottom: -2rem;
-    background: lighten($grey-lighter, 10%);
-    padding: 1rem $padding;
-    display: flex;
-    justify-content: space-between;
-
-    & > .field {
-      margin-bottom: 0;
-    }
-  }
-
   .table {
     th, td {
       border-bottom: none;

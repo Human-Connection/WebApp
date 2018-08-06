@@ -70,8 +70,8 @@
           :class="{ 'is-danger': $v.form.content.$error }"
           @blur="$v.form.content.$touch()"
           @fetchedMeta="handleMeta"
-          :loading="isLoading"
-          :editorOptions="editorOptions"/>
+          :editorOptions="editorOptions"
+          :loading="isLoading"/>
       </div>
       <p :class="{ 'is-hidden': !$v.form.content.$error }" class="help is-danger">{{ $t('component.contribution.validationErrorContent') }}</p>
     </div>
@@ -109,8 +109,8 @@
               identifier="cando-reason"
               v-model.trim="form.cando.reason"
               @fetchedMeta="handleMeta"
-              :loading="isLoading"
-              :editorOptions="editorOptions2"/>
+              :editorOptions="editorOptions2"
+              :loading="isLoading"/>
           </div>
         </div>
         <hr/>
@@ -293,8 +293,6 @@
     data () {
       // const i18nEditorLinkEnterUrl = this.$t('component.editor.linkEnterUrl')
       // const i18nEditorVideoEnterUrl = this.$t('component.editor.videoEnterUrl')
-      const i18nEditorPlaceholder = this.$t('component.contribution.writePostContentPlaceholder')
-      const i18nEditor2Placeholder = this.$t('component.contribution.canDoReasonContentPlaceholder')
       return {
         editorReady: false,
         isLoading: false,
@@ -349,12 +347,6 @@
             } */
           ],
           difficulties: ['easy', 'medium', 'hard']
-        },
-        editorOptions: {
-          placeholder: i18nEditorPlaceholder
-        },
-        editorOptions2: {
-          placeholder: i18nEditor2Placeholder
         }
       }
     },
@@ -370,6 +362,16 @@
       },
       disabled () {
         return !!this.uploadingCover
+      },
+      editorOptions () {
+        return {
+          placeholder: this.$t('component.contribution.writePostContentPlaceholder')
+        }
+      },
+      editorOptions2 () {
+        return {
+          placeholder: this.$t('component.contribution.canDoReasonContentPlaceholder')
+        }
       }
     },
     methods: {

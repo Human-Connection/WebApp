@@ -7,7 +7,7 @@
       </h2>
       <p class="subtitle is-6">{{ $t('auth.settings.deleteAccountDescription') }}</p>
     </div>
-    <transition name="fade">
+    <transition name="slide-up">
       <div v-if="deleteEnabled">
         <div class="field">
           <div class="control">
@@ -157,23 +157,5 @@
 
   .b-checkbox {
     font-weight: bold;
-  }
-
-  footer.card-footer {
-    .columns {
-      width: 100%;
-    }
-    .column {
-      align-self: center;
-      &:first-child {
-        text-align: left;
-        margin-left: -1.5rem;
-      }
-
-      &:last-child {
-        text-align: right;
-      }
-      // align-items: center;
-    }
   }
 </style>

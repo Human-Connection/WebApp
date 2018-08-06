@@ -181,10 +181,11 @@
     data () {
       return {
         form: {
-          email: this.$route.query.email || '',
+          email: this.$route.query.invitedByUserId ? '' : (this.$route.query.email || ''),
+          inviteCode: this.$route.query.code || '',
+          invitedByUserId: this.$route.query.invitedByUserId || null,
           password: '',
           passwordRepeat: '',
-          inviteCode: this.$route.query.code || '',
           isFullAge: false
         },
         step: 0,
@@ -263,7 +264,7 @@
       },
       toStep (step) {
         if (step === 1 && this.step === 0) {
-          this.form.email = this.$route.query.email || ''
+          this.form.email = this.$route.query.invitedByUserId ? '' : (this.$route.query.email || '')
           this.form.inviteCode = this.$route.query.code || ''
         }
 
@@ -305,6 +306,10 @@
               this.toStep(1)
               this.inviteCodeIsInvalid = true
               msg = this.$t('auth.register.errorInviteCodeInvalid')
+            } else if (msg === 'invite already used') {
+              this.toStep(1)
+              this.inviteCodeIsInvalid = true
+              msg = this.$t('auth.register.errorInviteAlreadyUsed')
             }
             this.$toast.open({
               message: msg,

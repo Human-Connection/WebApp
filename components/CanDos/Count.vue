@@ -29,7 +29,7 @@
         return this.post.cando
       },
       candoUsers () {
-        return this.post.candoUsers
+        return this.post.candoUsers || []
       },
       canDoCount () {
         return this.candoUsers ? this.candoUsers.length : 0

@@ -448,12 +448,6 @@
   @import 'assets/styles/utilities';
   @import "assets/styles/_animations";
 
-  .field {
-    margin-bottom: 10px;
-    .label {
-      margin-bottom: 5px;
-    }
-  }
 
   .cell-name {
     font-weight: bold;
@@ -471,17 +465,6 @@
 
   .fa-check-circle {
     color: $primary;
-  }
-
-  $padding: 1.5rem;
-  footer.card-footer {
-    margin: -$padding;
-    margin-top: 2rem;
-    margin-bottom: -2rem;
-    background: lighten($grey-lighter, 10%);
-    padding: 1rem $padding 0.5rem;
-    display: flex;
-    justify-content: flex-start;
   }
 
   .fa-toggle-off {

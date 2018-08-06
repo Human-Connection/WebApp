@@ -7,22 +7,16 @@
       <p class="subtitle is-6">{{ $t('auth.settings.presentationDescription') }}</p>
     </div>
     <hr>
-    <div class="language-wrapper">
-      <div class="columns">
-        <div class="column">
-          <div class="field">
-            <div class="message is-warning">
-              <div class="message-body" v-html="$t('auth.settings.presentationWarning')"></div>
-            </div>
-            <label class="label is-required" for="form-hideUsersWithoutTermsOfUseSigniture">{{ $t('auth.settings.presentationHideUsersWithoutTermsOfUseSignitureLabel') }}</label>
-            <div class="control" id="form-hideUsersWithoutTermsOfUseSigniture">
-              <b-switch
-                v-model="form.hideUsersWithoutTermsOfUseSigniture">
-                {{ form.hideUsersWithoutTermsOfUseSigniture ? $t('button.yes') : $t('button.no') }}
-              </b-switch>
-            </div>
-          </div>
-        </div>
+    <div class="field">
+      <div class="message is-warning">
+        <div class="message-body" v-html="$t('auth.settings.presentationWarning')"></div>
+      </div>
+      <label class="label is-required" for="form-hideUsersWithoutTermsOfUseSigniture">{{ $t('auth.settings.presentationHideUsersWithoutTermsOfUseSignitureLabel') }}</label>
+      <div class="control" id="form-hideUsersWithoutTermsOfUseSigniture">
+        <b-switch
+          v-model="form.hideUsersWithoutTermsOfUseSigniture">
+          {{ form.hideUsersWithoutTermsOfUseSigniture ? $t('button.yes') : $t('button.no') }}
+        </b-switch>
       </div>
     </div>
     <footer class="card-footer">
@@ -38,9 +32,7 @@
 
 <script>
   import { mapGetters } from "vuex";
-  import { isEmpty, keys } from "lodash";
   import animatable from '~/components/mixins/animatable'
-  import { required } from 'vuelidate/lib/validators'
 
   export default {
     mixins: [animatable],
@@ -91,6 +83,6 @@
   };
 </script>
 
-<style lang="sass" scoped>
+<style lang="scss" scoped>
   @import "assets/styles/_animations";
 </style>
