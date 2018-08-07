@@ -52,13 +52,16 @@
             </v2-table-column>
             <v2-table-column label="" prop="badges" align="left">
               <template slot-scope="row">
-                <img
+                <span
                   v-if="row.badgeIds.length"
                   v-for="badgeId in row.badgeIds"
-                  :key="badgeId"
-                  width="24"
-                  :title="$t(`component.badges.${badgesById[badgeId].key}`)"
-                  :src="badgesById[badgeId].image.path" />
+                  :key="badgeId">
+                  <img
+                    v-if="badgesByKeyOrId[badgeId]"
+                    width="24"
+                    :title="$t(`component.badges.${badgesByKeyOrId[badgeId].key}`)"
+                    :src="badgesByKeyOrId[badgeId].image.path" />
+                </span>
               </template>
             </v2-table-column>
             <v2-table-column label="Role" prop="role" align="left" width="50"></v2-table-column>
@@ -120,13 +123,16 @@
             </v2-table-column>
             <v2-table-column label="" prop="badges" align="left">
               <template slot-scope="row">
-                <img
-                  v-if="row.badges"
-                  v-for="badge in (row.badges || '').split('|')"
-                  :key="badge"
-                  width="24"
-                  :title="$t(`component.badges.${badge}`)"
-                  :src="getBadgeSrc(badge)" />
+                <span
+                  v-if="row.badges.length"
+                  v-for="badgeId in row.badges"
+                  :key="`${row.email}|${badgeId}`">
+                  <img
+                    v-if="badgesByKeyOrId[badgeId]"
+                    width="24"
+                    :title="$t(`component.badges.${badgesByKeyOrId[badgeId].key}`)"
+                    :src="badgesByKeyOrId[badgeId].image.path" />
+                </span>
               </template>
             </v2-table-column>
             <v2-table-column label="Role" prop="role" align="left" width="50"></v2-table-column>
@@ -179,7 +185,7 @@
 <script>
   import moment from 'moment'
   import parse from 'csv-parse/lib/sync'
-  import { isEmpty, each, map, keyBy } from 'lodash'
+  import { isEmpty, each, map, keyBy, castArray } from 'lodash'
   import SearchInput from '~/components/Search/SearchInput.vue'
 
   let itemLimit = 10
@@ -213,8 +219,7 @@
           nextPageText: '>',
           prevPageText: '<'
         },
-        activeTab: null,
-        badgesById: []
+        activeTab: null
       }
     },
     async asyncData ({app}) {
@@ -235,7 +240,7 @@
         users: users,
         usersLoading: false,
         itemLimit: limit,
-        badgesById: keyBy(badges.data, '_id')
+        badgesByKeyOrId: Object.assign({}, keyBy(badges.data, '_id'), keyBy(badges.data, 'key'))
       }
     },
     filters: {
@@ -303,6 +308,10 @@
                 throw new Error('You need a header with at least email and language in your csv!')
               }
               this.invitePreview = map(csv, (item) => {
+                if (!isEmpty(item.badges)) {
+                  // split values by pipe and cast them as an array
+                  item.badges = castArray(item.badges.split('|'))
+                }
                 if (!isEmpty(item.email)) {
                   item.email = item.email.trim().toLowerCase()
                   return item
