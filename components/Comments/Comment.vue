@@ -63,7 +63,7 @@
         <div class="comment-footer">
           <div class="comment-footer-actions-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
-              <a class="level-item" @click.prevent="$emit('reply', comment)">
+              <a class="level-item" @click.prevent="$emit('reply', comment); openCommentForm(comment);">
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
             </hc-tooltip>
@@ -87,6 +87,14 @@
             </a>
           </div>
         </div>
+        <!--<hc-comment v-for="childComment in children" @reply="onReply"
+                 :isAuthor="childComment.userId === post.userId"
+                 :isOwner="childComment.userId === user._id"
+                 :key="childComment._id"
+                 :comment="childComment"
+                 :post="post"
+                 :onUpvote="upvote" />-->
+        <comment-form :post="post" :replyComment="comment" v-if="isReplying"/>
       </div>
     </template>
   </div>
@@ -94,6 +102,7 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
+  import Vue from 'vue'
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
   import linkifyHtml from 'linkifyjs/html'
@@ -118,6 +127,9 @@
       },
       isOwner: {
         type: Boolean
+      },
+      post: {
+        type: Object
       }
     },
     data () {
@@ -126,6 +138,7 @@
         highlight: false,
         edit: false,
         isLoading: false,
+        isReplying: false,
         newContent: '',
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -168,6 +181,16 @@
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
+      openCommentForm(comment) {
+        debugger
+        this.isReplying = true;
+        /*let CommentFormClass = Vue.extend(commentForm);
+        let instance = new CommentFormClass();
+        instance.post = this.post;
+        instance.replyComment = comment;
+        instance.$mount();
+        this.$refs.container.appendChild(instance.$el);*/
+      },
       removeComment () {
         this.$dialog.confirm({
           title: this.$t('component.contribution.commentDelete'),

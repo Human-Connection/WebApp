@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   import { trim } from 'lodash'
 
   export default {
@@ -45,6 +45,7 @@
     data () {
       return {
         isLoading: false,
+        isReplying: false,
         form: {
           content: '',
           contributionId: null
@@ -60,6 +61,7 @@
     },
     watch: {
       replyComment (comment) {
+        debugger
         this.reply(comment)
       }
     },
@@ -81,6 +83,8 @@
           return
         }
         try {
+          debugger
+          this.isReplying = true;
           this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
           this.$scrollTo(this.$refs.editor.$el, 500)
         } catch (err) {}
@@ -92,6 +96,7 @@
         }
         this.isLoading = true
         this.form.contributionId = this.post._id
+        debugger
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
             this.$store.dispatch('comments/fetchByContributionId', this.post._id)
@@ -110,6 +115,7 @@
             })
           })
         this.isLoading = false
+        this.isReplying = false
       }
     }
   }

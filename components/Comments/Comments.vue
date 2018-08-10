@@ -10,6 +10,7 @@
                :isOwner="comment.userId === user._id"
                :key="comment._id"
                :comment="comment"
+               :post="post"
                :onUpvote="upvote" />
     </transition-group>
     <!--<div v-else class="notification">
@@ -57,6 +58,7 @@
         }
       },
       onReply (comment) {
+        debugger
         this.replyComment = comment
         this.$nextTick(() => this.replyComment = null)
       }
