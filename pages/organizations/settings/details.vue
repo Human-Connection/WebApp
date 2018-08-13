@@ -1,101 +1,52 @@
 <template>
-  <div v-if="organization">
-    <div class="info-text">
+  <organization-form
+    :formComponent="$options.components.FormComponent"
+    :formAttributes="formAttributes"
+    :organization="organization"
+    :user="user"
+    :isLoading="isLoading">
+    <template slot="header">
       <h2 class="title is-3">
         {{ $t('component.organization.stepDetails', 'Details') }}
       </h2>
       <!--<p class="subtitle is-6">{{ $t('component.organization.settingsWelcome') }}</p>-->
-    </div>
-    <hr>
-    <div class="columns">
-      <div class="column">
-        <form @submit.prevent="$refs.form.validate()">
-          <orga-form-step-2 ref="form" :data="form" @validate="onValidation" :hideButton="true" />
-        </form>
-      </div>
-    </div>
-    <footer class="card-footer">
-      <hc-button
-        :isLoading="isLoading"
-        :disabled="isLoading"
-        @click.prevent="$refs.form.validate()">
-        <i class="fa fa-check"></i>
-        &nbsp;<span>{{ $t('auth.settings.saveLabel', 'Save') }}</span>
-      </hc-button>
-    </footer>
-  </div>
+    </template>
+  </organization-form>
 </template>
 
 <script>
-  import OrgaFormStep2 from "~/components/Organizations/steps/OrgaFormStep2.vue";
+  import OrganizationForm from '~/components/Organizations/OrganizationForm'
+  import FormComponent from '~/components/Organizations/steps/OrgaFormStep2'
 
   export default {
-    mixins: [],
     components: {
-      OrgaFormStep2
+      OrganizationForm,
+      FormComponent
     },
     data() {
       return {
-        form: {
+        formAttributes: {
           description: '',
           url: '',
+          email: '',
+          phone: '',
+          channels: [],
           type: null
-        },
-        organization: null,
-        isLoading: false
+        }
       };
     },
-    watch: {
-      'this.$parent.$attrs.organization': (organization) => {
-        // get current organization from parent view
-        this.organization = organization
-      }
-    },
-    mounted() {
-      this.$nextTick(() => {
-        // get current organization from parent view
-        this.organization = this.$parent.$attrs.organization
-
-        this.form = Object.assign(this.form, {
-          description: this.organization.description,
-          url: this.organization.url,
-          type: this.organization.type
-        })
-      })
-    },
-    methods: {
-      onValidation (result) {
-        if (result) {
-          this.form = Object.assign(this.form, result)
-          this.save()
-        } else {
-          this.$toast.open({
-            message: this.$t('auth.validation.error'),
-              type: 'is-danger'
-            })
-          this.$parent.$emit('error')
-        }
+    props: {
+      organization: {
+        type: Object,
+        required: true
       },
-      async save() {
-        this.isLoading = true;
-        try {
-          let data = Object.assign({_id: this.organization._id}, this.form)
-          const res = await this.$store.dispatch("organizations/patch", data)
-
-          this.$snackbar.open({
-            message: this.$t('auth.settings.saveSettingsSuccess'),
-            type: "is-success"
-          });
-
-          // update the organization on the parent component
-          this.$parent.$emit('change', res)
-        } catch (err) {
-          this.$toast.open({
-            message: err.message,
-            type: "is-danger"
-          });
-        }
-        this.isLoading = false;
+      user: {
+        type: Object,
+        required: true
+      },
+      isLoading: {
+        type: Boolean,
+        default: true
       }
     }
   };

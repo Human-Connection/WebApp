@@ -123,7 +123,7 @@
             $sort: {
               createdAt: -1
             },
-            userId: this.user._id
+            'users.id': this.user._id
           }
         })
         this.organizations = organizations.data

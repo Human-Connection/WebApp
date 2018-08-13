@@ -18,13 +18,35 @@
             :class="{ 'has-error': $v.form.url.$error }">
         <label class="label is-required" for="form-url">{{ $t('component.organization.website') }}</label>
         <input id="form-url"
-                class="input "
+                class="input"
                 type="text"
                 placeholder="https://"
                 @blur="enhanceURL"
                 v-model="form.url">
       </div>
       <p :class="{ 'is-hidden': !$v.form.url.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+    </div>
+    <div class="field">
+      <div class="control"
+            :class="{ 'has-error': $v.form.email.$error }">
+        <label class="label is-required" for="form-url">{{ $t('component.organization.email') }}</label>
+        <input id="form-email"
+                class="input"
+                type="text"
+                v-model="form.email">
+      </div>
+      <p :class="{ 'is-hidden': !$v.form.email.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
+    </div>
+    <div class="field">
+      <div class="control"
+            :class="{ 'has-error': $v.form.phone.$error }">
+        <label class="label" for="form-url">{{ $t('component.organization.phone') }}</label>
+        <input id="form-phone"
+                class="input"
+                type="text"
+                v-model="form.phone">
+      </div>
+      <p :class="{ 'is-hidden': !$v.form.phone.$error }" class="help is-danger">{{ $t('auth.validation.error') }}</p>
     </div>
     <div class="field"
           :class="{ 'has-error': $v.form.type.$error }">
@@ -34,11 +56,12 @@
           <div class="control has-icons-left">
             <div class="select">
               <select v-model="form.type">
-                <option value="ngo" selected>{{ $t('component.organization.types.ngo') }}</option>
-                <option value="npo">{{ $t('component.organization.types.npo') }}</option>
-                <option value="goodpurpose">{{ $t('component.organization.types.goodpurpose') }}</option>
-                <option value="ev">{{ $t('component.organization.types.ev') }}</option>
-                <option value="eva">{{ $t('component.organization.types.eva') }}</option>
+                <option
+                  v-for="type in organizationTypes"
+                  :key="type"
+                  :value="type">
+                  {{ $t(`component.organization.types.${type}`) }}
+                </option>
               </select>
               <div class="icon is-small is-left">
                 <i class="fa fa-cogs"></i>
@@ -65,8 +88,9 @@
 </template>
 
 <script>
+  import { collections } from 'human-connection-modules';
   import { validationMixin } from "vuelidate";
-  import { required, minLength, maxLength, url } from "vuelidate/lib/validators";
+  import { required, minLength, maxLength, url, email } from "vuelidate/lib/validators";
 
   const linkify = require('linkifyjs')
 
@@ -87,8 +111,12 @@
         form: {
           description: '',
           url: '',
+          email: '',
+          phone: '',
+          channels: [],
           type: null
         },
+        organizationTypes: collections.organizationTypes.names,
         isLoading: false
       }
     },
@@ -116,6 +144,9 @@
         this.form = Object.assign(this.form, {
           description: data.description,
           url: data.url,
+          email: data.email,
+          phone: data.phone,
+          channels: data.channels,
           type: data.type
         })
       },
@@ -141,6 +172,13 @@
           url: {
             required,
             url
+          },
+          email: {
+            required,
+            email
+          },
+          phone: {
+            maxLength: maxLength(40)
           },
           type: {
             required

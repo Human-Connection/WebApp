@@ -53,6 +53,16 @@
                 <hc-icon v-if="!organization.addresses || !organization.addresses.length" icon="warning" class="pull-right" />
               </nuxt-link>
             </li>
+            <li>
+              <nuxt-link :to="{ name: 'organizations-settings-channels', query: { id: organization._id } }">
+                {{ $t('auth.settings.organizationChannels', 'Channels') }}
+              </nuxt-link>
+            </li>
+            <li v-if="isAdmin">
+              <nuxt-link :to="{ name: 'organizations-settings-users', query: { id: organization._id } }">
+                {{ $t('auth.settings.organizationUsers', 'Users') }}
+              </nuxt-link>
+            </li>
           </ul>
           <p class="menu-label">
             {{ $t('component.projects.label') }}
@@ -65,11 +75,12 @@
         </aside>
       </div>
       <div class="column">
-        <transition name="slide-up" appear>
-          <nuxt :organization="organization"
+        <transition name="slide-up" appear v-if="organization">
+          <nuxt-child :organization="organization"
                 :user="user"
+                :isLoading="isLoading"
                 :class="classes"
-                @change="updateOrganization"
+                @save="save"
                 @error="onError"
                 class="settings-content"/>
         </transition>
@@ -97,12 +108,15 @@
       try {
         const organization = await app.$api.service('organizations').get(query.id)
         const user = store.getters['auth/user']
-        if (organization.userId !== user._id && ['admin', 'moderator'].includes(user.role) === false) {
+        if (organization.users.every(item => item.id !== user._id.toString())
+          && ['admin', 'moderator'].includes(user.role) === false) {
+          throw new Error
           error({ statusCode: 403 })
         }
 
         return {
-          organization
+          organization,
+          isLoading: false
         }
       } catch (err) {
         if (err.code === 404) {
@@ -118,9 +132,11 @@
       ...mapGetters({
         user: 'auth/user'
       }),
-      canEdit () {
-        // owner, moderator, admin
-        return this.organization.userId === this.user._id || ['admin', 'moderator'].includes(this.user.role) === true
+      isAdmin () {
+        // orga user admin, moderator, admin
+        const orgaOwner = this.organization.users.find(item => item.id === this.user._id.toString())
+        return ['admin', 'moderator'].includes(this.user.role) === true ||
+          (orgaOwner && orgaOwner.role === 'admin')
       },
       canEnable () {
         // owner (if reviewed), moderator, admin
@@ -132,8 +148,27 @@
         this.animate('shake')
       },
       updateOrganization (organization) {
-        // update organization after it was saved by child view
         this.organization = Object.assign(this.organization, organization)
+      },
+      async save(data) {
+        this.isLoading = true;
+        try {
+          data._id = this.organization._id
+          const result = await this.$store.dispatch("organizations/patch", data)
+          this.updateOrganization(result)
+
+          this.$snackbar.open({
+            message: this.$t('auth.settings.saveSettingsSuccess'),
+            type: "is-success"
+          });
+        } catch (err) {
+          this.$toast.open({
+            message: err.message,
+            type: "is-danger"
+          });
+          this.onError()
+        }
+        this.isLoading = false;
       }
     }
   }

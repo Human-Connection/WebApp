@@ -248,13 +248,14 @@
         }
       },
       isOwner () {
-        return this.user && this.user._id === this.organization.userId
+        return this.user &&
+          this.organization.users.some(({id}) => id === this.user._id)
       },
       followerCount () {
         return this.organization.followersCounts ? this.organization.followersCounts.users : 0
       },
       canEdit() {
-        return this.isOwner || ['admin', 'moderator'].includes(this.user.role) !== false
+        return this.isOwner || ['admin', 'moderator'].includes(this.user.role)
       }
     },
     methods: {
