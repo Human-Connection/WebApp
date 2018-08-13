@@ -32,6 +32,12 @@ $ yarn build
 $ yarn start
 ```
 
+Create your individual set of environment variables:
+```sh
+$ cp .env.example .env
+# now open .env and change it according to your setup
+```
+
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
 
 ## Env Vars

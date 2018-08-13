@@ -1,4 +1,3 @@
-require('dotenv').config()
 const path = require('path')
 
 module.exports = {
@@ -112,8 +111,20 @@ module.exports = {
     {src: '~/plugins/open-page-in-modal.js', ssr: false}
   ],
   modules: [
-    'cookie-universal-nuxt',
-    '@nuxtjs/dotenv'
+    ['@nuxtjs/dotenv', {
+      only: [
+        'WEBAPP_HOST',
+        'WEBAPP_PORT',
+        'WEBAPP_BASE_URL',
+        'API_HOST',
+        'API_PORT',
+        'EMBED_API_URL',
+        'SENTRY_DNS_PUBLIC',
+        'MAPBOX_TOKEN',
+        'MAINTENANCE'
+      ]
+    }],
+    'cookie-universal-nuxt'
     // '@nuxtjs/pwa'
   ],
   router: {
