@@ -250,7 +250,7 @@
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@mapbox/whoots-js/-/whoots-js-3.0.0.tgz#c1de4293081424da3ac30c23afa850af1019bb54"
 
-"@nuxtjs/dotenv@~1.1.0":
+"@nuxtjs/dotenv@^1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.1.1.tgz#c3d68f96d8f76cac4c4ddbc8268702eb95737bbe"
   dependencies:

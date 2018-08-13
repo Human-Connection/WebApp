@@ -1,8 +1,7 @@
 import Vue from 'vue'
 
 export default async (context) => {
-  await context.store.dispatch('env/init', context)
-  context.app.$env = context.store.getters['env/all']
+  context.app.$env = context.env
 
   Vue.use({
     install (Vue, store) {
