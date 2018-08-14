@@ -7,9 +7,7 @@ services:
       context: .
       args:
         BUILD_COMMIT: ${BUILD_COMMIT}
+    stdin_open: true
+    tty: true
     ports:
       - 3000:3000/tcp
-    command: yarn run dev
-    volumes:
-      - .:/WebApp
-      - /WebApp/node_modules/
