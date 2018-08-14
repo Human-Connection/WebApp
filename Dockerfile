@@ -7,6 +7,7 @@ EXPOSE 3000
 # optional git commit hash
 ARG BUILD_COMMIT
 ENV BUILD_COMMIT=$BUILD_COMMIT
+ENV NODE_ENV=production
 
 RUN mkdir -p /WebApp/
 WORKDIR /WebApp/
@@ -18,12 +19,9 @@ RUN yarn global add pm2
 
 COPY package.json /WebApp/
 COPY yarn.lock /WebApp/
-RUN yarn install --frozen-lockfile --non-interactive
+RUN yarn install --production=false --frozen-lockfile --non-interactive
 
 RUN apk del build-dependencies
 
-# must be after `yarn install`
-ENV NODE_ENV=production
-
 COPY . /WebApp/
-CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "2", "--attach"]
+CMD ["yarn", "run", "deploy"]
