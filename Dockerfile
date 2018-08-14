@@ -4,8 +4,12 @@ LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Hum
 # expose the app port
 EXPOSE 3000
 
+# optional git commit hash
+ARG BUILD_COMMIT
+ENV BUILD_COMMIT=$BUILD_COMMIT
+
 RUN apk update && apk upgrade && apk add git && rm -rf /var/cache/apk/*
-RUN yarn global add pm2 envsub
+RUN yarn global add pm2
 
 RUN mkdir -p /WebApp/
 WORKDIR /WebApp/

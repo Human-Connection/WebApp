@@ -18,7 +18,7 @@ jobs:
       - yarn install --frozen-lockfile --non-interactive
       - yarn run ci
     - script:
-      - docker build -t humanconnection/frontend-nuxt .
+      - docker build --build-arg BUILD_COMMIT=$TRAVIS_COMMIT -t humanconnection/frontend-nuxt .
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then

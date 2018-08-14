@@ -2,7 +2,10 @@ version: '3'
 
 services:
   webapp:
-    build: .
+    build:
+      context: .
+      args:
+        BUILD_COMMIT: ${BUILD_COMMIT}
     ports:
       - 3000:3000/tcp
     command: yarn run dev
