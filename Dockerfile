@@ -1,4 +1,4 @@
-FROM node:8.9-alpine
+FROM node:alpine
 LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # expose the app port
@@ -8,14 +8,22 @@ EXPOSE 3000
 ARG BUILD_COMMIT
 ENV BUILD_COMMIT=$BUILD_COMMIT
 
-RUN apk update && apk upgrade && apk add git && rm -rf /var/cache/apk/*
-RUN yarn global add pm2
-
 RUN mkdir -p /WebApp/
 WORKDIR /WebApp/
+# --no-cache: download package index on-the-fly, no need to cleanup afterwards
+# --virtual: bundle packages, remove whole bundle at once, when done
+RUN apk --no-cache --virtual build-dependencies add git python make g++
+
+RUN yarn global add pm2
 
 COPY package.json /WebApp/
 COPY yarn.lock /WebApp/
 RUN yarn install --frozen-lockfile --non-interactive
 
+RUN apk del build-dependencies
+
+# must be after `yarn install`
+ENV NODE_ENV=production
+
 COPY . /WebApp/
+CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "2", "--attach"]
