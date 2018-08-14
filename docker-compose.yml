@@ -2,6 +2,7 @@ version: '3'
 
 services:
   webapp:
+    image: humanconnection/frontend-nuxt
     build:
       context: .
       args:
