@@ -44,6 +44,10 @@
       isCommentFormOfContribution: {
         type: Boolean,
         default: false
+      },
+      depth: {
+        type: Number,
+        default: 0
       }
     },
     data () {
@@ -92,6 +96,9 @@
         if (!comment) {
           return
         }
+        this.$nextTick(function() {
+          this.$el.getElementsByClassName('ql-editor')[0].innerText = '@' + comment.user.name
+        });
       },
       async submitComment () {
         if (!this.hasContent) {

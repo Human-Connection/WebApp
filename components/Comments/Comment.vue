@@ -13,7 +13,7 @@
         <author :user="comment.user"
           :showText="false" />
       </div>
-      <div class="comment-main">
+      <div class="comment-main" v-bind:style="styleBackground">
         <div class="comment-header">
           <div class="comment-header-author">
             <author :user="comment.user"
@@ -62,7 +62,7 @@
         </form>
         <div class="comment-footer">
           <div class="comment-footer-actions-left">
-            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
+            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner && depth == 0 ">
               <a class="level-item" @click.prevent="$emit('reply', comment); openCommentForm();">
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
@@ -87,7 +87,7 @@
             </a>
           </div>
         </div>
-        <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children" @reply="onReply()"
+        <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children" @reply="this.$parent.onReply"
                  :isAuthor="childComment.userId === post.userId"
                  :isOwner="childComment.userId === user._id"
                  :key="childComment._id"
@@ -96,7 +96,7 @@
                  :depth="depth + 1"
                  :onUpvote="onUpvote" />
 
-        <comment-form :post="post" :replyComment="comment" v-if="isReplying" />
+        <comment-form :post="post" :replyComment="comment" v-if="isReplying" :depth="depth"/>
       </div>
     </template>
   </div>
@@ -138,6 +138,10 @@
       }
     },
     data () {
+      const styleBackground = {};
+      if (this.depth > 0) {
+        styleBackground.backgroundColor = '#f2efef'
+      }
       return {
         fullContentShown: false,
         highlight: false,
@@ -151,7 +155,8 @@
             toolbar: null,
             pasteHandler: {}
           }
-        }
+        },
+        styleBackground: styleBackground
       }
     },
     computed: {
@@ -187,16 +192,17 @@
         patch: 'comments/patch'
       }),
       maxDepth() {
-        return 2;
+        return 1
       },
       openCommentForm() {
-        this.isReplying = true;
+        if (this.depth == 0) {
+          this.isReplying = true
+        }
       },
       closeCommentForm() {
-        this.isReplying = false;
-      },
-      onReply() {
-        return this.$parent.onReply;
+        if (this.depth == 0) {
+          this.isReplying = false
+        }
       },
       removeComment () {
         this.$dialog.confirm({
@@ -214,7 +220,7 @@
           .then((res) => {
             this.newContent = res.content
             this.edit = true
-            this.fullContentShown = false;
+            this.fullContentShown = false
           })
       },
       cancelEdit () {
