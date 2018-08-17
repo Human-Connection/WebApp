@@ -12,8 +12,8 @@
       <div class="comment-form-actions">
         <button type="button"
           class="button is-hidden-mobile"
-          :disabled="!this.hasContent"
-          @click="form.content = ''">
+          :disabled="this.isCommentFormOfContribution ? !this.hasContent : false"
+          @click="cancel(form)">
           {{ $t('button.cancel') }}
         </button>
         <button type="submit"
@@ -40,15 +40,19 @@
       },
       replyComment: {
         type: Object
+      },
+      isCommentFormOfContribution: {
+        type: Boolean,
+        default: false
       }
     },
     data () {
       return {
         isLoading: false,
-        isReplying: false,
         form: {
           content: '',
-          contributionId: null
+          contributionId: null,
+          parentCommentId: ''
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -61,7 +65,6 @@
     },
     watch: {
       replyComment (comment) {
-        debugger
         this.reply(comment)
       }
     },
@@ -78,16 +81,17 @@
       }
     },
     methods: {
+      cancel (form) {
+        if (this.isCommentFormOfContribution) {
+          form.content = '';
+        } else {
+          this.$parent.closeCommentForm();
+        }
+      },
       reply (comment) {
         if (!comment) {
           return
         }
-        try {
-          debugger
-          this.isReplying = true;
-          this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
-          this.$scrollTo(this.$refs.editor.$el, 500)
-        } catch (err) {}
       },
       async submitComment () {
         if (!this.hasContent) {
@@ -96,7 +100,7 @@
         }
         this.isLoading = true
         this.form.contributionId = this.post._id
-        debugger
+        this.form.parentCommentId = this.replyComment ? this.replyComment._id : ''
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
             this.$store.dispatch('comments/fetchByContributionId', this.post._id)
@@ -115,7 +119,7 @@
             })
           })
         this.isLoading = false
-        this.isReplying = false
+        this.$parent.closeCommentForm();
       }
     }
   }

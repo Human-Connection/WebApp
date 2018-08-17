@@ -63,7 +63,7 @@
         <div class="comment-footer">
           <div class="comment-footer-actions-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
-              <a class="level-item" @click.prevent="$emit('reply', comment); openCommentForm(comment);">
+              <a class="level-item" @click.prevent="$emit('reply', comment); openCommentForm();">
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
             </hc-tooltip>
@@ -87,14 +87,16 @@
             </a>
           </div>
         </div>
-        <!--<hc-comment v-for="childComment in children" @reply="onReply"
+        <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children" @reply="onReply()"
                  :isAuthor="childComment.userId === post.userId"
                  :isOwner="childComment.userId === user._id"
                  :key="childComment._id"
                  :comment="childComment"
                  :post="post"
-                 :onUpvote="upvote" />-->
-        <comment-form :post="post" :replyComment="comment" v-if="isReplying"/>
+                 :depth="depth + 1"
+                 :onUpvote="onUpvote" />
+
+        <comment-form :post="post" :replyComment="comment" v-if="isReplying" />
       </div>
     </template>
   </div>
@@ -102,7 +104,6 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import Vue from 'vue'
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
   import linkifyHtml from 'linkifyjs/html'
@@ -130,6 +131,10 @@
       },
       post: {
         type: Object
+      },
+      depth: {
+        type: Number,
+        default: 0
       }
     },
     data () {
@@ -181,15 +186,17 @@
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
-      openCommentForm(comment) {
-        debugger
+      maxDepth() {
+        return 2;
+      },
+      openCommentForm() {
         this.isReplying = true;
-        /*let CommentFormClass = Vue.extend(commentForm);
-        let instance = new CommentFormClass();
-        instance.post = this.post;
-        instance.replyComment = comment;
-        instance.$mount();
-        this.$refs.container.appendChild(instance.$el);*/
+      },
+      closeCommentForm() {
+        this.isReplying = false;
+      },
+      onReply() {
+        return this.$parent.onReply;
       },
       removeComment () {
         this.$dialog.confirm({

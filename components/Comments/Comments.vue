@@ -17,7 +17,7 @@
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
     </div>-->
-    <comment-form :post="post" :replyComment="replyComment" />
+    <comment-form :post="post" :replyComment="replyComment" :isCommentFormOfContribution="true"/>
   </div>
 </template>
 
@@ -58,7 +58,6 @@
         }
       },
       onReply (comment) {
-        debugger
         this.replyComment = comment
         this.$nextTick(() => this.replyComment = null)
       }
