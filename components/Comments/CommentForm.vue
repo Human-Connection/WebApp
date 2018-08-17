@@ -87,9 +87,10 @@
     methods: {
       cancel (form) {
         if (this.isCommentFormOfContribution) {
-          form.content = '';
+          form.content = ''
         } else {
-          this.$parent.closeCommentForm();
+          if (this.replyComment)
+            this.$parent.closeCommentForm()
         }
       },
       reply (comment) {
@@ -98,7 +99,7 @@
         }
         this.$nextTick(function() {
           this.$el.getElementsByClassName('ql-editor')[0].innerText = '@' + comment.user.name
-        });
+        })
       },
       async submitComment () {
         if (!this.hasContent) {
@@ -126,7 +127,8 @@
             })
           })
         this.isLoading = false
-        this.$parent.closeCommentForm();
+        if (this.replyComment)
+          this.$parent.closeCommentForm()
       }
     }
   }

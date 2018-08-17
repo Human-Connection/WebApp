@@ -87,7 +87,8 @@
             </a>
           </div>
         </div>
-        <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children" @reply="$parent.onReply"
+        <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children"
+                 @reply="$parent.onReply ? $parent.onReply : () => {}"
                  :isAuthor="childComment.userId === post.userId"
                  :isOwner="childComment.userId === user._id"
                  :key="childComment._id"
