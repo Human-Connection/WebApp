@@ -2,7 +2,6 @@ version: '3'
 
 services:
   webapp:
-    image: humanconnection/frontend-nuxt
     networks:
       hc-network:
         ipv4_address: 172.25.0.20
@@ -21,9 +20,6 @@ services:
       - EMBED_API_TOKEN=
     depends_on:
       - api
-    build:
-      args:
-        BUILD_COMMIT: ${BUILD_COMMIT}
   mongo:
     image: mongo
     networks:

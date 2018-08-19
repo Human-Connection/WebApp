@@ -24,4 +24,4 @@ RUN yarn install --production=false --frozen-lockfile --non-interactive
 RUN apk del build-dependencies
 
 COPY . /WebApp/
-CMD ["yarn", "run", "deploy"]
+CMD ["yarn", "run", "docker:cmd", "-i", "2", "--attach"]
