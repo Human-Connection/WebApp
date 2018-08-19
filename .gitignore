@@ -26,7 +26,6 @@ npm-debug.log
 /nbproject/private/
 /nbproject/
 
-# .env and .env-secrets
 .env
 .env-secrets
 

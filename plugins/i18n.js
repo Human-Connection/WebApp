@@ -4,8 +4,8 @@ import { debounce, isEmpty } from 'lodash'
 
 import vuexI18n from 'vuex-i18n/dist/vuex-i18n.umd.js'
 
-export default ({ app, req, cookie, store }) => {
-  const doDebug = process.env.NODE_ENV !== 'production'
+export default ({ app, env, req, cookie, store }) => {
+  const doDebug = env.NODE_ENV !== 'production'
   const key = 'locale'
 
   const changeHandler = debounce((mutation, store) => {

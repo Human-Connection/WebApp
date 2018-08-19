@@ -1,7 +1,7 @@
 import { isEmpty } from 'lodash'
 
-export default async ({ store, route, redirect }) => {
-  let publicPages = process.env.publicPages
+export default async ({ store, env, route, redirect }) => {
+  let publicPages = env.publicPages
   publicPages.push('auth-logout')
   // only affect non public pages
   if (publicPages.indexOf(route.name) >= 0) {

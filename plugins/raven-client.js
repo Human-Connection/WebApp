@@ -2,14 +2,14 @@ import Vue from 'vue'
 import Raven from 'raven-js'
 import RavenVue from 'raven-js/plugins/vue'
 
-export default ({app}) => {
-  if (process.browser && app.$env.SENTRY_DNS_PUBLIC) {
+export default ({env}) => {
+  if (process.browser && env.SENTRY_DNS_PUBLIC) {
     Raven
-      .config(app.$env.SENTRY_DNS_PUBLIC, {
-        release: app.$env.BUILD_DATE,
-        environment: app.$env.NODE_ENV,
+      .config(env.SENTRY_DNS_PUBLIC, {
+        release: env.BUILD_DATE,
+        environment: env.NODE_ENV,
         tags: {
-          deployed: app.$env.DEPLOY_DATE,
+          deployed: env.DEPLOY_DATE,
           client: true
         }
       })
