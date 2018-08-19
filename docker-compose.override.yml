@@ -6,3 +6,4 @@ services:
     volumes:
       - .:/WebApp
       - /WebApp/node_modules/
+      - /WebApp/.nuxt/
