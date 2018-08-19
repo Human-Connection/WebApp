@@ -87,17 +87,19 @@
             </a>
           </div>
         </div>
-        <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children"
-                 @reply="$parent.onReply ? $parent.onReply : () => {}"
-                 :isAuthor="childComment.userId === post.userId"
-                 :isOwner="childComment.userId === user._id"
-                 :key="childComment._id"
-                 :comment="childComment"
-                 :post="post"
-                 :depth="depth + 1"
-                 :onUpvote="onUpvote" />
-
-        <comment-form :post="post" :replyComment="comment" v-if="isReplying" :depth="depth"/>
+        <transition-group name="comment" tag="div">
+          <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children"
+                   @reply="$parent.onReply ? $parent.onReply : () => {}"
+                   :isAuthor="childComment.userId === post.userId"
+                   :isOwner="childComment.userId === user._id"
+                   :key="childComment._id"
+                   :comment="childComment"
+                   :post="post"
+                   :depth="depth + 1"
+                   :onUpvote="onUpvote"
+                   />
+        </transition-group>
+        <comment-form class="comment-form" :post="post" :replyComment="comment" v-if="isReplying" :depth="depth"/>
       </div>
     </template>
   </div>
