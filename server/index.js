@@ -10,6 +10,8 @@ import avatar from './avatar'
 import embeds from './embeds'
 import raven from '../plugins/raven-server'
 
+require('dotenv').config() // load .env into process.env
+
 const app = express()
 
 // Import and Set Nuxt.js options
