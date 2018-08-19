@@ -1,9 +1,0 @@
-version: '3'
-
-services:
-  webapp:
-    command: sh -c "cp .env.example .env && yarn run dev"
-    volumes:
-      - .:/WebApp
-      - /WebApp/node_modules/
-      - /WebApp/.nuxt/
