@@ -53,6 +53,8 @@
     data () {
       return {
         isLoading: false,
+        isExecuted: false,
+        hasSubmitted: false,
         form: {
           content: '',
           contributionId: null,
@@ -97,11 +99,19 @@
         if (!comment) {
           return
         }
-        this.$nextTick(function() {
-          this.$el.getElementsByClassName('ql-editor')[0].innerText = '@' + comment.user.name
-        })
+        const comments = this.$parent.$el.classList.contains('comments') ? this.$parent : this.$parent.$parent.$parent
+        if (!this.isExecuted && !comments.hasSubmitted && this.$el.children[1].parentElement.id != 'comment-form') {
+          this.isExecuted = true;
+          this.$nextTick(function () {
+            this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
+            this.$scrollTo(this.$el.children[1], 500)
+            setTimeout(() => { this.isExecuted = false; }, 700)
+          })
+        }
       },
       async submitComment () {
+        const comments = this.$parent.$el.classList.contains('comments') ? this.$parent : this.$parent.$parent.$parent
+        comments.hasSubmitted = true
         if (!this.hasContent) {
           this.form.content = ''
           return
@@ -129,6 +139,11 @@
         this.isLoading = false
         if (this.replyComment)
           this.$parent.closeCommentForm()
+        // because of the watch or mounted part, the reply function gets execute very often
+        // so after the submit of a comment there should happen nothing (scrollTo) for 3 sec
+        this.$nextTick(() => {
+          setTimeout(() => { comments.hasSubmitted = false }, 3000)
+        })
       }
     }
   }

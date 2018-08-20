@@ -13,7 +13,7 @@
         <author :user="comment.user"
           :showText="false" />
       </div>
-      <div class="comment-main" v-bind:style="styleBackground">
+      <div class="comment-main depth-zero" v-bind:style="styleBackground">
         <div class="comment-header">
           <div class="comment-header-author">
             <author :user="comment.user"
@@ -110,6 +110,7 @@
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
   import linkifyHtml from 'linkifyjs/html'
+  import $ from 'jquery'
 
   export default {
     name: 'hc-comment',
@@ -186,6 +187,37 @@
       }
     },
     mounted () {
+      const el = this.$el.getElementsByClassName('comment-main')[0]
+
+      if (this.depth > 0) {
+        el.classList.remove('depth-zero')
+        el.classList.add('depth-one')
+        var addRule = (function (style) {
+          var sheet = document.head.appendChild(style).sheet;
+          return function (selector, css) {
+            var propText = typeof css === "string" ? css : Object.keys(css).map(function (p) {
+              return p + ":" + (p === "content" ? "'" + css[p] + "'" : css[p]);
+            }).join(";");
+            sheet.insertRule(selector + "{" + propText + "}", sheet.cssRules.length);
+          };
+        })(document.createElement("style"));
+
+        if (!this.comment.deleted) {
+          addRule('.depth-one:before', {
+            position: "absolute",
+            content: "''",
+            display: "block",
+            top: "20px",
+            right: "100%",
+            width: "0",
+            height: "0",
+            "border-top": "6px solid transparent",
+            "border-bottom": "6px solid transparent",
+            "border-right": "6px solid #f2efef"
+          });
+        }
+      }
+
       this.scrollToCommentIfSelected()
     },
     methods: {
@@ -194,18 +226,16 @@
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
-      maxDepth() {
+      maxDepth () {
         return 1
       },
-      openCommentForm() {
-        if (this.depth == 0) {
+      openCommentForm () {
+        if (this.depth == 0)
           this.isReplying = true
-        }
       },
-      closeCommentForm() {
-        if (this.depth == 0) {
+      closeCommentForm () {
+        if (this.depth == 0)
           this.isReplying = false
-        }
       },
       removeComment () {
         this.$dialog.confirm({
@@ -297,7 +327,7 @@
     padding: $padding-small;
     background-color: $white;
 
-    &:before {
+    &.depth-zero:before {
       position: absolute;
       content: '';
       display: block;
