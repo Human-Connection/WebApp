@@ -142,7 +142,7 @@
         // because of the watch or mounted part, the reply function gets execute very often
         // so after the submit of a comment there should happen nothing (scrollTo) for 3 sec
         this.$nextTick(() => {
-          setTimeout(() => { comments.hasSubmitted = false }, 3000)
+          setTimeout(() => { comments.hasSubmitted = false }, 2000)
         })
       }
     }
