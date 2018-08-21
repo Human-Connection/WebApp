@@ -3,7 +3,7 @@
     <template v-if="comment.deleted">
       <div class="comment-aside">
       </div>
-      <div class="comment-main comment-deleted">
+      <div class="comment-main comment-deleted" ref="commentMain">
         <hc-icon icon="ban" class="comment-deleted-icon" />
         {{ $t('component.contribution.commentDeletedByUser') }}
       </div>
@@ -13,7 +13,7 @@
         <author :user="comment.user"
           :showText="false" />
       </div>
-      <div class="comment-main depth-zero" v-bind:style="styleBackground">
+      <div class="comment-main depth-zero" v-bind:style="styleBackground" ref="commentMain">
         <div class="comment-header">
           <div class="comment-header-author">
             <author :user="comment.user"
@@ -110,7 +110,6 @@
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
   import linkifyHtml from 'linkifyjs/html'
-  import $ from 'jquery'
 
   export default {
     name: 'hc-comment',
@@ -187,11 +186,12 @@
       }
     },
     mounted () {
-      const el = this.$el.getElementsByClassName('comment-main')[0]
-
+      // add the light gray color to the triangle at the left of the comment
       if (this.depth > 0) {
+        const el = this.$refs.commentMain
         el.classList.remove('depth-zero')
         el.classList.add('depth-one')
+
         var addRule = (function (style) {
           var sheet = document.head.appendChild(style).sheet;
           return function (selector, css) {
