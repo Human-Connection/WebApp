@@ -5,7 +5,7 @@
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
       <comment @reply="onReply"
-               v-for="comment in comments"
+               v-for="comment in computedComments"
                :isAuthor="comment.userId === post.userId"
                :isOwner="comment.userId === user._id"
                :key="comment._id"
@@ -45,7 +45,10 @@
         user: 'auth/user',
         comments: 'comments/all',
         isLoading: 'comments/isLoading'
-      })
+      }),
+      computedComments: function() {
+        return this.comments.filter((c) => { return !c.parentCommentId; });
+      }
     },
     destroyed () {
       this.$store.commit('comments/clear')
@@ -59,12 +62,12 @@
         }
       },
       onReply (comment) {
-        this.replyComment = comment
+        this.replyComment = comment;
         this.$nextTick(() => this.replyComment = null)
       }
     },
     mounted () {
-      this.$store.dispatch('comments/fetchByContributionId', this.post._id)
+      this.$store.dispatch('comments/fetchByContributionId', this.post._id);
       this.$store.dispatch('comments/subscribe', this.post._id)
     }
   }
