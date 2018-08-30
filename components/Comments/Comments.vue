@@ -5,7 +5,7 @@
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
       <comment @reply="onReply"
-               v-for="comment in computedComments"
+               v-for="comment in replyComments"
                :isAuthor="comment.userId === post.userId"
                :isOwner="comment.userId === user._id"
                :key="comment._id"
@@ -46,7 +46,7 @@
         comments: 'comments/all',
         isLoading: 'comments/isLoading'
       }),
-      computedComments: function() {
+      replyComments: function() {
         return this.comments.filter((c) => { return !c.parentCommentId; });
       }
     },

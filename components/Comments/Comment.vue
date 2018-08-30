@@ -192,10 +192,13 @@
         el.classList.remove('depth-zero')
         el.classList.add('depth-one')
 
-        var addRule = (function (style) {
-          var sheet = document.head.appendChild(style).sheet;
+        // its not that easy to change a pseudo element dynamically. With this solution it is possible.
+        // It can be changed if someone find a solution with vue!
+        // https://stackoverflow.com/questions/4481485/changing-css-pseudo-element-styles-via-javascript)#answer-8051488
+        const addRule = (function (style) {
+          const sheet = document.head.appendChild(style).sheet;
           return function (selector, css) {
-            var propText = typeof css === "string" ? css : Object.keys(css).map(function (p) {
+            let propText = typeof css === "string" ? css : Object.keys(css).map(function (p) {
               return p + ":" + (p === "content" ? "'" + css[p] + "'" : css[p]);
             }).join(";");
             sheet.insertRule(selector + "{" + propText + "}", sheet.cssRules.length);
