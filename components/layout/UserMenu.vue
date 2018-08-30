@@ -22,7 +22,7 @@
         <small>{{ user.role }}</small>
       </hc-navbar-item>
       <hr class="navbar-divider">
-      <hc-navbar-item class="nav-item" to="/profile" @click.native="close()">
+      <hc-navbar-item class="nav-item" @click="userSlug()" @click.native="close()">
         <span class="icon">
           <hc-icon class="icon-left" icon="user"/>
         </span> {{ $t('auth.account.profile') }}
@@ -88,6 +88,9 @@
       },
       close () {
         this.$refs.dropdown.close()
+      },
+      userSlug () {
+        this.$router.push(`/profile/${this.user.slug}`)
       }
     }
   }
