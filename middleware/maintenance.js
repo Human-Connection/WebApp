@@ -1,7 +1,7 @@
 
-export default async function ({ app, env, error, store, redirect, route }) {
+export default async function ({ app, error, store, redirect, route }) {
   let isMaintenanceEnabled = false
-  if (Boolean(env.MAINTENANCE) === true) {
+  if (Boolean(app.$env.MAINTENANCE) === true) {
     error({ statusCode: 503, message: 'Maintenance Mode' })
     return
   }
