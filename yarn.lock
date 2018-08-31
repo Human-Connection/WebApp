@@ -10395,9 +10395,9 @@ uid2@0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/uid2/-/uid2-0.0.3.tgz#483126e11774df2f71b8b639dcd799c376162b82"
 
-uikit@^3.0.0-rc.2:
-  version "3.0.0-rc.2"
-  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.0.0-rc.2.tgz#e3d6fe59d751839c5308022354bb23fc61dda0d3"
+uikit@^3.0.0-rc.8:
+  version "3.0.0-rc.8"
+  resolved "https://registry.yarnpkg.com/uikit/-/uikit-3.0.0-rc.8.tgz#333a7e35e9c8a943176e6c61b466faef050ac6ce"
 
 ultron@~1.1.0:
   version "1.1.1"
