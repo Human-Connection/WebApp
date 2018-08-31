@@ -5,9 +5,9 @@ import authentication from '@feathersjs/authentication-client'
 import urlHelper from '~/helpers/urls'
 import Vue from 'vue'
 
-export default ({app, env, store, redirect, router}) => {
+export default ({app, store, redirect, router}) => {
   const authKey = 'feathers-jwt'
-  const endpoint = urlHelper.buildEndpointURL(env.API_HOST, { port: env.API_PORT })
+  const endpoint = urlHelper.buildEndpointURL(app.$env.API_HOST, { port: app.$env.API_PORT })
   const storage = {
     getItem: (key) => {
       const res = app.$cookies.get(key)
@@ -26,7 +26,7 @@ export default ({app, env, store, redirect, router}) => {
     },
     clear: () => {
       const res = app.$cookies.removeAll()
-      if (env.NODE_ENV === 'development') {
+      if (app.$env.NODE_ENV === 'development') {
         console.log(`## STORAGE: clear()`, res)
       }
       return res
@@ -60,7 +60,7 @@ export default ({app, env, store, redirect, router}) => {
       all: [
         async (hook) => {
           // hook.accessToken = await api.passport.getJWT()
-          if (env.NODE_ENV === 'development') {
+          if (app.$env.NODE_ENV === 'development') {
             console.log('# API:', `${hook.method} ${hook.path}`)
             console.info('data', hook.data)
             // console.log('# ' + hook.accessToken)
@@ -70,7 +70,7 @@ export default ({app, env, store, redirect, router}) => {
       ]
     },
     async error (ctx) {
-      if (env.NODE_ENV === 'development') {
+      if (app.$env.NODE_ENV === 'development') {
         console.log('####################')
         console.error(ctx.error)
         console.info('JWT TOKEN: ', app.$cookies.get(authKey))
