@@ -24,4 +24,5 @@ RUN yarn install --production=false --frozen-lockfile --non-interactive
 RUN apk del build-dependencies
 
 COPY . /WebApp/
-CMD ["yarn", "run", "docker:cmd", "-i", "2", "--attach"]
+RUN ["yarn", "run", "build"]
+CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "2", "--attach"]
