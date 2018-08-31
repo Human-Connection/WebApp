@@ -88,7 +88,7 @@
           </div>
         </div>
         <transition-group name="comment" tag="div">
-          <hc-comment v-if="depth < maxDepth()" v-for="childComment in comment.children"
+          <hc-comment v-if="depth < maxDepth" v-for="childComment in comment.children"
                    @reply="$parent.onReply ? $parent.onReply : () => {}"
                    :isAuthor="childComment.userId === post.userId"
                    :isOwner="childComment.userId === user._id"
@@ -138,6 +138,10 @@
       depth: {
         type: Number,
         default: 0
+      },
+      maxDepth: {
+        type: Number,
+        default: 1
       }
     },
     data () {
@@ -186,39 +190,10 @@
       }
     },
     mounted () {
-      // add the light gray color to the triangle at the left of the comment
       if (this.depth > 0) {
         const el = this.$refs.commentMain
         el.classList.remove('depth-zero')
         el.classList.add('depth-one')
-
-        // its not that easy to change a pseudo element dynamically. With this solution it is possible.
-        // It can be changed if someone find a solution with vue!
-        // https://stackoverflow.com/questions/4481485/changing-css-pseudo-element-styles-via-javascript)#answer-8051488
-        const addRule = (function (style) {
-          const sheet = document.head.appendChild(style).sheet;
-          return function (selector, css) {
-            let propText = typeof css === "string" ? css : Object.keys(css).map(function (p) {
-              return p + ":" + (p === "content" ? "'" + css[p] + "'" : css[p]);
-            }).join(";");
-            sheet.insertRule(selector + "{" + propText + "}", sheet.cssRules.length);
-          };
-        })(document.createElement("style"));
-
-        if (!this.comment.deleted) {
-          addRule('.depth-one:before', {
-            position: "absolute",
-            content: "''",
-            display: "block",
-            top: "20px",
-            right: "100%",
-            width: "0",
-            height: "0",
-            "border-top": "6px solid transparent",
-            "border-bottom": "6px solid transparent",
-            "border-right": "6px solid #f2efef"
-          });
-        }
       }
 
       this.scrollToCommentIfSelected()
@@ -229,9 +204,6 @@
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
-      maxDepth () {
-        return 1
-      },
       openCommentForm () {
         if (this.depth == 0)
           this.isReplying = true
@@ -341,6 +313,18 @@
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
       border-right: 6px solid $white;
+    }
+    &.depth-one:before {
+      position: absolute;
+      content: '';
+      display: block;
+      top: 20px;
+      right: 100%;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid #f2efef;
     }
   }
 

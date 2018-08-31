@@ -37,7 +37,8 @@
     data () {
       return {
         replyComment: null,
-        hasSubmitted: false
+        hasSubmitted: false,
+        $this: this
       }
     },
     computed: {
@@ -47,7 +48,7 @@
         isLoading: 'comments/isLoading'
       }),
       replyComments: function() {
-        return this.comments.filter((c) => { return !c.parentCommentId; });
+        return this.comments.filter((c) => { return !c.parentCommentId; })
       }
     },
     destroyed () {
@@ -62,12 +63,12 @@
         }
       },
       onReply (comment) {
-        this.replyComment = comment;
+        this.replyComment = comment
         this.$nextTick(() => this.replyComment = null)
       }
     },
     mounted () {
-      this.$store.dispatch('comments/fetchByContributionId', this.post._id);
+      this.$store.dispatch('comments/fetchByContributionId', this.post._id)
       this.$store.dispatch('comments/subscribe', this.post._id)
     }
   }

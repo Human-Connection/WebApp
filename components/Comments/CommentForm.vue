@@ -58,7 +58,7 @@
         form: {
           content: '',
           contributionId: null,
-          parentCommentId: ''
+          parentCommentId: null
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -90,9 +90,8 @@
       cancel (form) {
         if (this.isCommentFormOfContribution) {
           form.content = ''
-        } else {
-          if (this.replyComment)
-            this.$parent.closeCommentForm()
+        } else if(this.replyComment) {
+          this.$parent.closeCommentForm()
         }
       },
       reply (comment) {
@@ -101,11 +100,11 @@
         }
         const comments = this.$parent.$el.classList.contains('comments') ? this.$parent : this.$parent.$parent.$parent
         if (!this.isExecuted && !comments.hasSubmitted && this.$el.children[1].parentElement.id != 'comment-form') {
-          this.isExecuted = true;
+          this.isExecuted = true
           this.$nextTick(function () {
             this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
             this.$scrollTo(this.$el.children[1], 500)
-            setTimeout(() => { this.isExecuted = false; }, 700)
+            setTimeout(() => { this.isExecuted = false }, 700)
           })
         }
       },
@@ -118,7 +117,7 @@
         }
         this.isLoading = true
         this.form.contributionId = this.post._id
-        this.form.parentCommentId = this.replyComment ? this.replyComment._id : ''
+        this.form.parentCommentId = this.replyComment ? this.replyComment._id : null
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
             this.$store.dispatch('comments/fetchByContributionId', this.post._id)
