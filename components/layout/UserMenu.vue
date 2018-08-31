@@ -22,7 +22,7 @@
         <small>{{ user.role }}</small>
       </hc-navbar-item>
       <hr class="navbar-divider">
-      <hc-navbar-item class="nav-item" @click="userSlug()" @click.native="close()">
+      <hc-navbar-item class="nav-item" :to="{name: 'profile-slug', params: {slug: this.user.slug}}" @click.native="close()">
         <span class="icon">
           <hc-icon class="icon-left" icon="user"/>
         </span> {{ $t('auth.account.profile') }}
@@ -80,7 +80,7 @@
         isAuthenticated: 'auth/isAuthenticated',
         isAdmin: 'auth/isAdmin',
         user: 'auth/user'
-      })
+      }),
     },
     methods: {
       logout () {
@@ -89,9 +89,6 @@
       close () {
         this.$refs.dropdown.close()
       },
-      userSlug () {
-        this.$router.push(`/profile/${this.user.slug}`)
-      }
     }
   }
 </script>
