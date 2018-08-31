@@ -6,18 +6,19 @@ services:
       hc-network:
         ipv4_address: 172.25.0.20
     environment:
-      - NODE_ENV=staging
+      - NODE_ENV=development
+      - MAINTENANCE=${MAINTENANCE}
       - WEBAPP_HOST=172.25.0.20
       - WEBAPP_BASE_URL=http://172.25.0.20:3000
       - API_HOST=172.25.0.11
       - WEBAPP_PORT=3000
       - API_PORT=3030
       - MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
-      - SENTRY_DNS_PUBLIC=
-      - EMBED_API_URL=
+      - SENTRY_DNS_PUBLIC=${SENTRY_DNS_PUBLIC}
+      - EMBED_API_URL=${EMBED_API_URL}
         # these secrets should only be accessible on the server:
-      - SENTRY_DNS_PRIVATE=
-      - EMBED_API_TOKEN=
+      - SENTRY_DNS_PRIVATE=${SENTRY_DNS_PRIVATE}
+      - EMBED_API_TOKEN=${EMBED_API_TOKEN}
     depends_on:
       - api
   mongo:
