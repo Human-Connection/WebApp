@@ -56,9 +56,6 @@
         if (this.user.userId) {
           // its an organization
           this.$router.push(`/organizations/${this.user.slug}`)
-        } else if (this.isOwnProfile) {
-          // own profile
-          this.$router.push(`/profile/`)
         } else if (this.getUser.slug) {
           // foreign profile
           this.$router.push(`/profile/${this.getUser.slug}`)
