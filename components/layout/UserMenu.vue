@@ -68,7 +68,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import LanguageSelect from '~/components/layout/LanguageSelect.vue'
+  import LanguageSelect from './LanguageSelect.vue'
 
   export default {
     name: 'hc-user-menu',
