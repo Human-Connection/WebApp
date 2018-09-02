@@ -137,8 +137,9 @@
             })
           })
 
-        if (this.replyComment)
+        if (this.replyComment) {
           this.$parent.closeCommentForm()
+        }
 
         this.isLoading = false
         // because of the watch or mounted part, the reply function gets execute very often
