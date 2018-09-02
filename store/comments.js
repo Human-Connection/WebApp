@@ -4,7 +4,8 @@ export const state = () => {
   return {
     comments: [],
     isLoading: true,
-    contributionId: null
+    contributionId: null,
+    isSubmitting: false
   }
 }
 
@@ -20,12 +21,18 @@ export const mutations = {
   },
   setContributionId (state, contributionId) {
     state.contributionId = contributionId
+  },
+  setIsSubmitting (state, status) {
+    state.isSubmitting = status
   }
 }
 
 export const getters = {
   all (state) {
     return state.comments
+  },
+  isSubmitting (state) {
+    return state.isSubmitting
   },
   isLoading (state) {
     return state.isLoading
@@ -94,5 +101,9 @@ export const actions = {
   },
   remove ({dispatch}, id) {
     return this.app.$api.service('comments').remove(id)
+  },
+  setSubmitting ({commit}, status) {
+    commit('setIsSubmitting', status)
+    return status
   }
 }

@@ -36,9 +36,7 @@
     },
     data () {
       return {
-        replyComment: null,
-        hasSubmitted: false,
-        $this: this
+        replyComment: null
       }
     },
     computed: {

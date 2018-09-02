@@ -54,7 +54,6 @@
       return {
         isLoading: false,
         isExecuted: false,
-        hasSubmitted: false,
         form: {
           content: '',
           contributionId: null,
@@ -80,7 +79,8 @@
     computed: {
       ...mapGetters({
         isVerified: 'auth/isVerified',
-        user: 'auth/user'
+        user: 'auth/user',
+        isSubmitting: 'comments/isSubmitting'
       }),
       hasContent () {
         return !!trim(this.form.content.replace(/(<([^>]+)>)/ig, '')).length
@@ -98,8 +98,7 @@
         if (!comment) {
           return
         }
-        const comments = this.$parent.$el.classList.contains('comments') ? this.$parent : this.$parent.$parent.$parent
-        if (!this.isExecuted && !comments.hasSubmitted && this.$el.children[1].parentElement.id != 'comment-form') {
+        if (!this.isExecuted && !this.isSubmitting && this.$el.children[1].parentElement.id != 'comment-form') {
           this.isExecuted = true
           this.$nextTick(function () {
             this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
@@ -109,15 +108,17 @@
         }
       },
       async submitComment () {
-        const comments = this.$parent.$el.classList.contains('comments') ? this.$parent : this.$parent.$parent.$parent
-        comments.hasSubmitted = true
+        await this.$store.dispatch('comments/setSubmitting', true)
+
         if (!this.hasContent) {
           this.form.content = ''
           return
         }
+
         this.isLoading = true
         this.form.contributionId = this.post._id
         this.form.parentCommentId = this.replyComment ? this.replyComment._id : null
+
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
             this.$store.dispatch('comments/fetchByContributionId', this.post._id)
@@ -135,13 +136,15 @@
               type: 'is-danger'
             })
           })
-        this.isLoading = false
+
         if (this.replyComment)
           this.$parent.closeCommentForm()
+
+        this.isLoading = false
         // because of the watch or mounted part, the reply function gets execute very often
-        // so after the submit of a comment there should happen nothing (scrollTo) for 3 sec
+        // so after the submit of a comment there should happen nothing (scrollTo) for 2 sec
         this.$nextTick(() => {
-          setTimeout(() => { comments.hasSubmitted = false }, 2000)
+          setTimeout(() => { this.$store.dispatch('comments/setSubmitting', false) }, 2000)
         })
       }
     }
