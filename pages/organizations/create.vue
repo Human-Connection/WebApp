@@ -79,7 +79,6 @@ import OrgaFormStep2 from "~/components/Organizations/steps/OrgaFormStep2.vue";
 import OrgaFormStep3 from "~/components/Organizations/steps/OrgaFormStep3.vue";
 
 export default {
-  middleware: "authenticated",
   layout: "blank",
   mixins: [animatable],
   components: {

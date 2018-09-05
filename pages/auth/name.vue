@@ -65,7 +65,6 @@
   import RandomAvataaar from '~/components/Avatar/RandomAvataaar'
 
   export default {
-    middleware: 'authenticated',
     layout: 'blank',
     components: {
       RandomAvataaar

@@ -202,7 +202,6 @@
         isLoadingCanDos: false
       }
     },
-    middleware: ['authenticated'],
     async asyncData ({ app, params, store, error }) {
       let user
       let isOwner = false

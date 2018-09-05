@@ -183,7 +183,6 @@
         uploadingLogo: false
       }
     },
-    middleware: ['authenticated'],
     async asyncData ({app, params, store, error}) {
       let organization
       if (!isEmpty(params) && !isEmpty(params.slug) && params.slug !== undefined) {

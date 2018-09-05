@@ -31,7 +31,6 @@
   import {mapGetters} from 'vuex'
 
   export default {
-    middleware: 'authenticated',
     layout: 'blank',
     computed: {
       ...mapGetters({

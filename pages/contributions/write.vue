@@ -15,7 +15,7 @@
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
 
   export default {
-    middleware: ['authenticated', 'verified'],
+    middleware: ['verified'],
     mixins: [animatable],
     components: {
       ContributionsForm
