@@ -82,6 +82,7 @@ We use [backpack](https://github.com/palmerhq/backpack) to watch and build the a
 ## Help
 
 The HC platform is documented in our [gitbook](https://www.gitbook.com/book/human-connection/documentation/) (work in progress).
+You can get help here too: https://discord.gg/mVmjvNF
 
 ## License 
 
