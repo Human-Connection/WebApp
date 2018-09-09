@@ -70,15 +70,7 @@
         this.$nextTick(() => this.replyComment = null)
       },
       loadMoreComments () {
-        this.$store.dispatch('comments/fetchByContributionId', this.post._id)
-          .then((result) => {
-            if (this.comments.length < this.commentCount) {
-              this.loadMoreComments()
-            }
-          })
-          .catch((e) => {
-            console.error(e)
-          })
+        this.$store.dispatch('comments/fetchAllByContributionId', this.post._id)
       }
     },
     mounted () {

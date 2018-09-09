@@ -53,6 +53,14 @@ export const actions = {
         dispatch('fetchByContributionId')
       }, 500))
   },
+  fetchAllByContributionId ({dispatch, state}, contributionId) {
+    dispatch('fetchByContributionId', contributionId)
+      .then(() => {
+        if (state.comments.length < state.commentCount) {
+          dispatch('fetchAllByContributionId', contributionId)
+        }
+      })
+  },
   fetchByContributionId ({commit, state}, contributionId) {
     contributionId = contributionId || state.contributionId
     if (!contributionId) {
