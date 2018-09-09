@@ -434,7 +434,7 @@
         "submitComment": "Submit comment",
         "showLess": "hide",
         "showMore": "show more",
-        "showMoreComments": "Show more comments: {count}",
+        "showMoreComments": "Show all comments ({count} more)",
         "update": "Update",
         "add": "Add",
         "addContribution": "Add contribution",
