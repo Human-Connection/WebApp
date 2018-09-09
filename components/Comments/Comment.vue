@@ -138,6 +138,7 @@
     },
     computed: {
       ...mapGetters({
+        showComment: 'comments/showComment',
         user: 'auth/user'
       }),
       getText () {
@@ -215,8 +216,8 @@
         }
       },
       scrollToCommentIfSelected () {
-        // check if ?showComment is set and scroll to the selected comment item if the id mataches
-        if (this.$route.query && this.$route.query.showComment === this.comment._id) {
+        // check if showComment is set and scroll to the selected comment item if the id matches
+        if ((this.$route.query && this.$route.query.showComment === this.comment._id) || (this.showComment === this.comment._id)) {
           setTimeout(() => {
             this.$scrollTo(this.$el, 500, {
               onDone: () => {

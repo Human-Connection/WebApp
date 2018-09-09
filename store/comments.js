@@ -4,6 +4,7 @@ export const state = () => {
   return {
     comments: [],
     commentCount: 0,
+    showComment: null,
     isLoading: true,
     contributionId: null
   }
@@ -18,6 +19,9 @@ export const mutations = {
   },
   setCommentCount (state, commentCount) {
     state.commentCount = commentCount
+  },
+  setShowComment (state, showComment) {
+    state.showComment = showComment
   },
   clear (state) {
     state.comments = []
@@ -34,6 +38,9 @@ export const getters = {
   isLoading (state) {
     return state.isLoading
   },
+  showComment (state) {
+    return state.showComment
+  },
   count (state) {
     return state.commentCount
   }
@@ -41,10 +48,11 @@ export const getters = {
 
 export const actions = {
   // Called from plugins/init-store-subscriptions only once
-  subscribe ({dispatch}) {
+  subscribe ({commit, dispatch}) {
     return this.app.$api.service('comments')
       .on('created', debounce((comment) => {
-        dispatch('fetchByContributionId')
+        dispatch('fetchAllByContributionId')
+        commit('setShowComment', comment._id)
       }, 500))
       .on('patched', debounce((comment) => {
         dispatch('fetchByContributionId')
