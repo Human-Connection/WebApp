@@ -1,8 +1,9 @@
-import { castArray, debounce } from 'lodash'
+import { castArray, debounce, uniq, orderBy } from 'lodash'
 
 export const state = () => {
   return {
     comments: [],
+    commentCount: 0,
     isLoading: true,
     contributionId: null
   }
@@ -14,6 +15,9 @@ export const mutations = {
   },
   set (state, comments) {
     state.comments = castArray(comments)
+  },
+  setCommentCount (state, commentCount) {
+    state.commentCount = commentCount
   },
   clear (state) {
     state.comments = []
@@ -31,7 +35,7 @@ export const getters = {
     return state.isLoading
   },
   count (state) {
-    return state.comments.length
+    return state.commentCount
   }
 }
 
@@ -68,6 +72,7 @@ export const actions = {
     })
       .then((result) => {
         commit('set', result.data)
+        commit('setCommentCount', result.total)
         commit('isLoading', false)
       })
       .catch((e) => {
