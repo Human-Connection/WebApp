@@ -59,7 +59,7 @@ export const actions = {
       return
     }
     commit('setContributionId', contributionId)
-    // TODO: implement pagination for comments
+
     return this.app.$api.service('comments').find({
       query: {
         contributionId: contributionId,
@@ -67,12 +67,15 @@ export const actions = {
           // upvoteCount: -1,
           createdAt: 1
         },
+        $skip: state.comments.length,
         $limit: 100
       }
     })
       .then((result) => {
-        commit('set', result.data)
+        // as we load new comments, make sure they are in the right order and unique
+        let newComments = orderBy(uniq(state.comments.concat(result.data)), ['createdAt'], ['asc'])
         commit('setCommentCount', result.total)
+        commit('set', newComments)
         commit('isLoading', false)
       })
       .catch((e) => {

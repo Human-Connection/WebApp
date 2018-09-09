@@ -432,6 +432,7 @@
         "submitComment": "Kommentar veröffentlichen",
         "showLess": "weniger anzeigen",
         "showMore": "mehr anzeigen",
+        "showMoreComments": "Mehr Kommentare anzeigen: {count}",
         "update": "Aktualisieren",
         "add": "Hinzufügen",
         "addContribution": "Beitrag erstellen",
