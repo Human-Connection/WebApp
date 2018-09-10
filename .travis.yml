@@ -16,10 +16,9 @@ jobs:
     - stage: Test and Build
       script:
       - yarn install --frozen-lockfile --non-interactive
-      - yarn test:env
-      - yarn test
+      - yarn run ci
     - script:
-      - docker build -t humanconnection/frontend-nuxt .
+      - docker build --build-arg BUILD_COMMIT=$TRAVIS_COMMIT -t humanconnection/frontend-nuxt .
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then

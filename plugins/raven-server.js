@@ -1,15 +1,10 @@
 import Raven from 'raven'
-import dotenv from 'dotenv'
-import {readFileSync} from 'fs'
-import {resolve} from 'path'
 
 export default async function (app) {
-  const secrets = dotenv.parse(await readFileSync(resolve('./server/.env-secrets')))
-
-  if (!process.client && secrets.SENTRY_DNS_PRIVATE) {
+  if (!process.client && process.env.SENTRY_DNS_PRIVATE) {
     // LOGGING IS ENABLED
     console.log('SENTRY LOGGING IS ENABLED')
-    Raven.config(secrets.SENTRY_DNS_PRIVATE, {
+    Raven.config(process.env.SENTRY_DNS_PRIVATE, {
       release: app.$env.BUILD_COMMIT,
       environment: app.$env.NODE_ENV,
       tags: {

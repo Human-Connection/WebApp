@@ -1,18 +1,20 @@
-require('dotenv').config()
 const path = require('path')
+const envWhitelist = [
+  'NODE_ENV',
+  'WEBAPP_HOST',
+  'WEBAPP_PORT',
+  'WEBAPP_BASE_URL',
+  'API_HOST',
+  'API_PORT',
+  'EMBED_API_URL',
+  'SENTRY_DNS_PUBLIC',
+  'MAPBOX_TOKEN',
+  'MAINTENANCE'
+]
 
 module.exports = {
   env: {
     // pages which do not require a login
-    publicPages: [
-      'auth-login',
-      'auth-register',
-      'auth-signup',
-      'auth-reset',
-      'auth-reset-token',
-      'pages-slug',
-      'test'
-    ],
     // pages to keep alive
     keepAlivePages: [
       'index'
@@ -93,7 +95,6 @@ module.exports = {
     }
   },
   plugins: [
-    {src: '~/plugins/env.js'},
     {src: '~/plugins/debug.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/api.js'},
@@ -112,15 +113,15 @@ module.exports = {
     {src: '~/plugins/open-page-in-modal.js', ssr: false}
   ],
   modules: [
-    'cookie-universal-nuxt',
-    '@nuxtjs/dotenv'
+    ['@nuxtjs/dotenv', { only: envWhitelist }],
+    ['nuxt-env', { keys: envWhitelist }],
+    'cookie-universal-nuxt'
     // '@nuxtjs/pwa'
   ],
   router: {
     middleware: [
       'maintenance',
-      'check-auth',
-      'authenticated'
+      'auth'
     ],
     linkActiveClass: 'active-link'
   },

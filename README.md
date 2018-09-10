@@ -19,7 +19,7 @@
 
 This is the nuxt + express version of our WebApp as nuxt.js seams to be more stable and we have better options for keeping it updated.
 
-## Build Setup
+## Local installation
 
 > we recommend to install the project locally for the best development ease and performance
 
@@ -32,6 +32,12 @@ $ yarn dev
 
 # build for production and launch server
 $ yarn start
+```
+
+Create your individual set of environment variables:
+```sh
+$ cp .env.example .env
+# now open .env and change it according to your setup
 ```
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).

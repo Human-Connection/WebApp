@@ -1,16 +1,13 @@
-version: '2'
+version: '3'
 
 services:
-  frontend:
-    build: .
-    environment:
-      WEBAPP_HOST: localhost
-      WEBAPP_PORT: 3000
-      WEBAPP_BASE_URL: http://localhost:3000
-      API_HOST: http://localhost
-      API_PORT: 3030
-      MAPBOX_TOKEN:
+  webapp:
+    image: humanconnection/frontend-nuxt
+    build:
+      context: .
+      args:
+        BUILD_COMMIT: ${BUILD_COMMIT}
     stdin_open: true
     tty: true
     ports:
-    - 3000:3000/tcp
+      - 3000:3000/tcp

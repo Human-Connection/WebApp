@@ -38,7 +38,7 @@
       }
     },
     mounted () {
-      if (process.env.NODE_ENV === 'development') {
+      if (this.$env.NODE_ENV === 'development') {
         console.error(this.error.message)
       }
 
