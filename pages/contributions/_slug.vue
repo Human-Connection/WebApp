@@ -107,7 +107,7 @@
             <div ref="tabs">
               <b-tabs class="footer">
                 <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
-                  <comments :post="contribution"/>
+                  <comments :post="contribution" v-on:input="editorText"/>
                 </b-tab-item>
                 <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                   <div class="message is-warning">
@@ -191,6 +191,21 @@
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
 
   export default {
+    beforeRouteLeave(to, from, next) {
+      if (this.isComposing) {
+        this.$dialog.confirm({
+          title: this.$t('component.contribution.commentDraft'),
+          message: this.$t('component.contribution.commentDraftMsg'),
+          confirmText: this.$t('button.yes'),
+          cancelText: this.$t('button.cancel'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => { next() }
+        })
+      } else {
+        next()
+      }
+    },
     scrollToTop: false,
     components: {
       'author': author,
@@ -208,6 +223,7 @@
     data () {
       return {
         contribution: null,
+        isComposing: false,
         title: null,
         isLoading: false
       }
@@ -236,11 +252,23 @@
     mounted () {
       this.$api.service('contributions')
         .on('patched', this.onContribSettingsUpdate)
+
+      window.addEventListener('beforeunload', (e) => {
+        if (this.isComposing) {
+          e.preventDefault()
+          let isChrome = !!window.chrome && !!window.chrome.webstore
+          if (isChrome) { e.returnValue = "\o/" }
+        }
+      })
     },
     methods: {
       ...mapMutations({
         updateContribution: 'newsfeed/updateContribution'
       }),
+      editorText (newText) {
+        if (newText) { this.isComposing = true }
+        else { this.isComposing = false}
+      },
       onContribSettingsUpdate (data) {
         // Contribution was deleted -> redirect
         if (data.deleted) {

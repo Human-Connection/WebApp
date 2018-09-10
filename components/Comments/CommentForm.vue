@@ -6,6 +6,7 @@
     <form class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
         ref="editor"
+        v-on:input="editorText"
         editorClass="autowrap"
         v-model="form.content"
         :editorOptions="editorOptions" />
@@ -76,6 +77,9 @@
       }
     },
     methods: {
+      editorText (newText) {
+        this.$emit('input', newText)
+      },
       reply (comment) {
         if (!comment) {
           return
