@@ -24,8 +24,8 @@ let protectable = {
   methods: {
     beforeUnload (e) {
       if (!this.isComposing) return true
-
       e.preventDefault()
+      // only chrome based browsers, see: https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload#Example
       let isChrome = !!window.chrome && !!window.chrome.webstore
       if (isChrome) { e.returnValue = '\o/' } // eslint-disable-line no-useless-escape
     },
