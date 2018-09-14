@@ -631,9 +631,9 @@
         "inactive": "Deaktiviert"
     },
     "quotes": {
-        "1": {
-            "quoteTxt": "Viele kleine Leute, an vielen kleinen Orten, die viele kleine Dinge tun, werden das Antlitz dieser Welt verändern.",
-            "quoteAuthor": "Afrikanisches Sprichwort"
+        "african": {
+            "txt": "Viele kleine Leute, an vielen kleinen Orten, die viele kleine Dinge tun, werden das Antlitz dieser Welt verändern.",
+            "author": "Afrikanisches Sprichwort"
     	}
     }
 }
