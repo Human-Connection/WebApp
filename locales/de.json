@@ -629,5 +629,11 @@
         "created": "Erstellt",
         "active": "Aktiviert",
         "inactive": "Deaktiviert"
+    },
+    "quotes": {
+        "1": {
+            "quoteTxt": "Viele kleine Leute, die in vielen kleinen Orten viele kleine Dinge tun, können das Gesicht der Welt verändern.",
+            "quoteAuthor": "Afrikanisches Sprichwort"
+    	}
     }
 }

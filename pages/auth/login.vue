@@ -12,8 +12,6 @@
             <img src="/assets/images/registration/humanconnection.svg" alt="Human Connection"/>
           </nuxt-link>
         </div>
-        <p class="subtitle is-6">Viele kleine Leute, die in vielen kleinen Orten viele kleine Dinge tun, können das Gesicht der Welt verändern.</p>
-        <p class="subtitle is-7">Afrikanisches Sprichwort</p>
         <p class="subtitle is-6">{{ $t('auth.login.description') }}</p>
         <form @submit.prevent="login">
           <div class="field">
@@ -70,6 +68,8 @@
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>
+        <p class="subtitle is-6">{{ $t('quotes.1.quoteTxt') }}</p>
+        <p class="subtitle is-7">{{ $t('quotes.1.quoteAuthor') }}</p>
       </div>
       <footer class="card-footer">
         <!--
