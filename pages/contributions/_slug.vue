@@ -186,26 +186,13 @@
   import CanDoReason from '~/components/CanDos/Reason'
   import { isEmpty, truncate } from 'lodash'
   import linkifyHtml from 'linkifyjs/html'
+  import protectable from '~/components/mixins/protectable'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
 
   export default {
-    beforeRouteLeave(to, from, next) {
-      if (this.isComposing) {
-        this.$dialog.confirm({
-          title: this.$t('component.contribution.commentDraft'),
-          message: this.$t('component.contribution.commentDraftMsg'),
-          confirmText: this.$t('button.yes'),
-          cancelText: this.$t('button.cancel'),
-          type: 'is-danger',
-          hasIcon: true,
-          onConfirm: () => { next() }
-        })
-      } else {
-        next()
-      }
-    },
+    mixins: [protectable],
     scrollToTop: false,
     components: {
       'author': author,
@@ -252,26 +239,13 @@
     mounted () {
       this.$api.service('contributions')
         .on('patched', this.onContribSettingsUpdate)
-
-      window.addEventListener('beforeunload', this.beforeUnload)
-    },
-    beforeDestroy () {
-      window.removeEventListener('beforeunload', this.beforeUnload)
     },
     methods: {
       ...mapMutations({
         updateContribution: 'newsfeed/updateContribution'
       }),
-      beforeUnload (e) {
-        if (this.isComposing) {
-          e.preventDefault()
-          let isChrome = !!window.chrome && !!window.chrome.webstore
-          if (isChrome) { e.returnValue = "\o/" }
-        }
-      },
       editorText (newText) {
-        if (newText) { this.isComposing = true }
-        else { this.isComposing = false}
+        this.protectText(newText)
       },
       onContribSettingsUpdate (data) {
         // Contribution was deleted -> redirect
