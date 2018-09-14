@@ -253,18 +253,22 @@
       this.$api.service('contributions')
         .on('patched', this.onContribSettingsUpdate)
 
-      window.addEventListener('beforeunload', (e) => {
-        if (this.isComposing) {
-          e.preventDefault()
-          let isChrome = !!window.chrome && !!window.chrome.webstore
-          if (isChrome) { e.returnValue = "\o/" }
-        }
-      })
+      window.addEventListener('beforeunload', this.beforeUnload)
+    },
+    beforeDestroy () {
+      window.removeEventListener('beforeunload', this.beforeUnload)
     },
     methods: {
       ...mapMutations({
         updateContribution: 'newsfeed/updateContribution'
       }),
+      beforeUnload (e) {
+        if (this.isComposing) {
+          e.preventDefault()
+          let isChrome = !!window.chrome && !!window.chrome.webstore
+          if (isChrome) { e.returnValue = "\o/" }
+        }
+      },
       editorText (newText) {
         if (newText) { this.isComposing = true }
         else { this.isComposing = false}
