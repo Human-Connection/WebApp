@@ -1,7 +1,8 @@
 {
     "humanConnection": "Human Connection",
     "humanConnectionMadeWithHeart": "Made with <span style=\"color: #f00\">♥</span>",
-    "humanConnectionPresentationText": "Hier geht's zur Präsentations-Website, auf der du mehr Informationen, Links und Erklärungen findest, wie auch du Teil der Veränderung werden kannst.",
+    "humanConnectionPresentationLinkText": "Visit our website",
+    "humanConnectionPresentationText": "to get more informationen, links and explanation on how you are able to be part of the change.",
     "component": {
         "error": {
             "header403": "Forbidden",
