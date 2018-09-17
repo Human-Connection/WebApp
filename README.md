@@ -51,20 +51,13 @@ $ env MAINTENANCE=true yarn start
 
 ### Test Logins
 
-**Admin**
 
-E-Mail: `test@test.de`  
-Password: `1234`
+| Role      | E-Mail         | Password |
+| --------- | -------------- | -------- | 
+| Admin     | test@test.de   | 1234     |
+| Moderator | test2@test2.de | 1234     |
+| User      | test3@test3.de | 1234     |
 
-**Moderator**
-
-E-Mail: `test2@test2.de`  
-Password: `1234`
-
-**Normal User**
-
-E-Mail: `test3@test3.de`  
-Password: `1234`
 
 ## Styleguide
 
