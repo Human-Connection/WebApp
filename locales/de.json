@@ -1,6 +1,8 @@
 {
     "humanConnection": "Human Connection",
     "humanConnectionMadeWithHeart": "Mit <span style=\"color: #f00\">♥</span> gemacht",
+    "humanConnectionPresentationLinkText": "Hier geht's zur Präsentations-Website,",
+    "humanConnectionPresentationText": "auf der du mehr Informationen, Links und Erklärungen dazu findest, wie auch du Teil der Veränderung werden kannst.",
     "component": {
         "error": {
             "header403": "Zutritt verweigert",
@@ -629,5 +631,11 @@
         "created": "Erstellt",
         "active": "Aktiviert",
         "inactive": "Deaktiviert"
+    },
+    "quotes": {
+        "african": {
+            "txt": "Viele kleine Leute, an vielen kleinen Orten, die viele kleine Dinge tun, werden das Antlitz dieser Welt verändern.",
+            "author": "Afrikanisches Sprichwort"
+    	}
     }
 }
