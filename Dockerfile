@@ -1,5 +1,5 @@
-FROM node:alpine
-LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
+FROM node:10-alpine
+LABEL Description="This image builds and runs the Human-Connection Frontend" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # expose the app port
 EXPOSE 3000
