@@ -69,20 +69,21 @@
           </hc-button>
         </form>
         <p class="subtitle is-6">
-          {{ $t('quotes.african.txt') }}
-          <div style="padding-top: 10px">
-            {{ $t('quotes.african.author') }}
-          </div>
+        {{ $t('quotes.african.txt') }}
+        </p>
+        <p class="is-italic">
+        {{ $t('quotes.african.author') }}
         </p>
         <p class="subtitle is-6">
-          <span style="color: #f33">♥</span><br />
-          <div class="content">
-            <a href="https://human-connection.org"
-              target="_blank"
-              v-html="$t('humanConnectionPresentationLinkText')" />
-              <br />
-              {{ $t('humanConnectionPresentationText') }}
-          </div>
+        <div class="content">
+          <a href="https://human-connection.org" target="_blank">
+            <hc-icon icon="heart" class="has-text-success"></hc-icon>
+            <br/>
+            {{ $t('humanConnectionPresentationLinkText') }}
+          </a>
+          <br/>
+          {{ $t('humanConnectionPresentationText') }}
+        </div>
         </p>
       </div>
       <footer class="card-footer">
