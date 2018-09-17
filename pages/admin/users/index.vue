@@ -6,6 +6,20 @@
         <search-input id="user-search"
                       :value="userSearchValue"
                       @search="userSearchOnInput" />
+        <article class="message is-info invite-code" v-if="inviteCodeForEmail">
+          <div class="message-body content">
+            <div>
+              Unused invite code found for user:<br/>
+              <strong class="code">{{ inviteCodeForEmail.code }}</strong>
+              <div class="code-button" >
+                <a
+                  v-clipboard:copy="inviteLink"
+                  v-clipboard:success="clipboardSuccess"
+                  class="confirm-info button is-small is-info notifications">Copy Invite Code</a>
+              </div>
+            </div>
+          </div>
+        </article>
         <no-ssr>
           <v2-table :data="users.data"
                     :stripe="true"
@@ -64,7 +78,7 @@
                 </span>
               </template>
             </v2-table-column>
-            <v2-table-column label="Role" prop="role" align="left" width="50"></v2-table-column>
+            <v2-table-column label="Role" prop="role" align="left" width="70"></v2-table-column>
           </v2-table>
         </no-ssr>
       </b-tab-item>
@@ -213,6 +227,7 @@
         invitePreview: [],
         invitePaginated: [],
         inviteResults: [],
+        inviteCodeForEmail: null,
         currentPage: 1,
         paginationInfo: {
           text: '', // this.paginationText,
@@ -260,9 +275,22 @@
       },
       paginationText () {
         return `<span>Total of <strong>${this.user ? this.user.total : 0}</strong>, <strong>${this.itemLimit}</strong> per page</span>`
+      },
+      searchingForUserByEmail () {
+        return !isEmpty(this.userSearchValue) && this.userSearchValue.indexOf('@') > 0
+      },
+      inviteLink (e) {
+        let link = `${location.origin}/auth/register?email=${this.inviteCodeForEmail.email}&code=${this.inviteCodeForEmail.code}`
+        return link
       }
     },
     methods: {
+      clipboardSuccess () {
+        this.$snackbar.open({
+          message: this.$t('auth.settings.invitesCopiedToClipboard', { code: this.inviteCodeForEmail.code }),
+          type: "is-success"
+        });
+      },
       userSearchOnInput (value) {
         this.userSearchValue = value
         this.handleUserPageChange(1)
@@ -388,8 +416,8 @@
           $limit: this.itemLimit,
           $skip: start
         }
-        if (!isEmpty(this.userSearchValue) && this.userSearchValue.indexOf('@') > 0) {
-          query.email = this.userSearchValue
+        if (this.searchingForUserByEmail) {
+          query.email = this.userSearchValue.toLowerCase()
         } else if (!isEmpty(this.userSearchValue)) {
           query.name = {
             $search: this.userSearchValue
@@ -397,6 +425,20 @@
         }
 
         this.users = await this.$api.service('users').find({query})
+
+        if (this.searchingForUserByEmail && !this.users.total) {
+          this.inviteCodeForEmail = await this.$api.service('invites').find({
+            query: {
+              email: this.userSearchValue.toLowerCase(),
+              invitedByUserId: { $exists: false },
+              wasUsed: { $ne: true }
+            }
+          })
+          this.inviteCodeForEmail = this.inviteCodeForEmail.total ? this.inviteCodeForEmail.data[0] : null
+        } else {
+          this.inviteCodeForEmail = null
+        }
+
         this.usersLoading = false
       },
       async handleInvitesPageChange (page) {
@@ -442,6 +484,19 @@
     .user-tabs {
       margin-top: -4.0rem;
       margin-bottom: -1rem;
+    }
+  }
+
+  .invite-code {
+    .code {
+      display: inline-block;
+      padding-top: 1em;
+      font-size: 1.2em;
+    }
+    .code-button {
+      right: 20px;
+      bottom: 20px;
+      position: absolute;
     }
   }
 </style>
