@@ -63,7 +63,7 @@ module.exports = {
   ],
   webpackConfig: {
     module: {
-      loaders: [
+      rules: [
         // Vue loader
         {
           test: /\.vue$/,
