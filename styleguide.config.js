@@ -51,8 +51,6 @@ module.exports = {
     return `import ${name} from '~/${dir}/${name}.vue'`
   },
   assetsDir: 'static',
-  require: ['assets/styles/styleguide.scss'],
-  template: 'docs/template/index.html',
   title: 'HC Style Guide',
   serverHost: 'localhost',
   ignore: [
@@ -65,7 +63,7 @@ module.exports = {
   ],
   webpackConfig: {
     module: {
-      loaders: [
+      rules: [
         // Vue loader
         {
           test: /\.vue$/,
