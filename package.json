@@ -114,7 +114,7 @@
     "vue-styleguidist": "~1.7.7",
     "vue-template-compiler": "~2.5.16",
     "vue-text-glitch": "^1.0.1",
-    "vuelidate": "~0.6.1",
+    "vuelidate": "~0.7.4",
     "vuex-i18n": "~1.10.5",
     "webpack": "^4.16.2",
     "zxcvbn": "^4.4.2"
