@@ -4,7 +4,7 @@
       <div class="card">
         <section class="section">
           <!--<h1 class="title">Edit {{ title }}</h1>-->
-          <contributions-form :data="form"></contributions-form>
+          <contributions-form v-on:input="editorText" :data="form"></contributions-form>
         </section>
       </div>
     </div>
@@ -13,8 +13,10 @@
 
 <script>
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
+  import protectable from '~/components/mixins/protectable'
 
   export default {
+    mixins: [protectable],
     middleware: ['verified', 'owner'],
     components: {
       ContributionsForm
@@ -45,6 +47,11 @@
     head () {
       return {
         title: `Edit ${this.title}`
+      }
+    },
+    methods: {
+      editorText (newText) {
+        this.protectText(newText)
       }
     }
   }

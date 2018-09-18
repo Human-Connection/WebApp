@@ -42,6 +42,7 @@
         <form class="comment-form" @submit.prevent="patchComment" v-else>
           <hc-editor identifier="comment"
             editorClass="autowrap"
+            v-on:input="editorText"
             v-model="newContent"
             :editorOptions="editorOptions" />
           <div class="comment-form-actions">
@@ -168,6 +169,9 @@
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
+      editorText (newText) {
+        this.$emit('input', newText)
+      },
       removeComment () {
         this.$dialog.confirm({
           title: this.$t('component.contribution.commentDelete'),

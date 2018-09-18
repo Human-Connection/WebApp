@@ -199,6 +199,8 @@
             "commentSubmitSuccess": "Thanks for your comment. You are awesome.",
             "commentUpvote": "Vote: +1",
             "commentReplyThis": "Reply to this comment",
+            "draft": "Draft",
+            "draftMsg": "Are you sure you want to discard your current draft?",
             "creator": "Creator ::: Creator",
             "creatorUnknown": "Anonymous",
             "delete": "Delete post",

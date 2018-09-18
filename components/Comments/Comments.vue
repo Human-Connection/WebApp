@@ -5,6 +5,7 @@
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
       <comment @reply="onReply"
+               v-on:input="editorText"
                v-for="comment in comments"
                :isAuthor="comment.userId === post.userId"
                :isOwner="comment.userId === user._id"
@@ -16,7 +17,7 @@
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
     </div>-->
-    <comment-form :post="post" :replyComment="replyComment" />
+    <comment-form :post="post" :replyComment="replyComment" v-on:input="editorText" />
   </div>
 </template>
 
@@ -49,6 +50,9 @@
       this.$store.commit('comments/clear')
     },
     methods: {
+      editorText (newText) {
+        this.$emit('input', newText)
+      },
       upvote (comment) {
         if (!this.user) {
           this.$router.push({ name: 'auth-login', params: { path: this.$route.path } })
