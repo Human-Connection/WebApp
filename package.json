@@ -50,7 +50,7 @@
   "dependencies": {
     "@feathersjs/authentication-client": "^1.0.2",
     "@feathersjs/client": "^3.5.3",
-    "@feathersjs/feathers": "^3.1.7",
+    "@feathersjs/feathers": "^3.2.2",
     "@feathersjs/socketio": "^3.2.2",
     "@nuxtjs/dotenv": "~1.1.0",
     "@nuxtjs/pwa": "~2.0.5",
