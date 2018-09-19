@@ -436,6 +436,7 @@
         "submitComment": "Kommentar veröffentlichen",
         "showLess": "weniger anzeigen",
         "showMore": "mehr anzeigen",
+        "showMoreComments": "Alle Kommentare anzeigen ({count} weitere)",
         "update": "Aktualisieren",
         "add": "Hinzufügen",
         "addContribution": "Beitrag erstellen",

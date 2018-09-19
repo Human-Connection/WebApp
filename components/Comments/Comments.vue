@@ -13,6 +13,14 @@
                :comment="comment"
                :onUpvote="upvote" />
     </transition-group>
+    <div v-if="commentCount > comments.length">
+      <hc-button
+        @click="loadMoreComments"
+        class="button is-info is-fullwidth"
+        :class="{ 'is-loading': isLoading }">
+        {{ $t('button.showMoreComments', {'count': commentCount-comments.length}) }}
+      </hc-button>
+    </div>
     <!--<div v-else class="notification">
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
@@ -43,6 +51,7 @@
       ...mapGetters({
         user: 'auth/user',
         comments: 'comments/all',
+        commentCount: 'comments/count',
         isLoading: 'comments/isLoading'
       })
     },
@@ -63,10 +72,25 @@
       onReply (comment) {
         this.replyComment = comment
         this.$nextTick(() => this.replyComment = null)
+      },
+      loadMoreComments () {
+        this.$store.dispatch('comments/fetchAllByContributionId', this.post._id)
       }
     },
     mounted () {
       this.$store.dispatch('comments/fetchByContributionId', this.post._id)
+        .then(() => {
+          // load more comments if queried comment is not on this page yet
+          if (this.$route.query && this.$route.query.showComment) {
+            let comment = this.comments.find(comment => comment._id === this.$route.query.showComment)
+
+            if (! comment) {
+              this.loadMoreComments()
+            }
+          }
+        })
+        .catch((e) => {console.log(e)})
+
       this.$store.dispatch('comments/subscribe', this.post._id)
     }
   }

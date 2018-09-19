@@ -98,13 +98,13 @@
         this.form.contributionId = this.post._id
         await this.$store.dispatch('comments/create', this.form)
           .then((res) => {
-            this.$store.dispatch('comments/fetchByContributionId', this.post._id)
             this.$snackbar.open({
               message: this.$t('component.contribution.commentSubmitSuccess', 'Thanks for your comment. You are awesome.'),
               duration: 4000,
               type: 'is-success'
             })
             this.form.content = ''
+            this.isLoading = false
           })
           .catch((error) => {
             console.error(error)
@@ -112,8 +112,8 @@
               message: error.message,
               type: 'is-danger'
             })
+            this.isLoading = false
           })
-        this.isLoading = false
       }
     }
   }
