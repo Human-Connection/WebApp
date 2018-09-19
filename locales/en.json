@@ -1,6 +1,8 @@
 {
     "humanConnection": "Human Connection",
     "humanConnectionMadeWithHeart": "Made with <span style=\"color: #f00\">♥</span>",
+    "humanConnectionPresentationLinkText": "Visit our website",
+    "humanConnectionPresentationText": "to get more informationen, links and explanation on how you can be part of the change.",
     "component": {
         "error": {
             "header403": "Forbidden",
@@ -631,5 +633,11 @@
         "created": "Created",
         "active": "Active",
         "inactive": "Inactive"
+    },
+    "quotes": {
+        "african": {
+            "txt": "Many small people in many small places do many small things, that can alter the face of the world.",
+            "author": "African proverb"
+    	}
     }
 }

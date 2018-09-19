@@ -21,6 +21,7 @@ npm-debug.log
 # Ignore ide settings
 .idea/
 .vscode/
+.vs/
 
 # Do not commit the env.js file as it may contain sensitive data
 /nbproject/private/
@@ -31,3 +32,6 @@ npm-debug.log
 
 # ignore cypress videos
 cypress/videos
+
+#ignore internal github files
+.github/
