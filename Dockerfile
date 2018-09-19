@@ -21,8 +21,6 @@ COPY package.json /WebApp/
 COPY yarn.lock /WebApp/
 RUN yarn install --production=false --frozen-lockfile --non-interactive
 
-RUN apk del build-dependencies
-
 COPY . /WebApp/
 RUN ["yarn", "run", "build"]
 CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "2", "--attach"]
