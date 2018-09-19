@@ -57,6 +57,14 @@ $ yarn run styleguide
 ```
 When built you can open it at [http://localhost:6060](http://localhost:6060)
 
+## Localization
+
+### Located in two places!
+
+`locales/`
+
+[Lokalise.co](https://lokalise.co/public/829625945b3c04bf56d560.80490143/)
+
 ## Help
 
 The HC platform is documented in our [docs](https://docs.human-connection.org/) (work in progress).<br>
