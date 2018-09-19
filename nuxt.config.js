@@ -1,5 +1,6 @@
 const path = require('path')
 const envWhitelist = [
+  'BUILD_COMMIT',
   'NODE_ENV',
   'WEBAPP_HOST',
   'WEBAPP_PORT',
