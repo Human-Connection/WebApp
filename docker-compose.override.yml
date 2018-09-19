@@ -41,9 +41,6 @@ services:
     networks:
       hc-network:
         ipv4_address: 172.25.0.11
-  thumbor:
-    networks:
-      - hc-network
   maildev:
     image: djfarrelly/maildev
     networks:
