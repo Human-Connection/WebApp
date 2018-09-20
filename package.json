@@ -110,7 +110,7 @@
     "vue-places": "^1.1.0",
     "vue-quill-editor": "~3.0.5",
     "vue-scrollto": "~2.11.0",
-    "vue-server-renderer": "~2.5.16",
+    "vue-server-renderer": "~2.5.17",
     "vue-styleguidist": "~1.7.7",
     "vue-template-compiler": "~2.5.16",
     "vue-text-glitch": "^1.0.1",
