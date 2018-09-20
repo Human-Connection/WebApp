@@ -139,7 +139,7 @@
     "jsdom": "~11.10.0",
     "less": "~2.7.3",
     "less-loader": "^4.1.0",
-    "node-sass": "~4.9.0",
+    "node-sass": "~4.9.3",
     "require-extension-hooks": "~0.3.3",
     "require-extension-hooks-babel": "~0.1.1",
     "require-extension-hooks-vue": "~1.0.0",
