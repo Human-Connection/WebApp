@@ -18,7 +18,7 @@ It uses the Nuxt.js and Express.js projects.<br />
 
 ## Help
 The HC platform and its setup is documented in our [docs](https://docs.human-connection.org/) (work in progress).<br />
-You can get help here too: https://discord.gg/mVmjvNF<br />
+Connect with other developers over [Discord](https://discord.gg/mVmjvNF)<br />
 
 ## License 
 Copyright (c) 2018 [Human-Connection.org](https://human-connection.org)<br />
