@@ -4,13 +4,14 @@ services:
   webapp:
     networks:
       hc-network:
-        ipv4_address: 172.25.0.20
+    links:
+      - api:api.local
     environment:
       - NODE_ENV=development
       - MAINTENANCE=${MAINTENANCE}
-      - WEBAPP_HOST=172.25.0.20
-      - WEBAPP_BASE_URL=http://172.25.0.20:3000
-      - API_HOST=172.25.0.11
+      - WEBAPP_HOST=172.17.0.1
+      - WEBAPP_BASE_URL=http://172.17.0.1:3000
+      - API_HOST=172.17.0.1
       - WEBAPP_PORT=3000
       - API_PORT=3030
       - MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
@@ -21,46 +22,49 @@ services:
       - EMBED_API_TOKEN=${EMBED_API_TOKEN}
     depends_on:
       - api
+
   mongo:
     image: mongo
     networks:
       - hc-network
     tty: true
     command: "--smallfiles"
+
   api:
     image: humanconnection/api-feathers:edge
     depends_on:
       - maildev
       - thumbor
       - mongo
+    links:
+      - mongo:mongo.local
     environment:
       - NODE_ENV=staging
-    ports:
-      - "3030:3030"
+      - MONGO_DB=mongodb://mongo.local
     stdin_open: true
     tty: true
     networks:
       hc-network:
-        ipv4_address: 172.25.0.11
+    ports:
+      - "172.17.0.1:3030:3030"
+
   maildev:
     image: djfarrelly/maildev
     networks:
       - hc-network
     ports:
-      - "1080:80"
-      - "1025:25"
+      - "172.17.0.1:1080:80"
+      - "172.17.0.1:1025:25"
+
   thumbor:
     image: apsl/thumbor
     networks:
       - hc-network
     ports:
-      - "8000:8000"
+      - "172.17.0.1:8000:8000"
 
 networks:
   hc-network:
     driver: bridge
     ipam:
       driver: default
-      config:
-      -
-        subnet: 172.25.0.0/16
