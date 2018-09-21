@@ -2,7 +2,7 @@ version: '3'
 
 services:
   webapp:
-    image: humanconnection/frontend-nuxt
+    image: humanconnection/frontend-nuxt:edge
     build:
       context: .
       args:
@@ -10,4 +10,4 @@ services:
     stdin_open: true
     tty: true
     ports:
-      - 3000:3000/tcp
+      - 172.17.0.1:3000:3000/tcp
