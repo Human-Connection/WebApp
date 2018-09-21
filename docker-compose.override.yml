@@ -25,9 +25,10 @@ services:
     image: mongo
     networks:
       - hc-network
-    command: "--smallfiles --logpath=/dev/null"
+    tty: true
+    command: "--smallfiles"
   api:
-    image: humanconnection/api-feathers
+    image: humanconnection/api-feathers:edge
     depends_on:
       - maildev
       - thumbor
