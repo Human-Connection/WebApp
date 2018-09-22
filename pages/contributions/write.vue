@@ -3,7 +3,7 @@
     <div class="column is-8 is-offset-2">
       <div class="card" :class="classes">
         <section class="section">
-          <contributions-form @validate="onValidate" />
+          <contributions-form v-on:input="editorText" @validate="onValidate" />
         </section>
       </div>
     </div>
@@ -13,10 +13,11 @@
 <script>
   import animatable from '~/components/mixins/animatable'
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
+  import protectable from '~/components/mixins/protectable'
 
   export default {
     middleware: ['authenticated', 'verified'],
-    mixins: [animatable],
+    mixins: [animatable, protectable],
     components: {
       ContributionsForm
     },
@@ -24,6 +25,9 @@
       this.$destroy()
     },
     methods: {
+      editorText (newText) {
+        this.protectText(newText)
+      },
       onValidate (success) {
         if (!success) {
           this.animate('shake')
