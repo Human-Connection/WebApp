@@ -58,6 +58,14 @@
             "messageFollowSuccess": "Du folgst nun den Aktivitäten von {name}",
             "messageUnFollowSuccess": "Du folgst den Aktivitäten von {name} nicht mehr"
         },
+        "blacklist": {
+          "buttonLabelBlock": "Blockieren",
+          "buttonLabelUnblock": "Blockiert",
+          "confirmUnfollowTitle": "Nicht mehr Folgen",
+          "confirmUnfollowMessage": "Möchtest Du {name} nicht mehr folgen und dessen Inhalte nie mehr sehen?",
+          "blockSuccess": "Du wirst keine Inhalte von {name} mehr sehen",
+          "unblockSuccess": "Du wirst wieder Inhalte von {name} sehen"
+        },
         "admin": {
             "activate": "Aktivieren",
             "addCategory": "Kategorie hinzufügen",
@@ -164,6 +172,8 @@
             "actionReport": "Beitrag melden",
             "actionDisable": "Beitrag deaktivieren",
             "actionEnable": "Beitrag aktivieren",
+            "actionBlockAuthor": "Autor blockieren",
+            "actionUnblockAuthor": "Autor freigeben",
             "bestList": "Bestenliste",
             "canDos": "Can Do",
             "canDoAdd": "Can Do starten",
@@ -621,7 +631,9 @@
             "organizationStreet": "Straße",
             "organizationZipCode": "PLZ",
             "organizationCity": "Stadt",
-            "organizationCountry": "Land"
+            "organizationCountry": "Land",
+            "blacklist": "Sperrliste",
+            "blacklistSubtitle": "Nutzerprofile deren Inhalte Du nicht mehr siehst"
         }
     },
     "ressource": {

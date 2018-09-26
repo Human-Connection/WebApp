@@ -41,6 +41,8 @@
           <hc-follow-buttons v-if="user"
                              :showButtons="!isOwner"
                              :entity="user" />
+
+          <hc-block-button v-if="user && !isOwner" :foreignEntity="user" :confirmation="confirmUnfollow"/>
           <div v-if="false" class="hc-shortcuts level under-construction">
             <!-- TODO: replace the cdn images with local hc icons -->
             <div class="level-item has-text-centered">
@@ -140,6 +142,7 @@
   import {mapGetters} from 'vuex'
   import FollowerItem from '~/components/Profile/FollowerItem/FollowerItem.vue'
   import FollowButtons from '~/components/Global/Elements/Follow/FollowButtons.vue'
+  import BlockButton from '~/components/Global/Elements/BlockButton/BlockButton'
   import Map from '~/components/Map/Map.vue'
   import Timeline from '~/components/layout/Timeline'
   import Badges from '~/components/Profile/Badges/Badges'
@@ -150,6 +153,7 @@
     components: {
       'hc-follower-item': FollowerItem,
       'hc-follow-buttons': FollowButtons,
+      'hc-block-button': BlockButton,
       'hc-profile-badges': Badges,
       'hc-map': Map,
       'hc-timeline': Timeline
@@ -261,6 +265,20 @@
       }
     },
     methods: {
+      confirmUnfollow(next){
+        const message = this.$t('component.blacklist.confirmUnfollowMessage', {
+          name: this.user.name || this.$t('component.contribution.creatorUnknown')
+        })
+        this.$dialog.confirm({
+          title: this.$t('component.blacklist.confirmUnfollowTitle'),
+          message,
+          confirmText: this.$t('button.yes'),
+          cancelText: this.$t('button.cancel'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => { next() }
+        })
+      },
       async onCoverUploadCompleted (value) {
         this.form.coverImg = value
         const user = await this.$store.dispatch('auth/patch', {

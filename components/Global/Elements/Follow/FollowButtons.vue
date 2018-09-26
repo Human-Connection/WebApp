@@ -17,7 +17,7 @@
     <div v-if="showButtons" class="columns is-mobile field has-text-centered">
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth"
-                   :class="{'is-primary': !follow.isLoading && !follow.isPending && !follow.isFollowing}"
+                   :class="{'is-primary': !follow.isPending && !follow.isFollowing}"
                    @click="toggleFollow"
                    :disabled="follow.isPending"
                    :isLoading="follow.isPending">

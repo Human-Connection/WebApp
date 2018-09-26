@@ -14,7 +14,8 @@
             "copy403": "Sorry, access to this resource on the server is denied. <br />Either check the URL, <a href=\"/auth/login\">login</a> or <a href=\"/\">go home</a>.",
             "copy404": "Sorry, the page you're looking for cannot be found. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
             "copy500": "An error ocurred and your request couldn’t be completed. <br />Either check the URL, <a href=\"/\">go home</a>, or feel free to <a href=\"mailto:support@human-connection.org\">report this issue.</a>",
-            "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later."
+            "copy503": "We are currently working on it, <br />so take a coffee brake and come back a bit later.",
+            "general": "Oops, something went terribly wrong"
         },
         "badges": {
             "user_role_moderator": "Moderator",
@@ -57,6 +58,14 @@
             "buttonLabelUnFollow": "Following",
             "messageFollowSuccess": "You now follow {name}",
             "messageUnFollowSuccess": "You not longer follow {name}"
+        },
+        "blacklist": {
+          "buttonLabelBlock": "Block",
+          "buttonLabelUnblock": "Blocked",
+          "confirmUnfollowTitle": "Unfollow",
+          "confirmUnfollowMessage": "Do you want to unfollow and block any content by {name}?",
+          "blockSuccess": "You will no longer see any content by {name}",
+          "unblockSuccess": "You will see content by {name} again"
         },
         "admin": {
             "activate": "Activate",
@@ -164,6 +173,8 @@
             "actionReport": "report post",
             "actionDisable": "disable post",
             "actionEnable": "enable post",
+            "actionBlockAuthor": "block author",
+            "actionUnblockAuthor": "unblock author",
             "bestList": "Bestlist",
             "canDos": "Can Do’s",
             "canDoAdd": "Start Can Do",
@@ -621,7 +632,9 @@
             "organizationStreet": "Street",
             "organizationZipCode": "Zip Code",
             "organizationCity": "City",
-            "organizationCountry": "Country"
+            "organizationCountry": "Country",
+            "blacklist": "Blacklist",
+            "blacklistSubtitle": "Users whose content you no longer see"
         }
     },
     "ressource": {

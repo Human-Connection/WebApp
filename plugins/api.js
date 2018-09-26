@@ -1,14 +1,8 @@
-import feathersVuex from 'feathers-vuex'
 import Vue from 'vue'
-import Vuex from 'vuex'
 import createApiClient from '../helpers/createApiClient'
 
 export default ({app, store, redirect, router, req, res}) => {
   const api = createApiClient({app, req, res})
-  const { FeathersVuex } = feathersVuex(api, { idField: '_id' })
-
-  Vue.use(FeathersVuex)
-  Vue.use(Vuex)
 
   api.hooks({
     before: {
