@@ -1,19 +1,15 @@
 <template>
-  <div class="columns is-mobile field has-text-centered">
-    <div class="column control has-text-centered">
-      <hc-button color="button"
-                 :disabled="isPending"
-                 :isLoading="isPending"
-                 @click="click">
-        <template v-if="isBlacklisted()">
-          <hc-icon icon="ban" :class="['icon-left', 'is-danger']" /> {{ $t('component.blacklist.buttonLabelUnblock') }}
-        </template>
-        <template v-else>
-          <hc-icon icon="ban" class="icon-left" /> {{ $t('component.blacklist.buttonLabelBlock') }}
-        </template>
-      </hc-button>
-    </div>
-  </div>
+  <hc-button color="button"
+             :disabled="isPending"
+             :isLoading="isPending"
+             @click="click">
+    <template v-if="isBlacklisted()">
+      <hc-icon icon="ban" :class="['icon-left', 'is-danger']" /> {{ $t('component.blacklist.buttonLabelUnblock') }}
+    </template>
+    <template v-else>
+      <hc-icon icon="ban" class="icon-left" /> {{ $t('component.blacklist.buttonLabelBlock') }}
+    </template>
+  </hc-button>
 </template>
 <script>
 import Icon from '~/components/Global/Elements/Icon/Icon.vue'

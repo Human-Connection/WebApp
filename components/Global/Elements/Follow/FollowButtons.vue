@@ -29,15 +29,8 @@
           </template>
         </hc-button>
       </div>
-      <div v-if="service === 'users'" class="column control has-text-centered" style="opacity: .25; pointer-events: none;">
-        <hc-button color="button" @click="toggleConnected" :disabled="true">
-          <template v-if="connected">
-            <hc-icon icon="user-times" class="icon-left" /> Trennen
-          </template>
-          <template v-else>
-            <hc-icon icon="user" class="icon-left" /> Verbinden
-          </template>
-        </hc-button>
+      <div v-if="service === 'users'" class="column is-mobile field has-text-centered">
+        <slot></slot>
       </div>
     </div>
   </div>
@@ -106,12 +99,6 @@
             })
           })
         }
-      },
-      toggleConnected () {
-        this.connected = !this.connected
-        this.$snackbar.open({
-          message: 'Connected!'
-        })
       }
     }
   }

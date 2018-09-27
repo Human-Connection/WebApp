@@ -40,9 +40,10 @@
           </template>
           <hc-follow-buttons v-if="user"
                              :showButtons="!isOwner"
-                             :entity="user" />
+                             :entity="user">
+            <hc-block-button v-if="user && !isOwner" :foreignEntity="user" :confirmation="confirmUnfollow"/>
+          </hc-follow-buttons>
 
-          <hc-block-button v-if="user && !isOwner" :foreignEntity="user" :confirmation="confirmUnfollow"/>
           <div v-if="false" class="hc-shortcuts level under-construction">
             <!-- TODO: replace the cdn images with local hc icons -->
             <div class="level-item has-text-centered">

@@ -36,7 +36,7 @@ describe('BlockButton.vue', () => {
 
   test('renders', () => {
     wrapper = shallowMount(BlockButton, { store, localVue, propsData, mocks })
-    expect(wrapper.is('div')).toBeTruthy()
+    expect(wrapper.is('hc-button-stub')).toBeTruthy()
   })
 
   describe('request pending', () => {
