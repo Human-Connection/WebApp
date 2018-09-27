@@ -1,8 +1,8 @@
 <template>
   <hc-button color="button"
-             :disabled="isPending"
+             :disabled="isPending || isFollowing"
              :isLoading="isPending"
-             @click="click">
+             @click="toggleBlacklist">
     <template v-if="isBlacklisted()">
       <hc-icon icon="ban" :class="['icon-left', 'is-danger']" /> {{ $t('component.blacklist.buttonLabelUnblock') }}
     </template>
@@ -28,25 +28,18 @@ export default {
       type: Object,
       required: true
     },
-    confirmation: {
-      type: Function
+    isFollowing: {
+      required: true
     }
   },
   computed: {
     ...mapGetters({
       isPending: 'feathers-vuex-usersettings/isPending',
-      currentUserSettings: 'feathers-vuex-usersettings/current'
     })
   },
   methods: {
     isBlacklisted () {
-      let { blacklist } = this.currentUserSettings || {}
-      return blacklist && blacklist.includes(this.foreignEntity._id)
-    },
-    async click(){
-      if (this.confirmation && !this.isBlacklisted()) {
-        return await this.confirmation(this.toggleBlacklist)
-      } else return await this.toggleBlacklist()
+      return this.$store.getters['feathers-vuex-usersettings/isBlacklisted'](this.foreignEntity)
     },
     async toggleBlacklist() {
       let message

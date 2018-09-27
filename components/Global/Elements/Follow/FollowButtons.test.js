@@ -1,4 +1,4 @@
-import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import FollowButtons from './FollowButtons'
 
@@ -33,7 +33,7 @@ describe('FollowButtons.vue', () => {
       },
       'feathers-vuex-usersettings/current': () => { return {} },
       'feathers-vuex-usersettings/isPending': () => false,
-      'auth/user': () => { return currentUser },
+      'auth/user': () => { return currentUser }
     }
     actions = {
       'connections/syncFollow': () => {
@@ -54,14 +54,31 @@ describe('FollowButtons.vue', () => {
       propsData.showButtons = true
     })
 
-    describe('click', () => {
-      test('calls `click` method', () => {
-        const methods = {
-          click: jest.fn()
-        }
-        wrapper = mount(FollowButtons, { store, localVue, propsData, mocks, methods })
-        wrapper.find('button').trigger('click')
-        expect(methods.click).toHaveBeenCalled()
+    describe('entity is not blacklisted', () => {
+      beforeEach(() => {
+        getters['feathers-vuex-usersettings/isBlacklisted'] = () => () => false
+        store = new Vuex.Store({
+          state: {}, getters, actions
+        })
+      })
+
+      test('follow button is enabled', () => {
+        wrapper = shallowMount(FollowButtons, { store, localVue, propsData, mocks })
+        expect(wrapper.find('hc-button-stub').attributes().disabled).toEqual(undefined)
+      })
+    })
+
+    describe('entity is blacklisted', () => {
+      beforeEach(() => {
+        getters['feathers-vuex-usersettings/isBlacklisted'] = () => () => true
+        store = new Vuex.Store({
+          state: {}, getters, actions
+        })
+      })
+
+      test('follow button is disabled', () => {
+        wrapper = shallowMount(FollowButtons, { store, localVue, propsData, mocks })
+        expect(wrapper.find('hc-button-stub').attributes().disabled).toEqual('true')
       })
     })
   })

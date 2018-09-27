@@ -9,6 +9,11 @@ let servicePlugin = (feathersClient) => {
       blacklist: []
     },
     getters: {
+      isBlacklisted: (state) => (entity) => {
+        let current = state.copy
+        let { blacklist } = current || {}
+        return blacklist && blacklist.includes(entity._id)
+      },
       isPending: (state) => {
         return (
           state.current ||

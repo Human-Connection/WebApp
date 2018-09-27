@@ -18,8 +18,8 @@
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth"
                    :class="{'is-primary': !follow.isPending && !follow.isFollowing}"
-                   @click="click"
-                   :disabled="follow.isPending"
+                   @click="toggleFollow"
+                   :disabled="follow.isPending || this.isBlacklisted()"
                    :isLoading="follow.isPending">
           <template v-if="follow.isFollowing">
             <hc-icon icon="check" class="icon-left" /> {{ $t('component.follow.buttonLabelUnFollow') }}
@@ -30,7 +30,7 @@
         </hc-button>
       </div>
       <div v-if="service === 'users'" class="column is-mobile field has-text-centered">
-        <hc-block-button :foreignEntity="entity" :confirmation="confirmUnfollow"/>
+        <hc-block-button :foreignEntity="entity" :isFollowing="follow.isFollowing"/>
       </div>
     </div>
   </div>
@@ -84,22 +84,8 @@
       })
     },
     methods: {
-      confirmUnfollow(next){
-        const message = this.$t('component.blacklist.confirmUnfollowMessage', {
-          name: this.entity.name || this.$t('component.contribution.creatorUnknown')
-        })
-        this.$dialog.confirm({
-          title: this.$t('component.blacklist.confirmUnfollowTitle'),
-          message,
-          confirmText: this.$t('button.yes'),
-          cancelText: this.$t('button.cancel'),
-          type: 'is-danger',
-          hasIcon: true,
-          onConfirm: () => { next() }
-        })
-      },
-      async click(){
-        return this.toggleFollow();
+      isBlacklisted(){
+        return this.$store.getters['feathers-vuex-usersettings/isBlacklisted'](this.entity)
       },
       async toggleFollow () {
         if (this.follow._id) {

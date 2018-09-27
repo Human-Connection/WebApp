@@ -10,7 +10,8 @@ const propsData = {
   foreignEntity: {
     _id: 4711,
     name: 'author'
-  }
+  },
+  isFollowing: false
 }
 
 const mocks = { $t: () => {} }
@@ -23,6 +24,7 @@ describe('BlockButton.vue', () => {
 
   beforeEach(() => {
     getters = {
+      'feathers-vuex-usersettings/isBlacklisted': () => () => false,
       'feathers-vuex-usersettings/isPending': () => false,
       'feathers-vuex-usersettings/current': () => { return { blacklist: [] } }
     }
@@ -70,11 +72,7 @@ describe('BlockButton.vue', () => {
 
     describe('is blacklisted', () => {
       beforeEach(() => {
-        getters['feathers-vuex-usersettings/current'] = () => {
-          return {
-            blacklist: [4711]
-          }
-        }
+        getters['feathers-vuex-usersettings/isBlacklisted'] = () => () => true
         store = new Vuex.Store({state: {}, getters, actions})
         wrapper = shallowMount(BlockButton, { store, localVue, propsData, mocks })
       })
@@ -100,39 +98,29 @@ describe('BlockButton.vue', () => {
       expect(actions['feathers-vuex-usersettings/toggleBlacklist']).toHaveBeenCalled()
     })
 
-    describe('given a confirmation callback', () => {
-      let props
-      const testCaseAction = () => {
-        props = Object.assign({}, propsData, {
-          confirmation: jest.fn()
+    describe('isFollowed === true', () => {
+      beforeEach(() => {
+        const props = Object.assign({}, propsData, {
+          isFollowing: true
         })
-        wrapper = mount(BlockButton, { store,
-          localVue,
-          mocks: { $t: () => {}, $snackbar: { open () { } } },
-          propsData: props
-        })
-        wrapper.find('button').trigger('click')
-      }
-
-      describe('not blacklisted', () => {
-        test('click just unblocks without confirmation', () => {
-          testCaseAction()
-          expect(props.confirmation).toHaveBeenCalledTimes(1)
-        })
+        wrapper = shallowMount(BlockButton, { store, localVue, propsData: props, mocks })
       })
 
-      describe('is blacklisted', () => {
-        beforeEach(() => {
-          getters['feathers-vuex-usersettings/current'] = () => { return { blacklist: [4711] } }
-          store = new Vuex.Store({
-            state: {}, getters, actions
-          })
-        })
+      test('is disabled', () => {
+        expect(wrapper.find('hc-button-stub').attributes().disabled).toEqual('true')
+      })
+    })
 
-        test('click confirms before blocking', () => {
-          testCaseAction()
-          expect(props.confirmation).not.toHaveBeenCalled()
+    describe('isFollowed === false', () => {
+      beforeEach(() => {
+        const props = Object.assign({}, propsData, {
+          isFollowing: false
         })
+        wrapper = shallowMount(BlockButton, { store, localVue, propsData: props, mocks })
+      })
+
+      test('is disabled', () => {
+        expect(wrapper.find('hc-button-stub').attributes().disabled).toEqual(undefined)
       })
     })
   })
