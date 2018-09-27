@@ -30,7 +30,7 @@
         </hc-button>
       </div>
       <div v-if="service === 'users'" class="column is-mobile field has-text-centered">
-        <slot></slot>
+        <hc-block-button :foreignEntity="entity" :confirmation="confirmUnfollow"/>
       </div>
     </div>
   </div>
@@ -38,9 +38,13 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import BlockButton from '~/components/Global/Elements/BlockButton/BlockButton'
 
   export default {
     name: 'hc-follow-buttons',
+    components: {
+      'hc-block-button': BlockButton,
+    },
     props: {
       showButtons: {
         type: Boolean,
@@ -76,6 +80,20 @@
       })
     },
     methods: {
+      confirmUnfollow(next){
+        const message = this.$t('component.blacklist.confirmUnfollowMessage', {
+          name: this.entity.name || this.$t('component.contribution.creatorUnknown')
+        })
+        this.$dialog.confirm({
+          title: this.$t('component.blacklist.confirmUnfollowTitle'),
+          message,
+          confirmText: this.$t('button.yes'),
+          cancelText: this.$t('button.cancel'),
+          type: 'is-danger',
+          hasIcon: true,
+          onConfirm: () => { next() }
+        })
+      },
       async toggleFollow () {
         if (this.follow._id) {
           await this.$store.dispatch('connections/unfollow', {
