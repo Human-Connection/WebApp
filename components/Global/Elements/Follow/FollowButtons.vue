@@ -18,7 +18,7 @@
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth"
                    :class="{'is-primary': !follow.isPending && !follow.isFollowing}"
-                   @click="toggleFollow"
+                   @click="click"
                    :disabled="follow.isPending"
                    :isLoading="follow.isPending">
           <template v-if="follow.isFollowing">
@@ -39,11 +39,15 @@
 <script>
   import { mapGetters } from 'vuex'
   import BlockButton from '~/components/Global/Elements/BlockButton/BlockButton'
+  import Icon from '~/components/Global/Elements/Icon/Icon.vue'
+  import Button from '~/components/Global/Elements/Button/Button.vue'
 
   export default {
     name: 'hc-follow-buttons',
     components: {
       'hc-block-button': BlockButton,
+      'hc-button': Button,
+      'hc-icon': Icon
     },
     props: {
       showButtons: {
@@ -93,6 +97,9 @@
           hasIcon: true,
           onConfirm: () => { next() }
         })
+      },
+      async click(){
+        return this.toggleFollow();
       },
       async toggleFollow () {
         if (this.follow._id) {

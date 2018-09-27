@@ -11,6 +11,7 @@
     </template>
   </hc-button>
 </template>
+
 <script>
 import Icon from '~/components/Global/Elements/Icon/Icon.vue'
 import Button from '~/components/Global/Elements/Button/Button.vue'

@@ -6,12 +6,7 @@ const localVue = createLocalVue()
 
 localVue.use(Vuex)
 
-const propsData = {
-  entity: {
-    _id: 4711,
-    name: 'author'
-  }
-}
+let propsData
 
 const mocks = { $t: () => {} }
 
@@ -23,10 +18,21 @@ describe('FollowButtons.vue', () => {
   let currentUser
 
   beforeEach(() => {
+    propsData = {
+      entity: {
+        _id: 4711,
+        name: 'author'
+      }
+    }
     currentUser = {
       _id: 42
     }
     getters = {
+      'connections/follow': () => {
+        return { isPending: false, isFollowing: false }
+      },
+      'feathers-vuex-usersettings/current': () => { return {} },
+      'feathers-vuex-usersettings/isPending': () => false,
       'auth/user': () => { return currentUser },
     }
     actions = {
@@ -41,5 +47,22 @@ describe('FollowButtons.vue', () => {
   test('renders', () => {
     wrapper = shallowMount(FollowButtons, { store, localVue, propsData, mocks })
     expect(wrapper.is('div')).toBeTruthy()
+  })
+
+  describe('showButtons === true', () => {
+    beforeEach(() => {
+      propsData.showButtons = true
+    })
+
+    describe('click', () => {
+      test('calls `click` method', () => {
+        const methods = {
+          click: jest.fn()
+        }
+        wrapper = mount(FollowButtons, { store, localVue, propsData, mocks, methods })
+        wrapper.find('button').trigger('click')
+        expect(methods.click).toHaveBeenCalled()
+      })
+    })
   })
 })
