@@ -61,8 +61,6 @@
         "blacklist": {
           "buttonLabelBlock": "Blockieren",
           "buttonLabelUnblock": "Blockiert",
-          "confirmUnfollowTitle": "Nicht mehr Folgen",
-          "confirmUnfollowMessage": "Möchtest Du {name} nicht mehr folgen und dessen Inhalte nie mehr sehen?",
           "blockSuccess": "Du wirst keine Inhalte von {name} mehr sehen",
           "unblockSuccess": "Du wirst wieder Inhalte von {name} sehen"
         },
