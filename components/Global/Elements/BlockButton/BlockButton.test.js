@@ -1,6 +1,6 @@
 import { shallowMount, mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
-import BlockButton from '~/components/Global/Elements/BlockButton/BlockButton'
+import BlockButton from './BlockButton'
 
 const localVue = createLocalVue()
 
