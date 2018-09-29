@@ -1,70 +1,11 @@
-version: '3'
+version: '3.5'
 
 services:
   webapp:
-    networks:
-      hc-network:
-    links:
-      - api:api.local
     environment:
       - NODE_ENV=development
-      - MAINTENANCE=${MAINTENANCE}
-      - WEBAPP_HOST=172.17.0.1
-      - WEBAPP_BASE_URL=http://172.17.0.1:3000
-      - API_HOST=172.17.0.1
-      - WEBAPP_PORT=3000
-      - API_PORT=3030
-      - MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
-      - SENTRY_DNS_PUBLIC=${SENTRY_DNS_PUBLIC}
-      - EMBED_API_URL=${EMBED_API_URL}
-        # these secrets should only be accessible on the server:
-      - SENTRY_DNS_PRIVATE=${SENTRY_DNS_PRIVATE}
-      - EMBED_API_TOKEN=${EMBED_API_TOKEN}
-    depends_on:
-      - api
-
-  mongo:
-    image: mongo
-    networks:
-      - hc-network
+    volumes:
+      - .:/WebApp/
+      - /WebApp/node_modules
+    command: yarn run dev
     tty: true
-    command: "--smallfiles"
-
-  api:
-    image: humanconnection/api-feathers:edge
-    depends_on:
-      - maildev
-      - thumbor
-      - mongo
-    links:
-      - mongo:mongo.local
-    environment:
-      - NODE_ENV=staging
-      - MONGO_DB=mongodb://mongo.local
-    stdin_open: true
-    tty: true
-    networks:
-      hc-network:
-    ports:
-      - "172.17.0.1:3030:3030"
-
-  maildev:
-    image: djfarrelly/maildev
-    networks:
-      - hc-network
-    ports:
-      - "172.17.0.1:1080:80"
-      - "172.17.0.1:1025:25"
-
-  thumbor:
-    image: apsl/thumbor
-    networks:
-      - hc-network
-    ports:
-      - "172.17.0.1:8000:8000"
-
-networks:
-  hc-network:
-    driver: bridge
-    ipam:
-      driver: default
