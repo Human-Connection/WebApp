@@ -5,10 +5,6 @@ services:
     image: humanconnection/frontend-nuxt:edge
     ports:
       - "3000:3000"
-    build:
-      context: .
-      args:
-        BUILD_COMMIT: ${BUILD_COMMIT}
     networks:
       - hc-network
     environment:
