@@ -13,8 +13,8 @@ services:
       - hc-network
     environment:
       - WEBAPP_HOST=webapp
-      - WEBAPP_BASE_URL=http://webapp:3000
-      - API_HOST=api
+      - WEBAPP_BASE_URL=http://localhost:3000
+      - API_HOST=api.127.0.0.1.xip.io
       - WEBAPP_PORT=3000
       - API_PORT=3030
       - MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
@@ -22,6 +22,3 @@ services:
 networks:
   hc-network:
     name: hc-network
-    driver: bridge
-    ipam:
-      driver: default
