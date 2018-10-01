@@ -247,8 +247,8 @@
             "validationErrorContent": "Bitte gib Deinem Beitrag einen Text",
             "validationErrorCategories": "Wähle wenigstens eine Kategorie aus, um den Beitrag abspeichern zu können",
             "creatorFemaleOrMale": "Autorin ::: Autor",
-            "draft": "Entwurf",
-            "draftMsg": "Bist Du sicher, dass Du Deinen Entwurf verwerfen möchtest?"
+            "draft": "Ungespeicherte Änderungen",
+            "draftMsg": "Bist Du sicher, dass Du Deinen Kommentar verwerfen möchtest?"
         },
         "organization": {
             "createNew": "Neue Organisation erstellen",
