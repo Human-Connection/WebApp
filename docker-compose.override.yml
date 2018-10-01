@@ -2,6 +2,10 @@ version: '3.5'
 
 services:
   webapp:
+    build:
+      context: .
+      args:
+        BUILD_COMMIT: ${BUILD_COMMIT}
     environment:
       - NODE_ENV=development
     volumes:
