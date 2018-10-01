@@ -427,6 +427,7 @@
           return
         }
         this.$emit('validate', true)
+        this.$parent.isSubmitting = true
 
         this.isLoading = true
 
