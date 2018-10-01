@@ -9,6 +9,9 @@ ARG BUILD_COMMIT
 ENV BUILD_COMMIT=$BUILD_COMMIT
 ENV NODE_ENV=production
 
+ENV HOST=0.0.0.0
+ENV WEBAPP_HOST=0.0.0.0
+
 RUN mkdir -p /WebApp/
 WORKDIR /WebApp/
 # --no-cache: download package index on-the-fly, no need to cleanup afterwards
