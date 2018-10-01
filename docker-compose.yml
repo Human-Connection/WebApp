@@ -1,16 +1,24 @@
-version: '2'
+version: '3.5'
 
 services:
-  frontend:
-    build: .
-    environment:
-      WEBAPP_HOST: localhost
-      WEBAPP_PORT: 3000
-      WEBAPP_BASE_URL: http://localhost:3000
-      API_HOST: http://localhost
-      API_PORT: 3030
-      MAPBOX_TOKEN:
-    stdin_open: true
-    tty: true
+  webapp:
+    image: humanconnection/frontend-nuxt:edge
     ports:
-    - 3000:3000/tcp
+      - "3000:3000"
+    build:
+      context: .
+      args:
+        BUILD_COMMIT: ${BUILD_COMMIT}
+    networks:
+      - hc-network
+    environment:
+      - WEBAPP_HOST=webapp
+      - WEBAPP_BASE_URL=http://localhost:3000
+      - API_HOST=api.127.0.0.1.xip.io
+      - WEBAPP_PORT=3000
+      - API_PORT=3030
+      - MAPBOX_TOKEN=pk.eyJ1IjoiaHVtYW4tY29ubmVjdGlvbiIsImEiOiJjajl0cnBubGoweTVlM3VwZ2lzNTNud3ZtIn0.KZ8KK9l70omjXbEkkbHGsQ
+
+networks:
+  hc-network:
+    name: hc-network

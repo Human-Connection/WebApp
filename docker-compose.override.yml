@@ -1,0 +1,11 @@
+version: '3.5'
+
+services:
+  webapp:
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/WebApp/
+      - /WebApp/node_modules
+    command: yarn run dev
+    tty: true

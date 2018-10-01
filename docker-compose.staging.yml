@@ -1,0 +1,12 @@
+version: '3.5'
+
+services:
+  webapp:
+    environment:
+      - NODE_ENV=development # this is just `development` so https will not be enforced
+      - MAINTENANCE=${MAINTENANCE}
+      - SENTRY_DNS_PUBLIC=${SENTRY_DNS_PUBLIC}
+      - EMBED_API_URL=${EMBED_API_URL}
+        # these secrets should only be accessible on the server:
+      - SENTRY_DNS_PRIVATE=${SENTRY_DNS_PRIVATE}
+      - EMBED_API_TOKEN=${EMBED_API_TOKEN}

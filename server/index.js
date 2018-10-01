@@ -9,10 +9,8 @@ import redirectSSL from 'redirect-ssl'
 import avatar from './avatar'
 import embeds from './embeds'
 import raven from '../plugins/raven-server'
-import { readFileSync } from 'fs'
 
-// Get .env config
-require('dotenv').config()
+require('dotenv').config() // load .env into process.env
 
 const app = express()
 
@@ -43,9 +41,7 @@ app.use('/embeds', embeds())
 // Init Nuxt.js
 const nuxt = new Nuxt(nuxtConfig)
 
-const env = require('dotenv').parse(readFileSync('./.env'))
-
-app.set('port', env.WEBAPP_PORT)
+app.set('port', process.env.WEBAPP_PORT)
 
 // Build only in dev mode
 if (nuxtConfig.dev) {
@@ -56,11 +52,11 @@ if (nuxtConfig.dev) {
 // Give nuxt middleware to express
 app.use(nuxt.render)
 // Listen the server
-app.listen(env.WEBAPP_PORT, env.WEBAPP_HOST)
-console.log(`Server listening on ${env.WEBAPP_HOST}:${env.WEBAPP_PORT}`) // eslint-disable-line no-console
-console.log(`MAINTENANCE ${(Boolean(env.MAINTENANCE) === true).toString()}`) // eslint-disable-line no-console
-console.log(`WEBAPP_PORT ${env.WEBAPP_PORT}`) // eslint-disable-line no-console
-console.log(`WEBAPP_HOST ${env.WEBAPP_HOST}`) // eslint-disable-line no-console
-console.log(`WEBAPP_BASE_URL ${env.WEBAPP_BASE_URL}`) // eslint-disable-line no-console
-console.log(`API_PORT ${env.API_PORT}`) // eslint-disable-line no-console
-console.log(`API_HOST ${env.API_HOST}`) // eslint-disable-line no-console
+app.listen(process.env.WEBAPP_PORT, process.env.WEBAPP_HOST)
+console.log(`Server listening on ${process.env.WEBAPP_HOST}:${process.env.WEBAPP_PORT}`) // eslint-disable-line no-console
+console.log(`MAINTENANCE ${(Boolean(process.env.MAINTENANCE) === true).toString()}`) // eslint-disable-line no-console
+console.log(`WEBAPP_PORT ${process.env.WEBAPP_PORT}`) // eslint-disable-line no-console
+console.log(`WEBAPP_HOST ${process.env.WEBAPP_HOST}`) // eslint-disable-line no-console
+console.log(`WEBAPP_BASE_URL ${process.env.WEBAPP_BASE_URL}`) // eslint-disable-line no-console
+console.log(`API_PORT ${process.env.API_PORT}`) // eslint-disable-line no-console
+console.log(`API_HOST ${process.env.API_HOST}`) // eslint-disable-line no-console

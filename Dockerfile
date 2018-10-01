@@ -1,46 +1,26 @@
-FROM node:8.9-alpine
-LABEL Description="This image is used to start the hc-frontend-nuxt" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
-
-# update unix packages
-RUN apk update && apk upgrade
-RUN apk add git
-RUN rm -rf /var/cache/apk/*
-
-# install global dependencies
-RUN yarn global add pm2 envsub
+FROM node:10-alpine
+LABEL Description="This image builds and runs the Human-Connection Frontend" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # expose the app port
 EXPOSE 3000
 
-# set environment variables
-ENV HOST=0.0.0.0
-ENV WEBAPP_HOST=0.0.0.0
-
-ENTRYPOINT ["./entrypoint.sh"]
-
-# create working directory
-RUN mkdir -p /var/www/
-WORKDIR /var/www/
-
-# install app dependencies
-COPY package.json /var/www/
-COPY yarn.lock /var/www/
-RUN yarn install --frozen-lockfile --non-interactive
-
-# copy the code to the docker image
-COPY . /var/www/
-
-# set execution rights on scripts and run the build script
-RUN chmod +x entrypoint.sh
-RUN chmod +x scripts/on-build.sh
-RUN chmod +x scripts/on-start.sh
-RUN sh scripts/on-build.sh
-
-# buld application
-# ENV NODE_ENV=production #we seam to have issues with the production flag on install && build
-RUN yarn build
-
+# optional git commit hash
+ARG BUILD_COMMIT
+ENV BUILD_COMMIT=$BUILD_COMMIT
 ENV NODE_ENV=production
 
-# only keep production dependencies
-# RUN yarn install --frozen-lockfile --non-interactive
+RUN mkdir -p /WebApp/
+WORKDIR /WebApp/
+# --no-cache: download package index on-the-fly, no need to cleanup afterwards
+# --virtual: bundle packages, remove whole bundle at once, when done
+RUN apk --no-cache --virtual build-dependencies add git python make g++
+
+RUN yarn global add pm2
+
+COPY package.json /WebApp/
+COPY yarn.lock /WebApp/
+RUN yarn install --production=false --frozen-lockfile --non-interactive
+
+COPY . /WebApp/
+RUN ["yarn", "run", "build"]
+CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "2", "--attach"]

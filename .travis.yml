@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "8"
+  - "10"
 services:
   - docker
 cache:
@@ -8,18 +8,19 @@ cache:
   directories:
     - node_modules
 
-install:
-  # nothing
+# install current version of yarn
+before_install:
+  - curl -o- -L https://yarnpkg.com/install.sh | bash
+  - export PATH="$HOME/.yarn/bin:$PATH"
 
 jobs:
   include:
     - stage: Test and Build
       script:
       - yarn install --frozen-lockfile --non-interactive
-      - yarn test:env
-      - yarn test
+      - yarn run ci
     - script:
-      - docker build -t humanconnection/frontend-nuxt .
+      - docker build --build-arg BUILD_COMMIT=$TRAVIS_COMMIT -t humanconnection/frontend-nuxt .
 
 after_success:
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
