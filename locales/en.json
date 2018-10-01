@@ -247,8 +247,8 @@
             "validationErrorContent": "Please provide a text",
             "validationErrorCategories": "Choose at least one category to be able to save this contribution",
             "creatorFemaleOrMale": "Author ::: Author",
-            "draft": "Draft",
-            "draftMsg": "Are you sure you want to discard your current draft?"
+            "draft": "Unsaved changes",
+            "draftMsg": "Are you sure that you want to discard your current comment?"
         },
         "organization": {
             "createNew": "Create new Organization",
