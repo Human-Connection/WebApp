@@ -13,8 +13,8 @@
       <div class="comment-form-actions">
         <button type="button"
           class="button is-hidden-mobile"
-          :disabled="!this.hasContent"
-          @click="form.content = ''">
+          :disabled="this.isCommentFormOfContribution ? !this.hasContent : false"
+          @click="cancel(form)">
           {{ $t('button.cancel') }}
         </button>
         <button type="submit"
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   import { trim } from 'lodash'
 
   export default {
@@ -41,14 +41,24 @@
       },
       replyComment: {
         type: Object
+      },
+      isCommentFormOfContribution: {
+        type: Boolean,
+        default: false
+      },
+      depth: {
+        type: Number,
+        default: 0
       }
     },
     data () {
       return {
         isLoading: false,
+        isExecuted: false,
         form: {
           content: '',
-          contributionId: null
+          contributionId: null,
+          parentCommentId: null
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -70,13 +80,21 @@
     computed: {
       ...mapGetters({
         isVerified: 'auth/isVerified',
-        user: 'auth/user'
+        user: 'auth/user',
+        isSubmitting: 'comments/isSubmitting'
       }),
       hasContent () {
         return !!trim(this.form.content.replace(/(<([^>]+)>)/ig, '')).length
       }
     },
     methods: {
+      cancel (form) {
+        if (this.isCommentFormOfContribution) {
+          form.content = ''
+        } else if(this.replyComment) {
+          this.$parent.closeCommentForm()
+        }
+      },
       editorText (newText) {
         this.$emit('input', newText)
       },
@@ -84,25 +102,36 @@
         if (!comment) {
           return
         }
-        try {
-          this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
-          this.$scrollTo(this.$refs.editor.$el, 500)
-        } catch (err) {}
+        if (!this.isExecuted && !this.isSubmitting && this.$el.children[1].parentElement.id != 'comment-form') {
+          this.isExecuted = true
+          this.$nextTick(function () {
+            this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
+            this.$scrollTo(this.$el.children[1], 500)
+            setTimeout(() => { this.isExecuted = false }, 700)
+          })
+        }
       },
       async submitComment () {
+        await this.$store.dispatch('comments/setSubmitting', true)
+
         if (!this.hasContent) {
           this.form.content = ''
           return
         }
+
         this.isLoading = true
         this.form.contributionId = this.post._id
-        await this.$store.dispatch('comments/create', this.form)
-          .then((res) => {
+        this.form.parentCommentId = this.replyComment ? this.replyComment._id : null
+
+       this.$store.dispatch('comments/create', this.form)
+          .then(async (res) => {
             this.$snackbar.open({
               message: this.$t('component.contribution.commentSubmitSuccess', 'Thanks for your comment. You are awesome.'),
               duration: 4000,
               type: 'is-success'
             })
+            debugger
+            await this.$store.dispatch('comments/fetchByContributionId', this.post._id)
             this.form.content = ''
             this.isLoading = false
           })
@@ -114,6 +143,17 @@
             })
             this.isLoading = false
           })
+
+        if (this.replyComment) {
+          this.$parent.closeCommentForm()
+        }
+
+        this.isLoading = false
+        // because of the watch or mounted part, the reply function gets execute very often
+        // so after the submit of a comment there should happen nothing (scrollTo) for 2 sec
+        this.$nextTick(() => {
+          setTimeout(() => { this.$store.dispatch('comments/setSubmitting', false) }, 2000)
+        })
       }
     }
   }

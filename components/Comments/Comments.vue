@@ -5,12 +5,13 @@
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
       <comment @reply="onReply"
+               v-for="comment in replyComments"
                v-on:input="editorText"
-               v-for="comment in comments"
                :isAuthor="comment.userId === post.userId"
                :isOwner="comment.userId === user._id"
                :key="comment._id"
                :comment="comment"
+               :post="post"
                :onUpvote="upvote" />
     </transition-group>
     <div v-if="commentCount > comments.length">
@@ -25,15 +26,15 @@
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
     </div>-->
-    <comment-form :post="post" :replyComment="replyComment" v-on:input="editorText" />
+    <comment-form id="comment-form" :post="post" :replyComment="replyComment" :isCommentFormOfContribution="true" v-on:input="editorText" />
   </div>
 </template>
 
 
 <script>
   import {mapGetters} from 'vuex'
-  import comment from '~/components/Comments/Comment.vue'
-  import commentForm from '~/components/Comments/CommentForm.vue'
+  import comment from '../Comments/Comment.vue'
+  import commentForm from '../Comments/CommentForm.vue'
 
   export default {
     name: 'hc-comments',
@@ -53,7 +54,10 @@
         comments: 'comments/all',
         commentCount: 'comments/count',
         isLoading: 'comments/isLoading'
-      })
+      }),
+      replyComments: function() {
+        return this.comments.filter((c) => { return !c.parentCommentId; })
+      }
     },
     destroyed () {
       this.$store.commit('comments/clear')
