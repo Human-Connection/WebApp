@@ -26,5 +26,5 @@ RUN yarn install --production=false --frozen-lockfile --non-interactive
 
 COPY . /WebApp/
 RUN ["yarn", "run", "build"]
-# CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "1", "--attach"]
-CMD ["node", "build/main.js"]
+CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "1", "--attach"]
+# CMD ["node", "build/main.js"]
