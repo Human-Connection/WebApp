@@ -9,9 +9,6 @@ ARG BUILD_COMMIT
 ENV BUILD_COMMIT=$BUILD_COMMIT
 ENV NODE_ENV=production
 
-ENV HOST=0.0.0.0
-ENV WEBAPP_HOST=0.0.0.0
-
 RUN mkdir -p /WebApp/
 WORKDIR /WebApp/
 # --no-cache: download package index on-the-fly, no need to cleanup afterwards
@@ -26,5 +23,4 @@ RUN yarn install --production=false --frozen-lockfile --non-interactive
 
 COPY . /WebApp/
 RUN ["yarn", "run", "build"]
-CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "1", "--attach"]
-# CMD ["node", "build/main.js"]
+CMD ["pm2", "start", "node", "build/main.js", "-n", "frontend", "-i", "2", "--attach"]
