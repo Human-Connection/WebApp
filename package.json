@@ -69,6 +69,7 @@
     "express-healthcheck": "~0.1.0",
     "express-locale": "~1.0.5",
     "express-session": "~1.15.6",
+    "feathers-vuex": "^1.5.0",
     "font-awesome": "~4.7.0",
     "helmet": "^3.12.1",
     "i18n-iso-countries": "^3.7.8",
