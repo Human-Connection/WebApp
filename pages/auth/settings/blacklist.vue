@@ -32,13 +32,13 @@ import { mapGetters } from 'vuex'
     data() {
       return {
         blacklistedUsers: [],
+        isLoading: true
       }
     },
     computed: {
       ...mapGetters({
         loggedInUser: 'auth/user',
-        userSettings: 'feathers-vuex-usersettings/current',
-        isLoading: 'feathers-vuex-usersettings/isPending'
+        userSettings: 'feathers-vuex-usersettings/current'
       })
     },
     async mounted(){
@@ -50,6 +50,7 @@ import { mapGetters } from 'vuex'
         }
       })
       this.blacklistedUsers = res.data
+      this.isLoading = false
     }
   };
 </script>
