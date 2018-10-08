@@ -6,11 +6,9 @@ import urlHelper from '~/helpers/urls'
 import Cookie from 'cookie-universal'
 
 const authKey = 'feathers-jwt'
-let socket
 
-const getSocket = (app) => {
-  if (socket) return socket
-
+const createSocket = (app) => {
+  let socket
   const endpoint = urlHelper.buildEndpointURL(app.$env.API_HOST, { port: app.$env.API_PORT })
   if (process.env.ENV === 'production') {
     socket = socketio(io(endpoint), { timeout: 20000 })
@@ -32,6 +30,8 @@ const getSocket = (app) => {
 }
 
 let createApiClient = ({app, req, res}) => {
+  if (app.$api) return app.$api
+
   const cookies = Cookie(req, res)
   const storageMapping = {
     getItem: (key) => {
@@ -59,7 +59,7 @@ let createApiClient = ({app, req, res}) => {
   }
 
   let api = feathers()
-    .configure(getSocket(app))
+    .configure(createSocket(app))
     .configure(authentication({
       storage: storageMapping,
       storageKey: authKey,
