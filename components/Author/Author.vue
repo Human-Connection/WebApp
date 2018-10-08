@@ -1,14 +1,13 @@
 <template>
   <div :class="{ disabled: disableLink, 'is-owner': isOwner, mask: maskUser }"
-        class="media hc__author"
-        @click="showProfile">
-    <div class="media-left" v-if="showAvatar">
+    class="media hc__author">
+    <div class="media-left" v-if="showAvatar" @click="showProfile">
       <hc-avatar
         :user="getUser"
         :showOnlineStatus="true"
         :imageKey="imageKey" />
     </div>
-    <div class="media-content" v-if="showText">
+    <div class="media-content" @click="showProfile" v-if="showText">
       <p class="title" v-if="!user">
         {{ $t('component.contribution.creatorUnknown') }}
       </p>
@@ -20,6 +19,8 @@
         <hc-relative-date-time :dateTime="createdAt"></hc-relative-date-time>
       </p>
     </div>
+    <slot>
+    </slot>
   </div>
 </template>
 

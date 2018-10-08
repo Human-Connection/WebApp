@@ -16,7 +16,6 @@ let servicePlugin = (feathersClient) => {
       },
       isPending: (state) => {
         return (
-          state.current ||
           state.isFindPending ||
           state.isGetPending ||
           state.isCreatePending ||
