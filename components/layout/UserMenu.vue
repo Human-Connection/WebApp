@@ -22,7 +22,7 @@
         <small>{{ user.role }}</small>
       </hc-navbar-item>
       <hr class="navbar-divider">
-      <hc-navbar-item class="nav-item" to="/profile" @click.native="close()">
+      <hc-navbar-item class="nav-item" :to="{name: 'profile-slug', params: {slug: this.user.slug}}" @click.native="close()">
         <span class="icon">
           <hc-icon class="icon-left" icon="user"/>
         </span> {{ $t('auth.account.profile') }}
@@ -68,7 +68,7 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import LanguageSelect from '~/components/layout/LanguageSelect.vue'
+  import LanguageSelect from './LanguageSelect.vue'
 
   export default {
     name: 'hc-user-menu',
@@ -80,7 +80,7 @@
         isAuthenticated: 'auth/isAuthenticated',
         isAdmin: 'auth/isAdmin',
         user: 'auth/user'
-      })
+      }),
     },
     methods: {
       logout () {
@@ -88,7 +88,7 @@
       },
       close () {
         this.$refs.dropdown.close()
-      }
+      },
     }
   }
 </script>
