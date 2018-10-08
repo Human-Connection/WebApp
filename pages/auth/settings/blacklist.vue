@@ -14,22 +14,31 @@
 
 <script>
 import Author from '~/components/Author/Author.vue'
+import { mapGetters } from 'vuex'
+
   export default {
     components: {
-      Author
+      'author': Author
     },
     data() {
       return {
         blacklistedUsers: [],
       }
     },
-    async asyncData ({store}) {
-      const { blacklist } = store.getters['feathers-vuex-usersettings/current'];
-      if (!blacklist) return {}
-      const res = await store.dispatch('feathers-vuex-users/find', { query: {_id: { $in: blacklist } } } );
-      return {
-        blacklistedUsers: res.data
-      }
+    computed: {
+      ...mapGetters({
+        loggedInUser: 'auth/user',
+        userSettings: 'feathers-vuex-usersettings/current'
+      })
+    },
+    async mounted(){
+      const { blacklist = [] } = this.userSettings || {}
+      const res = await this.$store.dispatch('feathers-vuex-users/find', {
+        query: {
+          _id: { $in: blacklist },
+        }
+      })
+      this.blacklistedUsers = res.data
     }
   };
 </script>
