@@ -1,7 +1,8 @@
 // This mixin can be loaded for every page component with input fields. It will confirm leaving the page in case the user has some (unsaved) input/draft pending.
 let protectable = {
   beforeRouteLeave (to, from, next) {
-    if (this.isComposing) {
+    next(false)
+    if (this.isComposing && !this.isSubmitting) {
       this.$dialog.confirm({
         title: this.$t('component.contribution.draft'),
         message: this.$t('component.contribution.draftMsg'),
@@ -17,6 +18,8 @@ let protectable = {
   },
   mounted () {
     window.addEventListener('beforeunload', this.beforeUnload)
+    this.isSubmitting = false
+    this.isComposing = false
   },
   beforeDestroy () {
     window.removeEventListener('beforeunload', this.beforeUnload)
