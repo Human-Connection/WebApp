@@ -9,7 +9,7 @@ export default ({app}) => {
         release: app.$env.BUILD_DATE,
         environment: app.$env.NODE_ENV,
         tags: {
-          deployed: app.$env.DEPLOY_DATE,
+          deployed: app.$env.BUILD_COMMIT,
           client: true
         }
       })
