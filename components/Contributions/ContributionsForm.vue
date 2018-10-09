@@ -427,6 +427,7 @@
           return
         }
         this.$emit('validate', true)
+        this.editorText('')
 
         this.isLoading = true
 
