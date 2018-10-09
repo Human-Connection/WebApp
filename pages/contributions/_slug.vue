@@ -107,7 +107,7 @@
             <div ref="tabs">
               <b-tabs class="footer">
                 <b-tab-item v-bind:label="$t('component.contribution.commentsCounted', {count: commentCount}, commentCount)" id="comments">
-                  <comments :post="contribution"/>
+                  <comments :post="contribution" v-on:input="editorText"/>
                 </b-tab-item>
                 <b-tab-item v-bind:label="$t('component.contribution.letsTalk')" id="lets-talk">
                   <div class="message is-warning">
@@ -186,11 +186,13 @@
   import CanDoReason from '~/components/CanDos/Reason'
   import { isEmpty, truncate } from 'lodash'
   import linkifyHtml from 'linkifyjs/html'
+  import protectable from '~/components/mixins/protectable'
 
   const ContributionImage = () => import('~/components/Contributions/ContributionImage.vue')
   const ContributionBreadcrumb = () => import('~/components/Contributions/ContributionBreadcrumb.vue')
 
   export default {
+    mixins: [protectable],
     scrollToTop: false,
     components: {
       'author': author,
@@ -208,6 +210,7 @@
     data () {
       return {
         contribution: null,
+        isComposing: false,
         title: null,
         isLoading: false
       }
@@ -241,6 +244,9 @@
       ...mapMutations({
         updateContribution: 'newsfeed/updateContribution'
       }),
+      editorText (newText) {
+        this.protectText(newText)
+      },
       onContribSettingsUpdate (data) {
         // Contribution was deleted -> redirect
         if (data.deleted) {

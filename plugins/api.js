@@ -26,7 +26,7 @@ export default ({app, store, redirect, router}) => {
     },
     clear: () => {
       const res = app.$cookies.removeAll()
-      if (process.env.NODE_ENV === 'development') {
+      if (app.$env.NODE_ENV === 'development') {
         console.log(`## STORAGE: clear()`, res)
       }
       return res
@@ -60,7 +60,7 @@ export default ({app, store, redirect, router}) => {
       all: [
         async (hook) => {
           // hook.accessToken = await api.passport.getJWT()
-          if (process.env.NODE_ENV === 'development') {
+          if (app.$env.NODE_ENV === 'development') {
             console.log('# API:', `${hook.method} ${hook.path}`)
             console.info('data', hook.data)
             // console.log('# ' + hook.accessToken)
@@ -70,7 +70,7 @@ export default ({app, store, redirect, router}) => {
       ]
     },
     async error (ctx) {
-      if (process.env.NODE_ENV === 'development') {
+      if (app.$env.NODE_ENV === 'development') {
         console.log('####################')
         console.error(ctx.error)
         console.info('JWT TOKEN: ', app.$cookies.get(authKey))

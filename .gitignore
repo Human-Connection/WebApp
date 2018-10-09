@@ -1,3 +1,5 @@
+yarn-error.log
+
 # dependencies
 node_modules
 
@@ -19,14 +21,17 @@ npm-debug.log
 # Ignore ide settings
 .idea/
 .vscode/
+/.vs
 
 # Do not commit the env.js file as it may contain sensitive data
 /nbproject/private/
 /nbproject/
 
-# .env and .env-secrets
 .env
 .env-secrets
 
 # ignore cypress videos
 cypress/videos
+
+#ignore internal github files
+/.github

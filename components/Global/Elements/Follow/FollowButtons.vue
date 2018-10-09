@@ -110,7 +110,7 @@
       toggleConnected () {
         this.connected = !this.connected
         this.$snackbar.open({
-          message: 'Conneted!'
+          message: 'Connected!'
         })
       }
     }

@@ -68,6 +68,23 @@
             {{ $t('auth.login.label') }}
           </hc-button>
         </form>
+        <p class="subtitle is-6">
+        {{ $t('quotes.african.txt') }}
+        </p>
+        <p class="is-italic">
+        {{ $t('quotes.african.author') }}
+        </p>
+        <p class="subtitle is-6">
+        <div class="content">
+          <a href="https://human-connection.org" target="_blank">
+            <hc-icon icon="heart" class="has-text-success"></hc-icon>
+            <br/>
+            {{ $t('humanConnectionPresentationLinkText') }}
+          </a>
+          <br/>
+          {{ $t('humanConnectionPresentationText') }}
+        </div>
+        </p>
       </div>
       <footer class="card-footer">
         <!--
