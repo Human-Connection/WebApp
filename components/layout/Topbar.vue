@@ -6,7 +6,8 @@
         :class="{ 'is-active': menuIsActive }">
         <div class="hc-navbar-item hc-navbar-brand">
           <h1 class="is-hidden">Human-Connection</h1>
-          <a class="hc-navbar-brand-logo"
+          <a :href="`/`"
+            class="hc-navbar-brand-logo"
              @click="onLogoClick"
              :title="$t('component.layout.topbarLabel')">
             <img class="is-hidden-mobile"
@@ -53,143 +54,143 @@
 
 
 <script>
-  import {mapGetters} from 'vuex'
-  import LanguageSelect from '~/components/layout/LanguageSelect.vue'
-  import TopSearch from '~/components/layout/TopSearch.vue'
-  import FilterSelect from '~/components/layout/FilterSelect.vue'
-  import Notifications from '~/components/Notifications/Notifications.vue'
-  import UserMenu from '~/components/layout/UserMenu.vue'
+import { mapGetters } from "vuex";
+import LanguageSelect from "~/components/layout/LanguageSelect.vue";
+import TopSearch from "~/components/layout/TopSearch.vue";
+import FilterSelect from "~/components/layout/FilterSelect.vue";
+import Notifications from "~/components/Notifications/Notifications.vue";
+import UserMenu from "~/components/layout/UserMenu.vue";
 
-  import {throttle} from 'lodash'
+import { throttle } from "lodash";
 
-  let app
+let app;
 
-  export default {
-    name: 'hc-topbar',
-    components: {
-      LanguageSelect,
-      TopSearch,
-      FilterSelect,
-      Notifications,
-      UserMenu
-    },
-    data () {
-      app = this
-      return {
-        menuIsActive: false,
-        isLoading: false,
-        stayLoggedIn: false,
-        errors: null
-      }
-    },
-    computed: {
-      ...mapGetters({
-        isAuthenticated: 'auth/isAuthenticated'
-      })
-    },
-    watch: {
-      '$route' () {
-        this.closeMenu()
-      }
-    },
-    mounted () {
-      window.addEventListener('resize', this.closeMenu)
-    },
-    destroy () {
-      window.removeEventListener('resize', this.closeMenu)
-    },
-    methods: {
-      closeMenu: throttle(() => {
-        app.menuIsActive = false
-      }, 1000),
-      onLogoClick () {
-        this.$store.commit('newsfeed/clear')
-        this.$store.dispatch('newsfeed/fetch')
-        this.$router.push({ name: 'index' })
-      }
+export default {
+  name: "hc-topbar",
+  components: {
+    LanguageSelect,
+    TopSearch,
+    FilterSelect,
+    Notifications,
+    UserMenu
+  },
+  data() {
+    app = this;
+    return {
+      menuIsActive: false,
+      isLoading: false,
+      stayLoggedIn: false,
+      errors: null
+    };
+  },
+  computed: {
+    ...mapGetters({
+      isAuthenticated: "auth/isAuthenticated"
+    })
+  },
+  watch: {
+    $route() {
+      this.closeMenu();
+    }
+  },
+  mounted() {
+    window.addEventListener("resize", this.closeMenu);
+  },
+  destroy() {
+    window.removeEventListener("resize", this.closeMenu);
+  },
+  methods: {
+    closeMenu: throttle(() => {
+      app.menuIsActive = false;
+    }, 1000),
+    onLogoClick() {
+      this.$store.commit("newsfeed/clear");
+      this.$store.dispatch("newsfeed/fetch");
+      this.$router.push({ name: "index" });
     }
   }
+};
 </script>
 
 <style lang="scss" scoped>
-  @import "assets/styles/utilities";
+@import "assets/styles/utilities";
 
-  .hc-navbar {
-    box-shadow: $card-shadow-hover;
-    z-index: 130;
-    pointer-events: all;
-    height: $navbar-height;
-    background-color: $white;
-  }
+.hc-navbar {
+  box-shadow: $card-shadow-hover;
+  z-index: 130;
+  pointer-events: all;
+  height: $navbar-height;
+  background-color: $white;
+}
 
-  .hc-navbar-menu {
+.hc-navbar-menu {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+
+  & > div {
     display: flex;
-    justify-content: space-between;
-    position: relative;
-
-    & > div {
-      display: flex;
-    }
-
-    @include until($tablet) {
-      justify-content: flex-start;
-    }
   }
 
-  .hc-navbar-item {
-    display: flex;
-    height: $navbar-height;
-    user-select: none;
+  @include until($tablet) {
+    justify-content: flex-start;
+  }
+}
 
-    @include until($tablet) {
-      flex: 0 0 20vw !important;
-      justify-content: center;
-      border-right: 1px solid $white-dar;
+.hc-navbar-item {
+  display: flex;
+  height: $navbar-height;
+  user-select: none;
 
-      &.hc-navbar-user-menu {
-        border-right: 0;
-      }
+  @include until($tablet) {
+    flex: 0 0 20vw !important;
+    justify-content: center;
+    border-right: 1px solid $white-dar;
+
+    &.hc-navbar-user-menu {
+      border-right: 0;
     }
   }
+}
 
-  .hc-navbar-brand {
-    margin-right: 40px;
+.hc-navbar-brand {
+  margin-right: 40px;
 
-    @include until($desktop) {
-      margin-left: 1rem;
-      margin-right: 2rem;
-    }
-
-    @include until($tablet) {
-      margin-left: 0;
-      margin-right: 0;
-    }
+  @include until($desktop) {
+    margin-left: 1rem;
+    margin-right: 2rem;
   }
 
-  .hc-navbar-brand-logo {
-    display: flex;
-    height: $navbar-height;
-    align-items: center;
+  @include until($tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
 
-    img {
-      height: $navbar-height - 1.25rem;
-      width: auto;
-    }
+.hc-navbar-brand-logo {
+  display: flex;
+  height: $navbar-height;
+  align-items: center;
+
+  img {
+    height: $navbar-height - 1.25rem;
+    width: auto;
+  }
+}
+
+.hc-navbar-search {
+  flex: 1 1 0;
+}
+
+.hc-navbar-right {
+  margin-left: 15%;
+
+  @include until($desktop) {
+    margin-left: 2rem;
   }
 
-  .hc-navbar-search {
-    flex: 1 1 0;
+  @include until($tablet) {
+    margin-left: 0;
   }
-
-  .hc-navbar-right {
-    margin-left: 15%;
-
-    @include until($desktop) {
-      margin-left: 2rem;
-    }
-
-    @include until($tablet) {
-      margin-left: 0;
-    }
-  }
+}
 </style>
