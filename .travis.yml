@@ -23,6 +23,9 @@ jobs:
       - docker build --build-arg BUILD_COMMIT=$TRAVIS_COMMIT -t humanconnection/frontend-nuxt .
 
 after_success:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+  - ./send.sh success $WEBHOOK_URL
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:alpha;
@@ -33,3 +36,8 @@ after_success:
     docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge;
     docker push humanconnection/frontend-nuxt:edge;
     fi
+
+after_failure:
+  - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
+  - chmod +x send.sh
+- ./send.sh failure $WEBHOOK_URL
