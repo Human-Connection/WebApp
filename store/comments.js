@@ -76,27 +76,29 @@ export const actions = {
     }
     commit('setContributionId', contributionId)
 
-    return this.app.$api.service('comments').find({
-      query: {
-        contributionId: contributionId,
-        $sort: {
-          // upvoteCount: -1,
-          createdAt: 1
-        },
-        $skip: state.comments.length,
-        $limit: 100
-      }
-    })
-      .then((result) => {
+    return new Promise((resolve, reject) => {
+      this.app.$api.service('comments').find({
+        query: {
+          contributionId: contributionId,
+          $sort: {
+            // upvoteCount: -1,
+            createdAt: 1
+          },
+          $skip: state.comments.length,
+          $limit: 10
+        }
+      }).then((result) => {
         // as we load new comments, make sure they are in the right order and unique
         let newComments = orderBy(uniq(state.comments.concat(result.data)), ['createdAt'], ['asc'])
-        commit('setCommentCount', result.total)
         commit('set', newComments)
+        commit('setCommentCount', result.total)
         commit('isLoading', false)
-      })
-      .catch((e) => {
+        resolve()
+      }).catch((e) => {
         commit('isLoading', false)
+        reject(new Error(e))
       })
+    })
   },
   fetchById ({commit}, id) {
     return this.app.$api.service('comments').get(id)
