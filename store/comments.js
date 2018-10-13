@@ -1,4 +1,4 @@
-import { castArray, debounce, uniq, orderBy } from 'lodash'
+import { castArray, debounce, uniqWith, orderBy } from 'lodash'
 
 export const state = () => {
   return {
@@ -89,7 +89,7 @@ export const actions = {
         }
       }).then((result) => {
         // as we load new comments, make sure they are in the right order and unique
-        let newComments = orderBy(uniq(state.comments.concat(result.data)), ['createdAt'], ['asc'])
+        let newComments = orderBy(uniqWith(state.comments.concat(result.data), (a, b) => a._id === b._id), ['createdAt'], ['asc'])
         commit('set', newComments)
         commit('setCommentCount', result.total)
         commit('isLoading', false)
