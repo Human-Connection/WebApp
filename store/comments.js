@@ -85,7 +85,7 @@ export const actions = {
             createdAt: 1
           },
           $skip: state.comments.length,
-          $limit: 10
+          $limit: 30
         }
       }).then((result) => {
         // as we load new comments, make sure they are in the right order and unique
