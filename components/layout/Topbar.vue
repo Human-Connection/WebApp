@@ -6,7 +6,7 @@
         :class="{ 'is-active': menuIsActive }">
         <div class="hc-navbar-item hc-navbar-brand">
           <h1 class="is-hidden">Human-Connection</h1>
-          <a class="hc-navbar-brand-logo"
+          <nuxt-link to="/" class="hc-navbar-brand-logo"
              @click="onLogoClick"
              :title="$t('component.layout.topbarLabel')">
             <img class="is-hidden-mobile"
@@ -15,7 +15,7 @@
             <img class="is-hidden-tablet"
                  src="/Logo-Globe-Alpha.svg"
                  alt="Human-Connection.org"/>
-          </a>
+          </nuxt-link>
         </div>
         <div class="hc-navbar-item hc-navbar-search">
           <top-search></top-search>
@@ -102,10 +102,13 @@
       closeMenu: throttle(() => {
         app.menuIsActive = false
       }, 1000),
-      onLogoClick () {
+      onLogoClick (e) {
         this.$store.commit('newsfeed/clear')
         this.$store.dispatch('newsfeed/fetch')
-        this.$router.push({ name: 'index' })
+        if (!e.metaKey && !e.ctrlKey) {
+          e.preventDefault()
+          this.$router.push({ name: 'index' })
+        }
       }
     }
   }
