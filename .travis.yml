@@ -38,7 +38,7 @@ after_success:
     fi
   - wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh
   - chmod +x tester.sh
-  - ./tester.sh $TRAVIS_BRANCH $WEBHOOK_URL
+  - ./tester.sh staging $WEBHOOK_URL
 
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
