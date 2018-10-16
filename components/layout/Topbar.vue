@@ -7,7 +7,7 @@
         <div class="hc-navbar-item hc-navbar-brand">
           <h1 class="is-hidden">Human-Connection</h1>
           <nuxt-link to="/" class="hc-navbar-brand-logo"
-             @click="onLogoClick"
+             @click.native="onLogoClick"
              :title="$t('component.layout.topbarLabel')">
             <img class="is-hidden-mobile"
                  src="/Logo-Horizontal-Alpha.svg"
@@ -102,13 +102,10 @@
       closeMenu: throttle(() => {
         app.menuIsActive = false
       }, 1000),
-      onLogoClick (e) {
+      onLogoClick () {
         this.$store.commit('newsfeed/clear')
         this.$store.dispatch('newsfeed/fetch')
-        if (!e.metaKey && !e.ctrlKey) {
-          e.preventDefault()
-          this.$router.push({ name: 'index' })
-        }
+        this.$router.push({ name: 'index' })
       }
     }
   }
