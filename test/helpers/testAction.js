@@ -37,7 +37,7 @@ const testActionJest = async (action, payload, state, expectedMutations, done) =
 
     try {
       expect(type).toBe(mutation.type)
-      if (payload !== undefined) {
+      if (mutation.payload !== undefined) {
         expect(payload).toEqual(mutation.payload)
       }
     } catch (error) {
