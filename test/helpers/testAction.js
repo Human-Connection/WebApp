@@ -28,7 +28,7 @@ const testActionAva = async (action, payload, state, expectedMutations, testrunn
 }
 
 // helper for testing action with expected mutations
-const testActionJest = (action, payload, state, expectedMutations, done) => {
+const testActionJest = async (action, payload, state, expectedMutations, done) => {
   let count = 0
 
   // mock commit
@@ -51,7 +51,11 @@ const testActionJest = (action, payload, state, expectedMutations, done) => {
   }
 
   // call the action with mocked store and arguments
-  action({ commit, state }, payload)
+  try {
+    await action({ commit, state }, payload)
+  } catch(error) {
+    done(error)
+  }
 
   // check if no mutations should have been dispatched
   if (expectedMutations.length === 0) {

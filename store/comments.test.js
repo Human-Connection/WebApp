@@ -17,4 +17,14 @@ describe('fetchByContributionId', () => {
       testAction(actions.fetchByContributionId, null, {}, [], done)
     })
   })
+
+  describe('given a contribution id', () => {
+    const contributionId = 42
+
+    test('commits setContributionId', (done) => {
+      testAction(actions.fetchByContributionId, contributionId, {}, [
+        { type: 'setContributionId', payload: 42 }
+      ], done)
+    })
+  })
 })
