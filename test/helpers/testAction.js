@@ -37,7 +37,7 @@ const testActionJest = async (action, payload, state, expectedMutations, done) =
 
     try {
       expect(type).toBe(mutation.type)
-      if (payload) {
+      if (payload !== undefined) {
         expect(payload).toEqual(mutation.payload)
       }
     } catch (error) {
@@ -53,7 +53,7 @@ const testActionJest = async (action, payload, state, expectedMutations, done) =
   // call the action with mocked store and arguments
   try {
     await action({ commit, state }, payload)
-  } catch(error) {
+  } catch (error) {
     done(error)
   }
 
@@ -63,6 +63,5 @@ const testActionJest = async (action, payload, state, expectedMutations, done) =
     done()
   }
 }
-
 
 module.exports = { testActionAva, testActionJest }
