@@ -36,9 +36,6 @@ after_success:
     docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge;
     docker push humanconnection/frontend-nuxt:edge;
     fi
-  - wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh
-  - chmod +x tester.sh
-  - ./tester.sh staging $WEBHOOK_URL
 
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
