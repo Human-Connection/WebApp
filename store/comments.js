@@ -1,4 +1,4 @@
-import { castArray, debounce, uniq, orderBy } from 'lodash'
+import { castArray, debounce, uniqWith, orderBy } from 'lodash'
 
 export const state = () => {
   return {
@@ -76,27 +76,29 @@ export const actions = {
     }
     commit('setContributionId', contributionId)
 
-    return this.app.$api.service('comments').find({
-      query: {
-        contributionId: contributionId,
-        $sort: {
-          // upvoteCount: -1,
-          createdAt: 1
-        },
-        $skip: state.comments.length,
-        $limit: 100
-      }
-    })
-      .then((result) => {
+    return new Promise((resolve, reject) => {
+      this.app.$api.service('comments').find({
+        query: {
+          contributionId: contributionId,
+          $sort: {
+            // upvoteCount: -1,
+            createdAt: 1
+          },
+          $skip: state.comments.length,
+          $limit: 30
+        }
+      }).then((result) => {
         // as we load new comments, make sure they are in the right order and unique
-        let newComments = orderBy(uniq(state.comments.concat(result.data)), ['createdAt'], ['asc'])
-        commit('setCommentCount', result.total)
+        let newComments = orderBy(uniqWith(state.comments.concat(result.data), (a, b) => a._id === b._id), ['createdAt'], ['asc'])
         commit('set', newComments)
+        commit('setCommentCount', result.total)
         commit('isLoading', false)
-      })
-      .catch((e) => {
+        resolve()
+      }).catch((e) => {
         commit('isLoading', false)
+        reject(new Error(e))
       })
+    })
   },
   fetchById ({commit}, id) {
     return this.app.$api.service('comments').get(id)
