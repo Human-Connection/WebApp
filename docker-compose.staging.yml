@@ -10,5 +10,3 @@ services:
         # these secrets should only be accessible on the server:
       - SENTRY_DNS_PRIVATE=${SENTRY_DNS_PRIVATE}
       - EMBED_API_TOKEN=${EMBED_API_TOKEN}
-    command: >
-    bash -c "wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh && chmod +x tester.sh && ./tester.sh staging "${WEBHOOK_URL}
