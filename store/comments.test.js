@@ -23,16 +23,16 @@ describe('isLoading', () => {
 
 describe('given a mock api', () => {
   let action
-  let comments = []
   let api
+  let responseComments = []
 
   beforeEach(() => {
     api = feathers()
     api.use('/comments', {
       async find () {
         return {
-          data: comments,
-          total: comments.length
+          data: responseComments,
+          total: responseComments.length
         }
       }
     })
@@ -71,7 +71,7 @@ describe('given a mock api', () => {
 
       test('sets comments and commentCount', async () => {
         state = { comments: [] }
-        comments = [{_id: 23}]
+        responseComments = [{_id: 23}]
         await action({state, dispatch, commit}, 42)
         const expected = [
           [ 'setContributionId', 42 ],
@@ -100,19 +100,16 @@ describe('given a mock api', () => {
       expect(dispatch).toHaveBeenCalled()
     })
 
-    describe('given too many comments', () => {
-      let step
-      beforeEach(() => {
-        step = 0
-        api.use('/comments', {
-          async find () {
-            step++
-            return {
-              data: comments[step],
-              total: 3
-            }
-          }
-        })
+    describe('given more comments than already loaded', () => {
+      test('calls fetchAllByContributionId recursively', async() => {
+        state = { comments: [], commentCount: 3 }
+        responseComments = [{_id: 23}, {_id: 24}, {_id: 25}]
+        await action({state, dispatch, commit}, 42)
+        const expected = [
+          ["fetchByContributionId", 42],
+          ["fetchAllByContributionId", 42]
+        ]
+        expect(dispatch.mock.calls).toEqual(expected)
       })
     })
   })
