@@ -81,6 +81,12 @@ describe('given a mock api', () => {
         ]
         expect(commit.mock.calls).toEqual(expected)
       })
+
+      test('returns a promise', () => {
+        state = { comments: [] }
+        const aPromise = action({state, dispatch, commit}, 42)
+        expect(aPromise).toBeInstanceOf(Promise)
+      })
     })
   })
 
