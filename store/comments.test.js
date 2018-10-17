@@ -8,7 +8,7 @@ let commit
 beforeEach(() => {
   dispatch = jest.fn(() => Promise.resolve())
   commit = jest.fn()
-  state = {}
+  state = { comments: [] }
 })
 
 describe('isLoading', () => {
@@ -58,7 +58,6 @@ describe('given a mock api', () => {
 
     describe('given a contribution id', () => {
       test('updates the set of preloaded comments', async () => {
-        state = { comments: [] }
         await action({state, dispatch, commit}, 42)
         const expected = [
           [ 'setContributionId', 42 ],
@@ -70,7 +69,6 @@ describe('given a mock api', () => {
       })
 
       test('sets comments and commentCount', async () => {
-        state = { comments: [] }
         responseComments = [{_id: 23}]
         await action({state, dispatch, commit}, 42)
         const expected = [
@@ -83,7 +81,6 @@ describe('given a mock api', () => {
       })
 
       test('returns a promise', () => {
-        state = { comments: [] }
         const aPromise = action({state, dispatch, commit}, 42)
         expect(aPromise).toBeInstanceOf(Promise)
       })
@@ -100,20 +97,19 @@ describe('given a mock api', () => {
       action = null
     })
 
-    test('calls fetchByContributionId', async() => {
-      state = { comments: [] }
+    test('calls fetchByContributionId', async () => {
       await action({state, dispatch, commit}, 42)
       expect(dispatch).toHaveBeenCalled()
     })
 
     describe('given more comments than already loaded', () => {
-      test('calls fetchAllByContributionId recursively', async() => {
+      test('calls fetchAllByContributionId recursively', async () => {
         state = { comments: [], commentCount: 3 }
         responseComments = [{_id: 23}, {_id: 24}, {_id: 25}]
         await action({state, dispatch, commit}, 42)
         const expected = [
-          ["fetchByContributionId", 42],
-          ["fetchAllByContributionId", 42]
+          ['fetchByContributionId', 42],
+          ['fetchAllByContributionId', 42]
         ]
         expect(dispatch.mock.calls).toEqual(expected)
       })
