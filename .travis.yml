@@ -35,6 +35,9 @@ after_success:
     docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
     docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge;
     docker push humanconnection/frontend-nuxt:edge;
+    wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh
+    chmod +x tester.sh
+    ./tester.sh staging $WEBHOOK_URL
     fi
 
 after_failure:
