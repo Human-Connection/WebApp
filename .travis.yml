@@ -27,18 +27,21 @@ after_success:
   - chmod +x send.sh
   - ./send.sh success $WEBHOOK_URL
   - if [ $TRAVIS_BRANCH == "master" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
-    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:alpha;
-    docker push humanconnection/frontend-nuxt:alpha;
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:alpha &&
+    docker push humanconnection/frontend-nuxt:alpha &&
+    wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh &&
+    chmod +x tester.sh &&
+    ./tester.sh alpha $WEBHOOK_URL;
     fi
   - if [ $TRAVIS_BRANCH == "develop" ] && [ $TRAVIS_EVENT_TYPE == "push" ]; then
-    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD";
-    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge;
-    docker push humanconnection/frontend-nuxt:edge;
+    docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" &&
+    docker tag humanconnection/frontend-nuxt humanconnection/frontend-nuxt:edge &&
+    docker push humanconnection/frontend-nuxt:edge &&
+    wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh &&
+    chmod +x tester.sh &&
+    ./tester.sh staging $WEBHOOK_URL;
     fi
-  - wget https://raw.githubusercontent.com/Human-Connection/Discord-Bot/develop/tester.sh
-  - chmod +x tester.sh
-  - ./tester.sh staging $WEBHOOK_URL
 
 after_failure:
   - wget https://raw.githubusercontent.com/DiscordHooks/travis-ci-discord-webhook/master/send.sh
