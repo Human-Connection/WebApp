@@ -1,10 +1,19 @@
 import { mutations, actions } from './comments.js'
-import { testActionJest as testAction } from '~/test/helpers/testAction.js'
 import feathers from '@feathersjs/feathers'
+
+let state
+let dispatch
+let commit
+
+beforeEach(() => {
+  dispatch = jest.fn(() => Promise.resolve())
+  commit = jest.fn()
+  state = {}
+})
 
 describe('isLoading', () => {
   test('sets status', () => {
-    const state = {
+    state = {
       status: false
     }
     mutations.isLoading(state, true)
@@ -12,7 +21,7 @@ describe('isLoading', () => {
   })
 })
 
-describe('fetch', () => {
+describe('given a mock api', () => {
   let action
   let comments = []
   let api
@@ -40,35 +49,37 @@ describe('fetch', () => {
     })
 
     describe('no given contribution id', () => {
-      test('returns without any commit', (done) => {
-        testAction(action, null, {}, [], done)
+      test('returns without any commit', async () => {
+        await action({state, dispatch, commit})
+        expect(dispatch).not.toHaveBeenCalled()
+        expect(commit).not.toHaveBeenCalled()
       })
     })
 
     describe('given a contribution id', () => {
-      test('updates the set of preloaded comments', (done) => {
-        const state = {
-          comments: []
-        }
-        testAction(action, 42, state, [
-          { type: 'setContributionId', payload: 42 },
-          { type: 'set', payload: [] },
-          { type: 'setCommentCount', payload: 0 },
-          { type: 'isLoading', payload: false }
-        ], done)
+      test('updates the set of preloaded comments', async () => {
+        state = { comments: [] }
+        await action({state, dispatch, commit}, 42)
+        const expected = [
+          [ 'setContributionId', 42 ],
+          [ 'set', [] ],
+          [ 'setCommentCount', 0 ],
+          [ 'isLoading', false ]
+        ]
+        expect(commit.mock.calls).toEqual(expected)
       })
 
-      test('sets comments and commentCount', (done) => {
-        const state = {
-          comments: []
-        }
+      test('sets comments and commentCount', async () => {
+        state = { comments: [] }
         comments = [{_id: 23}]
-        testAction(action, 42, state, [
-          { type: 'setContributionId', payload: 42 },
-          { type: 'set', payload: [{_id: 23}] },
-          { type: 'setCommentCount', payload: 1 },
-          { type: 'isLoading', payload: false }
-        ], done)
+        await action({state, dispatch, commit}, 42)
+        const expected = [
+          [ 'setContributionId', 42 ],
+          [ 'set', [{_id: 23}] ],
+          [ 'setCommentCount', 1 ],
+          [ 'isLoading', false ]
+        ]
+        expect(commit.mock.calls).toEqual(expected)
       })
     })
   })
@@ -83,17 +94,10 @@ describe('fetch', () => {
       action = null
     })
 
-    test('behaves similar to fetchByContributionId', (done) => {
-      const state = {
-        comments: []
-      }
-      comments = [{_id: 23}]
-      testAction(action, 42, state, [
-        { type: 'setContributionId', payload: 42 },
-        { type: 'set', payload: [{_id: 23}] },
-        { type: 'setCommentCount', payload: 1 },
-        { type: 'isLoading', payload: false }
-      ], done)
+    test('calls fetchByContributionId', async() => {
+      state = { comments: [] }
+      await action({state, dispatch, commit}, 42)
+      expect(dispatch).toHaveBeenCalled()
     })
 
     describe('given too many comments', () => {
