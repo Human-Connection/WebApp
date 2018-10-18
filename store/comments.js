@@ -62,10 +62,10 @@ export const actions = {
       }, 500))
   },
   fetchAllByContributionId ({dispatch, state}, contributionId) {
-    dispatch('fetchByContributionId', contributionId)
+    return dispatch('fetchByContributionId', contributionId)
       .then(() => {
         if (state.comments.length < state.commentCount) {
-          dispatch('fetchAllByContributionId', contributionId)
+          return dispatch('fetchAllByContributionId', contributionId)
         }
       })
   },
