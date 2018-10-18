@@ -61,8 +61,8 @@ describe('given a mock api', () => {
         await action({state, dispatch, commit}, 42)
         const expected = [
           [ 'setContributionId', 42 ],
-          [ 'set', [] ],
           [ 'setCommentCount', 0 ],
+          [ 'set', [] ],
           [ 'isLoading', false ]
         ]
         expect(commit.mock.calls).toEqual(expected)
@@ -73,8 +73,8 @@ describe('given a mock api', () => {
         await action({state, dispatch, commit}, 42)
         const expected = [
           [ 'setContributionId', 42 ],
-          [ 'set', [{_id: 23}] ],
           [ 'setCommentCount', 1 ],
+          [ 'set', [{_id: 23}] ],
           [ 'isLoading', false ]
         ]
         expect(commit.mock.calls).toEqual(expected)
