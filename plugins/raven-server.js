@@ -10,7 +10,6 @@ export default async function (app) {
       release: process.env.BUILD_COMMIT,
       environment: process.env.NODE_ENV,
       tags: {
-        deployed: process.env.DEPLOY_DATE,
         client: true
       }
     }).install()

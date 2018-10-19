@@ -37,7 +37,9 @@
     "eslint": "eslint --ext .js,.vue .",
     "styleguide": "vue-styleguidist server",
     "styleguide:build": "vue-styleguidist build",
-    "test": "ava",
+    "test": "yarn run test:jest && yarn run test:ava",
+    "test:jest": "jest",
+    "test:ava": "ava test/**/*.ava.js",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run",
     "coverage": "nyc report --reporter=text-lcov > coverage.lcov && codecov"
@@ -117,11 +119,11 @@
   },
   "devDependencies": {
     "@nuxtjs/webpackmonitor": "~0.1.0",
-    "@vue/test-utils": "^1.0.0-beta.20",
-    "ava": "~0.25.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "@vue/server-test-utils": "^1.0.0-beta.25",
+    "@vue/test-utils": "^1.0.0-beta.25",
+    "ava": "^0.25.0",
+    "babel-jest": "^23.6.0",
     "backpack-core": "~0.7.0",
-    "browser-env": "~3.2.4",
     "codecov": "~3.0.4",
     "eslint": "~4.19.1",
     "eslint-config-standard": "~11.0.0-beta.0",
@@ -133,7 +135,9 @@
     "eslint-plugin-standard": "~3.1.0",
     "eslint-plugin-vue": "^4.5.0",
     "istanbul": "~0.4.5",
-    "jsdom": "~11.10.0",
+    "jest": "^23.6.0",
+    "jsdom": "^12.0.0",
+    "jsdom-global": "^3.0.2",
     "less": "~2.7.3",
     "less-loader": "^4.1.0",
     "node-sass": "~4.9.0",
@@ -141,13 +145,29 @@
     "require-extension-hooks-babel": "~0.1.1",
     "require-extension-hooks-vue": "~1.0.0",
     "sass-loader": "~6.0.7",
+    "sinon": "^6.3.4",
     "source-map-support": "~0.5.6",
     "vue-docgen-api": "^2.3.11",
+    "vue-jest": "^2.6.0",
     "vue-style-loader": "~4.1.0"
   },
   "ava": {
     "require": [
       "./test/helpers/setup.js"
     ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "moduleNameMapper": {
+      "^~/(.*)$": "<rootDir>/$1"
+    },
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
   }
 }
