@@ -40,6 +40,7 @@
           data-test="title"
           :class="{ 'is-danger': $v.form.title.$error }"
           maxlength="64"
+          v-on:input="editorText"
           v-model.trim="form.title"
           @blur="$v.form.title.$touch()"
           type="text"
@@ -63,6 +64,7 @@
       <label class="label" for="form-content">{{ $t('component.contribution.writePostContent') }}</label>
       <div class="control" :class="{ 'has-error': $v.form.content.$error }">
         <hc-editor
+          v-on:input="editorText"
           identifier="content"
           id="form-content"
           data-test="content"
@@ -96,6 +98,7 @@
           <div class="control has-margin-bottom-medium">
             <input
               class="input"
+              v-on:input="editorText"
               v-model="form.cando.reasonTitle"
               type="text"
               :placeholder="$t('component.contribution.canDoReasonTitlePlaceholder')"
@@ -106,6 +109,7 @@
           <label class="label">{{ $t('component.contribution.canDoReasonContent') }}</label>
           <div class="control">
             <hc-editor
+              v-on:input="editorText"
               identifier="cando-reason"
               v-model.trim="form.cando.reason"
               @fetchedMeta="handleMeta"
@@ -375,11 +379,9 @@
       }
     },
     methods: {
-      // beforeRouteLeave () {
-      //   if (process.client) {
-      //     alert('BOOM')
-      //   }
-      // },
+      editorText (newText) {
+        this.$emit('input', newText)
+      },
       onImageError (e) {
         this.form.teaserImg = null
       },
@@ -425,6 +427,7 @@
           return
         }
         this.$emit('validate', true)
+        this.editorText('')
 
         this.isLoading = true
 
@@ -450,6 +453,7 @@
         } catch (err) {
           console.error(err)
           this.isLoading = false
+          this.$emit('validate', false)
           this.$toast.open({
             message: err.message,
             type: 'is-danger'

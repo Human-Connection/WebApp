@@ -1,5 +1,17 @@
-require('dotenv').config()
 const path = require('path')
+const envWhitelist = [
+  'BUILD_COMMIT',
+  'NODE_ENV',
+  'WEBAPP_HOST',
+  'WEBAPP_PORT',
+  'WEBAPP_BASE_URL',
+  'API_HOST',
+  'API_PORT',
+  'EMBED_API_URL',
+  'SENTRY_DNS_PUBLIC',
+  'MAPBOX_TOKEN',
+  'MAINTENANCE'
+]
 
 module.exports = {
   env: {
@@ -93,7 +105,6 @@ module.exports = {
     }
   },
   plugins: [
-    {src: '~/plugins/env.js'},
     {src: '~/plugins/debug.js', ssr: false},
     {src: '~/plugins/raven-client.js', ssr: false},
     {src: '~/plugins/api.js'},
@@ -112,8 +123,9 @@ module.exports = {
     {src: '~/plugins/open-page-in-modal.js', ssr: false}
   ],
   modules: [
-    'cookie-universal-nuxt',
-    '@nuxtjs/dotenv'
+    ['@nuxtjs/dotenv', { only: envWhitelist }],
+    ['nuxt-env', { keys: envWhitelist }],
+    'cookie-universal-nuxt'
     // '@nuxtjs/pwa'
   ],
   router: {

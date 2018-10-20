@@ -13,78 +13,13 @@
 </p>
 
 # Human-Connection WebApp
-> uses the Nuxt.js and Express.js projects
-
-> **Note:** This is only the WebApp part of Human-Connection, you have to also checkout the [API](https://github.com/Human-Connection/API) which is used by this WebApp.
-
-This is the nuxt + express version of our WebApp as nuxt.js seams to be more stable and we have better options for keeping it updated.
-
-## Build Setup
-
-> we recommend to install the project locally for the best development ease and performance
-
-``` bash
-# install dependencies
-$ yarn
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn start
-```
-
-For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
-
-## Env Vars
-
-> More information on environment variables can be found in the [documentation (WIP)](https://docs.human-connection.org/environments/docker-test-production/docker-configuration.html)
-
-#### Maintenance
-
-You can start the app in maintenance mode so it does not ask the api in case it is down.
-```
-$ env MAINTENANCE=true yarn dev 
-# or start
-$ env MAINTENANCE=true yarn start
-```
-
-### Test Logins
-
-**Admin**
-
-E-Mail: `test@test.de`  
-Password: `1234`
-
-**Moderator**
-
-E-Mail: `test2@test2.de`  
-Password: `1234`
-
-**Normal User**
-
-E-Mail: `test3@test3.de`  
-Password: `1234`
-
-## Styleguide
-
-The Developer Style Guide provides important infos about components and styles. To start it simply type:
-
-``` bash
-$ npm run styleguide
-```
-When built you can open it at [http://localhost:6060](http://localhost:6060)
-
-## Backpack
-
-We use [backpack](https://github.com/palmerhq/backpack) to watch and build the application, so you can use the latest ES6 features (module syntax, async/await, etc.).
+This is the frontend of HC.<br />
+It uses the Nuxt.js and Express.js projects.<br />
 
 ## Help
-
-The HC platform is documented in our [gitbook](https://www.gitbook.com/book/human-connection/documentation/) (work in progress).
+The HC platform and its setup is documented in our [docs](https://docs.human-connection.org/) (work in progress).<br />
+Connect with other developers over [Discord](https://discord.gg/6ub73U3)<br />
 
 ## License 
-
-Copyright (c) 2018 [Human-Connection.org](https://human-connection.org)
-
-Licensed under the [MIT](https://github.com/Human-Connection/WebApp/blob/develop/LICENSE.md) license.
+Copyright (c) 2018 [Human-Connection.org](https://human-connection.org)<br />
+Licensed under the [MIT](https://github.com/Human-Connection/WebApp/blob/develop/LICENSE.md) license.<br />

@@ -6,8 +6,8 @@
         :class="{ 'is-active': menuIsActive }">
         <div class="hc-navbar-item hc-navbar-brand">
           <h1 class="is-hidden">Human-Connection</h1>
-          <a class="hc-navbar-brand-logo"
-             @click="onLogoClick"
+          <nuxt-link to="/" class="hc-navbar-brand-logo"
+             @click.native="onLogoClick"
              :title="$t('component.layout.topbarLabel')">
             <img class="is-hidden-mobile"
                  src="/Logo-Horizontal-Alpha.svg"
@@ -15,7 +15,7 @@
             <img class="is-hidden-tablet"
                  src="/Logo-Globe-Alpha.svg"
                  alt="Human-Connection.org"/>
-          </a>
+          </nuxt-link>
         </div>
         <div class="hc-navbar-item hc-navbar-search">
           <top-search></top-search>

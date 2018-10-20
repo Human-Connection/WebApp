@@ -42,6 +42,7 @@
         <form class="comment-form" @submit.prevent="patchComment" v-else>
           <hc-editor identifier="comment"
             editorClass="autowrap"
+            v-on:input="editorText"
             v-model="newContent"
             :editorOptions="editorOptions" />
           <div class="comment-form-actions">
@@ -107,8 +108,8 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import author from '~/components/Author/Author.vue'
-  import commentForm from '~/components/Comments/CommentForm.vue'
+  import author from '../Author/Author.vue'
+  import commentForm from '../Comments/CommentForm.vue'
   import linkifyHtml from 'linkifyjs/html'
 
   export default {
@@ -168,6 +169,7 @@
     },
     computed: {
       ...mapGetters({
+        showComment: 'comments/showComment',
         user: 'auth/user'
       }),
       getText () {
@@ -209,8 +211,12 @@
           this.isReplying = true
       },
       closeCommentForm () {
-        if (this.depth == 0)
+        if (this.depth == 0) {
           this.isReplying = false
+        }
+      },
+      editorText (newText) {
+        this.$emit('input', newText)
       },
       removeComment () {
         this.$dialog.confirm({
@@ -259,8 +265,8 @@
         }
       },
       scrollToCommentIfSelected () {
-        // check if ?showComment is set and scroll to the selected comment item if the id mataches
-        if (this.$route.query && this.$route.query.showComment === this.comment._id) {
+        // check if showComment is set and scroll to the selected comment item if the id matches
+        if ((this.$route.query && this.$route.query.showComment === this.comment._id) || (this.showComment === this.comment._id)) {
           setTimeout(() => {
             this.$scrollTo(this.$el, 500, {
               onDone: () => {
