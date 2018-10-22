@@ -427,6 +427,7 @@
           return
         }
         this.$emit('validate', true)
+        this.editorText('')
 
         this.isLoading = true
 
@@ -452,6 +453,7 @@
         } catch (err) {
           console.error(err)
           this.isLoading = false
+          this.$emit('validate', false)
           this.$toast.open({
             message: err.message,
             type: 'is-danger'

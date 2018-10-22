@@ -1,10 +1,9 @@
 <template>
   <div class="columns">
-    <div class=" column is-8 is-offset-2">
-      <div class="card">
+    <div class="column is-8 is-offset-2">
+      <div class="card" :class="classes">
         <section class="section">
-          <!--<h1 class="title">Edit {{ title }}</h1>-->
-          <contributions-form :data="form"></contributions-form>
+          <contributions-form :data="form" v-on:input="editorText" @validate="onValidate" />
         </section>
       </div>
     </div>
@@ -13,11 +12,27 @@
 
 <script>
   import ContributionsForm from '~/components/Contributions/ContributionsForm.vue'
+  import animatable from '~/components/mixins/animatable'
+  import protectable from '~/components/mixins/protectable'
 
   export default {
     middleware: ['verified', 'owner'],
+    mixins: [animatable, protectable],
     components: {
       ContributionsForm
+    },
+    methods: {
+      editorText (newText) {
+        this.protectText(newText)
+      },
+      onValidate (success) {
+        if (!success) {
+          this.animate('shake')
+          this.isSubmitting = false
+        } else {
+          this.isSubmitting = true
+        }
+      }
     },
     async asyncData ({app, params, error}) {
       try {
