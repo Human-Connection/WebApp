@@ -38,6 +38,36 @@
           <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
+          <Span>About me:</Span>
+          <hc-button v-if="!editing && isOwner" @click="editing = true" circle size="small" class="about-button button is-primary">
+              <hc-icon icon="plus" set="fa"></hc-icon>
+          </hc-button>
+          <form v-if="editing" v-on:submit.prevent="onAboutMeUploadCompleted">
+            <textarea v-model="aboutMe"/>
+            <div class="field is-grouped">
+          <div class="control">
+            <button class="button has-text-grey is-light" @click.prevent="editing = false">
+              <i class="fa fa-times"></i>
+              &nbsp;{{ $t('button.cancel') }}
+            </button>
+          </div>
+          <div class="control">
+            <hc-button :isLoading="isLoading"
+                      :disabled="disabled"
+                      data-test="submit">
+              <i class="fa fa-check"></i>
+              &nbsp;<span>{{ buttonPublishLabel }}</span>
+            </hc-button>
+          </div>
+        </div>
+          </form>
+          <p>{{ aboutMe }}</p>
+          <p>City/Region:</p>
+          <p>Age:</p>
+          <p>Discord Tag:</p>
+          <p>GitHub Name:</p>
+
+
           <hc-follow-buttons v-if="user"
                              :showButtons="!isOwner"
                              :entity="user" />
@@ -192,6 +222,8 @@
           coverImg: null,
           avatar: null
         },
+        aboutMe: '',
+        editing: false,
         uploadingCover: false,
         uploadingAvatar: false,
         user: null,
@@ -265,6 +297,13 @@
         this.form.coverImg = value
         const user = await this.$store.dispatch('auth/patch', {
           coverImg: value
+        })
+        this.updatedUser = user
+      },
+      async onAboutMeUploadCompleted (value) {
+        this.form.aboutMe = value
+        const user = await this.$store.dispatch('auth/patch', {
+          aboutMe: value
         })
         this.updatedUser = user
       },
@@ -397,6 +436,12 @@
           padding-top: 60px;
         }
       }
+    }
+
+    .about-button {
+      margin-left: 10px;
+      // width: 87px;
+      font-size: 10px;
     }
 
     .hc-shortcuts {
