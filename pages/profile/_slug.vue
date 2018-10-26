@@ -39,35 +39,38 @@
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
           <Span>About me:</Span>
+          <template v-if="hideText !== true">
+            <span>{{ aboutMe }}</span>
+          </template>
           <hc-button v-if="!editing && isOwner" @click="editing = true" circle size="small" class="about-button button is-primary">
               <hc-icon icon="plus" set="fa"></hc-icon>
           </hc-button>
-          <form v-if="editing" v-on:submit.prevent="onAboutMeUploadCompleted">
-            <textarea v-model="aboutMe"/>
-            <div class="field is-grouped">
-          <div class="control">
-            <button class="button has-text-grey is-light" @click.prevent="editing = false">
-              <i class="fa fa-times"></i>
-              &nbsp;{{ $t('button.cancel') }}
-            </button>
-          </div>
-          <div class="control">
-            <hc-button :isLoading="isLoading"
-                      :disabled="disabled"
-                      data-test="submit">
-              <i class="fa fa-check"></i>
-              &nbsp;<span>{{ buttonPublishLabel }}</span>
-            </hc-button>
-          </div>
-        </div>
-          </form>
-          <p>{{ aboutMe }}</p>
-          <p>City/Region:</p>
-          <p>Age:</p>
-          <p>Discord Tag:</p>
-          <p>GitHub Name:</p>
-
-
+          <template v-if="editing">
+            <form @submit.prevent="onAboutMeUploadCompleted">
+              <textarea v-model.lazy="aboutMe"/>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button has-text-grey is-light" @click.prevent="clearText">
+                    <i class="fa fa-times"></i>
+                    &nbsp;{{ $t('button.cancel') }}
+                  </button>
+                </div>
+                <div class="control">
+                  <hc-button @click.prevent="hideText = false"
+                            :isLoading="isLoading"
+                            :disabled="disabled"
+                            data-test="submit">
+                    <i class="fa fa-check"></i>
+                    &nbsp;<span>{{ buttonPublishLabel }}</span>
+                  </hc-button>
+                </div>
+              </div>
+            </form>
+          </template>
+            <p>City/Region:</p>
+            <p>Age:</p>
+            <p>Discord Tag:</p>
+            <p>GitHub Name:</p>
           <hc-follow-buttons v-if="user"
                              :showButtons="!isOwner"
                              :entity="user" />
@@ -222,6 +225,7 @@
           coverImg: null,
           avatar: null
         },
+        hideText: true,
         aboutMe: '',
         editing: false,
         uploadingCover: false,
@@ -349,6 +353,11 @@
           this.candos = res.data
         } catch (err) {}
         this.isLoadingCanDos = false
+      },
+      async clearText () {
+        this.editing = false,
+        this.aboutMe = '',
+        this.hideText = true
       }
     },
     mounted () {
