@@ -13,7 +13,7 @@
       <div class="comment-form-actions">
         <button type="button"
           class="button is-hidden-mobile"
-          :disabled="this.isCommentFormOfContribution ? !this.hasContent : false"
+          :disabled="this.isCommentFormOfContribution && !this.hasContent"
           @click="cancel(form)">
           {{ $t('button.cancel') }}
         </button>
@@ -31,9 +31,15 @@
 <script>
   import { mapGetters } from 'vuex'
   import { trim } from 'lodash'
+  import avatar from '~/components/Global/Elements/Avatar/Avatar.vue'
+  import editor from '~/components/Global/Form/Editor/Editor.vue'
 
   export default {
     name: 'hc-comment-form',
+    components: {
+      'hc-avatar': avatar,
+      'hc-editor': editor
+    },
     props: {
       post: {
         type: Object,
@@ -107,7 +113,7 @@
           this.$nextTick(function () {
             this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
             this.$scrollTo(this.$el.children[1], 500)
-            setTimeout(() => { this.isExecuted = false }, 700)
+            setTimeout(() => { this.isExecuted = false }, 2000)
           })
         }
       },
@@ -123,15 +129,13 @@
         this.form.contributionId = this.post._id
         this.form.parentCommentId = this.replyComment ? this.replyComment._id : null
 
-       this.$store.dispatch('comments/create', this.form)
+        this.$store.dispatch('comments/create', this.form)
           .then(async (res) => {
             this.$snackbar.open({
               message: this.$t('component.contribution.commentSubmitSuccess', 'Thanks for your comment. You are awesome.'),
               duration: 4000,
               type: 'is-success'
             })
-            debugger
-            await this.$store.dispatch('comments/fetchByContributionId', this.post._id)
             this.form.content = ''
             this.isLoading = false
           })
@@ -148,7 +152,7 @@
           this.$parent.closeCommentForm()
         }
 
-        this.isLoading = false
+
         // because of the watch or mounted part, the reply function gets execute very often
         // so after the submit of a comment there should happen nothing (scrollTo) for 2 sec
         this.$nextTick(() => {

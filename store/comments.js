@@ -21,6 +21,9 @@ export const mutations = {
   setCommentCount (state, commentCount) {
     state.commentCount = commentCount
   },
+  setChildCommentCount (state, childCommentCount) {
+    state.childCommentCount = childCommentCount
+  },
   setShowComment (state, showComment) {
     state.showComment = showComment
   },
@@ -50,6 +53,9 @@ export const getters = {
   },
   count (state) {
     return state.commentCount
+  },
+  childCount (state) {
+    return state.childCount
   }
 }
 
@@ -71,7 +77,7 @@ export const actions = {
   fetchAllByContributionId ({dispatch, state}, contributionId) {
     return dispatch('fetchByContributionId', contributionId)
       .then(() => {
-        if (state.comments.length < state.commentCount) {
+        if (state.commentCount > (state.comments.length + state.childCommentCount)) {
           return dispatch('fetchAllByContributionId', contributionId)
         }
       })
@@ -94,9 +100,15 @@ export const actions = {
         $limit: 30
       }
     }).then((result) => {
+      const resComments = addChildrenIfNecessary(state.comments, result.data)
+      let childCommentCount = 0
+      resComments.forEach((el) => {
+        childCommentCount += el.children.length
+      })
       // as we load new comments, make sure they are in the right order and unique
-      let newComments = orderBy(uniqWith(state.comments.concat(result.data), (a, b) => a._id === b._id), ['createdAt'], ['asc'])
+      let newComments = orderBy(uniqWith(resComments, (a, b) => a._id === b._id), ['createdAt'], ['asc'])
       commit('setCommentCount', result.total)
+      commit('setChildCommentCount', childCommentCount)
       commit('set', newComments)
       commit('isLoading', false)
     }).catch((e) => {
@@ -128,4 +140,26 @@ export const actions = {
     commit('setIsSubmitting', status)
     return status
   }
+}
+
+function addChildrenIfNecessary(storeComments, newComments) {
+  const resultComments = JSON.parse(JSON.stringify(storeComments))
+  newComments.forEach((element) => {
+    if (element.parentCommentId) {
+      const comment = resultComments.filter((el) => {
+        return el._id === element.parentCommentId
+      })
+      if (comment[0].children.filter((el) => {
+        return el._id === element._id
+      }).length === 0) {
+        comment[0].children.push(element)
+      }
+    } else {
+      resultComments.push(element)
+    }
+  })
+  resultComments.children = orderBy(uniqWith(resultComments.children, function (a, b) {
+    return a._id === b._id;
+  }), ['createdAt'], ['asc']);
+  return resultComments
 }

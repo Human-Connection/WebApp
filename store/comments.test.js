@@ -62,19 +62,21 @@ describe('given a mock api', () => {
         const expected = [
           [ 'setContributionId', 42 ],
           [ 'setCommentCount', 0 ],
+          [ 'setChildCommentCount', 0],
           [ 'set', [] ],
           [ 'isLoading', false ]
         ]
         expect(commit.mock.calls).toEqual(expected)
       })
 
-      test('sets comments and commentCount', async () => {
-        responseComments = [{_id: 23}]
+      test('sets comments, commentCount and childCommentCount', async () => {
+        responseComments = [{_id: 23, children: [{_id: 24, parentCommentId: 23, children: []}]}]
         await action({state, dispatch, commit}, 42)
         const expected = [
           [ 'setContributionId', 42 ],
           [ 'setCommentCount', 1 ],
-          [ 'set', [{_id: 23}] ],
+          [ 'setChildCommentCount', 1],
+          [ 'set', [{_id: 23, children: [{_id: 24, parentCommentId: 23, children: []}]}] ],
           [ 'isLoading', false ]
         ]
         expect(commit.mock.calls).toEqual(expected)
@@ -109,7 +111,7 @@ describe('given a mock api', () => {
 
     describe('given more comments than already loaded', () => {
       test('calls fetchAllByContributionId recursively', async () => {
-        state = { comments: [], commentCount: 3 }
+        state = { comments: [], commentCount: 3, childCommentCount: 0 }
         await action({state, dispatch, commit}, 42)
         const expected = [
           ['fetchByContributionId', 42],
@@ -119,7 +121,7 @@ describe('given a mock api', () => {
       })
 
       test('returns a promise', () => {
-        state = { comments: [], commentCount: 3 }
+        state = { comments: [], commentCount: 3, childCommentCount: 0 }
         const aPromise = action({state, dispatch, commit}, 42)
         expect(aPromise).toBeInstanceOf(Promise)
       })
