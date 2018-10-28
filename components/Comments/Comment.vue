@@ -3,20 +3,20 @@
     <template v-if="comment.deleted">
       <div class="comment-aside">
       </div>
-      <div class="comment-main comment-deleted">
+      <div class="comment-main comment-deleted" ref="commentMain">
         <hc-icon icon="ban" class="comment-deleted-icon" />
         {{ $t('component.contribution.commentDeletedByUser') }}
       </div>
     </template>
     <template v-else>
       <div class="comment-aside">
-        <author :user="comment.user"
+        <hc-author :user="comment.user"
           :showText="false" />
       </div>
-      <div class="comment-main">
+      <div class="comment-main depth-zero" ref="commentMain">
         <div class="comment-header">
           <div class="comment-header-author">
-            <author :user="comment.user"
+            <hc-author :user="comment.user"
               :showAvatar="false"
               :isAuthor="isAuthor"
               :createdAt="comment.createdAt" />
@@ -63,8 +63,8 @@
         </form>
         <div class="comment-footer">
           <div class="comment-footer-actions-left">
-            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
-              <a class="level-item" @click.prevent="$emit('reply', comment)">
+            <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner && depth == 0 ">
+              <a class="level-item" @click.prevent="$emit('reply', comment); openCommentForm();">
                 <span class="icon is-small"><i class="fa fa-reply"></i></span>
               </a>
             </hc-tooltip>
@@ -88,6 +88,19 @@
             </a>
           </div>
         </div>
+        <transition-group name="comment" tag="div">
+          <hc-comment v-if="depth < maxDepth" v-for="childComment in comment.children"
+                   @reply="$parent.onReply ? $parent.onReply : () => {}"
+                   :isAuthor="childComment.userId === post.userId"
+                   :isOwner="childComment.userId === user._id"
+                   :key="childComment._id"
+                   :comment="childComment"
+                   :post="post"
+                   :depth="depth + 1"
+                   :onUpvote="onUpvote"
+                   />
+        </transition-group>
+        <hc-comment-form class="comment-form" :post="post" :replyComment="comment" v-if="isReplying" :depth="depth" v-on:input="editorText"/>
       </div>
     </template>
   </div>
@@ -97,13 +110,19 @@
   import { mapGetters, mapActions } from 'vuex'
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
+  import button from '~/components/Global/Elements/Button/Button.vue'
+  import tooltip from '~/components/Global/Elements/Tooltip/Tooltip.vue'
+  import icon from '~/components/Global/Elements/Icon/Icon.vue'
   import linkifyHtml from 'linkifyjs/html'
 
   export default {
     name: 'hc-comment',
     components: {
-      commentForm,
-      author
+      'hc-comment-form': commentForm,
+      'hc-author': author,
+      'hc-button': button,
+      'hc-tooltip': tooltip,
+      'hc-icon': icon
     },
     props: {
       onUpvote: {
@@ -119,6 +138,17 @@
       },
       isOwner: {
         type: Boolean
+      },
+      post: {
+        type: Object
+      },
+      depth: {
+        type: Number,
+        default: 0
+      },
+      maxDepth: {
+        type: Number,
+        default: 1
       }
     },
     data () {
@@ -127,6 +157,7 @@
         highlight: false,
         edit: false,
         isLoading: false,
+        isReplying: false,
         newContent: '',
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -162,6 +193,11 @@
       }
     },
     mounted () {
+      if (this.depth > 0) {
+        this.$refs.commentMain.classList.remove('depth-zero')
+        this.$refs.commentMain.classList.add('depth-one')
+      }
+
       this.scrollToCommentIfSelected()
     },
     methods: {
@@ -170,6 +206,16 @@
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
+      openCommentForm () {
+        if (this.depth == 0) {
+          this.isReplying = true
+        }
+      },
+      closeCommentForm () {
+        if (this.depth == 0) {
+          this.isReplying = false
+        }
+      },
       editorText (newText) {
         this.$emit('input', newText)
       },
@@ -189,7 +235,7 @@
           .then((res) => {
             this.newContent = res.content
             this.edit = true
-            this.fullContentShown = false;
+            this.fullContentShown = false
           })
       },
       cancelEdit () {
@@ -263,7 +309,11 @@
     padding: $padding-small;
     background-color: $white;
 
-    &:before {
+    .depth-one {
+      background-color: #f2efef
+    }
+
+    &.depth-zero:before {
       position: absolute;
       content: '';
       display: block;
@@ -274,6 +324,18 @@
       border-top: 6px solid transparent;
       border-bottom: 6px solid transparent;
       border-right: 6px solid $white;
+    }
+    &.depth-one:before {
+      position: absolute;
+      content: '';
+      display: block;
+      top: 20px;
+      right: 100%;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-right: 6px solid #f2efef;
     }
   }
 

@@ -3,7 +3,7 @@
     <div class="comment-form-aside">
       <hc-avatar :user="user" />
     </div>
-    <form class="comment-form" @submit.prevent="submitComment">
+    <form ref="commentForm" class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
         ref="editor"
         v-on:input="editorText"
@@ -13,8 +13,8 @@
       <div class="comment-form-actions">
         <button type="button"
           class="button is-hidden-mobile"
-          :disabled="!this.hasContent"
-          @click="form.content = ''">
+          :disabled="this.isCommentFormOfContribution && !this.hasContent"
+          @click="cancel">
           {{ $t('button.cancel') }}
         </button>
         <button type="submit"
@@ -29,11 +29,17 @@
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   import { trim } from 'lodash'
+  import avatar from '~/components/Global/Elements/Avatar/Avatar.vue'
+  import editor from '~/components/Global/Form/Editor/Editor.vue'
 
   export default {
     name: 'hc-comment-form',
+    components: {
+      'hc-avatar': avatar,
+      'hc-editor': editor
+    },
     props: {
       post: {
         type: Object,
@@ -41,6 +47,14 @@
       },
       replyComment: {
         type: Object
+      },
+      isCommentFormOfContribution: {
+        type: Boolean,
+        default: false
+      },
+      depth: {
+        type: Number,
+        default: 0
       }
     },
     data () {
@@ -48,7 +62,8 @@
         isLoading: false,
         form: {
           content: '',
-          contributionId: null
+          contributionId: null,
+          parentCommentId: null
         },
         editorOptions: {
           placeholder: this.$t('component.contribution.commentPlaceholder', 'Whatever comes to your mind...'),
@@ -59,13 +74,11 @@
         }
       }
     },
-    watch: {
-      replyComment (comment) {
-        this.reply(comment)
-      }
-    },
     mounted () {
       this.reply(this.replyComment)
+    },
+    destroyed () {
+      this.$store.commit('comments/setShowComment', null)
     },
     computed: {
       ...mapGetters({
@@ -77,6 +90,14 @@
       }
     },
     methods: {
+      cancel () {
+        if(this.replyComment) {
+          this.$parent.closeCommentForm()
+          this.editorText('')
+          return
+        }
+        this.form.content = ''
+      },
       editorText (newText) {
         this.$emit('input', newText)
       },
@@ -84,27 +105,30 @@
         if (!comment) {
           return
         }
-        try {
+        this.$nextTick(function () {
           this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
-          this.$scrollTo(this.$refs.editor.$el, 500)
-        } catch (err) {}
+          this.$scrollTo(this.$refs.commentForm, 500)
+        })
       },
-      async submitComment () {
+      submitComment () {
         if (!this.hasContent) {
-          this.form.content = ''
+          this.editorText('')
           return
         }
+
         this.isLoading = true
         this.form.contributionId = this.post._id
-        await this.$store.dispatch('comments/create', this.form)
-          .then((res) => {
+        this.form.parentCommentId = this.replyComment ? this.replyComment._id : null
+
+        this.$store.dispatch('comments/create', this.form)
+          .then(() => {
             this.$snackbar.open({
               message: this.$t('component.contribution.commentSubmitSuccess', 'Thanks for your comment. You are awesome.'),
               duration: 4000,
               type: 'is-success'
             })
-            this.form.content = ''
             this.isLoading = false
+            this.form.content = ''
           })
           .catch((error) => {
             console.error(error)
@@ -113,7 +137,12 @@
               type: 'is-danger'
             })
             this.isLoading = false
+            this.editorText('')
           })
+
+        if (this.replyComment) {
+          this.$parent.closeCommentForm()
+        }
       }
     }
   }
