@@ -3,7 +3,6 @@ import sinon from 'sinon'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import CommentForm from './CommentForm'
-import flushPromises from 'flush-promises'
 
 const localVue = createLocalVue()
 
@@ -20,7 +19,15 @@ const propsData = {
   isCommentFormOfContribution: true
 }
 
-const mocks = { $t: () => {}, $snackbar: { open: jest.fn()}, $toast: { open: jest.fn()}}
+const mocks = {
+  $t: () => {},
+  $snackbar: {
+    open: jest.fn()
+  },
+  $toast: {
+    open: jest.fn()
+  }
+}
 
 describe('CommentForm.vue', () => {
   let actions
@@ -32,7 +39,7 @@ describe('CommentForm.vue', () => {
   beforeEach(() => {
     getters = {
       'auth/isVerified': () => true,
-      'auth/user': () => {_id: 2},
+      'auth/user': () => { return { _id: 2 } },
       'comments/isSubmitting': () => false
     }
     actions = {
@@ -50,30 +57,29 @@ describe('CommentForm.vue', () => {
     replyStub.restore()
   })
 
-  test('is rendered', () => {
+  test('is rendered and submit button is disabled', () => {
     expect(wrapper.is('div')).toBeTruthy()
     expect(wrapper.find('hc-avatar-stub').exists()).toBeTruthy()
     expect(wrapper.find('button[type=submit]').attributes('disabled')).toBe('disabled')
   })
 
   test('submit button is enabled', () => {
-    wrapper.setData({ form: { content: 'Some text for a comment', contributionId: 1}})
+    wrapper.setData({ form: { content: 'Some text for a comment', contributionId: 1 } })
     expect(wrapper.find('button[type=submit]').attributes('disabled')).toBeUndefined()
   })
 
   test('submit button is enabled and after cancel disabled again', () => {
-    wrapper.setData({ form: { content: 'Some text for a comment', contributionId: 1}})
+    wrapper.setData({ form: { content: 'Some text for a comment', contributionId: 1 } })
     expect(wrapper.find('button[type=submit]').attributes('disabled')).toBeUndefined()
     wrapper.find('button[type=button]').trigger('click')
     expect(wrapper.find('button[type=submit]').attributes('disabled')).toBe('disabled')
   })
 
-  test('submitted a comment', async() => {
-    wrapper.setData({ form: { content: 'Some text for a comment', contributionId: 1}})
+  test('submitted a comment', () => {
+    wrapper.setData({ form: { content: 'Some text for a comment', contributionId: 1 } })
     wrapper.find('form').trigger('submit')
-    await flushPromises()
 
-    expect(actions['comments/setSubmitting']).toHaveBeenCalled()
     expect(actions['comments/create']).toHaveBeenCalled()
+    expect(wrapper.find('hc-editor-stub').attributes('value')).toEqual('Some text for a comment')
   })
 })

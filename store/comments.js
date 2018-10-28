@@ -6,8 +6,7 @@ export const state = () => {
     commentCount: 0,
     showComment: null,
     isLoading: true,
-    contributionId: null,
-    isSubmitting: false
+    contributionId: null
   }
 }
 
@@ -32,18 +31,12 @@ export const mutations = {
   },
   setContributionId (state, contributionId) {
     state.contributionId = contributionId
-  },
-  setIsSubmitting (state, status) {
-    state.isSubmitting = status
   }
 }
 
 export const getters = {
   all (state) {
     return state.comments
-  },
-  isSubmitting (state) {
-    return state.isSubmitting
   },
   isLoading (state) {
     return state.isLoading
@@ -67,10 +60,10 @@ export const actions = {
         dispatch('fetchAllByContributionId')
         commit('setShowComment', comment._id)
       }, 500))
-      .on('patched', debounce((comment) => {
+      .on('patched', debounce(() => {
         dispatch('fetchByContributionId')
       }, 500))
-      .on('removed', debounce((comment) => {
+      .on('removed', debounce(() => {
         dispatch('fetchByContributionId')
       }, 500))
   },
@@ -111,7 +104,7 @@ export const actions = {
       commit('setChildCommentCount', childCommentCount)
       commit('set', newComments)
       commit('isLoading', false)
-    }).catch((e) => {
+    }).catch(() => {
       commit('isLoading', false)
     })
   },
@@ -135,14 +128,10 @@ export const actions = {
   },
   remove ({dispatch}, id) {
     return this.app.$api.service('comments').remove(id)
-  },
-  setSubmitting ({commit}, status) {
-    commit('setIsSubmitting', status)
-    return status
   }
 }
 
-function addChildrenIfNecessary(storeComments, newComments) {
+function addChildrenIfNecessary (storeComments, newComments) {
   const resultComments = JSON.parse(JSON.stringify(storeComments))
   newComments.forEach((element) => {
     if (element.parentCommentId) {
@@ -159,7 +148,7 @@ function addChildrenIfNecessary(storeComments, newComments) {
     }
   })
   resultComments.children = orderBy(uniqWith(resultComments.children, function (a, b) {
-    return a._id === b._id;
-  }), ['createdAt'], ['asc']);
+    return a._id === b._id
+  }), ['createdAt'], ['asc'])
   return resultComments
 }

@@ -62,7 +62,7 @@ describe('given a mock api', () => {
         const expected = [
           [ 'setContributionId', 42 ],
           [ 'setCommentCount', 0 ],
-          [ 'setChildCommentCount', 0],
+          [ 'setChildCommentCount', 0 ],
           [ 'set', [] ],
           [ 'isLoading', false ]
         ]
@@ -75,7 +75,7 @@ describe('given a mock api', () => {
         const expected = [
           [ 'setContributionId', 42 ],
           [ 'setCommentCount', 1 ],
-          [ 'setChildCommentCount', 1],
+          [ 'setChildCommentCount', 1 ],
           [ 'set', [{_id: 23, children: [{_id: 24, parentCommentId: 23, children: []}]}] ],
           [ 'isLoading', false ]
         ]

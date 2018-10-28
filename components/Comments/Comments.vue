@@ -4,7 +4,7 @@
       <strong>{{ $t('component.contribution.commentsLoading', 'Loading Comments...') }}</strong>
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
-      <comment @reply="onReply"
+      <hc-comment @reply="onReply"
                v-for="comment in replyComments"
                :isAuthor="comment.userId === post.userId"
                :isOwner="comment.userId === user._id"
@@ -26,7 +26,7 @@
       <br/>
       <strong><hc-emoji type="surprised" width="20" style="display: inline-block; margin-bottom: -0.3rem;" /> &nbsp; {{ $t('component.contribution.commentsNoneYet', 'No comments yet, you can write some!') }}</strong>
     </div>-->
-    <comment-form id="comment-form" :post="post" :replyComment="replyComment" :isCommentFormOfContribution="true"/>
+    <hc-comment-form id="comment-form" :post="post" :replyComment="replyComment" :isCommentFormOfContribution="true" v-on:input="editorText"/>
   </div>
 </template>
 
@@ -41,8 +41,8 @@
     name: 'hc-comments',
     props: ['post'],
     components: {
-      'comment': comment,
-      'comment-form': commentForm,
+      'hc-comment': comment,
+      'hc-comment-form': commentForm,
       'hc-button': button
     },
     data () {

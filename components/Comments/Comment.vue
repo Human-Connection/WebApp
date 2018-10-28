@@ -111,6 +111,8 @@
   import author from '~/components/Author/Author.vue'
   import commentForm from '~/components/Comments/CommentForm.vue'
   import button from '~/components/Global/Elements/Button/Button.vue'
+  import tooltip from '~/components/Global/Elements/Tooltip/Tooltip.vue'
+  import icon from '~/components/Global/Elements/Icon/Icon.vue'
   import linkifyHtml from 'linkifyjs/html'
 
   export default {
@@ -118,7 +120,9 @@
     components: {
       'hc-comment-form': commentForm,
       'hc-author': author,
-      'hc-button': button
+      'hc-button': button,
+      'hc-tooltip': tooltip,
+      'hc-icon': icon
     },
     props: {
       onUpvote: {
@@ -190,9 +194,8 @@
     },
     mounted () {
       if (this.depth > 0) {
-        const el = this.$refs.commentMain
-        el.classList.remove('depth-zero')
-        el.classList.add('depth-one')
+        this.$refs.commentMain.classList.remove('depth-zero')
+        this.$refs.commentMain.classList.add('depth-one')
       }
 
       this.scrollToCommentIfSelected()
