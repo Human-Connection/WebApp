@@ -10,13 +10,13 @@
     </template>
     <template v-else>
       <div class="comment-aside">
-        <author :user="comment.user"
+        <hc-author :user="comment.user"
           :showText="false" />
       </div>
-      <div class="comment-main depth-zero" v-bind:style="styleBackground" ref="commentMain">
+      <div class="comment-main depth-zero" ref="commentMain">
         <div class="comment-header">
           <div class="comment-header-author">
-            <author :user="comment.user"
+            <hc-author :user="comment.user"
               :showAvatar="false"
               :isAuthor="isAuthor"
               :createdAt="comment.createdAt" />
@@ -100,7 +100,7 @@
                    :onUpvote="onUpvote"
                    />
         </transition-group>
-        <comment-form class="comment-form" :post="post" :replyComment="comment" v-if="isReplying" :depth="depth"/>
+        <hc-comment-form class="comment-form" :post="post" :replyComment="comment" v-if="isReplying" :depth="depth" v-on:input="editorText"/>
       </div>
     </template>
   </div>
@@ -108,15 +108,21 @@
 
 <script>
   import { mapGetters, mapActions } from 'vuex'
-  import author from '../Author/Author.vue'
-  import commentForm from '../Comments/CommentForm.vue'
+  import author from '~/components/Author/Author.vue'
+  import commentForm from '~/components/Comments/CommentForm.vue'
+  import button from '~/components/Global/Elements/Button/Button.vue'
+  import tooltip from '~/components/Global/Elements/Tooltip/Tooltip.vue'
+  import icon from '~/components/Global/Elements/Icon/Icon.vue'
   import linkifyHtml from 'linkifyjs/html'
 
   export default {
     name: 'hc-comment',
     components: {
-      commentForm,
-      author
+      'hc-comment-form': commentForm,
+      'hc-author': author,
+      'hc-button': button,
+      'hc-tooltip': tooltip,
+      'hc-icon': icon
     },
     props: {
       onUpvote: {
@@ -146,10 +152,6 @@
       }
     },
     data () {
-      const styleBackground = {};
-      if (this.depth > 0) {
-        styleBackground.backgroundColor = '#f2efef'
-      }
       return {
         fullContentShown: false,
         highlight: false,
@@ -163,8 +165,7 @@
             toolbar: null,
             pasteHandler: {}
           }
-        },
-        styleBackground: styleBackground
+        }
       }
     },
     computed: {
@@ -193,9 +194,8 @@
     },
     mounted () {
       if (this.depth > 0) {
-        const el = this.$refs.commentMain
-        el.classList.remove('depth-zero')
-        el.classList.add('depth-one')
+        this.$refs.commentMain.classList.remove('depth-zero')
+        this.$refs.commentMain.classList.add('depth-one')
       }
 
       this.scrollToCommentIfSelected()
@@ -207,8 +207,9 @@
         patch: 'comments/patch'
       }),
       openCommentForm () {
-        if (this.depth == 0)
+        if (this.depth == 0) {
           this.isReplying = true
+        }
       },
       closeCommentForm () {
         if (this.depth == 0) {
@@ -307,6 +308,10 @@
     // overflow: visible;
     padding: $padding-small;
     background-color: $white;
+
+    .depth-one {
+      background-color: #f2efef
+    }
 
     &.depth-zero:before {
       position: absolute;

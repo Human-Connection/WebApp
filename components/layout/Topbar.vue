@@ -105,7 +105,6 @@
       onLogoClick () {
         this.$store.commit('newsfeed/clear')
         this.$store.dispatch('newsfeed/fetch')
-        this.$router.push({ name: 'index' })
       }
     }
   }

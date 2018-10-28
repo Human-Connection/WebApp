@@ -3,7 +3,7 @@
     <div class="comment-form-aside">
       <hc-avatar :user="user" />
     </div>
-    <form class="comment-form" @submit.prevent="submitComment">
+    <form ref="commentForm" class="comment-form" @submit.prevent="submitComment">
       <hc-editor identifier="comment"
         ref="editor"
         v-on:input="editorText"
@@ -13,8 +13,8 @@
       <div class="comment-form-actions">
         <button type="button"
           class="button is-hidden-mobile"
-          :disabled="this.isCommentFormOfContribution ? !this.hasContent : false"
-          @click="cancel(form)">
+          :disabled="this.isCommentFormOfContribution && !this.hasContent"
+          @click="cancel">
           {{ $t('button.cancel') }}
         </button>
         <button type="submit"
@@ -31,9 +31,15 @@
 <script>
   import { mapGetters } from 'vuex'
   import { trim } from 'lodash'
+  import avatar from '~/components/Global/Elements/Avatar/Avatar.vue'
+  import editor from '~/components/Global/Form/Editor/Editor.vue'
 
   export default {
     name: 'hc-comment-form',
+    components: {
+      'hc-avatar': avatar,
+      'hc-editor': editor
+    },
     props: {
       post: {
         type: Object,
@@ -54,7 +60,6 @@
     data () {
       return {
         isLoading: false,
-        isExecuted: false,
         form: {
           content: '',
           contributionId: null,
@@ -69,31 +74,29 @@
         }
       }
     },
-    watch: {
-      replyComment (comment) {
-        this.reply(comment)
-      }
-    },
     mounted () {
       this.reply(this.replyComment)
+    },
+    destroyed () {
+      this.$store.commit('comments/setShowComment', null)
     },
     computed: {
       ...mapGetters({
         isVerified: 'auth/isVerified',
-        user: 'auth/user',
-        isSubmitting: 'comments/isSubmitting'
+        user: 'auth/user'
       }),
       hasContent () {
         return !!trim(this.form.content.replace(/(<([^>]+)>)/ig, '')).length
       }
     },
     methods: {
-      cancel (form) {
-        if (this.isCommentFormOfContribution) {
-          form.content = ''
-        } else if(this.replyComment) {
+      cancel () {
+        if(this.replyComment) {
           this.$parent.closeCommentForm()
+          this.editorText('')
+          return
         }
+        this.form.content = ''
       },
       editorText (newText) {
         this.$emit('input', newText)
@@ -102,20 +105,14 @@
         if (!comment) {
           return
         }
-        if (!this.isExecuted && !this.isSubmitting && this.$el.children[1].parentElement.id != 'comment-form') {
-          this.isExecuted = true
-          this.$nextTick(function () {
-            this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
-            this.$scrollTo(this.$el.children[1], 500)
-            setTimeout(() => { this.isExecuted = false }, 700)
-          })
-        }
+        this.$nextTick(function () {
+          this.$refs.editor.$refs.editorMentions.insertMention(0, comment.user)
+          this.$scrollTo(this.$refs.commentForm, 500)
+        })
       },
-      async submitComment () {
-        await this.$store.dispatch('comments/setSubmitting', true)
-
+      submitComment () {
         if (!this.hasContent) {
-          this.form.content = ''
+          this.editorText('')
           return
         }
 
@@ -123,17 +120,15 @@
         this.form.contributionId = this.post._id
         this.form.parentCommentId = this.replyComment ? this.replyComment._id : null
 
-       this.$store.dispatch('comments/create', this.form)
-          .then(async (res) => {
+        this.$store.dispatch('comments/create', this.form)
+          .then(() => {
             this.$snackbar.open({
               message: this.$t('component.contribution.commentSubmitSuccess', 'Thanks for your comment. You are awesome.'),
               duration: 4000,
               type: 'is-success'
             })
-            debugger
-            await this.$store.dispatch('comments/fetchByContributionId', this.post._id)
-            this.form.content = ''
             this.isLoading = false
+            this.form.content = ''
           })
           .catch((error) => {
             console.error(error)
@@ -142,18 +137,12 @@
               type: 'is-danger'
             })
             this.isLoading = false
+            this.editorText('')
           })
 
         if (this.replyComment) {
           this.$parent.closeCommentForm()
         }
-
-        this.isLoading = false
-        // because of the watch or mounted part, the reply function gets execute very often
-        // so after the submit of a comment there should happen nothing (scrollTo) for 2 sec
-        this.$nextTick(() => {
-          setTimeout(() => { this.$store.dispatch('comments/setSubmitting', false) }, 2000)
-        })
       }
     }
   }
