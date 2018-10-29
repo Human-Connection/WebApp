@@ -720,9 +720,18 @@
   dependencies:
     debug "^4.0.0"
 
-"@feathersjs/feathers@3.2.2", "@feathersjs/feathers@^3.1.7":
+"@feathersjs/feathers@3.2.2":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-3.2.2.tgz#026fe3c8a23ad0557d521a533b727b2f209c5918"
+  dependencies:
+    "@feathersjs/commons" "^3.0.1"
+    debug "^4.0.0"
+    events "^3.0.0"
+    uberproto "^2.0.2"
+
+"@feathersjs/feathers@^3.2.3":
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-3.2.3.tgz#889a64acd7e336d131ce53ea7512e4f48642e218"
   dependencies:
     "@feathersjs/commons" "^3.0.1"
     debug "^4.0.0"
