@@ -677,14 +677,6 @@
   dependencies:
     arrify "^1.0.1"
 
-"@feathersjs/authentication-client@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-1.0.5.tgz#b182b2d1960dfb87cbcad7c0f22e5b1c3b029f7e"
-  dependencies:
-    "@feathersjs/errors" "^3.3.3"
-    debug "^4.0.0"
-    jwt-decode "^2.1.0"
-
 "@feathersjs/authentication-client@^1.0.6":
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-1.0.6.tgz#01c3d3981c33b814560f80c8bea728ef3d2c757f"
@@ -693,22 +685,15 @@
     debug "^4.0.0"
     jwt-decode "^2.1.0"
 
-"@feathersjs/client@^3.5.3":
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/@feathersjs/client/-/client-3.7.0.tgz#0ebad1fe4b4d8061d51558ddb63f1c4fbdcd39be"
-  dependencies:
-    "@feathersjs/authentication-client" "1.0.5"
-    "@feathersjs/errors" "3.3.3"
-    "@feathersjs/feathers" "3.2.2"
-    "@feathersjs/primus-client" "1.1.3"
-    "@feathersjs/rest-client" "1.4.4"
-    "@feathersjs/socketio-client" "1.1.3"
+"@feathersjs/client@^3.7.5":
+  version "3.7.5"
+  resolved "https://registry.yarnpkg.com/@feathersjs/client/-/client-3.7.5.tgz#ecffdf7e83d2ce8c6b6192f958571f430d8a824f"
 
 "@feathersjs/commons@^3.0.1":
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-3.0.1.tgz#cf844b91ba5fe3ec419384d986d85929067a3058"
 
-"@feathersjs/errors@3.3.3", "@feathersjs/errors@^3.3.3":
+"@feathersjs/errors@^3.3.3":
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.3.tgz#af602b662d99ec7c0bb612e686c254009add80c0"
   dependencies:
@@ -720,7 +705,7 @@
   dependencies:
     debug "^4.0.0"
 
-"@feathersjs/feathers@3.2.2", "@feathersjs/feathers@^3.1.7":
+"@feathersjs/feathers@^3.1.7":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-3.2.2.tgz#026fe3c8a23ad0557d521a533b727b2f209c5918"
   dependencies:
@@ -728,26 +713,6 @@
     debug "^4.0.0"
     events "^3.0.0"
     uberproto "^2.0.2"
-
-"@feathersjs/primus-client@1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@feathersjs/primus-client/-/primus-client-1.1.3.tgz#d39b8c5101a3a55bc10bb5dab168f57521943e87"
-  dependencies:
-    "@feathersjs/transport-commons" "^4.1.4"
-
-"@feathersjs/rest-client@1.4.4":
-  version "1.4.4"
-  resolved "https://registry.yarnpkg.com/@feathersjs/rest-client/-/rest-client-1.4.4.tgz#4f5fb0b7eaa74182934b1fb3abf990207ca8b594"
-  dependencies:
-    "@feathersjs/commons" "^3.0.1"
-    "@feathersjs/errors" "^3.3.3"
-    qs "^6.5.0"
-
-"@feathersjs/socketio-client@1.1.3":
-  version "1.1.3"
-  resolved "https://registry.yarnpkg.com/@feathersjs/socketio-client/-/socketio-client-1.1.3.tgz#ccd8456e4474b4946d5c88befecba5a204b015c0"
-  dependencies:
-    "@feathersjs/transport-commons" "^4.1.4"
 
 "@feathersjs/socketio@^3.2.2":
   version "3.2.5"
@@ -9682,7 +9647,7 @@ qs@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.1.tgz#349cdf6eef89ec45c12d7d5eb3fc0c870343a6d8"
 
-qs@6.5.2, qs@^6.5.0, qs@~6.5.1, qs@~6.5.2:
+qs@6.5.2, qs@~6.5.1, qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
 
