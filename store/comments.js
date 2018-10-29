@@ -26,6 +26,11 @@ export const mutations = {
   clear (state) {
     state.comments = []
   },
+  removeComment (state, id) {
+    const cmt = state.comments[state.comments.findIndex(comment => comment._id === id)]
+    console.log(cmt)
+    cmt.deleted = true
+  },
   setContributionId (state, contributionId) {
     state.contributionId = contributionId
   }
@@ -111,10 +116,17 @@ export const actions = {
   create ({dispatch}, data) {
     return this.app.$api.service('comments').create(data)
   },
-  patch ({dispatch}, data) {
+  patch ({dispatch, commit}, data) {
     return this.app.$api.service('comments').patch(data._id, data)
+      .then(() => {
+        commit('set', data.content)
+      })
   },
-  remove ({dispatch}, id) {
+  remove ({commit}, id) {
+    commit('removeComment', id)
     return this.app.$api.service('comments').remove(id)
+      // .then(() => {
+      //   commit('removeComment', id)
+      // })
   }
 }

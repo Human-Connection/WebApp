@@ -5,7 +5,6 @@
     </div>
     <transition-group v-else-if="comments.length >= 1" name="comment" tag="div">
       <comment @reply="onReply"
-               v-on:input="editorText"
                v-for="comment in comments"
                :isAuthor="comment.userId === post.userId"
                :isOwner="comment.userId === user._id"
