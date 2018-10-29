@@ -137,12 +137,12 @@
               type: 'is-danger'
             })
             this.isLoading = false
-            this.editorText('')
           })
 
         if (this.replyComment) {
           this.$parent.closeCommentForm()
         }
+        this.editorText('')
       }
     }
   }
