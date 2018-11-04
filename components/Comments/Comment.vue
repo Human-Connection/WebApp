@@ -184,7 +184,6 @@
       startEdit () {
         this.fetchById(this.comment._id)
           .then((res) => {
-            console.log(res.content)
             this.newContent = res.content
             this.edit = true
             this.fullContentShown = false;

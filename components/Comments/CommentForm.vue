@@ -76,7 +76,6 @@
       }
     },
     methods: {
-    
       reply (comment) {
         if (!comment) {
           return
