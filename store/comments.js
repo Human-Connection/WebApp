@@ -26,9 +26,9 @@ export const mutations = {
   clear (state) {
     state.comments = []
   },
+
   updateComment (state, data) {
-    const cmt = state.comments[state.comments.findIndex(comment => comment._id === data._id)]
-    cmt.contentExcerpt = data.content
+    state.comments[state.comments.findIndex(comment => comment._id === data._id)].contentExcerpt = data.content
   },
   removeComment (state, id) {
     const cmt = state.comments[state.comments.findIndex(comment => comment._id === id)]
