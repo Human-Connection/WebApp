@@ -762,12 +762,20 @@
   dependencies:
     arrify "^1.0.1"
 
-"@feathersjs/authentication-client@1.0.5", "@feathersjs/authentication-client@^1.0.2":
+"@feathersjs/authentication-client@1.0.5":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-1.0.5.tgz#b182b2d1960dfb87cbcad7c0f22e5b1c3b029f7e"
   integrity sha512-WteZmGGp9Y5v2stExjzgc5mDNzGSJJgxXdkQxnoEV+7LOp+P155TRIl4YxEV/Z0aPSu+d4YozwGmVy4HKOCAIw==
   dependencies:
     "@feathersjs/errors" "^3.3.3"
+    debug "^4.0.0"
+    jwt-decode "^2.1.0"
+
+"@feathersjs/authentication-client@^1.0.6":
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/@feathersjs/authentication-client/-/authentication-client-1.0.6.tgz#01c3d3981c33b814560f80c8bea728ef3d2c757f"
+  dependencies:
+    "@feathersjs/errors" "^3.3.4"
     debug "^4.0.0"
     jwt-decode "^2.1.0"
 
@@ -792,6 +800,12 @@
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.3.tgz#af602b662d99ec7c0bb612e686c254009add80c0"
   integrity sha512-TalUfLACYWc190USIX6gLhR9a+OKUKuql+pt7ZJSzljWdEtIYSP6SUCXttPC3JpDX0Qeqp+ccMjn+ncxAa+tGg==
+  dependencies:
+    debug "^4.0.0"
+
+"@feathersjs/errors@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.4.tgz#7dd591626ba57d1e8074464235b4d23906833ca7"
   dependencies:
     debug "^4.0.0"
 
