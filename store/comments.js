@@ -118,14 +118,12 @@ export const actions = {
   create ({dispatch}, data) {
     return this.app.$api.service('comments').create(data)
   },
-  patch ({dispatch, commit}, data) {
-    return this.app.$api.service('comments').patch(data._id, data)
-      .then(() => {
-        commit('updateComment', data)
-      })
+  async patch ({dispatch, commit}, data) {
+    const result = await this.app.$api.service('comments').patch(data._id, data)
+    commit('updateComment', data)
   },
-  remove ({commit}, id) {
+  async remove ({commit}, id) {
     commit('removeComment', id)
-    return this.app.$api.service('comments').remove(id)
+    const result = await this.app.$api.service('comments').remove(id)
   }
 }
