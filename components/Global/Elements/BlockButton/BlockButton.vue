@@ -3,7 +3,7 @@
              :disabled="isPending || isFollowing"
              :isLoading="isPending"
              @click="toggleBlacklist">
-    <template v-if="isBlacklisted()">
+    <template v-if="isBlacklisted">
       <hc-icon icon="ban" :class="['icon-left', 'is-danger']" /> {{ $t('component.blacklist.buttonLabelUnblock') }}
     </template>
     <template v-else>
@@ -35,17 +35,17 @@ export default {
   computed: {
     ...mapGetters({
       isPending: 'feathers-vuex-usersettings/isPending',
-    })
-  },
-  methods: {
+    }),
     isBlacklisted () {
       return this.$store.getters['feathers-vuex-usersettings/isBlacklisted'](this.foreignEntity)
-    },
+    }
+  },
+  methods: {
     async toggleBlacklist() {
       let message
       try {
         await this.$store.dispatch('feathers-vuex-usersettings/toggleBlacklist', this.foreignEntity)
-        const translationKey = `component.blacklist.${this.isBlacklisted() ? 'blockSuccess' : 'unblockSuccess'}`
+        const translationKey = `component.blacklist.${this.isBlacklisted ? 'blockSuccess' : 'unblockSuccess'}`
         message = this.$t(translationKey, {
           name: this.foreignEntity.name || this.$t('component.contribution.creatorUnknown')
         })
@@ -57,7 +57,6 @@ export default {
       }
     }
   }
-
 }
 </script>
 
