@@ -13,7 +13,7 @@
         <author :user="comment.user"
           :showText="false" />
       </div>
-      <div class="comment-main">
+      <div :class="{'comment-main': true, 'comment-blacklisted': comment.isBlacklisted}">
         <div class="comment-header">
           <div class="comment-header-author">
             <author :user="comment.user"
@@ -21,7 +21,7 @@
               :isAuthor="isAuthor"
               :createdAt="comment.createdAt" />
           </div>
-          <div class="comment-header-actions">
+          <div class="comment-header-actions" v-if="!comment.isBlacklisted">
             <template v-if="isOwner">
               <div class="disabled">
                 <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
@@ -61,7 +61,7 @@
             </hc-button>
           </div>
         </form>
-        <div class="comment-footer">
+        <div class="comment-footer" v-if="!comment.isBlacklisted">
           <div class="comment-footer-actions-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
               <a class="level-item" @click.prevent="$emit('reply', comment)">
@@ -275,6 +275,11 @@
       border-bottom: 6px solid transparent;
       border-right: 6px solid $white;
     }
+  }
+
+  .comment-blacklisted {
+    color: $grey;
+    font-style: italic;
   }
 
   .comment-deleted {
