@@ -27,7 +27,7 @@ let servicePlugin = (feathersClient) => {
     },
     actions: {
       async loadCurrent ({commit, dispatch, state}, user) {
-        let userId = user._id
+        let { _id: userId } = user || {}
         if (!userId) return null
         let { data } = await dispatch('find', {
           query: { userId }
