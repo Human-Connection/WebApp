@@ -13,7 +13,7 @@
         <author :user="comment.user"
           :showText="false" />
       </div>
-      <div :class="{'comment-main': true, 'comment-blacklisted': comment.isBlacklisted}">
+      <div class="comment-main">
         <div class="comment-header">
           <div class="comment-header-author">
             <author :user="comment.user"
@@ -38,7 +38,7 @@
             </template>
           </div>
         </div>
-        <div v-html="getText" class="comment-text" v-if="!edit"></div>
+        <div v-html="getText" :class="{'comment-text': true, 'comment-blacklisted': comment.isBlacklisted}" v-if="!edit"></div>
         <form class="comment-form" @submit.prevent="patchComment" v-else>
           <hc-editor identifier="comment"
             editorClass="autowrap"
