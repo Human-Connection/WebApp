@@ -203,6 +203,7 @@
             "commentsLoading": "Loading Comments...",
             "commentsNoneYet": "No comments yet, you can write some!",
             "commentPlaceholder": "Whatever comes to your mind...",
+            "commentBlacklistPlaceholder": "You blacklisted the author of this comment.",
             "commentSubmitSuccess": "Thanks for your comment. You are awesome.",
             "commentUpvote": "Vote: +1",
             "commentReplyThis": "Reply to this comment",

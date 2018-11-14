@@ -202,6 +202,7 @@
             "commentsLoading": "Kommentare werden nachgeladen ...",
             "commentsNoneYet": "Noch keine Kommentare, Du kannst etwas schreiben!",
             "commentPlaceholder": "Was immer Dir in den Sinn kommt …",
+            "commentBlacklistPlaceholder": "Den Autor dieses Kommentars hast Du blockiert.",
             "commentSubmitSuccess": "Du bist Klasse! Danke für Deinen Kommentar.",
             "commentUpvote": "Bewerten: +1",
             "commentReplyThis": "Auf diesen Kommentar antworten",

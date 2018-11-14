@@ -143,6 +143,7 @@
         user: 'auth/user'
       }),
       getText () {
+        if (this.comment.isBlacklisted) return this.$t('component.contribution.commentBlacklistPlaceholder')
         return (this.fullContentShown && this.content)
           ? linkifyHtml(this.content)
           : linkifyHtml(this.comment.contentExcerpt)
