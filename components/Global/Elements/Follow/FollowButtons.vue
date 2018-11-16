@@ -17,9 +17,9 @@
     <div v-if="showButtons" class="columns is-mobile field has-text-centered">
       <div class="column control has-text-centered">
         <hc-button color="button is-fullwidth"
-                   :class="{'is-primary': !follow.isLoading && !follow.isPending && !follow.isFollowing}"
+                   :class="{'is-primary': !follow.isPending && !follow.isFollowing}"
                    @click="toggleFollow"
-                   :disabled="follow.isPending"
+                   :disabled="follow.isPending || this.isBlacklisted()"
                    :isLoading="follow.isPending">
           <template v-if="follow.isFollowing">
             <hc-icon icon="check" class="icon-left" /> {{ $t('component.follow.buttonLabelUnFollow') }}
@@ -29,15 +29,8 @@
           </template>
         </hc-button>
       </div>
-      <div v-if="service === 'users'" class="column control has-text-centered" style="opacity: .25; pointer-events: none;">
-        <hc-button color="button" @click="toggleConnected" :disabled="true">
-          <template v-if="connected">
-            <hc-icon icon="user-times" class="icon-left" /> Trennen
-          </template>
-          <template v-else>
-            <hc-icon icon="user" class="icon-left" /> Verbinden
-          </template>
-        </hc-button>
+      <div v-if="service === 'users'" class="column is-mobile field has-text-centered">
+        <hc-block-button :foreignEntity="entity" :isFollowing="follow.isFollowing"/>
       </div>
     </div>
   </div>
@@ -45,9 +38,17 @@
 
 <script>
   import { mapGetters } from 'vuex'
+  import BlockButton from '~/components/Global/Elements/BlockButton/BlockButton'
+  import Icon from '~/components/Global/Elements/Icon/Icon.vue'
+  import Button from '~/components/Global/Elements/Button/Button.vue'
 
   export default {
     name: 'hc-follow-buttons',
+    components: {
+      'hc-block-button': BlockButton,
+      'hc-button': Button,
+      'hc-icon': Icon
+    },
     props: {
       showButtons: {
         type: Boolean,
@@ -83,6 +84,9 @@
       })
     },
     methods: {
+      isBlacklisted(){
+        return this.$store.getters['feathers-vuex-usersettings/isBlacklisted'](this.entity)
+      },
       async toggleFollow () {
         if (this.follow._id) {
           await this.$store.dispatch('connections/unfollow', {
@@ -106,12 +110,6 @@
             })
           })
         }
-      },
-      toggleConnected () {
-        this.connected = !this.connected
-        this.$snackbar.open({
-          message: 'Connected!'
-        })
       }
     }
   }

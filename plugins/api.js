@@ -1,60 +1,9 @@
-import feathers from '@feathersjs/feathers'
-import socketio from '@feathersjs/socketio-client'
-import io from 'socket.io-client'
-import authentication from '@feathersjs/authentication-client'
-import urlHelper from '~/helpers/urls'
 import Vue from 'vue'
+import createApiClient from '../helpers/createApiClient'
 
-export default ({app, store, redirect, router}) => {
-  const authKey = 'feathers-jwt'
-  const endpoint = urlHelper.buildEndpointURL(app.$env.API_HOST, { port: app.$env.API_PORT })
-  const storage = {
-    getItem: (key) => {
-      const res = app.$cookies.get(key)
-      // console.log(`## STORAGE: getItem(${key})`, res)
-      return res
-    },
-    setItem: (key, value, options) => {
-      const res = app.$cookies.set(key, value, options)
-      // console.log(`## STORAGE: setItem(${key}, ${value}, ${options})`, res)
-      return res
-    },
-    removeItem: (key) => {
-      const res = app.$cookies.remove(key)
-      // console.log(`## STORAGE: removeItem(${key})`, res)
-      return res
-    },
-    clear: () => {
-      const res = app.$cookies.removeAll()
-      if (app.$env.NODE_ENV === 'development') {
-        console.log(`## STORAGE: clear()`, res)
-      }
-      return res
-    }
-  }
+export default ({app, store, redirect, router, req, res}) => {
+  const api = createApiClient({app, req, res})
 
-  const socket = io(endpoint)
-
-  if (process.server) {
-    setTimeout(() => {
-      // close server connection as content was delivered already after 30 seconds at latest
-      try {
-        socket.close()
-      } catch (err) {
-        app.error(err)
-      }
-    }, 30000)
-  }
-
-  let api = feathers()
-    .configure(socketio(socket, {
-      timeout: 20000
-    }))
-    .configure(authentication({
-      storage: storage,
-      storageKey: authKey,
-      cookie: authKey
-    }))
   api.hooks({
     before: {
       all: [
@@ -73,7 +22,7 @@ export default ({app, store, redirect, router}) => {
       if (app.$env.NODE_ENV === 'development') {
         console.log('####################')
         console.error(ctx.error)
-        console.info('JWT TOKEN: ', app.$cookies.get(authKey))
+        // console.info('JWT TOKEN: ', app.$cookies.get(authKey))
         console.info('path', ctx.path)
         console.info('service', ctx.service)
         console.info('method', ctx.method)
@@ -103,7 +52,6 @@ export default ({app, store, redirect, router}) => {
       // fix issues where we could not log in
       // when at development
       await api.passport.logout()
-      storage.removeItem(authKey)
     }
     let user = null
     const response = await api.authenticate(options)
@@ -119,11 +67,6 @@ export default ({app, store, redirect, router}) => {
     // On a new real-time connection, add it to the anonymous channel
     api.channel('authenticated').join(connection)
   })
-
-  /**
-   * @deprecated
-   */
-  api.authKey = authKey
 
   // make the api accessible inside vue components
   Vue.use({

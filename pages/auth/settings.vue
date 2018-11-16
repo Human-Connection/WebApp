@@ -24,6 +24,9 @@
             <li>
               <nuxt-link :to="{ name: 'auth-settings-security' }">{{ $t('auth.settings.security', 'Security') }}</nuxt-link>
             </li>
+            <li>
+              <nuxt-link :to="{ name: 'auth-settings-blacklist' }">{{ $t('auth.settings.blacklist', 'Blacklist') }}</nuxt-link>
+            </li>
             <li v-if="showInvites">
               <nuxt-link :to="{ name: 'auth-settings-invites' }">{{ $t('auth.settings.invites', 'Invites') }}</nuxt-link>
             </li>

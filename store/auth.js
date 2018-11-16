@@ -92,6 +92,7 @@ export const actions = {
       }
       commit('SET_USER', user)
     }
+    await dispatch('feathers-vuex-usersettings/loadCurrent', user, { root: true })
     return user
   },
   async checkAuth ({state, getters, commit, dispatch}) {
@@ -128,6 +129,7 @@ export const actions = {
       commit('SET_USER', null)
       commit('SET_TOKEN', null)
       const user = await this.app.$api.auth({strategy: 'local', email, password})
+      await dispatch('feathers-vuex-usersettings/loadCurrent', user, { root: true })
 
       commit('SET_USER', user)
 

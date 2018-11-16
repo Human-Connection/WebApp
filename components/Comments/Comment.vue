@@ -21,7 +21,7 @@
               :isAuthor="isAuthor"
               :createdAt="comment.createdAt" />
           </div>
-          <div class="comment-header-actions">
+          <div class="comment-header-actions" v-if="!comment.isBlacklisted">
             <template v-if="isOwner">
               <div class="disabled">
                 <small v-if="comment.upvoteCount > 0"><strong>+{{ comment.upvoteCount || 0 }}</strong></small>&nbsp;
@@ -38,7 +38,7 @@
             </template>
           </div>
         </div>
-        <div v-html="getText" class="comment-text" v-if="!edit"></div>
+        <div v-html="getText" :class="{'comment-text': true, 'comment-blacklisted': comment.isBlacklisted}" v-if="!edit"></div>
         <form class="comment-form" @submit.prevent="patchComment" v-else>
           <hc-editor identifier="comment"
             editorClass="autowrap"
@@ -61,7 +61,7 @@
             </hc-button>
           </div>
         </form>
-        <div class="comment-footer">
+        <div class="comment-footer" v-if="!comment.isBlacklisted">
           <div class="comment-footer-actions-left">
             <hc-tooltip :label="$t('component.contribution.commentReplyThis')" type="is-black" position="is-right" v-if="!isOwner">
               <a class="level-item" @click.prevent="$emit('reply', comment)">
@@ -143,6 +143,7 @@
         user: 'auth/user'
       }),
       getText () {
+        if (this.comment.isBlacklisted) return this.$t('component.contribution.commentBlacklistPlaceholder')
         return (this.fullContentShown && this.content)
           ? linkifyHtml(this.content)
           : linkifyHtml(this.comment.contentExcerpt)
@@ -275,6 +276,11 @@
       border-bottom: 6px solid transparent;
       border-right: 6px solid $white;
     }
+  }
+
+  .comment-blacklisted {
+    color: $grey;
+    font-style: italic;
   }
 
   .comment-deleted {
