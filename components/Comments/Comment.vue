@@ -50,7 +50,7 @@
               class="button is-hidden-mobile"
               color="light"
               :disabled="isLoading"
-              @click="cancelEdit">
+              @click.prevent="cancelEdit">
               {{ $t('button.cancel') }}
             </hc-button>
             <hc-button
