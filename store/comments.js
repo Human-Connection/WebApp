@@ -34,7 +34,6 @@ export const mutations = {
   },
   removeComment (state, id) {
     const cmt = state.comments[state.comments.findIndex(comment => comment._id === id)]
-    console.log(cmt)
     cmt.deleted = true
   }
 }
@@ -51,6 +50,9 @@ export const getters = {
   },
   count (state) {
     return state.commentCount
+  },
+  fetchById: (state) => (id) => {
+    return state.comments.find(comment => comment._id === id)
   }
 }
 
@@ -104,9 +106,9 @@ export const actions = {
       commit('isLoading', false)
     })
   },
-  fetchById ({commit}, id) {
-    return this.app.$api.service('comments').get(id)
-  },
+  // fetchById ({commit}, id) {
+  //   return this.app.$api.service('comments').get(id)
+  // },
   upvote ({dispatch}, comment) {
     return this.app.$api.service('comments').patch(comment._id, {
       $inc: {
