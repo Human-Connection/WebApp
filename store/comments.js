@@ -26,6 +26,14 @@ export const mutations = {
   clear (state) {
     state.comments = []
   },
+
+  updateComment (state, data) {
+    state.comments[state.comments.findIndex(comment => comment._id === data._id)].contentExcerpt = data.content
+  },
+  removeComment (state, id) {
+    const cmt = state.comments[state.comments.findIndex(comment => comment._id === id)]
+    cmt.deleted = true
+  },
   setContributionId (state, contributionId) {
     state.contributionId = contributionId
   }
@@ -75,7 +83,6 @@ export const actions = {
       return
     }
     commit('setContributionId', contributionId)
-
     return this.app.$api.service('comments').find({
       query: {
         contributionId: contributionId,
@@ -111,10 +118,12 @@ export const actions = {
   create ({dispatch}, data) {
     return this.app.$api.service('comments').create(data)
   },
-  patch ({dispatch}, data) {
-    return this.app.$api.service('comments').patch(data._id, data)
+  async patch ({dispatch, commit}, data) {
+    const result = await this.app.$api.service('comments').patch(data._id, data)
+    commit('updateComment', data)
   },
-  remove ({dispatch}, id) {
-    return this.app.$api.service('comments').remove(id)
+  async remove ({commit}, id) {
+    commit('removeComment', id)
+    const result = await this.app.$api.service('comments').remove(id)
   }
 }
