@@ -708,6 +708,10 @@
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-3.0.1.tgz#cf844b91ba5fe3ec419384d986d85929067a3058"
 
+"@feathersjs/commons@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@feathersjs/commons/-/commons-4.0.0.tgz#ae49bae4025c35aaeb9aacb6a0c27a3d1def5062"
+
 "@feathersjs/errors@3.3.3", "@feathersjs/errors@^3.3.3":
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.3.tgz#af602b662d99ec7c0bb612e686c254009add80c0"
@@ -720,11 +724,20 @@
   dependencies:
     debug "^4.0.0"
 
-"@feathersjs/feathers@3.2.2", "@feathersjs/feathers@^3.1.7":
+"@feathersjs/feathers@3.2.2":
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-3.2.2.tgz#026fe3c8a23ad0557d521a533b727b2f209c5918"
   dependencies:
     "@feathersjs/commons" "^3.0.1"
+    debug "^4.0.0"
+    events "^3.0.0"
+    uberproto "^2.0.2"
+
+"@feathersjs/feathers@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@feathersjs/feathers/-/feathers-3.3.1.tgz#fcba030847f8418d711135112f01fad64bfb277c"
+  dependencies:
+    "@feathersjs/commons" "^4.0.0"
     debug "^4.0.0"
     events "^3.0.0"
     uberproto "^2.0.2"
