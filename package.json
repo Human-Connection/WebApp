@@ -50,7 +50,7 @@
     "@feathersjs/feathers": "^3.1.7",
     "@feathersjs/socketio": "^3.2.2",
     "@nuxtjs/dotenv": "^1.1.1",
-    "@nuxtjs/pwa": "~2.0.5",
+    "@nuxtjs/pwa": "~2.6.0",
     "axios": "^0.18.0",
     "babel-eslint": "~8.2.5",
     "babel-preset-vue-app": "~2.0.0",
