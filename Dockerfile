@@ -1,4 +1,4 @@
-FROM node:10-alpine
+FROM node:12.9.1-alpine
 LABEL Description="This image builds and runs the Human-Connection Frontend" Vendor="Human-Connection gGmbH" Version="1.0" Maintainer="Human-Connection gGmbH (developer@human-connection.org)"
 
 # expose the app port
