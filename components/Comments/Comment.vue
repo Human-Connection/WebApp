@@ -50,7 +50,7 @@
               class="button is-hidden-mobile"
               color="light"
               :disabled="isLoading"
-              @click="cancelEdit">
+              @click.prevent="cancelEdit">
               {{ $t('button.cancel') }}
             </hc-button>
             <hc-button
@@ -140,7 +140,8 @@
     computed: {
       ...mapGetters({
         showComment: 'comments/showComment',
-        user: 'auth/user'
+        user: 'auth/user',
+        fetchById: 'comments/fetchById',
       }),
       getText () {
         return (this.fullContentShown && this.content)
@@ -166,7 +167,6 @@
     },
     methods: {
       ...mapActions({
-        fetchById: 'comments/fetchById',
         remove: 'comments/remove',
         patch: 'comments/patch'
       }),
@@ -185,12 +185,9 @@
         })
       },
       startEdit () {
-        this.fetchById(this.comment._id)
-          .then((res) => {
-            this.newContent = res.content
+            this.newContent = this.fetchById(this.comment._id).contentExcerpt
             this.edit = true
             this.fullContentShown = false;
-          })
       },
       cancelEdit () {
         this.edit = false

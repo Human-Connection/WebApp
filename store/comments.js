@@ -28,6 +28,13 @@ export const mutations = {
   },
   setContributionId (state, contributionId) {
     state.contributionId = contributionId
+  },
+  updateComment (state, data) {
+    state.comments[state.comments.findIndex(comment => comment._id === data._id)].contentExcerpt = data.content
+  },
+  removeComment (state, id) {
+    const cmt = state.comments[state.comments.findIndex(comment => comment._id === id)]
+    cmt.deleted = true
   }
 }
 
@@ -43,6 +50,9 @@ export const getters = {
   },
   count (state) {
     return state.commentCount
+  },
+  fetchById: (state) => (id) => {
+    return state.comments.find(comment => comment._id === id)
   }
 }
 
@@ -96,9 +106,9 @@ export const actions = {
       commit('isLoading', false)
     })
   },
-  fetchById ({commit}, id) {
-    return this.app.$api.service('comments').get(id)
-  },
+  // fetchById ({commit}, id) {
+  //   return this.app.$api.service('comments').get(id)
+  // },
   upvote ({dispatch}, comment) {
     return this.app.$api.service('comments').patch(comment._id, {
       $inc: {
@@ -111,10 +121,16 @@ export const actions = {
   create ({dispatch}, data) {
     return this.app.$api.service('comments').create(data)
   },
-  patch ({dispatch}, data) {
+  patch ({commit}, data) {
     return this.app.$api.service('comments').patch(data._id, data)
+      .then(() => {
+        commit('updateComment', data)
+      })
   },
-  remove ({dispatch}, id) {
+  remove ({commit}, id) {
     return this.app.$api.service('comments').remove(id)
+      .then(() => {
+        commit('removeComment', id)
+      })
   }
 }
