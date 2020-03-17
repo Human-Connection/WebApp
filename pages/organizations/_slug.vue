@@ -1,17 +1,22 @@
 <template>
   <section class="container organization-profile"
-           :class="{'has-cover': organization.coverImg || isOwner}"
+           :class="{'has-cover': organization.coverImg || isOwner, 'can-edit': canEdit}"
            style="position: relative">
     <template>
       <hc-upload class="profile-header card"
-                v-if="isOwner"
+                v-if="canEdit"
                 :preview-image="coverImg"
                 :test="true"
                 @update="onCoverUploadCompleted"
                 @start-sending="uploadingCover = true"
                 @stop-sending="uploadingCover = false" >
       </hc-upload>
-      <img :src="coverImg" v-else-if="isOwner || organization.coverImg " alt="" class="profile-header card">
+      <hc-progressive-image
+        class="profile-header card "
+        v-else-if="coverImg"
+        :src="coverImg"
+        @load="coverReady = true"
+        :preview="coverPreview" />
     </template>
     <div class="columns">
       <div class="column is-4-tablet is-3-widescreen organization-sidebar-left">
@@ -156,6 +161,7 @@
   import {mapGetters} from 'vuex'
 
   import { isEmpty, indexOf } from 'lodash'
+  import thumbnailHelper from '~/helpers/thumbnails'
   import HcTextcount from '~/components/Global/Typography/Textcount/Textcount'
   import FollowButtons from '~/components/Global/Elements/Follow/FollowButtons.vue'
   import ContributionCard from '~/components/Contributions/ContributionCard.vue'
@@ -179,6 +185,7 @@
           coverImg: null,
           logo: null
         },
+        coverReady: false,
         uploadingCover: false,
         uploadingLogo: false
       }
@@ -237,15 +244,10 @@
         user: 'auth/user'
       }),
       coverImg () {
-        if (!isEmpty(this.form.coverImg)) {
-          return this.form.coverImg
-        } else if (!isEmpty(this.organization.thumbnails) && !isEmpty(this.organization.thumbnails.coverImg)) {
-          return this.organization.thumbnails.coverImg.cover
-        } else if (!isEmpty(this.organization.coverImg)) {
-          return this.organization.coverImg
-        } else {
-          return ''
-        }
+        return this.form.coverImg || thumbnailHelper.getThumbnail(this.organization, 'coverImg', 'cover')
+      },
+      coverPreview () {
+        return thumbnailHelper.getThumbnail(this.organization, 'coverImg', 'coverPlaceholder')
       },
       isOwner () {
         return this.user && this.user._id === this.organization.userId
@@ -304,9 +306,6 @@
   $borderRadius: 0;
 
   .organization-profile {
-    &.has-cover .organization-avatar {
-      // transform: translateX(50%) translateY(-50%) !important;
-    }
 
     #main {
       margin-top: 0;
@@ -350,14 +349,39 @@
     }
 
     .profile-header {
+      &.notReady {
+        &, & img {
+          min-height: 0;
+          height: 0;
+        }
+      }
+
       width: 100%;
-      height: 312px;
+      height: auto;
+      min-height: 50px;
       max-height: 312px;
       overflow: hidden;
       position: relative;
-      background-color: darkgrey;
+      background-color: white;
       background-size: cover;
-      background-position: center;
+      background-position: top center;
+      object-fit: cover;
+      display: block;
+
+      transition: all 150ms ease-in;
+      // opacity: 1;
+
+      .can-edit & {
+        background-color: darkgrey;
+      }
+
+      .preview,
+      img {
+        background-color: white;
+        background-size: cover;
+        object-fit: cover;
+        // height: auto;
+      }
 
       border: none;
       box-shadow: $card-shadow;
