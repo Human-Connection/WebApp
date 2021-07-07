@@ -38,6 +38,39 @@
           <template v-if="user && user.badges && user.badges.length">
             <hc-profile-badges :title="$t('auth.account.myBadgeOnePluralNone', null, 2)" :badges="user.badges" />
           </template>
+          <Span>About me:</Span>
+          <template v-if="hideText !== true">
+            <span>{{ aboutMe }}</span>
+          </template>
+          <hc-button v-if="!editing && isOwner" @click="editing = true" circle size="small" class="about-button button is-primary">
+              <hc-icon icon="plus" set="fa"></hc-icon>
+          </hc-button>
+          <template v-if="editing">
+            <form @submit.prevent="onAboutMeUploadCompleted">
+              <textarea v-model.lazy="aboutMe"/>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button has-text-grey is-light" @click.prevent="clearText">
+                    <i class="fa fa-times"></i>
+                    &nbsp;{{ $t('button.cancel') }}
+                  </button>
+                </div>
+                <div class="control">
+                  <hc-button @click.prevent="hideText = false"
+                            :isLoading="isLoading"
+                            :disabled="disabled"
+                            data-test="submit">
+                    <i class="fa fa-check"></i>
+                    &nbsp;<span>{{ buttonPublishLabel }}</span>
+                  </hc-button>
+                </div>
+              </div>
+            </form>
+          </template>
+            <p>City/Region:</p>
+            <p>Age:</p>
+            <p>Discord Tag:</p>
+            <p>GitHub Name:</p>
           <hc-follow-buttons v-if="user"
                              :showButtons="!isOwner"
                              :entity="user" />
@@ -192,6 +225,9 @@
           coverImg: null,
           avatar: null
         },
+        hideText: true,
+        aboutMe: '',
+        editing: false,
         uploadingCover: false,
         uploadingAvatar: false,
         user: null,
@@ -268,6 +304,13 @@
         })
         this.updatedUser = user
       },
+      async onAboutMeUploadCompleted (value) {
+        this.form.aboutMe = value
+        const user = await this.$store.dispatch('auth/patch', {
+          aboutMe: value
+        })
+        this.updatedUser = user
+      },
       async onAvatarUploadCompleted (value) {
         this.form.avatar = value
         const user = await this.$store.dispatch('auth/patch', {
@@ -310,6 +353,11 @@
           this.candos = res.data
         } catch (err) {}
         this.isLoadingCanDos = false
+      },
+      async clearText () {
+        this.editing = false,
+        this.aboutMe = '',
+        this.hideText = true
       }
     },
     mounted () {
@@ -397,6 +445,12 @@
           padding-top: 60px;
         }
       }
+    }
+
+    .about-button {
+      margin-left: 10px;
+      // width: 87px;
+      font-size: 10px;
     }
 
     .hc-shortcuts {
